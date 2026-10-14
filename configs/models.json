@@ -1,0 +1,131 @@
+{
+  "models": {
+    "qwen3_1_7b": {
+      "repo_id": "Qwen/Qwen3-1.7B",
+      "modelscope_id": "Qwen/Qwen3-1.7B",
+      "source": "https://modelscope.cn/models/Qwen/Qwen3-1.7B",
+      "endpoint": "https://modelscope.cn",
+      "path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-1.7B",
+      "task": "causal_lm",
+      "revision": "master",
+      "status": "downloaded",
+      "expected_bytes": 4063515592,
+      "file_revisions": [],
+      "bytes": 4590105125,
+      "storage_bytes": 5664895525,
+      "download_seconds": 293.9,
+      "weight_bytes": 4063515592
+    },
+    "qwen3_8b": {
+      "repo_id": "Qwen/Qwen3-8B",
+      "modelscope_id": "Qwen/Qwen3-8B",
+      "source": "https://modelscope.cn/models/Qwen/Qwen3-8B",
+      "endpoint": "https://modelscope.cn",
+      "path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "task": "causal_lm",
+      "revision": "master",
+      "status": "downloaded",
+      "expected_bytes": 16381516776,
+      "file_revisions": [],
+      "bytes": 16397459769,
+      "storage_bytes": 18448474425,
+      "download_seconds": 1082.0,
+      "weight_bytes": 16381516776
+    },
+    "llama3_1_8b": {
+      "repo_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "modelscope_id": "LLM-Research/Meta-Llama-3.1-8B-Instruct",
+      "source": "https://modelscope.cn/models/LLM-Research/Meta-Llama-3.1-8B-Instruct",
+      "endpoint": "https://modelscope.cn",
+      "path": "/home/gcx/TRIAGE/models/modelscope/Meta-Llama-3.1-8B-Instruct",
+      "task": "causal_lm",
+      "revision": "master",
+      "status": "downloaded",
+      "expected_bytes": 16060556376,
+      "file_revisions": [],
+      "bytes": 16071958569,
+      "storage_bytes": 18179596329,
+      "download_seconds": 1124.8,
+      "weight_bytes": 16060556376
+    },
+    "medgemma_27b": {
+      "repo_id": "google/medgemma-27b-text-it",
+      "modelscope_id": "google/medgemma-27b-text-it",
+      "source": "https://modelscope.cn/models/google/medgemma-27b-text-it",
+      "endpoint": "https://modelscope.cn",
+      "path": "/home/gcx/TRIAGE/models/modelscope/medgemma-27b-text-it",
+      "task": "causal_lm",
+      "revision": "master",
+      "status": "downloaded",
+      "expected_bytes": 54018098888,
+      "file_revisions": [],
+      "bytes": 54057424961,
+      "storage_bytes": 56178694209,
+      "download_seconds": 2576.4
+    },
+    "deberta_nli": {
+      "repo_id": "cross-encoder/nli-deberta-v3-base",
+      "modelscope_id": "cross-encoder/nli-deberta-v3-base",
+      "source": "https://modelscope.cn/models/cross-encoder/nli-deberta-v3-base",
+      "endpoint": "https://modelscope.cn",
+      "path": "/home/gcx/TRIAGE/models/modelscope/nli-deberta-v3-base",
+      "task": "nli",
+      "revision": "master",
+      "status": "downloaded",
+      "expected_bytes": 737726552,
+      "file_revisions": [],
+      "id2label": {
+        "0": "contradiction",
+        "1": "entailment",
+        "2": "neutral"
+      },
+      "bytes": 748853378,
+      "storage_bytes": 748853378,
+      "download_seconds": 294.0,
+      "weight_bytes": 737726552
+    },
+    "medical_nli": {
+      "repo_id": "pritamdeka/PubMedBERT-MNLI-MedNLI",
+      "path": "/home/gcx/TRIAGE/models/PubMedBERT-MNLI-MedNLI",
+      "task": "nli",
+      "source": "https://huggingface.co/pritamdeka/PubMedBERT-MNLI-MedNLI",
+      "endpoint": "https://hf-mirror.com",
+      "revision": "f1b6ce2e0d49f295b4cbcdc56c01b5fab6d068ab",
+      "status": "downloaded",
+      "download_seconds": 375.8,
+      "format": "original",
+      "complete": true,
+      "download_scope": "selected official files",
+      "role": "module1_medical_nli_baseline",
+      "weight_bytes": 437965908,
+      "id2label": {
+        "0": "contradiction",
+        "1": "entailment",
+        "2": "neutral"
+      },
+      "verification": "passed",
+      "verification_file": "/home/gcx/TRIAGE/results/medical_nli_smoke.json",
+      "baseline_module": 1
+    },
+    "medcpt": {
+      "repo_id": "ncbi/MedCPT-Cross-Encoder",
+      "path": "/home/gcx/TRIAGE/models/MedCPT-Cross-Encoder",
+      "task": "relevance",
+      "source": "https://huggingface.co/ncbi/MedCPT-Cross-Encoder",
+      "endpoint": "https://hf-mirror.com",
+      "revision": "71caf65d4927987813984f54c284405a13fcca49",
+      "status": "failed",
+      "reason": "ChunkedEncodingError: ('Connection broken: IncompleteRead(25029605 bytes read, 412968457 more expected)', IncompleteRead(25029605 bytes read, 412968457 more expected))",
+      "download_seconds": 2361.0
+    },
+    "medcpt_medpair": {
+      "path": "/home/gcx/models/MedCPT-Cross-Encoder-MedPair",
+      "task": "relevance",
+      "status": "available",
+      "role": "module1_question_rule_relevance",
+      "score_transform": "sigmoid(raw_logit), uncalibrated"
+    }
+  },
+  "optional_models": [],
+  "endpoint": "https://hf-mirror.com"
+}

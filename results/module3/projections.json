@@ -1,0 +1,64 @@
+{
+  "schema_version": "module3.projections.v1",
+  "model_config": {
+    "model_type": "qwen3",
+    "layers": 36,
+    "query_heads": 32,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "name_or_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B"
+  },
+  "calibration_sources": [
+    {
+      "source": {
+        "dataset": "MEGA-CDP",
+        "split": "train_val",
+        "guideline_id": 3,
+        "filename": "0038cbddf9f49585748cdfe27ff17c71",
+        "patient": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/vignette_cases.jsonl",
+          "line": 13,
+          "field": "text"
+        },
+        "guideline": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/decision_trees.jsonl",
+          "line": 2,
+          "field": "text.decision_tree",
+          "representation": "official_structured_tree",
+          "all_tree_paths_used": true,
+          "rule_count": 18
+        },
+        "original_guideline_markdown": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/guideline_md/0038cbddf9f49585748cdfe27ff17c71/0038cbddf9f49585748cdfe27ff17c71.md",
+        "question": {
+          "origin": "generic management question written for this smoke run; not a reference answer"
+        }
+      },
+      "split": "train_val",
+      "sample_id": 3,
+      "tokens": 1430,
+      "truncated": false,
+      "max_length": 2048,
+      "activation_tokens": 128
+    }
+  ],
+  "rank": 4,
+  "method": "uncentered SVD of k_norm and selected query-head attention output; no training",
+  "prior_basis_semantics": "attention-output PCA proxy; not identified prior-only direction",
+  "fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+  "components": [
+    {
+      "layer": 35,
+      "head": 8,
+      "kv_head": 2,
+      "key_rank": 4,
+      "prior_rank": 4
+    },
+    {
+      "layer": 12,
+      "head": 24,
+      "kv_head": 6,
+      "key_rank": 4,
+      "prior_rank": 4
+    }
+  ]
+}

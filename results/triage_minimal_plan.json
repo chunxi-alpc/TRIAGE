@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-14",
+  "objective": "minimal end-to-end module1+causal-head-selection+gated-attention inference",
+  "server_root": "/home/gcx/TRIAGE",
+  "python_environment": "/home/gcx/gcx261014",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "torch": "2.8.0+cu128",
+  "transformers": "4.57.6",
+  "planned_gpus": {
+    "0": "integration",
+    "1": "module2 localization",
+    "2": "module3 projections and intervention"
+  },
+  "estimated_peak_gib_per_gpu": [
+    20,
+    35
+  ],
+  "estimated_experiment_minutes": [
+    10,
+    20
+  ],
+  "data_scope": "MEGA-CDP train_val only; MedPIC local split test is excluded",
+  "scale": {
+    "calibration_pairs": 2,
+    "candidate_head_budget": 12,
+    "real_patients": 2
+  },
+  "model": "Qwen3-8B BF16 offline existing weights",
+  "constraints": [
+    "no environment changes",
+    "no model downloads",
+    "no manual labels",
+    "no main model training",
+    "no full benchmark",
+    "stop monitoring once stable"
+  ],
+  "third_party_commits": {
+    "SEKA": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+    "JUICE": "081e3d6089ca670c719df6cd8c23f203d11b2516"
+  },
+  "additional_functional_check": {
+    "gpu": 0,
+    "reason": "independent top_k3 inputs have no applicable selected rules; need actual active integration check",
+    "dataset": "MEGA-CDP",
+    "split": "train_val",
+    "guideline_id": 5,
+    "scope": "one case; fixed question-relevant official node4 complete subtree, all inherited conditions retained; 3 leaves; components/projections frozen",
+    "estimated_peak_gib_upper_bound": 35,
+    "estimated_minutes": [
+      2,
+      5
+    ],
+    "no_new_training": true,
+    "scope_change_reason": "module-one comparison generation budget makes all 15 rules risky; scope selected from question and guideline, without patient/reference labels"
+  }
+}

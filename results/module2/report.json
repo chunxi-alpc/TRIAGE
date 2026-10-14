@@ -1,0 +1,44 @@
+{
+  "status": "complete",
+  "final_source": "cached actual module-one gid3 non-test MEGA-CDP output",
+  "baseline_correct": 3,
+  "baseline_total": 4,
+  "selected_heads": [
+    {
+      "layer": 35,
+      "head": 8,
+      "kv_head": 2,
+      "causal_score": 4.0625,
+      "applicable_effect": 5.5625,
+      "inapplicable_effect": 1.5
+    },
+    {
+      "layer": 12,
+      "head": 24,
+      "kv_head": 6,
+      "causal_score": 1.125,
+      "applicable_effect": 0.125,
+      "inapplicable_effect": -1.0
+    }
+  ],
+  "candidate_count": 12,
+  "forwards": 52,
+  "elapsed_seconds": 2.679,
+  "gpu_peak_allocated_gib": 15.303338527679443,
+  "module1_calls_during_search": 0,
+  "cache_sha256": "71e531d50bd70e108ae329bbcc57ba9cdfd33a1e6500af37fafe067453378ffd",
+  "validation": [
+    "all original and counterfactual relation evidence offsets match corresponding patient text",
+    "actual cached gate/weights choose evidence-token ablation targets",
+    "action gates/status/expected decision absent from judgement prompt"
+  ],
+  "limitations": [
+    "Only one original patient and two cached rules, each with a one-evidence counterfactual; not four independent natural cases.",
+    "Original baseline misapplies mega_3_leaf_6 despite cached nonapplicability; baseline only 3/4 correct.",
+    "Head 35:8 increases inapplicable rule-use margin by 1.5 as well as applicable margin by 5.5625; conditional effect is not a guarantee against misuse.",
+    "Counterfactual gates reuse original relevance/conflict/confidence and recompute logic, not new module-one model inferences.",
+    "Outcome measured is binary rule applicability; full medical action execution requires independent downstream validation.",
+    "Earlier synthetic and gate-bearing prompt experiments are archived, not final selected artifacts."
+  ],
+  "cache_snapshot_path": "/home/gcx/TRIAGE/results/module2/module1_calibration_cache.json"
+}

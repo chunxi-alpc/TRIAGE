@@ -1,0 +1,56 @@
+{
+  "schema_version": "algorithm_diagnostic.data_audit.v1",
+  "n": 24,
+  "unique_guideline_count": 6,
+  "source_split": "train_val",
+  "calibration_guideline_excluded": true,
+  "gold_rule_path_match": "24/24 exact terminal action and all signed node conditions match original paths",
+  "case_ids": [
+    "5:1",
+    "5:5",
+    "5:10",
+    "5:15",
+    "9:1",
+    "9:7",
+    "9:13",
+    "9:19",
+    "14:1",
+    "14:4",
+    "14:8",
+    "14:12",
+    "18:1",
+    "18:2",
+    "18:3",
+    "18:4",
+    "20:1",
+    "20:5",
+    "20:9",
+    "20:14",
+    "22:1",
+    "22:6",
+    "22:11",
+    "22:16"
+  ],
+  "guideline_rule_counts": {
+    "5": 15,
+    "9": 19,
+    "14": 12,
+    "18": 4,
+    "20": 14,
+    "22": 16
+  },
+  "manifest_sha256": "decb770084fd507bbe2d3462458a64abfade994b3382a73a23b8003f9eee4e08",
+  "references_sha256": "73220d29c51b1cb5e3dadba4e952d33d37d8bbd758691761535100ff8af39cad",
+  "offline_metrics": {
+    "critical_rule_recall": "gold_rule_id in candidate_rules; compare original top_k=3 and revised retrieval without labels",
+    "condition_applicability": "For gold path condition IDs, expected relation to unnegated node condition is support on yes and oppose on no; report unknown/missing separately. All full-rule candidate applicability statuses can be compared against only the gold leaf being applicable under a complete official path, with incomparable off-path conditions reported separately.",
+    "decision_accuracy": "Choose official full-guideline leaf action using label-free model scoring. Do not assert exact generated string-match accuracy for paraphrased free text.",
+    "prior_vs_correct_margin": "No author-provided prior label in MEGA-CDP. Define prior decision label as the highest-scoring full-guideline action from unchanged baseline forward, before looking at gold; then evaluate logP(gold action)-logP(baseline action) offline and retain baseline-correct cases separately.",
+    "oracle_upper_bound": "Only original official condition+action rule text is permitted as guided fragment. Gold path/gt answer/relation labels cannot enter main TRIAGE inference or gating."
+  },
+  "limitations": [
+    "24 cases, 6 guidelines, deterministic selection; no statistical or clinical generalization claim",
+    "MEGA-CDP official paths are data references, not independently adjudicated clinical truth",
+    "Full action sums are length-biased; also report token-mean log likelihood or fixed one-token candidate labels for stable comparisons"
+  ]
+}

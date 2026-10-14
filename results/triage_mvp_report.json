@@ -1,0 +1,556 @@
+{
+  "schema_version": "triage_mvp_report.v1",
+  "status": "functional_integration_passed",
+  "server_project": "/home/gcx/TRIAGE",
+  "python_environment": "/home/gcx/gcx261014",
+  "model": "existing Qwen3-8B BF16",
+  "date": "2026-10-14",
+  "module1_modified": false,
+  "new_model_downloads": false,
+  "environment_reinstalled": false,
+  "manual_labels_added": false,
+  "main_model_training": false,
+  "formal_test_data_used_for_tuning": false,
+  "full_benchmark_run": false,
+  "final_calibration_guideline_ids": [
+    3
+  ],
+  "independent_inference_guideline_ids": [
+    5,
+    9
+  ],
+  "selected_heads": [
+    {
+      "layer": 35,
+      "head": 8,
+      "kv_head": 2,
+      "causal_score": 4.0625,
+      "applicable_effect": 5.5625,
+      "inapplicable_effect": 1.5
+    },
+    {
+      "layer": 12,
+      "head": 24,
+      "kv_head": 6,
+      "causal_score": 1.125,
+      "applicable_effect": 0.125,
+      "inapplicable_effect": -1.0
+    }
+  ],
+  "projection_rank": 4,
+  "module2": {
+    "status": "complete",
+    "final_source": "cached actual module-one gid3 non-test MEGA-CDP output",
+    "baseline_correct": 3,
+    "baseline_total": 4,
+    "selected_heads": [
+      {
+        "layer": 35,
+        "head": 8,
+        "kv_head": 2,
+        "causal_score": 4.0625,
+        "applicable_effect": 5.5625,
+        "inapplicable_effect": 1.5
+      },
+      {
+        "layer": 12,
+        "head": 24,
+        "kv_head": 6,
+        "causal_score": 1.125,
+        "applicable_effect": 0.125,
+        "inapplicable_effect": -1.0
+      }
+    ],
+    "candidate_count": 12,
+    "forwards": 52,
+    "elapsed_seconds": 2.679,
+    "gpu_peak_allocated_gib": 15.303338527679443,
+    "module1_calls_during_search": 0,
+    "cache_sha256": "71e531d50bd70e108ae329bbcc57ba9cdfd33a1e6500af37fafe067453378ffd",
+    "validation": [
+      "all original and counterfactual relation evidence offsets match corresponding patient text",
+      "actual cached gate/weights choose evidence-token ablation targets",
+      "action gates/status/expected decision absent from judgement prompt"
+    ],
+    "limitations": [
+      "Only one original patient and two cached rules, each with a one-evidence counterfactual; not four independent natural cases.",
+      "Original baseline misapplies mega_3_leaf_6 despite cached nonapplicability; baseline only 3/4 correct.",
+      "Head 35:8 increases inapplicable rule-use margin by 1.5 as well as applicable margin by 5.5625; conditional effect is not a guarantee against misuse.",
+      "Counterfactual gates reuse original relevance/conflict/confidence and recompute logic, not new module-one model inferences.",
+      "Outcome measured is binary rule applicability; full medical action execution requires independent downstream validation.",
+      "Earlier synthetic and gate-bearing prompt experiments are archived, not final selected artifacts."
+    ],
+    "cache_snapshot_path": "/home/gcx/TRIAGE/results/module2/module1_calibration_cache.json"
+  },
+  "module3": {
+    "schema_version": "module3.report.v1",
+    "completed": true,
+    "implementation": "SEKA-inspired token salience key spectral edit; expanded GQA keys edited for selected query heads before RoPE; conflict-gated o_proj prehook spectral subtraction",
+    "files": [
+      "src/module3/intervention.py",
+      "src/module3/__init__.py",
+      "scripts/run_module3_smoke.py",
+      "results/module3/projections.pt",
+      "results/module3/projections.json",
+      "results/module3/cpu_checks.json",
+      "results/module3/gpu_checks.json"
+    ],
+    "selected_components": [
+      {
+        "layer": 35,
+        "head": 8,
+        "kv_head": 2,
+        "key_rank": 4,
+        "prior_rank": 4
+      },
+      {
+        "layer": 12,
+        "head": 24,
+        "kv_head": 6,
+        "key_rank": 4,
+        "prior_rank": 4
+      }
+    ],
+    "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+    "projection_calibration": {
+      "dataset": "MEGA-CDP",
+      "split": "train_val",
+      "guideline_ids": [
+        3
+      ],
+      "actual_module1_cache": true,
+      "full_prompt_tokens": 1430,
+      "truncated": false,
+      "rank": 4,
+      "activation_tokens_per_head": 128,
+      "model": "Qwen3-8B",
+      "labels_added": false,
+      "training": false
+    },
+    "defaults": {
+      "context_strength": 0.1,
+      "prior_strength": 0.1,
+      "minimum_prior_evidence_confidence": 0.8
+    },
+    "gpu_validation": {
+      "peak_allocated_gib": 16.46956443786621,
+      "elapsed_seconds": 5.137798309326172,
+      "actual_module1_next_token_delta": 0.5,
+      "actual_context_changed_elements": 54460,
+      "actual_prior_changed_elements": 0.0,
+      "zero_gate_exact": true,
+      "zero_strength_adapter_delta": 0.0,
+      "gqa_unselected_query_keys_exact": true
+    },
+    "limitations": [
+      "Spectral bases use uncentered calibration activation SVD; they are not SEKA original cross-covariance positive/negative projectors.",
+      "Context currently increases mapped token salience; query-specific relation attention bias is deferred.",
+      "Prior subspace is attention-output PCA proxy, not identified prior-only causal direction.",
+      "Actual cached Module1 case has no applicable valid conflict; prior path execution verified with clearly identified synthetic gate controls only.",
+      "Qwen3 adapter uses installed current SDPA and DynamicCache API; output attentions and non-Qwen3 attention implementations are unsupported.",
+      "Only a small calibration and inference smoke run; no efficacy or medical reliability claim."
+    ]
+  },
+  "inference_runs": [
+    {
+      "run_scope": "original_full_guideline",
+      "input_source": {
+        "dataset": "MEGA-CDP",
+        "split": "train_val",
+        "guideline_id": 5,
+        "filename": "006217af679967d04fb4ab7f6d0183ae",
+        "patient": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/vignette_cases.jsonl",
+          "line": 31,
+          "field": "text"
+        },
+        "guideline": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/decision_trees.jsonl",
+          "line": 3,
+          "field": "text.decision_tree",
+          "all_tree_paths_used": true,
+          "rule_count": 15
+        },
+        "question": {
+          "origin": "generic management question; not a reference answer"
+        }
+      },
+      "module1_source": "computed_live",
+      "baseline_decision": {
+        "decision": "Implement a high-quality improvement system to organize and manage mealtime feeding assistance",
+        "actions": [
+          "Implement a high-quality improvement system to organize and manage mealtime feeding assistance so that staff provide more consistent assistance",
+          "Help improve meal intake and reduce unintentional weight loss among persons with dementia"
+        ],
+        "status": "decided",
+        "rationale": "The patient is experiencing feeding and eating disorders (poor appetite, forgetting to eat or drink, chewing and swallowing problems). The patient is in a moderate-to-severe stage and requires assistance with eating and drinking in an institutional setting. The primary immediate management goal is to directly increase food and energy intake and improve nutritional outcomes. The patient requires hands-on assistance with eating and drinking. However, staff or caregiver handfeeding assistance is not available at mealtimes."
+      },
+      "intervened_decision": {
+        "decision": "Implement a high-quality improvement system to organize and manage mealtime feeding assistance",
+        "actions": [
+          "Implement a high-quality improvement system to organize and manage mealtime feeding assistance so that staff provide more consistent assistance",
+          "Help improve meal intake and reduce unintentional weight loss among persons with dementia"
+        ],
+        "status": "decided",
+        "rationale": "The patient is experiencing feeding and eating disorders (poor appetite, forgetting to eat or drink, chewing and swallowing problems). The patient is in a moderate-to-severe stage and requires assistance with eating and drinking in an institutional setting. The primary immediate management goal is to directly increase food and energy intake and improve nutritional outcomes. The patient requires hands-on assistance with eating and drinking. However, staff or caregiver handfeeding assistance is not available at mealtimes."
+      },
+      "action_gates": {
+        "mega_5_leaf_14": 0.0,
+        "mega_5_leaf_28": 0.0,
+        "mega_5_leaf_8": 0.0
+      },
+      "context_changed_elements": 0,
+      "context_forward_calls": 0,
+      "prior_changed_elements": 0.0,
+      "comparison": {
+        "max_abs_next_token_logit_delta": 0.0,
+        "l2_next_token_logit_delta": 0.0,
+        "baseline_argmax": 515,
+        "intervened_argmax": 515,
+        "decision_text_changed": false
+      },
+      "zero_gate_exact": true,
+      "elapsed_seconds": 93.717,
+      "peak_allocated_gib": 16.261059284210205,
+      "synthetic_prior_control": {
+        "synthetic_conflict_control": true,
+        "forward_only": true,
+        "max_abs_next_token_logit_delta": 0.0,
+        "stats": {
+          "schema_version": "module3.stats.v1",
+          "context_changed_elements": 0,
+          "context_delta_l2": 0.0,
+          "prior_changed_elements": 0.0,
+          "prior_delta_l2": 0.0,
+          "context_forward_calls": 0,
+          "prior_forward_calls": 0,
+          "selected_heads": [
+            {
+              "layer": 35,
+              "head": 8
+            },
+            {
+              "layer": 12,
+              "head": 24
+            }
+          ],
+          "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+          "rule_gates": {
+            "mega_5_leaf_14": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            },
+            "mega_5_leaf_28": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            },
+            "mega_5_leaf_8": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            }
+          },
+          "prior_basis_is_proxy": true,
+          "context_strength": 0.1,
+          "prior_strength": 0.1,
+          "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+          "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+          "prior_minimum_evidence_confidence": 0.8
+        },
+        "applicable_rule_ids": []
+      }
+    },
+    {
+      "run_scope": "original_full_guideline",
+      "input_source": {
+        "dataset": "MEGA-CDP",
+        "split": "train_val",
+        "guideline_id": 9,
+        "filename": "00af1512db52ba99bc141458324f7fc4",
+        "patient": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/vignette_cases.jsonl",
+          "line": 94,
+          "field": "text"
+        },
+        "guideline": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/decision_trees.jsonl",
+          "line": 6,
+          "field": "text.decision_tree",
+          "representation": "text_clauses_from_official_tree",
+          "all_tree_paths_used": true,
+          "rule_count": 19
+        },
+        "original_guideline_markdown": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/guideline_md/00af1512db52ba99bc141458324f7fc4/00af1512db52ba99bc141458324f7fc4.md",
+        "question": {
+          "origin": "generic management question written for this smoke run; not a reference answer"
+        }
+      },
+      "module1_source": "computed_live",
+      "baseline_decision": {
+        "decision": "Begin with neoadjuvant imatinib",
+        "actions": [
+          "Administer neoadjuvant imatinib",
+          "Monitor for response and side effects"
+        ],
+        "status": "decided",
+        "rationale": "The patient has localized disease with no regional or distant metastasis (satisfied), the lesion is technically operable (satisfied), but surgical resection would result in unacceptable functional or cosmetic impairment (satisfied). Neoadjuvant imatinib is available and tolerated (not satisfied), so surgical excision is not recommended. Therefore, neoadjuvant imatinib is the preferred initial management."
+      },
+      "intervened_decision": {
+        "decision": "Begin with neoadjuvant imatinib",
+        "actions": [
+          "Administer neoadjuvant imatinib",
+          "Monitor for response and side effects"
+        ],
+        "status": "decided",
+        "rationale": "The patient has localized disease with no regional or distant metastasis (satisfied), the lesion is technically operable (satisfied), but surgical resection would result in unacceptable functional or cosmetic impairment (satisfied). Neoadjuvant imatinib is available and tolerated (not satisfied), so surgical excision is not recommended. Therefore, neoadjuvant imatinib is the preferred initial management."
+      },
+      "action_gates": {
+        "r14": 0.0,
+        "r2": 0.0,
+        "r16": 0.0
+      },
+      "context_changed_elements": 0,
+      "context_forward_calls": 0,
+      "prior_changed_elements": 0.0,
+      "comparison": {
+        "max_abs_next_token_logit_delta": 0.0,
+        "l2_next_token_logit_delta": 0.0,
+        "baseline_argmax": 515,
+        "intervened_argmax": 515,
+        "decision_text_changed": false
+      },
+      "zero_gate_exact": true,
+      "elapsed_seconds": 56.433,
+      "peak_allocated_gib": 16.261059284210205,
+      "synthetic_prior_control": {
+        "synthetic_conflict_control": true,
+        "forward_only": true,
+        "max_abs_next_token_logit_delta": 0.0,
+        "stats": {
+          "schema_version": "module3.stats.v1",
+          "context_changed_elements": 0,
+          "context_delta_l2": 0.0,
+          "prior_changed_elements": 0.0,
+          "prior_delta_l2": 0.0,
+          "context_forward_calls": 0,
+          "prior_forward_calls": 0,
+          "selected_heads": [
+            {
+              "layer": 35,
+              "head": 8
+            },
+            {
+              "layer": 12,
+              "head": 24
+            }
+          ],
+          "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+          "rule_gates": {
+            "r14": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            },
+            "r2": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            },
+            "r16": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            }
+          },
+          "prior_basis_is_proxy": true,
+          "context_strength": 0.1,
+          "prior_strength": 0.1,
+          "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+          "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+          "prior_minimum_evidence_confidence": 0.8
+        },
+        "applicable_rule_ids": []
+      }
+    },
+    {
+      "run_scope": "fixed_question_relevant_complete_subtree",
+      "input_source": {
+        "dataset": "MEGA-CDP",
+        "split": "train_val",
+        "guideline_id": 5,
+        "filename": "006217af679967d04fb4ab7f6d0183ae",
+        "patient": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/vignette_cases.jsonl",
+          "line": 31,
+          "field": "text"
+        },
+        "guideline": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/decision_trees.jsonl",
+          "line": 3,
+          "field": "text.decision_tree",
+          "all_tree_paths_used": false,
+          "rule_count": 3,
+          "full_guideline_rule_count": 15,
+          "fixed_subtree_node": 4,
+          "all_subtree_descendants_retained": true,
+          "inherited_conditions_retained": true,
+          "selection_reason": "Fixed question scope: food/energy intake and nutritional outcomes; use complete original node4 subtree",
+          "official_node_id": 4,
+          "selected_leaf_indices": [
+            5,
+            7,
+            8
+          ],
+          "selection_uses_patient": false,
+          "selection_uses_reference": false,
+          "token_budget_reason": "A 15-rule conflict comparison risks the current 1024-token response budget; functional coverage retains every branch of the fixed nutrition subtree"
+        },
+        "question": {
+          "origin": "Generic fixed subtree management question; not derived from patient/path labels or reference answer"
+        }
+      },
+      "module1_source": "computed_live",
+      "baseline_decision": {
+        "decision": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+        "actions": [
+          "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks)"
+        ],
+        "status": "decided",
+        "rationale": "The patient meets all the conditions for Rule mega_5_leaf_5: they are experiencing feeding and eating disorders, are in a moderate-to-severe stage requiring assistance with eating and drinking, and the primary goal is to increase food and energy intake. Oral nutritional supplementation is feasible and available, so the recommendation applies."
+      },
+      "intervened_decision": {
+        "decision": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+        "actions": [
+          "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks)"
+        ],
+        "status": "decided",
+        "rationale": "The patient meets all the conditions for Rule mega_5_leaf_5: they are experiencing feeding and eating disorders, are in a moderate-to-severe stage requiring assistance with eating and drinking, and the primary goal is to increase food and energy intake. Oral nutritional supplementation is feasible and available, so the recommendation applies."
+      },
+      "action_gates": {
+        "mega_5_leaf_8": 0.0,
+        "mega_5_leaf_5": 0.486737,
+        "mega_5_leaf_7": 0.0
+      },
+      "context_changed_elements": 11576171,
+      "context_forward_calls": 332,
+      "prior_changed_elements": 0.0,
+      "comparison": {
+        "max_abs_next_token_logit_delta": 0.5,
+        "l2_next_token_logit_delta": 64.57054901123047,
+        "baseline_argmax": 515,
+        "intervened_argmax": 515,
+        "decision_text_changed": false
+      },
+      "zero_gate_exact": true,
+      "elapsed_seconds": 87.97,
+      "peak_allocated_gib": 16.281115531921387,
+      "synthetic_prior_control": {
+        "synthetic_conflict_control": true,
+        "forward_only": true,
+        "max_abs_next_token_logit_delta": 0.453125,
+        "stats": {
+          "schema_version": "module3.stats.v1",
+          "context_changed_elements": 69718,
+          "context_delta_l2": 19.51490592956543,
+          "prior_changed_elements": 473052.0,
+          "prior_delta_l2": 26.659226894378662,
+          "context_forward_calls": 2,
+          "prior_forward_calls": 2,
+          "selected_heads": [
+            {
+              "layer": 35,
+              "head": 8
+            },
+            {
+              "layer": 12,
+              "head": 24
+            }
+          ],
+          "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+          "rule_gates": {
+            "mega_5_leaf_8": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            },
+            "mega_5_leaf_5": {
+              "applicability": "applicable",
+              "action_gate": 0.486737,
+              "valid_conflict": true,
+              "evidence_confident": true,
+              "prior_gate": 0.486737
+            },
+            "mega_5_leaf_7": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            }
+          },
+          "prior_basis_is_proxy": true,
+          "context_strength": 0.1,
+          "prior_strength": 0.1,
+          "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+          "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+          "prior_minimum_evidence_confidence": 0.8
+        },
+        "applicable_rule_ids": [
+          "mega_5_leaf_5"
+        ]
+      }
+    }
+  ],
+  "checks": {
+    "real_cached_module1_drives_localization": true,
+    "module1_search_calls_zero": true,
+    "component_projection_match": true,
+    "artifact_hashes_match": true,
+    "independent_non_test_samples": true,
+    "complete_baseline_intervened_json": true,
+    "actual_active_context_modification": true,
+    "zero_gate_exact": true,
+    "clinical_effectiveness_demonstrated": false
+  },
+  "artifact_hashes": {
+    "components_sha256": "51eea11f1882e41c962196d66f1d34606b8ec2bd917d47dd6e946a6dfddcdaf4",
+    "projection_sha256": "b5b8d15d9c1004fdc68f45cd66fe2b67a74c39179f14459faff3d11a28929164"
+  },
+  "resource_summary": {
+    "gpus_used": [
+      0,
+      1,
+      2
+    ],
+    "module2_peak_gib": 15.303338527679443,
+    "module3_peak_gib": 16.46956443786621,
+    "pipeline_peak_gib": 16.281115531921387,
+    "runtime_monitoring": "no ongoing monitoring; necessary runs finished and GPU processes released"
+  },
+  "actual_remaining_issues": [
+    "Full-guideline top_k=3 retrieval omitted applicable rules; two initial real cases have zero action gates.",
+    "Original complete-guide decisions include patient-evidence contradictions and inapplicable-rule behavior; functional integration is not clinical correctness.",
+    "Coverage check narrows to a fixed complete question-relevant official subtree; it does not repair full-guideline retrieval.",
+    "The active independent-case intervention changed logits but not the final generated decision.",
+    "Gates remain uncalibrated; default strengths .1/.1 and prior confidence threshold .8 are conservative heuristics.",
+    "Prior suppression uses an attention-output PCA proxy; natural patient cases had no valid active conflict, so prior execution is shown only in explicit synthetic controls.",
+    "Module2 binary applicability screening used one cached original patient and counterfactuals; one selected head still supports some inapplicable-rule use.",
+    "Query-specific relation attention bias and comprehensive component search remain unimplemented."
+  ]
+}

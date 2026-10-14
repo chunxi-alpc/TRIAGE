@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "path": "/home/gcx/TRIAGE/models/PubMedBERT-MNLI-MedNLI",
+  "device": "GPU 0",
+  "id2label": {
+    "0": "contradiction",
+    "1": "entailment",
+    "2": "neutral"
+  },
+  "samples": [
+    {
+      "premise": "The patient reports chest pain.",
+      "hypothesis": "The patient has chest pain.",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "probabilities": [
+        0.00011332026770105585,
+        0.9998304843902588,
+        5.62092027394101e-05
+      ]
+    },
+    {
+      "premise": "The patient has no fever.",
+      "hypothesis": "The patient is febrile.",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "probabilities": [
+        0.9986036419868469,
+        0.0013589771697297692,
+        3.733730045496486e-05
+      ]
+    },
+    {
+      "premise": "The patient reports chest pain.",
+      "hypothesis": "The patient has diabetes.",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "probabilities": [
+        0.002804848598316312,
+        0.00013303702871780843,
+        0.9970621466636658
+      ]
+    }
+  ],
+  "max_allocated_mib": 428.92,
+  "seconds": 1.07,
+  "scope": "three short synthetic examples; no training or benchmark evaluation"
+}

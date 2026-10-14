@@ -1,0 +1,1080 @@
+{
+  "schema_version": "algorithm_diagnostic.references.v1",
+  "reference_use": "offline_evaluation_only; gt_output_text must never enter inference or gate computation",
+  "samples": [
+    {
+      "case_id": "5:1",
+      "gold_rule_id": "mega_5_leaf_5",
+      "gold_action": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the person with dementia currently experiencing feeding and eating disorders or related problems (e.g., poor appetite, forgetting to eat or drink, chewing and swallowing problems, hyperphagic behavior, pica, rapid eating, refusing to eat, agitation or other behavioral symptoms during mealtime)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the person with dementia in the moderate or severe stage OR described as requiring assistance with eating and drinking in institutional or similar care settings?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 3,
+          "condition": "Is the primary immediate management goal to directly increase food or energy intake and improve nutritional outcomes such as body weight or BMI?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 4,
+          "condition": "Is oral nutritional supplementation (including between-meal snacks) feasible and available for this person with dementia in their current setting?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 5,
+          "conclusion": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient has current feeding and eating disorders (poor appetite, forgetting to eat/drink, and intermittent chewing/swallowing problems disrupting mealtimes), which aligns with guideline-described dementia-related feeding difficulties that warrant targeted interventions to address nutritional risk and dysphagia-related complications.\",\n  \"Because the patient is in a moderate-to-severe stage of dementia, lives in an institutional care setting, and requires assistance with eating and drinking, guideline recommendations support structured person-centered mealtime care with adequate assistance and sufficient time to complete meals.\",\n  \"Given that the immediate management goal is to directly increase food/energy intake and improve nutritional outcomes (weight/BMI), the guideline logic indicates oral nutritional supplementation (ONS) as an appropriate strategy to increase intake and modestly improve short-term nutritional measures in people with dementia experiencing feeding problems.\",\n  \"ONS (including between-meal snacks) is feasible and available in the patient’s current institutional setting, consistent with guideline evidence that ONS is an implementable measure across dementia stages and care environments to increase energy intake and improve malnutrition related to feeding and eating disorders.\",\n  \"Therefore, short-term oral nutritional supplementation (including between-meal snacks as appropriate) should be provided to increase energy intake and modestly improve weight, BMI, and malnutrition status in this patient.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 2,
+          "path_id": 1
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 31,
+          "path_id": 1
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "5:5",
+      "gold_rule_id": "mega_5_leaf_13",
+      "gold_action": "Provide assistance with eating and drinking using available handfeeding techniques, allowing sufficient time to finish meals, recognizing that over hand feeding may be associated with more frequent feeding problem behaviors.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the person with dementia currently experiencing feeding and eating disorders or related problems (e.g., poor appetite, forgetting to eat or drink, chewing and swallowing problems, hyperphagic behavior, pica, rapid eating, refusing to eat, agitation or other behavioral symptoms during mealtime)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the person with dementia in the moderate or severe stage OR described as requiring assistance with eating and drinking in institutional or similar care settings?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 3,
+          "condition": "Is the primary immediate management goal to directly increase food or energy intake and improve nutritional outcomes such as body weight or BMI?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 9,
+          "condition": "Does the person with dementia require hands-on assistance with eating and drinking (e.g., cannot reliably self-feed, has difficulty using utensils, or needs handfeeding)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 10,
+          "condition": "Is staff or caregiver handfeeding assistance available at mealtimes?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 11,
+          "condition": "Can the caregiver use under hand (UH) or direct hand (DH) handfeeding techniques instead of over hand (OH)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 13,
+          "conclusion": "Provide assistance with eating and drinking using available handfeeding techniques, allowing sufficient time to finish meals, recognizing that over hand feeding may be associated with more frequent feeding problem behaviors."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient with moderate-to-severe dementia has ongoing feeding and eating disorders (poor appetite, forgetting to eat or drink, and agitation during mealtimes), consistent with guideline-described feeding/meal behavior problems that warrant targeted interventions addressing cognitive and neuropsychiatric contributors and associated risks (e.g., dysphagia-related complications).\",\n  \"Because the patient is in the moderate-to-severe stage and resides in an institutional care setting with need for mealtime support, guideline-recommended person-centered mealtime care and assistance with eating and drinking are indicated, with sufficient time allowed to complete meals.\",\n  \"Since the immediate management goal is not primarily to increase energy intake or improve nutritional indices (e.g., weight/BMI), oral nutritional supplementation—which is chiefly intended to directly raise intake and short-term nutritional outcomes—is not the primary intervention on this pathway.\",\n  \"The patient cannot reliably self-feed and has difficulty using utensils, demonstrating loss of eating/drinking ability for which guidelines describe hands-on assistance as a compensatory measure, with adequate time provided to finish meals.\",\n  \"Staff handfeeding assistance is available at mealtimes, aligning with evidence-based recommendations that assistance with eating and drinking (including handfeeding and support of meal preparation) should be provided when required and with sufficient time for meal completion.\",\n  \"Although under-hand or direct-hand techniques can reduce feeding problem behaviors and improve intake compared with over-hand feeding, in this case the caregiver cannot use UH or DH and therefore cannot substitute these for the over-hand technique.\",\n  \"Given persistent feeding problems in moderate-to-severe dementia with inability to self-feed and availability of staff support, provide assisted eating and drinking with adequate time, while recognizing that reliance on over-hand feeding may be associated with more frequent feeding problem behaviors.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 2,
+          "path_id": 5
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 35,
+          "path_id": 5
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "5:10",
+      "gold_rule_id": "mega_5_leaf_23",
+      "gold_action": "Provide non-pharmacological individual therapeutic-cognitive intervention (cognitive-behavioral education) directed to family caregivers to improve control and reduction of eating disorders in the person with dementia.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the person with dementia currently experiencing feeding and eating disorders or related problems (e.g., poor appetite, forgetting to eat or drink, chewing and swallowing problems, hyperphagic behavior, pica, rapid eating, refusing to eat, agitation or other behavioral symptoms during mealtime)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the person with dementia in the moderate or severe stage OR described as requiring assistance with eating and drinking in institutional or similar care settings?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 18,
+          "condition": "Is the person with dementia at a mild stage OR still able to eat independently without regular hands-on assistance?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 19,
+          "condition": "Is the main feeding or eating problem related to behavioral or psychological symptoms (e.g., hyperphagia, rapid eating, pica, refusal to eat, agitation) or difficulty engaging in eating rather than pure physical inability?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 20,
+          "condition": "Is spaced retrieval training and/or Montessori-based activities feasible to deliver to the person with dementia in their current setting (institutional or home)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 22,
+          "condition": "Is cognitive-behavioral education or individual therapeutic-cognitive intervention for family caregivers, delivered by trained nursing personnel or similar professionals, available?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 23,
+          "conclusion": "Provide non-pharmacological individual therapeutic-cognitive intervention (cognitive-behavioral education) directed to family caregivers to improve control and reduction of eating disorders in the person with dementia."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient has persistent feeding and eating problems (poor appetite, forgetting to eat/drink, and agitation/refusal at mealtimes), aligning with guideline-described feeding/eating disorders in dementia that can arise from cognitive and neuropsychiatric symptoms and warrant targeted interventions.\",\n  \"The pathway for moderate-to-severe dementia with greater mealtime assistance is not applicable because the case is not consistent with moderate/severe stage and the patient is not described as requiring hands-on assistance in an institutional or similar care setting.\",\n  \"Because the presentation is consistent with mild-stage dementia and the patient can eat independently without regular physical assistance, guideline-supported mild-stage approaches (e.g., education/training and supportive modifications) are the appropriate context for management selection.\",\n  \"The predominant difficulty is behavioral/psychological (agitation, refusal, difficulty engaging with meals) rather than pure physical inability, matching guideline descriptions of early dementia feeding/eating disorders due to cognitive impairment/BPSD for which behavioral training approaches are considered.\",\n  \"Although spaced retrieval training and/or Montessori-based activities are recommended for improving feeding/eating disorders and self-eating ability, they are not feasible in the patient’s current setting, so an alternative recommended non-pharmacologic strategy is needed.\",\n  \"Cognitive-behavioral education/individual therapeutic-cognitive intervention for family caregivers is available and is guideline-recommended when delivered by trained nursing personnel, with evidence of improved eating disorders in an RCT at 3 months, supporting its use here.\",\n  \"Given mild-stage, behaviorally driven mealtime problems with infeasibility of spaced retrieval/Montessori but availability of trained caregiver-focused cognitive-behavioral intervention, management should proceed with non-pharmacological individual therapeutic-cognitive intervention directed to family caregivers to reduce eating disorders.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 2,
+          "path_id": 10
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 40,
+          "path_id": 10
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "5:15",
+      "gold_rule_id": "mega_5_leaf_29",
+      "gold_action": "No specific non-pharmacological feeding and eating disorder intervention from this guideline is required at this time; continue general dementia care, monitor for emergence of feeding and eating disorders, and reassess if such problems develop.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the person with dementia currently experiencing feeding and eating disorders or related problems (e.g., poor appetite, forgetting to eat or drink, chewing and swallowing problems, hyperphagic behavior, pica, rapid eating, refusing to eat, agitation or other behavioral symptoms during mealtime)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 29,
+          "conclusion": "No specific non-pharmacological feeding and eating disorder intervention from this guideline is required at this time; continue general dementia care, monitor for emergence of feeding and eating disorders, and reassess if such problems develop."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient with established dementia has no current feeding or eating disorder manifestations (normal appetite, no forgetting to eat or drink, no chewing/swallowing problems, and no maladaptive mealtime behaviors), so the guideline-directed interventions intended to address feeding/eating disorders arising from cognitive impairment, neuropsychiatric symptoms, or dysphagia-related factors are not indicated on this pathway at present.\",\n  \"Given the absence of current feeding and eating disorders, no specific non-pharmacological feeding/eating intervention from this guideline is required now; instead, continue general dementia care with ongoing monitoring and reassessment should feeding or mealtime problems emerge.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 2,
+          "path_id": 15
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 45,
+          "path_id": 15
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "9:1",
+      "gold_rule_id": "mega_9_leaf_5",
+      "gold_action": "Use neoadjuvant imatinib to downsize tumor, then proceed to surgical excision with goal of negative margins.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the disease status localized (no known regional or distant metastasis)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the lesion considered resectable with surgery (technically operable)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 3,
+          "condition": "Would resection with negative margins result in unacceptable functional or cosmetic outcomes?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 4,
+          "condition": "Is neoadjuvant imatinib available and tolerated?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 5,
+          "conclusion": "Use neoadjuvant imatinib to downsize tumor, then proceed to surgical excision with goal of negative margins."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient has localized DFSP with no regional nodal involvement and no distant metastasis on evaluation, so management can proceed along the localized-disease pathway rather than requiring multidisciplinary coordination for metastatic disease.\",\n  \"Because DFSP initial treatment is surgical and the lesion is technically operable, resection is an appropriate next step when feasible.\",\n  \"Given that achieving negative margins by upfront resection is expected to cause unacceptable functional or cosmetic impairment, guideline-supported neoadjuvant imatinib is indicated to mitigate morbidity while aiming for eventual negative-margin surgery.\",\n  \"Neoadjuvant imatinib is available and tolerated in this patient, consistent with evidence of clinical activity and guideline endorsement of its use in this preoperative context.\",\n  \"Therefore, proceed with neoadjuvant imatinib to downsize the tumor and then perform surgical excision with the goal of achieving negative margins.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 4,
+          "path_id": 1
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 94,
+          "path_id": 1
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "9:7",
+      "gold_rule_id": "mega_9_leaf_17",
+      "gold_action": "Negative margins achieved with Mohs/PDEMA: no adjuvant radiation therapy; begin routine follow-up and consider delayed reconstruction after verification of clear margins.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the disease status localized (no known regional or distant metastasis)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the lesion considered resectable with surgery (technically operable)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 3,
+          "condition": "Would resection with negative margins result in unacceptable functional or cosmetic outcomes?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 7,
+          "condition": "Is Mohs micrographic surgery or other forms of PDEMA available?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 15,
+          "condition": "Proceeding with wide local excision (WLE): after WLE, are histologic margins negative?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 16,
+          "condition": "Were Mohs or other forms of PDEMA used for this excision?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 17,
+          "conclusion": "Negative margins achieved with Mohs/PDEMA: no adjuvant radiation therapy; begin routine follow-up and consider delayed reconstruction after verification of clear margins."
+        }
+      ],
+      "gt_output_text": "[\n  \"The lesion is localized with no regional nodal or distant metastasis in typical metastatic sites (lung, bone, regional lymph nodes), so management proceeds along the non-metastatic pathway without need for metastatic multidisciplinary coordination.\",\n  \"Because DFSP initial treatment is surgical and the tumor is technically operable, the lesion is appropriately managed with resection.\",\n  \"Since achieving negative margins is not expected to cause unacceptable functional or cosmetic outcomes, neoadjuvant imatinib (reserved for cases where negative-margin resection would be morbid) is not indicated.\",\n  \"Although Mohs/PDEMA is generally preferred over wide local excision, when Mohs/PDEMA is unavailable, wide local excision is an acceptable surgical approach.\",\n  \"Following wide local excision, histologic margins are negative, so the goal of clear margins has been achieved and re-resection for positive margins is not required.\",\n  \"Because Mohs or another form of PDEMA was used and negative margins were achieved, adjuvant treatment such as radiation therapy is not recommended.\",\n  \"Given negative margins achieved with Mohs/PDEMA, no adjuvant radiation therapy is indicated; the patient should enter routine follow-up with any necessary tissue rearrangement/reconstruction delayed until clear margins are verified.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 4,
+          "path_id": 7
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 100,
+          "path_id": 7
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "9:13",
+      "gold_rule_id": "mega_9_leaf_28",
+      "gold_action": "Resect recurrent tumor whenever possible, using techniques emphasizing complete margin assessment; consider adjuvant radiation therapy if margins are positive/indeterminate and further resection is not feasible.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the disease status localized (no known regional or distant metastasis)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the lesion considered resectable with surgery (technically operable)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 26,
+          "condition": "Is prior surgery already performed with recurrent local tumor now present?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 27,
+          "condition": "Is additional surgical resection for recurrent tumor feasible?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 28,
+          "conclusion": "Resect recurrent tumor whenever possible, using techniques emphasizing complete margin assessment; consider adjuvant radiation therapy if margins are positive/indeterminate and further resection is not feasible."
+        }
+      ],
+      "gt_output_text": "[\n  \"The case describes no known regional lymph node involvement or distant metastatic disease, consistent with localized status; therefore, management can proceed along a localized pathway rather than requiring metastatic multidisciplinary coordination.\",\n  \"Although DFSP initial treatment is surgical and tumors should be resected when possible, the primary lesion was judged not technically operable at initial presentation, so it is considered unresectable by surgery along this pathway.\",\n  \"The patient has already undergone prior surgery and now has a recurrent local tumor, aligning with guidance that recurrent tumors should be resected whenever possible, with systemic therapy (eg, imatinib) reserved for unresectable disease or when further surgery would cause unacceptable functional/cosmetic outcomes.\",\n  \"On reassessment, additional surgical resection of the recurrent tumor is feasible, which follows the recommendation to resect recurrent tumors whenever possible and supports considering adjuvant radiation therapy after surgery based on margin status and feasibility of further resection.\",\n  \"Given localized, surgically feasible local recurrence after prior surgery, the appropriate endpoint management is to resect the recurrent tumor with complete margin assessment and consider adjuvant radiation therapy if margins are positive/indeterminate and further resection is not feasible.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 4,
+          "path_id": 13
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 106,
+          "path_id": 13
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "9:19",
+      "gold_rule_id": "mega_9_leaf_37",
+      "gold_action": "Non-localized, non-metastatic pattern not clearly defined (e.g., regional spread only): obtain multidisciplinary consultation and follow soft tissue sarcoma guidelines for multimodal therapy and surveillance.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the disease status localized (no known regional or distant metastasis)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 35,
+          "condition": "Is distant metastatic disease present or suspected?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 37,
+          "conclusion": "Non-localized, non-metastatic pattern not clearly defined (e.g., regional spread only): obtain multidisciplinary consultation and follow soft tissue sarcoma guidelines for multimodal therapy and surveillance."
+        }
+      ],
+      "gt_output_text": "[\n  \"The case describes disease that is not confined to a single anatomic location with regional involvement beyond the primary site, so the status is not localized; given that metastatic DFSP most often involves lung, bone, or regional lymph nodes, non-localized spread warrants consideration of sarcoma-directed management frameworks.\",\n  \"Clinical assessment and available staging do not indicate or raise suspicion for distant metastasis (which would typically involve lung or bone), so a distant metastatic pattern is not present; however, because FS-DFSP carries a 15%–20% metastasis risk, management should incorporate soft tissue sarcoma guidance for multimodal therapy and surveillance (including CT of the draining nodal basin and chest), and multidisciplinary coordination is recommended when metastatic disease is a concern.\",\n  \"Given non-localized regional involvement without suspected distant metastasis and recognizing the elevated metastatic risk and need for coordinated planning in transformed/FS-DFSP, multidisciplinary consultation and management per soft tissue sarcoma guidelines for multimodal therapy and surveillance is indicated.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 4,
+          "path_id": 19
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 112,
+          "path_id": 19
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "14:1",
+      "gold_rule_id": "mega_14_leaf_2",
+      "gold_action": "Do not administer additional HepB vaccination (routine additional doses not recommended).",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Has the patient completed a hepatitis B (HepB) vaccination series at any point?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "conclusion": "Do not administer additional HepB vaccination (routine additional doses not recommended)."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient’s immunization record confirms prior completion of a full HepB vaccine series, and guidelines state that individuals who have completed a HepB series at any point should not receive additional HepB vaccination (even though extra doses are not known to be harmful).\",\n  \"Because the patient has already completed a HepB vaccination series, routine additional HepB doses are not recommended; therefore, do not administer additional HepB vaccination.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 7,
+          "path_id": 1
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 195,
+          "path_id": 1
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "14:4",
+      "gold_rule_id": "mega_14_leaf_9",
+      "gold_action": "Consider prevaccination testing (HBsAg, anti-HBs, and anti-HBc) which may be performed concomitantly with administration of the first vaccine dose; vaccination should proceed for those recommended.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Has the patient completed a hepatitis B (HepB) vaccination series at any point?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 3,
+          "condition": "Does the patient have a history of hepatitis B virus (HBV) infection?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 5,
+          "condition": "Is the patient age 19–59 years?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 6,
+          "condition": "Is the patient pregnant?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 8,
+          "condition": "Is serologic testing feasible AND is the patient in a setting where the patient population has a high rate of previous HBV infection?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 9,
+          "conclusion": "Consider prevaccination testing (HBsAg, anti-HBs, and anti-HBc) which may be performed concomitantly with administration of the first vaccine dose; vaccination should proceed for those recommended."
+        }
+      ],
+      "gt_output_text": "[\n  \"Because the patient has not previously completed a HepB vaccination series, the guideline restriction against additional HepB vaccination after series completion does not apply, so vaccination remains indicated if otherwise recommended.\",\n  \"Because the patient has no known history of HBV infection, the guideline restriction against additional HepB vaccination in persons with prior HBV infection does not apply, so vaccination remains appropriate if otherwise indicated.\",\n  \"The patient is 34 years old (within ages 19–59 years), a group for whom HepB vaccination is recommended, supporting initiation of vaccination.\",\n  \"Because the patient is not pregnant, there is no need to preferentially use Engerix-B, Recombivax HB, or Twinrix based on pregnancy-related data limitations for other products.\",\n  \"Given that serologic testing is feasible and the clinical setting has a high prevalence of prior HBV infection, guideline-supported prevaccination testing can be used to reduce unnecessary full vaccination of persons already immune, and testing can be performed concomitantly with the first vaccine dose.\",\n  \"Therefore, in this 34-year-old nonpregnant adult without prior HepB series or known HBV infection in a high-prevalence setting where testing is feasible, obtain prevaccination serologies (HBsAg, anti-HBs, anti-HBc) while administering the first HepB vaccine dose and continue vaccination for those recommended.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 7,
+          "path_id": 4
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 198,
+          "path_id": 4
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "14:8",
+      "gold_rule_id": "mega_14_leaf_17",
+      "gold_action": "Administer HepB vaccination (recommended for adults aged ≥60 years with risk factors; lack of access to serologic testing should not be a barrier; testing is not required).",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Has the patient completed a hepatitis B (HepB) vaccination series at any point?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 3,
+          "condition": "Does the patient have a history of hepatitis B virus (HBV) infection?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 5,
+          "condition": "Is the patient age 19–59 years?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 11,
+          "condition": "Is the patient age ≥60 years?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 12,
+          "condition": "Does the patient have any risk factor for hepatitis B as listed in the guideline (Box)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 13,
+          "condition": "Is the patient pregnant?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 15,
+          "condition": "Is serologic testing feasible AND is the patient in a setting where the patient population has a high rate of previous HBV infection?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 17,
+          "conclusion": "Administer HepB vaccination (recommended for adults aged ≥60 years with risk factors; lack of access to serologic testing should not be a barrier; testing is not required)."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient has not completed a HepB vaccination series, so the guideline restriction against additional HepB vaccination for persons already fully vaccinated does not apply.\",\n  \"The patient has no known history of HBV infection, so the guideline restriction against additional HepB vaccination for persons with prior HBV infection does not apply.\",\n  \"Because the patient is 66 years old, they are not in the 19–59 year age group for whom HepB vaccination is routinely recommended on the basis of age alone.\",\n  \"The patient is aged ≥60 years, a group for whom HepB vaccination is recommended when risk factors are present (and may be given even without known risk factors).\",\n  \"The patient has at least one guideline-listed hepatitis B risk factor, which makes HepB vaccination recommended for adults aged ≥60 years.\",\n  \"Because the patient is not pregnant, pregnancy-related product limitations do not constrain HepB vaccination in this case.\",\n  \"Pre-vaccination serologic testing is not feasible and the setting is not characterized by high prior HBV prevalence, and guidelines state that testing is not required and lack of access to testing should not be a barrier to vaccinating susceptible persons.\",\n  \"Given the patient is ≥60 years with a hepatitis B risk factor and testing is not required when not feasible, HepB vaccination should be administered.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 7,
+          "path_id": 8
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 202,
+          "path_id": 8
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "14:12",
+      "gold_rule_id": "mega_14_leaf_23",
+      "gold_action": "Unable to determine adult vaccination recommendation from this guideline pathway because patient is not age 19–59 or ≥60; refer to other age-based guidance.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Has the patient completed a hepatitis B (HepB) vaccination series at any point?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 3,
+          "condition": "Does the patient have a history of hepatitis B virus (HBV) infection?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 5,
+          "condition": "Is the patient age 19–59 years?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 11,
+          "condition": "Is the patient age ≥60 years?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 23,
+          "conclusion": "Unable to determine adult vaccination recommendation from this guideline pathway because patient is not age 19–59 or ≥60; refer to other age-based guidance."
+        }
+      ],
+      "gt_output_text": "[\n  \"Because the case states the 12-year-old patient has not completed any HepB vaccination series, the guideline restriction against additional HepB doses for those already fully vaccinated does not apply along this pathway.\",\n  \"Because the patient has no history of HBV infection, the guideline restriction against additional HepB vaccination for persons with prior HBV infection does not apply along this pathway.\",\n  \"Because the patient is 12 years old, they do not meet the adult age-based recommendation group of 19–59 years referenced in the guideline.\",\n  \"Because the patient is 12 years old, they also do not meet the adult age-based group of ≥60 years addressed in the guideline (whether with or without risk factors).\",\n  \"Given the patient is neither 19–59 nor ≥60 years old and has no prior vaccination series or HBV infection, this adult-focused pathway cannot determine the recommendation and other age-based guidance should be used.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 7,
+          "path_id": 12
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 206,
+          "path_id": 12
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "18:1",
+      "gold_rule_id": "mega_18_leaf_3",
+      "gold_action": "Attempt rescue from a safe location by reaching with an object, throwing a rope or floating object, or rowing to the drowning patient without entering hazardous conditions.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 3,
+          "conclusion": "Attempt rescue from a safe location by reaching with an object, throwing a rope or floating object, or rowing to the drowning patient without entering hazardous conditions."
+        }
+      ],
+      "gt_output_text": "[\n  \"Because the bystander lacks formal water-rescue training and the water conditions are hazardous and beyond safe entry, rescuer safety must take priority as the same hazards that caused the drowning can endanger the rescuer and create an additional victim.\",\n  \"Given the patient is within reach from a safe location, guideline-supported rescue by an untrained person should be performed without entering the hazardous water by reaching with an object or using a throw/floatation aid (eg, rope or floating object) or a boat-like conveyance from safety.\",\n  \"Therefore, the appropriate management is to attempt rescue from a safe location by reaching with an object, throwing a rope or floating object, or rowing to the drowning patient without entering hazardous conditions.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 10,
+          "path_id": 1
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 248,
+          "path_id": 1
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "18:2",
+      "gold_rule_id": "mega_18_leaf_4",
+      "gold_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 4,
+          "conclusion": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available."
+        }
+      ],
+      "gt_output_text": "[\n  \"Because the bystander lacks formal water-rescue training and the water conditions are hazardous and beyond safe entry, rescuer safety is paramount and the persistent hazards that caused the drowning would place the rescuer at risk of becoming an additional drowning victim.\",\n  \"Because the patient is not within reach and no rope, floating object, or boat/canoe/paddleboard can be deployed from a safe location, the recommended untrained-rescuer strategies that avoid entering hazardous water cannot be performed in this situation.\",\n  \"Given the hazardous conditions and lack of a safe, non-entry rescue option, the appropriate management is to not enter the water and instead await or summon trained rescue personnel if available.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 10,
+          "path_id": 2
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 249,
+          "path_id": 2
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "18:3",
+      "gold_rule_id": "mega_18_leaf_6",
+      "gold_action": "Perform in-water rescue according to level of training, expertise, equipment, and comfort level.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 5,
+          "condition": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 6,
+          "conclusion": "Perform in-water rescue according to level of training, expertise, equipment, and comfort level."
+        }
+      ],
+      "gt_output_text": "[\n  \"Because hazardous water conditions that endanger untrained rescuers are not present and the situation is within the rescuer’s ability to safely enter the water, rescuer safety concerns do not preclude proceeding with an in-water rescue attempt.\",\n  \"Given the rescuer has formal water-rescue training and appropriate personal protective/safety equipment, guideline recommendations support entering the water and operating within the rescuer’s level of training, expertise, equipment, and comfort.\",\n  \"Therefore, based on the absence of prohibitive hazardous conditions and the rescuer’s appropriate training and equipment, an in-water rescue should be performed according to the rescuer’s level of training, expertise, equipment, and comfort level.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 10,
+          "path_id": 3
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 250,
+          "path_id": 3
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "18:4",
+      "gold_rule_id": "mega_18_leaf_7",
+      "gold_action": "Avoid entering the water for rescue; attempt reach/throw/row strategies from a safe location if possible.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 5,
+          "condition": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 7,
+          "conclusion": "Avoid entering the water for rescue; attempt reach/throw/row strategies from a safe location if possible."
+        }
+      ],
+      "gt_output_text": "[\n  \"Because rescuer safety is paramount and hazardous conditions can endanger an untrained rescuer, and the case specifies the water conditions were not hazardous and did not exceed safe entry limits, this condition is not met.\",\n  \"Guidelines indicate that only persons with specific water rescue training and appropriate equipment should enter the water; since the bystander lacks formal training and protective/safety equipment, this condition is not met.\",\n  \"Given the absence of formal water rescue training and appropriate safety equipment, the safest management is to avoid in-water rescue and instead use reach/throw/row strategies from a safe location if possible.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 10,
+          "path_id": 4
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 251,
+          "path_id": 4
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "20:1",
+      "gold_rule_id": "mega_20_leaf_4",
+      "gold_action": "Do not initiate or progress structured exercise or intradialytic exercise at this time; manage unstable condition first and follow standard haemodialysis care without added exercise.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the adult patient living with chronic kidney disease (including non-dialysis CKD stages 1–5, haemodialysis, or kidney transplant recipient)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the patient currently receiving haemodialysis?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 3,
+          "condition": "Does the haemodialysis patient have any uncontrolled or clinically unstable medical condition that would represent a contraindication to exercise (e.g., infection or fever, recent myocardial infarction within 2 weeks, undiagnosed chest pain, resting systolic blood pressure > 200 mmHg, resting diastolic blood pressure > 110 mmHg, symptomatic hyper- or hypotension, or other conditions that could be aggravated by exercise as per American Heart Association/American College of Sports Medicine Class D)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 4,
+          "conclusion": "Do not initiate or progress structured exercise or intradialytic exercise at this time; manage unstable condition first and follow standard haemodialysis care without added exercise."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient is an adult with chronic kidney disease and is receiving renal replacement therapy, aligning with guideline populations that include non-dialysis CKD stages 1–5, haemodialysis, and kidney transplant recipients.\",\n  \"Because the patient is on maintenance haemodialysis, the haemodialysis-specific guidance applies, which recommends encouraging physical activity and exercise only when there are no contraindications.\",\n  \"The pre-exercise assessment shows a clinically unstable contraindication to exercise—resting blood pressure 212/114 mmHg, exceeding the cited thresholds (>200 systolic or >110 diastolic) consistent with an uncontrolled condition (AHA/ACSM Class D)—so exercise should not be initiated or progressed.\",\n  \"Given haemodialysis status with a clear contraindication (clinically unstable severe hypertension), structured or intradialytic exercise should be deferred while the unstable condition is addressed and standard haemodialysis care continued without added exercise.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 11,
+          "path_id": 1
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 252,
+          "path_id": 1
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "20:5",
+      "gold_rule_id": "mega_20_leaf_12",
+      "gold_action": "Avoid contact sports and activities with high risk of traumatic graft damage, avoid prolonged extreme endurance events unless carefully considered with a transplant and sports medicine team, and avoid sport‑enhancing dietary supplements; otherwise encourage only moderate, non-contact physical activity within standard guidelines.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the adult patient living with chronic kidney disease (including non-dialysis CKD stages 1–5, haemodialysis, or kidney transplant recipient)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the patient currently receiving haemodialysis?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 10,
+          "condition": "Has the patient received a kidney transplant (kidney transplant recipient, including candidates and post-transplant)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 11,
+          "condition": "Does the kidney transplant recipient (KTR) have any contraindications or safety concerns for exercise (e.g., situations where traumatic damage to the transplanted kidney, participation in contact sports, prolonged extreme exercise, or use of sport-enhancing supplements is being considered without specialist input)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 12,
+          "conclusion": "Avoid contact sports and activities with high risk of traumatic graft damage, avoid prolonged extreme endurance events unless carefully considered with a transplant and sports medicine team, and avoid sport‑enhancing dietary supplements; otherwise encourage only moderate, non-contact physical activity within standard guidelines."
+        }
+      ],
+      "gt_output_text": "[\n  \"The case describes an adult with chronic kidney disease who is a kidney transplant recipient, which fits the guideline scope addressing physical activity and exercise considerations across adult CKD populations including transplant recipients.\",\n  \"Because the patient is not receiving maintenance haemodialysis, haemodialysis-specific exercise encouragement recommendations are not the applicable pathway branch for management decisions in this case.\",\n  \"The patient has previously undergone kidney transplantation and is currently followed as a kidney transplant recipient, so transplant-specific physical activity and exercise guidance applies.\",\n  \"Exercise safety concerns are present because the patient is considering activities with potential traumatic damage to the transplanted kidney (including contact sports) without specialist input, which the guideline flags as requiring avoidance or careful consideration and also cautions against sport-enhancing supplements.\",\n  \"Given transplant status with identified exercise safety concerns, management should prioritize avoiding contact sports and other high-risk or extreme endurance activities unless carefully evaluated with specialist teams, and avoiding sport-enhancing supplements, while otherwise limiting activity to moderate non-contact physical activity within standard guidelines.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 11,
+          "path_id": 5
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 256,
+          "path_id": 5
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "20:9",
+      "gold_rule_id": "mega_20_leaf_19",
+      "gold_action": "Encourage general physical activity toward 150 minutes/week of moderate-to-vigorous physical activity (or 75 minutes vigorous), aiming to reduce all‑cause and cardiovascular mortality and improve functional outcomes, and address individual barriers and activators to increase uptake; structured exercise can be advised but may be unsupervised or adapted to the patient’s circumstances.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the adult patient living with chronic kidney disease (including non-dialysis CKD stages 1–5, haemodialysis, or kidney transplant recipient)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Is the patient currently receiving haemodialysis?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 10,
+          "condition": "Has the patient received a kidney transplant (kidney transplant recipient, including candidates and post-transplant)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 11,
+          "condition": "Does the kidney transplant recipient (KTR) have any contraindications or safety concerns for exercise (e.g., situations where traumatic damage to the transplanted kidney, participation in contact sports, prolonged extreme exercise, or use of sport-enhancing supplements is being considered without specialist input)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 13,
+          "condition": "Is the KTR currently in the immediate post-transplant period (< 1–2 days after transplantation)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 15,
+          "condition": "Is the patient in the pre-transplant waiting period (candidate awaiting kidney transplant)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 17,
+          "condition": "Is the KTR willing and able to participate in structured exercise sessions at least 3 times per week?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 19,
+          "conclusion": "Encourage general physical activity toward 150 minutes/week of moderate-to-vigorous physical activity (or 75 minutes vigorous), aiming to reduce all‑cause and cardiovascular mortality and improve functional outcomes, and address individual barriers and activators to increase uptake; structured exercise can be advised but may be unsupervised or adapted to the patient’s circumstances."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient is an adult living with chronic kidney disease in the context of kidney transplantation, aligning with guideline populations addressing physical activity and exercise in adult CKD, including kidney transplant recipients.\",\n  \"Because the patient is not receiving haemodialysis, haemodialysis-specific exercise recommendations do not apply along this pathway.\",\n  \"The patient is a kidney transplant recipient, so transplant-specific physical activity guidance is applicable.\",\n  \"No exercise contraindications or safety concerns are identified (including no intent for contact sports, prolonged extreme exercise, traumatic risk to the graft, or sport-enhancing supplements without specialist input), so general physical activity should be encouraged in this KTR.\",\n  \"As the transplant occurred 14 days earlier, the patient is beyond the immediate post-transplant window (<1–2 days) where intensive exercise interventions are not beneficial, supporting progression to standard post-transplant activity encouragement.\",\n  \"The patient is not awaiting transplant, so prehabilitation recommendations for candidates do not apply.\",\n  \"Although structured exercise at least 3 times per week (including aerobic and resistance components) is suggested for KTRs without contraindications, this patient is not willing/able to participate at that frequency, indicating the need for a more flexible, non-structured or adapted activity approach.\",\n  \"Given the patient is a post-transplant KTR without contraindications but unable/unwilling to perform structured exercise ≥3 times/week, management should focus on encouraging general physical activity toward 150 minutes/week (or 75 minutes vigorous), emphasizing mortality and functional benefits and addressing individual barriers to support uptake with adapted or unsupervised exercise as feasible.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 11,
+          "path_id": 9
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 260,
+          "path_id": 9
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "20:14",
+      "gold_rule_id": "mega_20_leaf_27",
+      "gold_action": "This guideline does not apply because the patient does not have chronic kidney disease or kidney replacement therapy.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the adult patient living with chronic kidney disease (including non-dialysis CKD stages 1–5, haemodialysis, or kidney transplant recipient)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 27,
+          "conclusion": "This guideline does not apply because the patient does not have chronic kidney disease or kidney replacement therapy."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient is an adult but has no history of non-dialysis CKD stages 1–5, haemodialysis, or kidney transplantation, so they do not fall within the populations to whom the guideline’s physical activity and lifestyle recommendations are intended to apply.\",\n  \"Because the guideline scope is limited to adult patients with CKD stages 1–5 (including relevant kidney replacement therapy contexts) and this patient has none of these, the pathway concludes that the guideline does not apply to their management.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 11,
+          "path_id": 14
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 265,
+          "path_id": 14
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "22:1",
+      "gold_rule_id": "mega_22_leaf_6",
+      "gold_action": "Offer repeat 75-g OGTT at 24–28 weeks' gestation.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the patient currently pregnant (i.e., pregnancy care encounter)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Has a 75-g oral glucose tolerance test (OGTT) been performed at preconception?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 3,
+          "condition": "Is the patient at antenatal booking or before 20 weeks' gestation?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 4,
+          "condition": "Was the early pregnancy OGTT result normal?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 5,
+          "condition": "Is the gestational age currently 24–28 weeks?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 6,
+          "conclusion": "Offer repeat 75-g OGTT at 24–28 weeks' gestation."
+        }
+      ],
+      "gt_output_text": "[\n  \"This is a pregnancy care encounter, so management should follow evidence-based PCOS guidance specific to preconception, pregnancy, and postpartum care.\",\n  \"A preconception 75-g OGTT has already been performed, aligning with guidance that an OGTT is offered by antenatal booking or before 20 weeks only if it was not completed preconception.\",\n  \"The patient is at antenatal booking/before 20 weeks (10 weeks’ gestation), which is the timeframe in which an OGTT would be offered if preconception testing had not been done.\",\n  \"Because the early pregnancy OGTT was normal, guideline recommendations indicate the patient should be offered a repeat OGTT later in pregnancy.\",\n  \"The current gestational age is 26 weeks, which falls within the recommended 24–28-week window for the repeat OGTT after a normal early pregnancy result.\",\n  \"Given a normal early pregnancy OGTT and current gestation within 24–28 weeks, the appropriate management is to offer a repeat 75-g OGTT at 24–28 weeks’ gestation.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 12,
+          "path_id": 1
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 266,
+          "path_id": 1
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "22:6",
+      "gold_rule_id": "mega_22_leaf_13",
+      "gold_action": "Offer a 75-g OGTT at antenatal booking or before the 20th week of pregnancy.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the patient currently pregnant (i.e., pregnancy care encounter)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 2,
+          "condition": "Has a 75-g oral glucose tolerance test (OGTT) been performed at preconception?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 12,
+          "condition": "Is the patient at antenatal booking or before 20 weeks' gestation?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 13,
+          "conclusion": "Offer a 75-g OGTT at antenatal booking or before the 20th week of pregnancy."
+        }
+      ],
+      "gt_output_text": "[\n  \"The patient is currently pregnant and attending a pregnancy care encounter, making the PCOS guideline recommendations for preconception, pregnancy, and postpartum management applicable.\",\n  \"A preconception 75-g OGTT was not performed, and because PCOS confers substantial hyperglycaemia-related maternal and fetal risks, the guideline indicates an OGTT should be offered during early pregnancy when preconception testing is absent.\",\n  \"The patient is at antenatal booking at 10 weeks’ gestation (i.e., before 20 weeks), which meets the guideline timing for offering a 75-g OGTT when no preconception OGTT has been completed.\",\n  \"Given pregnancy with PCOS, absence of a preconception OGTT, and presentation at antenatal booking before 20 weeks, offer a 75-g OGTT at booking or before 20 weeks’ gestation.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 12,
+          "path_id": 6
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 271,
+          "path_id": 6
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "22:11",
+      "gold_rule_id": "mega_22_leaf_24",
+      "gold_action": "Continue/implement lifestyle modifications and weight management at preconception; ensure routine preconception risk assessment has been completed (including OGTT already performed).",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the patient currently pregnant (i.e., pregnancy care encounter)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 15,
+          "condition": "Is the patient postpartum (postpregnancy follow-up in a woman with PCOS)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 21,
+          "condition": "Is the patient at preconception (planning pregnancy) and has excess weight (BMI >25 kg/m²)?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 22,
+          "condition": "Is the target preconception weight loss of 5% being pursued/achieved for BMI >25 kg/m²?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 23,
+          "condition": "Has impaired glucose tolerance and type 2 diabetes been assessed with a 75-g OGTT at preconception?",
+          "decision_outcome": "yes"
+        },
+        {
+          "index": 24,
+          "conclusion": "Continue/implement lifestyle modifications and weight management at preconception; ensure routine preconception risk assessment has been completed (including OGTT already performed)."
+        }
+      ],
+      "gt_output_text": "[\n  \"This encounter is a preconception visit in a woman planning pregnancy and not currently pregnant, so pregnancy-care recommendations within the PCOS preconception/pregnancy/postpartum framework do not apply at this step.\",\n  \"There is no postpartum follow-up context in this case, so postpartum-specific PCOS recommendations within the same guideline framework are not applicable.\",\n  \"Because the patient is planning pregnancy (preconception) and has excess weight with BMI 31 kg/m² (>25 kg/m²), guideline-based preconception management prioritizes optimization of lifestyle factors (weight, diet, exercise and related health factors) to improve reproductive and obstetric outcomes, including targeting weight loss (e.g., 5% for BMI >25 kg/m²).\",\n  \"Given BMI >25 kg/m², the guideline target of ~5% weight loss is appropriate and the patient is actively pursuing and has achieved approximately a 5% reduction, consistent with recommended preconception weight management goals.\",\n  \"Preconception metabolic risk assessment has been completed as recommended, as impaired glucose tolerance and type 2 diabetes were assessed with a 75-g OGTT at the preconception visit.\",\n  \"Accordingly, management should continue or reinforce lifestyle and weight management as the initial strategy at preconception in PCOS, with routine preconception risk assessment addressed (including the OGTT already performed).\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 12,
+          "path_id": 11
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 276,
+          "path_id": 11
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    },
+    {
+      "case_id": "22:16",
+      "gold_rule_id": "mega_22_leaf_31",
+      "gold_action": "Guideline pathway not applicable: this guidance is focused on women with PCOS at preconception, during pregnancy, and postpregnancy.",
+      "gold_path": [
+        {
+          "index": 1,
+          "condition": "Is the patient currently pregnant (i.e., pregnancy care encounter)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 15,
+          "condition": "Is the patient postpartum (postpregnancy follow-up in a woman with PCOS)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 21,
+          "condition": "Is the patient at preconception (planning pregnancy) and has excess weight (BMI >25 kg/m²)?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 27,
+          "condition": "Is the patient at preconception (planning pregnancy) regardless of BMI?",
+          "decision_outcome": "no"
+        },
+        {
+          "index": 31,
+          "conclusion": "Guideline pathway not applicable: this guidance is focused on women with PCOS at preconception, during pregnancy, and postpregnancy."
+        }
+      ],
+      "gt_output_text": "[\n  \"This encounter is not for pregnancy care and there is no evidence of current pregnancy, so the PCOS recommendations specific to the pregnancy phase in the preconception–pregnancy–postpartum management framework do not apply at this step.\",\n  \"There is no postpartum follow-up context in this visit, so the postpartum portion of the PCOS preconception–pregnancy–postpartum management recommendations is not applicable.\",\n  \"The patient is not planning pregnancy and does not have excess weight (BMI 23.4 kg/m²), so preconception lifestyle and weight-loss recommendations (e.g., targeted weight loss for BMI >25 kg/m²) are not applicable.\",\n  \"Because the patient is not in a preconception phase and is not planning pregnancy, the general preconception health optimization and risk assessment recommendations for women with PCOS are not applicable.\",\n  \"Given the absence of preconception, pregnancy, or postpartum context, this preconception–pregnancy–postpartum-focused PCOS guideline pathway does not apply to the patient’s current management encounter.\"\n]",
+      "source": {
+        "path_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/case_paths.jsonl",
+          "line": 12,
+          "path_id": 16
+        },
+        "reference_record": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/gt_paths.jsonl",
+          "line": 281,
+          "path_id": 16
+        }
+      },
+      "prior_label_available": false,
+      "oracle_rule_fragment_source": "Official guideline rule selected by gold leaf for diagnostic upper bound only; never gt_output_text"
+    }
+  ]
+}

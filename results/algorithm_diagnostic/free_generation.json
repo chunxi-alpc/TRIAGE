@@ -1,0 +1,430 @@
+{
+  "schema_version": "triage_free_generation.v1",
+  "cases": [
+    {
+      "case_id": "5:1",
+      "raw_full_guideline": {
+        "text": "{\n  \"decision\": \"Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.\",\n  \"actions\": [\n    \"Provide oral nutritional supplementation (including between-meal snacks where appropriate)\"\n  ],\n  \"status\": \"decided\",\n  \"rationale\": \"The patient meets all the requirements for the first recommendation: they are experiencing feeding and eating disorders (poor appetite, forgetting to eat or drink, chewing and swallowing problems), are in a moderate-to-severe stage and require assistance with eating and drinking in an institutional setting, the primary management goal is to increase food and energy intake and improve nutritional outcomes, and oral nutritional supplementation is feasible and available.\"\n}",
+        "decision": {
+          "decision": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+          "actions": [
+            "Provide oral nutritional supplementation (including between-meal snacks where appropriate)"
+          ],
+          "status": "decided",
+          "rationale": "The patient meets all the requirements for the first recommendation: they are experiencing feeding and eating disorders (poor appetite, forgetting to eat or drink, chewing and swallowing problems), are in a moderate-to-severe stage and require assistance with eating and drinking in an institutional setting, the primary management goal is to increase food and energy intake and improve nutritional outcomes, and oral nutritional supplementation is feasible and available."
+        },
+        "json_valid": true,
+        "output_tokens": 171,
+        "use_cache": true
+      },
+      "prompt_only": {
+        "text": "{\n  \"decision\": \"Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.\",\n  \"actions\": [\n    \"Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.\"\n  ],\n  \"status\": \"decided\",\n  \"rationale\": \"The patient meets all the conditions for Rule mega_5_leaf_5: they are experiencing feeding and eating disorders, are in a moderate-to-severe stage and require assistance with eating and drinking, the primary management goal is to increase food and energy intake, and oral nutritional supplementation is feasible and available.\"\n}",
+        "decision": {
+          "decision": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+          "actions": [
+            "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia."
+          ],
+          "status": "decided",
+          "rationale": "The patient meets all the conditions for Rule mega_5_leaf_5: they are experiencing feeding and eating disorders, are in a moderate-to-severe stage and require assistance with eating and drinking, the primary management goal is to increase food and energy intake, and oral nutritional supplementation is feasible and available."
+        },
+        "json_valid": true,
+        "output_tokens": 187,
+        "use_cache": true
+      },
+      "full": {
+        "text": "{\n  \"decision\": \"Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.\",\n  \"actions\": [\n    \"Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.\"\n  ],\n  \"status\": \"decided\",\n  \"rationale\": \"The patient meets all the conditions required by Rule mega_5_leaf_5: they are experiencing feeding and eating disorders, are in a moderate-to-severe stage and require assistance with eating and drinking, the primary management goal is to increase food and energy intake, and oral nutritional supplementation is feasible and available.\"\n}",
+        "decision": {
+          "decision": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+          "actions": [
+            "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia."
+          ],
+          "status": "decided",
+          "rationale": "The patient meets all the conditions required by Rule mega_5_leaf_5: they are experiencing feeding and eating disorders, are in a moderate-to-severe stage and require assistance with eating and drinking, the primary management goal is to increase food and energy intake, and oral nutritional supplementation is feasible and available."
+        },
+        "json_valid": true,
+        "output_tokens": 188,
+        "use_cache": true
+      },
+      "module1_guided": {
+        "decision": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+        "actions": [
+          "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks)"
+        ],
+        "status": "decided",
+        "rationale": "All required conditions for the guideline rule are satisfied, indicating that oral nutritional supplementation is the recommended management decision."
+      },
+      "intervention_stats": {
+        "schema_version": "module3.stats.v1",
+        "context_changed_elements": 138770,
+        "context_delta_l2": 37.43781280517578,
+        "prior_changed_elements": 0.0,
+        "prior_delta_l2": 0.0,
+        "context_forward_calls": 4,
+        "prior_forward_calls": 0,
+        "selected_heads": [
+          {
+            "layer": 35,
+            "head": 8
+          },
+          {
+            "layer": 12,
+            "head": 24
+          }
+        ],
+        "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+        "rule_gates": {
+          "mega_5_leaf_28": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_5": {
+            "applicability": "applicable",
+            "action_gate": 0.473631,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_16": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_27": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_8": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_14": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_7": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_17": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_29": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_13": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_24": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_12": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_26": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_23": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_5_leaf_21": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          }
+        },
+        "prior_basis_is_proxy": true,
+        "context_strength": 0.1,
+        "prior_strength": 0.1,
+        "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+        "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+        "prior_minimum_evidence_confidence": 0.8
+      },
+      "comparison": {
+        "max_abs_next_token_logit_delta": 0.625,
+        "l2_next_token_logit_delta": 91.82142639160156,
+        "baseline_argmax": 515,
+        "intervened_argmax": 515,
+        "decision_text_changed": true
+      },
+      "elapsed_seconds": 10.698,
+      "peak_allocated_gib": 16.86518907546997
+    },
+    {
+      "case_id": "9:1",
+      "raw_full_guideline": {
+        "text": "{\n  \"decision\": \"Use neoadjuvant imatinib to downsize tumor, then proceed to surgical excision with goal of negative margins\",\n  \"actions\": [\n    \"Administer neoadjuvant imatinib\",\n    \"Proceed to surgical excision with goal of achieving negative margins\"\n  ],\n  \"status\": \"decided\",\n  \"rationale\": \"The patient's disease is localized (no known regional or distant metastasis), the lesion is considered resectable with surgery, resection with negative margins would result in unacceptable functional or cosmetic outcomes, and neoadjuvant imatinib is available and tolerated. These conditions meet the criteria for the first recommendation.\"\n}",
+        "decision": {
+          "decision": "Use neoadjuvant imatinib to downsize tumor, then proceed to surgical excision with goal of negative margins",
+          "actions": [
+            "Administer neoadjuvant imatinib",
+            "Proceed to surgical excision with goal of achieving negative margins"
+          ],
+          "status": "decided",
+          "rationale": "The patient's disease is localized (no known regional or distant metastasis), the lesion is considered resectable with surgery, resection with negative margins would result in unacceptable functional or cosmetic outcomes, and neoadjuvant imatinib is available and tolerated. These conditions meet the criteria for the first recommendation."
+        },
+        "json_valid": true,
+        "output_tokens": 142,
+        "use_cache": true
+      },
+      "prompt_only": {
+        "text": "{\n  \"decision\": \"Use neoadjuvant imatinib to downsize tumor, then proceed to surgical excision with goal of negative margins\",\n  \"actions\": [\n    \"Administer neoadjuvant imatinib\",\n    \"Proceed with surgical excision after neoadjuvant imatinib\"\n  ],\n  \"status\": \"decided\",\n  \"rationale\": \"The patient's disease is localized (no known regional or distant metastasis), the lesion is technically operable, resection with negative margins would result in unacceptable functional or cosmetic impairment, and neoadjuvant imatinib is available and tolerated. These conditions satisfy the applicability of Rule mega_9_leaf_5, which recommends neoadjuvant imatinib followed by surgical excision.\"\n}",
+        "decision": {
+          "decision": "Use neoadjuvant imatinib to downsize tumor, then proceed to surgical excision with goal of negative margins",
+          "actions": [
+            "Administer neoadjuvant imatinib",
+            "Proceed with surgical excision after neoadjuvant imatinib"
+          ],
+          "status": "decided",
+          "rationale": "The patient's disease is localized (no known regional or distant metastasis), the lesion is technically operable, resection with negative margins would result in unacceptable functional or cosmetic impairment, and neoadjuvant imatinib is available and tolerated. These conditions satisfy the applicability of Rule mega_9_leaf_5, which recommends neoadjuvant imatinib followed by surgical excision."
+        },
+        "json_valid": true,
+        "output_tokens": 161,
+        "use_cache": true
+      },
+      "full": {
+        "text": "{\n  \"decision\": \"Use neoadjuvant imatinib to downsize tumor, then proceed to surgical excision with goal of negative margins\",\n  \"actions\": [\n    \"Administer neoadjuvant imatinib\",\n    \"Proceed with surgical excision after neoadjuvant imatinib\"\n  ],\n  \"status\": \"decided\",\n  \"rationale\": \"The patient's disease is localized (no known regional or distant metastasis), the lesion is technically operable, resection with negative margins would result in unacceptable functional or cosmetic impairment, and neoadjuvant imatinib is available and tolerated. These conditions satisfy the applicability of Rule mega_9_leaf_5, which recommends the use of neoadjuvant imatinib followed by surgical excision.\"\n}",
+        "decision": {
+          "decision": "Use neoadjuvant imatinib to downsize tumor, then proceed to surgical excision with goal of negative margins",
+          "actions": [
+            "Administer neoadjuvant imatinib",
+            "Proceed with surgical excision after neoadjuvant imatinib"
+          ],
+          "status": "decided",
+          "rationale": "The patient's disease is localized (no known regional or distant metastasis), the lesion is technically operable, resection with negative margins would result in unacceptable functional or cosmetic impairment, and neoadjuvant imatinib is available and tolerated. These conditions satisfy the applicability of Rule mega_9_leaf_5, which recommends the use of neoadjuvant imatinib followed by surgical excision."
+        },
+        "json_valid": true,
+        "output_tokens": 164,
+        "use_cache": true
+      },
+      "module1_guided": {
+        "decision": "Use neoadjuvant imatinib to downsize tumor, then proceed to surgical excision with goal of negative margins.",
+        "actions": [
+          "Use neoadjuvant imatinib to downsize tumor",
+          "Proceed to surgical excision with goal of negative margins"
+        ],
+        "status": "decided",
+        "rationale": "All required conditions for the guideline rule are satisfied."
+      },
+      "intervention_stats": {
+        "schema_version": "module3.stats.v1",
+        "context_changed_elements": 89194,
+        "context_delta_l2": 77.58880996704102,
+        "prior_changed_elements": 2667103.0,
+        "prior_delta_l2": 351.3897781558335,
+        "context_forward_calls": 4,
+        "prior_forward_calls": 330,
+        "selected_heads": [
+          {
+            "layer": 35,
+            "head": 8
+          },
+          {
+            "layer": 12,
+            "head": 24
+          }
+        ],
+        "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+        "rule_gates": {
+          "mega_9_leaf_34": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_24": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_6": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_28": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_31": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_22": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_25": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_30": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_33": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_13": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_20": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_14": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_36": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_19": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_5": {
+            "applicability": "applicable",
+            "action_gate": 0.886103,
+            "valid_conflict": true,
+            "evidence_confident": true,
+            "prior_gate": 0.886103
+          },
+          "mega_9_leaf_17": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_11": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_9": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_9_leaf_37": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          }
+        },
+        "prior_basis_is_proxy": true,
+        "context_strength": 0.1,
+        "prior_strength": 0.1,
+        "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+        "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+        "prior_minimum_evidence_confidence": 0.8
+      },
+      "comparison": {
+        "max_abs_next_token_logit_delta": 0.75,
+        "l2_next_token_logit_delta": 57.522315979003906,
+        "baseline_argmax": 515,
+        "intervened_argmax": 515,
+        "decision_text_changed": true
+      },
+      "elapsed_seconds": 9.609,
+      "peak_allocated_gib": 16.86518907546997
+    }
+  ],
+  "reference_answers_used": false,
+  "generation_use_cache": true,
+  "selection": "Prespecified historical cases 5:1 and 9:1; references only read for later offline interpretation"
+}

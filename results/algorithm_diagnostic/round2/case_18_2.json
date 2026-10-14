@@ -1,0 +1,1717 @@
+{
+  "schema_version": "triage_algorithm_case.v1",
+  "case_id": "18:2",
+  "guideline_id": 18,
+  "input_source": {
+    "dataset": "MEGA-CDP",
+    "split": "train_val",
+    "guideline_id": 18,
+    "filename": "010ee1decb161f30ff7fd4d9efcea5be",
+    "patient": {
+      "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/vignette_cases.jsonl",
+      "line": 249,
+      "field": "text"
+    },
+    "guideline": {
+      "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/decision_trees.jsonl",
+      "line": 14,
+      "field": "text.decision_tree",
+      "all_tree_paths_used": true,
+      "rule_count": 4
+    },
+    "question": {
+      "origin": "Fixed general guideline-management question; not derived from reference or path"
+    }
+  },
+  "options": [
+    {
+      "label": "A",
+      "action": "Attempt rescue from a safe location by reaching with an object, throwing a rope or floating object, or rowing to the drowning patient without entering hazardous conditions.",
+      "rule_ids": [
+        "mega_18_leaf_3"
+      ]
+    },
+    {
+      "label": "B",
+      "action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+      "rule_ids": [
+        "mega_18_leaf_4"
+      ]
+    },
+    {
+      "label": "C",
+      "action": "Perform in-water rescue according to level of training, expertise, equipment, and comfort level.",
+      "rule_ids": [
+        "mega_18_leaf_6"
+      ]
+    },
+    {
+      "label": "D",
+      "action": "Avoid entering the water for rescue; attempt reach/throw/row strategies from a safe location if possible.",
+      "rule_ids": [
+        "mega_18_leaf_7"
+      ]
+    },
+    {
+      "label": "E",
+      "action": "Insufficient explicit patient evidence to select a guideline recommendation.",
+      "rule_ids": []
+    }
+  ],
+  "module1": {
+    "schema_version": "module1.v1",
+    "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+    "candidate_rules": [
+      {
+        "rule_id": "mega_18_leaf_6",
+        "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)? AND The answer must be YES: Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?. Recommendation: Perform in-water rescue according to level of training, expertise, equipment, and comfort level.",
+        "source_span": {
+          "start": 0,
+          "end": 488,
+          "unit": "character",
+          "index": 2
+        },
+        "conditions": [
+          {
+            "condition_id": "mega_18_node_1_no",
+            "text": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+            "negated": true
+          },
+          {
+            "condition_id": "mega_18_node_5_yes",
+            "text": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+            "negated": false
+          }
+        ],
+        "logic": {
+          "op": "AND",
+          "args": [
+            "mega_18_node_1_no",
+            "mega_18_node_5_yes"
+          ]
+        },
+        "exceptions": [],
+        "exception_logic": {
+          "op": "OR",
+          "args": []
+        },
+        "action": "Perform in-water rescue according to level of training, expertise, equipment, and comfort level.",
+        "parse_status": "ok",
+        "parse_cache_hit": false
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)? AND The answer must be NO: Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?. Recommendation: Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+        "source_span": {
+          "start": 0,
+          "end": 490,
+          "unit": "character",
+          "index": 1
+        },
+        "conditions": [
+          {
+            "condition_id": "mega_18_node_1_yes",
+            "text": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+            "negated": false
+          },
+          {
+            "condition_id": "mega_18_node_2_no",
+            "text": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+            "negated": true
+          }
+        ],
+        "logic": {
+          "op": "AND",
+          "args": [
+            "mega_18_node_1_yes",
+            "mega_18_node_2_no"
+          ]
+        },
+        "exceptions": [],
+        "exception_logic": {
+          "op": "OR",
+          "args": []
+        },
+        "action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+        "parse_status": "ok",
+        "parse_cache_hit": false
+      },
+      {
+        "rule_id": "mega_18_leaf_7",
+        "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)? AND The answer must be NO: Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?. Recommendation: Avoid entering the water for rescue; attempt reach/throw/row strategies from a safe location if possible.",
+        "source_span": {
+          "start": 0,
+          "end": 496,
+          "unit": "character",
+          "index": 3
+        },
+        "conditions": [
+          {
+            "condition_id": "mega_18_node_1_no",
+            "text": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+            "negated": true
+          },
+          {
+            "condition_id": "mega_18_node_5_no",
+            "text": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+            "negated": true
+          }
+        ],
+        "logic": {
+          "op": "AND",
+          "args": [
+            "mega_18_node_1_no",
+            "mega_18_node_5_no"
+          ]
+        },
+        "exceptions": [],
+        "exception_logic": {
+          "op": "OR",
+          "args": []
+        },
+        "action": "Avoid entering the water for rescue; attempt reach/throw/row strategies from a safe location if possible.",
+        "parse_status": "ok",
+        "parse_cache_hit": false
+      },
+      {
+        "rule_id": "mega_18_leaf_3",
+        "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)? AND The answer must be YES: Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?. Recommendation: Attempt rescue from a safe location by reaching with an object, throwing a rope or floating object, or rowing to the drowning patient without entering hazardous conditions.",
+        "source_span": {
+          "start": 0,
+          "end": 561,
+          "unit": "character",
+          "index": 0
+        },
+        "conditions": [
+          {
+            "condition_id": "mega_18_node_1_yes",
+            "text": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+            "negated": false
+          },
+          {
+            "condition_id": "mega_18_node_2_yes",
+            "text": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+            "negated": false
+          }
+        ],
+        "logic": {
+          "op": "AND",
+          "args": [
+            "mega_18_node_1_yes",
+            "mega_18_node_2_yes"
+          ]
+        },
+        "exceptions": [],
+        "exception_logic": {
+          "op": "OR",
+          "args": []
+        },
+        "action": "Attempt rescue from a safe location by reaching with an object, throwing a rope or floating object, or rowing to the drowning patient without entering hazardous conditions.",
+        "parse_status": "ok",
+        "parse_cache_hit": false
+      }
+    ],
+    "prior_decision": {
+      "decision": "Do not attempt a rescue",
+      "actions": [
+        "Call emergency services immediately",
+        "Ensure personal safety"
+      ],
+      "status": "decided",
+      "rationale": "Rescue in hazardous conditions beyond the bystander's ability is unsafe and could lead to additional harm."
+    },
+    "guideline_decision": {
+      "decision": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+      "actions": [
+        "Await or summon trained rescue personnel if available."
+      ],
+      "status": "decided",
+      "rationale": "The rescuer is without formal water-rescue training and the water conditions are hazardous, and the patient is not within reach or accessible via a safe object."
+    },
+    "conflict_scores": [
+      {
+        "rule_id": "mega_18_leaf_6",
+        "score": 0.0,
+        "status": "agreement",
+        "prior_support": "oppose",
+        "guided_support": "oppose",
+        "reason": "Prior decision advises against rescue, while guideline decision explicitly states not to enter hazardous water. Rule action suggests performing in-water rescue, which is incompatible with both decisions.",
+        "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "score": 0.0,
+        "status": "agreement",
+        "prior_support": "support",
+        "guided_support": "support",
+        "reason": "Both prior and guideline decisions align with the rule action of not entering hazardous water and awaiting trained personnel.",
+        "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+      },
+      {
+        "rule_id": "mega_18_leaf_7",
+        "score": 0.0,
+        "status": "agreement",
+        "prior_support": "support",
+        "guided_support": "support",
+        "reason": "Both decisions emphasize avoiding entering the water and using alternative rescue strategies from a safe location.",
+        "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+      },
+      {
+        "rule_id": "mega_18_leaf_3",
+        "score": 0.0,
+        "status": "agreement",
+        "prior_support": "support",
+        "guided_support": "support",
+        "reason": "Both decisions recommend avoiding water entry and using reach/throw/row strategies from a safe location.",
+        "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+      }
+    ],
+    "relevance_scores": [
+      {
+        "rule_id": "mega_18_leaf_6",
+        "score": 0.8939621448516846,
+        "question_score": 0.611897349357605,
+        "question_rank": 4,
+        "combined_rank": 1,
+        "retrieval_method": "question_patient_union",
+        "all_small_guideline_rules_retained": true
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "score": 0.8809127807617188,
+        "question_score": 0.7750880718231201,
+        "question_rank": 1,
+        "combined_rank": 2,
+        "retrieval_method": "question_patient_union",
+        "all_small_guideline_rules_retained": true
+      },
+      {
+        "rule_id": "mega_18_leaf_7",
+        "score": 0.8609452247619629,
+        "question_score": 0.6241475343704224,
+        "question_rank": 3,
+        "combined_rank": 3,
+        "retrieval_method": "question_patient_union",
+        "all_small_guideline_rules_retained": true
+      },
+      {
+        "rule_id": "mega_18_leaf_3",
+        "score": 0.8595176935195923,
+        "question_score": 0.7561759352684021,
+        "question_rank": 2,
+        "combined_rank": 4,
+        "retrieval_method": "question_patient_union",
+        "all_small_guideline_rules_retained": true
+      }
+    ],
+    "condition_evidence_relations": [
+      {
+        "rule_id": "mega_18_leaf_6",
+        "condition_id": "mega_18_node_1_no",
+        "condition": "NOT (Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?)",
+        "role": "condition",
+        "negated": true,
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "confidence": 0.85,
+        "underlying_condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "base_condition_status": "satisfied",
+        "reason": "The patient's condition explicitly states that the rescuer is without formal water-rescue training and encountered hazardous water conditions beyond their ability to safely enter.",
+        "shared_base_condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "initial_base_condition_status": "satisfied",
+        "evidence_verification": {
+          "status": "satisfied",
+          "predicate_truth": "true",
+          "evidence_relation": "entails",
+          "reason": "The sentence explicitly states that a bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+          "evidence": [
+            {
+              "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+              "start": 0,
+              "end": 175,
+              "sentence_id": 0
+            }
+          ]
+        },
+        "decisive": true
+      },
+      {
+        "rule_id": "mega_18_leaf_6",
+        "condition_id": "mega_18_node_5_yes",
+        "condition": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+        "role": "condition",
+        "negated": false,
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "confidence": 0.85,
+        "underlying_condition": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+        "base_condition_status": "not_satisfied",
+        "reason": "The patient's condition explicitly states that the rescuer is without formal water-rescue training.",
+        "shared_base_condition": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+        "initial_base_condition_status": "not_satisfied",
+        "evidence_verification": {
+          "status": "not_satisfied",
+          "predicate_truth": "false",
+          "evidence_relation": "contradicts",
+          "reason": "The sentence explicitly states that the rescuer is without formal water-rescue training, which directly contradicts the condition.",
+          "evidence": [
+            {
+              "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+              "start": 0,
+              "end": 175,
+              "sentence_id": 0
+            }
+          ]
+        },
+        "decisive": true
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "condition_id": "mega_18_node_1_yes",
+        "condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "role": "condition",
+        "negated": false,
+        "status": "satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "confidence": 0.85,
+        "underlying_condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "base_condition_status": "satisfied",
+        "reason": "The patient's condition explicitly states that the rescuer is without formal water-rescue training and encountered hazardous water conditions beyond their ability to safely enter.",
+        "shared_base_condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "initial_base_condition_status": "satisfied",
+        "evidence_verification": {
+          "status": "satisfied",
+          "predicate_truth": "true",
+          "evidence_relation": "entails",
+          "reason": "The sentence explicitly states that a bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+          "evidence": [
+            {
+              "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+              "start": 0,
+              "end": 175,
+              "sentence_id": 0
+            }
+          ]
+        },
+        "decisive": true
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "condition_id": "mega_18_node_2_no",
+        "condition": "NOT (Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?)",
+        "role": "condition",
+        "negated": true,
+        "status": "satisfied",
+        "evidence": [
+          {
+            "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+            "start": 176,
+            "end": 313,
+            "sentence_id": 1
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "confidence": 0.85,
+        "underlying_condition": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+        "base_condition_status": "not_satisfied",
+        "reason": "The patient's condition explicitly states that the patient was not within reach and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+        "shared_base_condition": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+        "initial_base_condition_status": "not_satisfied",
+        "evidence_verification": {
+          "status": "not_satisfied",
+          "predicate_truth": "false",
+          "evidence_relation": "contradicts",
+          "reason": "The sentence explicitly states that the patient was not within reach and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+          "evidence": [
+            {
+              "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+              "start": 176,
+              "end": 313,
+              "sentence_id": 1
+            }
+          ]
+        },
+        "decisive": true
+      },
+      {
+        "rule_id": "mega_18_leaf_7",
+        "condition_id": "mega_18_node_1_no",
+        "condition": "NOT (Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?)",
+        "role": "condition",
+        "negated": true,
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "confidence": 0.85,
+        "underlying_condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "base_condition_status": "satisfied",
+        "reason": "The patient's condition explicitly states that the rescuer is without formal water-rescue training and encountered hazardous water conditions beyond their ability to safely enter.",
+        "shared_base_condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "initial_base_condition_status": "satisfied",
+        "evidence_verification": {
+          "status": "satisfied",
+          "predicate_truth": "true",
+          "evidence_relation": "entails",
+          "reason": "The sentence explicitly states that a bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+          "evidence": [
+            {
+              "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+              "start": 0,
+              "end": 175,
+              "sentence_id": 0
+            }
+          ]
+        },
+        "decisive": true
+      },
+      {
+        "rule_id": "mega_18_leaf_7",
+        "condition_id": "mega_18_node_5_no",
+        "condition": "NOT (Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?)",
+        "role": "condition",
+        "negated": true,
+        "status": "satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "confidence": 0.85,
+        "underlying_condition": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+        "base_condition_status": "not_satisfied",
+        "reason": "The patient's condition explicitly states that the rescuer is without formal water-rescue training.",
+        "shared_base_condition": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+        "initial_base_condition_status": "not_satisfied",
+        "evidence_verification": {
+          "status": "not_satisfied",
+          "predicate_truth": "false",
+          "evidence_relation": "contradicts",
+          "reason": "The sentence explicitly states that the rescuer is without formal water-rescue training, which directly contradicts the condition.",
+          "evidence": [
+            {
+              "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+              "start": 0,
+              "end": 175,
+              "sentence_id": 0
+            }
+          ]
+        },
+        "decisive": false
+      },
+      {
+        "rule_id": "mega_18_leaf_3",
+        "condition_id": "mega_18_node_1_yes",
+        "condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "role": "condition",
+        "negated": false,
+        "status": "satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "confidence": 0.85,
+        "underlying_condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "base_condition_status": "satisfied",
+        "reason": "The patient's condition explicitly states that the rescuer is without formal water-rescue training and encountered hazardous water conditions beyond their ability to safely enter.",
+        "shared_base_condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "initial_base_condition_status": "satisfied",
+        "evidence_verification": {
+          "status": "satisfied",
+          "predicate_truth": "true",
+          "evidence_relation": "entails",
+          "reason": "The sentence explicitly states that a bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+          "evidence": [
+            {
+              "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+              "start": 0,
+              "end": 175,
+              "sentence_id": 0
+            }
+          ]
+        },
+        "decisive": false
+      },
+      {
+        "rule_id": "mega_18_leaf_3",
+        "condition_id": "mega_18_node_2_yes",
+        "condition": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+        "role": "condition",
+        "negated": false,
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+            "start": 176,
+            "end": 313,
+            "sentence_id": 1
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "confidence": 0.85,
+        "underlying_condition": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+        "base_condition_status": "not_satisfied",
+        "reason": "The patient's condition explicitly states that the patient was not within reach and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+        "shared_base_condition": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+        "initial_base_condition_status": "not_satisfied",
+        "evidence_verification": {
+          "status": "not_satisfied",
+          "predicate_truth": "false",
+          "evidence_relation": "contradicts",
+          "reason": "The sentence explicitly states that the patient was not within reach and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+          "evidence": [
+            {
+              "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+              "start": 176,
+              "end": 313,
+              "sentence_id": 1
+            }
+          ]
+        },
+        "decisive": true
+      }
+    ],
+    "applicability": [
+      {
+        "rule_id": "mega_18_leaf_6",
+        "status": "not_applicable",
+        "conditions_status": "not_satisfied",
+        "exceptions_status": "not_satisfied",
+        "decisive_condition_ids": [
+          "mega_18_node_1_no",
+          "mega_18_node_5_yes"
+        ],
+        "blockers": [
+          "mega_18_node_1_no",
+          "mega_18_node_5_yes"
+        ],
+        "supporters": []
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "status": "applicable",
+        "conditions_status": "satisfied",
+        "exceptions_status": "not_satisfied",
+        "decisive_condition_ids": [
+          "mega_18_node_1_yes",
+          "mega_18_node_2_no"
+        ],
+        "blockers": [],
+        "supporters": [
+          "mega_18_node_1_yes",
+          "mega_18_node_2_no"
+        ]
+      },
+      {
+        "rule_id": "mega_18_leaf_7",
+        "status": "not_applicable",
+        "conditions_status": "not_satisfied",
+        "exceptions_status": "not_satisfied",
+        "decisive_condition_ids": [
+          "mega_18_node_1_no"
+        ],
+        "blockers": [
+          "mega_18_node_1_no"
+        ],
+        "supporters": []
+      },
+      {
+        "rule_id": "mega_18_leaf_3",
+        "status": "not_applicable",
+        "conditions_status": "not_satisfied",
+        "exceptions_status": "not_satisfied",
+        "decisive_condition_ids": [
+          "mega_18_node_2_yes"
+        ],
+        "blockers": [
+          "mega_18_node_2_yes"
+        ],
+        "supporters": []
+      }
+    ],
+    "critical_spans": [
+      {
+        "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+        "start": 0,
+        "end": 175,
+        "sentence_id": 0,
+        "rule_id": "mega_18_leaf_6",
+        "condition_id": "mega_18_node_1_no",
+        "role": "condition",
+        "status": "not_satisfied",
+        "decisive": true
+      },
+      {
+        "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+        "start": 0,
+        "end": 175,
+        "sentence_id": 0,
+        "rule_id": "mega_18_leaf_6",
+        "condition_id": "mega_18_node_5_yes",
+        "role": "condition",
+        "status": "not_satisfied",
+        "decisive": true
+      },
+      {
+        "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+        "start": 0,
+        "end": 175,
+        "sentence_id": 0,
+        "rule_id": "mega_18_leaf_4",
+        "condition_id": "mega_18_node_1_yes",
+        "role": "condition",
+        "status": "satisfied",
+        "decisive": true
+      },
+      {
+        "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+        "start": 176,
+        "end": 313,
+        "sentence_id": 1,
+        "rule_id": "mega_18_leaf_4",
+        "condition_id": "mega_18_node_2_no",
+        "role": "condition",
+        "status": "satisfied",
+        "decisive": true
+      },
+      {
+        "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+        "start": 0,
+        "end": 175,
+        "sentence_id": 0,
+        "rule_id": "mega_18_leaf_7",
+        "condition_id": "mega_18_node_1_no",
+        "role": "condition",
+        "status": "not_satisfied",
+        "decisive": true
+      },
+      {
+        "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+        "start": 176,
+        "end": 313,
+        "sentence_id": 1,
+        "rule_id": "mega_18_leaf_3",
+        "condition_id": "mega_18_node_2_yes",
+        "role": "condition",
+        "status": "not_satisfied",
+        "decisive": true
+      }
+    ],
+    "relation_weights": [
+      {
+        "rule_id": "mega_18_leaf_6",
+        "condition_id": "mega_18_node_1_no",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "NOT (Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?)",
+        "role": "condition",
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "weight": 0.379934,
+        "signed_weight": -0.379934,
+        "decisive": true,
+        "binding_gate": 0.379934,
+        "action_gate": 0.0,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_6",
+        "condition_id": "mega_18_node_5_yes",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+        "role": "condition",
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "weight": 0.379934,
+        "signed_weight": -0.379934,
+        "decisive": true,
+        "binding_gate": 0.379934,
+        "action_gate": 0.0,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "condition_id": "mega_18_node_1_yes",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "role": "condition",
+        "status": "satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "weight": 0.374388,
+        "signed_weight": 0.374388,
+        "decisive": true,
+        "binding_gate": 0.374388,
+        "action_gate": 0.440456,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "condition_id": "mega_18_node_2_no",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "NOT (Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?)",
+        "role": "condition",
+        "status": "satisfied",
+        "evidence": [
+          {
+            "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+            "start": 176,
+            "end": 313,
+            "sentence_id": 1
+          }
+        ],
+        "weight": 0.374388,
+        "signed_weight": 0.374388,
+        "decisive": true,
+        "binding_gate": 0.374388,
+        "action_gate": 0.440456,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_7",
+        "condition_id": "mega_18_node_1_no",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "NOT (Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?)",
+        "role": "condition",
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "weight": 0.365902,
+        "signed_weight": -0.365902,
+        "decisive": true,
+        "binding_gate": 0.365902,
+        "action_gate": 0.0,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_7",
+        "condition_id": "mega_18_node_5_no",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "NOT (Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?)",
+        "role": "condition",
+        "status": "satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "weight": 0.365902,
+        "signed_weight": 0.365902,
+        "decisive": false,
+        "binding_gate": 0.365902,
+        "action_gate": 0.0,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_3",
+        "condition_id": "mega_18_node_1_yes",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "role": "condition",
+        "status": "satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "weight": 0.365295,
+        "signed_weight": 0.365295,
+        "decisive": false,
+        "binding_gate": 0.365295,
+        "action_gate": 0.0,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_3",
+        "condition_id": "mega_18_node_2_yes",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+        "role": "condition",
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+            "start": 176,
+            "end": 313,
+            "sentence_id": 1
+          }
+        ],
+        "weight": 0.365295,
+        "signed_weight": -0.365295,
+        "decisive": true,
+        "binding_gate": 0.365295,
+        "action_gate": 0.0,
+        "prior_competition_weight": 0.0
+      }
+    ],
+    "decisive_relations": [
+      {
+        "rule_id": "mega_18_leaf_6",
+        "condition_id": "mega_18_node_1_no",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "NOT (Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?)",
+        "role": "condition",
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "weight": 0.379934,
+        "signed_weight": -0.379934,
+        "decisive": true,
+        "binding_gate": 0.379934,
+        "action_gate": 0.0,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_6",
+        "condition_id": "mega_18_node_5_yes",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?",
+        "role": "condition",
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "weight": 0.379934,
+        "signed_weight": -0.379934,
+        "decisive": true,
+        "binding_gate": 0.379934,
+        "action_gate": 0.0,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "condition_id": "mega_18_node_1_yes",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "role": "condition",
+        "status": "satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "weight": 0.374388,
+        "signed_weight": 0.374388,
+        "decisive": true,
+        "binding_gate": 0.374388,
+        "action_gate": 0.440456,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "condition_id": "mega_18_node_2_no",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "NOT (Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?)",
+        "role": "condition",
+        "status": "satisfied",
+        "evidence": [
+          {
+            "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+            "start": 176,
+            "end": 313,
+            "sentence_id": 1
+          }
+        ],
+        "weight": 0.374388,
+        "signed_weight": 0.374388,
+        "decisive": true,
+        "binding_gate": 0.374388,
+        "action_gate": 0.440456,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_7",
+        "condition_id": "mega_18_node_1_no",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "NOT (Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?)",
+        "role": "condition",
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "weight": 0.365902,
+        "signed_weight": -0.365902,
+        "decisive": true,
+        "binding_gate": 0.365902,
+        "action_gate": 0.0,
+        "prior_competition_weight": 0.0
+      },
+      {
+        "rule_id": "mega_18_leaf_3",
+        "condition_id": "mega_18_node_2_yes",
+        "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+        "condition": "Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?",
+        "role": "condition",
+        "status": "not_satisfied",
+        "evidence": [
+          {
+            "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+            "start": 176,
+            "end": 313,
+            "sentence_id": 1
+          }
+        ],
+        "weight": 0.365295,
+        "signed_weight": -0.365295,
+        "decisive": true,
+        "binding_gate": 0.365295,
+        "action_gate": 0.0,
+        "prior_competition_weight": 0.0
+      }
+    ],
+    "binding_gate": {
+      "mega_18_leaf_6": {
+        "mega_18_node_1_no": 0.379934,
+        "mega_18_node_5_yes": 0.379934
+      },
+      "mega_18_leaf_4": {
+        "mega_18_node_1_yes": 0.374388,
+        "mega_18_node_2_no": 0.374388
+      },
+      "mega_18_leaf_7": {
+        "mega_18_node_1_no": 0.365902,
+        "mega_18_node_5_no": 0.365902
+      },
+      "mega_18_leaf_3": {
+        "mega_18_node_1_yes": 0.365295,
+        "mega_18_node_2_yes": 0.365295
+      }
+    },
+    "action_gate": {
+      "mega_18_leaf_6": 0.0,
+      "mega_18_leaf_4": 0.440456,
+      "mega_18_leaf_7": 0.0,
+      "mega_18_leaf_3": 0.0
+    },
+    "metadata": {
+      "elapsed_seconds": 22.963,
+      "backend": "Qwen3-8B predicate/evidence verification + MedCPT-MedPair",
+      "reference_answers_used": false,
+      "scores_are_calibrated": false,
+      "gate_formula": "binding=relevance*(0.5+0.5*conflict)*evidence_confidence; action=relevance*(0.5+0.5*conflict) iff applicable; prior_competition=action*conflict",
+      "unknown_binding": 0,
+      "unknown_action": 0,
+      "model_calls": [
+        {
+          "input_tokens": 181,
+          "output_tokens": 63,
+          "seconds": 1.447,
+          "attempt": 0
+        },
+        {
+          "input_tokens": 485,
+          "output_tokens": 274,
+          "seconds": 6.267,
+          "attempt": 0
+        },
+        {
+          "input_tokens": 631,
+          "output_tokens": 315,
+          "seconds": 7.193,
+          "attempt": 0
+        },
+        {
+          "input_tokens": 1967,
+          "output_tokens": 86,
+          "seconds": 2.125,
+          "attempt": 0
+        },
+        {
+          "input_tokens": 464,
+          "output_tokens": 256,
+          "seconds": 5.868,
+          "attempt": 0
+        }
+      ]
+    }
+  },
+  "old_top3_rule_ids": [
+    "mega_18_leaf_4",
+    "mega_18_leaf_3",
+    "mega_18_leaf_7"
+  ],
+  "old_question_only_scores": [
+    {
+      "rule_id": "mega_18_leaf_3",
+      "score": 0.7561759352684021
+    },
+    {
+      "rule_id": "mega_18_leaf_4",
+      "score": 0.7750880718231201
+    },
+    {
+      "rule_id": "mega_18_leaf_6",
+      "score": 0.611897349357605
+    },
+    {
+      "rule_id": "mega_18_leaf_7",
+      "score": 0.6241475343704224
+    }
+  ],
+  "variants": {
+    "original": {
+      "decision_index": 1,
+      "decision_label": "B",
+      "decision_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+      "decision_rule_ids": [
+        "mega_18_leaf_4"
+      ],
+      "option_logits": [
+        28.5,
+        45.0,
+        24.75,
+        43.25,
+        32.0
+      ],
+      "option_log_probabilities": [
+        -16.660226821899414,
+        -0.16022664308547974,
+        -20.410226821899414,
+        -1.910226583480835,
+        -13.160226821899414
+      ],
+      "option_normalized_probabilities": [
+        5.815080683646556e-08,
+        0.8519511222839355,
+        1.3675758303577368e-09,
+        0.14804691076278687,
+        1.925690185089479e-06
+      ],
+      "prompt_tokens": 291,
+      "correct": true,
+      "correct_log_probability": -0.16022664308547974,
+      "correct_probability": 0.8519506783530268,
+      "correct_option_probability": 0.8519511222839355,
+      "correct_minus_prior_log_probability": 0.0,
+      "correct_minus_strongest_incorrect_prior": 1.75,
+      "correct_minus_raw_guideline_decision": 0.0,
+      "correct_probability_change_vs_original": 0.0
+    },
+    "original_full_guideline": {
+      "decision_index": 1,
+      "decision_label": "B",
+      "decision_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+      "decision_rule_ids": [
+        "mega_18_leaf_4"
+      ],
+      "option_logits": [
+        36.5,
+        43.25,
+        23.25,
+        36.5,
+        26.25
+      ],
+      "option_log_probabilities": [
+        -6.7523393630981445,
+        -0.0023394853342324495,
+        -20.00234031677246,
+        -6.7523393630981445,
+        -17.00234031677246
+      ],
+      "option_normalized_probabilities": [
+        0.0011681440519168973,
+        0.9976637363433838,
+        2.0563382108207406e-09,
+        0.0011681440519168973,
+        4.130265551793855e-08
+      ],
+      "prompt_tokens": 679,
+      "correct": true,
+      "correct_log_probability": -0.0023394853342324495,
+      "correct_probability": 0.9976632491287544,
+      "correct_option_probability": 0.9976637363433838,
+      "correct_minus_prior_log_probability": 0.0,
+      "correct_minus_strongest_incorrect_prior": 6.75,
+      "correct_minus_raw_guideline_decision": 0.0,
+      "correct_probability_change_vs_original": 0.14571257077572752
+    },
+    "triage_prompt_only": {
+      "decision_index": 1,
+      "decision_label": "B",
+      "decision_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+      "decision_rule_ids": [
+        "mega_18_leaf_4"
+      ],
+      "option_logits": [
+        29.625,
+        47.25,
+        25.5,
+        42.75,
+        29.125
+      ],
+      "option_log_probabilities": [
+        -17.63604736328125,
+        -0.011048214510083199,
+        -21.76104736328125,
+        -4.511048316955566,
+        -18.13604736328125
+      ],
+      "option_normalized_probabilities": [
+        2.1916026327062355e-08,
+        0.9890130758285522,
+        3.542395543565391e-10,
+        0.010986942797899246,
+        1.3292741130044305e-08
+      ],
+      "prompt_tokens": 1379,
+      "correct": true,
+      "correct_log_probability": -0.011048214510083199,
+      "correct_probability": 0.9890125928681703,
+      "correct_option_probability": 0.9890130758285522,
+      "correct_minus_prior_log_probability": 0.0,
+      "correct_minus_strongest_incorrect_prior": 4.5,
+      "correct_minus_raw_guideline_decision": 0.0,
+      "correct_probability_change_vs_original": 0.1370619145151435
+    },
+    "triage_full": {
+      "decision_index": 1,
+      "decision_label": "B",
+      "decision_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+      "decision_rule_ids": [
+        "mega_18_leaf_4"
+      ],
+      "option_logits": [
+        29.375,
+        47.75,
+        25.5,
+        42.5,
+        29.125
+      ],
+      "option_log_probabilities": [
+        -18.380233764648438,
+        -0.005234227981418371,
+        -22.255233764648438,
+        -5.255234241485596,
+        -18.630233764648438
+      ],
+      "option_normalized_probabilities": [
+        1.041276043167727e-08,
+        0.9947799444198608,
+        2.1610997713583657e-10,
+        0.005220125894993544,
+        8.10946598761575e-09
+      ],
+      "prompt_tokens": 1379,
+      "correct": true,
+      "correct_log_probability": -0.005234227981418371,
+      "correct_probability": 0.9947794467206231,
+      "correct_option_probability": 0.9947799444198608,
+      "correct_minus_prior_log_probability": 0.0,
+      "correct_minus_strongest_incorrect_prior": 5.25,
+      "correct_minus_raw_guideline_decision": 0.0,
+      "correct_probability_change_vs_original": 0.14282876836759628
+    },
+    "oracle_rule": {
+      "decision_index": 1,
+      "decision_label": "B",
+      "decision_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+      "decision_rule_ids": [
+        "mega_18_leaf_4"
+      ],
+      "option_logits": [
+        33.75,
+        52.0,
+        24.875,
+        36.0,
+        26.5
+      ],
+      "option_log_probabilities": [
+        -18.25,
+        -1.1920928244535389e-07,
+        -27.125,
+        -16.0,
+        -25.5
+      ],
+      "option_normalized_probabilities": [
+        1.1861118309752783e-08,
+        0.9999998807907104,
+        1.6586781861199773e-12,
+        1.1253516163378663e-07,
+        8.423462448392538e-12
+      ],
+      "prompt_tokens": 391,
+      "correct": true,
+      "correct_log_probability": -1.1920928244535389e-07,
+      "correct_probability": 0.9999998807907247,
+      "correct_option_probability": 0.9999998807907104,
+      "correct_minus_prior_log_probability": 0.0,
+      "correct_minus_strongest_incorrect_prior": 16.0,
+      "correct_minus_raw_guideline_decision": 0.0,
+      "correct_probability_change_vs_original": 0.1480492024376978
+    }
+  },
+  "heads": {
+    "35:8": {
+      "intervention": {
+        "decision_index": 1,
+        "decision_label": "B",
+        "decision_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+        "decision_rule_ids": [
+          "mega_18_leaf_4"
+        ],
+        "option_logits": [
+          29.625,
+          47.25,
+          25.5,
+          42.75,
+          29.125
+        ],
+        "option_log_probabilities": [
+          -17.63604736328125,
+          -0.011048214510083199,
+          -21.76104736328125,
+          -4.511048316955566,
+          -18.13604736328125
+        ],
+        "option_normalized_probabilities": [
+          2.1916026327062355e-08,
+          0.9890130758285522,
+          3.542395543565391e-10,
+          0.010986942797899246,
+          1.3292741130044305e-08
+        ],
+        "prompt_tokens": 1379
+      },
+      "ablated": {
+        "decision_index": 1,
+        "decision_label": "B",
+        "decision_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+        "decision_rule_ids": [
+          "mega_18_leaf_4"
+        ],
+        "option_logits": [
+          29.875,
+          46.0,
+          26.125,
+          42.0,
+          29.75
+        ],
+        "option_log_probabilities": [
+          -16.143152236938477,
+          -0.018151717260479927,
+          -19.893152236938477,
+          -4.018151760101318,
+          -16.268152236938477
+        ],
+        "option_normalized_probabilities": [
+          9.752567819987235e-08,
+          0.9820135235786438,
+          2.2935839893989396e-09,
+          0.017986206337809563,
+          8.606610180095231e-08
+        ],
+        "prompt_tokens": 1379
+      },
+      "stats": {
+        "schema_version": "module3.stats.v1",
+        "context_changed_elements": 16060,
+        "context_delta_l2": 5.850082874298096,
+        "prior_changed_elements": 0.0,
+        "prior_delta_l2": 0.0,
+        "context_forward_calls": 1,
+        "prior_forward_calls": 0,
+        "selected_heads": [
+          {
+            "layer": 35,
+            "head": 8
+          }
+        ],
+        "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+        "rule_gates": {
+          "mega_18_leaf_6": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_18_leaf_4": {
+            "applicability": "applicable",
+            "action_gate": 0.440456,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_18_leaf_7": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_18_leaf_3": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          }
+        },
+        "prior_basis_is_proxy": true,
+        "context_strength": 0.1,
+        "prior_strength": 0.1,
+        "projection_fingerprint": "3cfa24a04585684c3ae6b6ffe3dab9a30fa7571c421250db9e99a617b96a91a6",
+        "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+        "prior_minimum_evidence_confidence": 0.8
+      },
+      "key_intervention_correct_margin_delta": 0.0,
+      "retained_head_correct_margin_effect": 0.5
+    },
+    "12:24": {
+      "intervention": {
+        "decision_index": 1,
+        "decision_label": "B",
+        "decision_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+        "decision_rule_ids": [
+          "mega_18_leaf_4"
+        ],
+        "option_logits": [
+          29.375,
+          47.75,
+          25.5,
+          42.5,
+          29.125
+        ],
+        "option_log_probabilities": [
+          -18.380233764648438,
+          -0.005234227981418371,
+          -22.255233764648438,
+          -5.255234241485596,
+          -18.630233764648438
+        ],
+        "option_normalized_probabilities": [
+          1.041276043167727e-08,
+          0.9947799444198608,
+          2.1610997713583657e-10,
+          0.005220125894993544,
+          8.10946598761575e-09
+        ],
+        "prompt_tokens": 1379
+      },
+      "ablated": {
+        "decision_index": 1,
+        "decision_label": "B",
+        "decision_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+        "decision_rule_ids": [
+          "mega_18_leaf_4"
+        ],
+        "option_logits": [
+          29.0,
+          50.75,
+          25.5,
+          42.5,
+          30.0
+        ],
+        "option_log_probabilities": [
+          -21.750261306762695,
+          -0.00026127262390218675,
+          -25.250261306762695,
+          -8.250261306762695,
+          -20.750261306762695
+        ],
+        "option_normalized_probabilities": [
+          3.580812313330739e-10,
+          0.9997387528419495,
+          1.0813116027574843e-11,
+          0.0002611903182696551,
+          9.73365721357311e-10
+        ],
+        "prompt_tokens": 1379
+      },
+      "stats": {
+        "schema_version": "module3.stats.v1",
+        "context_changed_elements": 15388,
+        "context_delta_l2": 4.773856163024902,
+        "prior_changed_elements": 0.0,
+        "prior_delta_l2": 0.0,
+        "context_forward_calls": 1,
+        "prior_forward_calls": 0,
+        "selected_heads": [
+          {
+            "layer": 12,
+            "head": 24
+          }
+        ],
+        "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+        "rule_gates": {
+          "mega_18_leaf_6": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_18_leaf_4": {
+            "applicability": "applicable",
+            "action_gate": 0.440456,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_18_leaf_7": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          },
+          "mega_18_leaf_3": {
+            "applicability": "not_applicable",
+            "action_gate": 0.0,
+            "valid_conflict": false,
+            "evidence_confident": true,
+            "prior_gate": 0.0
+          }
+        },
+        "prior_basis_is_proxy": true,
+        "context_strength": 0.1,
+        "prior_strength": 0.1,
+        "projection_fingerprint": "8f17dd94e5cbd6c424afc9289072dd210406427fc39b7066c319be02740b2345",
+        "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+        "prior_minimum_evidence_confidence": 0.8
+      },
+      "key_intervention_correct_margin_delta": 0.75,
+      "retained_head_correct_margin_effect": -3.75
+    }
+  },
+  "normal_inference_reference_answers_used": false,
+  "decision_protocol": "Greedy single-token choice among ALL source guideline actions plus insufficient evidence; not free-text generation",
+  "intervention_stats": {
+    "schema_version": "module3.stats.v1",
+    "context_changed_elements": 31430,
+    "context_delta_l2": 10.616129875183105,
+    "prior_changed_elements": 0.0,
+    "prior_delta_l2": 0.0,
+    "context_forward_calls": 2,
+    "prior_forward_calls": 0,
+    "selected_heads": [
+      {
+        "layer": 35,
+        "head": 8
+      },
+      {
+        "layer": 12,
+        "head": 24
+      }
+    ],
+    "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+    "rule_gates": {
+      "mega_18_leaf_6": {
+        "applicability": "not_applicable",
+        "action_gate": 0.0,
+        "valid_conflict": false,
+        "evidence_confident": true,
+        "prior_gate": 0.0
+      },
+      "mega_18_leaf_4": {
+        "applicability": "applicable",
+        "action_gate": 0.440456,
+        "valid_conflict": false,
+        "evidence_confident": true,
+        "prior_gate": 0.0
+      },
+      "mega_18_leaf_7": {
+        "applicability": "not_applicable",
+        "action_gate": 0.0,
+        "valid_conflict": false,
+        "evidence_confident": true,
+        "prior_gate": 0.0
+      },
+      "mega_18_leaf_3": {
+        "applicability": "not_applicable",
+        "action_gate": 0.0,
+        "valid_conflict": false,
+        "evidence_confident": true,
+        "prior_gate": 0.0
+      }
+    },
+    "prior_basis_is_proxy": true,
+    "context_strength": 0.1,
+    "prior_strength": 0.1,
+    "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+    "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+    "prior_minimum_evidence_confidence": 0.8
+  },
+  "max_abs_full_logit_delta": 0.5,
+  "zero_gate_control": {
+    "exact": true,
+    "max_abs_logit_delta": 0.0
+  },
+  "zero_strength_control": {
+    "exact": true,
+    "max_abs_logit_delta": 0.0
+  },
+  "oracle_scope": "Correct official rule fragment selected offline; no answer text/path labels; diagnostic only; no hook or gates",
+  "evaluation": {
+    "gold_rule_id": "mega_18_leaf_4",
+    "gold_action": "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.",
+    "gold_option_index": 1,
+    "prior_option_index": 1,
+    "prior_equals_gold": true,
+    "comparison_incorrect_option_index": 3,
+    "key_rule_recalled_before": true,
+    "key_rule_recalled_after": true,
+    "gold_rule_applicability": "applicable",
+    "gold_action_gate": 0.440456,
+    "applicability_correct": 4,
+    "applicability_total": 4,
+    "conditions": [
+      {
+        "condition_id": "mega_18_node_1_no",
+        "expected": "not_satisfied",
+        "predicted": "not_satisfied",
+        "correct": true,
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "reason": "The patient's condition explicitly states that the rescuer is without formal water-rescue training and encountered hazardous water conditions beyond their ability to safely enter."
+      },
+      {
+        "condition_id": "mega_18_node_1_yes",
+        "expected": "satisfied",
+        "predicted": "satisfied",
+        "correct": true,
+        "evidence": [
+          {
+            "text": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+            "start": 0,
+            "end": 175,
+            "sentence_id": 0
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "reason": "The patient's condition explicitly states that the rescuer is without formal water-rescue training and encountered hazardous water conditions beyond their ability to safely enter."
+      },
+      {
+        "condition_id": "mega_18_node_2_no",
+        "expected": "satisfied",
+        "predicted": "satisfied",
+        "correct": true,
+        "evidence": [
+          {
+            "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+            "start": 176,
+            "end": 313,
+            "sentence_id": 1
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "reason": "The patient's condition explicitly states that the patient was not within reach and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist."
+      },
+      {
+        "condition_id": "mega_18_node_2_yes",
+        "expected": "not_satisfied",
+        "predicted": "not_satisfied",
+        "correct": true,
+        "evidence": [
+          {
+            "text": "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.",
+            "start": 176,
+            "end": 313,
+            "sentence_id": 1
+          }
+        ],
+        "method": "qwen_predicate_evidence_verified",
+        "reason": "The patient's condition explicitly states that the patient was not within reach and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist."
+      }
+    ],
+    "failure_causes": []
+  },
+  "elapsed_seconds": 24.198,
+  "gpu_peak_allocated_gib": 18.83683443069458
+}

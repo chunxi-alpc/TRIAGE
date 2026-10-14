@@ -1,0 +1,69 @@
+{
+  "schema_version": "module3.report.v1",
+  "completed": true,
+  "implementation": "SEKA-inspired token salience key spectral edit; expanded GQA keys edited for selected query heads before RoPE; conflict-gated o_proj prehook spectral subtraction",
+  "files": [
+    "src/module3/intervention.py",
+    "src/module3/__init__.py",
+    "scripts/run_module3_smoke.py",
+    "results/module3/projections.pt",
+    "results/module3/projections.json",
+    "results/module3/cpu_checks.json",
+    "results/module3/gpu_checks.json"
+  ],
+  "selected_components": [
+    {
+      "layer": 35,
+      "head": 8,
+      "kv_head": 2,
+      "key_rank": 4,
+      "prior_rank": 4
+    },
+    {
+      "layer": 12,
+      "head": 24,
+      "kv_head": 6,
+      "key_rank": 4,
+      "prior_rank": 4
+    }
+  ],
+  "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+  "projection_calibration": {
+    "dataset": "MEGA-CDP",
+    "split": "train_val",
+    "guideline_ids": [
+      3
+    ],
+    "actual_module1_cache": true,
+    "full_prompt_tokens": 1430,
+    "truncated": false,
+    "rank": 4,
+    "activation_tokens_per_head": 128,
+    "model": "Qwen3-8B",
+    "labels_added": false,
+    "training": false
+  },
+  "defaults": {
+    "context_strength": 0.1,
+    "prior_strength": 0.1,
+    "minimum_prior_evidence_confidence": 0.8
+  },
+  "gpu_validation": {
+    "peak_allocated_gib": 16.46956443786621,
+    "elapsed_seconds": 5.137798309326172,
+    "actual_module1_next_token_delta": 0.5,
+    "actual_context_changed_elements": 54460,
+    "actual_prior_changed_elements": 0.0,
+    "zero_gate_exact": true,
+    "zero_strength_adapter_delta": 0.0,
+    "gqa_unselected_query_keys_exact": true
+  },
+  "limitations": [
+    "Spectral bases use uncentered calibration activation SVD; they are not SEKA original cross-covariance positive/negative projectors.",
+    "Context currently increases mapped token salience; query-specific relation attention bias is deferred.",
+    "Prior subspace is attention-output PCA proxy, not identified prior-only causal direction.",
+    "Actual cached Module1 case has no applicable valid conflict; prior path execution verified with clearly identified synthetic gate controls only.",
+    "Qwen3 adapter uses installed current SDPA and DynamicCache API; output attentions and non-Qwen3 attention implementations are unsupported.",
+    "Only a small calibration and inference smoke run; no efficacy or medical reliability claim."
+  ]
+}

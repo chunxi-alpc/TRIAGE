@@ -1,0 +1,17 @@
+{
+  "change": "Disabled context/prior operators now leave original attention forward and hooks untouched; zero relation weights removed from active token map.",
+  "changed_file": "src/module3/intervention.py",
+  "zero_strength_exact": true,
+  "zero_gate_exact": true,
+  "restored_exact": true,
+  "unselected_query_heads_exact": true,
+  "active_logits_changed": true,
+  "cached_generation_ok": true,
+  "cpu_test_scope": "tiny random Qwen3 CPU implementation checks, not clinical results",
+  "raw_baseline_caveat": "Existing pipeline baseline includes module1 rules, applicability and statuses, so it isolates hook effects but is not unguided raw-model inference.",
+  "head_stability_caveat": "Cached head (12,24) applicable effects are +0.5 and -0.25; selected heads require real-case diagnosis without expansion of search.",
+  "projection_caveat": "Attention-output PCA is a prior proxy, not an identified prior-only subspace.",
+  "reference_leak_static_check": "module2/3 and token mapping do not accept or read reference_answer; runner must retain strict inference/evaluation separation.",
+  "training_or_downloads": false,
+  "gpu_experiments_started_by_this_agent": false
+}

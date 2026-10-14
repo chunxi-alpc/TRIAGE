@@ -1,0 +1,2774 @@
+{
+  "run_kind": "module1_minimal_real_data_smoke",
+  "dataset": "MEGA-CDP",
+  "split": "train_val",
+  "reference_answers_used": false,
+  "single_module_instance": true,
+  "samples": [
+    {
+      "input_source": {
+        "dataset": "MEGA-CDP",
+        "split": "train_val",
+        "guideline_id": 3,
+        "filename": "0038cbddf9f49585748cdfe27ff17c71",
+        "patient": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/vignette_cases.jsonl",
+          "line": 13,
+          "field": "text"
+        },
+        "guideline": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/decision_trees.jsonl",
+          "line": 2,
+          "field": "text.decision_tree",
+          "representation": "official_structured_tree",
+          "all_tree_paths_used": true,
+          "rule_count": 18
+        },
+        "original_guideline_markdown": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/guideline_md/0038cbddf9f49585748cdfe27ff17c71/0038cbddf9f49585748cdfe27ff17c71.md",
+        "question": {
+          "origin": "generic management question written for this smoke run; not a reference answer"
+        }
+      },
+      "guideline": {
+        "rules": [
+          {
+            "rule_id": "mega_3_leaf_5",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor? AND The answer must be YES: Can clopidogrel be avoided?. Recommendation: Avoid standard-dose clopidogrel (75 mg/day) if possible; use an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_yes",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_2_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_3_yes",
+                "text": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_4_yes",
+                "text": "Can clopidogrel be avoided?",
+                "negated": false
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Avoid standard-dose clopidogrel (75 mg/day) if possible; use an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications.",
+            "source_node_index": 5
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor? AND The answer must be NO: Can clopidogrel be avoided?. Recommendation: If clopidogrel cannot be avoided in a CYP2C19 IM, clopidogrel 225 mg/day could be considered as an alternative treatment option to prasugrel or ticagrelor.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_yes",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_2_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_3_yes",
+                "text": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_4_no",
+                "text": "Can clopidogrel be avoided?",
+                "negated": true
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "If clopidogrel cannot be avoided in a CYP2C19 IM, clopidogrel 225 mg/day could be considered as an alternative treatment option to prasugrel or ticagrelor.",
+            "source_node_index": 6
+          },
+          {
+            "rule_id": "mega_3_leaf_7",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be NO: If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?. Recommendation: Avoid standard-dose clopidogrel (75 mg/day) if possible; use prasugrel or ticagrelor at standard dose.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_yes",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_2_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_3_no",
+                "text": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+                "negated": true
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Avoid standard-dose clopidogrel (75 mg/day) if possible; use prasugrel or ticagrelor at standard dose.",
+            "source_node_index": 7
+          },
+          {
+            "rule_id": "mega_3_leaf_10",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')? AND The answer must be YES: Is there a contraindication to prasugrel or ticagrelor?. Recommendation: Avoid clopidogrel if possible; select an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications (dose escalation is not recommended for CYP2C19 PMs).",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_yes",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_2_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_8_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_9_yes",
+                "text": "Is there a contraindication to prasugrel or ticagrelor?",
+                "negated": false
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Avoid clopidogrel if possible; select an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications (dose escalation is not recommended for CYP2C19 PMs).",
+            "source_node_index": 10
+          },
+          {
+            "rule_id": "mega_3_leaf_11",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')? AND The answer must be NO: Is there a contraindication to prasugrel or ticagrelor?. Recommendation: Avoid clopidogrel if possible; use prasugrel or ticagrelor at standard dose.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_yes",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_2_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_8_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_9_no",
+                "text": "Is there a contraindication to prasugrel or ticagrelor?",
+                "negated": true
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Avoid clopidogrel if possible; use prasugrel or ticagrelor at standard dose.",
+            "source_node_index": 11
+          },
+          {
+            "rule_id": "mega_3_leaf_13",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype a normal metabolizer, rapid metabolizer, or ultrarapid metabolizer?. Recommendation: Use clopidogrel at standard dose (75 mg/day).",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_yes",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_2_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_8_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_12_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer, rapid metabolizer, or ultrarapid metabolizer?",
+                "negated": false
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Use clopidogrel at standard dose (75 mg/day).",
+            "source_node_index": 13
+          },
+          {
+            "rule_id": "mega_3_leaf_14",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a normal metabolizer, rapid metabolizer, or ultrarapid metabolizer?. Recommendation: No specific CPIC clopidogrel recommendation can be made from the provided text for this phenotype; interpret genotype/phenotype with assay limitations in mind.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_yes",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_2_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_8_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_12_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer, rapid metabolizer, or ultrarapid metabolizer?",
+                "negated": true
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "No specific CPIC clopidogrel recommendation can be made from the provided text for this phenotype; interpret genotype/phenotype with assay limitations in mind.",
+            "source_node_index": 14
+          },
+          {
+            "rule_id": "mega_3_leaf_17",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype a normal metabolizer?. Recommendation: Use clopidogrel at standard dose (75 mg/day).",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_yes",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_16_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer?",
+                "negated": false
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Use clopidogrel at standard dose (75 mg/day).",
+            "source_node_index": 17
+          },
+          {
+            "rule_id": "mega_3_leaf_20",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a normal metabolizer? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: Does the patient have a history of stroke or TIA (prasugrel contraindication)?. Recommendation: Consider an alternative P2Y12 inhibitor at standard dose if clinically indicated and no contraindication; prasugrel is contraindicated, so consider ticagrelor or ticlopidine.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_yes",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_16_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_18_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_19_yes",
+                "text": "Does the patient have a history of stroke or TIA (prasugrel contraindication)?",
+                "negated": false
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Consider an alternative P2Y12 inhibitor at standard dose if clinically indicated and no contraindication; prasugrel is contraindicated, so consider ticagrelor or ticlopidine.",
+            "source_node_index": 20
+          },
+          {
+            "rule_id": "mega_3_leaf_21",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a normal metabolizer? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be NO: Does the patient have a history of stroke or TIA (prasugrel contraindication)?. Recommendation: Consider an alternative P2Y12 inhibitor at standard dose if clinically indicated and no contraindication.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_yes",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_16_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_18_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_19_no",
+                "text": "Does the patient have a history of stroke or TIA (prasugrel contraindication)?",
+                "negated": true
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Consider an alternative P2Y12 inhibitor at standard dose if clinically indicated and no contraindication.",
+            "source_node_index": 21
+          },
+          {
+            "rule_id": "mega_3_leaf_24",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a normal metabolizer? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')? AND The answer must be YES: Does the patient have a history of stroke or TIA (prasugrel contraindication)?. Recommendation: Avoid clopidogrel if possible; consider an alternative P2Y12 inhibitor at standard dose if clinically indicated and no contraindication; prasugrel is contraindicated, so consider ticagrelor or ticlopidine.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_yes",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_16_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_18_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_22_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_23_yes",
+                "text": "Does the patient have a history of stroke or TIA (prasugrel contraindication)?",
+                "negated": false
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Avoid clopidogrel if possible; consider an alternative P2Y12 inhibitor at standard dose if clinically indicated and no contraindication; prasugrel is contraindicated, so consider ticagrelor or ticlopidine.",
+            "source_node_index": 24
+          },
+          {
+            "rule_id": "mega_3_leaf_25",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a normal metabolizer? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')? AND The answer must be NO: Does the patient have a history of stroke or TIA (prasugrel contraindication)?. Recommendation: Avoid clopidogrel if possible; consider an alternative P2Y12 inhibitor at standard dose if clinically indicated and no contraindication.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_yes",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_16_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_18_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_22_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_23_no",
+                "text": "Does the patient have a history of stroke or TIA (prasugrel contraindication)?",
+                "negated": true
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Avoid clopidogrel if possible; consider an alternative P2Y12 inhibitor at standard dose if clinically indicated and no contraindication.",
+            "source_node_index": 25
+          },
+          {
+            "rule_id": "mega_3_leaf_26",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a normal metabolizer? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?. Recommendation: Insufficient data to make a clinical recommendation for CYP2C19 ultrarapid or rapid metabolizers in neurovascular disease (no recommendation).",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_yes",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_16_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_18_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_22_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?",
+                "negated": true
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Insufficient data to make a clinical recommendation for CYP2C19 ultrarapid or rapid metabolizers in neurovascular disease (no recommendation).",
+            "source_node_index": 26
+          },
+          {
+            "rule_id": "mega_3_leaf_29",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be NO: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be YES: Does the patient have a cardiovascular indication for clopidogrel outside ACS or PCI (e.g., peripheral arterial disease or stable coronary artery disease following a recent MI)? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype a normal metabolizer?. Recommendation: Use clopidogrel at standard dose (75 mg/day).",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_no",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_27_yes",
+                "text": "Does the patient have a cardiovascular indication for clopidogrel outside ACS or PCI (e.g., peripheral arterial disease or stable coronary artery disease following a recent MI)?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_28_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer?",
+                "negated": false
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Use clopidogrel at standard dose (75 mg/day).",
+            "source_node_index": 29
+          },
+          {
+            "rule_id": "mega_3_leaf_32",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be NO: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be YES: Does the patient have a cardiovascular indication for clopidogrel outside ACS or PCI (e.g., peripheral arterial disease or stable coronary artery disease following a recent MI)? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a normal metabolizer? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')? AND The answer must be YES: Is there a contraindication to prasugrel or ticagrelor?. Recommendation: Avoid clopidogrel; use an alternative agent if clinically feasible given contraindications.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_no",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_27_yes",
+                "text": "Does the patient have a cardiovascular indication for clopidogrel outside ACS or PCI (e.g., peripheral arterial disease or stable coronary artery disease following a recent MI)?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_28_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_30_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_31_yes",
+                "text": "Is there a contraindication to prasugrel or ticagrelor?",
+                "negated": false
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Avoid clopidogrel; use an alternative agent if clinically feasible given contraindications.",
+            "source_node_index": 32
+          },
+          {
+            "rule_id": "mega_3_leaf_33",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be NO: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be YES: Does the patient have a cardiovascular indication for clopidogrel outside ACS or PCI (e.g., peripheral arterial disease or stable coronary artery disease following a recent MI)? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a normal metabolizer? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')? AND The answer must be NO: Is there a contraindication to prasugrel or ticagrelor?. Recommendation: Avoid clopidogrel; use prasugrel or ticagrelor at standard dose.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_no",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_27_yes",
+                "text": "Does the patient have a cardiovascular indication for clopidogrel outside ACS or PCI (e.g., peripheral arterial disease or stable coronary artery disease following a recent MI)?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_28_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_30_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_31_no",
+                "text": "Is there a contraindication to prasugrel or ticagrelor?",
+                "negated": true
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Avoid clopidogrel; use prasugrel or ticagrelor at standard dose.",
+            "source_node_index": 33
+          },
+          {
+            "rule_id": "mega_3_leaf_34",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be NO: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be YES: Does the patient have a cardiovascular indication for clopidogrel outside ACS or PCI (e.g., peripheral arterial disease or stable coronary artery disease following a recent MI)? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a normal metabolizer? AND The answer must be NO: Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?. Recommendation: Insufficient data to make a clinical recommendation for CYP2C19 ultrarapid, rapid, or intermediate metabolizers in non-ACS, non-PCI cardiovascular indications (no recommendation).",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_no",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_27_yes",
+                "text": "Does the patient have a cardiovascular indication for clopidogrel outside ACS or PCI (e.g., peripheral arterial disease or stable coronary artery disease following a recent MI)?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_28_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a normal metabolizer?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_30_no",
+                "text": "Is the patient's predicted CYP2C19 phenotype a poor metabolizer (including 'likely PM')?",
+                "negated": true
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Insufficient data to make a clinical recommendation for CYP2C19 ultrarapid, rapid, or intermediate metabolizers in non-ACS, non-PCI cardiovascular indications (no recommendation).",
+            "source_node_index": 34
+          },
+          {
+            "rule_id": "mega_3_leaf_35",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be NO: Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)? AND The answer must be NO: Does the patient have a cardiovascular indication for clopidogrel outside ACS or PCI (e.g., peripheral arterial disease or stable coronary artery disease following a recent MI)?. Recommendation: Guideline pathway not applicable: indication for clopidogrel (cardiovascular/neurovascular) not established in the provided text.",
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_no",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_15_no",
+                "text": "Does the patient have neurovascular disease where clopidogrel is being considered (acute ischemic stroke or TIA; secondary stroke prevention; or prevention of thromboembolic events after neurointerventional procedures)?",
+                "negated": true
+              },
+              {
+                "condition_id": "mega_3_node_27_no",
+                "text": "Does the patient have a cardiovascular indication for clopidogrel outside ACS or PCI (e.g., peripheral arterial disease or stable coronary artery disease following a recent MI)?",
+                "negated": true
+              }
+            ],
+            "logic": "AND",
+            "exceptions": [],
+            "action": "Guideline pathway not applicable: indication for clopidogrel (cardiovascular/neurovascular) not established in the provided text.",
+            "source_node_index": 35
+          }
+        ]
+      },
+      "patient": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration. Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result). When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented. Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen. This case focused on management.",
+      "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+      "result": {
+        "schema_version": "module1.v1",
+        "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+        "candidate_rules": [
+          {
+            "rule_id": "mega_3_leaf_7",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be NO: If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?. Recommendation: Avoid standard-dose clopidogrel (75 mg/day) if possible; use prasugrel or ticagrelor at standard dose.",
+            "source_span": {
+              "start": 0,
+              "end": 578,
+              "unit": "character",
+              "index": 2
+            },
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_yes",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_2_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_3_no",
+                "text": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+                "negated": true
+              }
+            ],
+            "logic": {
+              "op": "AND",
+              "args": [
+                "mega_3_node_1_yes",
+                "mega_3_node_2_yes",
+                "mega_3_node_3_no"
+              ]
+            },
+            "exceptions": [],
+            "exception_logic": {
+              "op": "OR",
+              "args": []
+            },
+            "action": "Avoid standard-dose clopidogrel (75 mg/day) if possible; use prasugrel or ticagrelor at standard dose.",
+            "parse_status": "ok",
+            "parse_cache_hit": false
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor? AND The answer must be YES: Can clopidogrel be avoided?. Recommendation: Avoid standard-dose clopidogrel (75 mg/day) if possible; use an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications.",
+            "source_span": {
+              "start": 0,
+              "end": 688,
+              "unit": "character",
+              "index": 0
+            },
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_yes",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_2_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_3_yes",
+                "text": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_4_yes",
+                "text": "Can clopidogrel be avoided?",
+                "negated": false
+              }
+            ],
+            "logic": {
+              "op": "AND",
+              "args": [
+                "mega_3_node_1_yes",
+                "mega_3_node_2_yes",
+                "mega_3_node_3_yes",
+                "mega_3_node_4_yes"
+              ]
+            },
+            "exceptions": [],
+            "exception_logic": {
+              "op": "OR",
+              "args": []
+            },
+            "action": "Avoid standard-dose clopidogrel (75 mg/day) if possible; use an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications.",
+            "parse_status": "ok",
+            "parse_cache_hit": false
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor? AND The answer must be NO: Can clopidogrel be avoided?. Recommendation: If clopidogrel cannot be avoided in a CYP2C19 IM, clopidogrel 225 mg/day could be considered as an alternative treatment option to prasugrel or ticagrelor.",
+            "source_span": {
+              "start": 0,
+              "end": 687,
+              "unit": "character",
+              "index": 1
+            },
+            "conditions": [
+              {
+                "condition_id": "mega_3_node_1_yes",
+                "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_2_yes",
+                "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_3_yes",
+                "text": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+                "negated": false
+              },
+              {
+                "condition_id": "mega_3_node_4_no",
+                "text": "Can clopidogrel be avoided?",
+                "negated": true
+              }
+            ],
+            "logic": {
+              "op": "AND",
+              "args": [
+                "mega_3_node_1_yes",
+                "mega_3_node_2_yes",
+                "mega_3_node_3_yes",
+                "mega_3_node_4_no"
+              ]
+            },
+            "exceptions": [],
+            "exception_logic": {
+              "op": "OR",
+              "args": []
+            },
+            "action": "If clopidogrel cannot be avoided in a CYP2C19 IM, clopidogrel 225 mg/day could be considered as an alternative treatment option to prasugrel or ticagrelor.",
+            "parse_status": "ok",
+            "parse_cache_hit": false
+          }
+        ],
+        "prior_decision": {
+          "decision": "Avoid clopidogrel",
+          "actions": [
+            "Select an alternative P2Y12 inhibitor",
+            "Document the rationale for avoiding clopidogrel"
+          ],
+          "status": "decided",
+          "rationale": "The patient is a CYP2C19 intermediate metabolizer with contraindications to prasugrel and ticagrelor, making clopidogrel an unsuitable option."
+        },
+        "guideline_decision": {
+          "decision": "Avoid standard-dose clopidogrel (75 mg/day) if possible; use an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications.",
+          "actions": [
+            "Avoid standard-dose clopidogrel",
+            "Use an alternative P2Y12 inhibitor if feasible"
+          ],
+          "status": "decided",
+          "rationale": "The patient meets the criteria for avoiding clopidogrel due to CYP2C19 intermediate metabolizer status and contraindications to prasugrel or ticagrelor."
+        },
+        "conflict_scores": [
+          {
+            "rule_id": "mega_3_leaf_7",
+            "score": 1.0,
+            "status": "disagreement",
+            "prior_support": "oppose",
+            "guided_support": "support",
+            "reason": "Prior decision avoids clopidogrel entirely, while the rule suggests avoiding standard-dose clopidogrel but using prasugrel or ticagrelor, which are contraindicated in this case.",
+            "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "score": 0.0,
+            "status": "agreement",
+            "prior_support": "support",
+            "guided_support": "support",
+            "reason": "Both decisions align in avoiding standard-dose clopidogrel and using an alternative P2Y12 inhibitor if feasible.",
+            "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "score": 0.5,
+            "status": "unknown",
+            "prior_support": "oppose",
+            "guided_support": "unknown",
+            "reason": "Prior decision avoids clopidogrel entirely, while the rule suggests considering clopidogrel 225 mg/day, which is not recommended for CYP2C19 intermediate metabolizers.",
+            "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+          }
+        ],
+        "relevance_scores": [
+          {
+            "rule_id": "mega_3_leaf_7",
+            "score": 0.9550198912620544
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "score": 0.9535016417503357
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "score": 0.9464606046676636
+          }
+        ],
+        "condition_evidence_relations": [
+          {
+            "rule_id": "mega_3_leaf_7",
+            "condition_id": "mega_3_node_1_yes",
+            "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+                "start": 0,
+                "end": 218,
+                "sentence_id": 0
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the patient has an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered. Sentence 0 directly states that the patient presented with an acute coronary syndrome (ACS) requiring percutaneous coronary intervention (PCI), creating a cardiovascular indication for antiplatelet therapy, and clopidogrel had been under consideration. This satisfies the criterion.",
+            "shared_base_condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "decisive": false
+          },
+          {
+            "rule_id": "mega_3_leaf_7",
+            "condition_id": "mega_3_node_2_yes",
+            "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+                "start": 219,
+                "end": 334,
+                "sentence_id": 1
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the patient's predicted CYP2C19 phenotype is an intermediate metabolizer (including 'likely IM'). Sentence 1 directly states that the patient's pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a 'likely IM' result). This satisfies the criterion.",
+            "shared_base_condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "decisive": false
+          },
+          {
+            "rule_id": "mega_3_leaf_7",
+            "condition_id": "mega_3_node_3_no",
+            "condition": "NOT (If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?)",
+            "role": "condition",
+            "negated": true,
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+                "start": 335,
+                "end": 461,
+                "sentence_id": 2
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if there is a contraindication to prasugrel or ticagrelor when an alternative is being selected. Sentence 2 directly states that a contraindication to prasugrel or ticagrelor was documented. This satisfies the criterion.",
+            "shared_base_condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "decisive": true
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_1_yes",
+            "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+                "start": 0,
+                "end": 218,
+                "sentence_id": 0
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the patient has an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered. Sentence 0 directly states that the patient presented with an acute coronary syndrome (ACS) requiring percutaneous coronary intervention (PCI), creating a cardiovascular indication for antiplatelet therapy, and clopidogrel had been under consideration. This satisfies the criterion.",
+            "shared_base_condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "decisive": true
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_2_yes",
+            "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+                "start": 219,
+                "end": 334,
+                "sentence_id": 1
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the patient's predicted CYP2C19 phenotype is an intermediate metabolizer (including 'likely IM'). Sentence 1 directly states that the patient's pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a 'likely IM' result). This satisfies the criterion.",
+            "shared_base_condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "decisive": true
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_3_yes",
+            "condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+                "start": 335,
+                "end": 461,
+                "sentence_id": 2
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if there is a contraindication to prasugrel or ticagrelor when an alternative is being selected. Sentence 2 directly states that a contraindication to prasugrel or ticagrelor was documented. This satisfies the criterion.",
+            "shared_base_condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "decisive": true
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_4_yes",
+            "condition": "Can clopidogrel be avoided?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+                "start": 462,
+                "end": 554,
+                "sentence_id": 3
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Can clopidogrel be avoided?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if clopidogrel can be avoided. Sentence 3 directly states that clopidogrel was nevertheless avoided in the antiplatelet regimen. This satisfies the criterion.",
+            "shared_base_condition": "Can clopidogrel be avoided?",
+            "decisive": true
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "condition_id": "mega_3_node_1_yes",
+            "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+                "start": 0,
+                "end": 218,
+                "sentence_id": 0
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the patient has an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered. Sentence 0 directly states that the patient presented with an acute coronary syndrome (ACS) requiring percutaneous coronary intervention (PCI), creating a cardiovascular indication for antiplatelet therapy, and clopidogrel had been under consideration. This satisfies the criterion.",
+            "shared_base_condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "decisive": false
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "condition_id": "mega_3_node_2_yes",
+            "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+                "start": 219,
+                "end": 334,
+                "sentence_id": 1
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the patient's predicted CYP2C19 phenotype is an intermediate metabolizer (including 'likely IM'). Sentence 1 directly states that the patient's pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a 'likely IM' result). This satisfies the criterion.",
+            "shared_base_condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "decisive": false
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "condition_id": "mega_3_node_3_yes",
+            "condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+                "start": 335,
+                "end": 461,
+                "sentence_id": 2
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if there is a contraindication to prasugrel or ticagrelor when an alternative is being selected. Sentence 2 directly states that a contraindication to prasugrel or ticagrelor was documented. This satisfies the criterion.",
+            "shared_base_condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "decisive": false
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "condition_id": "mega_3_node_4_no",
+            "condition": "NOT (Can clopidogrel be avoided?)",
+            "role": "condition",
+            "negated": true,
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+                "start": 462,
+                "end": 554,
+                "sentence_id": 3
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Can clopidogrel be avoided?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if clopidogrel can be avoided. Sentence 3 directly states that clopidogrel was nevertheless avoided in the antiplatelet regimen. This satisfies the criterion.",
+            "shared_base_condition": "Can clopidogrel be avoided?",
+            "decisive": true
+          }
+        ],
+        "applicability": [
+          {
+            "rule_id": "mega_3_leaf_7",
+            "status": "not_applicable",
+            "conditions_status": "not_satisfied",
+            "exceptions_status": "not_satisfied",
+            "decisive_condition_ids": [
+              "mega_3_node_3_no"
+            ],
+            "blockers": [
+              "mega_3_node_3_no"
+            ],
+            "supporters": []
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "status": "applicable",
+            "conditions_status": "satisfied",
+            "exceptions_status": "not_satisfied",
+            "decisive_condition_ids": [
+              "mega_3_node_1_yes",
+              "mega_3_node_2_yes",
+              "mega_3_node_3_yes",
+              "mega_3_node_4_yes"
+            ],
+            "blockers": [],
+            "supporters": [
+              "mega_3_node_1_yes",
+              "mega_3_node_2_yes",
+              "mega_3_node_3_yes",
+              "mega_3_node_4_yes"
+            ]
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "status": "not_applicable",
+            "conditions_status": "not_satisfied",
+            "exceptions_status": "not_satisfied",
+            "decisive_condition_ids": [
+              "mega_3_node_4_no"
+            ],
+            "blockers": [
+              "mega_3_node_4_no"
+            ],
+            "supporters": []
+          }
+        ],
+        "critical_spans": [
+          {
+            "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+            "start": 335,
+            "end": 461,
+            "sentence_id": 2,
+            "rule_id": "mega_3_leaf_7",
+            "condition_id": "mega_3_node_3_no",
+            "role": "condition",
+            "status": "not_satisfied",
+            "decisive": true
+          },
+          {
+            "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+            "start": 0,
+            "end": 218,
+            "sentence_id": 0,
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_1_yes",
+            "role": "condition",
+            "status": "satisfied",
+            "decisive": true
+          },
+          {
+            "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+            "start": 219,
+            "end": 334,
+            "sentence_id": 1,
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_2_yes",
+            "role": "condition",
+            "status": "satisfied",
+            "decisive": true
+          },
+          {
+            "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+            "start": 335,
+            "end": 461,
+            "sentence_id": 2,
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_3_yes",
+            "role": "condition",
+            "status": "satisfied",
+            "decisive": true
+          },
+          {
+            "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+            "start": 462,
+            "end": 554,
+            "sentence_id": 3,
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_4_yes",
+            "role": "condition",
+            "status": "satisfied",
+            "decisive": true
+          },
+          {
+            "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+            "start": 462,
+            "end": 554,
+            "sentence_id": 3,
+            "rule_id": "mega_3_leaf_6",
+            "condition_id": "mega_3_node_4_no",
+            "role": "condition",
+            "status": "not_satisfied",
+            "decisive": true
+          }
+        ],
+        "relation_weights": [
+          {
+            "rule_id": "mega_3_leaf_7",
+            "condition_id": "mega_3_node_1_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+                "start": 0,
+                "end": 218,
+                "sentence_id": 0
+              }
+            ],
+            "weight": 0.811767,
+            "signed_weight": 0.811767,
+            "decisive": false,
+            "binding_gate": 0.811767,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_7",
+            "condition_id": "mega_3_node_2_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+                "start": 219,
+                "end": 334,
+                "sentence_id": 1
+              }
+            ],
+            "weight": 0.811767,
+            "signed_weight": 0.811767,
+            "decisive": false,
+            "binding_gate": 0.811767,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_7",
+            "condition_id": "mega_3_node_3_no",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "NOT (If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+                "start": 335,
+                "end": 461,
+                "sentence_id": 2
+              }
+            ],
+            "weight": 0.811767,
+            "signed_weight": -0.811767,
+            "decisive": true,
+            "binding_gate": 0.811767,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_1_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+                "start": 0,
+                "end": 218,
+                "sentence_id": 0
+              }
+            ],
+            "weight": 0.405238,
+            "signed_weight": 0.405238,
+            "decisive": true,
+            "binding_gate": 0.405238,
+            "action_gate": 0.476751,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_2_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+                "start": 219,
+                "end": 334,
+                "sentence_id": 1
+              }
+            ],
+            "weight": 0.405238,
+            "signed_weight": 0.405238,
+            "decisive": true,
+            "binding_gate": 0.405238,
+            "action_gate": 0.476751,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_3_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+                "start": 335,
+                "end": 461,
+                "sentence_id": 2
+              }
+            ],
+            "weight": 0.405238,
+            "signed_weight": 0.405238,
+            "decisive": true,
+            "binding_gate": 0.405238,
+            "action_gate": 0.476751,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_4_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "Can clopidogrel be avoided?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+                "start": 462,
+                "end": 554,
+                "sentence_id": 3
+              }
+            ],
+            "weight": 0.405238,
+            "signed_weight": 0.405238,
+            "decisive": true,
+            "binding_gate": 0.405238,
+            "action_gate": 0.476751,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "condition_id": "mega_3_node_1_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+                "start": 0,
+                "end": 218,
+                "sentence_id": 0
+              }
+            ],
+            "weight": 0.603369,
+            "signed_weight": 0.603369,
+            "decisive": false,
+            "binding_gate": 0.603369,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "condition_id": "mega_3_node_2_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+                "start": 219,
+                "end": 334,
+                "sentence_id": 1
+              }
+            ],
+            "weight": 0.603369,
+            "signed_weight": 0.603369,
+            "decisive": false,
+            "binding_gate": 0.603369,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "condition_id": "mega_3_node_3_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+                "start": 335,
+                "end": 461,
+                "sentence_id": 2
+              }
+            ],
+            "weight": 0.603369,
+            "signed_weight": 0.603369,
+            "decisive": false,
+            "binding_gate": 0.603369,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "condition_id": "mega_3_node_4_no",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "NOT (Can clopidogrel be avoided?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+                "start": 462,
+                "end": 554,
+                "sentence_id": 3
+              }
+            ],
+            "weight": 0.603369,
+            "signed_weight": -0.603369,
+            "decisive": true,
+            "binding_gate": 0.603369,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          }
+        ],
+        "decisive_relations": [
+          {
+            "rule_id": "mega_3_leaf_7",
+            "condition_id": "mega_3_node_3_no",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "NOT (If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+                "start": 335,
+                "end": 461,
+                "sentence_id": 2
+              }
+            ],
+            "weight": 0.811767,
+            "signed_weight": -0.811767,
+            "decisive": true,
+            "binding_gate": 0.811767,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_1_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+                "start": 0,
+                "end": 218,
+                "sentence_id": 0
+              }
+            ],
+            "weight": 0.405238,
+            "signed_weight": 0.405238,
+            "decisive": true,
+            "binding_gate": 0.405238,
+            "action_gate": 0.476751,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_2_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+                "start": 219,
+                "end": 334,
+                "sentence_id": 1
+              }
+            ],
+            "weight": 0.405238,
+            "signed_weight": 0.405238,
+            "decisive": true,
+            "binding_gate": 0.405238,
+            "action_gate": 0.476751,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_3_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+                "start": 335,
+                "end": 461,
+                "sentence_id": 2
+              }
+            ],
+            "weight": 0.405238,
+            "signed_weight": 0.405238,
+            "decisive": true,
+            "binding_gate": 0.405238,
+            "action_gate": 0.476751,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_5",
+            "condition_id": "mega_3_node_4_yes",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "Can clopidogrel be avoided?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+                "start": 462,
+                "end": 554,
+                "sentence_id": 3
+              }
+            ],
+            "weight": 0.405238,
+            "signed_weight": 0.405238,
+            "decisive": true,
+            "binding_gate": 0.405238,
+            "action_gate": 0.476751,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "mega_3_leaf_6",
+            "condition_id": "mega_3_node_4_no",
+            "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+            "condition": "NOT (Can clopidogrel be avoided?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+                "start": 462,
+                "end": 554,
+                "sentence_id": 3
+              }
+            ],
+            "weight": 0.603369,
+            "signed_weight": -0.603369,
+            "decisive": true,
+            "binding_gate": 0.603369,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          }
+        ],
+        "binding_gate": {
+          "mega_3_leaf_7": {
+            "mega_3_node_1_yes": 0.811767,
+            "mega_3_node_2_yes": 0.811767,
+            "mega_3_node_3_no": 0.811767
+          },
+          "mega_3_leaf_5": {
+            "mega_3_node_1_yes": 0.405238,
+            "mega_3_node_2_yes": 0.405238,
+            "mega_3_node_3_yes": 0.405238,
+            "mega_3_node_4_yes": 0.405238
+          },
+          "mega_3_leaf_6": {
+            "mega_3_node_1_yes": 0.603369,
+            "mega_3_node_2_yes": 0.603369,
+            "mega_3_node_3_yes": 0.603369,
+            "mega_3_node_4_no": 0.603369
+          }
+        },
+        "action_gate": {
+          "mega_3_leaf_7": 0.0,
+          "mega_3_leaf_5": 0.476751,
+          "mega_3_leaf_6": 0.0
+        },
+        "metadata": {
+          "elapsed_seconds": 23.607,
+          "backend": "Qwen3-8B + MedCPT-MedPair + TrialGPT-Matching",
+          "reference_answers_used": false,
+          "scores_are_calibrated": false,
+          "gate_formula": "binding=relevance*(0.5+0.5*conflict)*evidence_confidence; action=relevance*(0.5+0.5*conflict) iff applicable; prior_competition=action*conflict",
+          "unknown_binding": 0,
+          "unknown_action": 0,
+          "model_calls": [
+            {
+              "input_tokens": 234,
+              "output_tokens": 93,
+              "seconds": 2.615,
+              "attempt": 0
+            },
+            {
+              "input_tokens": 805,
+              "output_tokens": 309,
+              "seconds": 7.088,
+              "attempt": 0
+            },
+            {
+              "input_tokens": 1987,
+              "output_tokens": 125,
+              "seconds": 3.013,
+              "attempt": 0
+            },
+            {
+              "input_tokens": 539,
+              "output_tokens": 234,
+              "seconds": 5.319,
+              "attempt": 0
+            }
+          ]
+        }
+      },
+      "elapsed_seconds": 27.138,
+      "gpu_memory": {
+        "torch_devices": {
+          "0": {
+            "name": "NVIDIA A100-SXM4-80GB",
+            "allocated_gib": 15.675623893737793,
+            "reserved_gib": 16.42578125,
+            "peak_allocated_gib": 16.149622917175293
+          }
+        },
+        "nvidia_smi_memory_mib": [
+          "0, 17339, 81920",
+          "1, 0, 81920",
+          "2, 0, 81920",
+          "3, 0, 81920",
+          "4, 0, 81920",
+          "5, 0, 81920",
+          "6, 0, 81920",
+          "7, 0, 81920"
+        ]
+      },
+      "structured_json_verified": true
+    },
+    {
+      "input_source": {
+        "dataset": "MEGA-CDP",
+        "split": "train_val",
+        "guideline_id": 9,
+        "filename": "00af1512db52ba99bc141458324f7fc4",
+        "patient": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/vignette_cases.jsonl",
+          "line": 94,
+          "field": "text"
+        },
+        "guideline": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/decision_trees.jsonl",
+          "line": 6,
+          "field": "text.decision_tree",
+          "representation": "text_clauses_from_official_tree",
+          "all_tree_paths_used": true,
+          "rule_count": 19
+        },
+        "original_guideline_markdown": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/guideline_md/00af1512db52ba99bc141458324f7fc4/00af1512db52ba99bc141458324f7fc4.md",
+        "question": {
+          "origin": "generic management question written for this smoke run; not a reference answer"
+        }
+      },
+      "guideline": [
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be YES: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be YES: Is neoadjuvant imatinib available and tolerated?. Recommendation: Use neoadjuvant imatinib to downsize tumor, then proceed to surgical excision with goal of negative margins.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be YES: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be NO: Is neoadjuvant imatinib available and tolerated?. Recommendation: Proceed directly to surgical excision with goal of negative margins despite functional/cosmetic concerns, with multidisciplinary planning.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be YES: Is Mohs micrographic surgery or other forms of PDEMA available? AND The answer must be YES: After Mohs/PDEMA excision, are histologic margins negative?. Recommendation: Margins clear after Mohs/PDEMA: no adjuvant radiation therapy; delay or perform reconstruction only after margin clearance and begin routine follow-up.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be YES: Is Mohs micrographic surgery or other forms of PDEMA available? AND The answer must be NO: After Mohs/PDEMA excision, are histologic margins negative? AND The answer must be YES: Is further re-resection feasible?. Recommendation: Perform re-resection using Mohs/PDEMA or combined techniques to achieve clear margins before reconstruction; avoid wide undermining until margins are clear.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be YES: Is Mohs micrographic surgery or other forms of PDEMA available? AND The answer must be NO: After Mohs/PDEMA excision, are histologic margins negative? AND The answer must be NO: Is further re-resection feasible? AND The answer must be YES: Has radiation therapy been given previously to this site?. Recommendation: Positive margins, further resection not feasible, prior RT given: manage with multidisciplinary consultation for other systemic or palliative options (e.g., imatinib) and surveillance.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be YES: Is Mohs micrographic surgery or other forms of PDEMA available? AND The answer must be NO: After Mohs/PDEMA excision, are histologic margins negative? AND The answer must be NO: Is further re-resection feasible? AND The answer must be NO: Has radiation therapy been given previously to this site?. Recommendation: Positive margins, further resection not feasible, no prior RT: give adjuvant radiation therapy (50–60 Gy for indeterminate/positive margins, up to 66 Gy for gross tumor) with wide fields.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be NO: Is Mohs micrographic surgery or other forms of PDEMA available? AND The answer must be YES: Proceeding with wide local excision (WLE): after WLE, are histologic margins negative? AND The answer must be YES: Were Mohs or other forms of PDEMA used for this excision?. Recommendation: Negative margins achieved with Mohs/PDEMA: no adjuvant radiation therapy; begin routine follow-up and consider delayed reconstruction after verification of clear margins.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be NO: Is Mohs micrographic surgery or other forms of PDEMA available? AND The answer must be YES: Proceeding with wide local excision (WLE): after WLE, are histologic margins negative? AND The answer must be NO: Were Mohs or other forms of PDEMA used for this excision? AND The answer must be YES: Is the closest margin <1 cm (narrow margin) by treating physician assessment?. Recommendation: Negative but close (<1 cm) margins without Mohs/PDEMA: consider adjuvant radiation therapy with fields extending 3–5 cm beyond surgical margins when feasible.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be NO: Is Mohs micrographic surgery or other forms of PDEMA available? AND The answer must be YES: Proceeding with wide local excision (WLE): after WLE, are histologic margins negative? AND The answer must be NO: Were Mohs or other forms of PDEMA used for this excision? AND The answer must be NO: Is the closest margin <1 cm (narrow margin) by treating physician assessment?. Recommendation: Negative and adequately wide (≥1 cm) margins without Mohs/PDEMA: no adjuvant treatment; delay extensive reconstruction until margin clearance and start routine follow-up.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be NO: Is Mohs micrographic surgery or other forms of PDEMA available? AND The answer must be NO: Proceeding with wide local excision (WLE): after WLE, are histologic margins negative? AND The answer must be YES: Are further surgical re-excisions technically feasible?. Recommendation: Perform re-resection (preferably with meticulous margin control) aiming for negative margins; avoid wide undermining and delay tissue rearrangement until margins are clear.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be NO: Is Mohs micrographic surgery or other forms of PDEMA available? AND The answer must be NO: Proceeding with wide local excision (WLE): after WLE, are histologic margins negative? AND The answer must be NO: Are further surgical re-excisions technically feasible? AND The answer must be YES: Has radiation therapy been delivered previously to this site?. Recommendation: Positive margins after WLE, further resection not feasible, prior RT given: manage with multidisciplinary consultation for other local/systemic options (e.g., imatinib) and close surveillance.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be NO: Is Mohs micrographic surgery or other forms of PDEMA available? AND The answer must be NO: Proceeding with wide local excision (WLE): after WLE, are histologic margins negative? AND The answer must be NO: Are further surgical re-excisions technically feasible? AND The answer must be NO: Has radiation therapy been delivered previously to this site?. Recommendation: Positive margins after WLE, further resection not feasible, no prior RT: give adjuvant radiation therapy (50–60 Gy for indeterminate/positive margins, up to 66 Gy for gross tumor) with wide fields.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be NO: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be YES: Is prior surgery already performed with recurrent local tumor now present? AND The answer must be YES: Is additional surgical resection for recurrent tumor feasible?. Recommendation: Resect recurrent tumor whenever possible, using techniques emphasizing complete margin assessment; consider adjuvant radiation therapy if margins are positive/indeterminate and further resection is not feasible.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be NO: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be YES: Is prior surgery already performed with recurrent local tumor now present? AND The answer must be NO: Is additional surgical resection for recurrent tumor feasible? AND The answer must be YES: Has radiation therapy been previously delivered to the recurrent tumor site?. Recommendation: Recurrent, unresectable tumor with prior RT: consider systemic imatinib mesylate or other palliative/systemic options; maintain close clinical follow-up.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be NO: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be YES: Is prior surgery already performed with recurrent local tumor now present? AND The answer must be NO: Is additional surgical resection for recurrent tumor feasible? AND The answer must be NO: Has radiation therapy been previously delivered to the recurrent tumor site?. Recommendation: Recurrent, unresectable tumor without prior RT: use definitive radiation therapy (50–60 Gy for indeterminate/positive margins, up to 66 Gy for gross tumor) as primary local treatment.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be NO: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Is prior surgery already performed with recurrent local tumor now present? AND The answer must be YES: Is the disease unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes?. Recommendation: For unresectable disease after multiple resections or when further surgery would cause unacceptable functional/cosmetic outcomes: consider systemic imatinib mesylate; use RT if not given previously and surgery is not feasible.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be NO: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Is prior surgery already performed with recurrent local tumor now present? AND The answer must be NO: Is the disease unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes?. Recommendation: If not clearly unresectable and not recurrent after multiple resections, reassess resectability and manage per primary surgical pathway aiming for complete excision with clear margins.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be NO: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is distant metastatic disease present or suspected?. Recommendation: Metastatic DFSP: perform multidisciplinary consultation; manage according to soft tissue sarcoma guidelines, with consideration of systemic imatinib and other multimodal therapies including CT imaging of draining nodal basin and chest.",
+        "Apply this recommendation only when ALL requirements hold: The answer must be NO: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be NO: Is distant metastatic disease present or suspected?. Recommendation: Non-localized, non-metastatic pattern not clearly defined (e.g., regional spread only): obtain multidisciplinary consultation and follow soft tissue sarcoma guidelines for multimodal therapy and surveillance."
+      ],
+      "patient": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis. The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint. However, the surgical team determined that attempting a resection to achieve negative margins would have been expected to result in unacceptable functional or cosmetic impairment. Neoadjuvant imatinib was available, and the patient tolerated imatinib without difficulty during the preoperative course. The primary clinical focus was management.",
+      "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+      "result": {
+        "schema_version": "module1.v1",
+        "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+        "candidate_rules": [
+          {
+            "rule_id": "r14",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be NO: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be YES: Is prior surgery already performed with recurrent local tumor now present? AND The answer must be NO: Is additional surgical resection for recurrent tumor feasible? AND The answer must be YES: Has radiation therapy been previously delivered to the recurrent tumor site?. Recommendation: Recurrent, unresectable tumor with prior RT: consider systemic imatinib mesylate or other palliative/systemic options; maintain close clinical follow-up.",
+            "source_span": {
+              "start": 0,
+              "end": 726,
+              "unit": "character",
+              "index": 13
+            },
+            "conditions": [
+              {
+                "condition_id": "c1",
+                "text": "Is the disease status localized (no known regional or distant metastasis)?",
+                "negated": true
+              },
+              {
+                "condition_id": "c2",
+                "text": "Is the lesion considered resectable with surgery (technically operable)?",
+                "negated": true
+              },
+              {
+                "condition_id": "c3",
+                "text": "Is prior surgery already performed with recurrent local tumor now present?",
+                "negated": false
+              },
+              {
+                "condition_id": "c4",
+                "text": "Is additional surgical resection for recurrent tumor feasible?",
+                "negated": true
+              },
+              {
+                "condition_id": "c5",
+                "text": "Has radiation therapy been previously delivered to the recurrent tumor site?",
+                "negated": false
+              }
+            ],
+            "logic": {
+              "op": "AND",
+              "args": [
+                "c1",
+                "c2",
+                "c3",
+                "c4",
+                "c5"
+              ]
+            },
+            "exceptions": [],
+            "exception_logic": {
+              "op": "OR",
+              "args": []
+            },
+            "action": "Recurrent, unresectable tumor with prior RT: consider systemic imatinib mesylate or other palliative/systemic options; maintain close clinical follow-up",
+            "parse_status": "ok",
+            "parse_cache_hit": true
+          },
+          {
+            "rule_id": "r2",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be YES: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be YES: Would resection with negative margins result in unacceptable functional or cosmetic outcomes? AND The answer must be NO: Is neoadjuvant imatinib available and tolerated?. Recommendation: Proceed directly to surgical excision with goal of negative margins despite functional/cosmetic concerns, with multidisciplinary planning.",
+            "source_span": {
+              "start": 0,
+              "end": 612,
+              "unit": "character",
+              "index": 1
+            },
+            "conditions": [
+              {
+                "condition_id": "c1",
+                "text": "Is the disease status localized (no known regional or distant metastasis)?",
+                "negated": false
+              },
+              {
+                "condition_id": "c2",
+                "text": "Is the lesion considered resectable with surgery (technically operable)?",
+                "negated": false
+              },
+              {
+                "condition_id": "c3",
+                "text": "Would resection with negative margins result in unacceptable functional or cosmetic outcomes?",
+                "negated": false
+              },
+              {
+                "condition_id": "c4",
+                "text": "Is neoadjuvant imatinib available and tolerated?",
+                "negated": true
+              }
+            ],
+            "logic": {
+              "op": "AND",
+              "args": [
+                "c1",
+                "c2",
+                "c3",
+                "c4"
+              ]
+            },
+            "exceptions": [],
+            "exception_logic": {
+              "op": "OR",
+              "args": []
+            },
+            "action": "Proceed directly to surgical excision with goal of negative margins despite functional/cosmetic concerns, with multidisciplinary planning",
+            "parse_status": "ok",
+            "parse_cache_hit": true
+          },
+          {
+            "rule_id": "r16",
+            "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be NO: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Is prior surgery already performed with recurrent local tumor now present? AND The answer must be YES: Is the disease unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes?. Recommendation: For unresectable disease after multiple resections or when further surgery would cause unacceptable functional/cosmetic outcomes: consider systemic imatinib mesylate; use RT if not given previously and surgery is not feasible.",
+            "source_span": {
+              "start": 0,
+              "end": 776,
+              "unit": "character",
+              "index": 15
+            },
+            "conditions": [
+              {
+                "condition_id": "c1",
+                "text": "Is the disease status localized (no known regional or distant metastasis)?",
+                "negated": true
+              },
+              {
+                "condition_id": "c2",
+                "text": "Is the lesion considered resectable with surgery (technically operable)?",
+                "negated": true
+              },
+              {
+                "condition_id": "c3",
+                "text": "Is prior surgery already performed with recurrent local tumor now present?",
+                "negated": true
+              },
+              {
+                "condition_id": "c4",
+                "text": "Is the disease unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes?",
+                "negated": false
+              }
+            ],
+            "logic": {
+              "op": "AND",
+              "args": [
+                "c1",
+                "c2",
+                "c3",
+                "c4"
+              ]
+            },
+            "exceptions": [],
+            "exception_logic": {
+              "op": "OR",
+              "args": []
+            },
+            "action": "consider systemic imatinib mesylate; use RT if not given previously and surgery is not feasible",
+            "parse_status": "ok",
+            "parse_cache_hit": true
+          }
+        ],
+        "prior_decision": {
+          "decision": "Begin management with neoadjuvant imatinib",
+          "actions": [
+            "Initiate neoadjuvant imatinib therapy",
+            "Monitor response to therapy",
+            "Reassess surgical feasibility after neoadjuvant treatment"
+          ],
+          "status": "decided",
+          "rationale": "Neoadjuvant imatinib is preferred to reduce tumor size and potentially improve surgical outcomes while avoiding functional or cosmetic impairment."
+        },
+        "guideline_decision": {
+          "decision": "Insufficient evidence to determine the optimal initial management",
+          "actions": [
+            "Further evaluate the patient's functional and cosmetic concerns",
+            "Assess the feasibility of neoadjuvant imatinib in combination with surgical planning"
+          ],
+          "status": "insufficient_evidence",
+          "rationale": "The applicability of the guidelines is not satisfied due to conflicting conditions."
+        },
+        "conflict_scores": [
+          {
+            "rule_id": "r14",
+            "score": 0.5,
+            "status": "unknown",
+            "prior_support": "oppose",
+            "guided_support": "unknown",
+            "reason": "Prior decision recommends neoadjuvant imatinib, while r14 applies to recurrent, unresectable tumors and suggests palliative options, which is incompatible.",
+            "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+          },
+          {
+            "rule_id": "r2",
+            "score": 0.5,
+            "status": "unknown",
+            "prior_support": "oppose",
+            "guided_support": "unknown",
+            "reason": "Prior decision supports neoadjuvant imatinib, while r2 recommends direct surgical excision, which is incompatible.",
+            "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+          },
+          {
+            "rule_id": "r16",
+            "score": 0.5,
+            "status": "unknown",
+            "prior_support": "support",
+            "guided_support": "unknown",
+            "reason": "Prior decision aligns with r16's recommendation to consider systemic imatinib mesylate.",
+            "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+          }
+        ],
+        "relevance_scores": [
+          {
+            "rule_id": "r14",
+            "score": 0.8989517688751221
+          },
+          {
+            "rule_id": "r2",
+            "score": 0.8792864084243774
+          },
+          {
+            "rule_id": "r16",
+            "score": 0.877042293548584
+          }
+        ],
+        "condition_evidence_relations": [
+          {
+            "rule_id": "r14",
+            "condition_id": "c1",
+            "condition": "NOT (Is the disease status localized (no known regional or distant metastasis)?)",
+            "role": "condition",
+            "negated": true,
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis.",
+                "start": 0,
+                "end": 154,
+                "sentence_id": 0
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is the disease status localized (no known regional or distant metastasis)?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the disease status is localized (no known regional or distant metastasis). The patient note states 'no known regional nodal involvement and no evidence of distant metastasis', which directly confirms the disease is localized. Therefore, the patient meets the criterion.",
+            "shared_base_condition": "Is the disease status localized (no known regional or distant metastasis)?",
+            "decisive": true
+          },
+          {
+            "rule_id": "r14",
+            "condition_id": "c2",
+            "condition": "NOT (Is the lesion considered resectable with surgery (technically operable)?)",
+            "role": "condition",
+            "negated": true,
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+                "start": 155,
+                "end": 268,
+                "sentence_id": 1
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is the lesion considered resectable with surgery (technically operable)?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the lesion is considered resectable with surgery (technically operable). The patient note states 'the lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint', which directly confirms the lesion is resectable. Therefore, the patient meets the criterion.",
+            "shared_base_condition": "Is the lesion considered resectable with surgery (technically operable)?",
+            "decisive": true
+          },
+          {
+            "rule_id": "r14",
+            "condition_id": "c3",
+            "condition": "Is prior surgery already performed with recurrent local tumor now present?",
+            "role": "condition",
+            "negated": false,
+            "status": "unknown",
+            "evidence": [],
+            "method": "trialgpt_qwen",
+            "confidence": 0.0,
+            "underlying_condition": "Is prior surgery already performed with recurrent local tumor now present?",
+            "base_condition_status": "unknown",
+            "reason": "The criterion asks if prior surgery has already been performed with recurrent local tumor now present. The patient note does not mention any prior surgery or recurrence of the tumor. Therefore, there is not enough information to determine if this criterion is met.",
+            "shared_base_condition": "Is prior surgery already performed with recurrent local tumor now present?",
+            "decisive": false
+          },
+          {
+            "rule_id": "r14",
+            "condition_id": "c4",
+            "condition": "NOT (Is additional surgical resection for recurrent tumor feasible?)",
+            "role": "condition",
+            "negated": true,
+            "status": "unknown",
+            "evidence": [],
+            "method": "trialgpt_qwen",
+            "confidence": 0.0,
+            "underlying_condition": "Is additional surgical resection for recurrent tumor feasible?",
+            "base_condition_status": "unknown",
+            "reason": "The criterion asks if additional surgical resection for recurrent tumor is feasible. The patient note does not mention any recurrence of the tumor or feasibility of additional resection. Therefore, there is not enough information to determine if this criterion is met.",
+            "shared_base_condition": "Is additional surgical resection for recurrent tumor feasible?",
+            "decisive": false
+          },
+          {
+            "rule_id": "r14",
+            "condition_id": "c5",
+            "condition": "Has radiation therapy been previously delivered to the recurrent tumor site?",
+            "role": "condition",
+            "negated": false,
+            "status": "unknown",
+            "evidence": [],
+            "method": "trialgpt_qwen",
+            "confidence": 0.0,
+            "underlying_condition": "Has radiation therapy been previously delivered to the recurrent tumor site?",
+            "base_condition_status": "unknown",
+            "reason": "The criterion asks if radiation therapy has been previously delivered to the recurrent tumor site. The patient note does not mention any radiation therapy or recurrence of the tumor. Therefore, there is not enough information to determine if this criterion is met.",
+            "shared_base_condition": "Has radiation therapy been previously delivered to the recurrent tumor site?",
+            "decisive": false
+          },
+          {
+            "rule_id": "r2",
+            "condition_id": "c1",
+            "condition": "Is the disease status localized (no known regional or distant metastasis)?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis.",
+                "start": 0,
+                "end": 154,
+                "sentence_id": 0
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is the disease status localized (no known regional or distant metastasis)?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the disease status is localized (no known regional or distant metastasis). The patient note states 'no known regional nodal involvement and no evidence of distant metastasis', which directly confirms the disease is localized. Therefore, the patient meets the criterion.",
+            "shared_base_condition": "Is the disease status localized (no known regional or distant metastasis)?",
+            "decisive": false
+          },
+          {
+            "rule_id": "r2",
+            "condition_id": "c2",
+            "condition": "Is the lesion considered resectable with surgery (technically operable)?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+                "start": 155,
+                "end": 268,
+                "sentence_id": 1
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is the lesion considered resectable with surgery (technically operable)?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the lesion is considered resectable with surgery (technically operable). The patient note states 'the lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint', which directly confirms the lesion is resectable. Therefore, the patient meets the criterion.",
+            "shared_base_condition": "Is the lesion considered resectable with surgery (technically operable)?",
+            "decisive": false
+          },
+          {
+            "rule_id": "r2",
+            "condition_id": "c3",
+            "condition": "Would resection with negative margins result in unacceptable functional or cosmetic outcomes?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "However, the surgical team determined that attempting a resection to achieve negative margins would have been expected to result in unacceptable functional or cosmetic impairment.",
+                "start": 269,
+                "end": 448,
+                "sentence_id": 2
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Would resection with negative margins result in unacceptable functional or cosmetic outcomes?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if resection with negative margins would result in unacceptable functional or cosmetic outcomes. The patient note states 'attempting a resection to achieve negative margins would have been expected to result in unacceptable functional or cosmetic impairment', which directly confirms the criterion. Therefore, the patient meets the criterion.",
+            "shared_base_condition": "Would resection with negative margins result in unacceptable functional or cosmetic outcomes?",
+            "decisive": false
+          },
+          {
+            "rule_id": "r2",
+            "condition_id": "c4",
+            "condition": "NOT (Is neoadjuvant imatinib available and tolerated?)",
+            "role": "condition",
+            "negated": true,
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "Neoadjuvant imatinib was available, and the patient tolerated imatinib without difficulty during the preoperative course.",
+                "start": 449,
+                "end": 570,
+                "sentence_id": 3
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is neoadjuvant imatinib available and tolerated?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if neoadjuvant imatinib is available and tolerated. The patient note states 'neoadjuvant imatinib was available, and the patient tolerated imatinib without difficulty during the preoperative course', which directly confirms the criterion. Therefore, the patient meets the criterion.",
+            "shared_base_condition": "Is neoadjuvant imatinib available and tolerated?",
+            "decisive": true
+          },
+          {
+            "rule_id": "r16",
+            "condition_id": "c1",
+            "condition": "NOT (Is the disease status localized (no known regional or distant metastasis)?)",
+            "role": "condition",
+            "negated": true,
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis.",
+                "start": 0,
+                "end": 154,
+                "sentence_id": 0
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is the disease status localized (no known regional or distant metastasis)?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the disease status is localized (no known regional or distant metastasis). The patient note states 'no known regional nodal involvement and no evidence of distant metastasis', which directly confirms the disease is localized. Therefore, the patient meets the criterion.",
+            "shared_base_condition": "Is the disease status localized (no known regional or distant metastasis)?",
+            "decisive": true
+          },
+          {
+            "rule_id": "r16",
+            "condition_id": "c2",
+            "condition": "NOT (Is the lesion considered resectable with surgery (technically operable)?)",
+            "role": "condition",
+            "negated": true,
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+                "start": 155,
+                "end": 268,
+                "sentence_id": 1
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is the lesion considered resectable with surgery (technically operable)?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the lesion is considered resectable with surgery (technically operable). The patient note states 'the lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint', which directly confirms the lesion is resectable. Therefore, the patient meets the criterion.",
+            "shared_base_condition": "Is the lesion considered resectable with surgery (technically operable)?",
+            "decisive": true
+          },
+          {
+            "rule_id": "r16",
+            "condition_id": "c3",
+            "condition": "NOT (Is prior surgery already performed with recurrent local tumor now present?)",
+            "role": "condition",
+            "negated": true,
+            "status": "unknown",
+            "evidence": [],
+            "method": "trialgpt_qwen",
+            "confidence": 0.0,
+            "underlying_condition": "Is prior surgery already performed with recurrent local tumor now present?",
+            "base_condition_status": "unknown",
+            "reason": "The criterion asks if prior surgery has already been performed with recurrent local tumor now present. The patient note does not mention any prior surgery or recurrence of the tumor. Therefore, there is not enough information to determine if this criterion is met.",
+            "shared_base_condition": "Is prior surgery already performed with recurrent local tumor now present?",
+            "decisive": false
+          },
+          {
+            "rule_id": "r16",
+            "condition_id": "c4",
+            "condition": "Is the disease unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes?",
+            "role": "condition",
+            "negated": false,
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+                "start": 155,
+                "end": 268,
+                "sentence_id": 1
+              },
+              {
+                "text": "However, the surgical team determined that attempting a resection to achieve negative margins would have been expected to result in unacceptable functional or cosmetic impairment.",
+                "start": 269,
+                "end": 448,
+                "sentence_id": 2
+              }
+            ],
+            "method": "trialgpt_qwen",
+            "confidence": 0.85,
+            "underlying_condition": "Is the disease unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes?",
+            "base_condition_status": "satisfied",
+            "reason": "The criterion asks if the disease is unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes. The patient note states 'the lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint' and 'attempting a resection to achieve negative margins would have been expected to result in unacceptable functional or cosmetic impairment'. These statements suggest the disease is resectable but that resection would cause unacceptable outcomes. Therefore, the patient meets the criterion.",
+            "shared_base_condition": "Is the disease unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes?",
+            "decisive": false
+          }
+        ],
+        "applicability": [
+          {
+            "rule_id": "r14",
+            "status": "not_applicable",
+            "conditions_status": "not_satisfied",
+            "exceptions_status": "not_satisfied",
+            "decisive_condition_ids": [
+              "c1",
+              "c2"
+            ],
+            "blockers": [
+              "c1",
+              "c2"
+            ],
+            "supporters": []
+          },
+          {
+            "rule_id": "r2",
+            "status": "not_applicable",
+            "conditions_status": "not_satisfied",
+            "exceptions_status": "not_satisfied",
+            "decisive_condition_ids": [
+              "c4"
+            ],
+            "blockers": [
+              "c4"
+            ],
+            "supporters": []
+          },
+          {
+            "rule_id": "r16",
+            "status": "not_applicable",
+            "conditions_status": "not_satisfied",
+            "exceptions_status": "not_satisfied",
+            "decisive_condition_ids": [
+              "c1",
+              "c2"
+            ],
+            "blockers": [
+              "c1",
+              "c2"
+            ],
+            "supporters": []
+          }
+        ],
+        "critical_spans": [
+          {
+            "text": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis.",
+            "start": 0,
+            "end": 154,
+            "sentence_id": 0,
+            "rule_id": "r14",
+            "condition_id": "c1",
+            "role": "condition",
+            "status": "not_satisfied",
+            "decisive": true
+          },
+          {
+            "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+            "start": 155,
+            "end": 268,
+            "sentence_id": 1,
+            "rule_id": "r14",
+            "condition_id": "c2",
+            "role": "condition",
+            "status": "not_satisfied",
+            "decisive": true
+          },
+          {
+            "text": "Neoadjuvant imatinib was available, and the patient tolerated imatinib without difficulty during the preoperative course.",
+            "start": 449,
+            "end": 570,
+            "sentence_id": 3,
+            "rule_id": "r2",
+            "condition_id": "c4",
+            "role": "condition",
+            "status": "not_satisfied",
+            "decisive": true
+          },
+          {
+            "text": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis.",
+            "start": 0,
+            "end": 154,
+            "sentence_id": 0,
+            "rule_id": "r16",
+            "condition_id": "c1",
+            "role": "condition",
+            "status": "not_satisfied",
+            "decisive": true
+          },
+          {
+            "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+            "start": 155,
+            "end": 268,
+            "sentence_id": 1,
+            "rule_id": "r16",
+            "condition_id": "c2",
+            "role": "condition",
+            "status": "not_satisfied",
+            "decisive": true
+          }
+        ],
+        "relation_weights": [
+          {
+            "rule_id": "r14",
+            "condition_id": "c1",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is the disease status localized (no known regional or distant metastasis)?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis.",
+                "start": 0,
+                "end": 154,
+                "sentence_id": 0
+              }
+            ],
+            "weight": 0.573082,
+            "signed_weight": -0.573082,
+            "decisive": true,
+            "binding_gate": 0.573082,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r14",
+            "condition_id": "c2",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is the lesion considered resectable with surgery (technically operable)?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+                "start": 155,
+                "end": 268,
+                "sentence_id": 1
+              }
+            ],
+            "weight": 0.573082,
+            "signed_weight": -0.573082,
+            "decisive": true,
+            "binding_gate": 0.573082,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r14",
+            "condition_id": "c3",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "Is prior surgery already performed with recurrent local tumor now present?",
+            "role": "condition",
+            "status": "unknown",
+            "evidence": [],
+            "weight": 0.0,
+            "signed_weight": 0.0,
+            "decisive": false,
+            "binding_gate": 0.0,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r14",
+            "condition_id": "c4",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is additional surgical resection for recurrent tumor feasible?)",
+            "role": "condition",
+            "status": "unknown",
+            "evidence": [],
+            "weight": 0.0,
+            "signed_weight": 0.0,
+            "decisive": false,
+            "binding_gate": 0.0,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r14",
+            "condition_id": "c5",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "Has radiation therapy been previously delivered to the recurrent tumor site?",
+            "role": "condition",
+            "status": "unknown",
+            "evidence": [],
+            "weight": 0.0,
+            "signed_weight": 0.0,
+            "decisive": false,
+            "binding_gate": 0.0,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r2",
+            "condition_id": "c1",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "Is the disease status localized (no known regional or distant metastasis)?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis.",
+                "start": 0,
+                "end": 154,
+                "sentence_id": 0
+              }
+            ],
+            "weight": 0.560545,
+            "signed_weight": 0.560545,
+            "decisive": false,
+            "binding_gate": 0.560545,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r2",
+            "condition_id": "c2",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "Is the lesion considered resectable with surgery (technically operable)?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+                "start": 155,
+                "end": 268,
+                "sentence_id": 1
+              }
+            ],
+            "weight": 0.560545,
+            "signed_weight": 0.560545,
+            "decisive": false,
+            "binding_gate": 0.560545,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r2",
+            "condition_id": "c3",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "Would resection with negative margins result in unacceptable functional or cosmetic outcomes?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "However, the surgical team determined that attempting a resection to achieve negative margins would have been expected to result in unacceptable functional or cosmetic impairment.",
+                "start": 269,
+                "end": 448,
+                "sentence_id": 2
+              }
+            ],
+            "weight": 0.560545,
+            "signed_weight": 0.560545,
+            "decisive": false,
+            "binding_gate": 0.560545,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r2",
+            "condition_id": "c4",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is neoadjuvant imatinib available and tolerated?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "Neoadjuvant imatinib was available, and the patient tolerated imatinib without difficulty during the preoperative course.",
+                "start": 449,
+                "end": 570,
+                "sentence_id": 3
+              }
+            ],
+            "weight": 0.560545,
+            "signed_weight": -0.560545,
+            "decisive": true,
+            "binding_gate": 0.560545,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r16",
+            "condition_id": "c1",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is the disease status localized (no known regional or distant metastasis)?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis.",
+                "start": 0,
+                "end": 154,
+                "sentence_id": 0
+              }
+            ],
+            "weight": 0.559114,
+            "signed_weight": -0.559114,
+            "decisive": true,
+            "binding_gate": 0.559114,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r16",
+            "condition_id": "c2",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is the lesion considered resectable with surgery (technically operable)?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+                "start": 155,
+                "end": 268,
+                "sentence_id": 1
+              }
+            ],
+            "weight": 0.559114,
+            "signed_weight": -0.559114,
+            "decisive": true,
+            "binding_gate": 0.559114,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r16",
+            "condition_id": "c3",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is prior surgery already performed with recurrent local tumor now present?)",
+            "role": "condition",
+            "status": "unknown",
+            "evidence": [],
+            "weight": 0.0,
+            "signed_weight": 0.0,
+            "decisive": false,
+            "binding_gate": 0.0,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r16",
+            "condition_id": "c4",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "Is the disease unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes?",
+            "role": "condition",
+            "status": "satisfied",
+            "evidence": [
+              {
+                "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+                "start": 155,
+                "end": 268,
+                "sentence_id": 1
+              },
+              {
+                "text": "However, the surgical team determined that attempting a resection to achieve negative margins would have been expected to result in unacceptable functional or cosmetic impairment.",
+                "start": 269,
+                "end": 448,
+                "sentence_id": 2
+              }
+            ],
+            "weight": 0.559114,
+            "signed_weight": 0.559114,
+            "decisive": false,
+            "binding_gate": 0.559114,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          }
+        ],
+        "decisive_relations": [
+          {
+            "rule_id": "r14",
+            "condition_id": "c1",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is the disease status localized (no known regional or distant metastasis)?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis.",
+                "start": 0,
+                "end": 154,
+                "sentence_id": 0
+              }
+            ],
+            "weight": 0.573082,
+            "signed_weight": -0.573082,
+            "decisive": true,
+            "binding_gate": 0.573082,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r14",
+            "condition_id": "c2",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is the lesion considered resectable with surgery (technically operable)?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+                "start": 155,
+                "end": 268,
+                "sentence_id": 1
+              }
+            ],
+            "weight": 0.573082,
+            "signed_weight": -0.573082,
+            "decisive": true,
+            "binding_gate": 0.573082,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r2",
+            "condition_id": "c4",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is neoadjuvant imatinib available and tolerated?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "Neoadjuvant imatinib was available, and the patient tolerated imatinib without difficulty during the preoperative course.",
+                "start": 449,
+                "end": 570,
+                "sentence_id": 3
+              }
+            ],
+            "weight": 0.560545,
+            "signed_weight": -0.560545,
+            "decisive": true,
+            "binding_gate": 0.560545,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r16",
+            "condition_id": "c1",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is the disease status localized (no known regional or distant metastasis)?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The patient presented with a localized disease process, with evaluation showing no known regional nodal involvement and no evidence of distant metastasis.",
+                "start": 0,
+                "end": 154,
+                "sentence_id": 0
+              }
+            ],
+            "weight": 0.559114,
+            "signed_weight": -0.559114,
+            "decisive": true,
+            "binding_gate": 0.559114,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          },
+          {
+            "rule_id": "r16",
+            "condition_id": "c2",
+            "question": "For this patient, should management begin with surgical excision or neoadjuvant imatinib, and under which conditions?",
+            "condition": "NOT (Is the lesion considered resectable with surgery (technically operable)?)",
+            "role": "condition",
+            "status": "not_satisfied",
+            "evidence": [
+              {
+                "text": "The lesion was considered technically operable, and surgical resection was feasible from a procedural standpoint.",
+                "start": 155,
+                "end": 268,
+                "sentence_id": 1
+              }
+            ],
+            "weight": 0.559114,
+            "signed_weight": -0.559114,
+            "decisive": true,
+            "binding_gate": 0.559114,
+            "action_gate": 0.0,
+            "prior_competition_weight": 0.0
+          }
+        ],
+        "binding_gate": {
+          "r14": {
+            "c1": 0.573082,
+            "c2": 0.573082,
+            "c3": 0.0,
+            "c4": 0.0,
+            "c5": 0.0
+          },
+          "r2": {
+            "c1": 0.560545,
+            "c2": 0.560545,
+            "c3": 0.560545,
+            "c4": 0.560545
+          },
+          "r16": {
+            "c1": 0.559114,
+            "c2": 0.559114,
+            "c3": 0.0,
+            "c4": 0.559114
+          }
+        },
+        "action_gate": {
+          "r14": 0.0,
+          "r2": 0.0,
+          "r16": 0.0
+        },
+        "metadata": {
+          "elapsed_seconds": 22.507,
+          "backend": "Qwen3-8B + MedCPT-MedPair + TrialGPT-Matching",
+          "reference_answers_used": false,
+          "scores_are_calibrated": false,
+          "gate_formula": "binding=relevance*(0.5+0.5*conflict)*evidence_confidence; action=relevance*(0.5+0.5*conflict) iff applicable; prior_competition=action*conflict",
+          "unknown_binding": 0,
+          "unknown_action": 0,
+          "model_calls": [
+            {
+              "input_tokens": 227,
+              "output_tokens": 93,
+              "seconds": 2.118,
+              "attempt": 0
+            },
+            {
+              "input_tokens": 834,
+              "output_tokens": 618,
+              "seconds": 13.883,
+              "attempt": 0
+            },
+            {
+              "input_tokens": 1696,
+              "output_tokens": 82,
+              "seconds": 1.981,
+              "attempt": 0
+            },
+            {
+              "input_tokens": 446,
+              "output_tokens": 193,
+              "seconds": 4.444,
+              "attempt": 0
+            }
+          ]
+        }
+      },
+      "elapsed_seconds": 22.508,
+      "gpu_memory": {
+        "torch_devices": {
+          "0": {
+            "name": "NVIDIA A100-SXM4-80GB",
+            "allocated_gib": 15.675623893737793,
+            "reserved_gib": 16.451171875,
+            "peak_allocated_gib": 16.077621936798096
+          }
+        },
+        "nvidia_smi_memory_mib": [
+          "0, 17365, 81920",
+          "1, 0, 81920",
+          "2, 0, 81920",
+          "3, 0, 81920",
+          "4, 0, 81920",
+          "5, 0, 81920",
+          "6, 0, 81920",
+          "7, 0, 81920"
+        ]
+      },
+      "structured_json_verified": true
+    }
+  ],
+  "elapsed_seconds": 49.799
+}

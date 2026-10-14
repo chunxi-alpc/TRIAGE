@@ -1,0 +1,1861 @@
+{
+  "schema_version": "triage_algorithm_summary.v1",
+  "n": 24,
+  "guideline_count": 6,
+  "dataset": "MEGA-CDP",
+  "split": "train_val",
+  "scope": "Single-letter forced choice over every source-guideline action plus insufficient evidence. No-rule original still sees all action options. Free-text generation is not evaluated.",
+  "reference_isolation": {
+    "normal_reference_answers_used": false,
+    "oracle_exception": "Correct original guideline rule selected offline only after ordinary inference; no gt answer text/path labels in inference or gates"
+  },
+  "metric_definitions": {
+    "probability": "Full-vocabulary probability of the exact single-letter token. Option-normalized probability is separately named.",
+    "gold_minus_prior": "logP(gold)-logP(original selected option), zero if original is correct; original-incorrect subset reported separately.",
+    "head_effect": "Correct-minus-fixed-incorrect margin: single-head edit minus prompt-only; retained-head effect is prompt-only minus head ablation. Positive/zero/negative counts are empirical; no arbitrary stability threshold.",
+    "condition_scope": "Known reference-path signed condition IDs, deduplicated per case; off-path nodes excluded; guided_decision free text receives no automatic semantic accuracy label."
+  },
+  "variants": {
+    "original": {
+      "correct": 15,
+      "n": 24,
+      "correct_log_probability": {
+        "n": 24,
+        "mean": -2.250294952597111,
+        "median": -0.11957411468029022,
+        "positive": 0,
+        "zero": 2,
+        "negative": 22
+      },
+      "correct_probability": {
+        "n": 24,
+        "mean": 0.6037183156198042,
+        "median": 0.8880315315257236,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_option_probability": {
+        "n": 24,
+        "mean": 0.6037311915436779,
+        "median": 0.8880344033241272,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability": {
+        "n": 24,
+        "mean": -2.125,
+        "median": 0.0,
+        "positive": 0,
+        "zero": 15,
+        "negative": 9
+      },
+      "correct_minus_strongest_incorrect_prior": {
+        "n": 24,
+        "mean": 2.4479166666666665,
+        "median": 2.125,
+        "positive": 14,
+        "zero": 1,
+        "negative": 9
+      },
+      "gold_minus_prior_on_original_incorrect": {
+        "n": 9,
+        "mean": -5.666666666666667,
+        "median": -5.25,
+        "positive": 0,
+        "zero": 0,
+        "negative": 9
+      }
+    },
+    "original_full_guideline": {
+      "correct": 13,
+      "n": 24,
+      "correct_log_probability": {
+        "n": 24,
+        "mean": -4.052745823833163,
+        "median": -0.15145792812108994,
+        "positive": 0,
+        "zero": 6,
+        "negative": 18
+      },
+      "correct_probability": {
+        "n": 24,
+        "mean": 0.5607358187625634,
+        "median": 0.8605816644623359,
+        "positive": 21,
+        "zero": 3,
+        "negative": 0
+      },
+      "correct_option_probability": {
+        "n": 24,
+        "mean": 0.5607360514195251,
+        "median": 0.8605821132659912,
+        "positive": 21,
+        "zero": 3,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability": {
+        "n": 24,
+        "mean": 1.359375,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 15,
+        "negative": 5
+      },
+      "correct_minus_strongest_incorrect_prior": {
+        "n": 24,
+        "mean": 6.447916666666667,
+        "median": 5.75,
+        "positive": 14,
+        "zero": 0,
+        "negative": 10
+      },
+      "gold_minus_prior_on_original_incorrect": {
+        "n": 9,
+        "mean": 3.625,
+        "median": -2.25,
+        "positive": 4,
+        "zero": 0,
+        "negative": 5
+      }
+    },
+    "oracle_rule": {
+      "correct": 24,
+      "n": 24,
+      "correct_log_probability": {
+        "n": 24,
+        "mean": -0.00015324178596050805,
+        "median": -5.9604641222676946e-08,
+        "positive": 0,
+        "zero": 16,
+        "negative": 8
+      },
+      "correct_probability": {
+        "n": 24,
+        "mean": 0.9998468542504969,
+        "median": 0.9999999403953623,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_option_probability": {
+        "n": 24,
+        "mean": 0.9998469725251198,
+        "median": 1.0,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability": {
+        "n": 24,
+        "mean": 7.989583333333333,
+        "median": 0.0,
+        "positive": 9,
+        "zero": 15,
+        "negative": 0
+      },
+      "correct_minus_strongest_incorrect_prior": {
+        "n": 24,
+        "mean": 22.109375,
+        "median": 24.0,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "gold_minus_prior_on_original_incorrect": {
+        "n": 9,
+        "mean": 21.305555555555557,
+        "median": 20.75,
+        "positive": 9,
+        "zero": 0,
+        "negative": 0
+      }
+    },
+    "triage_prompt_only": {
+      "correct": 9,
+      "n": 24,
+      "correct_log_probability": {
+        "n": 24,
+        "mean": -5.040998216756914,
+        "median": -2.9213093519210815,
+        "positive": 0,
+        "zero": 0,
+        "negative": 24
+      },
+      "correct_probability": {
+        "n": 24,
+        "mean": 0.3578446069391126,
+        "median": 0.07193934733323538,
+        "positive": 21,
+        "zero": 3,
+        "negative": 0
+      },
+      "correct_option_probability": {
+        "n": 24,
+        "mean": 0.3578460883113852,
+        "median": 0.07194071169942617,
+        "positive": 21,
+        "zero": 3,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability": {
+        "n": 24,
+        "mean": 0.3489583333333333,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 15,
+        "negative": 5
+      },
+      "correct_minus_strongest_incorrect_prior": {
+        "n": 24,
+        "mean": 2.2395833333333335,
+        "median": 3.375,
+        "positive": 14,
+        "zero": 0,
+        "negative": 10
+      },
+      "gold_minus_prior_on_original_incorrect": {
+        "n": 9,
+        "mean": 0.9305555555555556,
+        "median": -1.0,
+        "positive": 4,
+        "zero": 0,
+        "negative": 5
+      }
+    },
+    "triage_full": {
+      "correct": 9,
+      "n": 24,
+      "correct_log_probability": {
+        "n": 24,
+        "mean": -5.011389979747335,
+        "median": -2.814762234687805,
+        "positive": 0,
+        "zero": 0,
+        "negative": 24
+      },
+      "correct_probability": {
+        "n": 24,
+        "mean": 0.35957727103580944,
+        "median": 0.08614503224553048,
+        "positive": 21,
+        "zero": 3,
+        "negative": 0
+      },
+      "correct_option_probability": {
+        "n": 24,
+        "mean": 0.3595787180158296,
+        "median": 0.08614718448370695,
+        "positive": 21,
+        "zero": 3,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability": {
+        "n": 24,
+        "mean": 0.359375,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 15,
+        "negative": 5
+      },
+      "correct_minus_strongest_incorrect_prior": {
+        "n": 24,
+        "mean": 2.2604166666666665,
+        "median": 3.5,
+        "positive": 14,
+        "zero": 0,
+        "negative": 10
+      },
+      "gold_minus_prior_on_original_incorrect": {
+        "n": 9,
+        "mean": 0.9583333333333334,
+        "median": -0.75,
+        "positive": 4,
+        "zero": 0,
+        "negative": 5
+      }
+    }
+  },
+  "retrieval": {
+    "before_top3": 6,
+    "after": 24,
+    "n": 24,
+    "interpretation": "Small complete guidelines retain every leaf; recall gain does not demonstrate improved ranking on large guidelines."
+  },
+  "applicability": {
+    "gold_applicable": 7,
+    "n": 24,
+    "gold_status_counts": {
+      "applicable": 7,
+      "unknown": 8,
+      "not_applicable": 9
+    },
+    "candidate_correct": 246,
+    "candidate_total": 320,
+    "known_signed_conditions_correct": 130,
+    "known_signed_conditions_total": 180,
+    "known_signed_conditions_unknown": 30
+  },
+  "condition_verification": {
+    "initial_fields_available_n": 168,
+    "initial_correct": 150,
+    "final_correct": 130,
+    "improved": 4,
+    "regressed": 24,
+    "changed_rows": [
+      {
+        "case_id": "5:10",
+        "condition_id": "mega_5_node_20_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "5:10",
+        "condition_id": "mega_5_node_22_no",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "5:10",
+        "condition_id": "mega_5_node_22_yes",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "5:10",
+        "condition_id": "mega_5_node_20_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "5:15",
+        "condition_id": "mega_5_node_1_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "5:15",
+        "condition_id": "mega_5_node_1_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "not_satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "9:7",
+        "condition_id": "mega_9_node_3_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "not_satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "9:7",
+        "condition_id": "mega_9_node_16_no",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "9:7",
+        "condition_id": "mega_9_node_3_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "9:7",
+        "condition_id": "mega_9_node_16_yes",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "9:19",
+        "condition_id": "mega_9_node_35_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "9:19",
+        "condition_id": "mega_9_node_35_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "14:4",
+        "condition_id": "mega_14_node_6_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "not_satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "14:4",
+        "condition_id": "mega_14_node_6_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "14:8",
+        "condition_id": "mega_14_node_3_no",
+        "expected": "satisfied",
+        "initial": "not_satisfied",
+        "final": "satisfied",
+        "initial_correct": false,
+        "final_correct": true
+      },
+      {
+        "case_id": "14:8",
+        "condition_id": "mega_14_node_3_yes",
+        "expected": "not_satisfied",
+        "initial": "satisfied",
+        "final": "not_satisfied",
+        "initial_correct": false,
+        "final_correct": true
+      },
+      {
+        "case_id": "14:12",
+        "condition_id": "mega_14_node_3_no",
+        "expected": "satisfied",
+        "initial": "not_satisfied",
+        "final": "satisfied",
+        "initial_correct": false,
+        "final_correct": true
+      },
+      {
+        "case_id": "14:12",
+        "condition_id": "mega_14_node_3_yes",
+        "expected": "not_satisfied",
+        "initial": "satisfied",
+        "final": "not_satisfied",
+        "initial_correct": false,
+        "final_correct": true
+      },
+      {
+        "case_id": "18:3",
+        "condition_id": "mega_18_node_1_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "18:3",
+        "condition_id": "mega_18_node_1_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "not_satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "22:6",
+        "condition_id": "mega_22_node_2_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "22:6",
+        "condition_id": "mega_22_node_2_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "not_satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "22:11",
+        "condition_id": "mega_22_node_1_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "22:11",
+        "condition_id": "mega_22_node_1_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "not_satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "22:16",
+        "condition_id": "mega_22_node_1_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "not_satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "22:16",
+        "condition_id": "mega_22_node_1_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "22:16",
+        "condition_id": "mega_22_node_27_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "22:16",
+        "condition_id": "mega_22_node_27_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "not_satisfied",
+        "initial_correct": true,
+        "final_correct": false
+      }
+    ]
+  },
+  "comparisons": {
+    "full_vs_original": {
+      "n": 24,
+      "corrected": 1,
+      "regressed": 7,
+      "corrected_case_ids": [
+        "5:10"
+      ],
+      "regressed_case_ids": [
+        "5:15",
+        "9:7",
+        "9:19",
+        "14:12",
+        "20:5",
+        "20:14",
+        "22:1"
+      ],
+      "correct_log_probability_delta": {
+        "n": 24,
+        "mean": -2.761095027150224,
+        "median": -0.40491803596160025,
+        "positive": 9,
+        "zero": 0,
+        "negative": 15
+      },
+      "correct_probability_delta": {
+        "n": 24,
+        "mean": -0.24414104458399474,
+        "median": -0.008993345883236598,
+        "positive": 9,
+        "zero": 0,
+        "negative": 15
+      },
+      "correct_option_probability_delta": {
+        "n": 24,
+        "mean": -0.24415247352784833,
+        "median": -0.008994901669211686,
+        "positive": 9,
+        "zero": 0,
+        "negative": 15
+      },
+      "correct_minus_prior_log_probability_delta": {
+        "n": 24,
+        "mean": 2.484375,
+        "median": 0.0,
+        "positive": 7,
+        "zero": 15,
+        "negative": 2
+      },
+      "correct_minus_strongest_incorrect_prior_delta": {
+        "n": 24,
+        "mean": -0.1875,
+        "median": 0.0,
+        "positive": 12,
+        "zero": 0,
+        "negative": 12
+      },
+      "correct_minus_raw_guideline_decision_delta": {
+        "n": 24,
+        "mean": -1.9739583333333333,
+        "median": 0.0,
+        "positive": 5,
+        "zero": 13,
+        "negative": 6
+      },
+      "original_incorrect_n": 9,
+      "gold_minus_prior_delta_on_original_incorrect": {
+        "n": 9,
+        "mean": 6.625,
+        "median": 7.75,
+        "positive": 7,
+        "zero": 0,
+        "negative": 2
+      }
+    },
+    "full_vs_raw_guideline": {
+      "n": 24,
+      "corrected": 2,
+      "regressed": 6,
+      "corrected_case_ids": [
+        "5:10",
+        "14:4"
+      ],
+      "regressed_case_ids": [
+        "9:1",
+        "9:13",
+        "18:1",
+        "20:5",
+        "20:14",
+        "22:1"
+      ],
+      "correct_log_probability_delta": {
+        "n": 24,
+        "mean": -0.9586441559141718,
+        "median": -0.04279109125491232,
+        "positive": 8,
+        "zero": 0,
+        "negative": 16
+      },
+      "correct_probability_delta": {
+        "n": 24,
+        "mean": -0.20115854772675398,
+        "median": -0.008660084099399515,
+        "positive": 6,
+        "zero": 2,
+        "negative": 16
+      },
+      "correct_option_probability_delta": {
+        "n": 24,
+        "mean": -0.20115733340369557,
+        "median": -0.00865992158651352,
+        "positive": 6,
+        "zero": 2,
+        "negative": 16
+      },
+      "correct_minus_prior_log_probability_delta": {
+        "n": 24,
+        "mean": -1.0,
+        "median": 0.0,
+        "positive": 5,
+        "zero": 15,
+        "negative": 4
+      },
+      "correct_minus_strongest_incorrect_prior_delta": {
+        "n": 24,
+        "mean": -4.1875,
+        "median": -3.8125,
+        "positive": 8,
+        "zero": 0,
+        "negative": 16
+      },
+      "correct_minus_raw_guideline_decision_delta": {
+        "n": 24,
+        "mean": 3.2864583333333335,
+        "median": 0.0,
+        "positive": 9,
+        "zero": 13,
+        "negative": 2
+      },
+      "original_incorrect_n": 9,
+      "gold_minus_prior_delta_on_original_incorrect": {
+        "n": 9,
+        "mean": -2.6666666666666665,
+        "median": 1.0,
+        "positive": 5,
+        "zero": 0,
+        "negative": 4
+      }
+    },
+    "attention_vs_prompt_only": {
+      "n": 24,
+      "corrected": 0,
+      "regressed": 0,
+      "corrected_case_ids": [],
+      "regressed_case_ids": [],
+      "correct_log_probability_delta": {
+        "n": 24,
+        "mean": 0.029608237009578414,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 17,
+        "negative": 3
+      },
+      "correct_probability_delta": {
+        "n": 24,
+        "mean": 0.0017326640966968572,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 17,
+        "negative": 3
+      },
+      "correct_option_probability_delta": {
+        "n": 24,
+        "mean": 0.0017326297044443588,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 17,
+        "negative": 3
+      },
+      "correct_minus_prior_log_probability_delta": {
+        "n": 24,
+        "mean": 0.010416666666666666,
+        "median": 0.0,
+        "positive": 2,
+        "zero": 21,
+        "negative": 1
+      },
+      "correct_minus_strongest_incorrect_prior_delta": {
+        "n": 24,
+        "mean": 0.020833333333333332,
+        "median": 0.0,
+        "positive": 5,
+        "zero": 16,
+        "negative": 3
+      },
+      "correct_minus_raw_guideline_decision_delta": {
+        "n": 24,
+        "mean": -0.020833333333333332,
+        "median": 0.0,
+        "positive": 0,
+        "zero": 22,
+        "negative": 2
+      },
+      "original_incorrect_n": 9,
+      "gold_minus_prior_delta_on_original_incorrect": {
+        "n": 9,
+        "mean": 0.027777777777777776,
+        "median": 0.0,
+        "positive": 2,
+        "zero": 6,
+        "negative": 1
+      }
+    },
+    "attention_vs_prompt_only_active": {
+      "n": 9,
+      "corrected": 0,
+      "regressed": 0,
+      "corrected_case_ids": [],
+      "regressed_case_ids": [],
+      "correct_log_probability_delta": {
+        "n": 9,
+        "mean": 0.0789552986922091,
+        "median": 3.5762741390499286e-07,
+        "positive": 4,
+        "zero": 2,
+        "negative": 3
+      },
+      "correct_probability_delta": {
+        "n": 9,
+        "mean": 0.004620437591191619,
+        "median": 3.5762696626306933e-07,
+        "positive": 4,
+        "zero": 2,
+        "negative": 3
+      },
+      "correct_option_probability_delta": {
+        "n": 9,
+        "mean": 0.00462034587851829,
+        "median": 3.5762786865234375e-07,
+        "positive": 4,
+        "zero": 2,
+        "negative": 3
+      },
+      "correct_minus_prior_log_probability_delta": {
+        "n": 9,
+        "mean": 0.027777777777777776,
+        "median": 0.0,
+        "positive": 2,
+        "zero": 6,
+        "negative": 1
+      },
+      "correct_minus_strongest_incorrect_prior_delta": {
+        "n": 9,
+        "mean": 0.05555555555555555,
+        "median": 0.25,
+        "positive": 5,
+        "zero": 1,
+        "negative": 3
+      },
+      "correct_minus_raw_guideline_decision_delta": {
+        "n": 9,
+        "mean": -0.05555555555555555,
+        "median": 0.0,
+        "positive": 0,
+        "zero": 7,
+        "negative": 2
+      },
+      "original_incorrect_n": 3,
+      "gold_minus_prior_delta_on_original_incorrect": {
+        "n": 3,
+        "mean": 0.08333333333333333,
+        "median": 0.25,
+        "positive": 2,
+        "zero": 0,
+        "negative": 1
+      }
+    },
+    "oracle_vs_raw_guideline": {
+      "n": 24,
+      "corrected": 11,
+      "regressed": 0,
+      "corrected_case_ids": [
+        "5:5",
+        "5:10",
+        "5:15",
+        "9:7",
+        "9:19",
+        "14:4",
+        "14:12",
+        "18:3",
+        "20:9",
+        "22:6",
+        "22:16"
+      ],
+      "regressed_case_ids": [],
+      "correct_log_probability_delta": {
+        "n": 24,
+        "mean": 4.052592582047203,
+        "median": 0.15145673602944854,
+        "positive": 18,
+        "zero": 6,
+        "negative": 0
+      },
+      "correct_probability_delta": {
+        "n": 24,
+        "mean": 0.4391110354879335,
+        "median": 0.13941714344730882,
+        "positive": 18,
+        "zero": 6,
+        "negative": 0
+      },
+      "correct_option_probability_delta": {
+        "n": 24,
+        "mean": 0.43911092110559463,
+        "median": 0.13941675424575806,
+        "positive": 18,
+        "zero": 6,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability_delta": {
+        "n": 24,
+        "mean": 6.630208333333333,
+        "median": 0.0,
+        "positive": 6,
+        "zero": 15,
+        "negative": 3
+      },
+      "correct_minus_strongest_incorrect_prior_delta": {
+        "n": 24,
+        "mean": 15.661458333333334,
+        "median": 10.4375,
+        "positive": 21,
+        "zero": 0,
+        "negative": 3
+      },
+      "correct_minus_raw_guideline_decision_delta": {
+        "n": 24,
+        "mean": 14.703125,
+        "median": 0.0,
+        "positive": 11,
+        "zero": 13,
+        "negative": 0
+      },
+      "original_incorrect_n": 9,
+      "gold_minus_prior_delta_on_original_incorrect": {
+        "n": 9,
+        "mean": 17.680555555555557,
+        "median": 23.0,
+        "positive": 6,
+        "zero": 0,
+        "negative": 3
+      }
+    }
+  },
+  "active_intervention_n": 9,
+  "heads": {
+    "12:24": {
+      "single_head_delta_all": {
+        "n": 24,
+        "mean": 0.015625,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 17,
+        "negative": 3
+      },
+      "single_head_delta_active": {
+        "n": 9,
+        "mean": 0.041666666666666664,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 2,
+        "negative": 3
+      },
+      "retained_head_causal_effect_all": {
+        "n": 24,
+        "mean": 0.390625,
+        "median": 0.0,
+        "positive": 11,
+        "zero": 2,
+        "negative": 11
+      },
+      "negative_active_case_ids": [
+        "5:5",
+        "14:4",
+        "18:4"
+      ],
+      "effect_sign_varies": true
+    },
+    "35:8": {
+      "single_head_delta_all": {
+        "n": 24,
+        "mean": 0.010416666666666666,
+        "median": 0.0,
+        "positive": 2,
+        "zero": 21,
+        "negative": 1
+      },
+      "single_head_delta_active": {
+        "n": 9,
+        "mean": 0.027777777777777776,
+        "median": 0.0,
+        "positive": 2,
+        "zero": 6,
+        "negative": 1
+      },
+      "retained_head_causal_effect_all": {
+        "n": 24,
+        "mean": 0.4479166666666667,
+        "median": 0.5,
+        "positive": 14,
+        "zero": 0,
+        "negative": 10
+      },
+      "negative_active_case_ids": [
+        "18:4"
+      ],
+      "effect_sign_varies": true
+    }
+  },
+  "controls": {
+    "zero_gate_exact": 24,
+    "zero_strength_exact": 24,
+    "n": 24
+  },
+  "failure_cause_counts": {
+    "downstream_decision_error_despite_correct_rule": 4,
+    "oracle_guidance_recovers_correct_action": 15,
+    "key_rule_condition_matching_unknown": 8,
+    "correct_rule_has_zero_gate": 17,
+    "key_rule_condition_matching_not_applicable": 9,
+    "insufficient_evidence_decision": 7
+  },
+  "case_results": [
+    {
+      "case_id": "5:1",
+      "gold_rule_id": "mega_5_leaf_5",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.473631,
+      "decisions": {
+        "original": [
+          "mega_5_leaf_5"
+        ],
+        "original_full_guideline": [
+          "mega_5_leaf_5"
+        ],
+        "oracle_rule": [
+          "mega_5_leaf_5"
+        ],
+        "triage_prompt_only": [
+          "mega_5_leaf_5"
+        ],
+        "triage_full": [
+          "mega_5_leaf_5"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "attention_correct_logp_delta": 3.5762741390499286e-07,
+      "failures": []
+    },
+    {
+      "case_id": "5:5",
+      "gold_rule_id": "mega_5_leaf_13",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.929724,
+      "decisions": {
+        "original": [],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_5_leaf_13"
+        ],
+        "triage_prompt_only": [
+          "mega_5_leaf_12"
+        ],
+        "triage_full": [
+          "mega_5_leaf_12"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.2476191520690918,
+      "failures": [
+        "downstream_decision_error_despite_correct_rule",
+        "oracle_guidance_recovers_correct_action"
+      ]
+    },
+    {
+      "case_id": "5:10",
+      "gold_rule_id": "mega_5_leaf_23",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_5_leaf_17"
+        ],
+        "original_full_guideline": [
+          "mega_5_leaf_21"
+        ],
+        "oracle_rule": [
+          "mega_5_leaf_23"
+        ],
+        "triage_prompt_only": [
+          "mega_5_leaf_23"
+        ],
+        "triage_full": [
+          "mega_5_leaf_23"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "5:15",
+      "gold_rule_id": "mega_5_leaf_29",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "not_applicable",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_5_leaf_29"
+        ],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_5_leaf_29"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_not_applicable",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "9:1",
+      "gold_rule_id": "mega_9_leaf_5",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_9_leaf_33"
+        ],
+        "original_full_guideline": [
+          "mega_9_leaf_5"
+        ],
+        "oracle_rule": [
+          "mega_9_leaf_5"
+        ],
+        "triage_prompt_only": [
+          "mega_9_leaf_6"
+        ],
+        "triage_full": [
+          "mega_9_leaf_6"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "9:7",
+      "gold_rule_id": "mega_9_leaf_17",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "not_applicable",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_9_leaf_17"
+        ],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_9_leaf_17"
+        ],
+        "triage_prompt_only": [
+          "mega_9_leaf_11"
+        ],
+        "triage_full": [
+          "mega_9_leaf_11"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_not_applicable",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "9:13",
+      "gold_rule_id": "mega_9_leaf_28",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.462971,
+      "decisions": {
+        "original": [
+          "mega_9_leaf_11"
+        ],
+        "original_full_guideline": [
+          "mega_9_leaf_28"
+        ],
+        "oracle_rule": [
+          "mega_9_leaf_28"
+        ],
+        "triage_prompt_only": [
+          "mega_9_leaf_22"
+        ],
+        "triage_full": [
+          "mega_9_leaf_22"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.21309423446655273,
+      "failures": [
+        "downstream_decision_error_despite_correct_rule",
+        "oracle_guidance_recovers_correct_action"
+      ]
+    },
+    {
+      "case_id": "9:19",
+      "gold_rule_id": "mega_9_leaf_37",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_9_leaf_37"
+        ],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_9_leaf_37"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "14:1",
+      "gold_rule_id": "mega_14_leaf_2",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.362345,
+      "decisions": {
+        "original": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ],
+        "original_full_guideline": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ],
+        "oracle_rule": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ],
+        "triage_prompt_only": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ],
+        "triage_full": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "attention_correct_logp_delta": -1.5426427125930786e-05,
+      "failures": []
+    },
+    {
+      "case_id": "14:4",
+      "gold_rule_id": "mega_14_leaf_9",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "not_applicable",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_14_leaf_9",
+          "mega_14_leaf_16"
+        ],
+        "original_full_guideline": [
+          "mega_14_leaf_10"
+        ],
+        "oracle_rule": [
+          "mega_14_leaf_9",
+          "mega_14_leaf_16"
+        ],
+        "triage_prompt_only": [
+          "mega_14_leaf_9",
+          "mega_14_leaf_16"
+        ],
+        "triage_full": [
+          "mega_14_leaf_9",
+          "mega_14_leaf_16"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "attention_correct_logp_delta": -0.00053422711789608,
+      "failures": [
+        "key_rule_condition_matching_not_applicable",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "14:8",
+      "gold_rule_id": "mega_14_leaf_17",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_14_leaf_17"
+        ],
+        "original_full_guideline": [
+          "mega_14_leaf_17"
+        ],
+        "oracle_rule": [
+          "mega_14_leaf_17"
+        ],
+        "triage_prompt_only": [
+          "mega_14_leaf_17"
+        ],
+        "triage_full": [
+          "mega_14_leaf_17"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "14:12",
+      "gold_rule_id": "mega_14_leaf_23",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_14_leaf_23"
+        ],
+        "original_full_guideline": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ],
+        "oracle_rule": [
+          "mega_14_leaf_23"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "18:1",
+      "gold_rule_id": "mega_18_leaf_3",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.434342,
+      "decisions": {
+        "original": [
+          "mega_18_leaf_7"
+        ],
+        "original_full_guideline": [
+          "mega_18_leaf_3"
+        ],
+        "oracle_rule": [
+          "mega_18_leaf_3"
+        ],
+        "triage_prompt_only": [
+          "mega_18_leaf_7"
+        ],
+        "triage_full": [
+          "mega_18_leaf_7"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.2399158477783203,
+      "failures": [
+        "downstream_decision_error_despite_correct_rule",
+        "oracle_guidance_recovers_correct_action"
+      ]
+    },
+    {
+      "case_id": "18:2",
+      "gold_rule_id": "mega_18_leaf_4",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "not_applicable",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_18_leaf_4"
+        ],
+        "original_full_guideline": [
+          "mega_18_leaf_4"
+        ],
+        "oracle_rule": [
+          "mega_18_leaf_4"
+        ],
+        "triage_prompt_only": [
+          "mega_18_leaf_4"
+        ],
+        "triage_full": [
+          "mega_18_leaf_4"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "attention_correct_logp_delta": 0.010547786951065063,
+      "failures": [
+        "key_rule_condition_matching_not_applicable",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "18:3",
+      "gold_rule_id": "mega_18_leaf_6",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "not_applicable",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_18_leaf_7"
+        ],
+        "original_full_guideline": [
+          "mega_18_leaf_7"
+        ],
+        "oracle_rule": [
+          "mega_18_leaf_6"
+        ],
+        "triage_prompt_only": [
+          "mega_18_leaf_7"
+        ],
+        "triage_full": [
+          "mega_18_leaf_7"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_not_applicable",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "18:4",
+      "gold_rule_id": "mega_18_leaf_7",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.855981,
+      "decisions": {
+        "original": [
+          "mega_18_leaf_7"
+        ],
+        "original_full_guideline": [
+          "mega_18_leaf_7"
+        ],
+        "oracle_rule": [
+          "mega_18_leaf_7"
+        ],
+        "triage_prompt_only": [
+          "mega_18_leaf_7"
+        ],
+        "triage_full": [
+          "mega_18_leaf_7"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "attention_correct_logp_delta": -3.003711753990501e-05,
+      "failures": []
+    },
+    {
+      "case_id": "20:1",
+      "gold_rule_id": "mega_20_leaf_4",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_20_leaf_4"
+        ],
+        "original_full_guideline": [
+          "mega_20_leaf_4"
+        ],
+        "oracle_rule": [
+          "mega_20_leaf_4"
+        ],
+        "triage_prompt_only": [
+          "mega_20_leaf_4"
+        ],
+        "triage_full": [
+          "mega_20_leaf_4"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "20:5",
+      "gold_rule_id": "mega_20_leaf_12",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_20_leaf_12"
+        ],
+        "original_full_guideline": [
+          "mega_20_leaf_12"
+        ],
+        "oracle_rule": [
+          "mega_20_leaf_12"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "20:9",
+      "gold_rule_id": "mega_20_leaf_19",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "not_applicable",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_20_leaf_19"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_not_applicable",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "20:14",
+      "gold_rule_id": "mega_20_leaf_27",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.427193,
+      "decisions": {
+        "original": [
+          "mega_20_leaf_27"
+        ],
+        "original_full_guideline": [
+          "mega_20_leaf_27"
+        ],
+        "oracle_rule": [
+          "mega_20_leaf_27"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "downstream_decision_error_despite_correct_rule",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action"
+      ]
+    },
+    {
+      "case_id": "22:1",
+      "gold_rule_id": "mega_22_leaf_6",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_22_leaf_6",
+          "mega_22_leaf_10"
+        ],
+        "original_full_guideline": [
+          "mega_22_leaf_6",
+          "mega_22_leaf_10"
+        ],
+        "oracle_rule": [
+          "mega_22_leaf_6",
+          "mega_22_leaf_10"
+        ],
+        "triage_prompt_only": [
+          "mega_22_leaf_7"
+        ],
+        "triage_full": [
+          "mega_22_leaf_7"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "22:6",
+      "gold_rule_id": "mega_22_leaf_13",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "not_applicable",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_22_leaf_13"
+        ],
+        "triage_prompt_only": [
+          "mega_22_leaf_7"
+        ],
+        "triage_full": [
+          "mega_22_leaf_7"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_not_applicable",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "22:11",
+      "gold_rule_id": "mega_22_leaf_24",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "not_applicable",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_22_leaf_24"
+        ],
+        "original_full_guideline": [
+          "mega_22_leaf_24"
+        ],
+        "oracle_rule": [
+          "mega_22_leaf_24"
+        ],
+        "triage_prompt_only": [
+          "mega_22_leaf_24"
+        ],
+        "triage_full": [
+          "mega_22_leaf_24"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_not_applicable",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "22:16",
+      "gold_rule_id": "mega_22_leaf_31",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "not_applicable",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_22_leaf_31"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_not_applicable",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    }
+  ],
+  "reproduction": {
+    "manifest_sha256": "decb770084fd507bbe2d3462458a64abfade994b3382a73a23b8003f9eee4e08",
+    "references_sha256": "73220d29c51b1cb5e3dadba4e952d33d37d8bbd758691761535100ff8af39cad",
+    "sum_case_seconds": 1169.236,
+    "peak_allocated_gib": 18.913290977478027
+  }
+}

@@ -1,0 +1,343 @@
+{
+  "reference_answers_used": false,
+  "frozen_components": true,
+  "frozen_projections": true,
+  "total_real_pipeline_samples": 3,
+  "head_calibration_guideline_ids": [
+    3
+  ],
+  "evaluation_guideline_ids": [
+    5,
+    9
+  ],
+  "effectiveness_claimed": false,
+  "scope": "Minimal non-test functional verification",
+  "technical_issues": [
+    "Full-guideline top_k=3 retrieval missed the applicable nutrition rule in guideline5.",
+    "Full-guideline generated recommendations and rationales can contradict patient evidence despite applicability metadata.",
+    "Fixed nutrition-subtree active intervention changed logits while the final decision stayed identical.",
+    "No valid real prior-guideline conflict in these cases; prior suppression verified only by an explicit synthetic forward control.",
+    "Context edits are token salience key projection, not query-specific relation bias.",
+    "Prior projection is an attention-output spectral proxy, not an isolated causal prior-only subspace."
+  ],
+  "samples": [
+    {
+      "report": "smoke.json",
+      "guideline_id": 5,
+      "module1_source": "computed_live",
+      "action_gate": {
+        "mega_5_leaf_14": 0.0,
+        "mega_5_leaf_28": 0.0,
+        "mega_5_leaf_8": 0.0
+      },
+      "baseline_decision": {
+        "decision": "Implement a high-quality improvement system to organize and manage mealtime feeding assistance",
+        "actions": [
+          "Implement a high-quality improvement system to organize and manage mealtime feeding assistance so that staff provide more consistent assistance",
+          "Help improve meal intake and reduce unintentional weight loss among persons with dementia"
+        ],
+        "status": "decided",
+        "rationale": "The patient is experiencing feeding and eating disorders (poor appetite, forgetting to eat or drink, chewing and swallowing problems). The patient is in a moderate-to-severe stage and requires assistance with eating and drinking in an institutional setting. The primary immediate management goal is to directly increase food and energy intake and improve nutritional outcomes. The patient requires hands-on assistance with eating and drinking. However, staff or caregiver handfeeding assistance is not available at mealtimes."
+      },
+      "intervened_decision": {
+        "decision": "Implement a high-quality improvement system to organize and manage mealtime feeding assistance",
+        "actions": [
+          "Implement a high-quality improvement system to organize and manage mealtime feeding assistance so that staff provide more consistent assistance",
+          "Help improve meal intake and reduce unintentional weight loss among persons with dementia"
+        ],
+        "status": "decided",
+        "rationale": "The patient is experiencing feeding and eating disorders (poor appetite, forgetting to eat or drink, chewing and swallowing problems). The patient is in a moderate-to-severe stage and requires assistance with eating and drinking in an institutional setting. The primary immediate management goal is to directly increase food and energy intake and improve nutritional outcomes. The patient requires hands-on assistance with eating and drinking. However, staff or caregiver handfeeding assistance is not available at mealtimes."
+      },
+      "json_valid": [
+        true,
+        true
+      ],
+      "comparison": {
+        "max_abs_next_token_logit_delta": 0.0,
+        "l2_next_token_logit_delta": 0.0,
+        "baseline_argmax": 515,
+        "intervened_argmax": 515,
+        "decision_text_changed": false
+      },
+      "context_changed_elements": 0,
+      "context_forward_calls": 0,
+      "actual_prior_forward_calls": 0,
+      "zero_gate_exact": true,
+      "synthetic_prior_control": {
+        "synthetic_conflict_control": true,
+        "forward_only": true,
+        "max_abs_next_token_logit_delta": 0.0,
+        "stats": {
+          "schema_version": "module3.stats.v1",
+          "context_changed_elements": 0,
+          "context_delta_l2": 0.0,
+          "prior_changed_elements": 0.0,
+          "prior_delta_l2": 0.0,
+          "context_forward_calls": 0,
+          "prior_forward_calls": 0,
+          "selected_heads": [
+            {
+              "layer": 35,
+              "head": 8
+            },
+            {
+              "layer": 12,
+              "head": 24
+            }
+          ],
+          "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+          "rule_gates": {
+            "mega_5_leaf_14": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            },
+            "mega_5_leaf_28": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            },
+            "mega_5_leaf_8": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            }
+          },
+          "prior_basis_is_proxy": true,
+          "context_strength": 0.1,
+          "prior_strength": 0.1,
+          "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+          "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+          "prior_minimum_evidence_confidence": 0.8
+        },
+        "applicable_rule_ids": []
+      },
+      "elapsed_seconds": 93.717,
+      "peak_allocated_gib": 16.261059284210205,
+      "artifact_identity": {
+        "components_sha256": "51eea11f1882e41c962196d66f1d34606b8ec2bd917d47dd6e946a6dfddcdaf4",
+        "projection_sha256": "b5b8d15d9c1004fdc68f45cd66fe2b67a74c39179f14459faff3d11a28929164",
+        "context_strength": 0.1,
+        "prior_strength": 0.1
+      }
+    },
+    {
+      "report": "smoke.json",
+      "guideline_id": 9,
+      "module1_source": "computed_live",
+      "action_gate": {
+        "r14": 0.0,
+        "r2": 0.0,
+        "r16": 0.0
+      },
+      "baseline_decision": {
+        "decision": "Begin with neoadjuvant imatinib",
+        "actions": [
+          "Administer neoadjuvant imatinib",
+          "Monitor for response and side effects"
+        ],
+        "status": "decided",
+        "rationale": "The patient has localized disease with no regional or distant metastasis (satisfied), the lesion is technically operable (satisfied), but surgical resection would result in unacceptable functional or cosmetic impairment (satisfied). Neoadjuvant imatinib is available and tolerated (not satisfied), so surgical excision is not recommended. Therefore, neoadjuvant imatinib is the preferred initial management."
+      },
+      "intervened_decision": {
+        "decision": "Begin with neoadjuvant imatinib",
+        "actions": [
+          "Administer neoadjuvant imatinib",
+          "Monitor for response and side effects"
+        ],
+        "status": "decided",
+        "rationale": "The patient has localized disease with no regional or distant metastasis (satisfied), the lesion is technically operable (satisfied), but surgical resection would result in unacceptable functional or cosmetic impairment (satisfied). Neoadjuvant imatinib is available and tolerated (not satisfied), so surgical excision is not recommended. Therefore, neoadjuvant imatinib is the preferred initial management."
+      },
+      "json_valid": [
+        true,
+        true
+      ],
+      "comparison": {
+        "max_abs_next_token_logit_delta": 0.0,
+        "l2_next_token_logit_delta": 0.0,
+        "baseline_argmax": 515,
+        "intervened_argmax": 515,
+        "decision_text_changed": false
+      },
+      "context_changed_elements": 0,
+      "context_forward_calls": 0,
+      "actual_prior_forward_calls": 0,
+      "zero_gate_exact": true,
+      "synthetic_prior_control": {
+        "synthetic_conflict_control": true,
+        "forward_only": true,
+        "max_abs_next_token_logit_delta": 0.0,
+        "stats": {
+          "schema_version": "module3.stats.v1",
+          "context_changed_elements": 0,
+          "context_delta_l2": 0.0,
+          "prior_changed_elements": 0.0,
+          "prior_delta_l2": 0.0,
+          "context_forward_calls": 0,
+          "prior_forward_calls": 0,
+          "selected_heads": [
+            {
+              "layer": 35,
+              "head": 8
+            },
+            {
+              "layer": 12,
+              "head": 24
+            }
+          ],
+          "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+          "rule_gates": {
+            "r14": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            },
+            "r2": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            },
+            "r16": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            }
+          },
+          "prior_basis_is_proxy": true,
+          "context_strength": 0.1,
+          "prior_strength": 0.1,
+          "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+          "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+          "prior_minimum_evidence_confidence": 0.8
+        },
+        "applicable_rule_ids": []
+      },
+      "elapsed_seconds": 56.433,
+      "peak_allocated_gib": 16.261059284210205,
+      "artifact_identity": {
+        "components_sha256": "51eea11f1882e41c962196d66f1d34606b8ec2bd917d47dd6e946a6dfddcdaf4",
+        "projection_sha256": "b5b8d15d9c1004fdc68f45cd66fe2b67a74c39179f14459faff3d11a28929164",
+        "context_strength": 0.1,
+        "prior_strength": 0.1
+      }
+    },
+    {
+      "report": "coverage_smoke.json",
+      "guideline_id": 5,
+      "module1_source": "computed_live",
+      "action_gate": {
+        "mega_5_leaf_8": 0.0,
+        "mega_5_leaf_5": 0.486737,
+        "mega_5_leaf_7": 0.0
+      },
+      "baseline_decision": {
+        "decision": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+        "actions": [
+          "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks)"
+        ],
+        "status": "decided",
+        "rationale": "The patient meets all the conditions for Rule mega_5_leaf_5: they are experiencing feeding and eating disorders, are in a moderate-to-severe stage requiring assistance with eating and drinking, and the primary goal is to increase food and energy intake. Oral nutritional supplementation is feasible and available, so the recommendation applies."
+      },
+      "intervened_decision": {
+        "decision": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+        "actions": [
+          "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks)"
+        ],
+        "status": "decided",
+        "rationale": "The patient meets all the conditions for Rule mega_5_leaf_5: they are experiencing feeding and eating disorders, are in a moderate-to-severe stage requiring assistance with eating and drinking, and the primary goal is to increase food and energy intake. Oral nutritional supplementation is feasible and available, so the recommendation applies."
+      },
+      "json_valid": [
+        true,
+        true
+      ],
+      "comparison": {
+        "max_abs_next_token_logit_delta": 0.5,
+        "l2_next_token_logit_delta": 64.57054901123047,
+        "baseline_argmax": 515,
+        "intervened_argmax": 515,
+        "decision_text_changed": false
+      },
+      "context_changed_elements": 11576171,
+      "context_forward_calls": 332,
+      "actual_prior_forward_calls": 0,
+      "zero_gate_exact": true,
+      "synthetic_prior_control": {
+        "synthetic_conflict_control": true,
+        "forward_only": true,
+        "max_abs_next_token_logit_delta": 0.453125,
+        "stats": {
+          "schema_version": "module3.stats.v1",
+          "context_changed_elements": 69718,
+          "context_delta_l2": 19.51490592956543,
+          "prior_changed_elements": 473052.0,
+          "prior_delta_l2": 26.659226894378662,
+          "context_forward_calls": 2,
+          "prior_forward_calls": 2,
+          "selected_heads": [
+            {
+              "layer": 35,
+              "head": 8
+            },
+            {
+              "layer": 12,
+              "head": 24
+            }
+          ],
+          "gqa_edit_scope": "selected query heads only after repeat_kv; other heads untouched",
+          "rule_gates": {
+            "mega_5_leaf_8": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            },
+            "mega_5_leaf_5": {
+              "applicability": "applicable",
+              "action_gate": 0.486737,
+              "valid_conflict": true,
+              "evidence_confident": true,
+              "prior_gate": 0.486737
+            },
+            "mega_5_leaf_7": {
+              "applicability": "not_applicable",
+              "action_gate": 0.0,
+              "valid_conflict": false,
+              "evidence_confident": true,
+              "prior_gate": 0.0
+            }
+          },
+          "prior_basis_is_proxy": true,
+          "context_strength": 0.1,
+          "prior_strength": 0.1,
+          "projection_fingerprint": "ef2a5bd6578d3bc4475dea38ad5cce821783fa46e4222783548b79555f237897",
+          "context_operator": "token salience spectral key edit; no query-specific relation bias yet",
+          "prior_minimum_evidence_confidence": 0.8
+        },
+        "applicable_rule_ids": [
+          "mega_5_leaf_5"
+        ]
+      },
+      "elapsed_seconds": 87.97,
+      "peak_allocated_gib": 16.281115531921387,
+      "artifact_identity": {
+        "components_sha256": "51eea11f1882e41c962196d66f1d34606b8ec2bd917d47dd6e946a6dfddcdaf4",
+        "projection_sha256": "b5b8d15d9c1004fdc68f45cd66fe2b67a74c39179f14459faff3d11a28929164",
+        "context_strength": 0.1,
+        "prior_strength": 0.1
+      }
+    }
+  ]
+}

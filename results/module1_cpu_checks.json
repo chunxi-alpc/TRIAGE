@@ -1,0 +1,454 @@
+{
+  "run_kind": "CPU logic unit tests",
+  "models_loaded": false,
+  "stub_backend_only_for_logic_tests": true,
+  "passed": true,
+  "cases": [
+    {
+      "case": "age_with_unrelated_duration",
+      "relations": [
+        {
+          "rule_id": "age_with_unrelated_duration",
+          "condition_id": "age",
+          "condition": "age >= 18 years",
+          "role": "condition",
+          "negated": false,
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "A 58-year-old patient became unwell 2 days ago.",
+              "start": 0,
+              "end": 47,
+              "sentence_id": 0
+            }
+          ],
+          "method": "numeric_comparison",
+          "confidence": 1.0,
+          "underlying_condition": "age >= 18 years",
+          "decisive": true
+        }
+      ],
+      "applicability": [
+        {
+          "rule_id": "age_with_unrelated_duration",
+          "status": "applicable",
+          "conditions_status": "satisfied",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "age"
+          ],
+          "blockers": [],
+          "supporters": [
+            "age"
+          ]
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "numeric_below_threshold",
+      "relations": [
+        {
+          "rule_id": "numeric_below_threshold",
+          "condition_id": "age",
+          "condition": "age >= 18 years",
+          "role": "condition",
+          "negated": false,
+          "status": "not_satisfied",
+          "evidence": [
+            {
+              "text": "The patient is 16 years old.",
+              "start": 0,
+              "end": 28,
+              "sentence_id": 0
+            }
+          ],
+          "method": "numeric_comparison",
+          "confidence": 1.0,
+          "underlying_condition": "age >= 18 years",
+          "decisive": true
+        }
+      ],
+      "applicability": [
+        {
+          "rule_id": "numeric_below_threshold",
+          "status": "not_applicable",
+          "conditions_status": "not_satisfied",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "age"
+          ],
+          "blockers": [
+            "age"
+          ],
+          "supporters": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "glucose_unit_conversion",
+      "relations": [
+        {
+          "rule_id": "glucose_unit_conversion",
+          "condition_id": "glucose",
+          "condition": "glucose >= 9 mmol/L",
+          "role": "condition",
+          "negated": false,
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "Glucose is 180 mg/dL.",
+              "start": 0,
+              "end": 21,
+              "sentence_id": 0
+            }
+          ],
+          "method": "numeric_comparison",
+          "confidence": 1.0,
+          "underlying_condition": "glucose >= 9 mmol/L",
+          "decisive": true
+        }
+      ],
+      "applicability": [
+        {
+          "rule_id": "glucose_unit_conversion",
+          "status": "applicable",
+          "conditions_status": "satisfied",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "glucose"
+          ],
+          "blockers": [],
+          "supporters": [
+            "glucose"
+          ]
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "numeric_missing",
+      "relations": [
+        {
+          "rule_id": "numeric_missing",
+          "condition_id": "egfr",
+          "condition": "egfr >= 60 mL/min/1.73 m2",
+          "role": "condition",
+          "negated": false,
+          "status": "unknown",
+          "evidence": [],
+          "method": "numeric_missing_or_ambiguous",
+          "confidence": 0.0,
+          "underlying_condition": "egfr >= 60 mL/min/1.73 m2",
+          "decisive": true
+        }
+      ],
+      "applicability": [
+        {
+          "rule_id": "numeric_missing",
+          "status": "unknown",
+          "conditions_status": "unknown",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "egfr"
+          ],
+          "blockers": [],
+          "supporters": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "explicit_negation",
+      "relations": [
+        {
+          "rule_id": "explicit_negation",
+          "condition_id": "absence",
+          "condition": "No diabetes",
+          "role": "condition",
+          "negated": false,
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "The patient denies diabetes.",
+              "start": 0,
+              "end": 28,
+              "sentence_id": 0
+            }
+          ],
+          "method": "qwen_predicate_evidence_verified",
+          "confidence": 0.85,
+          "underlying_condition": "No diabetes",
+          "base_condition_status": "satisfied",
+          "reason": "Controlled explicit denial",
+          "shared_base_condition": "No diabetes",
+          "initial_base_condition_status": "satisfied",
+          "evidence_verification": {
+            "status": "satisfied",
+            "predicate_truth": "true",
+            "evidence_relation": "entails",
+            "reason": "Controlled explicit denial",
+            "evidence": [
+              {
+                "text": "The patient denies diabetes.",
+                "start": 0,
+                "end": 28,
+                "sentence_id": 0
+              }
+            ]
+          },
+          "decisive": true
+        }
+      ],
+      "applicability": [
+        {
+          "rule_id": "explicit_negation",
+          "status": "applicable",
+          "conditions_status": "satisfied",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "absence"
+          ],
+          "blockers": [],
+          "supporters": [
+            "absence"
+          ]
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "semantic_missing",
+      "relations": [
+        {
+          "rule_id": "semantic_missing",
+          "condition_id": "missing",
+          "condition": "History of heart failure",
+          "role": "condition",
+          "negated": false,
+          "status": "unknown",
+          "evidence": [],
+          "method": "qwen_predicate_evidence_verified",
+          "confidence": 0.0,
+          "underlying_condition": "History of heart failure",
+          "base_condition_status": "unknown",
+          "reason": "Controlled explicit denial",
+          "shared_base_condition": "History of heart failure",
+          "initial_base_condition_status": "unknown",
+          "evidence_verification": {
+            "status": "unknown",
+            "predicate_truth": "unknown",
+            "evidence_relation": "insufficient",
+            "reason": "Controlled explicit denial",
+            "evidence": []
+          },
+          "decisive": true
+        }
+      ],
+      "applicability": [
+        {
+          "rule_id": "semantic_missing",
+          "status": "unknown",
+          "conditions_status": "unknown",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "missing"
+          ],
+          "blockers": [],
+          "supporters": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "shared_condition_and_complement",
+      "relations": [
+        {
+          "rule_id": "absence",
+          "condition_id": "c",
+          "condition": "No diabetes",
+          "role": "condition",
+          "negated": false,
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "The patient denies diabetes.",
+              "start": 0,
+              "end": 28,
+              "sentence_id": 0
+            }
+          ],
+          "method": "qwen_predicate_evidence_verified",
+          "confidence": 0.85,
+          "underlying_condition": "No diabetes",
+          "base_condition_status": "satisfied",
+          "reason": "Controlled explicit denial",
+          "shared_base_condition": "No diabetes",
+          "initial_base_condition_status": "satisfied",
+          "evidence_verification": {
+            "status": "satisfied",
+            "predicate_truth": "true",
+            "evidence_relation": "entails",
+            "reason": "Controlled explicit denial",
+            "evidence": [
+              {
+                "text": "The patient denies diabetes.",
+                "start": 0,
+                "end": 28,
+                "sentence_id": 0
+              }
+            ]
+          },
+          "decisive": true
+        },
+        {
+          "rule_id": "inverse_absence",
+          "condition_id": "c",
+          "condition": "NOT (No diabetes)",
+          "role": "condition",
+          "negated": true,
+          "status": "not_satisfied",
+          "evidence": [
+            {
+              "text": "The patient denies diabetes.",
+              "start": 0,
+              "end": 28,
+              "sentence_id": 0
+            }
+          ],
+          "method": "qwen_predicate_evidence_verified",
+          "confidence": 0.85,
+          "underlying_condition": "No diabetes",
+          "base_condition_status": "satisfied",
+          "reason": "Controlled explicit denial",
+          "shared_base_condition": "No diabetes",
+          "initial_base_condition_status": "satisfied",
+          "evidence_verification": {
+            "status": "satisfied",
+            "predicate_truth": "true",
+            "evidence_relation": "entails",
+            "reason": "Controlled explicit denial",
+            "evidence": [
+              {
+                "text": "The patient denies diabetes.",
+                "start": 0,
+                "end": 28,
+                "sentence_id": 0
+              }
+            ]
+          },
+          "decisive": true
+        }
+      ],
+      "applicability": [
+        {
+          "rule_id": "absence",
+          "status": "applicable",
+          "conditions_status": "satisfied",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "c"
+          ],
+          "blockers": [],
+          "supporters": [
+            "c"
+          ]
+        },
+        {
+          "rule_id": "inverse_absence",
+          "status": "not_applicable",
+          "conditions_status": "not_satisfied",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "c"
+          ],
+          "blockers": [
+            "c"
+          ],
+          "supporters": []
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "full_interface_logic_and_gates",
+      "applicability": [
+        {
+          "rule_id": "and_unknown",
+          "status": "unknown",
+          "conditions_status": "unknown",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "egfr"
+          ],
+          "blockers": [],
+          "supporters": []
+        },
+        {
+          "rule_id": "or_satisfied",
+          "status": "applicable",
+          "conditions_status": "satisfied",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "adult"
+          ],
+          "blockers": [],
+          "supporters": [
+            "adult"
+          ]
+        },
+        {
+          "rule_id": "excluded",
+          "status": "not_applicable",
+          "conditions_status": "satisfied",
+          "exceptions_status": "satisfied",
+          "decisive_condition_ids": [
+            "exception_age"
+          ],
+          "blockers": [
+            "exception_age"
+          ],
+          "supporters": []
+        },
+        {
+          "rule_id": "not_applicable",
+          "status": "not_applicable",
+          "conditions_status": "not_satisfied",
+          "exceptions_status": "not_satisfied",
+          "decisive_condition_ids": [
+            "child"
+          ],
+          "blockers": [
+            "child"
+          ],
+          "supporters": []
+        }
+      ],
+      "action_gate": {
+        "and_unknown": 0.0,
+        "or_satisfied": 0.8,
+        "excluded": 0.0,
+        "not_applicable": 0.0
+      },
+      "binding_gate": {
+        "and_unknown": {
+          "adult": 0.8,
+          "egfr": 0.0
+        },
+        "or_satisfied": {
+          "adult": 0.8,
+          "egfr": 0.0
+        },
+        "excluded": {
+          "adult": 0.8,
+          "exception_age": 0.8
+        },
+        "not_applicable": {
+          "child": 0.8
+        }
+      },
+      "passed": true
+    }
+  ]
+}

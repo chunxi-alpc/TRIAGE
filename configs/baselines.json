@@ -1,0 +1,81 @@
+{
+  "ProbeRAG": {
+    "url": "https://github.com/XMUDeepLIT/ProbeRAG",
+    "entrypoint": "scripts/evaluate_qa.py",
+    "full_method_ready": false,
+    "blockers": [
+      "缺少模型对应的classifier .pt及conflict-aware微调权重",
+      "完整数据处理依赖OpenAI API和all-MiniLM-L6-v2"
+    ],
+    "minimum_test": "导入原评估入口，不初始化模型/数据处理器",
+    "path": "/home/gcx/TRIAGE/third_party/ProbeRAG",
+    "commit": "4ce8c132fdcd63a2c44203e738fe6993b9f2824b",
+    "deployed": true
+  },
+  "SEKA": {
+    "url": "https://github.com/waylonli/SEKA",
+    "entrypoint": "benchmarks/eval_fact_gen.py",
+    "full_method_ready": false,
+    "blockers": [
+      "官方仓库无SEKA投影.pt或AdaSEKA专家SVD权重；官方文档projection packs链接尚未发布"
+    ],
+    "minimum_test": "导入原SEKALLM/AdaptiveSEKALLM核心代码和benchmark入口",
+    "path": "/home/gcx/TRIAGE/third_party/SEKA",
+    "commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+    "deployed": true
+  },
+  "JUICE": {
+    "url": "https://github.com/GaotangLi/JUICE",
+    "entrypoint": "src/main_intervene.py",
+    "full_method_ready": false,
+    "blockers": [
+      "原注意力干预仅支持Gemma2，未支持Qwen3；未下载授权Gemma2权重",
+      "仓库声明nnsight 0.3.6 / transformers 4.48.0，主环境优先保留Qwen3所需Transformers"
+    ],
+    "minimum_test": "导入入口、读取仓库原样本；可选使用原model_utils推理函数测试Qwen3（不代表JUICE干预）",
+    "path": "/home/gcx/TRIAGE/third_party/JUICE",
+    "commit": "081e3d6089ca670c719df6cd8c23f203d11b2516",
+    "deployed": true
+  },
+  "TrialGPT": {
+    "url": "https://github.com/ncbi-nlp/TrialGPT",
+    "path": "/home/gcx/TRIAGE/third_party/TrialGPT",
+    "commit": "1b3242cd50c153a9c324661d4a0bd94fc68a4226",
+    "deployed": true,
+    "checkout": "official partial clone; sparse README.md, trialgpt_matching/, dataset/sigir/retrieved_trials.json",
+    "entrypoint": "trialgpt_matching/run_matching.py",
+    "local_adapter": "/home/gcx/TRIAGE/src/module1/trialgpt_matching.py",
+    "local_command": "scripts/run_trialgpt_matching.sh --smoke",
+    "model_key": "qwen3_8b",
+    "official_prompt_functions": [
+      "parse_criteria",
+      "print_trial",
+      "get_matching_prompt"
+    ],
+    "full_method_ready": true,
+    "adapter_cpu_mapping_test": "passed",
+    "blockers": [],
+    "patient_evidence": "original patient sentence ids and exact quotes; no synthetic consent sentence",
+    "label_mapping": {
+      "inclusion": {
+        "included": "满足",
+        "not included": "不满足"
+      },
+      "exclusion": {
+        "excluded": "满足（排除）",
+        "not excluded": "不满足（该排除项不成立）"
+      }
+    },
+    "scope": "TrialGPT-Matching only; retrieval/ranking are outside this deployment",
+    "local_matching_ready": true,
+    "smoke_test": "passed: official existing patient, 2 original inclusion criteria; both satisfy with exact patient-note evidence",
+    "smoke_result": "/home/gcx/TRIAGE/results/trialgpt_smoke.json",
+    "gpu_peak_memory_gib": 15.492,
+    "elapsed_seconds": 7.1,
+    "tokenization": "nltk_PunktSentenceTokenizer_without_resource_download",
+    "acceptance_note": "验证加载、条件级输出和原文引用有效；不代表医学判断准确性或完整基准分数",
+    "initial_smoke": "4 original criteria kept under initial_smoke in the same result file",
+    "condition_count": 2,
+    "condition_outputs_with_patient_evidence": 2
+  }
+}

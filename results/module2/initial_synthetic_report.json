@@ -1,0 +1,31 @@
+{
+  "status": "complete",
+  "files": [
+    "src/module2/data.py",
+    "src/module2/localizer.py",
+    "scripts/run_module2_smoke.py",
+    "results/module2/components.json",
+    "results/module2/calibration_pairs.json",
+    "results/module2/smoke.log"
+  ],
+  "validation": {
+    "gpu_physical_id": 1,
+    "precision": "bfloat16",
+    "non_test_pairs": 2,
+    "prompt_probes": 4,
+    "baseline_correct": 4,
+    "candidate_heads": 12,
+    "selected_heads": 3,
+    "forwards": 52,
+    "gpu_peak_allocated_gib": 15.31282901763916,
+    "localization_seconds": 2.814
+  },
+  "limitations": [
+    "Calibration labels denote automatic official tree rule applicability only, not clinical treatment quality.",
+    "Small synthetic contrasts establish runnable causal head measurement, not broad clinical generalization.",
+    "Selected head 35:16 has positive inapplicable misuse-support effect (0.0625), despite positive conditional score; selection does not guarantee eliminating misuse.",
+    "No activation patching, relation-specific ablation or full model search was required for MVP.",
+    "Original non-test case notes retained as provenance; downstream natural decision validation is separate.",
+    "BF16 decision logits have finite quantization resolution; very small effects should not be overinterpreted."
+  ]
+}

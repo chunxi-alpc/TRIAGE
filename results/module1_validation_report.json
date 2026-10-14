@@ -1,0 +1,113 @@
+{
+  "elapsed_seconds": 49.799,
+  "cpu_checks_passed": 8,
+  "samples": [
+    {
+      "guideline_id": 3,
+      "rule_count": 3,
+      "parse_status": {
+        "ok": 3
+      },
+      "relations": {
+        "satisfied": 9,
+        "not_satisfied": 2
+      },
+      "applicability": {
+        "mega_3_leaf_7": "not_applicable",
+        "mega_3_leaf_5": "applicable",
+        "mega_3_leaf_6": "not_applicable"
+      },
+      "conflicts": [
+        {
+          "rule_id": "mega_3_leaf_7",
+          "score": 1.0,
+          "status": "disagreement",
+          "prior_support": "oppose",
+          "guided_support": "support",
+          "reason": "Prior decision avoids clopidogrel entirely, while the rule suggests avoiding standard-dose clopidogrel but using prasugrel or ticagrelor, which are contraindicated in this case.",
+          "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+        },
+        {
+          "rule_id": "mega_3_leaf_5",
+          "score": 0.0,
+          "status": "agreement",
+          "prior_support": "support",
+          "guided_support": "support",
+          "reason": "Both decisions align in avoiding standard-dose clopidogrel and using an alternative P2Y12 inhibitor if feasible.",
+          "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+        },
+        {
+          "rule_id": "mega_3_leaf_6",
+          "score": 0.5,
+          "status": "unknown",
+          "prior_support": "oppose",
+          "guided_support": "unknown",
+          "reason": "Prior decision avoids clopidogrel entirely, while the rule suggests considering clopidogrel 225 mg/day, which is not recommended for CYP2C19 intermediate metabolizers.",
+          "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+        }
+      ],
+      "checks": {
+        "all_spans_match": true,
+        "inactive_action_zero": true,
+        "shared_condition_consistent": true
+      },
+      "errors": [],
+      "elapsed_seconds": 27.138,
+      "peak_allocated_gib": 16.149622917175293
+    },
+    {
+      "guideline_id": 9,
+      "rule_count": 3,
+      "parse_status": {
+        "ok": 3
+      },
+      "relations": {
+        "not_satisfied": 5,
+        "unknown": 4,
+        "satisfied": 4
+      },
+      "applicability": {
+        "r14": "not_applicable",
+        "r2": "not_applicable",
+        "r16": "not_applicable"
+      },
+      "conflicts": [
+        {
+          "rule_id": "r14",
+          "score": 0.5,
+          "status": "unknown",
+          "prior_support": "oppose",
+          "guided_support": "unknown",
+          "reason": "Prior decision recommends neoadjuvant imatinib, while r14 applies to recurrent, unresectable tumors and suggests palliative options, which is incompatible.",
+          "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+        },
+        {
+          "rule_id": "r2",
+          "score": 0.5,
+          "status": "unknown",
+          "prior_support": "oppose",
+          "guided_support": "unknown",
+          "reason": "Prior decision supports neoadjuvant imatinib, while r2 recommends direct surgical excision, which is incompatible.",
+          "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+        },
+        {
+          "rule_id": "r16",
+          "score": 0.5,
+          "status": "unknown",
+          "prior_support": "support",
+          "guided_support": "unknown",
+          "reason": "Prior decision aligns with r16's recommendation to consider systemic imatinib mesylate.",
+          "method": "Qwen action compatibility; disagreement=1, agreement=0, unknown=0.5"
+        }
+      ],
+      "checks": {
+        "all_spans_match": true,
+        "inactive_action_zero": true,
+        "shared_condition_consistent": true
+      },
+      "errors": [],
+      "elapsed_seconds": 22.508,
+      "peak_allocated_gib": 16.077621936798096
+    }
+  ]
+}

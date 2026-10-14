@@ -1,0 +1,39 @@
+{
+  "schema_version": "triage_algorithm_worker.v1",
+  "worker": 1,
+  "physical_gpu": "1",
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "seed": 20261014,
+  "module1_top_k": 12,
+  "context_strength": 0.1,
+  "prior_strength": 0.1,
+  "components_sha256": "51eea11f1882e41c962196d66f1d34606b8ec2bd917d47dd6e946a6dfddcdaf4",
+  "projection_sha256": "b5b8d15d9c1004fdc68f45cd66fe2b67a74c39179f14459faff3d11a28929164",
+  "manifest_sha256": "decb770084fd507bbe2d3462458a64abfade994b3382a73a23b8003f9eee4e08",
+  "code_sha256": {
+    "src/module1/rules.py": "14be30ebf4d75a48cd3451162c8a9afdc935bce3e1c2ef21a13e5e9957bd42a0",
+    "src/module1/diagnostic_checks.py": "5e5808592b9904ba673a0fc5498d44ef6f3ec544daaee1e1fd7bb59977e5e091",
+    "src/module1/backend.py": "395e20e3e853efe627a9ea716b73d95e5cf5667967a577221b3aed00c144c820",
+    "src/module1/__init__.py": "8b6906aff4ad3fea1d9a3e6ec47d5abed46139ca557e28664a52792d34c7fd33",
+    "src/module1/modeler.py": "4f6d9bf7daa164aad6c564a3ddf06e8a539b033926634de5a4081c9c7defb06c",
+    "src/module1/__main__.py": "76044d4f7ef99753871db407a7a245b59b9d2bcd0b9e4af9b8ff7c85184b942f",
+    "src/module1/conditions.py": "22e4aa37088dd79a9b67ad23d9154e9fe3efcd02a39b66ae0b8a43e9d530222c",
+    "src/module1/trialgpt_matching.py": "a9b288143b899d27c3d3a10be40ce26dbb95aa48206c4c4f4b1ab6bb0099a086",
+    "src/module3/intervention.py": "0dcab4d950de5b8fb70af961ebed98dab735b11e043b7e2c56af0646dd171d1d",
+    "src/module3/__init__.py": "26d0145906de018cfdf43fe1f2f6b27ea80c2b3ae737c6105a057b94887d2323",
+    "src/pipeline/tokens.py": "4fd46c874aac9905e1c46d153c72f8f42c1b3a2a8c9e70c51dc3d441b0a784de",
+    "src/pipeline/__init__.py": "f7527425b7f430bc6acc65e4eb69aecd5e07e1a77c3dcb4562195a7cb072245e",
+    "src/pipeline/runner.py": "6dfd40099b07f8d942c6fff25bf3536c5d94094fe49598c3475ed6895a04da6c"
+  },
+  "torch": "2.8.0+cu128",
+  "no_training": true,
+  "offline_models": true,
+  "cases": [
+    "5:5",
+    "9:7",
+    "14:4",
+    "18:2",
+    "20:5",
+    "22:6"
+  ]
+}

@@ -1,0 +1,209 @@
+{
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "official_repository": "https://github.com/ncbi-nlp/TrialGPT",
+  "official_prompt_file": "/home/gcx/TRIAGE/third_party/TrialGPT/trialgpt_matching/TrialGPT.py",
+  "official_prompt_sha256": "5a50af75475bbf9417aac462ab9a8148a21cdc704f932cfbeaced8af07570b2a",
+  "patient_id": "sigir-20141",
+  "trial_id": "NCT00952744",
+  "source": "/home/gcx/TRIAGE/third_party/TrialGPT/dataset/sigir/retrieved_trials.json",
+  "selection": "one existing official patient/trial; one original age criterion and at most one adjacent original inclusion criterion; no new reference labels",
+  "original_criterion_ids": {
+    "inclusion": [
+      0,
+      1
+    ],
+    "exclusion": []
+  },
+  "patient_note": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life. The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration. The latest episode of pain ended half an hour prior to her arrival. She is known to have hypertension and obesity. She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease. She currently takes no medications. Physical examination is normal. The EKG shows nonspecific changes.",
+  "patient_sentences": [
+    {
+      "sentence_id": 0,
+      "text": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life."
+    },
+    {
+      "sentence_id": 1,
+      "text": "The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration."
+    },
+    {
+      "sentence_id": 2,
+      "text": "The latest episode of pain ended half an hour prior to her arrival."
+    },
+    {
+      "sentence_id": 3,
+      "text": "She is known to have hypertension and obesity."
+    },
+    {
+      "sentence_id": 4,
+      "text": "She denies smoking, diabetes, hypercholesterolemia, or a family history of heart disease."
+    },
+    {
+      "sentence_id": 5,
+      "text": "She currently takes no medications."
+    },
+    {
+      "sentence_id": 6,
+      "text": "Physical examination is normal."
+    },
+    {
+      "sentence_id": 7,
+      "text": "The EKG shows nonspecific changes."
+    }
+  ],
+  "sentence_tokenization": "nltk_PunktSentenceTokenizer_without_resource_download",
+  "synthetic_consent_sentence_added": false,
+  "results": [
+    {
+      "criterion_id": 0,
+      "criterion_type": "inclusion",
+      "criterion": "The subject must be 18 years of age or older.",
+      "original_label": "included",
+      "condition_status": "满足",
+      "eligibility_status": "满足",
+      "evidence": [
+        {
+          "sentence_id": 0,
+          "text": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life."
+        }
+      ],
+      "evidence_quotes_verified": true,
+      "not_applicable": false,
+      "invalid_sentence_ids": [],
+      "response_schema_valid": true,
+      "mapping_note": "inclusion条件满足表示本项入组要求满足"
+    },
+    {
+      "criterion_id": 1,
+      "criterion_type": "inclusion",
+      "criterion": "The subject must present to the Emergency Department with symptoms consistent with acute coronary syndromes (e.g., chest discomfort/pain, squeezing/fullness in the chest, pain radiating to left or both arms, jaw pain, pain in the back/neck/stomach, shortness of breath, cold sweat, nausea/vomiting, lightheadedness).",
+      "original_label": "included",
+      "condition_status": "满足",
+      "eligibility_status": "满足",
+      "evidence": [
+        {
+          "sentence_id": 0,
+          "text": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life."
+        },
+        {
+          "sentence_id": 1,
+          "text": "The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration."
+        },
+        {
+          "sentence_id": 2,
+          "text": "The latest episode of pain ended half an hour prior to her arrival."
+        }
+      ],
+      "evidence_quotes_verified": true,
+      "not_applicable": false,
+      "invalid_sentence_ids": [],
+      "response_schema_valid": true,
+      "mapping_note": "inclusion条件满足表示本项入组要求满足"
+    }
+  ],
+  "raw_model_labels": {
+    "inclusion": {
+      "0": [
+        "The inclusion criterion is not applicable because the patient's age is explicitly mentioned as 58 years, which is above the minimum age requirement of 18 years.",
+        [
+          0
+        ],
+        "included"
+      ],
+      "1": [
+        "The patient presents with symptoms consistent with acute coronary syndromes, including chest pain, radiation to the back, nausea, diaphoresis, and dyspnea. These symptoms align with the inclusion criterion.",
+        [
+          0,
+          1,
+          2
+        ],
+        "included"
+      ]
+    }
+  },
+  "errors": [],
+  "test_kind": "inference only; no reference answers created",
+  "initial_smoke": {
+    "successful_condition_outputs": 4,
+    "elapsed_seconds": 15.34,
+    "gpu_peak_memory_gib": 15.499,
+    "results": [
+      {
+        "criterion_id": 0,
+        "criterion_type": "inclusion",
+        "criterion": "Acute episode of chest pain of less than 7 days duration as primary reason for admission to a chest pain clinic.",
+        "original_label": "not applicable",
+        "condition_status": "证据不足",
+        "eligibility_status": "证据不足",
+        "evidence": [],
+        "evidence_quotes_verified": false,
+        "not_applicable": true,
+        "invalid_sentence_ids": [],
+        "response_schema_valid": true,
+        "mapping_note": "inclusion条件满足表示本项入组要求满足"
+      },
+      {
+        "criterion_id": 1,
+        "criterion_type": "inclusion",
+        "criterion": "Admitted to a chest pain clinic, suspected of acute coronary infarction, but with a negative diagnosis confirmed by normal coronary enzymes and normal ECG.",
+        "original_label": "not enough information",
+        "condition_status": "证据不足",
+        "eligibility_status": "证据不足",
+        "evidence": [
+          {
+            "sentence_id": 0,
+            "text": "A 58-year-old African-American woman presents to the ER with episodic pressing/burning anterior chest pain that began two days earlier for the first time in her life."
+          },
+          {
+            "sentence_id": 1,
+            "text": "The pain started while she was walking, radiates to the back, and is accompanied by nausea, diaphoresis and mild dyspnea, but is not increased on inspiration."
+          },
+          {
+            "sentence_id": 2,
+            "text": "The latest episode of pain ended half an hour prior to her arrival."
+          },
+          {
+            "sentence_id": 7,
+            "text": "The EKG shows nonspecific changes."
+          }
+        ],
+        "evidence_quotes_verified": true,
+        "not_applicable": false,
+        "invalid_sentence_ids": [],
+        "response_schema_valid": true,
+        "mapping_note": "inclusion条件满足表示本项入组要求满足"
+      },
+      {
+        "criterion_id": 0,
+        "criterion_type": "exclusion",
+        "criterion": "Acute coronary syndrome.",
+        "original_label": "not excluded",
+        "condition_status": "证据不足",
+        "eligibility_status": "证据不足",
+        "evidence": [],
+        "evidence_quotes_verified": false,
+        "not_applicable": false,
+        "invalid_sentence_ids": [],
+        "response_schema_valid": true,
+        "mapping_note": "exclusion条件满足表示排除，eligibility_status为不满足"
+      },
+      {
+        "criterion_id": 1,
+        "criterion_type": "exclusion",
+        "criterion": "Percutaneous Coronary Intervention.",
+        "original_label": "not excluded",
+        "condition_status": "证据不足",
+        "eligibility_status": "证据不足",
+        "evidence": [],
+        "evidence_quotes_verified": false,
+        "not_applicable": false,
+        "invalid_sentence_ids": [],
+        "response_schema_valid": true,
+        "mapping_note": "exclusion条件满足表示排除，eligibility_status为不满足"
+      }
+    ],
+    "all_evidence_quotes_are_patient_substrings": true
+  },
+  "elapsed_seconds": 7.1,
+  "gpu_peak_memory_gib": 15.492,
+  "successful_condition_outputs": 2,
+  "all_evidence_quotes_are_patient_substrings": true
+}

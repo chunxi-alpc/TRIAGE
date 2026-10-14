@@ -1,0 +1,510 @@
+[
+  {
+    "pair_id": "cached_gid3:mega_3_leaf_5",
+    "rule_id": "mega_3_leaf_5",
+    "rule": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor? AND The answer must be YES: Can clopidogrel be avoided?. Recommendation: Avoid standard-dose clopidogrel (75 mg/day) if possible; use an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications.",
+    "action": "Avoid standard-dose clopidogrel (75 mg/day) if possible; use an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications.",
+    "conditions": [
+      {
+        "condition_id": "mega_3_node_1_yes",
+        "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+        "negated": false
+      },
+      {
+        "condition_id": "mega_3_node_2_yes",
+        "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+        "negated": false
+      },
+      {
+        "condition_id": "mega_3_node_3_yes",
+        "text": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+        "negated": false
+      },
+      {
+        "condition_id": "mega_3_node_4_yes",
+        "text": "Can clopidogrel be avoided?",
+        "negated": false
+      }
+    ],
+    "applicable_patient": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration. Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result). When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented. Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen. This case focused on management.",
+    "inapplicable_patient": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration. Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result). When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented. The explicit patient finding for 'Can clopidogrel be avoided?' is NO. This case focused on management.",
+    "applicable_module1_context": {
+      "schema_version": "module1.v1",
+      "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+      "relations": [
+        {
+          "condition_id": "mega_3_node_1_yes",
+          "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+              "start": 0,
+              "end": 218,
+              "sentence_id": 0
+            }
+          ],
+          "weight": 0.405238,
+          "signed_weight": 0.405238,
+          "binding_gate": 0.405238,
+          "action_gate": 0.476751,
+          "prior_competition_weight": 0.0
+        },
+        {
+          "condition_id": "mega_3_node_2_yes",
+          "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+              "start": 219,
+              "end": 334,
+              "sentence_id": 1
+            }
+          ],
+          "weight": 0.405238,
+          "signed_weight": 0.405238,
+          "binding_gate": 0.405238,
+          "action_gate": 0.476751,
+          "prior_competition_weight": 0.0
+        },
+        {
+          "condition_id": "mega_3_node_3_yes",
+          "condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+              "start": 335,
+              "end": 461,
+              "sentence_id": 2
+            }
+          ],
+          "weight": 0.405238,
+          "signed_weight": 0.405238,
+          "binding_gate": 0.405238,
+          "action_gate": 0.476751,
+          "prior_competition_weight": 0.0
+        },
+        {
+          "condition_id": "mega_3_node_4_yes",
+          "condition": "Can clopidogrel be avoided?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+              "start": 462,
+              "end": 554,
+              "sentence_id": 3
+            }
+          ],
+          "weight": 0.405238,
+          "signed_weight": 0.405238,
+          "binding_gate": 0.405238,
+          "action_gate": 0.476751,
+          "prior_competition_weight": 0.0
+        }
+      ],
+      "binding_gate": {
+        "mega_3_node_1_yes": 0.405238,
+        "mega_3_node_2_yes": 0.405238,
+        "mega_3_node_3_yes": 0.405238,
+        "mega_3_node_4_yes": 0.405238
+      },
+      "action_gate": 0.476751
+    },
+    "inapplicable_module1_context": {
+      "schema_version": "module1.v1",
+      "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+      "relations": [
+        {
+          "condition_id": "mega_3_node_1_yes",
+          "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+              "start": 0,
+              "end": 218,
+              "sentence_id": 0
+            }
+          ],
+          "weight": 0.405238,
+          "signed_weight": 0.405238,
+          "binding_gate": 0.405238,
+          "action_gate": 0.0,
+          "prior_competition_weight": 0.0
+        },
+        {
+          "condition_id": "mega_3_node_2_yes",
+          "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+              "start": 219,
+              "end": 334,
+              "sentence_id": 1
+            }
+          ],
+          "weight": 0.405238,
+          "signed_weight": 0.405238,
+          "binding_gate": 0.405238,
+          "action_gate": 0.0,
+          "prior_competition_weight": 0.0
+        },
+        {
+          "condition_id": "mega_3_node_3_yes",
+          "condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+              "start": 335,
+              "end": 461,
+              "sentence_id": 2
+            }
+          ],
+          "weight": 0.405238,
+          "signed_weight": 0.405238,
+          "binding_gate": 0.405238,
+          "action_gate": 0.0,
+          "prior_competition_weight": 0.0
+        },
+        {
+          "condition_id": "mega_3_node_4_yes",
+          "condition": "Can clopidogrel be avoided?",
+          "status": "not_satisfied",
+          "evidence": [
+            {
+              "text": "The explicit patient finding for 'Can clopidogrel be avoided?' is NO.",
+              "start": 462,
+              "end": 531,
+              "sentence_id": 3
+            }
+          ],
+          "weight": 0.405238,
+          "signed_weight": -0.405238,
+          "binding_gate": 0.405238,
+          "action_gate": 0.0,
+          "prior_competition_weight": 0.0
+        }
+      ],
+      "binding_gate": {
+        "mega_3_node_1_yes": 0.405238,
+        "mega_3_node_2_yes": 0.405238,
+        "mega_3_node_3_yes": 0.405238,
+        "mega_3_node_4_yes": 0.405238
+      },
+      "action_gate": 0.0
+    },
+    "provenance": {
+      "dataset": "MEGA-CDP",
+      "split": "train_val",
+      "guideline_id": 3,
+      "filename": "0038cbddf9f49585748cdfe27ff17c71",
+      "cache_path": "/home/gcx/TRIAGE/results/module1_output.json",
+      "cache_sha256": "71e531d50bd70e108ae329bbcc57ba9cdfd33a1e6500af37fafe067453378ffd",
+      "source_patient_cache_path": "/home/gcx/TRIAGE/results/module1_smoke.json",
+      "source_patient_cache_sha256": "3df2b02edce4074691c9953f87bc8a89892499508c544c4a7417e932e28fb293",
+      "original_patient": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration. Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result). When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented. Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen. This case focused on management.",
+      "source_input": {
+        "dataset": "MEGA-CDP",
+        "split": "train_val",
+        "guideline_id": 3,
+        "filename": "0038cbddf9f49585748cdfe27ff17c71",
+        "patient": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/vignette_cases.jsonl",
+          "line": 13,
+          "field": "text"
+        },
+        "guideline": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/decision_trees.jsonl",
+          "line": 2,
+          "field": "text.decision_tree",
+          "representation": "official_structured_tree",
+          "all_tree_paths_used": true,
+          "rule_count": 18
+        },
+        "original_guideline_markdown": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/guideline_md/0038cbddf9f49585748cdfe27ff17c71/0038cbddf9f49585748cdfe27ff17c71.md",
+        "question": {
+          "origin": "generic management question written for this smoke run; not a reference answer"
+        }
+      },
+      "original_rule_id": "mega_3_leaf_5",
+      "original_applicability": "applicable",
+      "original_action_gate": 0.476751,
+      "synthetic_patient": false,
+      "counterfactual_side": "inapplicable",
+      "flipped_condition_id": "mega_3_node_4_yes",
+      "flipped_underlying_condition": "Can clopidogrel be avoided?",
+      "replaced_evidence": {
+        "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+        "start": 462,
+        "end": 554,
+        "sentence_id": 3
+      },
+      "replacement_evidence": "The explicit patient finding for 'Can clopidogrel be avoided?' is NO.",
+      "construction": "exact cached evidence replacement plus automatic cached-logic recomputation",
+      "counterfactual_gate_caveat": "fixed original relevance/conflict and NLI confidence; not rerun module one",
+      "reference_answers_used": false,
+      "module1_calls_during_localization": 0,
+      "cache_snapshot_path": "/home/gcx/TRIAGE/results/module2/module1_calibration_cache.json",
+      "contains_automatic_counterfactual": true
+    }
+  },
+  {
+    "pair_id": "cached_gid3:mega_3_leaf_6",
+    "rule_id": "mega_3_leaf_6",
+    "rule": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? AND The answer must be YES: Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? AND The answer must be YES: If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor? AND The answer must be NO: Can clopidogrel be avoided?. Recommendation: If clopidogrel cannot be avoided in a CYP2C19 IM, clopidogrel 225 mg/day could be considered as an alternative treatment option to prasugrel or ticagrelor.",
+    "action": "If clopidogrel cannot be avoided in a CYP2C19 IM, clopidogrel 225 mg/day could be considered as an alternative treatment option to prasugrel or ticagrelor.",
+    "conditions": [
+      {
+        "condition_id": "mega_3_node_1_yes",
+        "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+        "negated": false
+      },
+      {
+        "condition_id": "mega_3_node_2_yes",
+        "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+        "negated": false
+      },
+      {
+        "condition_id": "mega_3_node_3_yes",
+        "text": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+        "negated": false
+      },
+      {
+        "condition_id": "mega_3_node_4_no",
+        "text": "Can clopidogrel be avoided?",
+        "negated": true
+      }
+    ],
+    "applicable_patient": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration. Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result). When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented. The explicit patient finding for 'Can clopidogrel be avoided?' is NO. This case focused on management.",
+    "inapplicable_patient": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration. Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result). When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented. Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen. This case focused on management.",
+    "applicable_module1_context": {
+      "schema_version": "module1.v1",
+      "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+      "relations": [
+        {
+          "condition_id": "mega_3_node_1_yes",
+          "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+              "start": 0,
+              "end": 218,
+              "sentence_id": 0
+            }
+          ],
+          "weight": 0.603369,
+          "signed_weight": 0.603369,
+          "binding_gate": 0.603369,
+          "action_gate": 0.709845,
+          "prior_competition_weight": 0.354922
+        },
+        {
+          "condition_id": "mega_3_node_2_yes",
+          "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+              "start": 219,
+              "end": 334,
+              "sentence_id": 1
+            }
+          ],
+          "weight": 0.603369,
+          "signed_weight": 0.603369,
+          "binding_gate": 0.603369,
+          "action_gate": 0.709845,
+          "prior_competition_weight": 0.354922
+        },
+        {
+          "condition_id": "mega_3_node_3_yes",
+          "condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+              "start": 335,
+              "end": 461,
+              "sentence_id": 2
+            }
+          ],
+          "weight": 0.603369,
+          "signed_weight": 0.603369,
+          "binding_gate": 0.603369,
+          "action_gate": 0.709845,
+          "prior_competition_weight": 0.354922
+        },
+        {
+          "condition_id": "mega_3_node_4_no",
+          "condition": "NOT (Can clopidogrel be avoided?)",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "The explicit patient finding for 'Can clopidogrel be avoided?' is NO.",
+              "start": 462,
+              "end": 531,
+              "sentence_id": 3
+            }
+          ],
+          "weight": 0.603369,
+          "signed_weight": 0.603369,
+          "binding_gate": 0.603369,
+          "action_gate": 0.709845,
+          "prior_competition_weight": 0.354922
+        }
+      ],
+      "binding_gate": {
+        "mega_3_node_1_yes": 0.603369,
+        "mega_3_node_2_yes": 0.603369,
+        "mega_3_node_3_yes": 0.603369,
+        "mega_3_node_4_no": 0.603369
+      },
+      "action_gate": 0.709845
+    },
+    "inapplicable_module1_context": {
+      "schema_version": "module1.v1",
+      "question": "For this patient, what antiplatelet management is appropriate when clopidogrel is being considered?",
+      "relations": [
+        {
+          "condition_id": "mega_3_node_1_yes",
+          "condition": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration.",
+              "start": 0,
+              "end": 218,
+              "sentence_id": 0
+            }
+          ],
+          "weight": 0.603369,
+          "signed_weight": 0.603369,
+          "binding_gate": 0.603369,
+          "action_gate": 0.0,
+          "prior_competition_weight": 0.0
+        },
+        {
+          "condition_id": "mega_3_node_2_yes",
+          "condition": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result).",
+              "start": 219,
+              "end": 334,
+              "sentence_id": 1
+            }
+          ],
+          "weight": 0.603369,
+          "signed_weight": 0.603369,
+          "binding_gate": 0.603369,
+          "action_gate": 0.0,
+          "prior_competition_weight": 0.0
+        },
+        {
+          "condition_id": "mega_3_node_3_yes",
+          "condition": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+          "status": "satisfied",
+          "evidence": [
+            {
+              "text": "When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented.",
+              "start": 335,
+              "end": 461,
+              "sentence_id": 2
+            }
+          ],
+          "weight": 0.603369,
+          "signed_weight": 0.603369,
+          "binding_gate": 0.603369,
+          "action_gate": 0.0,
+          "prior_competition_weight": 0.0
+        },
+        {
+          "condition_id": "mega_3_node_4_no",
+          "condition": "NOT (Can clopidogrel be avoided?)",
+          "status": "not_satisfied",
+          "evidence": [
+            {
+              "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+              "start": 462,
+              "end": 554,
+              "sentence_id": 3
+            }
+          ],
+          "weight": 0.603369,
+          "signed_weight": -0.603369,
+          "binding_gate": 0.603369,
+          "action_gate": 0.0,
+          "prior_competition_weight": 0.0
+        }
+      ],
+      "binding_gate": {
+        "mega_3_node_1_yes": 0.603369,
+        "mega_3_node_2_yes": 0.603369,
+        "mega_3_node_3_yes": 0.603369,
+        "mega_3_node_4_no": 0.603369
+      },
+      "action_gate": 0.0
+    },
+    "provenance": {
+      "dataset": "MEGA-CDP",
+      "split": "train_val",
+      "guideline_id": 3,
+      "filename": "0038cbddf9f49585748cdfe27ff17c71",
+      "cache_path": "/home/gcx/TRIAGE/results/module1_output.json",
+      "cache_sha256": "71e531d50bd70e108ae329bbcc57ba9cdfd33a1e6500af37fafe067453378ffd",
+      "source_patient_cache_path": "/home/gcx/TRIAGE/results/module1_smoke.json",
+      "source_patient_cache_sha256": "3df2b02edce4074691c9953f87bc8a89892499508c544c4a7417e932e28fb293",
+      "original_patient": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration. Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result). When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented. Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen. This case focused on management.",
+      "source_input": {
+        "dataset": "MEGA-CDP",
+        "split": "train_val",
+        "guideline_id": 3,
+        "filename": "0038cbddf9f49585748cdfe27ff17c71",
+        "patient": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/vignette_cases.jsonl",
+          "line": 13,
+          "field": "text"
+        },
+        "guideline": {
+          "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/decision_trees.jsonl",
+          "line": 2,
+          "field": "text.decision_tree",
+          "representation": "official_structured_tree",
+          "all_tree_paths_used": true,
+          "rule_count": 18
+        },
+        "original_guideline_markdown": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val/guideline_md/0038cbddf9f49585748cdfe27ff17c71/0038cbddf9f49585748cdfe27ff17c71.md",
+        "question": {
+          "origin": "generic management question written for this smoke run; not a reference answer"
+        }
+      },
+      "original_rule_id": "mega_3_leaf_6",
+      "original_applicability": "not_applicable",
+      "original_action_gate": 0.0,
+      "synthetic_patient": false,
+      "counterfactual_side": "applicable",
+      "flipped_condition_id": "mega_3_node_4_no",
+      "flipped_underlying_condition": "Can clopidogrel be avoided?",
+      "replaced_evidence": {
+        "text": "Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen.",
+        "start": 462,
+        "end": 554,
+        "sentence_id": 3
+      },
+      "replacement_evidence": "The explicit patient finding for 'Can clopidogrel be avoided?' is NO.",
+      "construction": "exact cached evidence replacement plus automatic cached-logic recomputation",
+      "counterfactual_gate_caveat": "fixed original relevance/conflict and NLI confidence; not rerun module one",
+      "reference_answers_used": false,
+      "module1_calls_during_localization": 0,
+      "cache_snapshot_path": "/home/gcx/TRIAGE/results/module2/module1_calibration_cache.json",
+      "contains_automatic_counterfactual": true
+    }
+  }
+]

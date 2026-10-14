@@ -1,0 +1,57 @@
+{
+  "key_data": {
+    "identity": {
+      "parser_version": "module1-rule-parser-v1",
+      "backend_class": "LocalBackend",
+      "cache_identity": "{'model': '/home/gcx/TRIAGE/models/modelscope/Qwen3-8B', 'revision': 'master', 'parser_version': 1}",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "model_path_config_sha256": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30"
+    },
+    "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be NO: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be YES: Is prior surgery already performed with recurrent local tumor now present? AND The answer must be NO: Is additional surgical resection for recurrent tumor feasible? AND The answer must be YES: Has radiation therapy been previously delivered to the recurrent tumor site?. Recommendation: Recurrent, unresectable tumor with prior RT: consider systemic imatinib mesylate or other palliative/systemic options; maintain close clinical follow-up."
+  },
+  "parsed": {
+    "conditions": [
+      {
+        "condition_id": "c1",
+        "text": "Is the disease status localized (no known regional or distant metastasis)?",
+        "negated": true
+      },
+      {
+        "condition_id": "c2",
+        "text": "Is the lesion considered resectable with surgery (technically operable)?",
+        "negated": true
+      },
+      {
+        "condition_id": "c3",
+        "text": "Is prior surgery already performed with recurrent local tumor now present?",
+        "negated": false
+      },
+      {
+        "condition_id": "c4",
+        "text": "Is additional surgical resection for recurrent tumor feasible?",
+        "negated": true
+      },
+      {
+        "condition_id": "c5",
+        "text": "Has radiation therapy been previously delivered to the recurrent tumor site?",
+        "negated": false
+      }
+    ],
+    "logic": {
+      "op": "AND",
+      "args": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ]
+    },
+    "exceptions": [],
+    "exception_logic": {
+      "op": "OR",
+      "args": []
+    },
+    "action": "Recurrent, unresectable tumor with prior RT: consider systemic imatinib mesylate or other palliative/systemic options; maintain close clinical follow-up"
+  }
+}

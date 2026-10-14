@@ -1,0 +1,2239 @@
+{
+  "schema_version": "triage_algorithm_summary.v1",
+  "n": 24,
+  "guideline_count": 6,
+  "dataset": "MEGA-CDP",
+  "split": "train_val",
+  "scope": "Single-letter forced choice over every source-guideline action plus insufficient evidence. No-rule original still sees all action options. Free-text generation is not evaluated.",
+  "reference_isolation": {
+    "normal_reference_answers_used": false,
+    "oracle_exception": "Correct original guideline rule selected offline only after ordinary inference; no gt answer text/path labels in inference or gates"
+  },
+  "metric_definitions": {
+    "probability": "Full-vocabulary probability of the exact single-letter token. Option-normalized probability is separately named.",
+    "gold_minus_prior": "logP(gold)-logP(original selected option), zero if original is correct; original-incorrect subset reported separately.",
+    "head_effect": "Correct-minus-fixed-incorrect margin: single-head edit minus prompt-only; retained-head effect is prompt-only minus head ablation. Positive/zero/negative counts are empirical; no arbitrary stability threshold.",
+    "condition_scope": "Known reference-path signed condition IDs, deduplicated per case; off-path nodes excluded; guided_decision free text receives no automatic semantic accuracy label."
+  },
+  "variants": {
+    "original": {
+      "correct": 15,
+      "n": 24,
+      "correct_log_probability": {
+        "n": 24,
+        "mean": -2.250294952597111,
+        "median": -0.11957411468029022,
+        "positive": 0,
+        "zero": 2,
+        "negative": 22
+      },
+      "correct_probability": {
+        "n": 24,
+        "mean": 0.6037183156198042,
+        "median": 0.8880315315257236,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_option_probability": {
+        "n": 24,
+        "mean": 0.6037311915436779,
+        "median": 0.8880344033241272,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability": {
+        "n": 24,
+        "mean": -2.125,
+        "median": 0.0,
+        "positive": 0,
+        "zero": 15,
+        "negative": 9
+      },
+      "correct_minus_strongest_incorrect_prior": {
+        "n": 24,
+        "mean": 2.4479166666666665,
+        "median": 2.125,
+        "positive": 14,
+        "zero": 1,
+        "negative": 9
+      },
+      "gold_minus_prior_on_original_incorrect": {
+        "n": 9,
+        "mean": -5.666666666666667,
+        "median": -5.25,
+        "positive": 0,
+        "zero": 0,
+        "negative": 9
+      }
+    },
+    "original_full_guideline": {
+      "correct": 13,
+      "n": 24,
+      "correct_log_probability": {
+        "n": 24,
+        "mean": -4.052745823833163,
+        "median": -0.15145792812108994,
+        "positive": 0,
+        "zero": 6,
+        "negative": 18
+      },
+      "correct_probability": {
+        "n": 24,
+        "mean": 0.5607358187625634,
+        "median": 0.8605816644623359,
+        "positive": 21,
+        "zero": 3,
+        "negative": 0
+      },
+      "correct_option_probability": {
+        "n": 24,
+        "mean": 0.5607360514195251,
+        "median": 0.8605821132659912,
+        "positive": 21,
+        "zero": 3,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability": {
+        "n": 24,
+        "mean": 1.359375,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 15,
+        "negative": 5
+      },
+      "correct_minus_strongest_incorrect_prior": {
+        "n": 24,
+        "mean": 6.447916666666667,
+        "median": 5.75,
+        "positive": 14,
+        "zero": 0,
+        "negative": 10
+      },
+      "gold_minus_prior_on_original_incorrect": {
+        "n": 9,
+        "mean": 3.625,
+        "median": -2.25,
+        "positive": 4,
+        "zero": 0,
+        "negative": 5
+      }
+    },
+    "oracle_rule": {
+      "correct": 24,
+      "n": 24,
+      "correct_log_probability": {
+        "n": 24,
+        "mean": -0.00015324178596050805,
+        "median": -5.9604641222676946e-08,
+        "positive": 0,
+        "zero": 16,
+        "negative": 8
+      },
+      "correct_probability": {
+        "n": 24,
+        "mean": 0.9998468542504969,
+        "median": 0.9999999403953623,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_option_probability": {
+        "n": 24,
+        "mean": 0.9998469725251198,
+        "median": 1.0,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability": {
+        "n": 24,
+        "mean": 7.989583333333333,
+        "median": 0.0,
+        "positive": 9,
+        "zero": 15,
+        "negative": 0
+      },
+      "correct_minus_strongest_incorrect_prior": {
+        "n": 24,
+        "mean": 22.109375,
+        "median": 24.0,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "gold_minus_prior_on_original_incorrect": {
+        "n": 9,
+        "mean": 21.305555555555557,
+        "median": 20.75,
+        "positive": 9,
+        "zero": 0,
+        "negative": 0
+      }
+    },
+    "triage_prompt_only": {
+      "correct": 16,
+      "n": 24,
+      "correct_log_probability": {
+        "n": 24,
+        "mean": -2.561316566472494,
+        "median": -0.0076857751701027155,
+        "positive": 0,
+        "zero": 2,
+        "negative": 22
+      },
+      "correct_probability": {
+        "n": 24,
+        "mean": 0.6385281290655098,
+        "median": 0.9923441128599578,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_option_probability": {
+        "n": 24,
+        "mean": 0.6385292520890052,
+        "median": 0.9923448264598846,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability": {
+        "n": 24,
+        "mean": 1.6354166666666667,
+        "median": 0.0,
+        "positive": 5,
+        "zero": 15,
+        "negative": 4
+      },
+      "correct_minus_strongest_incorrect_prior": {
+        "n": 24,
+        "mean": 6.526041666666667,
+        "median": 6.625,
+        "positive": 17,
+        "zero": 0,
+        "negative": 7
+      },
+      "gold_minus_prior_on_original_incorrect": {
+        "n": 9,
+        "mean": 4.361111111111111,
+        "median": 2.5,
+        "positive": 5,
+        "zero": 0,
+        "negative": 4
+      }
+    },
+    "triage_full": {
+      "correct": 15,
+      "n": 24,
+      "correct_log_probability": {
+        "n": 24,
+        "mean": -2.5776721134916394,
+        "median": -0.009856128133833408,
+        "positive": 0,
+        "zero": 3,
+        "negative": 21
+      },
+      "correct_probability": {
+        "n": 24,
+        "mean": 0.634820310727476,
+        "median": 0.9901929873235884,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_option_probability": {
+        "n": 24,
+        "mean": 0.6348210698854994,
+        "median": 0.9901939928531647,
+        "positive": 24,
+        "zero": 0,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability": {
+        "n": 24,
+        "mean": 1.703125,
+        "median": 0.0,
+        "positive": 5,
+        "zero": 15,
+        "negative": 4
+      },
+      "correct_minus_strongest_incorrect_prior": {
+        "n": 24,
+        "mean": 6.541666666666667,
+        "median": 6.625,
+        "positive": 17,
+        "zero": 0,
+        "negative": 7
+      },
+      "gold_minus_prior_on_original_incorrect": {
+        "n": 9,
+        "mean": 4.541666666666667,
+        "median": 2.75,
+        "positive": 5,
+        "zero": 0,
+        "negative": 4
+      }
+    }
+  },
+  "retrieval": {
+    "before_top3": 6,
+    "after": 24,
+    "n": 24,
+    "interpretation": "Small complete guidelines retain every leaf; recall gain does not demonstrate improved ranking on large guidelines."
+  },
+  "applicability": {
+    "gold_applicable": 15,
+    "n": 24,
+    "gold_status_counts": {
+      "applicable": 15,
+      "unknown": 9
+    },
+    "candidate_correct": 292,
+    "candidate_total": 320,
+    "known_signed_conditions_correct": 160,
+    "known_signed_conditions_total": 180,
+    "known_signed_conditions_unknown": 20
+  },
+  "condition_verification": {
+    "initial_fields_available_n": 168,
+    "initial_correct": 166,
+    "final_correct": 160,
+    "improved": 0,
+    "regressed": 6,
+    "changed_rows": [
+      {
+        "case_id": "5:5",
+        "condition_id": "mega_5_node_9_no",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "5:5",
+        "condition_id": "mega_5_node_9_yes",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "18:3",
+        "condition_id": "mega_18_node_1_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "18:3",
+        "condition_id": "mega_18_node_1_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "20:9",
+        "condition_id": "mega_20_node_11_no",
+        "expected": "satisfied",
+        "initial": "satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "20:9",
+        "condition_id": "mega_20_node_11_yes",
+        "expected": "not_satisfied",
+        "initial": "not_satisfied",
+        "final": "unknown",
+        "initial_correct": true,
+        "final_correct": false
+      },
+      {
+        "case_id": "22:1",
+        "condition_id": "mega_22_node_3_yes",
+        "expected": "satisfied",
+        "initial": "not_satisfied",
+        "final": "unknown",
+        "initial_correct": false,
+        "final_correct": false
+      },
+      {
+        "case_id": "22:1",
+        "condition_id": "mega_22_node_3_no",
+        "expected": "not_satisfied",
+        "initial": "satisfied",
+        "final": "unknown",
+        "initial_correct": false,
+        "final_correct": false
+      }
+    ]
+  },
+  "comparisons": {
+    "full_vs_original": {
+      "n": 24,
+      "corrected": 4,
+      "regressed": 4,
+      "corrected_case_ids": [
+        "5:10",
+        "9:1",
+        "9:13",
+        "18:1"
+      ],
+      "regressed_case_ids": [
+        "9:19",
+        "14:12",
+        "20:14",
+        "22:11"
+      ],
+      "correct_log_probability_delta": {
+        "n": 24,
+        "mean": -0.3273771608945282,
+        "median": 0.005392611961497096,
+        "positive": 12,
+        "zero": 1,
+        "negative": 11
+      },
+      "correct_probability_delta": {
+        "n": 24,
+        "mean": 0.031101995107671757,
+        "median": 0.00018916074941186856,
+        "positive": 12,
+        "zero": 1,
+        "negative": 11
+      },
+      "correct_option_probability_delta": {
+        "n": 24,
+        "mean": 0.031089878341821493,
+        "median": 0.00018916308181360364,
+        "positive": 12,
+        "zero": 1,
+        "negative": 11
+      },
+      "correct_minus_prior_log_probability_delta": {
+        "n": 24,
+        "mean": 3.828125,
+        "median": 0.0,
+        "positive": 7,
+        "zero": 15,
+        "negative": 2
+      },
+      "correct_minus_strongest_incorrect_prior_delta": {
+        "n": 24,
+        "mean": 4.09375,
+        "median": 1.0,
+        "positive": 14,
+        "zero": 0,
+        "negative": 10
+      },
+      "correct_minus_raw_guideline_decision_delta": {
+        "n": 24,
+        "mean": -0.6302083333333334,
+        "median": 0.0,
+        "positive": 6,
+        "zero": 13,
+        "negative": 5
+      },
+      "original_incorrect_n": 9,
+      "gold_minus_prior_delta_on_original_incorrect": {
+        "n": 9,
+        "mean": 10.208333333333334,
+        "median": 5.25,
+        "positive": 7,
+        "zero": 0,
+        "negative": 2
+      }
+    },
+    "full_vs_raw_guideline": {
+      "n": 24,
+      "corrected": 4,
+      "regressed": 2,
+      "corrected_case_ids": [
+        "5:10",
+        "5:15",
+        "9:7",
+        "14:4"
+      ],
+      "regressed_case_ids": [
+        "20:14",
+        "22:11"
+      ],
+      "correct_log_probability_delta": {
+        "n": 24,
+        "mean": 1.4750737103415237,
+        "median": 0.014896734621061114,
+        "positive": 12,
+        "zero": 2,
+        "negative": 10
+      },
+      "correct_probability_delta": {
+        "n": 24,
+        "mean": 0.07408449196491255,
+        "median": 5.663605196932122e-07,
+        "positive": 12,
+        "zero": 2,
+        "negative": 10
+      },
+      "correct_option_probability_delta": {
+        "n": 24,
+        "mean": 0.07408501846597425,
+        "median": 5.6636018541667e-07,
+        "positive": 12,
+        "zero": 2,
+        "negative": 10
+      },
+      "correct_minus_prior_log_probability_delta": {
+        "n": 24,
+        "mean": 0.34375,
+        "median": 0.0,
+        "positive": 5,
+        "zero": 15,
+        "negative": 4
+      },
+      "correct_minus_strongest_incorrect_prior_delta": {
+        "n": 24,
+        "mean": 0.09375,
+        "median": 1.75,
+        "positive": 15,
+        "zero": 0,
+        "negative": 9
+      },
+      "correct_minus_raw_guideline_decision_delta": {
+        "n": 24,
+        "mean": 4.630208333333333,
+        "median": 0.0,
+        "positive": 10,
+        "zero": 13,
+        "negative": 1
+      },
+      "original_incorrect_n": 9,
+      "gold_minus_prior_delta_on_original_incorrect": {
+        "n": 9,
+        "mean": 0.9166666666666666,
+        "median": 1.75,
+        "positive": 5,
+        "zero": 0,
+        "negative": 4
+      }
+    },
+    "attention_vs_prompt_only": {
+      "n": 24,
+      "corrected": 0,
+      "regressed": 1,
+      "corrected_case_ids": [],
+      "regressed_case_ids": [
+        "22:6"
+      ],
+      "correct_log_probability_delta": {
+        "n": 24,
+        "mean": -0.016355547019145433,
+        "median": 0.0,
+        "positive": 3,
+        "zero": 14,
+        "negative": 7
+      },
+      "correct_probability_delta": {
+        "n": 24,
+        "mean": -0.0037078183380338907,
+        "median": 0.0,
+        "positive": 3,
+        "zero": 14,
+        "negative": 7
+      },
+      "correct_option_probability_delta": {
+        "n": 24,
+        "mean": -0.003708182203505809,
+        "median": 0.0,
+        "positive": 3,
+        "zero": 14,
+        "negative": 7
+      },
+      "correct_minus_prior_log_probability_delta": {
+        "n": 24,
+        "mean": 0.06770833333333333,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 20,
+        "negative": 0
+      },
+      "correct_minus_strongest_incorrect_prior_delta": {
+        "n": 24,
+        "mean": 0.015625,
+        "median": 0.0,
+        "positive": 6,
+        "zero": 12,
+        "negative": 6
+      },
+      "correct_minus_raw_guideline_decision_delta": {
+        "n": 24,
+        "mean": -0.0625,
+        "median": 0.0,
+        "positive": 1,
+        "zero": 18,
+        "negative": 5
+      },
+      "original_incorrect_n": 9,
+      "gold_minus_prior_delta_on_original_incorrect": {
+        "n": 9,
+        "mean": 0.18055555555555555,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 5,
+        "negative": 0
+      }
+    },
+    "attention_vs_prompt_only_active": {
+      "n": 15,
+      "corrected": 0,
+      "regressed": 1,
+      "corrected_case_ids": [],
+      "regressed_case_ids": [
+        "22:6"
+      ],
+      "correct_log_probability_delta": {
+        "n": 15,
+        "mean": -0.026168875230632695,
+        "median": -2.3841766960686073e-07,
+        "positive": 3,
+        "zero": 5,
+        "negative": 7
+      },
+      "correct_probability_delta": {
+        "n": 15,
+        "mean": -0.005932509340854225,
+        "median": -2.3841681695557781e-07,
+        "positive": 3,
+        "zero": 5,
+        "negative": 7
+      },
+      "correct_option_probability_delta": {
+        "n": 15,
+        "mean": -0.0059330915256092945,
+        "median": -2.384185791015625e-07,
+        "positive": 3,
+        "zero": 5,
+        "negative": 7
+      },
+      "correct_minus_prior_log_probability_delta": {
+        "n": 15,
+        "mean": 0.10833333333333334,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 11,
+        "negative": 0
+      },
+      "correct_minus_strongest_incorrect_prior_delta": {
+        "n": 15,
+        "mean": 0.025,
+        "median": 0.0,
+        "positive": 6,
+        "zero": 3,
+        "negative": 6
+      },
+      "correct_minus_raw_guideline_decision_delta": {
+        "n": 15,
+        "mean": -0.1,
+        "median": 0.0,
+        "positive": 1,
+        "zero": 9,
+        "negative": 5
+      },
+      "original_incorrect_n": 5,
+      "gold_minus_prior_delta_on_original_incorrect": {
+        "n": 5,
+        "mean": 0.325,
+        "median": 0.25,
+        "positive": 4,
+        "zero": 1,
+        "negative": 0
+      }
+    },
+    "oracle_vs_raw_guideline": {
+      "n": 24,
+      "corrected": 11,
+      "regressed": 0,
+      "corrected_case_ids": [
+        "5:5",
+        "5:10",
+        "5:15",
+        "9:7",
+        "9:19",
+        "14:4",
+        "14:12",
+        "18:3",
+        "20:9",
+        "22:6",
+        "22:16"
+      ],
+      "regressed_case_ids": [],
+      "correct_log_probability_delta": {
+        "n": 24,
+        "mean": 4.052592582047203,
+        "median": 0.15145673602944854,
+        "positive": 18,
+        "zero": 6,
+        "negative": 0
+      },
+      "correct_probability_delta": {
+        "n": 24,
+        "mean": 0.4391110354879335,
+        "median": 0.13941714344730882,
+        "positive": 18,
+        "zero": 6,
+        "negative": 0
+      },
+      "correct_option_probability_delta": {
+        "n": 24,
+        "mean": 0.43911092110559463,
+        "median": 0.13941675424575806,
+        "positive": 18,
+        "zero": 6,
+        "negative": 0
+      },
+      "correct_minus_prior_log_probability_delta": {
+        "n": 24,
+        "mean": 6.630208333333333,
+        "median": 0.0,
+        "positive": 6,
+        "zero": 15,
+        "negative": 3
+      },
+      "correct_minus_strongest_incorrect_prior_delta": {
+        "n": 24,
+        "mean": 15.661458333333334,
+        "median": 10.4375,
+        "positive": 21,
+        "zero": 0,
+        "negative": 3
+      },
+      "correct_minus_raw_guideline_decision_delta": {
+        "n": 24,
+        "mean": 14.703125,
+        "median": 0.0,
+        "positive": 11,
+        "zero": 13,
+        "negative": 0
+      },
+      "original_incorrect_n": 9,
+      "gold_minus_prior_delta_on_original_incorrect": {
+        "n": 9,
+        "mean": 17.680555555555557,
+        "median": 23.0,
+        "positive": 6,
+        "zero": 0,
+        "negative": 3
+      }
+    }
+  },
+  "active_intervention_n": 15,
+  "heads": {
+    "12:24": {
+      "single_head_delta_all": {
+        "n": 24,
+        "mean": 0.020833333333333332,
+        "median": 0.0,
+        "positive": 7,
+        "zero": 11,
+        "negative": 6
+      },
+      "single_head_delta_active": {
+        "n": 15,
+        "mean": 0.03333333333333333,
+        "median": 0.0,
+        "positive": 7,
+        "zero": 2,
+        "negative": 6
+      },
+      "retained_head_causal_effect_all": {
+        "n": 24,
+        "mean": 0.4270833333333333,
+        "median": 0.875,
+        "positive": 16,
+        "zero": 1,
+        "negative": 7
+      },
+      "negative_active_case_ids": [
+        "5:15",
+        "9:7",
+        "9:19",
+        "14:4",
+        "18:2",
+        "20:5"
+      ],
+      "effect_sign_varies": true
+    },
+    "35:8": {
+      "single_head_delta_all": {
+        "n": 24,
+        "mean": 0.03125,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 20,
+        "negative": 0
+      },
+      "single_head_delta_active": {
+        "n": 15,
+        "mean": 0.05,
+        "median": 0.0,
+        "positive": 4,
+        "zero": 11,
+        "negative": 0
+      },
+      "retained_head_causal_effect_all": {
+        "n": 24,
+        "mean": 1.0208333333333333,
+        "median": 1.25,
+        "positive": 16,
+        "zero": 1,
+        "negative": 7
+      },
+      "negative_active_case_ids": [],
+      "effect_sign_varies": false
+    }
+  },
+  "controls": {
+    "zero_gate_exact": 24,
+    "zero_strength_exact": 24,
+    "n": 24
+  },
+  "failure_cause_counts": {
+    "key_rule_condition_matching_unknown": 9,
+    "oracle_guidance_recovers_correct_action": 9,
+    "correct_rule_has_zero_gate": 9,
+    "downstream_decision_error_despite_correct_rule": 3,
+    "insufficient_evidence_decision": 6
+  },
+  "case_results": [
+    {
+      "case_id": "5:1",
+      "gold_rule_id": "mega_5_leaf_5",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.473631,
+      "decisions": {
+        "original": [
+          "mega_5_leaf_5"
+        ],
+        "original_full_guideline": [
+          "mega_5_leaf_5"
+        ],
+        "oracle_rule": [
+          "mega_5_leaf_5"
+        ],
+        "triage_prompt_only": [
+          "mega_5_leaf_5"
+        ],
+        "triage_full": [
+          "mega_5_leaf_5"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 1.0,
+        "original_full_guideline": 1.0,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 1.0,
+        "triage_full": 1.0
+      },
+      "correct_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": 0.0,
+      "attention_correct_logp_delta": 0.0,
+      "failures": []
+    },
+    {
+      "case_id": "5:5",
+      "gold_rule_id": "mega_5_leaf_13",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_5_leaf_13"
+        ],
+        "triage_prompt_only": [
+          "mega_5_leaf_12"
+        ],
+        "triage_full": [
+          "mega_5_leaf_12"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "correct_probability": {
+        "original": 0.3169579320557729,
+        "original_full_guideline": 0.010736278497356382,
+        "oracle_rule": 0.9999724634116024,
+        "triage_prompt_only": 0.0008606630774356692,
+        "triage_full": 0.0008606630774356692
+      },
+      "correct_log_probability": {
+        "original": -1.1489862203598022,
+        "original_full_guideline": -4.5341267585754395,
+        "oracle_rule": -2.753696753643453e-05,
+        "triage_prompt_only": -7.057807445526123,
+        "triage_full": -7.057807445526123
+      },
+      "correct_minus_prior_log_probability": {
+        "original": -0.75,
+        "original_full_guideline": -4.0,
+        "oracle_rule": 27.375,
+        "triage_prompt_only": -2.0,
+        "triage_full": -2.0
+      },
+      "full_correct_probability_delta": -0.31609726897833723,
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "5:10",
+      "gold_rule_id": "mega_5_leaf_23",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.885878,
+      "decisions": {
+        "original": [
+          "mega_5_leaf_17"
+        ],
+        "original_full_guideline": [
+          "mega_5_leaf_21"
+        ],
+        "oracle_rule": [
+          "mega_5_leaf_23"
+        ],
+        "triage_prompt_only": [
+          "mega_5_leaf_23"
+        ],
+        "triage_full": [
+          "mega_5_leaf_23"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.003357633401351481,
+        "original_full_guideline": 0.3434327888476136,
+        "oracle_rule": 0.9999998807907247,
+        "triage_prompt_only": 0.9999995231630692,
+        "triage_full": 0.9999995231630692
+      },
+      "correct_log_probability": {
+        "original": -5.696518898010254,
+        "original_full_guideline": -1.0687638521194458,
+        "oracle_rule": -1.1920928244535389e-07,
+        "triage_prompt_only": -4.768370445162873e-07,
+        "triage_full": -4.768370445162873e-07
+      },
+      "correct_minus_prior_log_probability": {
+        "original": -5.0,
+        "original_full_guideline": 5.0,
+        "oracle_rule": 16.5,
+        "triage_prompt_only": 23.625,
+        "triage_full": 23.625
+      },
+      "full_correct_probability_delta": 0.9966418897617176,
+      "attention_correct_logp_delta": 0.0,
+      "failures": []
+    },
+    {
+      "case_id": "5:15",
+      "gold_rule_id": "mega_5_leaf_29",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.465062,
+      "decisions": {
+        "original": [
+          "mega_5_leaf_29"
+        ],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_5_leaf_29"
+        ],
+        "triage_prompt_only": [
+          "mega_5_leaf_29"
+        ],
+        "triage_full": [
+          "mega_5_leaf_29"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.9968270920910962,
+        "original_full_guideline": 0.37754062298658986,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 0.9914224771982877,
+        "triage_full": 0.9890130589396958
+      },
+      "correct_log_probability": {
+        "original": -0.003177952254191041,
+        "original_full_guideline": -0.9740771055221558,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -0.008614521473646164,
+        "triage_full": -0.011047743260860443
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": -0.00781403315140039,
+      "attention_correct_logp_delta": -0.002433221787214279,
+      "failures": []
+    },
+    {
+      "case_id": "9:1",
+      "gold_rule_id": "mega_9_leaf_5",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.886103,
+      "decisions": {
+        "original": [
+          "mega_9_leaf_33"
+        ],
+        "original_full_guideline": [
+          "mega_9_leaf_5"
+        ],
+        "oracle_rule": [
+          "mega_9_leaf_5"
+        ],
+        "triage_prompt_only": [
+          "mega_9_leaf_5"
+        ],
+        "triage_full": [
+          "mega_9_leaf_5"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 2.1444733413350403e-05,
+        "original_full_guideline": 1.0,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 0.9999980926550052,
+        "triage_full": 0.9999990463265931
+      },
+      "correct_log_probability": {
+        "original": -10.750031471252441,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -1.9073468138230965e-06,
+        "triage_full": -9.536738616588991e-07
+      },
+      "correct_minus_prior_log_probability": {
+        "original": -10.75,
+        "original_full_guideline": 32.625,
+        "oracle_rule": 31.75,
+        "triage_prompt_only": 24.0,
+        "triage_full": 24.375
+      },
+      "full_correct_probability_delta": 0.9999776015931797,
+      "attention_correct_logp_delta": 9.536729521641973e-07,
+      "failures": []
+    },
+    {
+      "case_id": "9:7",
+      "gold_rule_id": "mega_9_leaf_17",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.467471,
+      "decisions": {
+        "original": [
+          "mega_9_leaf_17"
+        ],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_9_leaf_17"
+        ],
+        "triage_prompt_only": [
+          "mega_9_leaf_17"
+        ],
+        "triage_full": [
+          "mega_9_leaf_17"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.97980415845558,
+        "original_full_guideline": 0.0004665855266167932,
+        "oracle_rule": 0.9984987894978749,
+        "triage_prompt_only": 0.9999505305908489,
+        "triage_full": 0.9999337240286982
+      },
+      "correct_log_probability": {
+        "original": -0.020402565598487854,
+        "original_full_guideline": -7.670069217681885,
+        "oracle_rule": -0.0015023384476080537,
+        "triage_prompt_only": -4.9470632802695036e-05,
+        "triage_full": -6.627816765103489e-05
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": 0.02012956557311818,
+      "attention_correct_logp_delta": -1.6807534848339856e-05,
+      "failures": []
+    },
+    {
+      "case_id": "9:13",
+      "gold_rule_id": "mega_9_leaf_28",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.462971,
+      "decisions": {
+        "original": [
+          "mega_9_leaf_11"
+        ],
+        "original_full_guideline": [
+          "mega_9_leaf_28"
+        ],
+        "oracle_rule": [
+          "mega_9_leaf_28"
+        ],
+        "triage_prompt_only": [
+          "mega_9_leaf_28"
+        ],
+        "triage_full": [
+          "mega_9_leaf_28"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.00020218361166029144,
+        "original_full_guideline": 0.9274431198730044,
+        "oracle_rule": 0.9985787830607311,
+        "triage_prompt_only": 0.9992794225871926,
+        "triage_full": 0.9997216046250976
+      },
+      "correct_log_probability": {
+        "original": -8.50633430480957,
+        "original_full_guideline": -0.07532381266355515,
+        "oracle_rule": -0.0014222278259694576,
+        "triage_prompt_only": -0.0007208371534943581,
+        "triage_full": -0.00027843413408845663
+      },
+      "correct_minus_prior_log_probability": {
+        "original": -8.5,
+        "original_full_guideline": 11.875,
+        "oracle_rule": 7.25,
+        "triage_prompt_only": 10.875,
+        "triage_full": 11.625
+      },
+      "full_correct_probability_delta": 0.9995194210134374,
+      "attention_correct_logp_delta": 0.00044240301940590143,
+      "failures": []
+    },
+    {
+      "case_id": "9:19",
+      "gold_rule_id": "mega_9_leaf_37",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.878592,
+      "decisions": {
+        "original": [
+          "mega_9_leaf_37"
+        ],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_9_leaf_37"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "correct_probability": {
+        "original": 0.9959289548024772,
+        "original_full_guideline": 2.1724192171761075e-10,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 0.004065381896461992,
+        "triage_full": 0.0031679196869027508
+      },
+      "correct_log_probability": {
+        "original": -0.004079354461282492,
+        "original_full_guideline": -22.250009536743164,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -5.505247592926025,
+        "triage_full": -5.754680156707764
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": -0.9927610351155745,
+      "attention_correct_logp_delta": -0.24943256378173828,
+      "failures": [
+        "downstream_decision_error_despite_correct_rule",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action"
+      ]
+    },
+    {
+      "case_id": "14:1",
+      "gold_rule_id": "mega_14_leaf_2",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.362345,
+      "decisions": {
+        "original": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ],
+        "original_full_guideline": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ],
+        "oracle_rule": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ],
+        "triage_prompt_only": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ],
+        "triage_full": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.4971775199798502,
+        "original_full_guideline": 1.0,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 0.9999415908602124,
+        "triage_full": 0.9999645960934689
+      },
+      "correct_log_probability": {
+        "original": -0.6988081336021423,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -5.8410845667822286e-05,
+        "triage_full": -3.540453326422721e-05
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": 0.5027870761136186,
+      "attention_correct_logp_delta": 2.3006312403595075e-05,
+      "failures": []
+    },
+    {
+      "case_id": "14:4",
+      "gold_rule_id": "mega_14_leaf_9",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.421588,
+      "decisions": {
+        "original": [
+          "mega_14_leaf_9",
+          "mega_14_leaf_16"
+        ],
+        "original_full_guideline": [
+          "mega_14_leaf_10"
+        ],
+        "oracle_rule": [
+          "mega_14_leaf_9",
+          "mega_14_leaf_16"
+        ],
+        "triage_prompt_only": [
+          "mega_14_leaf_9",
+          "mega_14_leaf_16"
+        ],
+        "triage_full": [
+          "mega_14_leaf_9",
+          "mega_14_leaf_16"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.9525640874013722,
+        "original_full_guideline": 0.017922814369286846,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 0.9013532455427723,
+        "triage_full": 0.8684427342132705
+      },
+      "correct_log_probability": {
+        "original": -0.04859789088368416,
+        "original_full_guideline": -4.02168083190918,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -0.10385803878307343,
+        "triage_full": -0.14105363190174103
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": -0.08412135318810177,
+      "attention_correct_logp_delta": -0.0371955931186676,
+      "failures": []
+    },
+    {
+      "case_id": "14:8",
+      "gold_rule_id": "mega_14_leaf_17",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_14_leaf_17"
+        ],
+        "original_full_guideline": [
+          "mega_14_leaf_17"
+        ],
+        "oracle_rule": [
+          "mega_14_leaf_17"
+        ],
+        "triage_prompt_only": [
+          "mega_14_leaf_17"
+        ],
+        "triage_full": [
+          "mega_14_leaf_17"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.9999961853172863,
+        "original_full_guideline": 0.9999974966112362,
+        "oracle_rule": 0.999998927117538,
+        "triage_prompt_only": 0.9987831635729709,
+        "triage_full": 0.9987831635729709
+      },
+      "correct_log_probability": {
+        "original": -3.814689989667386e-06,
+        "original_full_guideline": -2.50339189733495e-06,
+        "oracle_rule": -1.0728830375228426e-06,
+        "triage_prompt_only": -0.0012175773736089468,
+        "triage_full": -0.0012175773736089468
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": -0.001213021744315368,
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "14:12",
+      "gold_rule_id": "mega_14_leaf_23",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_14_leaf_23"
+        ],
+        "original_full_guideline": [
+          "mega_14_leaf_2",
+          "mega_14_leaf_4"
+        ],
+        "oracle_rule": [
+          "mega_14_leaf_23"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "correct_probability": {
+        "original": 0.7307756387182985,
+        "original_full_guideline": 1.4702198690421576e-08,
+        "oracle_rule": 0.9998415959451853,
+        "triage_prompt_only": 0.00015834515605737926,
+        "triage_full": 0.00015834515605737926
+      },
+      "correct_log_probability": {
+        "original": -0.3136487901210785,
+        "original_full_guideline": -18.035268783569336,
+        "oracle_rule": -0.00015841660206206143,
+        "triage_prompt_only": -8.750733375549316,
+        "triage_full": -8.750733375549316
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": -0.7306172935622411,
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "18:1",
+      "gold_rule_id": "mega_18_leaf_3",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.434342,
+      "decisions": {
+        "original": [
+          "mega_18_leaf_7"
+        ],
+        "original_full_guideline": [
+          "mega_18_leaf_3"
+        ],
+        "oracle_rule": [
+          "mega_18_leaf_3"
+        ],
+        "triage_prompt_only": [
+          "mega_18_leaf_3"
+        ],
+        "triage_full": [
+          "mega_18_leaf_3"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.0001233901509607231,
+        "original_full_guideline": 1.0,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 0.9932998561932694,
+        "triage_full": 0.9947754356177347
+      },
+      "correct_log_probability": {
+        "original": -9.00015926361084,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -0.006722690537571907,
+        "triage_full": -0.005238260142505169
+      },
+      "correct_minus_prior_log_probability": {
+        "original": -9.0,
+        "original_full_guideline": 25.25,
+        "oracle_rule": 20.75,
+        "triage_prompt_only": 5.0,
+        "triage_full": 5.25
+      },
+      "full_correct_probability_delta": 0.994652045466774,
+      "attention_correct_logp_delta": 0.0014844303950667381,
+      "failures": []
+    },
+    {
+      "case_id": "18:2",
+      "gold_rule_id": "mega_18_leaf_4",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.440456,
+      "decisions": {
+        "original": [
+          "mega_18_leaf_4"
+        ],
+        "original_full_guideline": [
+          "mega_18_leaf_4"
+        ],
+        "oracle_rule": [
+          "mega_18_leaf_4"
+        ],
+        "triage_prompt_only": [
+          "mega_18_leaf_4"
+        ],
+        "triage_full": [
+          "mega_18_leaf_4"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.8519506783530268,
+        "original_full_guideline": 0.9976632491287544,
+        "oracle_rule": 0.9999998807907247,
+        "triage_prompt_only": 0.993265748521628,
+        "triage_full": 0.9913729157074809
+      },
+      "correct_log_probability": {
+        "original": -0.16022664308547974,
+        "original_full_guideline": -0.0023394853342324495,
+        "oracle_rule": -1.1920928244535389e-07,
+        "triage_prompt_only": -0.006757028866559267,
+        "triage_full": -0.008664513006806374
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": 0.13942223735445403,
+      "attention_correct_logp_delta": -0.0019074841402471066,
+      "failures": []
+    },
+    {
+      "case_id": "18:3",
+      "gold_rule_id": "mega_18_leaf_6",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_18_leaf_7"
+        ],
+        "original_full_guideline": [
+          "mega_18_leaf_7"
+        ],
+        "oracle_rule": [
+          "mega_18_leaf_6"
+        ],
+        "triage_prompt_only": [
+          "mega_18_leaf_7"
+        ],
+        "triage_full": [
+          "mega_18_leaf_7"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "correct_probability": {
+        "original": 0.005206599957263032,
+        "original_full_guideline": 0.0912322384637468,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 0.017985199316219513,
+        "triage_full": 0.017985199316219513
+      },
+      "correct_log_probability": {
+        "original": -5.257828235626221,
+        "original_full_guideline": -2.3943469524383545,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -4.0182061195373535,
+        "triage_full": -4.0182061195373535
+      },
+      "correct_minus_prior_log_probability": {
+        "original": -5.25,
+        "original_full_guideline": -2.25,
+        "oracle_rule": 20.75,
+        "triage_prompt_only": -4.0,
+        "triage_full": -4.0
+      },
+      "full_correct_probability_delta": 0.01277859935895648,
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "18:4",
+      "gold_rule_id": "mega_18_leaf_7",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.855981,
+      "decisions": {
+        "original": [
+          "mega_18_leaf_7"
+        ],
+        "original_full_guideline": [
+          "mega_18_leaf_7"
+        ],
+        "oracle_rule": [
+          "mega_18_leaf_7"
+        ],
+        "triage_prompt_only": [
+          "mega_18_leaf_7"
+        ],
+        "triage_full": [
+          "mega_18_leaf_7"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.9892690722436948,
+        "original_full_guideline": 0.9706423941013074,
+        "oracle_rule": 0.9994468174748747,
+        "triage_prompt_only": 0.9999965429424904,
+        "triage_full": 0.9999963045256735
+      },
+      "correct_log_probability": {
+        "original": -0.010788919404149055,
+        "original_full_guideline": -0.029797164723277092,
+        "oracle_rule": -0.000553335587028414,
+        "triage_prompt_only": -3.4570634852570947e-06,
+        "triage_full": -3.6954811548639555e-06
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": 0.010727232281978694,
+      "attention_correct_logp_delta": -2.3841766960686073e-07,
+      "failures": []
+    },
+    {
+      "case_id": "20:1",
+      "gold_rule_id": "mega_20_leaf_4",
+      "recall_before": true,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_20_leaf_4"
+        ],
+        "original_full_guideline": [
+          "mega_20_leaf_4"
+        ],
+        "oracle_rule": [
+          "mega_20_leaf_4"
+        ],
+        "triage_prompt_only": [
+          "mega_20_leaf_4"
+        ],
+        "triage_full": [
+          "mega_20_leaf_4"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 1.0,
+        "original_full_guideline": 1.0,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 0.999925142169393,
+        "triage_full": 0.999925142169393
+      },
+      "correct_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -7.486063259420916e-05,
+        "triage_full": -7.486063259420916e-05
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": -7.485783060701134e-05,
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "20:5",
+      "gold_rule_id": "mega_20_leaf_12",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.440336,
+      "decisions": {
+        "original": [
+          "mega_20_leaf_12"
+        ],
+        "original_full_guideline": [
+          "mega_20_leaf_12"
+        ],
+        "oracle_rule": [
+          "mega_20_leaf_12"
+        ],
+        "triage_prompt_only": [
+          "mega_20_leaf_12"
+        ],
+        "triage_full": [
+          "mega_20_leaf_12"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.9241123846984203,
+        "original_full_guideline": 0.904622029129458,
+        "oracle_rule": 0.9999998807907247,
+        "triage_prompt_only": 0.9997045674757346,
+        "triage_full": 0.9996201051698371
+      },
+      "correct_log_probability": {
+        "original": -0.07892158627510071,
+        "original_full_guideline": -0.10023806989192963,
+        "oracle_rule": -1.1920928244535389e-07,
+        "triage_prompt_only": -0.0002954761730507016,
+        "triage_full": -0.00037996700848452747
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": 0.07550772047141685,
+      "attention_correct_logp_delta": -8.449083543382585e-05,
+      "failures": []
+    },
+    {
+      "case_id": "20:9",
+      "gold_rule_id": "mega_20_leaf_19",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_20_leaf_19"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "correct_probability": {
+        "original": 0.00032978682583992996,
+        "original_full_guideline": 8.925737012528315e-06,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 0.0007081083246636671,
+        "triage_full": 0.0007081083246636671
+      },
+      "correct_log_probability": {
+        "original": -8.017064094543457,
+        "original_full_guideline": -11.626571655273438,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -7.252913475036621,
+        "triage_full": -7.252913475036621
+      },
+      "correct_minus_prior_log_probability": {
+        "original": -8.0,
+        "original_full_guideline": -11.625,
+        "oracle_rule": 27.375,
+        "triage_prompt_only": -7.25,
+        "triage_full": -7.25
+      },
+      "full_correct_probability_delta": 0.00037832149882373713,
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "20:14",
+      "gold_rule_id": "mega_20_leaf_27",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.427193,
+      "decisions": {
+        "original": [
+          "mega_20_leaf_27"
+        ],
+        "original_full_guideline": [
+          "mega_20_leaf_27"
+        ],
+        "oracle_rule": [
+          "mega_20_leaf_27"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "correct_probability": {
+        "original": 0.9603247907401181,
+        "original_full_guideline": 0.8165412997952137,
+        "oracle_rule": 0.9999977350285647,
+        "triage_prompt_only": 0.006692838498627189,
+        "triage_full": 0.006692838498627189
+      },
+      "correct_log_probability": {
+        "original": -0.04048372805118561,
+        "original_full_guideline": -0.20267778635025024,
+        "oracle_rule": -2.264974000354414e-06,
+        "triage_prompt_only": -5.006717205047607,
+        "triage_full": -5.006717205047607
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": -0.9536319522414909,
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "downstream_decision_error_despite_correct_rule",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action"
+      ]
+    },
+    {
+      "case_id": "22:1",
+      "gold_rule_id": "mega_22_leaf_6",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_22_leaf_6",
+          "mega_22_leaf_10"
+        ],
+        "original_full_guideline": [
+          "mega_22_leaf_6",
+          "mega_22_leaf_10"
+        ],
+        "oracle_rule": [
+          "mega_22_leaf_6",
+          "mega_22_leaf_10"
+        ],
+        "triage_prompt_only": [
+          "mega_22_leaf_6",
+          "mega_22_leaf_10"
+        ],
+        "triage_full": [
+          "mega_22_leaf_6",
+          "mega_22_leaf_10"
+        ]
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": true
+      },
+      "correct_probability": {
+        "original": 0.9999641192914954,
+        "original_full_guideline": 1.0,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 0.8806205346837478,
+        "triage_full": 0.8806205346837478
+      },
+      "correct_log_probability": {
+        "original": -3.58813522325363e-05,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -0.127128466963768,
+        "triage_full": -0.127128466963768
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": -0.11934358460774763,
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "22:6",
+      "gold_rule_id": "mega_22_leaf_13",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "applicable",
+      "gold_action_gate": 0.861405,
+      "decisions": {
+        "original": [],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_22_leaf_13"
+        ],
+        "triage_prompt_only": [
+          "mega_22_leaf_13"
+        ],
+        "triage_full": [
+          "mega_22_leaf_6",
+          "mega_22_leaf_10"
+        ]
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": true,
+        "triage_full": false
+      },
+      "correct_probability": {
+        "original": 0.06415738383341589,
+        "original_full_guideline": 0.00011977508939993785,
+        "oracle_rule": 0.9999998807907247,
+        "triage_prompt_only": 0.5365880456983335,
+        "triage_full": 0.4838704171149706
+      },
+      "correct_log_probability": {
+        "original": -2.7464160919189453,
+        "original_full_guideline": -9.029894828796387,
+        "oracle_rule": -1.1920928244535389e-07,
+        "triage_prompt_only": -0.622524619102478,
+        "triage_full": -0.7259381413459778
+      },
+      "correct_minus_prior_log_probability": {
+        "original": -2.5,
+        "original_full_guideline": -9.0,
+        "oracle_rule": 28.5,
+        "triage_prompt_only": 2.5,
+        "triage_full": 2.75
+      },
+      "full_correct_probability_delta": 0.4197130332815547,
+      "attention_correct_logp_delta": -0.10341352224349976,
+      "failures": [
+        "downstream_decision_error_despite_correct_rule",
+        "oracle_guidance_recovers_correct_action"
+      ]
+    },
+    {
+      "case_id": "22:11",
+      "gold_rule_id": "mega_22_leaf_24",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [
+          "mega_22_leaf_24"
+        ],
+        "original_full_guideline": [
+          "mega_22_leaf_24"
+        ],
+        "oracle_rule": [
+          "mega_22_leaf_24"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": true,
+        "original_full_guideline": true,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "correct_probability": {
+        "original": 0.9975231397562003,
+        "original_full_guideline": 0.9992897789887448,
+        "oracle_rule": 1.0,
+        "triage_prompt_only": 7.47064900362946e-05,
+        "triage_full": 7.47064900362946e-05
+      },
+      "correct_log_probability": {
+        "original": -0.002479932736605406,
+        "original_full_guideline": -0.0007104733376763761,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": -9.501943588256836,
+        "triage_full": -9.501943588256836
+      },
+      "correct_minus_prior_log_probability": {
+        "original": 0.0,
+        "original_full_guideline": 0.0,
+        "oracle_rule": 0.0,
+        "triage_prompt_only": 0.0,
+        "triage_full": 0.0
+      },
+      "full_correct_probability_delta": -0.9974484332661641,
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    },
+    {
+      "case_id": "22:16",
+      "gold_rule_id": "mega_22_leaf_31",
+      "recall_before": false,
+      "recall_after": true,
+      "gold_applicability": "unknown",
+      "gold_action_gate": 0.0,
+      "decisions": {
+        "original": [],
+        "original_full_guideline": [],
+        "oracle_rule": [
+          "mega_22_leaf_31"
+        ],
+        "triage_prompt_only": [],
+        "triage_full": []
+      },
+      "correct": {
+        "original": false,
+        "original_full_guideline": false,
+        "oracle_rule": true,
+        "triage_prompt_only": false,
+        "triage_full": false
+      },
+      "correct_probability": {
+        "original": 0.2226653984567068,
+        "original_full_guideline": 2.3823673954981372e-07,
+        "oracle_rule": 0.9999898673126559,
+        "triage_prompt_only": 1.3709577789362383e-06,
+        "triage_full": 1.3709577789362383e-06
+      },
+      "correct_log_probability": {
+        "original": -1.5020850896835327,
+        "original_full_guideline": -15.250000953674316,
+        "oracle_rule": -1.0132738680113107e-05,
+        "triage_prompt_only": -13.500000953674316,
+        "triage_full": -13.500000953674316
+      },
+      "correct_minus_prior_log_probability": {
+        "original": -1.25,
+        "original_full_guideline": -15.25,
+        "oracle_rule": 11.5,
+        "triage_prompt_only": -13.5,
+        "triage_full": -13.5
+      },
+      "full_correct_probability_delta": -0.22266402749892786,
+      "attention_correct_logp_delta": 0.0,
+      "failures": [
+        "key_rule_condition_matching_unknown",
+        "insufficient_evidence_decision",
+        "oracle_guidance_recovers_correct_action",
+        "correct_rule_has_zero_gate"
+      ]
+    }
+  ],
+  "reproduction": {
+    "manifest_sha256": "decb770084fd507bbe2d3462458a64abfade994b3382a73a23b8003f9eee4e08",
+    "references_sha256": "73220d29c51b1cb5e3dadba4e952d33d37d8bbd758691761535100ff8af39cad",
+    "sum_case_seconds": 99.875,
+    "peak_allocated_gib": 15.898804664611816
+  },
+  "repair_progress": {
+    "first_round_gold_applicable": 7,
+    "repaired_gold_applicable": 15,
+    "initial_condition_matcher_correct": 166,
+    "final_verified_condition_correct": 160,
+    "remaining_issue": "Evidence verification still changes 6 initially correct signed conditions to unknown; 9 cases have unknown gold-rule applicability."
+  },
+  "free_generation": {
+    "n": 2,
+    "case_ids": [
+      "5:1",
+      "9:1"
+    ],
+    "all_json_valid": true,
+    "primary_decision_changed_by_attention": 0,
+    "offline_review": "Both complete TRIAGE decisions match their official reference rule actions; raw full-guideline output also selects them. No independent attention decision correction in these two cases.",
+    "generation_use_cache": true,
+    "artifact": "free_generation.json"
+  },
+  "resources": {
+    "primary_gpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "probability_rescore_gpus": [
+      1,
+      2,
+      3
+    ],
+    "free_generation_gpu": 0,
+    "primary_peak_allocated_gib": 18.83683443069458,
+    "rescore_peak_allocated_gib": 15.898804664611816,
+    "free_generation_peak_allocated_gib": 16.86518907546997,
+    "all_runs_finished": true,
+    "ongoing_gpu_monitoring": false
+  },
+  "code_changes": [
+    "question and patient rule retrieval; all rules for guidelines with <=24 leaves; default top_k=12 including both CLIs",
+    "explicit predicate truth, stable condition IDs with text check, cited evidence entailment/contradiction verification",
+    "guided decisions and final prompt hide actions from not_applicable and unknown branches",
+    "empty prompt spans map to no tokens",
+    "zero-strength intervention does not replace attention; existing zero-gate exact identity preserved",
+    "single-head diagnostic helper reuses existing projection parameters"
+  ],
+  "unchanged": {
+    "gate_formula": true,
+    "intervention_strengths": true,
+    "selected_heads": true,
+    "projection_parameters": true,
+    "no_new_environment_or_model_download": true,
+    "no_training": true,
+    "no_test_split_used": true
+  }
+}

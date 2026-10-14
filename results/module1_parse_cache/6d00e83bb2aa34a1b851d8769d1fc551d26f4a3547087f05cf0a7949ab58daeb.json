@@ -1,0 +1,51 @@
+{
+  "key_data": {
+    "identity": {
+      "parser_version": "module1-rule-parser-v1",
+      "backend_class": "LocalBackend",
+      "cache_identity": "{'model': '/home/gcx/TRIAGE/models/modelscope/Qwen3-8B', 'revision': 'master', 'parser_version': 1}",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "model_path_config_sha256": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30"
+    },
+    "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the disease status localized (no known regional or distant metastasis)? AND The answer must be NO: Is the lesion considered resectable with surgery (technically operable)? AND The answer must be NO: Is prior surgery already performed with recurrent local tumor now present? AND The answer must be YES: Is the disease unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes?. Recommendation: For unresectable disease after multiple resections or when further surgery would cause unacceptable functional/cosmetic outcomes: consider systemic imatinib mesylate; use RT if not given previously and surgery is not feasible."
+  },
+  "parsed": {
+    "conditions": [
+      {
+        "condition_id": "c1",
+        "text": "Is the disease status localized (no known regional or distant metastasis)?",
+        "negated": true
+      },
+      {
+        "condition_id": "c2",
+        "text": "Is the lesion considered resectable with surgery (technically operable)?",
+        "negated": true
+      },
+      {
+        "condition_id": "c3",
+        "text": "Is prior surgery already performed with recurrent local tumor now present?",
+        "negated": true
+      },
+      {
+        "condition_id": "c4",
+        "text": "Is the disease unresectable, recurrent after multiple resections, or would further resection cause unacceptable functional or cosmetic outcomes?",
+        "negated": false
+      }
+    ],
+    "logic": {
+      "op": "AND",
+      "args": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ]
+    },
+    "exceptions": [],
+    "exception_logic": {
+      "op": "OR",
+      "args": []
+    },
+    "action": "consider systemic imatinib mesylate; use RT if not given previously and surgery is not feasible"
+  }
+}

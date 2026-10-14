@@ -1,0 +1,90 @@
+[
+  {
+    "pair_id": "0038cbddf9f49585748cdfe27ff17c71:leaf5",
+    "rule": "Apply this recommendation only if ALL required findings hold:\n1. Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? Required finding: YES.\n2. Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? Required finding: YES.\n3. If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor? Required finding: YES.\n4. Can clopidogrel be avoided? Required finding: YES.\nRecommendation: Avoid standard-dose clopidogrel (75 mg/day) if possible; use an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications.",
+    "action": "Avoid standard-dose clopidogrel (75 mg/day) if possible; use an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications.",
+    "conditions": [
+      {
+        "text": "Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered?",
+        "answer": true,
+        "node_index": 1
+      },
+      {
+        "text": "Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')?",
+        "answer": true,
+        "node_index": 2
+      },
+      {
+        "text": "If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor?",
+        "answer": true,
+        "node_index": 3
+      },
+      {
+        "text": "Can clopidogrel be avoided?",
+        "answer": true,
+        "node_index": 4
+      }
+    ],
+    "applicable_patient": "Patient assessment (explicit findings):\n1. Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? Finding: YES.\n2. Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? Finding: YES.\n3. If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor? Finding: YES.\n4. Can clopidogrel be avoided? Finding: YES.",
+    "inapplicable_patient": "Patient assessment (explicit findings):\n1. Does the patient have an ACS and/or PCI cardiovascular indication for antiplatelet therapy where clopidogrel is being considered? Finding: YES.\n2. Is the patient's predicted CYP2C19 phenotype an intermediate metabolizer (including 'likely IM')? Finding: YES.\n3. If an alternative is being selected, is there a contraindication to prasugrel or ticagrelor? Finding: YES.\n4. Can clopidogrel be avoided? Finding: NO.",
+    "flipped_condition_index": 3,
+    "provenance": {
+      "dataset": "MEGA-CDP",
+      "split": "train_val",
+      "filename": "0038cbddf9f49585748cdfe27ff17c71",
+      "guideline_id": 3,
+      "leaf_index": 5,
+      "source_record_id": "0038cbddf9f49585748cdfe27ff17c71:1",
+      "original_patient": "The patient presented with an acute coronary syndrome requiring percutaneous coronary intervention, creating a clear cardiovascular indication for antiplatelet therapy in which clopidogrel had been under consideration. Pharmacogenetic assessment predicted a CYP2C19 intermediate metabolizer phenotype (including a “likely IM” result). When selection of an alternative P2Y12 inhibitor was considered, a contraindication to prasugrel or ticagrelor was documented. Despite these limitations, clopidogrel was nevertheless avoided in the antiplatelet regimen. This case focused on management.",
+      "original_rule_text": "Avoid standard-dose clopidogrel (75 mg/day) if possible; use an alternative P2Y12 inhibitor if clinically appropriate and feasible given contraindications.",
+      "construction": "official conjunction path; flip exactly one required branch predicate",
+      "labels": "automatic rule-logic applicability only; not clinical outcome annotation",
+      "reference_answers_used": false,
+      "synthetic_patient": true
+    }
+  },
+  {
+    "pair_id": "006217af679967d04fb4ab7f6d0183ae:leaf5",
+    "rule": "Apply this recommendation only if ALL required findings hold:\n1. Is the person with dementia currently experiencing feeding and eating disorders or related problems (e.g., poor appetite, forgetting to eat or drink, chewing and swallowing problems, hyperphagic behavior, pica, rapid eating, refusing to eat, agitation or other behavioral symptoms during mealtime)? Required finding: YES.\n2. Is the person with dementia in the moderate or severe stage OR described as requiring assistance with eating and drinking in institutional or similar care settings? Required finding: YES.\n3. Is the primary immediate management goal to directly increase food or energy intake and improve nutritional outcomes such as body weight or BMI? Required finding: YES.\n4. Is oral nutritional supplementation (including between-meal snacks) feasible and available for this person with dementia in their current setting? Required finding: YES.\nRecommendation: Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+    "action": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+    "conditions": [
+      {
+        "text": "Is the person with dementia currently experiencing feeding and eating disorders or related problems (e.g., poor appetite, forgetting to eat or drink, chewing and swallowing problems, hyperphagic behavior, pica, rapid eating, refusing to eat, agitation or other behavioral symptoms during mealtime)?",
+        "answer": true,
+        "node_index": 1
+      },
+      {
+        "text": "Is the person with dementia in the moderate or severe stage OR described as requiring assistance with eating and drinking in institutional or similar care settings?",
+        "answer": true,
+        "node_index": 2
+      },
+      {
+        "text": "Is the primary immediate management goal to directly increase food or energy intake and improve nutritional outcomes such as body weight or BMI?",
+        "answer": true,
+        "node_index": 3
+      },
+      {
+        "text": "Is oral nutritional supplementation (including between-meal snacks) feasible and available for this person with dementia in their current setting?",
+        "answer": true,
+        "node_index": 4
+      }
+    ],
+    "applicable_patient": "Patient assessment (explicit findings):\n1. Is the person with dementia currently experiencing feeding and eating disorders or related problems (e.g., poor appetite, forgetting to eat or drink, chewing and swallowing problems, hyperphagic behavior, pica, rapid eating, refusing to eat, agitation or other behavioral symptoms during mealtime)? Finding: YES.\n2. Is the person with dementia in the moderate or severe stage OR described as requiring assistance with eating and drinking in institutional or similar care settings? Finding: YES.\n3. Is the primary immediate management goal to directly increase food or energy intake and improve nutritional outcomes such as body weight or BMI? Finding: YES.\n4. Is oral nutritional supplementation (including between-meal snacks) feasible and available for this person with dementia in their current setting? Finding: YES.",
+    "inapplicable_patient": "Patient assessment (explicit findings):\n1. Is the person with dementia currently experiencing feeding and eating disorders or related problems (e.g., poor appetite, forgetting to eat or drink, chewing and swallowing problems, hyperphagic behavior, pica, rapid eating, refusing to eat, agitation or other behavioral symptoms during mealtime)? Finding: YES.\n2. Is the person with dementia in the moderate or severe stage OR described as requiring assistance with eating and drinking in institutional or similar care settings? Finding: YES.\n3. Is the primary immediate management goal to directly increase food or energy intake and improve nutritional outcomes such as body weight or BMI? Finding: YES.\n4. Is oral nutritional supplementation (including between-meal snacks) feasible and available for this person with dementia in their current setting? Finding: NO.",
+    "flipped_condition_index": 3,
+    "provenance": {
+      "dataset": "MEGA-CDP",
+      "split": "train_val",
+      "filename": "006217af679967d04fb4ab7f6d0183ae",
+      "guideline_id": 5,
+      "leaf_index": 5,
+      "source_record_id": "006217af679967d04fb4ab7f6d0183ae:1",
+      "original_patient": "A patient with dementia in a moderate-to-severe stage was living in an institutional care setting and required assistance with eating and drinking. Over recent weeks, the care team noted feeding and eating difficulties, including poor appetite with frequent forgetting to eat or drink and intermittent chewing and swallowing problems that disrupted mealtimes. The immediate management priority was to directly increase overall food and energy intake with the aim of improving nutritional outcomes such as body weight and BMI. In this setting, oral nutritional supplementation was feasible and available, including the use of between-meal snacks to augment daily intake. The primary clinical focus was management.",
+      "original_rule_text": "Provide oral nutritional supplementation (including between-meal snacks where appropriate) over a short term (about 3–12 weeks) to increase energy intake and modestly improve body weight, BMI and malnutrition status in the person with dementia.",
+      "construction": "official conjunction path; flip exactly one required branch predicate",
+      "labels": "automatic rule-logic applicability only; not clinical outcome annotation",
+      "reference_answers_used": false,
+      "synthetic_patient": true
+    }
+  }
+]

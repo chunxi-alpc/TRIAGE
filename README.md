@@ -1,38 +1,116 @@
-# TRIAGE · ACRE 研究设计
+# TRIAGE
 
-本仓库目前整理 **ACRE（Applicability-Conditioned Relational Attention Editing）** 的方法设计评审、收敛后的研究方法与实验执行方案。
+TRIAGE 将指南规则检索、患者条件与证据判断、注意力头诊断及门控干预串联起来。三模块已经集成，目前处于小规模算法诊断与关键错误修复阶段，尚未运行完整基准。
 
-> **状态：研究设计阶段。** 文档中的论文属性、基准统计数据及 `[cite:...]` 为原始评审材料中的待核验信息，不代表已完成独立核实；实验效果与机制结论均尚待实证验证。
+项目在服务器 `gcx@10.29.128.115:/home/gcx/TRIAGE` 运行，复用环境 `/home/gcx/gcx261014`、现有 Qwen3-8B、MedCPT-MedPair、投影参数及缓存。当前阶段没有重新部署、下载新模型或训练模型。
 
-## 阅读顺序
+## 当前结果：2026-10-14 小规模诊断
 
-| 文档 | 内容 |
+使用 MEGA-CDP **train_val 的 24 例**，覆盖 6 个指南；排除此前用于组件校准的指南 3。概率对照采用完整指南的全部去重动作加“证据不足”作为固定选项，不属于完整基准或自由文本准确率评估。无规则基线仍能看到动作选项，但没有规则条件。
+
+| 版本 | 正确动作选择 |
+| --- | ---: |
+| 原始模型，无规则条件、无干预 | 15/24 |
+| 原始模型，提供完整指南、无干预 | 13/24 |
+| 正确规则片段引导，仅作诊断上界 | 24/24 |
+| TRIAGE 提示，关闭注意力干预 | 16/24 |
+| 完整 TRIAGE | 15/24 |
+
+- **关键规则召回：6/24 → 24/24。** 本轮的小指南保留全部规则；这说明候选截断问题得到改善，不代表大指南的检索排序已经改善。
+- **条件判断仍是主要问题。** 正确规则被判适用 15 例，另 9 例为未知。
+- 完整流程相对无规则基线，正确动作与先验动作的对数概率差平均增加 **3.83**，正确动作概率平均增加 **3.11 个百分点**；但平均正确动作对数概率下降约 **0.33**，且准确率没有净提升。
+- 完整流程纠正 **4 例**，同时使 **4 例退化**。单独注意力干预纠正 **0 例**、退化 **1 例**，正确动作概率平均下降约 **0.37 个百分点**。
+- 候选头采用从零开始的编号：**层 35/头 8、层 12/头 24**。前者在 15 个活跃病例中 4 例正向、11 例为零；后者 7 例正向、6 例负向、2 例为零，不能认为现有干预具有稳定增益。
+- **零门控和零强度：24/24 例与原始计算精确一致。**
+- 对历史病例 5:1、9:1 另外检查了自由文本输出，两例完整 TRIAGE 动作均与对应规则一致；原始完整指南输出也正确，没有观察到注意力单独带来的决策纠正。
+
+下一步优先改进条件与患者证据的匹配和复核，减少正确规则被判为未知的情况。当前结果不支持整体准确率已经提高的结论。
+
+## 结果与文档入口
+
+| 内容 | 文件 |
 | --- | --- |
-| [01 · 设计评审与近邻工作](docs/ACRE/01-design-review.md) | 方案定位、主要质疑、与既有注意力引导方法的区别 |
-| [02 · 收敛方法定义](docs/ACRE/02-method.md) | 问题定义、规则适用性、选头、注意力偏置、推理流程 |
-| [03 · 实验设计](docs/ACRE/03-experiments.md) | RQ1–RQ5、数据集、模型、基线、指标、消融与机制分析 |
-| [04 · 风险与实施计划](docs/ACRE/04-plan-and-risks.md) | 失败判据、备选定位、10–12 周执行顺序 |
-| [05 · 参考文献核验清单](docs/ACRE/05-reference-checklist.md) | 原文引用标记、论文信息与数据核验事项 |
+| 本轮最终摘要、指标定义与错误统计 | [summary.json](results/algorithm_diagnostic/summary.json) |
+| 24 例决策、概率变化、规则召回和错误原因 | [cases.csv](results/algorithm_diagnostic/cases.csv) |
+| 两例自由文本验证 | [free_generation.json](results/algorithm_diagnostic/free_generation.json) |
+| 固定病例及完整指南输入 | [manifest.json](results/algorithm_diagnostic/manifest.json) |
+| 独立离线参考路径与动作 | [references.json](results/algorithm_diagnostic/references.json) |
+| 采样与数据来源审计 | [data_audit.json](results/algorithm_diagnostic/data_audit.json) |
+| 逐例完整模块输出与干预记录 | [algorithm_diagnostic](results/algorithm_diagnostic/) 中的 `case_*.json` |
+| 首轮错误及第二轮修复的历史结果 | [round1](results/algorithm_diagnostic/round1/)、[round2](results/algorithm_diagnostic/round2/) |
+| 最初三模块集成记录，属于历史阶段 | [TRIAGE_MVP.md](TRIAGE_MVP.md)、[triage_mvp_report.json](results/triage_mvp_report.json) |
+| 组件及校准来源 | [components.json](results/module2/components.json)、[module2/report.json](results/module2/report.json) |
+| 复用投影及其元数据 | [projections.pt](results/module3/projections.pt)、[projections.json](results/module3/projections.json) |
+| 条件判断回归与干预检查 | [diagnostic_module1_checks.json](results/diagnostic_module1_checks.json)、[module23_checks.json](results/diagnostic/module23_checks.json) |
 
-## 研究主张
+首轮证据核对误把“有引用”当成“条件为真”，第二轮修复了真假和编号判断，最后修复了被阻断动作仍进入最终提示的问题。各阶段结果保留，最终结论以根目录下的 `summary.json`、`cases.csv` 为准，不能混用不同阶段。
 
-**关注点不是单纯增强模型对指南的注意力，而是使当前患者的规则适用性决定注意力应引导至哪些规则片段与证据。**
+**参考答案只用于离线评价，不进入常规推理、门控或注意力干预。** 唯一单列的诊断上界使用正确的官方规则片段，不输入参考答案正文或路径标签，也不参与门控计算。
 
-ACRE 拟检验两项方法假设：
+## 原有研究设计文档
 
-1. **适用性条件化的注意力引导**：规则适用时强调推荐动作与支持证据；不适用时强调否定证据或例外；对条件—证据位置施加配对偏置。
-2. **反事实效果驱动的注意力头选择**：在提高适用冲突准确率的同时，抑制不适用规则误用及无冲突样本损伤。
+原仓库的 ACRE 研究设计文档继续保留。这些文件是方案与评审归档；条件—证据成对注意力偏置、完整基准和论文机制主张仍需后续验证，不能把设计方案视为本轮已实现的功能。
 
-上述创新必须通过与 InstABoost、AutoPASTA、结构化提示等强基线的对比和独立消融来验证。方法不宣称“选头”或“注意力 logit 加偏置”本身是新贡献。
+- [设计评审与近邻工作](docs/ACRE/01-design-review.md)
+- [方法定义](docs/ACRE/02-method.md)
+- [实验设计](docs/ACRE/03-experiments.md)
+- [风险与实施计划](docs/ACRE/04-plan-and-risks.md)
+- [参考文献核验清单](docs/ACRE/05-reference-checklist.md)
 
-## 阶段性优先事项
+## 三模块实现
 
-- **首先验证**现有注意力引导是否加剧不适用规则的误用（RQ1）。
-- **同时比较** ACRE 与“将同一结构化关系直接写入提示”的基线（RQ4），排除仅由上游模块提供答案导致的表面增益。
-- **保持区分**程序可验证金标准与数据集原始参考答案；校准与测试必须按指南或计算器隔离。
-- **核对文献**：替换原始 `[cite:...]` 标记为可追溯的论文链接、版本及正式出处。
+1. **模块一：** [src/module1](src/module1/) 使用问题和患者信息检索规则，默认候选数量为 12；不超过 24 个规则的小指南全部保留。条件判断使用明确的真假状态、稳定条件 ID、条件原文核对以及患者引用证据复核。未知和不适用规则的动作门控为零。
+2. **模块二：** [src/module2](src/module2/) 对固定候选注意力头进行消融诊断。当前组件来自独立的非测试校准病例；没有进行大规模注意力头搜索。
+3. **模块三：** [src/module3](src/module3/) 复用 rank=4 投影，仅编辑选中的查询头，使用现有门控控制键向量修改及先验输出抑制。默认强度仍为 `context_strength=0.1`、`prior_strength=0.1`。
 
-建议论文题目：*When Should a Rule Apply? Applicability-Conditioned Attention Steering for Guideline-Grounded Clinical Decisions*。
+[统一推理入口](src/pipeline/runner.py) 复用同一 Qwen 实例。最终提示保留条件判断和患者证据，但只展示已适用规则的动作；被阻断或未知分支不能作为建议依据。输出仍需进一步验证，尚未实现强制的动作语义一致性校验。
 
----
-本资料是研究方案与评审归档，不包含已实现代码或已完成的实验结果。
+门控、相关性分数和证据置信度都是未校准的启发式权重。投影属于少量校准激活的 SVD，先验方向是注意力输出的近似子空间，不是已证明的独立先验方向。
+
+## 服务器运行
+
+```bash
+ssh gcx@10.29.128.115
+source /home/gcx/gcx261014/bin/activate
+cd /home/gcx/TRIAGE
+```
+
+**实验只在服务器运行。** 可用 GPU 为 **0、1、2、3、6、7**。正式启动前必须汇报计划使用的 GPU、预计显存、样本规模和时长；稳定运行后停止持续监控。
+
+模型与数据路径见 [configs/models.json](configs/models.json)、[configs/datasets.json](configs/datasets.json)，依赖版本见 [configs/environment.lock.txt](configs/environment.lock.txt)。原始数据、模型权重、第三方仓库和环境保留在服务器。
+
+输入 JSON 只包含 `guideline`、`patient`、`question`；可选 `input_source` 用于来源记录：
+
+```bash
+CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
+python scripts/run_pipeline.py \
+  --input /absolute/path/input.json \
+  --output results/pipeline/inference.json
+```
+
+模块一也可单独调用：
+
+```python
+from src import module1
+result = module1.run(guideline=R, patient=P, question=Q)
+```
+
+`R` 支持文本、条款列表或 `{"rules": [...]}`，`P` 和 `Q` 为字符串。批量调用可创建 `module1.Module1(top_k=12)` 复用模型。患者引用记录原文字符区间 `[start,end)`，保留满足、不满足和未知三种状态。
+
+本轮诊断入口为 [scripts/run_algorithm_diagnostic.py](scripts/run_algorithm_diagnostic.py)，支持 `--worker`、`--workers` 和 `--module1-cache-dir`。复用 `results/algorithm_diagnostic/round2` 可只重算最终概率与干预，避免重复运行模块一。离线汇总入口为 [scripts/summarize_algorithm_diagnostic.py](scripts/summarize_algorithm_diagnostic.py)；它只生成基础指标摘要与 CSV，不调用模型。已保存的最终摘要另含自由文本验证、资源和修复记录。
+
+## 每次实验的上传要求
+
+**每次实验完成后，必须将对应的结果和文档提交并推送到本仓库 `git@github.com:chunxi-alpc/TRIAGE.git`。只在服务器保存，不算实验交付完成。**
+
+至少上传：
+
+- 简洁的结果摘要、逐例或汇总指标、错误案例和原因；失败实验也要保留真实结果。
+- 数据集和 split、样本选择与来源、运行入口和参数、随机种子、模型与组件版本或指纹。
+- 相应代码或配置变更，以及必要的可复现产物；参考答案与普通推理输入分开保存。
+- 更新本 README 的当前阶段、结果入口、主要结论、尚未解决的问题；必要时同步相关技术文档。
+
+保留不同实验阶段，不用新结果覆盖旧实验依据。提交信息应说明实验内容；推送后核对远端提交。模型权重、完整数据、环境、凭据和无关下载日志不进入仓库。
+
+仓库保存代码、配置、文档及可分析的实验产物；详细运行日志留在服务器对应结果目录。
+
