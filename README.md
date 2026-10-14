@@ -4,6 +4,19 @@ TRIAGE 将指南规则检索、患者条件与证据判断、注意力头诊断�
 
 项目在服务器 `gcx@10.29.128.115:/home/gcx/TRIAGE` 运行，复用环境 `/home/gcx/gcx261014`、现有 Qwen3-8B、MedCPT-MedPair、投影参数及缓存。当前阶段没有重新部署、下载新模型或训练模型。
 
+## 当前阶段：2026-10-15 简化 ACRE 预实验
+
+独立的 ACRE 实现与 CPU/GPU 检查已完成，历史 24 例仅作回归：新版统一提示的 B0/B1/B2/B3 均 21/24，结构化提示 B4 19/24，直接决策 B5 11/24（作答 13/24）。新版提示与旧诊断不同，不能把 B0 从旧 13/24 到 21/24 解释为方法增益。
+
+两种保守数据筛选得到 34 个候选，审查后仅 4 对来源候选满足当前要求，未达到 40 对开发集门槛；因此未启动新开发集、参考片段 B6、噪声或独立验证。没有足够独立证据支持注意力目标切换的收益；先完成数据和标注核验，不扩大模型实验。
+
+- [中文预实验评审与复现说明](docs/ACRE/06-pilot-results.md)
+- [数据审计](results/acre_pilot/data_audit.json)、[标注质量](results/acre_pilot/annotation_metrics.json)、[历史回归汇总](results/acre_pilot/metrics.json)、[工程验收](results/acre_pilot/acceptance.json)
+- [逐例结果](results/acre_pilot/case_results.jsonl)、[错误分析](results/acre_pilot/error_analysis.json)、[资源计划](results/acre_pilot/gpu_plan.json)
+- 独立代码：`src/acre_pilot/`；入口：`scripts/prepare_acre_pilot.py`、`scripts/run_acre_pilot.py`、`scripts/summarize_acre_pilot.py`；配置：`configs/acre_pilot.json`。
+
+以下旧阶段结果与模块保持原样，继续作为历史参照。
+
 ## 当前结果：2026-10-14 小规模诊断
 
 使用 MEGA-CDP **train_val 的 24 例**，覆盖 6 个指南；排除此前用于组件校准的指南 3。概率对照采用完整指南的全部去重动作加“证据不足”作为固定选项，不属于完整基准或自由文本准确率评估。无规则基线仍能看到动作选项，但没有规则条件。
