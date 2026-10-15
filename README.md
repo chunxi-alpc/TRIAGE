@@ -2,9 +2,20 @@
 
 TRIAGE 将指南规则检索、患者条件与证据判断、注意力头诊断及门控干预串联起来。三模块已经集成，目前处于小规模算法诊断与关键错误修复阶段，尚未运行完整基准。
 
-项目在服务器 `gcx@10.29.128.115:/home/gcx/TRIAGE` 运行，复用环境 `/home/gcx/gcx261014`、现有 Qwen3-8B、MedCPT-MedPair、投影参数及缓存。当前阶段没有重新部署、下载新模型或训练模型。
+TRIAGE 主流程在服务器 `gcx@10.29.128.115:/home/gcx/TRIAGE` 运行，复用环境 `/home/gcx/gcx261014`、现有 Qwen3-8B、MedCPT-MedPair、投影参数及缓存。该流水线阶段没有重新部署、下载新模型或训练模型；新增 CARE 独立实验使用 Qwen3-4B-Base，见下一节。
 
-## 当前结果：2026-10-14 小规模诊断
+## 新增结果：2026-10-16 CARE 三项观察
+
+新增独立的 **Qwen3-4B-Base CARE 实测实验**，含真实临床规则的观察一补充；见 [CARE 实验目录](experiments/care_qwen3_4b_base_20261016/)。
+
+- 临床 O1：12 个规则家族、24 条真实规则、384 个模拟病例；宽松闭卷筛选合格 **153 例（适用 78、不适用 75）**，**25 个完整配对两侧均合格**，不设高置信度门槛。
+- 三折按规则家族独立测试。原始模型、官方 SEKA、官方 PASTA 适用准确率均为 **33.3%（95% CI 19.5–50.7%）**；误用率为 **36.0%、33.3%、37.3%**，未观察到所假设的忠实性–误用权衡。
+- O2/O3 保持虚构规则机制实验范围：适用性 Key AUROC **0.738 [0.660, 0.832]**；实际 BF16 局部分数反向变化 **8.91% [8.70%, 9.14%]**，不能称为临床验证。
+- 数据来源、逐例输出、家族置信区间、代码和 **10 组 PNG/PDF/SVG 图**均已保存。完整服务器验收 **65 项检查通过**；患者模拟，无独立医生复核。
+
+[更新报告](experiments/care_qwen3_4b_base_20261016/results/observations_summary.md) · [临床详细报告](experiments/care_qwen3_4b_base_20261016/results/obs1_clinical/clinical_report.md) · [逐例核验表](experiments/care_qwen3_4b_base_20261016/data/clinical/case_review.csv) · [完整数据 Release](https://github.com/chunxi-alpc/TRIAGE/releases/tag/care-qwen3-4b-base-20261016)
+
+## 既有 TRIAGE 流水线结果：2026-10-14 小规模诊断
 
 使用 MEGA-CDP **train_val 的 24 例**，覆盖 6 个指南；排除此前用于组件校准的指南 3。概率对照采用完整指南的全部去重动作加“证据不足”作为固定选项，不属于完整基准或自由文本准确率评估。无规则基线仍能看到动作选项，但没有规则条件。
 
