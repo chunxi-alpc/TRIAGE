@@ -1,0 +1,3683 @@
+{
+  "status": "offline_review_only_no_new_model_forward",
+  "source_commit": "3a86220e1dcbbf00b204591269b13dd0e3dfa565",
+  "scope": "All 80 frozen cases; beta=2; no case or hyperparameter selection",
+  "source_files": {
+    "prediction_changes.csv": "b6cb4aea30f80ff74781a5ee5b5d178378cd6602",
+    "oracle_mask_plan.json": "5674e934a877b6c3b251e7c4e9e3ed00b08a13fe",
+    "oracle_mask_audit.csv": "93c78bf2e14154cd369ebae3065e93c1b7eb7a35"
+  },
+  "method": "Join frozen CSV records by case_id and condition, check repeated condition consistency, compare sorted token sets in oracle_mask_plan.json, and count all 80 cases. Extra action span matches use the paired case's action_spans at identical prompt positions, with unchanged guideline prefix; unmatched positions are not assigned a semantic role here.",
+  "summary": {
+    "all": {
+      "n": 80,
+      "full_switch_equals_target_switch": 40,
+      "correct": {
+        "OF@2.0": 68,
+        "OS@2.0": 66,
+        "OF-target@2.0": 65,
+        "OS-target@2.0": 68
+      },
+      "average_tokens": {
+        "OF@2.0": 658.8875,
+        "OS@2.0": 146.2,
+        "OF-target@2.0": 90.9125,
+        "OS-target@2.0": 82.55
+      },
+      "full_margin_mean": -0.315625,
+      "target_margin_mean": 0.8265625
+    },
+    "applicable": {
+      "n": 40,
+      "full_switch_equals_target_switch": 40,
+      "correct": {
+        "OF@2.0": 37,
+        "OS@2.0": 36,
+        "OF-target@2.0": 36,
+        "OS-target@2.0": 36
+      },
+      "average_tokens": {
+        "OF@2.0": 658.4,
+        "OS@2.0": 144.775,
+        "OF-target@2.0": 144.775,
+        "OS-target@2.0": 144.775
+      },
+      "full_margin_mean": 0.140625,
+      "target_margin_mean": 0
+    },
+    "inapplicable": {
+      "n": 40,
+      "full_switch_equals_target_switch": 0,
+      "correct": {
+        "OF@2.0": 31,
+        "OS@2.0": 30,
+        "OF-target@2.0": 29,
+        "OS-target@2.0": 32
+      },
+      "average_tokens": {
+        "OF@2.0": 659.375,
+        "OS@2.0": 147.625,
+        "OF-target@2.0": 37.05,
+        "OS-target@2.0": 20.325
+      },
+      "full_margin_mean": -0.771875,
+      "target_margin_mean": 1.653125
+    }
+  },
+  "paired_correctness": [
+    {
+      "a": "OS@2.0",
+      "b": "OF@2.0",
+      "a_only_correct": [],
+      "b_only_correct": [
+        "v2_169_21_counterfactual",
+        "v2_2315_3_original"
+      ]
+    },
+    {
+      "a": "OS-target@2.0",
+      "b": "OF-target@2.0",
+      "a_only_correct": [
+        "v2_169_21_original",
+        "v2_1903_24_original",
+        "v2_2315_3_original"
+      ],
+      "b_only_correct": []
+    },
+    {
+      "a": "OF@2.0",
+      "b": "OF-target@2.0",
+      "a_only_correct": [
+        "v2_169_21_counterfactual",
+        "v2_1903_24_original",
+        "v2_2315_3_original"
+      ],
+      "b_only_correct": []
+    },
+    {
+      "a": "OS@2.0",
+      "b": "OS-target@2.0",
+      "a_only_correct": [],
+      "b_only_correct": [
+        "v2_169_21_original",
+        "v2_2315_3_original"
+      ]
+    }
+  ],
+  "three_corrections_extra_spans": [
+    {
+      "id": "v2_169_21_original",
+      "negative": 13,
+      "extra": 73,
+      "extraActionMatches": [
+        {
+          "id": "mega_169_leaf_23",
+          "text": "Offer other locally available STI testing options (for example in-person attendance at specialist clinics, community pharmacies, primary care, or outreach services).",
+          "overlap": 28
+        }
+      ],
+      "restExtra": 45
+    },
+    {
+      "id": "v2_1903_24_original",
+      "negative": 11,
+      "extra": 118,
+      "extraActionMatches": [
+        {
+          "id": "mega_1903_leaf_26",
+          "text": "No MRI, FDG PET/CT, or CT accessible: guideline does not specify alternative imaging; proceed with available resources and clinical judgment.",
+          "overlap": 28
+        }
+      ],
+      "restExtra": 90
+    },
+    {
+      "id": "v2_2315_3_original",
+      "negative": 39,
+      "extra": 115,
+      "extraActionMatches": [
+        {
+          "id": "mega_2315_leaf_5",
+          "text": "If cPOCUS must be used in the acutely unstable neonate, limit it to its recommended scope (line tip location, effusions, qualitative volume status and systolic performance) and arrange definitive imaging (standard TNE or pediatric echocardiography) as soon as feasible.",
+          "overlap": 57
+        }
+      ],
+      "restExtra": 58
+    }
+  ],
+  "checks": {
+    "unique_cases": 80,
+    "unique_pairs": 40,
+    "full_switch_subset_full_fixed": 80,
+    "target_switch_subset_full_switch": 80,
+    "applicable_full_and_target_switch_identical": 40
+  },
+  "limitations": [
+    "No new forward pass or statistical testing performed.",
+    "Saved predictions and masks are rechecked; causal attribution to individual spans or attention normalization is not established.",
+    "Oracle target IDs are evaluation references and cannot be used as a deployable rule selector.",
+    "Prior confidence intervals and p-values are from the earlier report, not recomputed in this review."
+  ],
+  "cases": [
+    {
+      "case_id": "v2_39_3_original",
+      "guideline_id": 39,
+      "pair_id": "v2_39_3",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 415
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 145
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 71
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 23
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -2.625,
+      "target_switch_minus_fixed_margin": 4.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 122,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_39_3_counterfactual",
+      "guideline_id": 39,
+      "pair_id": "v2_39_3",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 413
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 130
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 130
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 130
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_159_33_original",
+      "guideline_id": 159,
+      "pair_id": "v2_159_33",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "U",
+          "correct": false,
+          "oar": false,
+          "tokens": 895
+        },
+        "OS@2.0": {
+          "pred": "U",
+          "correct": false,
+          "oar": false,
+          "tokens": 152
+        },
+        "OF-target@2.0": {
+          "pred": "U",
+          "correct": false,
+          "oar": false,
+          "tokens": 39
+        },
+        "OS-target@2.0": {
+          "pred": "U",
+          "correct": false,
+          "oar": false,
+          "tokens": 15
+        },
+        "O0": {
+          "pred": "U",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -4,
+      "target_switch_minus_fixed_margin": 0.5,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 137,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_159_33_counterfactual",
+      "guideline_id": 159,
+      "pair_id": "v2_159_33",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "P",
+          "correct": true,
+          "oar": false,
+          "tokens": 894
+        },
+        "OS@2.0": {
+          "pred": "P",
+          "correct": true,
+          "oar": false,
+          "tokens": 150
+        },
+        "OF-target@2.0": {
+          "pred": "P",
+          "correct": true,
+          "oar": false,
+          "tokens": 150
+        },
+        "OS-target@2.0": {
+          "pred": "P",
+          "correct": true,
+          "oar": false,
+          "tokens": 150
+        },
+        "O0": {
+          "pred": "P",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_169_21_original",
+      "guideline_id": 169,
+      "pair_id": "v2_169_21",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "M",
+          "correct": false,
+          "oar": false,
+          "tokens": 432
+        },
+        "OS@2.0": {
+          "pred": "M",
+          "correct": false,
+          "oar": false,
+          "tokens": 86
+        },
+        "OF-target@2.0": {
+          "pred": "M",
+          "correct": false,
+          "oar": false,
+          "tokens": 32
+        },
+        "OS-target@2.0": {
+          "pred": "L",
+          "correct": true,
+          "oar": false,
+          "tokens": 13
+        },
+        "O0": {
+          "pred": "M",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.25,
+      "target_switch_minus_fixed_margin": 3.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 73,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_169_21_counterfactual",
+      "guideline_id": 169,
+      "pair_id": "v2_169_21",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "K",
+          "correct": true,
+          "oar": false,
+          "tokens": 431
+        },
+        "OS@2.0": {
+          "pred": "L",
+          "correct": false,
+          "oar": false,
+          "tokens": 89
+        },
+        "OF-target@2.0": {
+          "pred": "L",
+          "correct": false,
+          "oar": false,
+          "tokens": 89
+        },
+        "OS-target@2.0": {
+          "pred": "L",
+          "correct": false,
+          "oar": false,
+          "tokens": 89
+        },
+        "O0": {
+          "pred": "L",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -3.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_244_7_original",
+      "guideline_id": 244,
+      "pair_id": "v2_244_7",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 643
+        },
+        "OS@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 317
+        },
+        "OF-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 57
+        },
+        "OS-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 61
+        },
+        "O0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.5,
+      "target_switch_minus_fixed_margin": 0.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 256,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_244_7_counterfactual",
+      "guideline_id": 244,
+      "pair_id": "v2_244_7",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 642
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 334
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 334
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 334
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.75,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_411_4_original",
+      "guideline_id": 411,
+      "pair_id": "v2_411_4",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 380
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 159
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 25
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 26
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -3.75,
+      "target_switch_minus_fixed_margin": 1.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 133,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_411_4_counterfactual",
+      "guideline_id": 411,
+      "pair_id": "v2_411_4",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 379
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 106
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 106
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 106
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_622_4_original",
+      "guideline_id": 622,
+      "pair_id": "v2_622_4",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 347
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 126
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 32
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 17
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -2.75,
+      "target_switch_minus_fixed_margin": 2.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 109,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_622_4_counterfactual",
+      "guideline_id": 622,
+      "pair_id": "v2_622_4",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 345
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 122
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 122
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 122
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_628_31_original",
+      "guideline_id": 628,
+      "pair_id": "v2_628_31",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "G",
+          "correct": false,
+          "oar": false,
+          "tokens": 820
+        },
+        "OS@2.0": {
+          "pred": "G",
+          "correct": false,
+          "oar": false,
+          "tokens": 107
+        },
+        "OF-target@2.0": {
+          "pred": "G",
+          "correct": false,
+          "oar": false,
+          "tokens": 107
+        },
+        "OS-target@2.0": {
+          "pred": "G",
+          "correct": false,
+          "oar": false,
+          "tokens": 107
+        },
+        "O0": {
+          "pred": "G",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.75,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_628_31_counterfactual",
+      "guideline_id": 628,
+      "pair_id": "v2_628_31",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "O",
+          "correct": false,
+          "oar": true,
+          "tokens": 821
+        },
+        "OS@2.0": {
+          "pred": "O",
+          "correct": false,
+          "oar": true,
+          "tokens": 106
+        },
+        "OF-target@2.0": {
+          "pred": "G",
+          "correct": false,
+          "oar": true,
+          "tokens": 29
+        },
+        "OS-target@2.0": {
+          "pred": "G",
+          "correct": false,
+          "oar": true,
+          "tokens": 16
+        },
+        "O0": {
+          "pred": "G",
+          "correct": false,
+          "oar": true,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 2,
+      "target_switch_minus_fixed_margin": 2.5,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 90,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_718_35_original",
+      "guideline_id": 718,
+      "pair_id": "v2_718_35",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "R",
+          "correct": true,
+          "oar": false,
+          "tokens": 1484
+        },
+        "OS@2.0": {
+          "pred": "R",
+          "correct": true,
+          "oar": false,
+          "tokens": 225
+        },
+        "OF-target@2.0": {
+          "pred": "R",
+          "correct": true,
+          "oar": false,
+          "tokens": 79
+        },
+        "OS-target@2.0": {
+          "pred": "R",
+          "correct": true,
+          "oar": false,
+          "tokens": 26
+        },
+        "O0": {
+          "pred": "R",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.25,
+      "target_switch_minus_fixed_margin": 2.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 199,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_718_35_counterfactual",
+      "guideline_id": 718,
+      "pair_id": "v2_718_35",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "Q",
+          "correct": true,
+          "oar": false,
+          "tokens": 1483
+        },
+        "OS@2.0": {
+          "pred": "Q",
+          "correct": true,
+          "oar": false,
+          "tokens": 228
+        },
+        "OF-target@2.0": {
+          "pred": "Q",
+          "correct": true,
+          "oar": false,
+          "tokens": 228
+        },
+        "OS-target@2.0": {
+          "pred": "Q",
+          "correct": true,
+          "oar": false,
+          "tokens": 228
+        },
+        "O0": {
+          "pred": "Q",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_724_5_original",
+      "guideline_id": 724,
+      "pair_id": "v2_724_5",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 302
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 124
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 51
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 35
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -3.75,
+      "target_switch_minus_fixed_margin": 1.5,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 89,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_724_5_counterfactual",
+      "guideline_id": 724,
+      "pair_id": "v2_724_5",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 300
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 128
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 128
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 128
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -1,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_751_5_original",
+      "guideline_id": 751,
+      "pair_id": "v2_751_5",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 266
+        },
+        "OS@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 104
+        },
+        "OF-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 28
+        },
+        "OS-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 15
+        },
+        "O0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -1.75,
+      "target_switch_minus_fixed_margin": 1,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 89,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_751_5_counterfactual",
+      "guideline_id": 751,
+      "pair_id": "v2_751_5",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 264
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 91
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 91
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 91
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -1.75,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_844_10_original",
+      "guideline_id": 844,
+      "pair_id": "v2_844_10",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 445
+        },
+        "OS@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 94
+        },
+        "OF-target@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 29
+        },
+        "OS-target@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 19
+        },
+        "O0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.5,
+      "target_switch_minus_fixed_margin": 1.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 75,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_844_10_counterfactual",
+      "guideline_id": 844,
+      "pair_id": "v2_844_10",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "E",
+          "correct": true,
+          "oar": false,
+          "tokens": 444
+        },
+        "OS@2.0": {
+          "pred": "E",
+          "correct": true,
+          "oar": false,
+          "tokens": 91
+        },
+        "OF-target@2.0": {
+          "pred": "E",
+          "correct": true,
+          "oar": false,
+          "tokens": 91
+        },
+        "OS-target@2.0": {
+          "pred": "E",
+          "correct": true,
+          "oar": false,
+          "tokens": 91
+        },
+        "O0": {
+          "pred": "E",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.5,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_775_26_original",
+      "guideline_id": 775,
+      "pair_id": "v2_775_26",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "V",
+          "correct": false,
+          "oar": false,
+          "tokens": 780
+        },
+        "OS@2.0": {
+          "pred": "V",
+          "correct": false,
+          "oar": false,
+          "tokens": 154
+        },
+        "OF-target@2.0": {
+          "pred": "V",
+          "correct": false,
+          "oar": false,
+          "tokens": 34
+        },
+        "OS-target@2.0": {
+          "pred": "V",
+          "correct": false,
+          "oar": false,
+          "tokens": 27
+        },
+        "O0": {
+          "pred": "V",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.25,
+      "target_switch_minus_fixed_margin": 3.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 127,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_775_26_counterfactual",
+      "guideline_id": 775,
+      "pair_id": "v2_775_26",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "V",
+          "correct": false,
+          "oar": false,
+          "tokens": 778
+        },
+        "OS@2.0": {
+          "pred": "I",
+          "correct": false,
+          "oar": false,
+          "tokens": 170
+        },
+        "OF-target@2.0": {
+          "pred": "I",
+          "correct": false,
+          "oar": false,
+          "tokens": 170
+        },
+        "OS-target@2.0": {
+          "pred": "I",
+          "correct": false,
+          "oar": false,
+          "tokens": 170
+        },
+        "O0": {
+          "pred": "H",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.5,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1317_17_original",
+      "guideline_id": 1317,
+      "pair_id": "v2_1317_17",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 401
+        },
+        "OS@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 104
+        },
+        "OF-target@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 34
+        },
+        "OS-target@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 26
+        },
+        "O0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -1,
+      "target_switch_minus_fixed_margin": -2,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 78,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1317_17_counterfactual",
+      "guideline_id": 1317,
+      "pair_id": "v2_1317_17",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 400
+        },
+        "OS@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 110
+        },
+        "OF-target@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 110
+        },
+        "OS-target@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 110
+        },
+        "O0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -2.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1342_11_original",
+      "guideline_id": 1342,
+      "pair_id": "v2_1342_11",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "E",
+          "correct": false,
+          "oar": true,
+          "tokens": 594
+        },
+        "OS@2.0": {
+          "pred": "E",
+          "correct": false,
+          "oar": true,
+          "tokens": 156
+        },
+        "OF-target@2.0": {
+          "pred": "E",
+          "correct": false,
+          "oar": true,
+          "tokens": 61
+        },
+        "OS-target@2.0": {
+          "pred": "E",
+          "correct": false,
+          "oar": true,
+          "tokens": 15
+        },
+        "O0": {
+          "pred": "E",
+          "correct": false,
+          "oar": true,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.25,
+      "target_switch_minus_fixed_margin": 2,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 141,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1342_11_counterfactual",
+      "guideline_id": 1342,
+      "pair_id": "v2_1342_11",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "E",
+          "correct": true,
+          "oar": false,
+          "tokens": 593
+        },
+        "OS@2.0": {
+          "pred": "E",
+          "correct": true,
+          "oar": false,
+          "tokens": 153
+        },
+        "OF-target@2.0": {
+          "pred": "E",
+          "correct": true,
+          "oar": false,
+          "tokens": 153
+        },
+        "OS-target@2.0": {
+          "pred": "E",
+          "correct": true,
+          "oar": false,
+          "tokens": 153
+        },
+        "O0": {
+          "pred": "E",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.75,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1342_15_original",
+      "guideline_id": 1342,
+      "pair_id": "v2_1342_15",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 619
+        },
+        "OS@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 148
+        },
+        "OF-target@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 21
+        },
+        "OS-target@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 16
+        },
+        "O0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.5,
+      "target_switch_minus_fixed_margin": 1.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 132,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1342_15_counterfactual",
+      "guideline_id": 1342,
+      "pair_id": "v2_1342_15",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 618
+        },
+        "OS@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 138
+        },
+        "OF-target@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 138
+        },
+        "OS-target@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 138
+        },
+        "O0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.75,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1370_2_original",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_2",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 556
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 65
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 26
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 25
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.5,
+      "target_switch_minus_fixed_margin": 3,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 40,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1370_2_counterfactual",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_2",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 555
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 68
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 68
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 68
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.5,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1370_6_original",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_6",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "D",
+          "correct": true,
+          "oar": false,
+          "tokens": 583
+        },
+        "OS@2.0": {
+          "pred": "D",
+          "correct": true,
+          "oar": false,
+          "tokens": 92
+        },
+        "OF-target@2.0": {
+          "pred": "D",
+          "correct": true,
+          "oar": false,
+          "tokens": 38
+        },
+        "OS-target@2.0": {
+          "pred": "D",
+          "correct": true,
+          "oar": false,
+          "tokens": 22
+        },
+        "O0": {
+          "pred": "D",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.375,
+      "target_switch_minus_fixed_margin": 2.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 70,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1370_6_counterfactual",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_6",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 582
+        },
+        "OS@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 107
+        },
+        "OF-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 107
+        },
+        "OS-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 107
+        },
+        "O0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.375,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1446_2_original",
+      "guideline_id": 1446,
+      "pair_id": "v2_1446_2",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 104
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 57
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 24
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 24
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -1.875,
+      "target_switch_minus_fixed_margin": 2.5,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 33,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1446_2_counterfactual",
+      "guideline_id": 1446,
+      "pair_id": "v2_1446_2",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 103
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 67
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 67
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 67
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.125,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1599_17_original",
+      "guideline_id": 1599,
+      "pair_id": "v2_1599_17",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 631
+        },
+        "OS@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 251
+        },
+        "OF-target@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 19
+        },
+        "OS-target@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 13
+        },
+        "O0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.25,
+      "target_switch_minus_fixed_margin": 0.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 238,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1599_17_counterfactual",
+      "guideline_id": 1599,
+      "pair_id": "v2_1599_17",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 630
+        },
+        "OS@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 210
+        },
+        "OF-target@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 210
+        },
+        "OS-target@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 210
+        },
+        "O0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -3.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1611_5_original",
+      "guideline_id": 1611,
+      "pair_id": "v2_1611_5",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 336
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 108
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 22
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 14
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -1.75,
+      "target_switch_minus_fixed_margin": 2.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 94,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1611_5_counterfactual",
+      "guideline_id": 1611,
+      "pair_id": "v2_1611_5",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 335
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 105
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 105
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 105
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1786_2_original",
+      "guideline_id": 1786,
+      "pair_id": "v2_1786_2",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 422
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 50
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 14
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 13
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -1,
+      "target_switch_minus_fixed_margin": 1.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 37,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1786_2_counterfactual",
+      "guideline_id": 1786,
+      "pair_id": "v2_1786_2",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 421
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 53
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 53
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 53
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.75,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1903_24_original",
+      "guideline_id": 1903,
+      "pair_id": "v2_1903_24",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "M",
+          "correct": true,
+          "oar": false,
+          "tokens": 508
+        },
+        "OS@2.0": {
+          "pred": "M",
+          "correct": true,
+          "oar": false,
+          "tokens": 129
+        },
+        "OF-target@2.0": {
+          "pred": "N",
+          "correct": false,
+          "oar": false,
+          "tokens": 37
+        },
+        "OS-target@2.0": {
+          "pred": "M",
+          "correct": true,
+          "oar": false,
+          "tokens": 11
+        },
+        "O0": {
+          "pred": "N",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -2,
+      "target_switch_minus_fixed_margin": 3,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 118,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1903_24_counterfactual",
+      "guideline_id": 1903,
+      "pair_id": "v2_1903_24",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "L",
+          "correct": true,
+          "oar": false,
+          "tokens": 507
+        },
+        "OS@2.0": {
+          "pred": "L",
+          "correct": true,
+          "oar": false,
+          "tokens": 137
+        },
+        "OF-target@2.0": {
+          "pred": "L",
+          "correct": true,
+          "oar": false,
+          "tokens": 137
+        },
+        "OS-target@2.0": {
+          "pred": "L",
+          "correct": true,
+          "oar": false,
+          "tokens": 137
+        },
+        "O0": {
+          "pred": "L",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.75,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1998_10_original",
+      "guideline_id": 1998,
+      "pair_id": "v2_1998_10",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 707
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 121
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 52
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 14
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -3.5,
+      "target_switch_minus_fixed_margin": 6.5,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 107,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1998_10_counterfactual",
+      "guideline_id": 1998,
+      "pair_id": "v2_1998_10",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 706
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 122
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 122
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 122
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_2077_5_original",
+      "guideline_id": 2077,
+      "pair_id": "v2_2077_5",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 533
+        },
+        "OS@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 129
+        },
+        "OF-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 42
+        },
+        "OS-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 11
+        },
+        "O0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0,
+      "target_switch_minus_fixed_margin": 2.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 118,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_2077_5_counterfactual",
+      "guideline_id": 2077,
+      "pair_id": "v2_2077_5",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 532
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 129
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 129
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 129
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -2.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_2315_3_original",
+      "guideline_id": 2315,
+      "pair_id": "v2_2315_3",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 1009
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": false,
+          "oar": true,
+          "tokens": 154
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": false,
+          "oar": true,
+          "tokens": 32
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 39
+        },
+        "O0": {
+          "pred": "A",
+          "correct": false,
+          "oar": true,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -3.25,
+      "target_switch_minus_fixed_margin": 2.5,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 115,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_2315_3_counterfactual",
+      "guideline_id": 2315,
+      "pair_id": "v2_2315_3",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 1008
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 128
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 128
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 128
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 2.5,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_2387_3_original",
+      "guideline_id": 2387,
+      "pair_id": "v2_2387_3",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 449
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 60
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 21
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 11
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -1.25,
+      "target_switch_minus_fixed_margin": 1.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 49,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_2387_3_counterfactual",
+      "guideline_id": 2387,
+      "pair_id": "v2_2387_3",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 448
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 60
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 60
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 60
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_2711_4_original",
+      "guideline_id": 2711,
+      "pair_id": "v2_2711_4",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 622
+        },
+        "OS@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 78
+        },
+        "OF-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 33
+        },
+        "OS-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 15
+        },
+        "O0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.5,
+      "target_switch_minus_fixed_margin": 1.5,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 63,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_2711_4_counterfactual",
+      "guideline_id": 2711,
+      "pair_id": "v2_2711_4",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 621
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 83
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 83
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 83
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.5,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_2704_22_original",
+      "guideline_id": 2704,
+      "pair_id": "v2_2704_22",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "O",
+          "correct": false,
+          "oar": false,
+          "tokens": 643
+        },
+        "OS@2.0": {
+          "pred": "O",
+          "correct": false,
+          "oar": false,
+          "tokens": 164
+        },
+        "OF-target@2.0": {
+          "pred": "O",
+          "correct": false,
+          "oar": false,
+          "tokens": 26
+        },
+        "OS-target@2.0": {
+          "pred": "O",
+          "correct": false,
+          "oar": false,
+          "tokens": 14
+        },
+        "O0": {
+          "pred": "O",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.625,
+      "target_switch_minus_fixed_margin": -0.375,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 150,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_2704_22_counterfactual",
+      "guideline_id": 2704,
+      "pair_id": "v2_2704_22",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 646
+        },
+        "OS@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 166
+        },
+        "OF-target@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 166
+        },
+        "OS-target@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 166
+        },
+        "O0": {
+          "pred": "O",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.5,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_2634_32_original",
+      "guideline_id": 2634,
+      "pair_id": "v2_2634_32",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "S",
+          "correct": false,
+          "oar": false,
+          "tokens": 641
+        },
+        "OS@2.0": {
+          "pred": "S",
+          "correct": false,
+          "oar": false,
+          "tokens": 217
+        },
+        "OF-target@2.0": {
+          "pred": "S",
+          "correct": false,
+          "oar": false,
+          "tokens": 28
+        },
+        "OS-target@2.0": {
+          "pred": "S",
+          "correct": false,
+          "oar": false,
+          "tokens": 27
+        },
+        "O0": {
+          "pred": "S",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.25,
+      "target_switch_minus_fixed_margin": 0.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 190,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_2634_32_counterfactual",
+      "guideline_id": 2634,
+      "pair_id": "v2_2634_32",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "P",
+          "correct": true,
+          "oar": false,
+          "tokens": 638
+        },
+        "OS@2.0": {
+          "pred": "P",
+          "correct": true,
+          "oar": false,
+          "tokens": 219
+        },
+        "OF-target@2.0": {
+          "pred": "P",
+          "correct": true,
+          "oar": false,
+          "tokens": 219
+        },
+        "OS-target@2.0": {
+          "pred": "P",
+          "correct": true,
+          "oar": false,
+          "tokens": 219
+        },
+        "O0": {
+          "pred": "P",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_678_11_original",
+      "guideline_id": 678,
+      "pair_id": "v2_678_11",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 770
+        },
+        "OS@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 520
+        },
+        "OF-target@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 69
+        },
+        "OS-target@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 26
+        },
+        "O0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.5,
+      "target_switch_minus_fixed_margin": 1.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 494,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_678_11_counterfactual",
+      "guideline_id": 678,
+      "pair_id": "v2_678_11",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 769
+        },
+        "OS@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 521
+        },
+        "OF-target@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 521
+        },
+        "OS-target@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 521
+        },
+        "O0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1476_5_original",
+      "guideline_id": 1476,
+      "pair_id": "v2_1476_5",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 396
+        },
+        "OS@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 143
+        },
+        "OF-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 28
+        },
+        "OS-target@2.0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 13
+        },
+        "O0": {
+          "pred": "C",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.125,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 130,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1476_5_counterfactual",
+      "guideline_id": 1476,
+      "pair_id": "v2_1476_5",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 395
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 139
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 139
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 139
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_58_39_original",
+      "guideline_id": 58,
+      "pair_id": "v2_58_39",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "S",
+          "correct": true,
+          "oar": false,
+          "tokens": 1071
+        },
+        "OS@2.0": {
+          "pred": "S",
+          "correct": true,
+          "oar": false,
+          "tokens": 210
+        },
+        "OF-target@2.0": {
+          "pred": "S",
+          "correct": true,
+          "oar": false,
+          "tokens": 210
+        },
+        "OS-target@2.0": {
+          "pred": "S",
+          "correct": true,
+          "oar": false,
+          "tokens": 210
+        },
+        "O0": {
+          "pred": "S",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 2.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_58_39_counterfactual",
+      "guideline_id": 58,
+      "pair_id": "v2_58_39",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "W",
+          "correct": false,
+          "oar": false,
+          "tokens": 1073
+        },
+        "OS@2.0": {
+          "pred": "W",
+          "correct": false,
+          "oar": false,
+          "tokens": 218
+        },
+        "OF-target@2.0": {
+          "pred": "S",
+          "correct": false,
+          "oar": true,
+          "tokens": 35
+        },
+        "OS-target@2.0": {
+          "pred": "S",
+          "correct": false,
+          "oar": true,
+          "tokens": 29
+        },
+        "O0": {
+          "pred": "S",
+          "correct": false,
+          "oar": true,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -4.5,
+      "target_switch_minus_fixed_margin": 1,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 189,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_642_18_original",
+      "guideline_id": 642,
+      "pair_id": "v2_642_18",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 1009
+        },
+        "OS@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 217
+        },
+        "OF-target@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 70
+        },
+        "OS-target@2.0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 20
+        },
+        "O0": {
+          "pred": "J",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 4.5,
+      "target_switch_minus_fixed_margin": 2.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 197,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_642_18_counterfactual",
+      "guideline_id": 642,
+      "pair_id": "v2_642_18",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 1009
+        },
+        "OS@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 222
+        },
+        "OF-target@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 222
+        },
+        "OS-target@2.0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 222
+        },
+        "O0": {
+          "pred": "I",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.625,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1370_13_original",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_13",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 620
+        },
+        "OS@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 129
+        },
+        "OF-target@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 129
+        },
+        "OS-target@2.0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 129
+        },
+        "O0": {
+          "pred": "F",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_1370_13_counterfactual",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_13",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 621
+        },
+        "OS@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 143
+        },
+        "OF-target@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 22
+        },
+        "OS-target@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 18
+        },
+        "O0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.75,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 125,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1398_5_original",
+      "guideline_id": 1398,
+      "pair_id": "v2_1398_5",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 259
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 107
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 43
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 28
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -3.25,
+      "target_switch_minus_fixed_margin": 0.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 79,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1398_5_counterfactual",
+      "guideline_id": 1398,
+      "pair_id": "v2_1398_5",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 260
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 123
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 123
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 123
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.5,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_628_4_original",
+      "guideline_id": 628,
+      "pair_id": "v2_628_4",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 848
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 142
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 15
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 30
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -1.25,
+      "target_switch_minus_fixed_margin": 2.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 112,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_628_4_counterfactual",
+      "guideline_id": 628,
+      "pair_id": "v2_628_4",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 846
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 119
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 119
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 119
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.5,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_2592_2_original",
+      "guideline_id": 2592,
+      "pair_id": "v2_2592_2",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 680
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 90
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 21
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 18
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.25,
+      "target_switch_minus_fixed_margin": 0.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 72,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_2592_2_counterfactual",
+      "guideline_id": 2592,
+      "pair_id": "v2_2592_2",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 678
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 87
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 87
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 87
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_112_13_original",
+      "guideline_id": 112,
+      "pair_id": "v2_112_13",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "D",
+          "correct": false,
+          "oar": false,
+          "tokens": 1539
+        },
+        "OS@2.0": {
+          "pred": "D",
+          "correct": false,
+          "oar": false,
+          "tokens": 162
+        },
+        "OF-target@2.0": {
+          "pred": "D",
+          "correct": false,
+          "oar": false,
+          "tokens": 162
+        },
+        "OS-target@2.0": {
+          "pred": "D",
+          "correct": false,
+          "oar": false,
+          "tokens": 162
+        },
+        "O0": {
+          "pred": "A",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_112_13_counterfactual",
+      "guideline_id": 112,
+      "pair_id": "v2_112_13",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "D",
+          "correct": false,
+          "oar": false,
+          "tokens": 1539
+        },
+        "OS@2.0": {
+          "pred": "D",
+          "correct": false,
+          "oar": false,
+          "tokens": 150
+        },
+        "OF-target@2.0": {
+          "pred": "D",
+          "correct": false,
+          "oar": false,
+          "tokens": 52
+        },
+        "OS-target@2.0": {
+          "pred": "D",
+          "correct": false,
+          "oar": false,
+          "tokens": 10
+        },
+        "O0": {
+          "pred": "D",
+          "correct": false,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.75,
+      "target_switch_minus_fixed_margin": 0.25,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 140,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1164_6_original",
+      "guideline_id": 1164,
+      "pair_id": "v2_1164_6",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 379
+        },
+        "OS@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 129
+        },
+        "OF-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 26
+        },
+        "OS-target@2.0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 9
+        },
+        "O0": {
+          "pred": "B",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 1,
+      "target_switch_minus_fixed_margin": 0.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 120,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_1164_6_counterfactual",
+      "guideline_id": 1164,
+      "pair_id": "v2_1164_6",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 380
+        },
+        "OS@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 125
+        },
+        "OF-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 125
+        },
+        "OS-target@2.0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 125
+        },
+        "O0": {
+          "pred": "A",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": 0.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    },
+    {
+      "case_id": "v2_68_17_original",
+      "guideline_id": 68,
+      "pair_id": "v2_68_17",
+      "target_state": "inapplicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 2233
+        },
+        "OS@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 171
+        },
+        "OF-target@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 65
+        },
+        "OS-target@2.0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 9
+        },
+        "O0": {
+          "pred": "H",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.75,
+      "target_switch_minus_fixed_margin": -0.75,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 162,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": false
+    },
+    {
+      "case_id": "v2_68_17_counterfactual",
+      "guideline_id": 68,
+      "pair_id": "v2_68_17",
+      "target_state": "applicable",
+      "methods": {
+        "OF@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 2233
+        },
+        "OS@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 153
+        },
+        "OF-target@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 153
+        },
+        "OS-target@2.0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 153
+        },
+        "O0": {
+          "pred": "G",
+          "correct": true,
+          "oar": false,
+          "tokens": 0
+        }
+      },
+      "full_switch_minus_fixed_margin": -0.25,
+      "target_switch_minus_fixed_margin": 0,
+      "full_switch_added_vs_full_fixed": 0,
+      "full_switch_extra_vs_target_switch": 0,
+      "full_switch_missing_target_switch": 0,
+      "full_switch_equals_target_switch": true
+    }
+  ]
+}
