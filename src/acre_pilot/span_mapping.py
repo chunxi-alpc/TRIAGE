@@ -30,8 +30,10 @@ def locate(source, span):
 def options_for(item):
     actions = list(dict.fromkeys(r["action"] for r in item["guideline"]["rules"]))
     actions.append("Insufficient explicit patient evidence to select a guideline recommendation.")
-    if len(actions) > 26: raise ValueError("option_count_exceeds_single_letter_protocol")
-    return [{"label": chr(65+i), "action": a} for i,a in enumerate(actions)]
+    labels="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if item.get("decision_protocol")=="single_token_label.v2": labels+="0123456789abcdefghijklmnopqrstuvwxyz"
+    if len(actions)>len(labels): raise ValueError("option_count_exceeds_single_token_protocol")
+    return [{"label": labels[i], "action": a} for i,a in enumerate(actions)]
 
 def build_prompt(tokenizer, item, structured=None):
     if not tokenizer.is_fast: raise ValueError("fast_tokenizer_required")
@@ -52,9 +54,10 @@ def build_prompt(tokenizer, item, structured=None):
         append("\nIndependent annotations (may contain errors):\n"+json.dumps(structured,ensure_ascii=False))
     append("\nDecision options:\n")
     for row in options_for(item): append(row["label"]+". "+row["action"]+"\n")
-    append("Answer with one letter.")
+    append("Answer with one supplied label." if item.get("decision_protocol")=="single_token_label.v2" else "Answer with one letter.")
     user="".join(parts)
-    prompt=tokenizer.apply_chat_template([{"role":"system","content":SYSTEM},{"role":"user","content":user}],tokenize=False,add_generation_prompt=True,enable_thinking=False)
+    system=SYSTEM.replace("single capital letter", "single supplied label") if item.get("decision_protocol")=="single_token_label.v2" else SYSTEM
+    prompt=tokenizer.apply_chat_template([{"role":"system","content":system},{"role":"user","content":user}],tokenize=False,add_generation_prompt=True,enable_thinking=False)
     # Full content must occur exactly once, including after template processing.
     a,b=locate(prompt,user)
     encoded=tokenizer(prompt,add_special_tokens=False,return_offsets_mapping=True,return_tensors="pt")

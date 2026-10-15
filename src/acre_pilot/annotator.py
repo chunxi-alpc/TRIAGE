@@ -32,6 +32,9 @@ def parse(raw,rules):
     return rows
 
 def annotate(backend,item,config,cache_dir):
+    if str(config.get("annotation_protocol","")).startswith("source_ids_json_grammar."):
+        from .constrained_annotation import annotate_constrained
+        return annotate_constrained(backend,item,config,cache_dir)
     payload,key=identity(item,backend,config);path=Path(cache_dir)/(key+".json")
     if path.exists():
         saved=json.loads(path.read_text())

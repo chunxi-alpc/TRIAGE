@@ -4,18 +4,33 @@ TRIAGE 将指南规则检索、患者条件与证据判断、注意力头诊断�
 
 项目在服务器 `gcx@10.29.128.115:/home/gcx/TRIAGE` 运行，复用环境 `/home/gcx/gcx261014`、现有 Qwen3-8B、MedCPT-MedPair、投影参数及缓存。当前阶段没有重新部署、下载新模型或训练模型。
 
-## 当前阶段：2026-10-15 简化 ACRE 预实验
+## 当前阶段：2026-10-15 简化 ACRE 开发集预实验
 
-独立的 ACRE 实现与 CPU/GPU 检查已完成，历史 24 例仅作回归：新版统一提示的 B0/B1/B2/B3 均 21/24，结构化提示 B4 19/24，直接决策 B5 11/24（作答 13/24）。新版提示与旧诊断不同，不能把 B0 从旧 13/24 到 21/24 解释为方法增益。
+完成 **40 对、80 例**可程序核验的反事实开发样本，覆盖 36 个新指南；旧筛选只得 4 对主要由条件覆盖、全文匹配和选项上限造成。JSON 与原文引用已修复，另外发现并修正受限解码对“不适用”的分词偏置，在同一冻结数据上重新运行 B0–B6。
 
-两种保守数据筛选得到 34 个候选，审查后仅 4 对来源候选满足当前要求，未达到 40 对开发集门槛；因此未启动新开发集、参考片段 B6、噪声或独立验证。没有足够独立证据支持注意力目标切换的收益；先完成数据和标注核验，不扩大模型实验。
+共享 beta=2，动作同义表达审计修正后的结果：
 
-- [中文预实验评审与复现说明](docs/ACRE/06-pilot-results.md)
-- [数据审计](results/acre_pilot/data_audit.json)、[标注质量](results/acre_pilot/annotation_metrics.json)、[历史回归汇总](results/acre_pilot/metrics.json)、[工程验收](results/acre_pilot/acceptance.json)
-- [逐例结果](results/acre_pilot/case_results.jsonl)、[错误分析](results/acre_pilot/error_analysis.json)、[资源计划](results/acre_pilot/gpu_plan.json)
-- 独立代码：`src/acre_pilot/`；入口：`scripts/prepare_acre_pilot.py`、`scripts/run_acre_pilot.py`、`scripts/summarize_acre_pilot.py`；配置：`configs/acre_pilot.json`。
+| 方法 | 正确 | 成对正确 | 目标动作误用 |
+| --- | ---: | ---: | ---: |
+| B0 原始指南 | 64/80 | 29/40 | 4/40 |
+| B1 整条增强 | 63/80 | 28/40 | 5/40 |
+| B2 固定目标 | 64/80 | 29/40 | 3/40 |
+| B3 ACRE | 64/80 | 29/40 | 3/40 |
+| B4 结构化提示 | 60/80 | 24/40 | 7/40 |
+| B5 标注直接决策 | 37/80 | 12/40 | 7/40 |
+| B6 参考标注 | 66/80 | 30/40 | 3/40 |
 
-以下旧阶段结果与模块保持原样，继续作为历史参照。
+目标规则适用性判断 60/80（75%），不适用误判适用 12/40（30%）；决定性证据召回 74/80。原文定位 100% 是 ID 机制保证，不代表语义正确。20 项 CPU 测试与 GPU 检查通过，80 例零偏置/空目标完全一致，实际目标及指标已独立复算。
+
+**B3 没有优于 B2，当前不进入独立验证或完整论文实验。** B6 有两例纠正；仅替换适用性状态的额外诊断为 67/80，仍属于参考信息诊断，优先改进适用性和相关性。噪声诊断已完成，片段替换没有改变最终增强集合，只能作为失败记录。37/40 对是资源/可实施性条件，没有临床专家盲审；未知真值和完整动作语义评价尚缺。动作别名计数是公开的事后指标修正，原始计数保留。
+
+- [中文评审与完整复现说明](docs/ACRE/06-pilot-results.md)
+- [开发数据审计](results/acre_pilot/round2/data_audit.json)、[动作别名审计](results/acre_pilot/round2/action_alias_audit.json)
+- [最终指标](results/acre_pilot/round2/revision3/metrics.json)、[标注质量](results/acre_pilot/round2/revision3/annotation_metrics.json)、[工程验收](results/acre_pilot/round2/revision3/acceptance.json)
+- [逐例完整结果](results/acre_pilot/round2/revision3/case_results.jsonl.gz)、[标注原始缓存](results/acre_pilot/round2/revision3/annotations.jsonl.gz)、[噪声结果](results/acre_pilot/round2/revision3/noise_metrics.json)
+- 最终配置 `configs/acre_pilot_v3.json`；解压入口 `scripts/unpack_acre_pilot_artifacts.py`，运行入口 `scripts/run_acre_pilot.py`，离线复算 `scripts/verify_acre_records.py`。模型和环境均复用服务器现有版本。
+
+初轮 24 例只作回归，初轮四对数据门槛记录见 [归档报告](docs/ACRE/archive/06-pilot-results-round1.md)。`results/acre_pilot/round2/` 根目录保留失败的 v2 解码实验，**最终结果仅以 revision3 为准**。以下旧阶段结果和模块保持原样。
 
 ## 当前结果：2026-10-14 小规模诊断
 

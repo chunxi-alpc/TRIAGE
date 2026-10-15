@@ -18,7 +18,8 @@ def evaluate_cases(cases,references):
             if ref.get('target_applicability')=='inapplicable' and ref.get('incompatible_actions_verified'):
                 target=next(r for r in c['annotations'] if r['rule_id']==ref['target_rule_id'])
                 target_action=ref.get('target_action') or ref['competitor_action']
-                oar_n+=1;oar+=v.get('action')==target_action
+                target_labels={o['label'] for o in options if o['action'] in ref.get('target_action_aliases',[target_action])}
+                oar_n+=1;oar+=v.get('prediction') in target_labels
             if ref.get('pair_id'):pairs[ref['pair_id']].append(ok)
             enhanced+=v.get('attention',{}).get('enabled',False)
             row={'case_id':cid,'guideline_id':c['guideline_id'],'pair_id':ref.get('pair_id'),'method':method,'prediction':v['prediction'],'gold_label':gold,'correct':ok,'baseline_correct':bool(baseok),'margin':None,'delta_margin':None}

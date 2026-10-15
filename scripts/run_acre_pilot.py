@@ -48,7 +48,11 @@ def run_case(backend,item,config,out,oracle=None,betas=None):
             if conflict: targets=[]
             result[method+"_target_errors"]=errors
             for beta in betas or config["betas"]: score(method+"@"+str(float(beta)),encoded,targets,beta)
-        structured_prompt,structured_inputs,_=build_prompt(backend.tokenizer,item,structured=ann["rules"])
+        structured=ann["rules"]
+        if str(ann.get("annotation_protocol","")).startswith("source_ids_json_grammar."):
+            from src.acre_pilot.constrained_annotation import compact_for_prompt
+            structured=compact_for_prompt(ann)
+        structured_prompt,structured_inputs,_=build_prompt(backend.tokenizer,item,structured=structured)
         structured_inputs=structured_inputs.to(backend.model.device)
         if structured_inputs["input_ids"].shape[1]>config["max_input_tokens"]: raise ValueError("structured_input_budget_exceeded")
         score("B4",structured_inputs)
@@ -67,8 +71,16 @@ def run_case(backend,item,config,out,oracle=None,betas=None):
 def main():
     p=argparse.ArgumentParser();p.add_argument("--manifest",type=Path,required=True);p.add_argument("--output",type=Path,required=True)
     p.add_argument("--worker",type=int,default=0);p.add_argument("--workers",type=int,default=1);p.add_argument("--limit",type=int)
-    p.add_argument("--oracle",type=Path);p.add_argument("--betas",type=float,nargs="+")
-    a=p.parse_args();config=json.loads((ROOT/"configs/acre_pilot.json").read_text());torch.manual_seed(config["seed"]);torch.set_num_threads(4)
+    p.add_argument("--oracle",type=Path);p.add_argument("--betas",type=float,nargs="+");p.add_argument("--config",type=Path,default=ROOT/"configs/acre_pilot.json")
+    a=p.parse_args();config=json.loads(a.config.read_text());torch.manual_seed(config["seed"]);torch.set_num_threads(4)
+    if config.get("data_audit_required"):
+        audit=json.loads((ROOT/config["data_audit_required"]).read_text())
+        if audit["status"]!="ready" or audit["verified_development_pairs"]<config["minimum_verified_pairs"]:
+            raise ValueError("Development data audit gate not passed")
+        if audit["manifest_sha256"]!=hashlib.sha256(a.manifest.read_bytes()).hexdigest():
+            raise ValueError("Inference manifest differs from frozen audited manifest")
+        if a.oracle and audit["oracle_sha256"]!=hashlib.sha256(a.oracle.read_bytes()).hexdigest():
+            raise ValueError("Oracle differs from frozen offline reference spans")
     samples=json.loads(a.manifest.read_text())["samples"]
     if a.limit: samples=samples[:a.limit]
     oracle=json.loads(a.oracle.read_text()) if a.oracle else None
