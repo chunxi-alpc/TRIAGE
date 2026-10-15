@@ -1,0 +1,36 @@
+{
+  "gpus": [
+    0,
+    1,
+    2,
+    3,
+    6,
+    7
+  ],
+  "model": "existing Qwen3-8B BF16",
+  "workers": 6,
+  "development_pairs": 40,
+  "development_cases": 80,
+  "betas": [
+    0,
+    0.25,
+    0.5,
+    1,
+    2
+  ],
+  "per_gpu_expected_gib": [
+    18,
+    24
+  ],
+  "expected_minutes": [
+    8,
+    15
+  ],
+  "smoke_peak_gib": 18.647278785705566,
+  "stages": [
+    "normal B0 B1 B2 B3 B4 B5",
+    "separate offline B6 pass"
+  ],
+  "data_gate": "40 pairs verified before launch",
+  "ongoing_monitoring": false
+}

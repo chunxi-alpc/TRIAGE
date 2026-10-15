@@ -1,0 +1,482 @@
+{
+  "base_remote_commit": "c25da4420d467e281dfe5243a15ed8315b8a8c90",
+  "base_remote_tree": "98c3c80e7090b0983386c21c762e6bc13775dd86",
+  "dataset": {
+    "name": "MEGA-CDP",
+    "source": "https://huggingface.co/datasets/nchennnn/MEGA-CDP",
+    "repo_id": "nchennnn/MEGA-CDP",
+    "revision": "8f058c88ce1ed43693785b435ad0ff99907a2890",
+    "endpoint": "https://hf-mirror.com",
+    "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890",
+    "format": "original",
+    "status": "downloaded",
+    "complete": true,
+    "available_splits": [
+      "test",
+      "train_val"
+    ],
+    "download_scope": "all original train_val/test JSONL and 2274 Markdown guidelines plus README; official digests verified; images deliberately excluded",
+    "contains_all_original_files": false,
+    "markdown_files_downloaded": 2275,
+    "markdown_files_expected": 2275,
+    "images_requested": false,
+    "image_policy": "images deliberately excluded by user request",
+    "guideline_markdown_files_downloaded": 2274,
+    "guideline_markdown_files_expected": 2274,
+    "validation_file": "/home/gcx/TRIAGE/results/text_datasets_validation.json",
+    "verification": "passed",
+    "record_counts": {
+      "train_val": {
+        "case_paths.jsonl": 1834,
+        "decision_trees.jsonl": 1834,
+        "gt_paths.jsonl": 34895,
+        "vignette_cases.jsonl": 34895
+      },
+      "test": {
+        "case_paths.jsonl": 440,
+        "decision_trees.jsonl": 440,
+        "gt_paths.jsonl": 7458,
+        "vignette_cases.jsonl": 7458
+      }
+    }
+  },
+  "frozen_normal_manifest": "9de12c73379055b401fd6ce1e32d7bb18c5ebe871aad4e9834f30cdd337498c0",
+  "frozen_oracle_mask_source": "10db99220ce9e355e49e39c3e2883ba54e62ac3d6e3c229fa0315ae06535e65b",
+  "frozen_evaluation_references": "13607f19e7135724f338f3a0b3eb25ce45387b2bf3a192f198c0849c060c57f5",
+  "normal_annotation_source": "7ee75645264746fc5007630b1f71b9dbcc3a624cb188ec93447dfdf9d1ffe299",
+  "normal_decision_archive": "97cb1db7eeeccf829c4c669f1cbdd692d90efc61386aad753ce60cfd75776b8b",
+  "read_boundaries": [
+    {
+      "stage": "E0 normal mask reconstruction",
+      "entry": "audit_acre_switch_masks.py before oracle_inputs()",
+      "reference_states_used": false
+    },
+    {
+      "stage": "E1 base prompt",
+      "entry": "span_mapping.build_prompt(tokenizer, item)",
+      "input_fields": [
+        "guideline",
+        "patient",
+        "question",
+        "decision_protocol"
+      ],
+      "reference_text_inserted": false
+    },
+    {
+      "stage": "E1 Oracle masks",
+      "entry": "get_case: oracle rules to positions; target rule ID only for secondary diagnostic",
+      "deployable": false
+    },
+    {
+      "stage": "offline scoring",
+      "entry": "summarize/verify scripts: frozen references and action aliases",
+      "model_calls": false
+    }
+  ],
+  "normal_model_annotation_calls": 0,
+  "normal_B2_B3_reused_unchanged": true,
+  "samples": [
+    {
+      "case_id": "v2_39_3_original",
+      "guideline_id": 39,
+      "pair_id": "v2_39_3"
+    },
+    {
+      "case_id": "v2_39_3_counterfactual",
+      "guideline_id": 39,
+      "pair_id": "v2_39_3"
+    },
+    {
+      "case_id": "v2_159_33_original",
+      "guideline_id": 159,
+      "pair_id": "v2_159_33"
+    },
+    {
+      "case_id": "v2_159_33_counterfactual",
+      "guideline_id": 159,
+      "pair_id": "v2_159_33"
+    },
+    {
+      "case_id": "v2_169_21_original",
+      "guideline_id": 169,
+      "pair_id": "v2_169_21"
+    },
+    {
+      "case_id": "v2_169_21_counterfactual",
+      "guideline_id": 169,
+      "pair_id": "v2_169_21"
+    },
+    {
+      "case_id": "v2_244_7_original",
+      "guideline_id": 244,
+      "pair_id": "v2_244_7"
+    },
+    {
+      "case_id": "v2_244_7_counterfactual",
+      "guideline_id": 244,
+      "pair_id": "v2_244_7"
+    },
+    {
+      "case_id": "v2_411_4_original",
+      "guideline_id": 411,
+      "pair_id": "v2_411_4"
+    },
+    {
+      "case_id": "v2_411_4_counterfactual",
+      "guideline_id": 411,
+      "pair_id": "v2_411_4"
+    },
+    {
+      "case_id": "v2_622_4_original",
+      "guideline_id": 622,
+      "pair_id": "v2_622_4"
+    },
+    {
+      "case_id": "v2_622_4_counterfactual",
+      "guideline_id": 622,
+      "pair_id": "v2_622_4"
+    },
+    {
+      "case_id": "v2_628_31_original",
+      "guideline_id": 628,
+      "pair_id": "v2_628_31"
+    },
+    {
+      "case_id": "v2_628_31_counterfactual",
+      "guideline_id": 628,
+      "pair_id": "v2_628_31"
+    },
+    {
+      "case_id": "v2_718_35_original",
+      "guideline_id": 718,
+      "pair_id": "v2_718_35"
+    },
+    {
+      "case_id": "v2_718_35_counterfactual",
+      "guideline_id": 718,
+      "pair_id": "v2_718_35"
+    },
+    {
+      "case_id": "v2_724_5_original",
+      "guideline_id": 724,
+      "pair_id": "v2_724_5"
+    },
+    {
+      "case_id": "v2_724_5_counterfactual",
+      "guideline_id": 724,
+      "pair_id": "v2_724_5"
+    },
+    {
+      "case_id": "v2_751_5_original",
+      "guideline_id": 751,
+      "pair_id": "v2_751_5"
+    },
+    {
+      "case_id": "v2_751_5_counterfactual",
+      "guideline_id": 751,
+      "pair_id": "v2_751_5"
+    },
+    {
+      "case_id": "v2_844_10_original",
+      "guideline_id": 844,
+      "pair_id": "v2_844_10"
+    },
+    {
+      "case_id": "v2_844_10_counterfactual",
+      "guideline_id": 844,
+      "pair_id": "v2_844_10"
+    },
+    {
+      "case_id": "v2_775_26_original",
+      "guideline_id": 775,
+      "pair_id": "v2_775_26"
+    },
+    {
+      "case_id": "v2_775_26_counterfactual",
+      "guideline_id": 775,
+      "pair_id": "v2_775_26"
+    },
+    {
+      "case_id": "v2_1317_17_original",
+      "guideline_id": 1317,
+      "pair_id": "v2_1317_17"
+    },
+    {
+      "case_id": "v2_1317_17_counterfactual",
+      "guideline_id": 1317,
+      "pair_id": "v2_1317_17"
+    },
+    {
+      "case_id": "v2_1342_11_original",
+      "guideline_id": 1342,
+      "pair_id": "v2_1342_11"
+    },
+    {
+      "case_id": "v2_1342_11_counterfactual",
+      "guideline_id": 1342,
+      "pair_id": "v2_1342_11"
+    },
+    {
+      "case_id": "v2_1342_15_original",
+      "guideline_id": 1342,
+      "pair_id": "v2_1342_15"
+    },
+    {
+      "case_id": "v2_1342_15_counterfactual",
+      "guideline_id": 1342,
+      "pair_id": "v2_1342_15"
+    },
+    {
+      "case_id": "v2_1370_2_original",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_2"
+    },
+    {
+      "case_id": "v2_1370_2_counterfactual",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_2"
+    },
+    {
+      "case_id": "v2_1370_6_original",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_6"
+    },
+    {
+      "case_id": "v2_1370_6_counterfactual",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_6"
+    },
+    {
+      "case_id": "v2_1446_2_original",
+      "guideline_id": 1446,
+      "pair_id": "v2_1446_2"
+    },
+    {
+      "case_id": "v2_1446_2_counterfactual",
+      "guideline_id": 1446,
+      "pair_id": "v2_1446_2"
+    },
+    {
+      "case_id": "v2_1599_17_original",
+      "guideline_id": 1599,
+      "pair_id": "v2_1599_17"
+    },
+    {
+      "case_id": "v2_1599_17_counterfactual",
+      "guideline_id": 1599,
+      "pair_id": "v2_1599_17"
+    },
+    {
+      "case_id": "v2_1611_5_original",
+      "guideline_id": 1611,
+      "pair_id": "v2_1611_5"
+    },
+    {
+      "case_id": "v2_1611_5_counterfactual",
+      "guideline_id": 1611,
+      "pair_id": "v2_1611_5"
+    },
+    {
+      "case_id": "v2_1786_2_original",
+      "guideline_id": 1786,
+      "pair_id": "v2_1786_2"
+    },
+    {
+      "case_id": "v2_1786_2_counterfactual",
+      "guideline_id": 1786,
+      "pair_id": "v2_1786_2"
+    },
+    {
+      "case_id": "v2_1903_24_original",
+      "guideline_id": 1903,
+      "pair_id": "v2_1903_24"
+    },
+    {
+      "case_id": "v2_1903_24_counterfactual",
+      "guideline_id": 1903,
+      "pair_id": "v2_1903_24"
+    },
+    {
+      "case_id": "v2_1998_10_original",
+      "guideline_id": 1998,
+      "pair_id": "v2_1998_10"
+    },
+    {
+      "case_id": "v2_1998_10_counterfactual",
+      "guideline_id": 1998,
+      "pair_id": "v2_1998_10"
+    },
+    {
+      "case_id": "v2_2077_5_original",
+      "guideline_id": 2077,
+      "pair_id": "v2_2077_5"
+    },
+    {
+      "case_id": "v2_2077_5_counterfactual",
+      "guideline_id": 2077,
+      "pair_id": "v2_2077_5"
+    },
+    {
+      "case_id": "v2_2315_3_original",
+      "guideline_id": 2315,
+      "pair_id": "v2_2315_3"
+    },
+    {
+      "case_id": "v2_2315_3_counterfactual",
+      "guideline_id": 2315,
+      "pair_id": "v2_2315_3"
+    },
+    {
+      "case_id": "v2_2387_3_original",
+      "guideline_id": 2387,
+      "pair_id": "v2_2387_3"
+    },
+    {
+      "case_id": "v2_2387_3_counterfactual",
+      "guideline_id": 2387,
+      "pair_id": "v2_2387_3"
+    },
+    {
+      "case_id": "v2_2711_4_original",
+      "guideline_id": 2711,
+      "pair_id": "v2_2711_4"
+    },
+    {
+      "case_id": "v2_2711_4_counterfactual",
+      "guideline_id": 2711,
+      "pair_id": "v2_2711_4"
+    },
+    {
+      "case_id": "v2_2704_22_original",
+      "guideline_id": 2704,
+      "pair_id": "v2_2704_22"
+    },
+    {
+      "case_id": "v2_2704_22_counterfactual",
+      "guideline_id": 2704,
+      "pair_id": "v2_2704_22"
+    },
+    {
+      "case_id": "v2_2634_32_original",
+      "guideline_id": 2634,
+      "pair_id": "v2_2634_32"
+    },
+    {
+      "case_id": "v2_2634_32_counterfactual",
+      "guideline_id": 2634,
+      "pair_id": "v2_2634_32"
+    },
+    {
+      "case_id": "v2_678_11_original",
+      "guideline_id": 678,
+      "pair_id": "v2_678_11"
+    },
+    {
+      "case_id": "v2_678_11_counterfactual",
+      "guideline_id": 678,
+      "pair_id": "v2_678_11"
+    },
+    {
+      "case_id": "v2_1476_5_original",
+      "guideline_id": 1476,
+      "pair_id": "v2_1476_5"
+    },
+    {
+      "case_id": "v2_1476_5_counterfactual",
+      "guideline_id": 1476,
+      "pair_id": "v2_1476_5"
+    },
+    {
+      "case_id": "v2_58_39_original",
+      "guideline_id": 58,
+      "pair_id": "v2_58_39"
+    },
+    {
+      "case_id": "v2_58_39_counterfactual",
+      "guideline_id": 58,
+      "pair_id": "v2_58_39"
+    },
+    {
+      "case_id": "v2_642_18_original",
+      "guideline_id": 642,
+      "pair_id": "v2_642_18"
+    },
+    {
+      "case_id": "v2_642_18_counterfactual",
+      "guideline_id": 642,
+      "pair_id": "v2_642_18"
+    },
+    {
+      "case_id": "v2_1370_13_original",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_13"
+    },
+    {
+      "case_id": "v2_1370_13_counterfactual",
+      "guideline_id": 1370,
+      "pair_id": "v2_1370_13"
+    },
+    {
+      "case_id": "v2_1398_5_original",
+      "guideline_id": 1398,
+      "pair_id": "v2_1398_5"
+    },
+    {
+      "case_id": "v2_1398_5_counterfactual",
+      "guideline_id": 1398,
+      "pair_id": "v2_1398_5"
+    },
+    {
+      "case_id": "v2_628_4_original",
+      "guideline_id": 628,
+      "pair_id": "v2_628_4"
+    },
+    {
+      "case_id": "v2_628_4_counterfactual",
+      "guideline_id": 628,
+      "pair_id": "v2_628_4"
+    },
+    {
+      "case_id": "v2_2592_2_original",
+      "guideline_id": 2592,
+      "pair_id": "v2_2592_2"
+    },
+    {
+      "case_id": "v2_2592_2_counterfactual",
+      "guideline_id": 2592,
+      "pair_id": "v2_2592_2"
+    },
+    {
+      "case_id": "v2_112_13_original",
+      "guideline_id": 112,
+      "pair_id": "v2_112_13"
+    },
+    {
+      "case_id": "v2_112_13_counterfactual",
+      "guideline_id": 112,
+      "pair_id": "v2_112_13"
+    },
+    {
+      "case_id": "v2_1164_6_original",
+      "guideline_id": 1164,
+      "pair_id": "v2_1164_6"
+    },
+    {
+      "case_id": "v2_1164_6_counterfactual",
+      "guideline_id": 1164,
+      "pair_id": "v2_1164_6"
+    },
+    {
+      "case_id": "v2_68_17_original",
+      "guideline_id": 68,
+      "pair_id": "v2_68_17"
+    },
+    {
+      "case_id": "v2_68_17_counterfactual",
+      "guideline_id": 68,
+      "pair_id": "v2_68_17"
+    }
+  ],
+  "independent_validation_selected_or_run": false,
+  "historical_guideline_overlap": []
+}

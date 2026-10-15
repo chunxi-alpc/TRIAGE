@@ -1,0 +1,41 @@
+{
+  "tokens": {
+    "applicable": {
+      "quoted": [
+        1,
+        676,
+        46114,
+        1
+      ],
+      "bare": [
+        676,
+        46114
+      ]
+    },
+    "inapplicable": {
+      "quoted": [
+        54401,
+        676,
+        46114,
+        1
+      ],
+      "bare": [
+        258,
+        676,
+        46114
+      ]
+    },
+    "unknown": {
+      "quoted": [
+        1,
+        16088,
+        1
+      ],
+      "bare": [
+        16088
+      ]
+    }
+  },
+  "old_failure": "Opening quote was a shared first token for applicable and unknown, while quote+in merged for inapplicable. Native constrained greedy selection could eliminate inapplicable before its semantic token was evaluated.",
+  "fix": "Place same opening quote in fixed prefix, then offer all bare state continuations."
+}

@@ -1,0 +1,404 @@
+{
+  "seed": 20261015,
+  "beta": 2.0,
+  "scope": "Offline oracle corruption diagnostic; no training, no validation",
+  "all_80_cases_in_denominator": true,
+  "reference_state_only_protocol": "Only rule states replaced by reference, predicted relevance/evidence retained; normal conflict gate retained. Extra tokens versus oracle are not classified as wrong evidence.",
+  "corruption_conflict_gate": "Artificial flips are executed as operator-level corruption even if they introduce a contradictory predicted applicable rule; not production gate robustness.",
+  "flip_protocol": "Nested seeded random patient target-rule states only, applicable/inapplicable exchanged; existing evidence roles unchanged. Other rule annotations remain oracle. Not a population robustness claim.",
+  "span_protocol": "Replace target active evidence with disjoint original patient window of same character length as decisive quote; unchanged-condition context, not injected text. 1/20 cannot supply such a window and is a recorded no-op. Token counts retained in per-case records.",
+  "results": {
+    "predicted": {
+      "metrics": {
+        "accuracy": {
+          "numerator": 64,
+          "denominator": 80,
+          "value": 0.8
+        },
+        "applicable_accuracy": {
+          "numerator": 35,
+          "denominator": 40,
+          "value": 0.875
+        },
+        "oar": {
+          "numerator": 3,
+          "denominator": 40,
+          "value": 0.075
+        },
+        "pair_accuracy": {
+          "numerator": 29,
+          "denominator": 40,
+          "value": 0.725
+        },
+        "retention": {
+          "numerator": 64,
+          "denominator": 64,
+          "value": 1.0
+        },
+        "decision_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "enhancement_coverage": {
+          "numerator": 49,
+          "denominator": 80,
+          "value": 0.6125
+        },
+        "margin_signs": {
+          "inapplicable": {
+            "positive": 13,
+            "zero": 19,
+            "negative": 8
+          },
+          "applicable": {
+            "negative": 17,
+            "zero": 16,
+            "positive": 7
+          }
+        }
+      },
+      "selected_cases": 0,
+      "changed_target_union": 0,
+      "actual_nonzero_wrong_enhancement_cases": null,
+      "no_op_corruption": 0,
+      "removed_target_without_new_wrong_tokens": 0
+    },
+    "reference": {
+      "metrics": {
+        "accuracy": {
+          "numerator": 66,
+          "denominator": 80,
+          "value": 0.825
+        },
+        "applicable_accuracy": {
+          "numerator": 36,
+          "denominator": 40,
+          "value": 0.9
+        },
+        "oar": {
+          "numerator": 3,
+          "denominator": 40,
+          "value": 0.075
+        },
+        "pair_accuracy": {
+          "numerator": 30,
+          "denominator": 40,
+          "value": 0.75
+        },
+        "retention": {
+          "numerator": 64,
+          "denominator": 64,
+          "value": 1.0
+        },
+        "decision_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "enhancement_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "margin_signs": {
+          "inapplicable": {
+            "positive": 22,
+            "negative": 15,
+            "zero": 3
+          },
+          "applicable": {
+            "negative": 27,
+            "positive": 11,
+            "zero": 2
+          }
+        }
+      },
+      "selected_cases": 0,
+      "changed_target_union": 0,
+      "actual_nonzero_wrong_enhancement_cases": null,
+      "no_op_corruption": 0,
+      "removed_target_without_new_wrong_tokens": 0
+    },
+    "reference_state_only": {
+      "metrics": {
+        "accuracy": {
+          "numerator": 67,
+          "denominator": 80,
+          "value": 0.8375
+        },
+        "applicable_accuracy": {
+          "numerator": 37,
+          "denominator": 40,
+          "value": 0.925
+        },
+        "oar": {
+          "numerator": 3,
+          "denominator": 40,
+          "value": 0.075
+        },
+        "pair_accuracy": {
+          "numerator": 30,
+          "denominator": 40,
+          "value": 0.75
+        },
+        "retention": {
+          "numerator": 64,
+          "denominator": 64,
+          "value": 1.0
+        },
+        "decision_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "enhancement_coverage": {
+          "numerator": 79,
+          "denominator": 80,
+          "value": 0.9875
+        },
+        "margin_signs": {
+          "inapplicable": {
+            "positive": 23,
+            "negative": 14,
+            "zero": 3
+          },
+          "applicable": {
+            "negative": 23,
+            "positive": 13,
+            "zero": 4
+          }
+        }
+      },
+      "selected_cases": 80,
+      "changed_target_union": 79,
+      "actual_nonzero_wrong_enhancement_cases": null,
+      "no_op_corruption": 1,
+      "removed_target_without_new_wrong_tokens": 2
+    },
+    "flip_0.1": {
+      "metrics": {
+        "accuracy": {
+          "numerator": 66,
+          "denominator": 80,
+          "value": 0.825
+        },
+        "applicable_accuracy": {
+          "numerator": 36,
+          "denominator": 40,
+          "value": 0.9
+        },
+        "oar": {
+          "numerator": 3,
+          "denominator": 40,
+          "value": 0.075
+        },
+        "pair_accuracy": {
+          "numerator": 30,
+          "denominator": 40,
+          "value": 0.75
+        },
+        "retention": {
+          "numerator": 64,
+          "denominator": 64,
+          "value": 1.0
+        },
+        "decision_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "enhancement_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "margin_signs": {
+          "inapplicable": {
+            "positive": 22,
+            "negative": 15,
+            "zero": 3
+          },
+          "applicable": {
+            "negative": 26,
+            "positive": 12,
+            "zero": 2
+          }
+        }
+      },
+      "selected_cases": 8,
+      "changed_target_union": 8,
+      "actual_nonzero_wrong_enhancement_cases": 4,
+      "no_op_corruption": 0,
+      "removed_target_without_new_wrong_tokens": 4
+    },
+    "flip_0.2": {
+      "metrics": {
+        "accuracy": {
+          "numerator": 66,
+          "denominator": 80,
+          "value": 0.825
+        },
+        "applicable_accuracy": {
+          "numerator": 36,
+          "denominator": 40,
+          "value": 0.9
+        },
+        "oar": {
+          "numerator": 3,
+          "denominator": 40,
+          "value": 0.075
+        },
+        "pair_accuracy": {
+          "numerator": 30,
+          "denominator": 40,
+          "value": 0.75
+        },
+        "retention": {
+          "numerator": 64,
+          "denominator": 64,
+          "value": 1.0
+        },
+        "decision_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "enhancement_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "margin_signs": {
+          "inapplicable": {
+            "positive": 23,
+            "negative": 15,
+            "zero": 2
+          },
+          "applicable": {
+            "negative": 23,
+            "positive": 14,
+            "zero": 3
+          }
+        }
+      },
+      "selected_cases": 16,
+      "changed_target_union": 16,
+      "actual_nonzero_wrong_enhancement_cases": 6,
+      "no_op_corruption": 0,
+      "removed_target_without_new_wrong_tokens": 10
+    },
+    "flip_0.3": {
+      "metrics": {
+        "accuracy": {
+          "numerator": 66,
+          "denominator": 80,
+          "value": 0.825
+        },
+        "applicable_accuracy": {
+          "numerator": 36,
+          "denominator": 40,
+          "value": 0.9
+        },
+        "oar": {
+          "numerator": 3,
+          "denominator": 40,
+          "value": 0.075
+        },
+        "pair_accuracy": {
+          "numerator": 30,
+          "denominator": 40,
+          "value": 0.75
+        },
+        "retention": {
+          "numerator": 64,
+          "denominator": 64,
+          "value": 1.0
+        },
+        "decision_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "enhancement_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "margin_signs": {
+          "inapplicable": {
+            "positive": 23,
+            "negative": 15,
+            "zero": 2
+          },
+          "applicable": {
+            "negative": 23,
+            "positive": 14,
+            "zero": 3
+          }
+        }
+      },
+      "selected_cases": 24,
+      "changed_target_union": 24,
+      "actual_nonzero_wrong_enhancement_cases": 10,
+      "no_op_corruption": 0,
+      "removed_target_without_new_wrong_tokens": 14
+    },
+    "span_noise_25pct": {
+      "metrics": {
+        "accuracy": {
+          "numerator": 66,
+          "denominator": 80,
+          "value": 0.825
+        },
+        "applicable_accuracy": {
+          "numerator": 36,
+          "denominator": 40,
+          "value": 0.9
+        },
+        "oar": {
+          "numerator": 3,
+          "denominator": 40,
+          "value": 0.075
+        },
+        "pair_accuracy": {
+          "numerator": 30,
+          "denominator": 40,
+          "value": 0.75
+        },
+        "retention": {
+          "numerator": 64,
+          "denominator": 64,
+          "value": 1.0
+        },
+        "decision_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "enhancement_coverage": {
+          "numerator": 80,
+          "denominator": 80,
+          "value": 1.0
+        },
+        "margin_signs": {
+          "inapplicable": {
+            "positive": 22,
+            "negative": 15,
+            "zero": 3
+          },
+          "applicable": {
+            "negative": 27,
+            "positive": 11,
+            "zero": 2
+          }
+        }
+      },
+      "selected_cases": 20,
+      "changed_target_union": 0,
+      "actual_nonzero_wrong_enhancement_cases": 0,
+      "no_op_corruption": 20,
+      "removed_target_without_new_wrong_tokens": 0
+    }
+  }
+}

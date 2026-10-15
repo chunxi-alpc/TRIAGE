@@ -1,0 +1,99 @@
+{
+  "cache_key": "90392836f8fee95a3232b2f667d7762c630c668679cf9e8fadef604fa2d19e01",
+  "input": {
+    "rules": [
+      {
+        "rule_id": "mega_18_leaf_3",
+        "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)? AND The answer must be YES: Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?. Recommendation: Attempt rescue from a safe location by reaching with an object, throwing a rope or floating object, or rowing to the drowning patient without entering hazardous conditions."
+      },
+      {
+        "rule_id": "mega_18_leaf_4",
+        "text": "Apply this recommendation only when ALL requirements hold: The answer must be YES: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)? AND The answer must be NO: Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?. Recommendation: Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available."
+      },
+      {
+        "rule_id": "mega_18_leaf_6",
+        "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)? AND The answer must be YES: Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?. Recommendation: Perform in-water rescue according to level of training, expertise, equipment, and comfort level."
+      },
+      {
+        "rule_id": "mega_18_leaf_7",
+        "text": "Apply this recommendation only when ALL requirements hold: The answer must be NO: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)? AND The answer must be NO: Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?. Recommendation: Avoid entering the water for rescue; attempt reach/throw/row strategies from a safe location if possible."
+      }
+    ],
+    "patient": "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter. The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist. The primary clinical focus was management.",
+    "question": "For this patient, what is the main management decision recommended by the provided guideline?",
+    "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+    "prompt": "You annotate clinical rule applicability and exact text spans. Never produce a final clinical decision. Output JSON only.For EVERY supplied rule, independently determine relevance to the question and applicability from explicit patient evidence. Return {\"rules\":[{\"rule_id\":\"original ID\",\"relevant\":true,\"applicability\":\"applicable|inapplicable|unknown\",\"action_spans\":[\"exact recommendation text\"],\"supporting_evidence\":[\"exact patient substring\"],\"refuting_evidence\":[\"exact patient substring\"],\"exception_spans\":[\"exact triggered guideline exception\"]}]}. Actions and exceptions must be exact substrings of that rule's text; evidence must be exact substrings of the patient record. No paraphrases. Unknown when necessary conditions cannot be decided. For inapplicable rules include explicit refuting evidence, not their action as evidence. Supporting evidence may still be recorded for their satisfied conditions. Give only the shortest sufficient excerpts. For a repeated excerpt use {\"text\":\"...\",\"before\":\"immediately preceding text\",\"after\":\"immediately following text\"} to disambiguate. Do not output any final decision, reference path, or answer choice. Do not omit rules.\n",
+    "max_new_tokens": 10000
+  },
+  "raw_output": "{\"rules\":[{\"rule_id\":\"mega_18_leaf_3\",\"relevant\":true,\"applicability\":\"inapplicable\",\"action_spans\":[\"Attempt rescue from a safe location by reaching with an object, throwing a rope or floating object, or rowing to the drowning patient without entering hazardous conditions.\"],\"supporting_evidence\":[\"The answer must be YES: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?\",\"The answer must be YES: Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?\"],\"refuting_evidence\":[\"The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.\"],\"exception_spans\":[]},{\"rule_id\":\"mega_18_leaf_4\",\"relevant\":true,\"applicability\":\"applicable\",\"action_spans\":[\"Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available.\"],\"supporting_evidence\":[\"The answer must be YES: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?\",\"The answer must be NO: Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?\"],\"refuting_evidence\":[],\"exception_spans\":[]},{\"rule_id\":\"mega_18_leaf_6\",\"relevant\":true,\"applicability\":\"inapplicable\",\"action_spans\":[\"Perform in-water rescue according to level of training, expertise, equipment, and comfort level.\"],\"supporting_evidence\":[\"The answer must be NO: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?\",\"The answer must be YES: Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?\"],\"refuting_evidence\":[\"A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.\"],\"exception_spans\":[]},{\"rule_id\":\"mega_18_leaf_7\",\"relevant\":true,\"applicability\":\"inapplicable\",\"action_spans\":[\"Avoid entering the water for rescue; attempt reach/throw/row strategies from a safe location if possible.\"],\"supporting_evidence\":[\"The answer must be NO: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?\",\"The answer must be NO: Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?\"],\"refuting_evidence\":[\"A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.\",\"The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist.\"],\"exception_spans\":[]}]}",
+  "rules": [
+    {
+      "rule_id": "mega_18_leaf_3",
+      "relevant": true,
+      "applicability": "inapplicable",
+      "action_spans": [
+        "Attempt rescue from a safe location by reaching with an object, throwing a rope or floating object, or rowing to the drowning patient without entering hazardous conditions."
+      ],
+      "supporting_evidence": [
+        "The answer must be YES: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "The answer must be YES: Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?"
+      ],
+      "refuting_evidence": [
+        "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist."
+      ],
+      "exception_spans": []
+    },
+    {
+      "rule_id": "mega_18_leaf_4",
+      "relevant": true,
+      "applicability": "applicable",
+      "action_spans": [
+        "Do not enter hazardous water to attempt rescue; await or summon trained rescue personnel if available."
+      ],
+      "supporting_evidence": [
+        "The answer must be YES: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "The answer must be NO: Is the drowning patient within reach, or can a rope/floating object/boat/canoe/paddleboard be used from a safe location?"
+      ],
+      "refuting_evidence": [],
+      "exception_spans": []
+    },
+    {
+      "rule_id": "mega_18_leaf_6",
+      "relevant": true,
+      "applicability": "inapplicable",
+      "action_spans": [
+        "Perform in-water rescue according to level of training, expertise, equipment, and comfort level."
+      ],
+      "supporting_evidence": [
+        "The answer must be NO: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "The answer must be YES: Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?"
+      ],
+      "refuting_evidence": [
+        "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter."
+      ],
+      "exception_spans": []
+    },
+    {
+      "rule_id": "mega_18_leaf_7",
+      "relevant": true,
+      "applicability": "inapplicable",
+      "action_spans": [
+        "Avoid entering the water for rescue; attempt reach/throw/row strategies from a safe location if possible."
+      ],
+      "supporting_evidence": [
+        "The answer must be NO: Is the rescuer without formal water rescue training operating in hazardous water conditions (eg, beyond ability to safely enter the water)?",
+        "The answer must be NO: Does the rescuer have formal water rescue training and appropriate personal protective/safety equipment for in-water rescue?"
+      ],
+      "refuting_evidence": [
+        "A bystander without formal water-rescue training encountered a drowning patient in hazardous water conditions that were clearly beyond the bystander’s ability to safely enter.",
+        "The patient was not within reach, and no rope, floating object, boat, canoe, or paddleboard could be used from a safe location to assist."
+      ],
+      "exception_spans": []
+    }
+  ],
+  "errors": [],
+  "input_tokens": 795,
+  "output_tokens": 650,
+  "seconds": 14.391079664230347,
+  "reference_used": false
+}

@@ -1,0 +1,26 @@
+{
+  "experimental_worker_failures": 0,
+  "GPU_reruns_for_new_outcomes": 0,
+  "audit_and_reporting_repairs": [
+    {
+      "stage": "E0",
+      "issue": "81 cached annotations include one unused smoke record; 80 cases reference 80 unique keys",
+      "repair": "validate linkage and uniqueness rather than require archive length 80",
+      "data_removed": false
+    },
+    {
+      "stage": "summary",
+      "issue": "conflict metadata was not copied into evaluation records",
+      "repair": "copy original conflict flag; no prediction or metric definition changed"
+    },
+    {
+      "stage": "historical regression",
+      "issue": "historical references use a samples wrapper, and invalid old spans must fail closed",
+      "repair": "adapt historical schema and skip invalid spans exactly as the historical mapper; all 24 masks and scores replayed"
+    }
+  ],
+  "detailed_logs": "server-only logs/; original failures retained there",
+  "metric_definition_changes": false,
+  "historical_outputs_changed": false,
+  "new_models_or_algorithmic_modules_added": false
+}

@@ -1,0 +1,125 @@
+{
+  "pairs": [
+    {
+      "pair_id": "numeric_112:5:13",
+      "guideline_id": 112,
+      "source_case_id": "112:5",
+      "source_dataset_version": "8f058c88ce1ed43693785b435ad0ff99907a2890",
+      "condition": "Is serum potassium <5.0 mEq/L?",
+      "original_patient": "The patient was known to have structural heart disease with current or prior symptoms consistent with heart failure, consistent with Stage C–D heart failure. Transthoracic echocardiography demonstrated a reduced left ventricular ejection fraction of 30%. Functional assessment documented ongoing limitation consistent with NYHA class IV symptoms, and NYHA class II–III symptoms were not present. Laboratory evaluation showed preserved renal function with an estimated GFR of 52 mL/min/1.73 m² and no hyperkalemia, with a serum potassium of 4.3 mEq/L. The primary clinical focus was management.",
+      "counterfactual_patient": "The patient was known to have structural heart disease with current or prior symptoms consistent with heart failure, consistent with Stage C–D heart failure. Transthoracic echocardiography demonstrated a reduced left ventricular ejection fraction of 30%. Functional assessment documented ongoing limitation consistent with NYHA class IV symptoms, and NYHA class II–III symptoms were not present. Laboratory evaluation showed preserved renal function with an estimated GFR of 52 mL/min/1.73 m² and hyperkalemia, with a serum potassium of 5.25 mEq/L. The primary clinical focus was management.",
+      "original_state": "yes",
+      "new_state": "no",
+      "reference_actions": {
+        "yes": "Add an MRA (spironolactone or eplerenone) in HFrEF with NYHA II–IV symptoms and adequate renal function and potassium, and monitor potassium, renal function, and diuretic dosing at initiation and thereafter.",
+        "no": "Do not initiate an MRA in HFrEF NYHA II–IV because serum potassium is ≥5.0 mEq/L; avoid risk of hyperkalemia and renal insufficiency."
+      },
+      "source_node_id": 13,
+      "numeric_change": {
+        "from": 4.3,
+        "to": 5.25
+      },
+      "ancestor_checks": [],
+      "validation": {
+        "incompatible_actions": true,
+        "clinical_consistency": true,
+        "reason": "Sibling actions explicitly add versus do not initiate MRA; renal value unchanged. Counterfactual must change no hyperkalemia together with potassium as the same patient condition.",
+        "replacement": {
+          "old": "no hyperkalemia",
+          "new": "hyperkalemia"
+        }
+      },
+      "not_in_experiment": true,
+      "split": "unassigned_candidate"
+    },
+    {
+      "pair_id": "numeric_1164:2:6",
+      "guideline_id": 1164,
+      "source_case_id": "1164:2",
+      "source_dataset_version": "8f058c88ce1ed43693785b435ad0ff99907a2890",
+      "condition": "患者收缩压是否>90 mmHg？",
+      "original_patient": "患者既往为慢性心力衰竭，前后两次随访评估比较时，原有心衰相关症状和（或）体征再次出现并较前加重。此次加重过程中可见明确的液体潴留证据，表现为液体潴留相关的症状与体征并存。同时一度出现低灌注表现，但经处理后低灌注已被纠正。随后病情突发进展为急性肺水肿发作，就诊时收缩压为 85 mmHg，未达到 >90 mmHg 的水平。以上病程记录用于管理。",
+      "counterfactual_patient": "患者既往为慢性心力衰竭，前后两次随访评估比较时，原有心衰相关症状和（或）体征再次出现并较前加重。此次加重过程中可见明确的液体潴留证据，表现为液体潴留相关的症状与体征并存。同时一度出现低灌注表现，但经处理后低灌注已被纠正。随后病情突发进展为急性肺水肿发作，就诊时收缩压为 94.5 mmHg，达到 >90 mmHg 的水平。以上病程记录用于管理。",
+      "original_state": "no",
+      "new_state": "yes",
+      "reference_actions": {
+        "yes": "在利尿基础上使用静脉血管扩张药以缓解急性心衰症状（尤其适用于伴高血压的急性肺水肿）。",
+        "no": "禁忌使用静脉血管扩张药；对低血压/低灌注按正性肌力药±血管收缩药等策略处理。"
+      },
+      "source_node_id": 6,
+      "numeric_change": {
+        "from": 85.0,
+        "to": 94.5
+      },
+      "ancestor_checks": [],
+      "validation": {
+        "incompatible_actions": true,
+        "clinical_consistency": true,
+        "reason": "Sibling actions prescribe versus contraindicate IV vasodilators. Counterfactual changes only systolic BP and its explicit threshold qualifier.",
+        "replacement": {
+          "old": "未达到 >90 mmHg 的水平",
+          "new": "达到 >90 mmHg 的水平"
+        }
+      },
+      "not_in_experiment": true,
+      "split": "unassigned_candidate"
+    },
+    {
+      "pair_id": "original_1145_1_2",
+      "guideline_id": 1145,
+      "source_case_ids": [
+        "1145:1",
+        "1145:2"
+      ],
+      "source_dataset_version": "8f058c88ce1ed43693785b435ad0ff99907a2890",
+      "condition": "Has the patient had clinical deterioration despite medical therapy?",
+      "original_patient": "The patient was being treated for cerebral venous sinus thrombosis (CVST) and subsequently experienced clinical deterioration despite ongoing medical therapy. The primary clinical focus was management.",
+      "counterfactual_patient": "The patient was being treated for cerebral venous sinus thrombosis (CVST) and remained clinically stable, without any deterioration despite ongoing medical therapy. The primary clinical focus was management.",
+      "reference_actions": [
+        "For CVST: anticoagulation with heparin is front-line therapy; consider endovascular therapy in the setting of clinical deterioration despite medical therapy.",
+        "For CVST: anticoagulation with heparin is front-line therapy; endovascular therapy is not specifically indicated by this guideline without clinical deterioration despite medical therapy."
+      ],
+      "changed_evidence": [
+        "The patient was being treated for cerebral venous sinus thrombosis (CVST) and subsequently experienced clinical deterioration despite ongoing medical therapy",
+        "The patient was being treated for cerebral venous sinus thrombosis (CVST) and remained clinically stable, without any deterioration despite ongoing medical therapy"
+      ],
+      "validation": {
+        "valid": true,
+        "reason": "One deterioration condition changes; endovascular indication present versus not indicated.",
+        "incompatible_actions": true,
+        "single_attribute_verified": true
+      },
+      "not_in_experiment": true,
+      "split": "unassigned_candidate"
+    },
+    {
+      "pair_id": "original_1370_1_2",
+      "guideline_id": 1370,
+      "source_case_ids": [
+        "1370:1",
+        "1370:2"
+      ],
+      "source_dataset_version": "8f058c88ce1ed43693785b435ad0ff99907a2890",
+      "condition": "Is fluorescent cholangiography (ICG fluorescence) available for use during the procedure?",
+      "original_patient": "The patient underwent a laparoscopic cholecystectomy, during which indocyanine green (ICG) fluorescent cholangiography was available for intraoperative use. The primary clinical focus was management.",
+      "counterfactual_patient": "The patient underwent a laparoscopic cholecystectomy; however, intraoperatively, fluorescent cholangiography using indocyanine green (ICG) fluorescence was not available for use during the procedure. The primary clinical focus was management.",
+      "reference_actions": [
+        "Recommend using fluorescent cholangiography during laparoscopic cholecystectomy to improve visualization of biliary structures (strong recommendation).",
+        "Use standard intraoperative imaging (fluorescent cholangiography cannot be applied because it is not available)."
+      ],
+      "changed_evidence": [
+        "The patient underwent a laparoscopic cholecystectomy, during which indocyanine green (ICG) fluorescent cholangiography was available for intraoperative use",
+        "The patient underwent a laparoscopic cholecystectomy; however, intraoperatively, fluorescent cholangiography using indocyanine green (ICG) fluorescence was not available for use during the procedure"
+      ],
+      "validation": {
+        "valid": true,
+        "reason": "One availability condition changes; use unavailable ICG is incompatible with standard imaging fallback.",
+        "incompatible_actions": true,
+        "single_attribute_verified": true
+      },
+      "not_in_experiment": true,
+      "split": "unassigned_candidate"
+    }
+  ],
+  "not_an_evaluation_set": true
+}
