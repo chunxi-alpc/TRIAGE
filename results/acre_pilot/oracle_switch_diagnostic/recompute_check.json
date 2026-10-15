@@ -1,0 +1,94 @@
+{
+  "E0_passed": true,
+  "normal_masks_recomputed_without_reference": true,
+  "normal_annotations_replayed_exact": 80,
+  "all_historical_metrics_exact": true,
+  "all_B6_masks_exact": true,
+  "restoration_sha256_verified": true,
+  "cases": 80,
+  "pairs": 40,
+  "guidelines": 36,
+  "historical_guideline_overlap": [],
+  "unused_annotation_cache_records": 1,
+  "normal_inputs": {
+    "manifest": "9de12c73379055b401fd6ce1e32d7bb18c5ebe871aad4e9834f30cdd337498c0",
+    "annotations_archive": "7ee75645264746fc5007630b1f71b9dbcc3a624cb188ec93447dfdf9d1ffe299"
+  },
+  "oracle_mask_only_inputs": {
+    "oracle": "10db99220ce9e355e49e39c3e2883ba54e62ac3d6e3c229fa0315ae06535e65b"
+  },
+  "offline_evaluation_inputs": {
+    "references": "13607f19e7135724f338f3a0b3eb25ce45387b2bf3a192f198c0849c060c57f5",
+    "action_alias_audit": "cca9a3203da679b14c4abea57a5d6714b33d7be865cefa1d47f1d74dcd77c11a"
+  },
+  "archive_sha256": {
+    "case_results.jsonl.gz": "97cb1db7eeeccf829c4c669f1cbdd692d90efc61386aad753ce60cfd75776b8b",
+    "annotations.jsonl.gz": "7ee75645264746fc5007630b1f71b9dbcc3a624cb188ec93447dfdf9d1ffe299"
+  },
+  "plan_sha256": "db2dc8787d401bf8d21938d9a4f6ba5a9ba5e2f49d6eb5a5f96d89be5cc2e854",
+  "remote_base_commit": "c25da4420d467e281dfe5243a15ed8315b8a8c90",
+  "E1_independently_recomputed": true,
+  "all_1040_rows_verified": true,
+  "all_new_mask_coordinates_independently_verified": true,
+  "all_80_baseline_logits_exact": true,
+  "all_80_zero_and_empty_full_vocabulary_exact": true,
+  "B6_all_80_masks_exact": true,
+  "B6_representative_logit_exact_cases": 6,
+  "all_stratified_metrics_independently_recomputed": true,
+  "all_paired_counts_and_mcnemar_independently_recomputed": true,
+  "historical_24_cpu_regression": {
+    "n": 24,
+    "correct": {
+      "B0": 21,
+      "B2@1.0": 21,
+      "B3@1.0": 21
+    }
+  },
+  "history_and_old_modules_hashes_unchanged": true,
+  "actual_model_metadata_and_all_weight_shards_sha256_verified": true,
+  "model_fingerprints": {
+    "repo_id": "Qwen/Qwen3-8B",
+    "revision": "master (mutable; local file hashes recorded)",
+    "path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+    "metadata_sha256": {
+      "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+      "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+      "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+      "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+      "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+      "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc"
+    },
+    "weights": {
+      "model-00001-of-00005.safetensors": {
+        "bytes": 3996250744,
+        "sha256": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f"
+      },
+      "model-00005-of-00005.safetensors": {
+        "bytes": 1244659840,
+        "sha256": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff"
+      },
+      "model-00004-of-00005.safetensors": {
+        "bytes": 3187841392,
+        "sha256": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a"
+      },
+      "model-00003-of-00005.safetensors": {
+        "bytes": 3959604768,
+        "sha256": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836"
+      },
+      "model-00002-of-00005.safetensors": {
+        "bytes": 3993160032,
+        "sha256": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282"
+      }
+    }
+  },
+  "all_known_experiment_processes_exited": true,
+  "cpu_regression_tests": {
+    "passed": 20,
+    "log": "server-only logs/cpu_tests.log"
+  },
+  "independent_implementation": "scripts/verify_acre_oracle_factorial.py; no evaluator, select_targets or map_annotations imports",
+  "statistics_limitations": "Exploratory development; 36 guides; no independent clinical expert review, unknown gold class or independent test",
+  "all_guide_cluster_intervals_independently_recomputed": true,
+  "process_check_mode": "current run PIDs checked"
+}
