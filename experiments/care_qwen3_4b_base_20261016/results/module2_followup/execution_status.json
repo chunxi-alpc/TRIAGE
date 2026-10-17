@@ -1,23 +1,23 @@
 {
   "date": "2026-10-17",
-  "new_gpu_experiments": "not_run",
-  "server_connection": "not_established",
-  "reason": "Host command tool could not create any process, including the SSH command; node runtime also failed before evaluating code due to sandboxCwd URI error. Server reachability and GPU availability are unknown.",
+  "new_gpu_experiments": "running_on_four_A100_GPUs",
+  "server_connection": "connected",
+  "reason": null,
   "completed": [
     "Repository and PR #2 inspected through authenticated GitHub connector",
     "Archived clinical O1 held-out test predictions analyzed in connector orchestration JS runtime",
     "Train/dev/test family separation, selected strengths, duplicate and pair completeness checks passed in JS",
-    "New paired accuracy, complete-eligible-pair analysis, stable-agreement accuracy, margins, answer transitions, family bootstrap intervals and SVG saved"
+    "New paired accuracy, complete-eligible-pair analysis, stable-agreement accuracy, margins, answer transitions, family bootstrap intervals and SVG saved",
+    "Server Python compilation and 8 unit tests",
+    "Exact Python reproduction of archived clinical metrics",
+    "Real Qwen3-4B O2 and clinical FP32/BF16 diagnostics",
+    "All model shard hashes and raw O2 tensor hash verified",
+    "18 O2 cached examples re-extracted with zero difference",
+    "Four independent physical-GPU workers launched on 0/1/2/3"
   ],
   "not_run": [
-    "Python reproducer",
-    "Python unit tests",
-    "Real-model smoke and BF16 equivalence checks",
-    "B1/B2/B3/B4 and random projector model inference",
-    "Matched direct attention-score bias",
-    "Subspace ablation and opposite-/same-label donor patching",
-    "New GPU charts; PNG/PDF exports",
-    "Four-GPU launcher and merged clinical-fold analysis"
+    "Completed B1-B4 held-out-family decision comparison and final causal-effect analysis",
+    "Final new-intervention PNG/SVG/PDF exports"
   ],
   "proposed_resources": {
     "gpus": "four independent workers, prefer 0/1/2/3; replace occupied cards with free 6/7",
@@ -39,5 +39,13 @@
     ],
     "status": "estimate only; no GPU reserved or used"
   },
-  "validation": "JS archive-analysis checks completed; new Python code statically inspected only; draft PR until server smoke/tests pass"
+  "validation": "8 unit tests passed; both real-model smokes passed; full inference running",
+  "server_root": "/home/gcx/care_module2_followup_20261017",
+  "active_output_root": "/home/gcx/care_module2_followup_20261017/results/module2_followup/parallel_v3",
+  "running": [
+    "O2 projector grid on GPU0",
+    "Clinical outer fold0 on GPU1",
+    "Clinical outer fold1 on GPU2",
+    "Clinical outer fold2 on GPU3"
+  ]
 }

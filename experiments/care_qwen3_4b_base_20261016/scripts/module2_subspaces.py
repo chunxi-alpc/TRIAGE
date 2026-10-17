@@ -214,7 +214,10 @@ def collect(model, tok, row, locations, capture_q=False):
                 full.setdefault(L, {})["q"] = out[0].detach().clone()
             handles.append(model.model.layers[L].self_attn.q_norm.register_forward_hook(qh))
     try:
-        logits = model(**causal_inputs(enc, model.device)).logits[0, -1].float()
+        inp = causal_inputs(enc, model.device)
+        if model.dtype == torch.float32:
+            inp["attention_mask"] = inp["attention_mask"].float()
+        logits = model(**inp).logits[0, -1].float()
     finally:
         for handle in handles:
             handle.remove()
@@ -284,7 +287,8 @@ def o2_cache(artifacts, rows, locations):
     data_path = artifacts / "data/derived/pilot.jsonl"
     assert sha256(data_path) == manifest["artifact_hashes"]["data/derived/pilot.jsonl"]
     data = np.load(path, allow_pickle=False)
-    assert data["token_keys"].ndim == 6
+    token_array = data["token_keys"]
+    assert token_array.ndim == 6
     assert list(data["states"]) == ["RA", "RN", "IA", "IN"]
     gids = [str(g) for g in data["group_ids"]]
     states = ["RA", "RN", "IA", "IN", "RA2", "RN2"]
@@ -295,6 +299,6 @@ def o2_cache(artifacts, rows, locations):
             case_id = f"{g}-{state}"
             if case_id in lookup:
                 assert str(data["split"][i]) == lookup[case_id]["split"]
-                cache[case_id] = {(L, h): data["token_keys"][i, j, L, :, h, :].copy() for L, h in locations}
+                cache[case_id] = {(L, h): token_array[i, j, L, :, h, :].copy() for L, h in locations}
     assert set(lookup) <= cache.keys()
     return cache

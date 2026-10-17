@@ -3,9 +3,9 @@
 ## Status
 
 **Completed:** new paired analysis of archived clinical O1 predictions, with saved metrics, family bootstrap intervals, answer changes and an SVG chart.
-**Not run:** new model inference; B1–B4 projector comparison; random projector interventions; direct-score-bias control; subspace ablation; activation patching; Python tests and Python reproduction.
+**Server access restored on 2026-10-17.** Python compilation, all 8 unit tests and exact Python reproduction of the archived clinical analysis have passed. Both O2 and clinical real-model smokes have passed. Four independent jobs are now running on physical GPUs 0/1/2/3; full B1–B4/random/direct-bias/ablation/patching results remain pending and will be saved by the server launcher.
 
-The host command interface failed before creating a process. SSH therefore did not execute; server reachability and free GPU memory are unknown. The Node execution interface separately failed on its sandbox working-directory URI before evaluating code. GitHub connector reads/writes and connector orchestration JavaScript were available. No server run or GPU allocation is claimed.
+The initial session's host command interface failed before creating a process. After permissions/environment were restored, SSH connected to gpu-a100-01 and confirmed free 80 GiB A100 cards. Server files are isolated at `/home/gcx/care_module2_followup_20261017`, reusing the original artifact/model root. The server's GitHub SSH credential was unavailable, so source was transferred through the existing authenticated connector and SSH; GitHub updates use the connector.
 
 This work does not repeat the O2 head-selection statistical audit in PR #2.
 
@@ -44,7 +44,7 @@ These results provide a concrete baseline for the new subspace experiments. They
 - `scripts/run_module2_followup.py`: fixed-model loading and shard hashes, train/dev-only projector and parameter selection, resumable per-case inference journal, matched direct bias, ablation, opposite-applicability and same-label donor patching.
 - `scripts/analyze_module2_followup.py`: complete-run analysis, family bootstrap, pairs, margins, misuse, stable-agreement subgroup and answer transitions; PNG/SVG/PDF from saved outputs.
 - `scripts/analyze_module2_archive.py`: standard-library Python reproducer for the new archived clinical analysis, with optional Matplotlib exports.
-- `tests/test_module2_followup.py`: disturbance budget, hook cleanup, projected patch, rank limits, background suppression, same-rule magnitude matching, causal mask/GQA support and incomplete pairs. **Not executed in this session.**
+- `tests/test_module2_followup.py`: disturbance budget, hook cleanup, projected patch, rank limits, background suppression, same-rule magnitude matching, causal mask/GQA support and incomplete pairs. **8 tests passed on the server.**
 
 ### B1–B4 definitions and controls
 
@@ -56,7 +56,7 @@ B4 background pairs must share the exact training rule, gold label and applicabi
 
 Random seeds 42/43/44 are reported separately; no best random seed is selected. Each method is selected on development both-correct pair accuracy, then case accuracy, then smaller disturbance/rank. Strength zero is included, so a method can select no intervention.
 
-Main interventions use unsigned amplification, without applicability/gold labels. All projected edits have the same per-example relative Frobenius key disturbance. Uniform attention-score bias uses the same layer, four GQA query heads, target tokens and causal query positions, with RMS calibrated to the projected edit's actual BF16-induced score differences. It is calibrated using baseline Q/K, without the gold label. The equivalence smoke check compares a **nonuniform exact QK-difference mask** with a single-layer key edit; that mask is a numerical control, while the uniform RMS-matched mask is the scientific comparator.
+Main interventions use unsigned amplification, without applicability/gold labels. All projected edits have the same per-example relative Frobenius key disturbance. Uniform attention-score bias uses the same layer, four GQA query heads, target tokens and causal query positions, with RMS calibrated to the projected edit's actual BF16-induced score differences. It is calibrated using baseline Q/K, without the gold label. The equivalence smoke check compares a **nonuniform QK-difference mask** with a single-layer key edit. It separately reports BF16 output differences, because low-precision kernel/addition rounding prevents an exact BF16 equivalence claim, and tests FP32 algebra with a common math attention backend at a 1e-4 final candidate-probability tolerance. FP32 is a small diagnostic only (approximately 16–20 GiB), with all original buffer precisions restored before the main BF16 experiment. The uniform RMS-matched mask remains the scientific comparator.
 
 For orthogonal B1/B3/B4/random projectors, ablation removes the selected subspace and patching replaces its coordinates using the paired patient's baseline action keys. B2 is a weighted sum of projectors, so its diagnostic modes instead remove the weighted operator component or interpolate the weighted donor difference; they must not be described as exact orthogonal subspace deletion/replacement. Both opposite-applicability and same-label donors are run, with numeric distances saved. These donors and labels are **oracle mechanism diagnostics**, separate from the deployable main decision comparison. Same-label clinical donor distances may be imperfectly matched; stratify by recorded distance before interpreting causal effects.
 
@@ -78,7 +78,7 @@ Recommended four-GPU launch from the new branch's experiment directory, after ac
 
 ```bash
 source /home/gcx/gcx261014/bin/activate
-nohup python -u scripts/launch_module2_multigpu.py --output results/module2_followup/parallel > work_module2_launcher.log 2>&1 &
+nohup env OPENBLAS_NUM_THREADS=4 TOKENIZERS_PARALLELISM=false python -u scripts/launch_module2_multigpu.py --output results/module2_followup/parallel > work_module2_launcher.log 2>&1 &
 ```
 
 The launcher selects the first four free cards from 0/1/2/3/6/7, skipping cards with running compute processes or less than 18,000 MiB free memory. It never terminates other users' jobs. It runs tests, archive reproduction and two real-model smokes first, then launches all four workers concurrently. One check after 30 seconds records startup health; the launcher then waits for process completion without continuing GPU polling. Clinical results are pooled only after all three folds finish, with matching data/model/source fingerprints and no duplicated folds/cases. Outputs remain separate per job.
@@ -103,11 +103,22 @@ python scripts/analyze_module2_followup.py --run results/module2_followup/clinic
 
 Default artifact/model root: `/home/gcx/care_20261016/CARE_Codex_Pilot`. A cloned branch may reference that existing root via `--artifacts`; original data/results are read-only. The launcher preflight archive verifier reads the committed clinical predictions in the branch checkout; its optional Matplotlib export can refresh only this follow-up analysis's chart. Install/clone the pinned SEKA under the new branch experiment's `external/SEKA` if needed. Use distinct output folders for smoke and full runs. Journals resume only with an identical data/model/source/config fingerprint. Before O2 cache reuse, 18 examples spanning train/dev/test groups are re-extracted and checked against the archived keys; a mismatch stops rather than mixing representations. Keep detailed logs in the experiment output directory; after stable launch, stop continuous monitoring as requested.
 
+## Current server run
+
+- Root: `/home/gcx/care_module2_followup_20261017`.
+- Active outputs: `results/module2_followup/parallel_v3` (earlier failed validation attempts preserved under `parallel` and `parallel_v2`).
+- GPU 0: O2; GPU 1/2/3: clinical outer folds 0/1/2.
+- Validation: `server_validation.json`. FP32 key-versus-score output errors are 1.13e-6 (O2) and 1.34e-6 (clinical), below 1e-4; peak diagnostic allocation is 15.83 GiB. BF16 differences (0.02335 and 0.00508) remain explicitly reported without an equivalence claim.
+- A realized key edit is required in smoke; a favorable downstream decision change is not required. The first clinical diagnostic has a nonzero key change and zero BF16 candidate-probability change, which is retained as a valid null effect.
+- O2 token tensors are loaded once, avoiding repeated decompression inside the case/head loop.
+- All formal outputs come from BF16 inference after original rotary-buffer dtypes are restored. Main-run memory statistics reset after the FP32 diagnostic.
+- Stop continuous monitoring after the four workers are observed to produce development journals; the launcher waits for completion and generates analyses without recurring GPU polling.
+
 ## Interpretation limits
 
-1. New Python code is statically reviewed but **not syntax/runtime/test validated** in this session. Keep the PR a draft pending server tests and real-model smoke.
-2. Cached O2 tensors and model shards could not be opened in this session; the server code verifies their hashes before reuse.
+1. Python compilation, 8 unit tests, exact archive reproduction and both real-model smokes have passed on the server. Keep the PR a draft while the complete B1–B4 model comparison is running.
+2. All model shard and O2 tensor hashes passed. Re-extraction of 18 O2 examples spanning train/dev/test exactly matched the cached keys (maximum absolute error 0).
 3. Single-location intervention results cannot be inferred from probe AUC. No new causal improvement is claimed.
 4. Frozen clinical test predictions already existed; the next comparisons remain exploratory despite family isolation.
 5. Three clinical outer folds share fitted training families; family-bootstrap intervals condition on fitted models and do not include model-selection uncertainty.
-6. Archived statistics and charts here are real-data secondary analyses. No new GPU result, PNG/PDF export or completed B1–B4 table is implied.
+6. Archived clinical statistics and their regenerated PNG/SVG/PDF are secondary analyses of real saved predictions. GPU validation is now real; the full B1–B4 decision-effect table and new-intervention figures remain pending.

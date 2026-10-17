@@ -104,3 +104,32 @@ def test_multigpu_selection_skips_occupied_and_small_cards(monkeypatch):
     assert selected == [0,2,6,7]
     with pytest.raises(RuntimeError):
         launcher.available_gpus([0,1,2,3])
+
+
+def test_o2_cache_loads_token_array_once_and_preserves_location(tmp_path, monkeypatch):
+    import json
+    import module2_subspaces as subspaces
+    folder = tmp_path/"results"
+    folder.mkdir()
+    (folder/"manifest.json").write_text(json.dumps(dict(artifact_hashes={
+        "results/obs2/key_embeddings.npz":"verified",
+        "data/derived/pilot.jsonl":"verified"})))
+    tokens = np.zeros((1,6,36,1,8,128),dtype=np.float32)
+    tokens[0,1,20,0,5,0] = 9.5
+    class Archive(dict):
+        reads = 0
+        def __getitem__(self, key):
+            if key == "token_keys":
+                self.reads += 1
+            return super().__getitem__(key)
+    archive = Archive(token_keys=tokens, states=["RA","RN","IA","IN"],
+                      group_ids=["g0"], split=["train"])
+    monkeypatch.setattr(subspaces, "sha256", lambda path:"verified")
+    monkeypatch.setattr(subspaces.np, "load", lambda *args,**kwargs:archive)
+    rows = [dict(case_id="g0-"+s,split="train") for s in ["RA","RN","IA","IN","RA2","RN2"]]
+    cached = subspaces.o2_cache(tmp_path, rows, [(2,0),(20,5)])
+    assert archive.reads == 1, "compressed archive must not be decompressed for every head/case"
+    assert cached["g0-RN"][20,5][0,0] == 9.5
+    rows[0]["split"] = "test"
+    with pytest.raises(AssertionError):
+        subspaces.o2_cache(tmp_path, rows, [(2,0)])

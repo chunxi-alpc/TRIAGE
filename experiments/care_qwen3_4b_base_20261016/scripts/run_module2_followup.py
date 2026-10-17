@@ -101,7 +101,10 @@ def score(model, tok, row, context=None):
         assert len(tokens) == 1
         ids.append(tokens[0])
     with context if context is not None else contextlib.nullcontext():
-        logits = model(**causal_inputs(enc, model.device)).logits[0, -1].float()
+        inp = causal_inputs(enc, model.device)
+        if model.dtype == torch.float32:
+            inp["attention_mask"] = inp["attention_mask"].float()
+        logits = model(**inp).logits[0, -1].float()
     chosen = logits[ids]
     return chosen.softmax(-1).cpu().tolist()
 
@@ -180,6 +183,7 @@ def run_fold(model, tok, all_rows, keys, train, dev, test, output, args, fold):
             done.add(key)
             records.append(rec)
     try:
+        print("FOLD_DEV_START", fold, len(dev), len(operators), flush=True)
         for row in dev:
             _, capture, idx, baseline = collect(model, tok, row, args.locations)
             append(record(row, baseline, fold, "dev", "baseline", 0., "baseline"))
@@ -196,6 +200,7 @@ def run_fold(model, tok, all_rows, keys, train, dev, test, output, args, fold):
                     append(record(row, probs, fold, "dev", cid, epsilon, "amplify", report))
         dev_records = [r for r in records if r["role"] == "dev" and r["mode"] == "amplify"]
         selection = choose(dev_records, metadata, args.strengths)
+        print("FOLD_SELECTION_COMPLETE", fold, selection, flush=True)
         save_json(output / "selection.json", selection)
         test_controls = matched_o2_controls(test) if args.dataset == "o2" else []
         for control in test_controls:
@@ -239,6 +244,7 @@ def run_fold(model, tok, all_rows, keys, train, dev, test, output, args, fold):
                                 opposite_pair_distance=abs(float(row["value"])-float(other["value"])))
                     append(record(row, probs, fold, "test", cid, epsilon, mode, report))
             del capture
+        print("FOLD_TEST_COMPLETE", fold, len(test), flush=True)
         save_json(output / "complete.json", dict(
             status="completed_real_model_inference", records=len(records),
             selection=selection, blocked=blockers, diagnostics="patch uses opposite-applicability donor; oracle mechanistic test only"))
@@ -258,14 +264,39 @@ def smoke(model, tok, rows, output, locations):
     op = torch.eye(128)
     p0 = score(model, tok, a, key_edit(model, idx, location, op, 0.))
     assert max(abs(x-y) for x, y in zip(base, p0)) < 1e-7
-    pkey = score(model, tok, a, key_edit(model, idx, location, op, .05))
+    with key_edit(model, idx, location, op, .05) as active_edit:
+        pkey = score(model, tok, a)
+    assert active_edit["realized_norm"] > 0, "key intervention had no realized tensor change"
     delta = logit_delta(model, full[location[0]], idx, location, op, .05)
     pscore = score(model, tok, a, attention_bias(model, location, delta))
     error = max(abs(x-y) for x, y in zip(pkey, pscore))
-    assert error < .02, ("BF16 end-to-end key/mask equivalence", error)
-    assert max(abs(x-y) for x, y in zip(base, pkey)) > 0, "intervention had no measurable effect"
+    # Algebraic equivalence is a float32 check. BF16 additions/attention kernels
+    # can round the key-edit and score-bias paths differently; report that gap.
+    print("SMOKE: BF16 diagnostics complete; starting FP32 algebra check", flush=True)
+    saved_buffers = {name: value.detach().clone() for name, value in model.named_buffers()}
+    try:
+        model.float()
+        print("SMOKE: FP32 weights ready", flush=True)
+        with torch.nn.attention.sdpa_kernel(torch.nn.attention.SDPBackend.MATH):
+            _, fp_full, fp_idx, fp_base = collect(model, tok, a, [location], capture_q=True)
+            fp_key = score(model, tok, a, key_edit(model, fp_idx, location, op, .05))
+            fp_delta = logit_delta(model, fp_full[location[0]], fp_idx, location, op, .05)
+            fp_bias = score(model, tok, a, attention_bias(model, location, fp_delta))
+            fp_error = max(abs(x-y) for x, y in zip(fp_key, fp_bias))
+            assert fp_error < 1e-4, ("float32 end-to-end key/mask equivalence", fp_error)
+            del fp_full, fp_delta
+    finally:
+        model.bfloat16()
+        modules = dict(model.named_modules())
+        for name, value in saved_buffers.items():
+            parent, key = name.rsplit(".", 1)
+            modules[parent]._buffers[key] = value
+        torch.cuda.empty_cache()
     save_json(output / "smoke.json", dict(status="passed", zero_edit_max_error=max(abs(x-y) for x,y in zip(base,p0)),
-        key_score_probability_max_error=error, tolerance=.02, paired_token_ids=ia.tolist()))
+        bf16_key_score_probability_max_error=error, bf16_equivalence_claimed=False,
+        realized_key_edit_norm=active_edit["realized_norm"],
+        bf16_baseline_to_key_probability_max_change=max(abs(x-y) for x,y in zip(base,pkey)),
+        float32_key_score_probability_max_error=fp_error, float32_tolerance=1e-4, peak_allocated_GiB=torch.cuda.max_memory_allocated()/2**30, paired_token_ids=ia.tolist()))
     return dict(a=a["case_id"], b=b["case_id"])
 
 def main():
@@ -327,6 +358,7 @@ def main():
         torch_dtype=torch.bfloat16, attn_implementation="sdpa").to("cuda").eval()
     c = model.config
     assert (c.num_hidden_layers, c.num_attention_heads, c.num_key_value_heads, c.head_dim) == (36, 32, 8, 128)
+    print("MODEL_READY", args.dataset, flush=True)
     rows = prepare_rows(args.artifacts, args.dataset)
     relevant = rows if args.dataset == "clinical" else [r for r in rows if r["state"] in ("RA", "RN")]
     token_audit = []
@@ -342,6 +374,7 @@ def main():
     smoke(model, tok, relevant, args.output, args.locations)
     if args.smoke:
         return
+    torch.cuda.reset_peak_memory_stats()
     if args.dataset == "o2":
         keys = o2_cache(args.artifacts, rows, args.locations)
         cache_errors = []

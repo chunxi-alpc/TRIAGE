@@ -18,11 +18,11 @@
     },
     {
       "path": "scripts/module2_subspaces.py",
-      "characters": 14048
+      "characters": 14196
     },
     {
       "path": "scripts/run_module2_followup.py",
-      "characters": 23093
+      "characters": 25111
     },
     {
       "path": "scripts/analyze_module2_followup.py",
@@ -30,7 +30,7 @@
     },
     {
       "path": "tests/test_module2_followup.py",
-      "characters": 4571
+      "characters": 5921
     },
     {
       "path": "results/module2_followup/archived_pair_accuracy.svg",
@@ -38,15 +38,19 @@
     },
     {
       "path": "results/module2_followup/execution_status.json",
-      "characters": 1836
+      "characters": 2065
     },
     {
       "path": "results/module2_followup/README.md",
-      "characters": 13826
+      "characters": 15858
     },
     {
       "path": "scripts/launch_module2_multigpu.py",
       "characters": 6235
+    },
+    {
+      "path": "results/module2_followup/server_validation.json",
+      "characters": 3491
     }
   ],
   "checked": [
@@ -58,13 +62,20 @@
     "Every main patient pair checked for identical target token IDs and action before options",
     "Four-card independent-process launch and outer-fold merge added at user request",
     "No continuous GPU polling in launcher; one 30-second startup check",
-    "Occupied GPU exclusion and fallback-card selection test added but not executed"
+    "Occupied GPU exclusion and fallback-card selection test added but not executed",
+    "Float32 equivalence verified to 1e-4 while BF16 output differences remain reported",
+    "Smoke allows null downstream effects with a realized key change",
+    "O2 token archive loaded once; regression test covers this performance failure"
   ],
   "not_executed": [
-    "Python syntax compilation",
-    "Pytest",
-    "Model smoke",
-    "GPU inference",
-    "Four-GPU launcher"
+    "Full GPU experiment completion and final analysis (jobs running)"
+  ],
+  "executed": [
+    "Python compilation",
+    "8 server unit tests",
+    "Exact archived clinical reproduction",
+    "O2 and clinical real model smokes",
+    "Model/tensor hash verification and 18-case exact cache re-extraction",
+    "Four-GPU launch"
   ]
 }
