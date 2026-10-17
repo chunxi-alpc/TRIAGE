@@ -3,6 +3,7 @@
 from __future__ import annotations
 import argparse
 import csv
+import gzip
 import json
 from pathlib import Path
 import numpy as np
@@ -13,7 +14,12 @@ from module2_subspaces import save_json
 
 
 def read_rows(path):
-    return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+    path=Path(path)
+    if not path.exists():
+        path=Path(str(path)+".gz")
+    opener=gzip.open if path.suffix==".gz" else open
+    with opener(path,"rt",encoding="utf-8") as stream:
+        return [json.loads(line) for line in stream if line.strip()]
 
 def estimate(data, value, base):
     groups = sorted({r["group_id"] for r in data})

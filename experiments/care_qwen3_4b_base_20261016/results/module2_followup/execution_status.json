@@ -1,51 +1,53 @@
 {
+  "status": "completed_real_inference_and_analysis",
   "date": "2026-10-17",
-  "new_gpu_experiments": "running_on_four_A100_GPUs",
-  "server_connection": "connected",
-  "reason": null,
-  "completed": [
-    "Repository and PR #2 inspected through authenticated GitHub connector",
-    "Archived clinical O1 held-out test predictions analyzed in connector orchestration JS runtime",
-    "Train/dev/test family separation, selected strengths, duplicate and pair completeness checks passed in JS",
-    "New paired accuracy, complete-eligible-pair analysis, stable-agreement accuracy, margins, answer transitions, family bootstrap intervals and SVG saved",
-    "Server Python compilation and 8 unit tests",
-    "Exact Python reproduction of archived clinical metrics",
-    "Real Qwen3-4B O2 and clinical FP32/BF16 diagnostics",
-    "All model shard hashes and raw O2 tensor hash verified",
-    "18 O2 cached examples re-extracted with zero difference",
-    "Four independent physical-GPU workers launched on 0/1/2/3"
-  ],
-  "not_run": [
-    "Completed B1-B4 held-out-family decision comparison and final causal-effect analysis",
-    "Final new-intervention PNG/SVG/PDF exports"
-  ],
-  "proposed_resources": {
-    "gpus": "four independent workers, prefer 0/1/2/3; replace occupied cards with free 6/7",
-    "allocation": {
-      "0": "O2",
-      "1": "clinical fold 0",
-      "2": "clinical fold 1",
-      "3": "clinical fold 2"
-    },
-    "estimated_peak_memory_GiB_per_gpu": [
-      10,
-      14
-    ],
-    "recommended_total_memory_GiB_per_gpu": 24,
-    "estimated_forward_passes": 65000,
-    "estimated_hours": [
-      1,
-      2
-    ],
-    "status": "estimate only; no GPU reserved or used"
-  },
-  "validation": "8 unit tests passed; both real-model smokes passed; full inference running",
   "server_root": "/home/gcx/care_module2_followup_20261017",
-  "active_output_root": "/home/gcx/care_module2_followup_20261017/results/module2_followup/parallel_v3",
-  "running": [
-    "O2 projector grid on GPU0",
-    "Clinical outer fold0 on GPU1",
-    "Clinical outer fold1 on GPU2",
-    "Clinical outer fold2 on GPU3"
-  ]
+  "run_root": "/home/gcx/care_module2_followup_20261017/results/module2_followup/parallel_v3",
+  "inference_source_commit": "9a56022dad02cf82b0a6475f80550c78afad4183",
+  "physical_gpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "main_journal_records": 80568,
+  "additional_nonzero_records": 360,
+  "unit_tests": "11 passed",
+  "compressed_record_reproduction": {
+    "status": "passed",
+    "compressed_journal_metric_reproduction": {
+      "clinical": true,
+      "o2": true
+    },
+    "unit_tests": "11 passed in 1.59s",
+    "inference_code_commit": "9a56022dad02cf82b0a6475f80550c78afad4183",
+    "main_records": 80568,
+    "nonzero_sensitivity_records": 360,
+    "baseline_candidate_probabilities_equal_archived": true
+  },
+  "main_runtime_seconds": {
+    "o2": 170.25902581214905,
+    "clinical_fold0": 540.3368632793427,
+    "clinical_fold1": 526.7547688484192,
+    "clinical_fold2": 524.4341444969177
+  },
+  "maximum_main_allocated_GiB": 7.598788261413574,
+  "maximum_main_reserved_GiB": 9.63671875,
+  "clinical_baseline_pair_accuracy": 0.375,
+  "clinical_B3_pair_accuracy": 0.375,
+  "clinical_B4_pair_accuracy": 0.3854166666666667,
+  "clinical_B4_pair_change_ci95": [
+    -0.010416666666666666,
+    0.03125
+  ],
+  "conclusion": "No reliable advantage for learned applicability subspaces over random projections or matched direct-score bias in this exploratory fixed-model grid.",
+  "secondary_analysis_designed_after_primary_results": true,
+  "full_archive": {
+    "filename": "CARE_module2_full_results_20261017.tar.gz",
+    "bytes": 128231201,
+    "sha256": "cce01cd680ea046754ca9fea9755d3154ba3c140c58844e04f5a3459de49f544"
+  },
+  "running": [],
+  "pending": [],
+  "continuous_monitoring": false
 }

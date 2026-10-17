@@ -133,3 +133,23 @@ def test_o2_cache_loads_token_array_once_and_preserves_location(tmp_path, monkey
     rows[0]["split"] = "test"
     with pytest.raises(AssertionError):
         subspaces.o2_cache(tmp_path, rows, [(2,0)])
+
+
+def test_secondary_sign_flip_handles_small_numbers_of_families():
+    from summarize_module2_followup import family_sign_flip
+    assert family_sign_flip([0]*12) == 1.
+    assert family_sign_flip([1]*4) == .125
+    assert family_sign_flip([1,-1,1,-1]) == 1.
+
+def test_holm_adjustment_is_monotonic():
+    from summarize_module2_followup import holm
+    assert holm([.01,.04,.03]) == pytest.approx([.03,.06,.06])
+
+def test_analysis_reads_compressed_journal(tmp_path):
+    import gzip
+    from summarize_module2_followup import read_rows
+    from analyze_module2_followup import read_rows as main_read_rows
+    path=tmp_path/"predictions.jsonl"
+    with gzip.open(str(path)+".gz","wt") as stream:
+        stream.write('{"case_id":"one","correct":1}\n')
+    assert read_rows(path) == main_read_rows(path) == [dict(case_id="one",correct=1)]

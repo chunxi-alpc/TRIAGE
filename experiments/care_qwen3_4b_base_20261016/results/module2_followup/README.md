@@ -1,124 +1,131 @@
-# CARE module 2 follow-up — 2026-10-17
+# CARE 模块二：B1–B4 四卡实测结果
 
-## Status
+**本轮实验已完成。没有发现 B3/B4 在未见临床规则家族上，带来优于随机投影或直接注意力分数偏置的可靠决策改善。** B4 的点估计略有改善，但区间包含零；成对替换也没有显示稳定的适用性特异作用。
 
-**Completed:** new paired analysis of archived clinical O1 predictions, with saved metrics, family bootstrap intervals, answer changes and an SVG chart.
-**Server access restored on 2026-10-17.** Python compilation, all 8 unit tests and exact Python reproduction of the archived clinical analysis have passed. Both O2 and clinical real-model smokes have passed. Four independent jobs are now running on physical GPUs 0/1/2/3; full B1–B4/random/direct-bias/ablation/patching results remain pending and will be saved by the server launcher.
+结果全部来自服务器真实 Qwen3-4B-Base 前向计算。临床规则来自原 O1，病例均为模拟病例；O2 使用虚构规则。本轮未重复 PR #2 的 O2 统计复核。
 
-The initial session's host command interface failed before creating a process. After permissions/environment were restored, SSH connected to gpu-a100-01 and confirmed free 80 GiB A100 cards. Server files are isolated at `/home/gcx/care_module2_followup_20261017`, reusing the original artifact/model root. The server's GitHub SSH credential was unavailable, so source was transferred through the existing authenticated connector and SSH; GitHub updates use the connector.
+## 临床主要结果
 
-This work does not repeat the O2 head-selection statistical audit in PR #2.
+测试 384 例、192 对、12 个完整留出的规则家族。成对准确率要求一对中适用和不适用两例均答对。
 
-## New analysis of existing clinical predictions
+| 方法 | 病例准确率 | 成对准确率 | 成对变化；95% CI |
+|---|---:|---:|---:|
+| 无干预 | 61.72% | 37.50%（72/192） | 参考 |
+| B1 原始键 PCA | 61.46% | 37.50%（72/192） | 0.00 pp [0.00, 0.00] |
+| B2 官方 SEKA 子空间，归一化扰动 | 61.20% | 36.98%（71/192） | −0.52 pp [−2.08, +1.04] |
+| B3 适用性成对位移子空间 | 61.20% | 37.50%（72/192） | 0.00 pp [−1.56, +1.56] |
+| B4 适用性对照子空间 | 62.24% | 38.54%（74/192） | +1.04 pp [−1.04, +3.13] |
+| 随机投影，seed 42 | 62.76% | 39.58%（76/192） | +2.08 pp [+0.52, +3.65] |
+| 随机投影，seed 43 | 62.50% | 39.58%（76/192） | +2.08 pp [+0.52, +3.65] |
+| 随机投影，seed 44 | 61.46% | 36.98%（71/192） | −0.52 pp [−1.56, 0.00] |
 
-Input: `results/obs1_clinical/predictions.csv`, Git blob `359cae49be885750baa2f64ac120093fb3b603f3`, at source commit `8c5593e3d9e1a1bc9295bed916cb3e542198c574`.
-Only the 1,152 **test** records were used: 384 examples × three methods, 192 complete pairs and 12 clinical rule families. Each family was held out in its outer fold.
-All three fold manifests were checked for train/dev/test family separation, test-case membership and agreement between selected and evaluated strengths.
+区间为 10,000 次规则家族级配对 bootstrap，条件于已拟合的三个外层折。零宽经验区间不等于总体效应已被证明为零。三个随机种子分别报告，没有按测试结果挑选随机种子。
 
-| Method | Case accuracy | Both pair members correct | Change in pair accuracy; 95% CI |
-| --- | ---: | ---: | ---: |
-| Baseline | 61.72% | 37.50% (72/192) | reference |
-| Official SEKA | 61.98% | 38.02% (73/192) | +0.52 pp [−1.04, +2.08] |
-| Official PASTA | 61.46% | 38.02% (73/192) | +0.52 pp [−1.04, +2.08] |
+B4 比 B2 高 1.56 pp，95% CI [−0.52, +3.65]；比随机 seed 42/43 低 1.04 pp，95% CI [−3.13, +1.04]。查看主结果后增加的 11 项次要成对比较，采用家族级符号翻转与 Holm 校正，校正后 P 值均为 1。不能把这里的小幅差异作为子空间优越性的证据。
 
-Intervals use 10,000 paired clinical-family bootstrap samples, preserving all cases and both methods within a family. They are conditional on the archived fitted outer folds; projection/strength fitting is not repeated in each resample. The analysis was designed after the predictions existed and is exploratory.
+![临床子空间对比](completed_20261017/final_analysis/clinical_subspace_comparison.png)
 
-For the **25 pairs with both members prior-eligible**, all three methods have **20.0%** both-correct accuracy (5/25); each intervention's paired change is zero. The 153 individually eligible examples are reported separately, without pretending that they form 153 complete pairs.
+## 注意力分数偏置与子组
 
-For the **176 stable closed-book agreement cases**, all three methods have **84.66%** contextual accuracy. This is an operational no-prior-disagreement subgroup, not a claim of clinical safety or of identical case-level behavior.
+同层、同四个 GQA 查询头、同目标 token、同因果位置的均匀分数偏置，按所选键编辑的分数变化 RMS 匹配扰动。它沿用键方法的开发集参数，没有独立调到自身最佳。
 
-### Error analysis
+| 对应子空间 | 键编辑成对准确率 | 匹配的分数偏置 |
+|---|---:|---:|
+| B1 | 37.50% | 38.02% |
+| B2 | 36.98% | 35.94% |
+| B3 | 37.50% | 39.58% |
+| B4 | 38.54% | 39.06% |
 
-SEKA changes **8/384** answers: **4 corrections**, **3 newly wrong answers**, and **1 wrong-to-wrong** change. PASTA changes **5/384** answers: **2 corrections**, **3 newly wrong answers**.
-SEKA's wrong-to-wrong glycemia example stops selecting the highlighted inapplicable branch but still misses the gold answer. A lower misuse rate therefore does not automatically imply better decisions.
-Both methods hurt `hypoglycemia-hypo_one-06-non`; SEKA corrects the adjacent `hypoglycemia-hypo_one-07-non` case. All changed IDs, before/after answers and family results are saved in the CSVs.
+B3/B4 没有显示优于这项简单对照。完整变化区间见主分析 JSON 和成对比较 CSV。
 
-These results provide a concrete baseline for the new subspace experiments. They do not establish that any new B1–B4 method improves decisions.
+- 原 153 例稳定闭卷分歧子组：无干预准确率 39.87%，B3 为 39.22%，B4 为 40.52%。
+- 两例都符合筛选条件的 25 对：无干预、B3、B4 的成对准确率均为 20%。
+- 原 176 例稳定闭卷一致子组：无干预 84.66%，B3 为 84.09%，B4 为 85.23%。这些变化没有提供可靠的改善证据。
 
-![Saved archived-data analysis](archived_pair_accuracy.svg)
+## 因果干预结果
 
-## Executable follow-up implementation
+已运行子空间移除、适用性相反患者的成对键替换，以及同标签患者的替换对照。替换只作用于所选投影分量；B2 是加权算子，其移除/替换不能解释为正交子空间的完全删除/替换。
 
-- `scripts/module2_subspaces.py`: B1 centered raw action-key PCA; B2 pinned official SEKA projectors; B3 uncentered paired-applicability-displacement PCA; B4 regularized generalized signal/background eigenspace; random orthogonal projectors.
-- `scripts/launch_module2_multigpu.py`: four independent GPU jobs (O2 plus three clinical folds), server tests/smoke before dispatch, one startup check, logs and merged clinical analysis.
-- `scripts/run_module2_followup.py`: fixed-model loading and shard hashes, train/dev-only projector and parameter selection, resumable per-case inference journal, matched direct bias, ablation, opposite-applicability and same-label donor patching.
-- `scripts/analyze_module2_followup.py`: complete-run analysis, family bootstrap, pairs, margins, misuse, stable-agreement subgroup and answer transitions; PNG/SVG/PDF from saved outputs.
-- `scripts/analyze_module2_archive.py`: standard-library Python reproducer for the new archived clinical analysis, with optional Matplotlib exports.
-- `tests/test_module2_followup.py`: disturbance budget, hook cleanup, projected patch, rank limits, background suppression, same-rule magnitude matching, causal mask/GQA support and incomplete pairs. **8 tests passed on the server.**
+B4 的相反适用性替换与同标签替换，在原正确答案概率优势上的差为 **+0.002688**，95% CI **[−0.000718, +0.006011]**。向供体正确答案方向的概率优势变化为 **+0.000514**，95% CI **[−0.001950, +0.002844]**。两者均未显示稳定效应。
 
-### B1–B4 definitions and controls
+同标签供体中，只有 **120/384 例（31.25%，覆盖全部 12 个家族）**的数值变化幅度能与原成对变化匹配到 ±15%。在该子集中，B4 替换与对照的差为 +0.002297，95% CI [−0.003061, +0.007534]。因此不能把未匹配替换差异直接解释为适用性机制。
 
-All operators act at QK-normalized **pre-RoPE** action keys, without editing candidate-option tokens. B1 and B3 use span-mean keys, matching the archived O2 representation unit. B3 uses applicable minus inapplicable keys; its main amplification does **not** receive the test applicability label.
+B3 子空间移除后的成对准确率为 39.06%，没有出现“去掉适用性方向就稳定损害决策”的预期模式。随机投影的某些替换同样产生变化，支持谨慎解释这些小幅干预效果。
 
-B2 calls the unmodified official projection builder at commit `aab9cfed80dc012fb9e83f8bdefb8675c33f40e7`, using its 90%-spectrum positive projector and complement negative projector, combined as `(Ppos + .25 Pneg)/2`. Its rank is whatever the official algorithm returns. It is **not silently truncated to rank 1/4/16**. The controlled comparison explicitly normalizes the key disturbance per example; this is a **calibrated use of the official projection**, not an exact rerun of native uncalibrated SEKA. Archived native SEKA results above remain separate.
+![不同干预模式](completed_20261017/final_analysis/clinical_all_modes_pair_accuracy.png)
 
-B4 background pairs must share the exact training rule, gold label and applicability, with numeric change magnitude within 15% of the applicability-flipping pair. The control IDs and both distances are saved. A configuration without controls is marked blocked rather than replaced by B3. Existing O2 same-side changes are one unit versus a four-unit flip; new training-only same-label values at a four-unit distance are constructed and truly forwarded before B4 fitting. Clinical controls use the existing training-family values; missing coverage remains visible in the audit. This controls one numeric-magnitude confound and is not evidence that every lexical or contextual confound is removed.
+## 误差分析
 
-Random seeds 42/43/44 are reported separately; no best random seed is selected. Each method is selected on development both-correct pair accuracy, then case accuracy, then smaller disturbance/rank. Strength zero is included, so a method can select no intervention.
+B4 改变 7 例答案：**纠正 4 例、损害 2 例、另 1 例仍答错**。
 
-Main interventions use unsigned amplification, without applicability/gold labels. All projected edits have the same per-example relative Frobenius key disturbance. Uniform attention-score bias uses the same layer, four GQA query heads, target tokens and causal query positions, with RMS calibrated to the projected edit's actual BF16-induced score differences. It is calibrated using baseline Q/K, without the gold label. The equivalence smoke check compares a **nonuniform QK-difference mask** with a single-layer key edit. It separately reports BF16 output differences, because low-precision kernel/addition rounding prevents an exact BF16 equivalence claim, and tests FP32 algebra with a common math attention backend at a 1e-4 final candidate-probability tolerance. FP32 is a small diagnostic only (approximately 16–20 GiB), with all original buffer precisions restored before the main BF16 experiment. The uniform RMS-matched mask remains the scientific comparator.
+- 纠正：blood_pressure-home_target-03-app、anaemia-anaemia_moderate-04-non、hypoglycemia-hypo_one-07-non、glycemia-fpg-01-non。
+- 损害：hypoglycemia-hypo_one-06-non、atrial_fibrillation-af_one-00-non。
+- glycemia-a1c-00-non 不再选择被高亮的不适用分支，但仍未选对答案。因此误用率降低不能自动等同于正确决策增加。
+- 相邻的两个 hypoglycemia 样例一个被纠正、一个被损害；效果没有呈现稳定的跨病例改进。
 
-For orthogonal B1/B3/B4/random projectors, ablation removes the selected subspace and patching replaces its coordinates using the paired patient's baseline action keys. B2 is a weighted sum of projectors, so its diagnostic modes instead remove the weighted operator component or interpolate the weighted donor difference; they must not be described as exact orthogonal subspace deletion/replacement. Both opposite-applicability and same-label donors are run, with numeric distances saved. These donors and labels are **oracle mechanism diagnostics**, separate from the deployable main decision comparison. Same-label clinical donor distances may be imperfectly matched; stratify by recorded distance before interpreting causal effects.
+逐例语义答案、家族指标和概率优势变化均已保存；图中全部家族保持完整，不筛选有利家族。
 
-### Splits and scope
+![各家族成对变化](completed_20261017/final_analysis/clinical_family_pair_changes.png)
 
-Clinical runs reuse the exact archived three outer-fold family manifests: six training families, two development families and four test families per fold. All training examples of those six families are used for every new projector. This gives more training examples to B2 than the original clinical O1 first-two-pair builder; the new comparison is internally matched and is reported separately from archived O1.
+## O2 与非零强度补充对照
 
-O2 reuses the verified original token-key tensor and official projections for the exact 36 training identifier groups, with 12 dev and 12 test groups. O2 contains one fictional grammar; its held-out groups **do not demonstrate unseen-rule-family generalization**. Clinical family-held-out performance is the relevant primary generalization evaluation.
+原 O2 的主方案只依据开发集选择参数，B1–B4 和三个随机投影均选择了 **零强度**。测试集 24 例、12 对的成对准确率均为 0%，病例准确率为 50%。这表示当前开发集选择策略没有找到有利的非零编辑；不能把零编辑表当作所有非零干预都无效的证明。
 
-Model: only `Qwen/Qwen3-4B-Base`, revision `906bfd4b4dc7f14ee4320094d8b41684abff8539`. Every safetensors shard must match the archived official hash; no model substitution or random weights. Clinical rules are source-grounded, patients simulated, and this work makes no clinical efficacy claim.
+为区分这两件事，另做探索性的非零强度补充：从已保存的开发结果中选择最佳正强度，再进行 **360 次真实模型前向**（24 次基线、336 次干预）。没有用测试标签选参数，原主结果保留。
 
-## Server execution
+补充结果中，B2 为 1/12 对正确（8.33%）；B1、B3、B4、三个随机投影及匹配分数偏置均为 0/12。样本小，且该补充是在查看原主结果后设计，只能作为探索性结果。O2 所有组共享同一虚构语法，不能称为未见规则家族泛化。
 
-Before starting, report current GPU availability and the resource estimate to the user. Use four free authorized physical GPUs, preferably 0/1/2/3; substitute 6/7 for occupied cards. Do not overwrite existing experiments.
+## 实验设置与实际资源
 
-Estimated full default grid: four fixed layer/KV-head locations (2/0, 20/5, 9/0, 35/0), ranks 1/4/16, three random seeds, four strengths including zero. Up to 76 candidate operators per fold; approximately **65,000 model forwards** across O2 and three clinical folds, depending on empirical rank/control availability. Estimated **10–14 GiB peak per GPU**, recommend **24 GiB per card**, approximately **1–2 hours on four suitable GPUs** (or 2–6 hours serially). The user requested multi-GPU acceleration. O2 and the three clinical outer folds are independent jobs, so each card runs one complete model without cross-GPU model communication. These are planning estimates, not observed use. The archived pilot peak was about 7.63 GiB; full runtime depends on actual hardware and prompt length.
+- 模型固定为 Qwen/Qwen3-4B-Base，revision 906bfd4b4dc7f14ee4320094d8b41684abff8539；全部权重 SHA256 与原记录一致。
+- 官方 SEKA 固定在 aab9cfed80dc012fb9e83f8bdefb8675c33f40e7，源码未修改。
+- 四个固定层/KV 头：2/0、20/5、9/0、35/0；B1/B3/B4/随机投影秩为 1/4/16；B2 保留官方 90% 谱规则产生的秩。
+- 相对键扰动强度为 0、0.01、0.05、0.1；每折 76 个候选算子，均由训练数据构建，只用开发集选头、秩和强度。
+- 临床沿用原三个外层折：每折 6 个训练家族、2 个开发家族、4 个测试家族。各方法使用同样的训练样本和开发目标。
+- B1 为原始动作键均值的中心化 PCA；B3 为成对适用性位移的非中心化 PCA；B4 用同规则、同标签、数值幅度匹配的背景位移构造正则化广义特征空间。
+- B2 使用官方 (Ppos + 0.25 Pneg)/2，显式匹配相对键扰动。它是官方子空间的受控比较，并非原 O1 跨最后 10 层的原生 SEKA 重跑。
+- 目标是 QK 归一化后、RoPE 前的动作片段键；不编辑候选选项。主要编辑不接收测试适用性标签；供体标签只用于单独报告的机制分析。
+- GPU 0 跑 O2，GPU 1/2/3 跑三个临床折，全部为 A100 80 GB。O2 用时 170.26 秒；临床三折为 540.34、526.75、524.43 秒，最长约 **9 分钟**。
+- 正式阶段最大 allocated 显存 **7.60 GiB**，最大 reserved **9.64 GiB**。独立 FP32 小规模诊断峰值 15.83 GiB。
+- 主实验记录 **80,568 条**，包括零强度复用的真实基线输出；这不是 80,568 个独立病例，也不是相同数量的独立模型前向。另有 360 条非零强度补充记录。
+- 主推断代码提交为 **9a56022dad02cf82b0a6475f80550c78afad4183**。后续提交增加补充对照、分析和打包。
 
-Recommended four-GPU launch from the new branch's experiment directory, after activating the existing environment and preparing the pinned external/SEKA checkout:
+## 验证与保存内容
 
-```bash
-source /home/gcx/gcx261014/bin/activate
-nohup env OPENBLAS_NUM_THREADS=4 TOKENIZERS_PARALLELISM=false python -u scripts/launch_module2_multigpu.py --output results/module2_followup/parallel > work_module2_launcher.log 2>&1 &
-```
+11 项服务器测试通过。原 O2 张量的 18 个跨训练/开发/测试组样例重新提取后，最大差异为 0；新临床基线的完整候选概率与归档 O1 基线完全一致。
 
-The launcher selects the first four free cards from 0/1/2/3/6/7, skipping cards with running compute processes or less than 18,000 MiB free memory. It never terminates other users' jobs. It runs tests, archive reproduction and two real-model smokes first, then launches all four workers concurrently. One check after 30 seconds records startup health; the launcher then waits for process completion without continuing GPU polling. Clinical results are pooled only after all three folds finish, with matching data/model/source fingerprints and no duplicated folds/cases. Outputs remain separate per job.
+FP32 键编辑与非均匀分数偏置诊断的最大输出差异为 1.13e-6（O2）、1.34e-6（临床），低于 1e-4。BF16 差异单独保留，不宣称两条低精度路径完全等价。所有原始 RoPE buffer 精度在正式 BF16 计算前恢复。
 
-Equivalent serial commands (also useful for a failed-job retry):
+完成后的压缩预测日志在服务器重新计算了 O2 和临床指标，均与原自动分析完全一致，见 verification.json。
 
-```bash
-source /home/gcx/gcx261014/bin/activate
-# If external/SEKA is absent in this checkout:
-# git clone https://github.com/waylonli/SEKA.git external/SEKA
-# git -C external/SEKA checkout aab9cfed80dc012fb9e83f8bdefb8675c33f40e7
-# Existing external/SEKA must have the exact pinned commit and no modifications.
-python -m pytest -q tests/test_module2_followup.py
-python scripts/analyze_module2_archive.py --verify
-CUDA_VISIBLE_DEVICES=0 python -u scripts/run_module2_followup.py --dataset o2 --output results/module2_followup/o2_smoke --smoke
-CUDA_VISIBLE_DEVICES=0 python -u scripts/run_module2_followup.py --dataset clinical --output results/module2_followup/clinical_smoke --smoke
-CUDA_VISIBLE_DEVICES=0 python -u scripts/run_module2_followup.py --dataset o2 --output results/module2_followup/o2
-CUDA_VISIBLE_DEVICES=0 python -u scripts/run_module2_followup.py --dataset clinical --output results/module2_followup/clinical
-python scripts/analyze_module2_followup.py --run results/module2_followup/o2
-python scripts/analyze_module2_followup.py --run results/module2_followup/clinical
-```
+completed_20261017 中包含：
 
-Default artifact/model root: `/home/gcx/care_20261016/CARE_Codex_Pilot`. A cloned branch may reference that existing root via `--artifacts`; original data/results are read-only. The launcher preflight archive verifier reads the committed clinical predictions in the branch checkout; its optional Matplotlib export can refresh only this follow-up analysis's chart. Install/clone the pinned SEKA under the new branch experiment's `external/SEKA` if needed. Use distinct output folders for smoke and full runs. Journals resume only with an identical data/model/source/config fingerprint. Before O2 cache reuse, 18 examples spanning train/dev/test groups are re-extracted and checked against the archived keys; a mismatch stops rather than mixing representations. Keep detailed logs in the experiment output directory; after stable launch, stop continuous monitoring as requested.
+- 四个主任务的压缩逐例开发/测试记录、投影算子、选择参数、分组和运行元数据。
+- clinical_analysis、o2/analysis、final_analysis 中的指标、误差表及 PNG/SVG/PDF 图。
+- o2_nonzero 中的补充选择和逐例结果。
+- ARTIFACT_MANIFEST.json：随仓库保存文件的 SHA256。
+- RAW_SNAPSHOT_MANIFEST.json：服务器完整原始文件的 SHA256。
 
-## Current server run
+未压缩的大型训练键张量和官方 builder 张量保存在服务器及完整归档中；仓库保存压缩逐例记录与所有投影算子，支持直接复算统计量。完整归档 CARE_module2_full_results_20261017.tar.gz 为 128,231,201 字节，SHA256：
+cce01cd680ea046754ca9fea9755d3154ba3c140c58844e04f5a3459de49f544。
 
-- Root: `/home/gcx/care_module2_followup_20261017`.
-- Active outputs: `results/module2_followup/parallel_v3` (earlier failed validation attempts preserved under `parallel` and `parallel_v2`).
-- GPU 0: O2; GPU 1/2/3: clinical outer folds 0/1/2.
-- Validation: `server_validation.json`. FP32 key-versus-score output errors are 1.13e-6 (O2) and 1.34e-6 (clinical), below 1e-4; peak diagnostic allocation is 15.83 GiB. BF16 differences (0.02335 and 0.00508) remain explicitly reported without an equivalence claim.
-- A realized key edit is required in smoke; a favorable downstream decision change is not required. The first clinical diagnostic has a nonzero key change and zero BF16 candidate-probability change, which is retained as a valid null effect.
-- O2 token tensors are loaded once, avoiding repeated decompression inside the case/head loop.
-- All formal outputs come from BF16 inference after original rotary-buffer dtypes are restored. Main-run memory statistics reset after the FP32 diagnostic.
-- Stop continuous monitoring after the four workers are observed to produce development journals; the launcher waits for completion and generates analyses without recurring GPU polling.
+服务器：/home/gcx/care_module2_followup_20261017。正式原始输出：results/module2_followup/parallel_v3。原始输入和旧 O2 统计复核没有被重跑覆盖。
 
-## Interpretation limits
+## 复现
 
-1. Python compilation, 8 unit tests, exact archive reproduction and both real-model smokes have passed on the server. Keep the PR a draft while the complete B1–B4 model comparison is running.
-2. All model shard and O2 tensor hashes passed. Re-extraction of 18 O2 examples spanning train/dev/test exactly matched the cached keys (maximum absolute error 0).
-3. Single-location intervention results cannot be inferred from probe AUC. No new causal improvement is claimed.
-4. Frozen clinical test predictions already existed; the next comparisons remain exploratory despite family isolation.
-5. Three clinical outer folds share fitted training families; family-bootstrap intervals condition on fitted models and do not include model-selection uncertainty.
-6. Archived clinical statistics and their regenerated PNG/SVG/PDF are secondary analyses of real saved predictions. GPU validation is now real; the full B1–B4 decision-effect table and new-intervention figures remain pending.
+所有模型和分析计算在服务器环境进行。压缩日志可由分析脚本直接读取。
+
+    source /home/gcx/gcx261014/bin/activate
+    cd /home/gcx/care_module2_followup_20261017
+    python -m pytest -q tests/test_module2_followup.py
+    python scripts/analyze_module2_followup.py --run exports/completed_20261017/clinical_fold0 exports/completed_20261017/clinical_fold1 exports/completed_20261017/clinical_fold2 --output exports/reproduce_check/clinical
+    python scripts/analyze_module2_followup.py --run exports/completed_20261017/o2 --output exports/reproduce_check/o2
+    python scripts/summarize_module2_followup.py --run-root results/module2_followup/parallel_v3
+
+若从仓库复算，将上面的 exports/completed_20261017 换为本目录的 completed_20261017，并设置可写的输出目录。模型重跑需固定的本地权重和未修改的 external/SEKA；推断设置及模型文件摘要在各任务的 run_fingerprint.json。重新启动 GPU 前需按项目要求再次汇报资源；完成归档无需重启实验。
+
+## 结论适用范围
+
+本轮支持“B3/B4 的可解码方向尚未转化为可靠、特异的决策改善”这一有限结论，不支持宣称 CARE 模块二已证明有效。随机投影独立选择头和秩，并非逐项完全匹配的随机方向；分数偏置没有独立调参；供体分析使用额外标签。全部比较是探索性的单模型、小样本研究，不能外推为临床效果。
+
+GPU 实验和补充对照均已结束；未创建持续监控。PR #3 提交真实结果供审阅，不自动合并。
