@@ -1,0 +1,1378 @@
+{
+  "status": "completed_archived_clinical_predictions_analysis_no_new_inference",
+  "date": "2026-10-17",
+  "source_commit": "8c5593e3d9e1a1bc9295bed916cb3e542198c574",
+  "source_blob_sha": "359cae49be885750baa2f64ac120093fb3b603f3",
+  "n_cases": 384,
+  "n_pairs": 192,
+  "n_families": 12,
+  "fold_integrity": "all 3 train/dev/test family sets disjoint; chosen strengths and test membership verified",
+  "bootstrap": {
+    "replicates": 10000,
+    "seed": 261017,
+    "rng": "LCG32 Numerical Recipes",
+    "unit": "clinical rule family",
+    "inference": "conditional on archived out-of-fold fits; no retraining during bootstrap"
+  },
+  "metrics": [
+    {
+      "method": "baseline",
+      "subset": "all",
+      "metric": "accuracy",
+      "n": 384,
+      "families": 12,
+      "estimate": 0.6171875,
+      "ci95": [
+        0.5052083333333334,
+        0.7265625
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "all",
+      "metric": "app_accuracy",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.59375,
+      "ci95": [
+        0.4583333333333333,
+        0.734375
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "all",
+      "metric": "non_accuracy",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.640625,
+      "ci95": [
+        0.53125,
+        0.7447916666666666
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "all",
+      "metric": "misuse",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.21875,
+      "ci95": [
+        0.171875,
+        0.265625
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "all",
+      "metric": "gold_margin",
+      "n": 384,
+      "families": 12,
+      "estimate": 0.17480061259508753,
+      "ci95": [
+        0.06176263370659098,
+        0.288963278805689
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "eligible",
+      "metric": "accuracy",
+      "n": 153,
+      "families": 12,
+      "estimate": 0.39869281045751637,
+      "ci95": [
+        0.24347826086956523,
+        0.5632911392405063
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "eligible",
+      "metric": "app_accuracy",
+      "n": 78,
+      "families": 12,
+      "estimate": 0.3333333333333333,
+      "ci95": [
+        0.19540229885057472,
+        0.5082758941877783
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "eligible",
+      "metric": "non_accuracy",
+      "n": 75,
+      "families": 10,
+      "estimate": 0.4666666666666667,
+      "ci95": [
+        0.234375,
+        0.6860522115823072
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "eligible",
+      "metric": "misuse",
+      "n": 75,
+      "families": 10,
+      "estimate": 0.36,
+      "ci95": [
+        0.22093023255813954,
+        0.5250105932203388
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "eligible",
+      "metric": "gold_margin",
+      "n": 153,
+      "families": 12,
+      "estimate": -0.09664795250674478,
+      "ci95": [
+        -0.2430391222132363,
+        0.05078912500474938
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "stable_agreement",
+      "metric": "accuracy",
+      "n": 176,
+      "families": 12,
+      "estimate": 0.8465909090909091,
+      "ci95": [
+        0.7359499621587006,
+        0.9379395487441463
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "stable_agreement",
+      "metric": "app_accuracy",
+      "n": 80,
+      "families": 12,
+      "estimate": 0.85,
+      "ci95": [
+        0.7065057544757034,
+        0.9603992965085981
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "stable_agreement",
+      "metric": "non_accuracy",
+      "n": 96,
+      "families": 12,
+      "estimate": 0.84375,
+      "ci95": [
+        0.7475703638324998,
+        0.9402985074626866
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "stable_agreement",
+      "metric": "misuse",
+      "n": 96,
+      "families": 12,
+      "estimate": 0.09375,
+      "ci95": [
+        0.037037037037037035,
+        0.13986013986013987
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "stable_agreement",
+      "metric": "gold_margin",
+      "n": 176,
+      "families": 12,
+      "estimate": 0.4532286769456484,
+      "ci95": [
+        0.3158164857912137,
+        0.5877377885399095
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "all",
+      "metric": "pair_accuracy",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.375,
+      "ci95": [
+        0.234375,
+        0.5208333333333334
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "baseline",
+      "subset": "complete_eligible",
+      "metric": "pair_accuracy",
+      "n": 25,
+      "families": 8,
+      "estimate": 0.2,
+      "ci95": [
+        0.030303030303030304,
+        0.4166666666666667
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "all",
+      "metric": "accuracy",
+      "n": 384,
+      "families": 12,
+      "estimate": 0.6197916666666666,
+      "ci95": [
+        0.5078125,
+        0.7291666666666666
+      ],
+      "delta": 0.0026041666666666665,
+      "delta_ci95": [
+        -0.005208333333333333,
+        0.010416666666666666
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "all",
+      "metric": "app_accuracy",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.59375,
+      "ci95": [
+        0.4583333333333333,
+        0.734375
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        -0.015625,
+        0.015625
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "all",
+      "metric": "non_accuracy",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.6458333333333334,
+      "ci95": [
+        0.5364583333333334,
+        0.75
+      ],
+      "delta": 0.005208333333333333,
+      "delta_ci95": [
+        0,
+        0.015625
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "all",
+      "metric": "misuse",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.20833333333333334,
+      "ci95": [
+        0.16145833333333334,
+        0.2552083333333333
+      ],
+      "delta": -0.010416666666666666,
+      "delta_ci95": [
+        -0.026041666666666668,
+        0
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "all",
+      "metric": "gold_margin",
+      "n": 384,
+      "families": 12,
+      "estimate": 0.1760354849830037,
+      "ci95": [
+        0.06260875232880304,
+        0.2900587588743898
+      ],
+      "delta": 0.00123487238791616,
+      "delta_ci95": [
+        -0.0009606541210814612,
+        0.003531639184681505
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "eligible",
+      "metric": "accuracy",
+      "n": 153,
+      "families": 12,
+      "estimate": 0.40522875816993464,
+      "ci95": [
+        0.2519670012622468,
+        0.5652173913043478
+      ],
+      "delta": 0.006535947712418301,
+      "delta_ci95": [
+        0,
+        0.02027027027027027
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "eligible",
+      "metric": "app_accuracy",
+      "n": 78,
+      "families": 12,
+      "estimate": 0.3333333333333333,
+      "ci95": [
+        0.19540229885057472,
+        0.5082758941877783
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "eligible",
+      "metric": "non_accuracy",
+      "n": 75,
+      "families": 10,
+      "estimate": 0.48,
+      "ci95": [
+        0.254537750385208,
+        0.6931818181818182
+      ],
+      "delta": 0.013333333333333334,
+      "delta_ci95": [
+        0,
+        0.045454545454545456
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "eligible",
+      "metric": "misuse",
+      "n": 75,
+      "families": 10,
+      "estimate": 0.3333333333333333,
+      "ci95": [
+        0.2,
+        0.48717948717948717
+      ],
+      "delta": -0.02666666666666667,
+      "delta_ci95": [
+        -0.0784313725490196,
+        0
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "eligible",
+      "metric": "gold_margin",
+      "n": 153,
+      "families": 12,
+      "estimate": -0.09387005410260624,
+      "ci95": [
+        -0.2403410150885998,
+        0.05428706355941113
+      ],
+      "delta": 0.0027778984041385403,
+      "delta_ci95": [
+        -0.00023245407505713119,
+        0.0056662447102377835
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "stable_agreement",
+      "metric": "accuracy",
+      "n": 176,
+      "families": 12,
+      "estimate": 0.8465909090909091,
+      "ci95": [
+        0.7357076719576721,
+        0.933342541436464
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        -0.01744441044471644,
+        0.014634146341463415
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "stable_agreement",
+      "metric": "app_accuracy",
+      "n": 80,
+      "families": 12,
+      "estimate": 0.85,
+      "ci95": [
+        0.7058634992458522,
+        0.9540229885057471
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        -0.038461538461538464,
+        0.03296703296703297
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "stable_agreement",
+      "metric": "non_accuracy",
+      "n": 96,
+      "families": 12,
+      "estimate": 0.84375,
+      "ci95": [
+        0.7475703638324998,
+        0.9402985074626866
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "stable_agreement",
+      "metric": "misuse",
+      "n": 96,
+      "families": 12,
+      "estimate": 0.09375,
+      "ci95": [
+        0.037037037037037035,
+        0.13986013986013987
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "stable_agreement",
+      "metric": "gold_margin",
+      "n": 176,
+      "families": 12,
+      "estimate": 0.4522650582525371,
+      "ci95": [
+        0.3147755029145449,
+        0.5868728055075321
+      ],
+      "delta": -0.0009636186931112951,
+      "delta_ci95": [
+        -0.004632008325520388,
+        0.0022251174668037645
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "all",
+      "metric": "pair_accuracy",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.3802083333333333,
+      "ci95": [
+        0.23958333333333334,
+        0.5260416666666666
+      ],
+      "delta": 0.005208333333333333,
+      "delta_ci95": [
+        -0.010416666666666666,
+        0.020833333333333332
+      ]
+    },
+    {
+      "method": "seka",
+      "subset": "complete_eligible",
+      "metric": "pair_accuracy",
+      "n": 25,
+      "families": 8,
+      "estimate": 0.2,
+      "ci95": [
+        0.030303030303030304,
+        0.4166666666666667
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "all",
+      "metric": "accuracy",
+      "n": 384,
+      "families": 12,
+      "estimate": 0.6145833333333334,
+      "ci95": [
+        0.4973958333333333,
+        0.7291666666666666
+      ],
+      "delta": -0.0026041666666666665,
+      "delta_ci95": [
+        -0.015625,
+        0.010416666666666666
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "all",
+      "metric": "app_accuracy",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.59375,
+      "ci95": [
+        0.4583333333333333,
+        0.734375
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        -0.026041666666666668,
+        0.020833333333333332
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "all",
+      "metric": "non_accuracy",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.6354166666666666,
+      "ci95": [
+        0.5208333333333334,
+        0.7447916666666666
+      ],
+      "delta": -0.005208333333333333,
+      "delta_ci95": [
+        -0.015625,
+        0
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "all",
+      "metric": "misuse",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.22395833333333334,
+      "ci95": [
+        0.171875,
+        0.2760416666666667
+      ],
+      "delta": 0.005208333333333333,
+      "delta_ci95": [
+        0,
+        0.015625
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "all",
+      "metric": "gold_margin",
+      "n": 384,
+      "families": 12,
+      "estimate": 0.17364632988998588,
+      "ci95": [
+        0.06015809213052611,
+        0.28811091104992853
+      ],
+      "delta": -0.0011542827051016502,
+      "delta_ci95": [
+        -0.0037981163488439054,
+        0.0015864590868659423
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "eligible",
+      "metric": "accuracy",
+      "n": 153,
+      "families": 12,
+      "estimate": 0.39215686274509803,
+      "ci95": [
+        0.23376040127537134,
+        0.5611573898775715
+      ],
+      "delta": -0.006535947712418301,
+      "delta_ci95": [
+        -0.018518518518518517,
+        0
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "eligible",
+      "metric": "app_accuracy",
+      "n": 78,
+      "families": 12,
+      "estimate": 0.3333333333333333,
+      "ci95": [
+        0.19540229885057472,
+        0.5082758941877783
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "eligible",
+      "metric": "non_accuracy",
+      "n": 75,
+      "families": 10,
+      "estimate": 0.4533333333333333,
+      "ci95": [
+        0.21428571428571427,
+        0.6835609593604262
+      ],
+      "delta": -0.013333333333333334,
+      "delta_ci95": [
+        -0.037037037037037035,
+        0
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "eligible",
+      "metric": "misuse",
+      "n": 75,
+      "families": 10,
+      "estimate": 0.37333333333333335,
+      "ci95": [
+        0.23076923076923078,
+        0.5333561643835613
+      ],
+      "delta": 0.013333333333333334,
+      "delta_ci95": [
+        0,
+        0.037037037037037035
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "eligible",
+      "metric": "gold_margin",
+      "n": 153,
+      "families": 12,
+      "estimate": -0.0970122040145927,
+      "ci95": [
+        -0.24399052827798876,
+        0.05094115874100423
+      ],
+      "delta": -0.00036425150784791683,
+      "delta_ci95": [
+        -0.005100569530939594,
+        0.003759450235084531
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "stable_agreement",
+      "metric": "accuracy",
+      "n": 176,
+      "families": 12,
+      "estimate": 0.8465909090909091,
+      "ci95": [
+        0.7368421052631579,
+        0.9366197183098591
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        -0.03067484662576687,
+        0.024242424242424242
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "stable_agreement",
+      "metric": "app_accuracy",
+      "n": 80,
+      "families": 12,
+      "estimate": 0.85,
+      "ci95": [
+        0.7023809523809523,
+        0.9605263157894737
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        -0.06818181818181818,
+        0.051288659793814334
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "stable_agreement",
+      "metric": "non_accuracy",
+      "n": 96,
+      "families": 12,
+      "estimate": 0.84375,
+      "ci95": [
+        0.7475703638324998,
+        0.9402985074626866
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "stable_agreement",
+      "metric": "misuse",
+      "n": 96,
+      "families": 12,
+      "estimate": 0.09375,
+      "ci95": [
+        0.037037037037037035,
+        0.13986013986013987
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "stable_agreement",
+      "metric": "gold_margin",
+      "n": 176,
+      "families": 12,
+      "estimate": 0.45189589443510736,
+      "ci95": [
+        0.31382177459842053,
+        0.587413926019869
+      ],
+      "delta": -0.0013327825105410409,
+      "delta_ci95": [
+        -0.0036677584877677833,
+        0.0011648587953757372
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "all",
+      "metric": "pair_accuracy",
+      "n": 192,
+      "families": 12,
+      "estimate": 0.3802083333333333,
+      "ci95": [
+        0.234375,
+        0.5260416666666666
+      ],
+      "delta": 0.005208333333333333,
+      "delta_ci95": [
+        -0.010416666666666666,
+        0.020833333333333332
+      ]
+    },
+    {
+      "method": "pasta",
+      "subset": "complete_eligible",
+      "metric": "pair_accuracy",
+      "n": 25,
+      "families": 8,
+      "estimate": 0.2,
+      "ci95": [
+        0.030303030303030304,
+        0.4166666666666667
+      ],
+      "delta": 0,
+      "delta_ci95": [
+        0,
+        0
+      ]
+    }
+  ],
+  "transitions": [
+    {
+      "method": "seka",
+      "case_id": "adiposity-bmi_healthy-03-app",
+      "pair_id": "adiposity-bmi_healthy-03",
+      "group_id": "adiposity",
+      "subset": "app",
+      "gold": "C",
+      "baseline": "A",
+      "intervention": "C",
+      "corrected": true,
+      "harmed": false,
+      "misuse_before": 0,
+      "misuse_after": 0,
+      "prior_eligible": false
+    },
+    {
+      "method": "seka",
+      "case_id": "anaemia-anaemia_moderate-04-non",
+      "pair_id": "anaemia-anaemia_moderate-04",
+      "group_id": "anaemia",
+      "subset": "non",
+      "gold": "D",
+      "baseline": "A",
+      "intervention": "D",
+      "corrected": true,
+      "harmed": false,
+      "misuse_before": 1,
+      "misuse_after": 0,
+      "prior_eligible": true
+    },
+    {
+      "method": "seka",
+      "case_id": "hypoglycemia-hypo_one-06-non",
+      "pair_id": "hypoglycemia-hypo_one-06",
+      "group_id": "hypoglycemia",
+      "subset": "non",
+      "gold": "D",
+      "baseline": "D",
+      "intervention": "A",
+      "corrected": false,
+      "harmed": true,
+      "misuse_before": 0,
+      "misuse_after": 1,
+      "prior_eligible": true
+    },
+    {
+      "method": "seka",
+      "case_id": "hypoglycemia-hypo_one-07-non",
+      "pair_id": "hypoglycemia-hypo_one-07",
+      "group_id": "hypoglycemia",
+      "subset": "non",
+      "gold": "D",
+      "baseline": "A",
+      "intervention": "D",
+      "corrected": true,
+      "harmed": false,
+      "misuse_before": 1,
+      "misuse_after": 0,
+      "prior_eligible": true
+    },
+    {
+      "method": "seka",
+      "case_id": "glycemia-a1c-00-non",
+      "pair_id": "glycemia-a1c-00",
+      "group_id": "glycemia",
+      "subset": "non",
+      "gold": "D",
+      "baseline": "B",
+      "intervention": "A",
+      "corrected": false,
+      "harmed": false,
+      "misuse_before": 1,
+      "misuse_after": 0,
+      "prior_eligible": true
+    },
+    {
+      "method": "seka",
+      "case_id": "atrial_fibrillation-af_zero-03-non",
+      "pair_id": "atrial_fibrillation-af_zero-03",
+      "group_id": "atrial_fibrillation",
+      "subset": "non",
+      "gold": "C",
+      "baseline": "B",
+      "intervention": "C",
+      "corrected": true,
+      "harmed": false,
+      "misuse_before": 0,
+      "misuse_after": 0,
+      "prior_eligible": false
+    },
+    {
+      "method": "seka",
+      "case_id": "atrial_fibrillation-af_zero-05-non",
+      "pair_id": "atrial_fibrillation-af_zero-05",
+      "group_id": "atrial_fibrillation",
+      "subset": "non",
+      "gold": "B",
+      "baseline": "B",
+      "intervention": "C",
+      "corrected": false,
+      "harmed": true,
+      "misuse_before": 0,
+      "misuse_after": 0,
+      "prior_eligible": false
+    },
+    {
+      "method": "seka",
+      "case_id": "copd-copd_moderate-05-app",
+      "pair_id": "copd-copd_moderate-05",
+      "group_id": "copd",
+      "subset": "app",
+      "gold": "B",
+      "baseline": "B",
+      "intervention": "A",
+      "corrected": false,
+      "harmed": true,
+      "misuse_before": 0,
+      "misuse_after": 0,
+      "prior_eligible": false
+    },
+    {
+      "method": "pasta",
+      "case_id": "adiposity-bmi_healthy-03-app",
+      "pair_id": "adiposity-bmi_healthy-03",
+      "group_id": "adiposity",
+      "subset": "app",
+      "gold": "C",
+      "baseline": "A",
+      "intervention": "C",
+      "corrected": true,
+      "harmed": false,
+      "misuse_before": 0,
+      "misuse_after": 0,
+      "prior_eligible": false
+    },
+    {
+      "method": "pasta",
+      "case_id": "blood_pressure-home_target-03-app",
+      "pair_id": "blood_pressure-home_target-03",
+      "group_id": "blood_pressure",
+      "subset": "app",
+      "gold": "A",
+      "baseline": "D",
+      "intervention": "A",
+      "corrected": true,
+      "harmed": false,
+      "misuse_before": 0,
+      "misuse_after": 0,
+      "prior_eligible": false
+    },
+    {
+      "method": "pasta",
+      "case_id": "hypoglycemia-hypo_one-06-non",
+      "pair_id": "hypoglycemia-hypo_one-06",
+      "group_id": "hypoglycemia",
+      "subset": "non",
+      "gold": "D",
+      "baseline": "D",
+      "intervention": "A",
+      "corrected": false,
+      "harmed": true,
+      "misuse_before": 0,
+      "misuse_after": 1,
+      "prior_eligible": true
+    },
+    {
+      "method": "pasta",
+      "case_id": "copd-copd_moderate-02-app",
+      "pair_id": "copd-copd_moderate-02",
+      "group_id": "copd",
+      "subset": "app",
+      "gold": "B",
+      "baseline": "B",
+      "intervention": "A",
+      "corrected": false,
+      "harmed": true,
+      "misuse_before": 0,
+      "misuse_after": 0,
+      "prior_eligible": false
+    },
+    {
+      "method": "pasta",
+      "case_id": "copd-copd_moderate-05-app",
+      "pair_id": "copd-copd_moderate-05",
+      "group_id": "copd",
+      "subset": "app",
+      "gold": "B",
+      "baseline": "B",
+      "intervention": "A",
+      "corrected": false,
+      "harmed": true,
+      "misuse_before": 0,
+      "misuse_after": 0,
+      "prior_eligible": false
+    }
+  ],
+  "per_family": [
+    {
+      "group_id": "adiposity",
+      "method": "baseline",
+      "accuracy": 0.65625,
+      "pair_accuracy": 0.375,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "blood_pressure",
+      "method": "baseline",
+      "accuracy": 0.78125,
+      "pair_accuracy": 0.5625,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "bone_density",
+      "method": "baseline",
+      "accuracy": 0.5,
+      "pair_accuracy": 0.3125,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "anaemia",
+      "method": "baseline",
+      "accuracy": 0.53125,
+      "pair_accuracy": 0.125,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "renal",
+      "method": "baseline",
+      "accuracy": 0.3125,
+      "pair_accuracy": 0,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "pneumonia",
+      "method": "baseline",
+      "accuracy": 0.84375,
+      "pair_accuracy": 0.6875,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "sore_throat",
+      "method": "baseline",
+      "accuracy": 0.8125,
+      "pair_accuracy": 0.625,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "hypoglycemia",
+      "method": "baseline",
+      "accuracy": 0.3125,
+      "pair_accuracy": 0,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "glycemia",
+      "method": "baseline",
+      "accuracy": 0.40625,
+      "pair_accuracy": 0.1875,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "venous_thromboembolism",
+      "method": "baseline",
+      "accuracy": 0.75,
+      "pair_accuracy": 0.5,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "atrial_fibrillation",
+      "method": "baseline",
+      "accuracy": 0.90625,
+      "pair_accuracy": 0.8125,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "copd",
+      "method": "baseline",
+      "accuracy": 0.59375,
+      "pair_accuracy": 0.3125,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "adiposity",
+      "method": "seka",
+      "accuracy": 0.6875,
+      "pair_accuracy": 0.4375,
+      "corrected": 1,
+      "harmed": 0
+    },
+    {
+      "group_id": "blood_pressure",
+      "method": "seka",
+      "accuracy": 0.78125,
+      "pair_accuracy": 0.5625,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "bone_density",
+      "method": "seka",
+      "accuracy": 0.5,
+      "pair_accuracy": 0.3125,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "anaemia",
+      "method": "seka",
+      "accuracy": 0.5625,
+      "pair_accuracy": 0.1875,
+      "corrected": 1,
+      "harmed": 0
+    },
+    {
+      "group_id": "renal",
+      "method": "seka",
+      "accuracy": 0.3125,
+      "pair_accuracy": 0,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "pneumonia",
+      "method": "seka",
+      "accuracy": 0.84375,
+      "pair_accuracy": 0.6875,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "sore_throat",
+      "method": "seka",
+      "accuracy": 0.8125,
+      "pair_accuracy": 0.625,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "hypoglycemia",
+      "method": "seka",
+      "accuracy": 0.3125,
+      "pair_accuracy": 0,
+      "corrected": 1,
+      "harmed": 1
+    },
+    {
+      "group_id": "glycemia",
+      "method": "seka",
+      "accuracy": 0.40625,
+      "pair_accuracy": 0.1875,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "venous_thromboembolism",
+      "method": "seka",
+      "accuracy": 0.75,
+      "pair_accuracy": 0.5,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "atrial_fibrillation",
+      "method": "seka",
+      "accuracy": 0.90625,
+      "pair_accuracy": 0.8125,
+      "corrected": 1,
+      "harmed": 1
+    },
+    {
+      "group_id": "copd",
+      "method": "seka",
+      "accuracy": 0.5625,
+      "pair_accuracy": 0.25,
+      "corrected": 0,
+      "harmed": 1
+    },
+    {
+      "group_id": "adiposity",
+      "method": "pasta",
+      "accuracy": 0.6875,
+      "pair_accuracy": 0.4375,
+      "corrected": 1,
+      "harmed": 0
+    },
+    {
+      "group_id": "blood_pressure",
+      "method": "pasta",
+      "accuracy": 0.8125,
+      "pair_accuracy": 0.625,
+      "corrected": 1,
+      "harmed": 0
+    },
+    {
+      "group_id": "bone_density",
+      "method": "pasta",
+      "accuracy": 0.5,
+      "pair_accuracy": 0.3125,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "anaemia",
+      "method": "pasta",
+      "accuracy": 0.53125,
+      "pair_accuracy": 0.125,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "renal",
+      "method": "pasta",
+      "accuracy": 0.3125,
+      "pair_accuracy": 0,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "pneumonia",
+      "method": "pasta",
+      "accuracy": 0.84375,
+      "pair_accuracy": 0.6875,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "sore_throat",
+      "method": "pasta",
+      "accuracy": 0.8125,
+      "pair_accuracy": 0.625,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "hypoglycemia",
+      "method": "pasta",
+      "accuracy": 0.28125,
+      "pair_accuracy": 0,
+      "corrected": 0,
+      "harmed": 1
+    },
+    {
+      "group_id": "glycemia",
+      "method": "pasta",
+      "accuracy": 0.40625,
+      "pair_accuracy": 0.1875,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "venous_thromboembolism",
+      "method": "pasta",
+      "accuracy": 0.75,
+      "pair_accuracy": 0.5,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "atrial_fibrillation",
+      "method": "pasta",
+      "accuracy": 0.90625,
+      "pair_accuracy": 0.8125,
+      "corrected": 0,
+      "harmed": 0
+    },
+    {
+      "group_id": "copd",
+      "method": "pasta",
+      "accuracy": 0.53125,
+      "pair_accuracy": 0.25,
+      "corrected": 0,
+      "harmed": 2
+    }
+  ],
+  "limitations": [
+    "New B1-B4 causal interventions have not been run.",
+    "Clinical reference rules with simulated patients; no clinical efficacy claim.",
+    "Post hoc analysis of previously available test predictions; exploratory."
+  ]
+}

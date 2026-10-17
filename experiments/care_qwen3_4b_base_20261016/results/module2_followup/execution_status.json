@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-17",
+  "new_gpu_experiments": "not_run",
+  "server_connection": "not_established",
+  "reason": "Host command tool could not create any process, including the SSH command; node runtime also failed before evaluating code due to sandboxCwd URI error. Server reachability and GPU availability are unknown.",
+  "completed": [
+    "Repository and PR #2 inspected through authenticated GitHub connector",
+    "Archived clinical O1 held-out test predictions analyzed in connector orchestration JS runtime",
+    "Train/dev/test family separation, selected strengths, duplicate and pair completeness checks passed in JS",
+    "New paired accuracy, complete-eligible-pair analysis, stable-agreement accuracy, margins, answer transitions, family bootstrap intervals and SVG saved"
+  ],
+  "not_run": [
+    "Python reproducer",
+    "Python unit tests",
+    "Real-model smoke and BF16 equivalence checks",
+    "B1/B2/B3/B4 and random projector model inference",
+    "Matched direct attention-score bias",
+    "Subspace ablation and opposite-/same-label donor patching",
+    "New GPU charts; PNG/PDF exports"
+  ],
+  "proposed_resources": {
+    "gpus": "one of 0,1,2,3,6,7; prefer 0 after checking availability",
+    "estimated_peak_memory_GiB": [
+      10,
+      14
+    ],
+    "recommended_total_memory_GiB": 24,
+    "estimated_forward_passes": 65000,
+    "estimated_hours": [
+      2,
+      6
+    ],
+    "status": "estimate only; no GPU reserved or used"
+  },
+  "validation": "JS archive-analysis checks completed; new Python code statically inspected only; draft PR until server smoke/tests pass"
+}
