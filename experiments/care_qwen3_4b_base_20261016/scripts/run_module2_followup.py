@@ -344,6 +344,15 @@ def main():
         return
     if args.dataset == "o2":
         keys = o2_cache(args.artifacts, rows, args.locations)
+        cache_errors = []
+        for role in ("train", "dev", "test"):
+            group = sorted({r["group_id"] for r in rows if r["split"] == role})[0]
+            for row in [r for r in rows if r["group_id"] == group]:
+                current = collect(model, tok, row, args.locations)[0]
+                error = max(float(np.abs(current[loc]-keys[row["case_id"]][loc]).max()) for loc in args.locations)
+                cache_errors.append(dict(case_id=row["case_id"], max_abs_error=error))
+        save_json(args.output/"cache_reextraction_check.json", cache_errors)
+        assert max(x["max_abs_error"] for x in cache_errors) < 1e-5, "Archived keys differ from current runtime; do not mix tensors"
         split_list = [(0, *[[r for r in relevant if r["split"] == role] for role in ("train", "dev", "test")])]
     else:
         # Every clinical family is tested once; reuse the exact archived family split.

@@ -40,6 +40,7 @@ These results provide a concrete baseline for the new subspace experiments. They
 ## Executable follow-up implementation
 
 - `scripts/module2_subspaces.py`: B1 centered raw action-key PCA; B2 pinned official SEKA projectors; B3 uncentered paired-applicability-displacement PCA; B4 regularized generalized signal/background eigenspace; random orthogonal projectors.
+- `scripts/launch_module2_multigpu.py`: four independent GPU jobs (O2 plus three clinical folds), server tests/smoke before dispatch, one startup check, logs and merged clinical analysis.
 - `scripts/run_module2_followup.py`: fixed-model loading and shard hashes, train/dev-only projector and parameter selection, resumable per-case inference journal, matched direct bias, ablation, opposite-applicability and same-label donor patching.
 - `scripts/analyze_module2_followup.py`: complete-run analysis, family bootstrap, pairs, margins, misuse, stable-agreement subgroup and answer transitions; PNG/SVG/PDF from saved outputs.
 - `scripts/analyze_module2_archive.py`: standard-library Python reproducer for the new archived clinical analysis, with optional Matplotlib exports.
@@ -69,11 +70,20 @@ Model: only `Qwen/Qwen3-4B-Base`, revision `906bfd4b4dc7f14ee4320094d8b41684abff
 
 ## Server execution
 
-Before starting, report current GPU availability and the resource estimate to the user. Use one authorized physical GPU from 0/1/2/3/6/7, preferably GPU 0 if free; do not overwrite existing experiments.
+Before starting, report current GPU availability and the resource estimate to the user. Use four free authorized physical GPUs, preferably 0/1/2/3; substitute 6/7 for occupied cards. Do not overwrite existing experiments.
 
-Estimated full default grid: four fixed layer/KV-head locations (2/0, 20/5, 9/0, 35/0), ranks 1/4/16, three random seeds, four strengths including zero. Up to 76 candidate operators per fold; approximately **65,000 model forwards** across O2 and three clinical folds, depending on empirical rank/control availability. Estimated **10–14 GiB peak**, recommend **24 GiB** total memory, approximately **2–6 hours** on one suitable GPU. These are planning estimates, not observed use. The archived pilot peak was about 7.63 GiB; full runtime depends on actual hardware and prompt length.
+Estimated full default grid: four fixed layer/KV-head locations (2/0, 20/5, 9/0, 35/0), ranks 1/4/16, three random seeds, four strengths including zero. Up to 76 candidate operators per fold; approximately **65,000 model forwards** across O2 and three clinical folds, depending on empirical rank/control availability. Estimated **10–14 GiB peak per GPU**, recommend **24 GiB per card**, approximately **1–2 hours on four suitable GPUs** (or 2–6 hours serially). The user requested multi-GPU acceleration. O2 and the three clinical outer folds are independent jobs, so each card runs one complete model without cross-GPU model communication. These are planning estimates, not observed use. The archived pilot peak was about 7.63 GiB; full runtime depends on actual hardware and prompt length.
 
-From the new branch's experiment directory on the server:
+Recommended four-GPU launch from the new branch's experiment directory, after activating the existing environment and preparing the pinned external/SEKA checkout:
+
+```bash
+source /home/gcx/gcx261014/bin/activate
+nohup python -u scripts/launch_module2_multigpu.py --output results/module2_followup/parallel > work_module2_launcher.log 2>&1 &
+```
+
+The launcher selects the first four free cards from 0/1/2/3/6/7, skipping cards with running compute processes or less than 18,000 MiB free memory. It never terminates other users' jobs. It runs tests, archive reproduction and two real-model smokes first, then launches all four workers concurrently. One check after 30 seconds records startup health; the launcher then waits for process completion without continuing GPU polling. Clinical results are pooled only after all three folds finish, with matching data/model/source fingerprints and no duplicated folds/cases. Outputs remain separate per job.
+
+Equivalent serial commands (also useful for a failed-job retry):
 
 ```bash
 source /home/gcx/gcx261014/bin/activate
@@ -91,7 +101,7 @@ python scripts/analyze_module2_followup.py --run results/module2_followup/o2
 python scripts/analyze_module2_followup.py --run results/module2_followup/clinical
 ```
 
-Default artifact/model root: `/home/gcx/care_20261016/CARE_Codex_Pilot`. A cloned branch may reference that existing root via `--artifacts`; original data/results are read-only. Install/clone the pinned SEKA under the new branch experiment's `external/SEKA` if needed. Use distinct output folders for smoke and full runs. Journals resume only with an identical data/model/source/config fingerprint. Keep detailed logs in the experiment output directory; after stable launch, stop continuous monitoring as requested.
+Default artifact/model root: `/home/gcx/care_20261016/CARE_Codex_Pilot`. A cloned branch may reference that existing root via `--artifacts`; original data/results are read-only. The launcher preflight archive verifier reads the committed clinical predictions in the branch checkout; its optional Matplotlib export can refresh only this follow-up analysis's chart. Install/clone the pinned SEKA under the new branch experiment's `external/SEKA` if needed. Use distinct output folders for smoke and full runs. Journals resume only with an identical data/model/source/config fingerprint. Before O2 cache reuse, 18 examples spanning train/dev/test groups are re-extracted and checked against the archived keys; a mismatch stops rather than mixing representations. Keep detailed logs in the experiment output directory; after stable launch, stop continuous monitoring as requested.
 
 ## Interpretation limits
 

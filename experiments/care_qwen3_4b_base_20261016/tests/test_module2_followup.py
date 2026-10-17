@@ -88,3 +88,19 @@ def test_pairs_cannot_silently_drop_missing_members():
     row = dict(case_id="a",pair_id="pair",group_id="g",applicable=True)
     with pytest.raises(AssertionError):
         paired_rows([row])
+
+
+def test_multigpu_selection_skips_occupied_and_small_cards(monkeypatch):
+    import launch_module2_multigpu as launcher
+    def fake_output(command, **kwargs):
+        if "--query-compute-apps=gpu_uuid,pid" in command:
+            return "GPU-1, 12345\n"
+        return "\n".join([
+            "0, GPU-0, 22000, 0", "1, GPU-1, 22000, 0",
+            "2, GPU-2, 22000, 0", "3, GPU-3, 12000, 0",
+            "6, GPU-6, 22000, 0", "7, GPU-7, 22000, 0"])
+    monkeypatch.setattr(launcher.subprocess, "check_output", fake_output)
+    selected, _ = launcher.available_gpus([0,1,2,3,6,7])
+    assert selected == [0,2,6,7]
+    with pytest.raises(RuntimeError):
+        launcher.available_gpus([0,1,2,3])

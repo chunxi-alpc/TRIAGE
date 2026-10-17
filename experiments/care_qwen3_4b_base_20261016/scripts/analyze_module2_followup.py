@@ -29,19 +29,30 @@ def estimate(data, value, base):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--run",type=Path,required=True)
+    p.add_argument("--run",type=Path,nargs="+",required=True)
+    p.add_argument("--output",type=Path)
     p.add_argument("--artifacts",type=Path,default=Path("/home/gcx/care_20261016/CARE_Codex_Pilot"))
     args=p.parse_args()
-    status=json.loads((args.run/"status.json").read_text())
-    assert status["status"]=="completed_real_model_inference"
+    statuses=[json.loads((root/"status.json").read_text()) for root in args.run]
+    assert all(s["status"]=="completed_real_model_inference" for s in statuses)
+    assert len({s["generalization"] for s in statuses})==1, "Do not pool O2 with clinical data"
+    status=statuses[0]
+    fingerprints=[json.loads((root/"run_fingerprint.json").read_text()) for root in args.run]
+    for field in ("data_sha256","model_files","seka_commit","ranks","strengths","locations","source_sha256"):
+        assert all(x[field]==fingerprints[0][field] for x in fingerprints), ("Incompatible parallel jobs",field)
     allrows=[]
-    for folder in sorted(args.run.glob("fold*")):
-        assert (folder/"complete.json").exists(), folder
-        meta=json.loads((folder/"operators.json").read_text())
-        for r in read_rows(folder/"predictions.jsonl"):
-            if r["role"]=="test":
-                r["method"]="baseline" if r["config"]=="baseline" else meta[r["config"]]["method"]
-                allrows.append(r)
+    seen_folds=set()
+    for root in args.run:
+        for folder in sorted(root.glob("fold*")):
+            assert (folder/"complete.json").exists(), folder
+            fold=int(folder.name[4:])
+            assert fold not in seen_folds, "Duplicate outer folds"
+            seen_folds.add(fold)
+            meta=json.loads((folder/"operators.json").read_text())
+            for r in read_rows(folder/"predictions.jsonl"):
+                if r["role"]=="test":
+                    r["method"]="baseline" if r["config"]=="baseline" else meta[r["config"]]["method"]
+                    allrows.append(r)
     keys=[(r["case_id"],r["method"],r["mode"]) for r in allrows]
     assert len(set(keys))==len(keys), "Duplicate outer-test examples"
     baseline={r["case_id"]:r for r in allrows if r["method"]=="baseline"}
@@ -94,7 +105,7 @@ def main():
                     gold=r["gold_answer"],before=b["prediction"],after=r["prediction"],
                     corrected=int(r["correct"] and not b["correct"]),harmed=int(not r["correct"] and b["correct"]),
                     margin_delta=r["gold_margin"]-b["gold_margin"]))
-    out=args.run/"analysis"
+    out=args.output or args.run[0]/"analysis"
     out.mkdir(exist_ok=True)
     save_json(out/"metrics.json",dict(status="completed_saved_real_output_analysis",metrics=metrics,
         bootstrap="10000 paired clinical-family resamples conditional on fitted outer folds; O2 groups share one grammar",

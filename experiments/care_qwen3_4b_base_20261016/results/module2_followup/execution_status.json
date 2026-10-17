@@ -16,19 +16,26 @@
     "B1/B2/B3/B4 and random projector model inference",
     "Matched direct attention-score bias",
     "Subspace ablation and opposite-/same-label donor patching",
-    "New GPU charts; PNG/PDF exports"
+    "New GPU charts; PNG/PDF exports",
+    "Four-GPU launcher and merged clinical-fold analysis"
   ],
   "proposed_resources": {
-    "gpus": "one of 0,1,2,3,6,7; prefer 0 after checking availability",
-    "estimated_peak_memory_GiB": [
+    "gpus": "four independent workers, prefer 0/1/2/3; replace occupied cards with free 6/7",
+    "allocation": {
+      "0": "O2",
+      "1": "clinical fold 0",
+      "2": "clinical fold 1",
+      "3": "clinical fold 2"
+    },
+    "estimated_peak_memory_GiB_per_gpu": [
       10,
       14
     ],
-    "recommended_total_memory_GiB": 24,
+    "recommended_total_memory_GiB_per_gpu": 24,
     "estimated_forward_passes": 65000,
     "estimated_hours": [
-      2,
-      6
+      1,
+      2
     ],
     "status": "estimate only; no GPU reserved or used"
   },
