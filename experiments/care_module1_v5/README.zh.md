@@ -1,6 +1,6 @@
 # CARE 模块一 V5
 
-原实验和 24 条新合成探索样本已完成。之后修复 TrialMatchAI 解析器，离线重解析原 492 条输出：成功 423/492，条件级准确率 381/492（77.44%），纯 TrialMatchAI 规则准确率由 31.25% 更新为 67.19%；没有重跑任何模型。组合方案用缓存 NLI 复算为 51.04%，历史 Qwen3 为 70.83%，当前仍不建议正式替换。原实验结果保留在 [初始实验报告](REPORT.zh.md)，解析器修复和复评见 [解析器 V2 报告](PARSER_V2_REPORT.zh.md)。
+原实验和 24 条新合成探索样本已完成。解析器 V2 先将原 492 条输出提高到 423/492 可严格解析；随后只重生成其中 69 条失败条件，V3 达到 492/492 严格解析，原子条件准确率 431/492（87.60%），纯 TrialMatchAI 规则准确率 150/192（78.12%）。加入缓存 BioLinkBERT 证据后的规则准确率为 96/192（50.00%），历史 Qwen3 直接判定为 136/192（70.83%）。因此，TrialMatchAI 单独判定已超过旧 Qwen3，但当前组合方案仍不适合作为正式模块一。原实验结果保留在 [初始实验报告](REPORT.zh.md)，解析器 V2 见 [解析器 V2 报告](PARSER_V2_REPORT.zh.md)，失败条件重生成和 V3 复评见 [V3 报告](runs/v5_20261018/parser_v3_retry/RETRY_REPORT.zh.md)。
 
 V5 在 [src/module1/care_v5.py](../../src/module1/care_v5.py) 实现。`from src import module1` 后，`module1.run(guideline, patient, question)` 使用 V5；首次调用时加载指定的 TrialMatchAI 适配器和 MedNLI 模型，不导入旧 Qwen 后端。可选地用 `module1.set_default_v5(module1.CAREModule1V5.from_pretrained(device="cuda:6"))` 预先初始化。默认 `module1.Module1` 类同样使用 V5；旧实现只能显式通过 `module1.run_legacy` 或 `module1.LegacyModule1` 使用。
 
@@ -131,3 +131,13 @@ V5RUN=experiments/care_module1_v5/runs/v5_20261018/parser_v2_recheck
   --output "$V5RUN/metrics.json" --errors "$V5RUN/errors_public.jsonl"
 "$V5PY" experiments/care_module1_v5/scripts/generate_reparse_report.py --run "$V5RUN"
 ```
+
+## TrialMatchAI 失败条件定向重生成（V3）
+
+解析器审计发现 69 条失败输出：29 条真正达到 2048 token 上限，40 条没有唯一匹配的目标条件原文。为提高解析成功率，使用同一套 Phi-4 + TrialMatchAI LoRA，只重生成这 69 条；已有 423 条成功输出保持原文哈希不变。生成提示要求只输出一个紧凑 JSON、逐字复制目标条件，最大生成长度提高到 4096 token。任务使用 GPU 4、5、6、7 四张 NVIDIA A100 80GB，批大小 8；每卡峰值约 13.2 GiB，四卡墙钟约 58 秒。
+
+69/69 条重生成均通过严格目标条件和官方标签核验，重跑后 492/492 条解析成功；29 条截断和 40 条目标不明确全部清零。条件级准确率由 381/492（77.44%）升至 431/492（87.60%），宏 F1 由 0.7293 升至 0.8308。规则级纯 TrialMatchAI 由 60/192（31.25%）升至 150/192（78.12%），比历史 Qwen3 高 7.29 个百分点；反事实成对正确为 21/32。
+
+BioLinkBERT 的证据输出沿用前一轮已缓存结果，没有重新运行证据模型。组合方案由重跑前 104/192（54.17%）变为 96/192（50.00%），已知样本证据定位仍为 76/137（55.47%），判定和证据同时正确为 48/192。因此，解析修复显著改善了 TrialMatchAI 本身，但不能证明 BioLinkBERT 已改善证据定位，也不能据此把组合方案定为正式模块一。
+
+公开结果、配置和复现文件位于 `runs/v5_20261018/parser_v3_retry/`；完整病例和 69 条原始重生成只保存在服务器私有目录 `runs/v5_retry_20261018_final/private/`。重生成脚本为 `scripts/rerun_failed_trialmatch.py`。本次仍使用 V4 的 192 条方法开发数据，属于探索性回归，不是独立验证。

@@ -1,0 +1,39 @@
+{
+  "experiment": "CARE module-one V5 TrialMatchAI failed-condition retry",
+  "date": "2026-10-18",
+  "selection": {
+    "source_conditions": 492,
+    "retry_conditions": 69,
+    "old_status": {
+      "truncated": 29,
+      "ambiguous_target": 40
+    },
+    "unchanged_successful_conditions": 423
+  },
+  "models": {
+    "base": "microsoft/phi-4",
+    "adapter": "majdabd33/trialmatchai-phi4-reasoning-lora",
+    "evidence": "cnut1648/biolinkbert-mednli",
+    "qwen_called": false
+  },
+  "generation": {
+    "gpus": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "gpu_name": "NVIDIA A100-SXM4-80GB",
+    "batch_size": 8,
+    "max_new_tokens": 4096,
+    "prompt_version": "retry_exact_single_condition_v1",
+    "offline_cache": true
+  },
+  "protocol": {
+    "strict_target_text_and_label_match": true,
+    "labels_read_during_generation": false,
+    "raw_outputs_private": true,
+    "reused_cached_mednli": true,
+    "independent_validation": false
+  }
+}
