@@ -1,0 +1,451 @@
+{
+  "status": "executed_once_after_freeze",
+  "n": 192,
+  "methods": {
+    "direct": {
+      "macro_f1": 0.8266118660503686,
+      "correct": 159,
+      "accuracy": 0.828125,
+      "confusion_order": [
+        "T",
+        "F",
+        "U",
+        "INVALID"
+      ],
+      "confusion": [
+        [
+          61,
+          4,
+          3,
+          0
+        ],
+        [
+          12,
+          46,
+          9,
+          0
+        ],
+        [
+          3,
+          2,
+          52,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "invalid": 0,
+      "pair_correct": 22,
+      "pair_n": 32,
+      "pair_accuracy": 0.6875,
+      "unknown_correct": 52,
+      "unknown_n": 57,
+      "known_to_unknown": 12,
+      "known_n": 135,
+      "evidence_known_correct": 124,
+      "evidence_known_accuracy": 0.9185185185185185,
+      "evidence_all_correct": 164,
+      "conflict_evidence_correct": 30,
+      "timing": {
+        "fact_or_direct_generation_seconds": 42.976719832164235,
+        "one_time_rule_extraction_seconds": 0,
+        "generation_seconds_including_rules": 42.976719832164235,
+        "note": "CUDA synchronized batch generation; excludes model loading, tokenization and I/O"
+      },
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 32,
+          "labels": {
+            "U": 32
+          }
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 24,
+          "labels": {
+            "F": 30,
+            "T": 2
+          }
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 21,
+          "labels": {
+            "T": 16,
+            "F": 16
+          }
+        },
+        "negation": {
+          "n": 32,
+          "correct": 25,
+          "labels": {
+            "T": 16,
+            "F": 16
+          }
+        },
+        "original": {
+          "n": 32,
+          "correct": 29,
+          "labels": {
+            "T": 30,
+            "U": 1,
+            "F": 1
+          }
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 28,
+          "labels": {
+            "U": 24,
+            "T": 4,
+            "F": 4
+          }
+        }
+      },
+      "subsets": {
+        "partial_decisive": {
+          "n": 8,
+          "correct": 8,
+          "labels": {
+            "T": 4,
+            "F": 4
+          }
+        },
+        "partial_indeterminate": {
+          "n": 8,
+          "correct": 4,
+          "labels": {
+            "U": 8
+          }
+        },
+        "single_field_missing": {
+          "n": 16,
+          "correct": 16,
+          "labels": {
+            "U": 16
+          }
+        },
+        "native_intervals": {
+          "n": 4,
+          "correct": 4,
+          "labels": {
+            "T": 4
+          }
+        }
+      }
+    },
+    "structured_no_guard": {
+      "macro_f1": 0.9116182331932947,
+      "correct": 172,
+      "accuracy": 0.8958333333333334,
+      "confusion_order": [
+        "T",
+        "F",
+        "U",
+        "INVALID"
+      ],
+      "confusion": [
+        [
+          62,
+          2,
+          1,
+          3
+        ],
+        [
+          0,
+          64,
+          2,
+          1
+        ],
+        [
+          2,
+          5,
+          46,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "invalid": 8,
+      "pair_correct": 30,
+      "pair_n": 32,
+      "pair_accuracy": 0.9375,
+      "unknown_correct": 46,
+      "unknown_n": 57,
+      "known_to_unknown": 3,
+      "known_n": 135,
+      "evidence_known_correct": 78,
+      "evidence_known_accuracy": 0.5777777777777777,
+      "evidence_all_correct": 93,
+      "conflict_evidence_correct": 0,
+      "timing": {
+        "fact_or_direct_generation_seconds": 118.54225886298809,
+        "one_time_rule_extraction_seconds": 9.304578699055128,
+        "generation_seconds_including_rules": 127.84683756204322,
+        "note": "CUDA synchronized batch generation; excludes model loading, tokenization and I/O"
+      },
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 25,
+          "labels": {
+            "U": 32
+          }
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 32,
+          "labels": {
+            "F": 30,
+            "T": 2
+          }
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 29,
+          "labels": {
+            "T": 16,
+            "F": 16
+          }
+        },
+        "negation": {
+          "n": 32,
+          "correct": 28,
+          "labels": {
+            "T": 16,
+            "F": 16
+          }
+        },
+        "original": {
+          "n": 32,
+          "correct": 30,
+          "labels": {
+            "T": 30,
+            "U": 1,
+            "F": 1
+          }
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 28,
+          "labels": {
+            "U": 24,
+            "T": 4,
+            "F": 4
+          }
+        }
+      },
+      "subsets": {
+        "partial_decisive": {
+          "n": 8,
+          "correct": 7,
+          "labels": {
+            "T": 4,
+            "F": 4
+          }
+        },
+        "partial_indeterminate": {
+          "n": 8,
+          "correct": 6,
+          "labels": {
+            "U": 8
+          }
+        },
+        "single_field_missing": {
+          "n": 16,
+          "correct": 15,
+          "labels": {
+            "U": 16
+          }
+        },
+        "native_intervals": {
+          "n": 4,
+          "correct": 3,
+          "labels": {
+            "T": 4
+          }
+        }
+      }
+    },
+    "structured": {
+      "macro_f1": 0.6189831834630675,
+      "correct": 116,
+      "accuracy": 0.6041666666666666,
+      "confusion_order": [
+        "T",
+        "F",
+        "U",
+        "INVALID"
+      ],
+      "confusion": [
+        [
+          25,
+          0,
+          40,
+          3
+        ],
+        [
+          0,
+          38,
+          28,
+          1
+        ],
+        [
+          0,
+          0,
+          53,
+          4
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "invalid": 8,
+      "pair_correct": 8,
+      "pair_n": 32,
+      "pair_accuracy": 0.25,
+      "unknown_correct": 53,
+      "unknown_n": 57,
+      "known_to_unknown": 68,
+      "known_n": 135,
+      "evidence_known_correct": 69,
+      "evidence_known_accuracy": 0.5111111111111111,
+      "evidence_all_correct": 86,
+      "conflict_evidence_correct": 0,
+      "timing": {
+        "fact_or_direct_generation_seconds": 118.54225886298809,
+        "one_time_rule_extraction_seconds": 9.304578699055128,
+        "generation_seconds_including_rules": 127.84683756204322,
+        "note": "CUDA synchronized batch generation; excludes model loading, tokenization and I/O"
+      },
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 29,
+          "labels": {
+            "U": 32
+          }
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 27,
+          "labels": {
+            "F": 30,
+            "T": 2
+          }
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 10,
+          "labels": {
+            "T": 16,
+            "F": 16
+          }
+        },
+        "negation": {
+          "n": 32,
+          "correct": 10,
+          "labels": {
+            "T": 16,
+            "F": 16
+          }
+        },
+        "original": {
+          "n": 32,
+          "correct": 11,
+          "labels": {
+            "T": 30,
+            "U": 1,
+            "F": 1
+          }
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 29,
+          "labels": {
+            "U": 24,
+            "T": 4,
+            "F": 4
+          }
+        }
+      },
+      "subsets": {
+        "partial_decisive": {
+          "n": 8,
+          "correct": 5,
+          "labels": {
+            "T": 4,
+            "F": 4
+          }
+        },
+        "partial_indeterminate": {
+          "n": 8,
+          "correct": 8,
+          "labels": {
+            "U": 8
+          }
+        },
+        "single_field_missing": {
+          "n": 16,
+          "correct": 16,
+          "labels": {
+            "U": 16
+          }
+        },
+        "native_intervals": {
+          "n": 4,
+          "correct": 2,
+          "labels": {
+            "T": 4
+          }
+        }
+      }
+    }
+  },
+  "bootstrap": {
+    "rule_id": {
+      "clusters": 16,
+      "replications": 2000,
+      "delta_f1_structured_minus_direct": -0.20762868258730116,
+      "percentile_95_interval": [
+        -0.3209868659847214,
+        -0.0989881494463633
+      ]
+    },
+    "source_row": {
+      "clusters": 30,
+      "replications": 2000,
+      "delta_f1_structured_minus_direct": -0.20762868258730116,
+      "percentile_95_interval": [
+        -0.28956182734931185,
+        -0.12071815647338464
+      ]
+    }
+  },
+  "paired_disagreements": {
+    "structured_correct_direct_wrong": 16,
+    "direct_correct_structured_wrong": 59,
+    "both_wrong": 17,
+    "guard_introduced_errors": 63,
+    "guard_rescued_errors": 7
+  },
+  "rule_extraction": {
+    "normalized_exact_match": 15,
+    "n": 16,
+    "mismatches": [
+      "N12"
+    ]
+  }
+}
