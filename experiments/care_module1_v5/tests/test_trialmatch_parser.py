@@ -43,7 +43,7 @@ def test_final_json_is_read_after_reasoning_not_first_keyword():
 
 
 def test_reasoning_and_prose_without_final_json_are_unknown():
-    for raw in ("Met. Evidence is present.", "<think>Met", "Reasoning: Met. " + answer("Met")):
+    for raw in ("Met. Evidence is present.", "<think>Met"):
         result = TrialMatchAIAdapter._parse_response(raw, CRITERION)
         assert result["state"] == "U"
         assert result["parse_error"] == "invalid_json_response"
@@ -72,17 +72,18 @@ def test_other_criteria_or_wrong_criterion_cannot_supply_label():
     data = json.loads(answer())
     data["Inclusion_Criteria_Evaluation"].append(dict(data["Inclusion_Criteria_Evaluation"][0]))
     multiple = TrialMatchAIAdapter._parse_response(json.dumps(data), CRITERION)
-    assert multiple["parse_error"] == "expected_exactly_one_target_criterion"
+    assert multiple["parse_error"] == "duplicate_target_criterion"
     data = json.loads(answer())
     data["Exclusion_Criteria_Evaluation"] = [{"Criterion": "Not used", "Classification": "Violated", "Justification": "No"}]
     wrong_side = TrialMatchAIAdapter._parse_response(json.dumps(data), CRITERION)
-    assert wrong_side["parse_error"] == "expected_exactly_one_target_criterion"
+    assert wrong_side["parse_error"] is None
+    assert wrong_side["state"] == "T"
+    assert wrong_side["non_target_entry_count"] == 1
 
 
 def test_schema_missing_or_invalid_labels_are_unknown():
     samples = [("{}", "missing_schema_fields"),
-               (answer("Met because this looks likely"), "invalid_classification"),
-               (answer(**{"Final Decision": "Possibly"}), "invalid_final_decision")]
+               (answer("Met because this looks likely"), "invalid_classification")]
     for raw, reason in samples:
         result = TrialMatchAIAdapter._parse_response(raw, CRITERION)
         assert result["state"] == "U"
@@ -199,4 +200,116 @@ def test_only_explicit_irrelevant_empty_side_placeholders_are_ignored():
     assert parsed["state"] == "T" and parsed["parse_error"] is None
     assert parsed["ignored_non_target_placeholders"] == [placeholder]
     placeholder["Classification"] = "Not Violated"
-    assert TrialMatchAIAdapter._parse_response(json.dumps(data), CRITERION)["state"] == "U"
+    ignored_other = TrialMatchAIAdapter._parse_response(json.dumps(data), CRITERION)
+    assert ignored_other["state"] == "T" and ignored_other["raw_label"] == "Met"
+    assert ignored_other["non_target_entry_count"] == 1
+    assert "non_target_entries_ignored" in ignored_other["parse_warnings"]
+
+
+def test_fences_prefixes_and_suffixes_never_supply_labels():
+    for prefix, suffix in (("Reasoning: Met. ", " Final explanation: Met."),
+                           ("The final condition evaluation follows:\n```json\n", "\n```\nThe patient is eligible."),
+                           ("```JSON\n", "\n```")):
+        result = TrialMatchAIAdapter._parse_response(prefix + answer("Not Met") + suffix, CRITERION)
+        assert result["raw_label"] == "Not Met" and result["state"] == "F"
+        assert result["parse_status"] == "accepted"
+
+
+def test_irrelevant_non_target_placeholders_are_explicitly_ignored():
+    for kind, label in (("inclusion", "Met"), ("exclusion", "Violated")):
+        other = "inclusion" if kind == "exclusion" else "exclusion"
+        key = "Inclusion_Criteria_Evaluation" if other == "inclusion" else "Exclusion_Criteria_Evaluation"
+        for phrase in (f"No specific {other} criteria provided", f"No {other} criteria were mentioned.",
+                       f"No specific {other} criteria listed", f"No {other} criteria"):
+            raw = answer(label, kind, **{key: [{"Criterion": phrase, "Classification": "Irrelevant"}]})
+            result = TrialMatchAIAdapter._parse_response(raw, CRITERION, kind)
+            assert result["parse_status"] == "accepted"
+            assert len(result["ignored_non_target_placeholders"]) == 1
+
+
+def test_placeholder_cannot_hide_a_real_non_target_condition_or_label():
+    for criterion, label in (("No specific exclusion criteria provided", "Violated"),
+                             ("No exclusion criteria involving active infection", "Irrelevant")):
+        result = TrialMatchAIAdapter._parse_response(answer(**{"Exclusion_Criteria_Evaluation":
+            [{"Criterion": criterion, "Classification": label}]}), CRITERION)
+        assert result["parse_error"] is None
+        assert result["state"] == "T"
+        assert result["non_target_entry_count"] == 1
+
+
+def test_unique_exact_target_can_be_located_among_additional_entries():
+    data = json.loads(answer("Not Met"))
+    data["Inclusion_Criteria_Evaluation"].insert(0, {
+        "Criterion": "An unrelated condition.", "Classification": "Met", "Justification": "Unrelated."})
+    parsed = TrialMatchAIAdapter._parse_response(json.dumps(data), CRITERION)
+    assert parsed["raw_label"] == "Not Met"
+    assert parsed["matched_criterion_index"] == 1
+    assert parsed["ignored_target_entry_count"] == 1
+
+
+def test_duplicate_or_conflicting_final_objects_are_ambiguous():
+    for second in (answer("Met"), answer("Not Met")):
+        result = TrialMatchAIAdapter._parse_response(answer("Met") + "\n" + second, CRITERION)
+        assert result["parse_error"] == "multiple_schema_objects"
+        assert result["parse_status"] == "ambiguous_target"
+    data = json.loads(answer())
+    data["Inclusion_Criteria_Evaluation"].append({
+        "Criterion": CRITERION, "Classification": "Not Met", "Justification": "Conflict."})
+    result = TrialMatchAIAdapter._parse_response(json.dumps(data), CRITERION)
+    assert result["parse_error"] == "duplicate_target_criterion"
+
+
+def test_exact_target_and_label_are_not_fuzzy_matched():
+    for changed in (CRITERION.lower(), CRITERION.rstrip("."), "Distant metastasis is absent."):
+        result = TrialMatchAIAdapter._parse_response(answer(criterion=changed), CRITERION)
+        assert result["parse_error"] == "criterion_text_mismatch"
+    for label in ("met", " Met ", "Met (confirmed)", "Not violated"):
+        result = TrialMatchAIAdapter._parse_response(answer(label), CRITERION)
+        assert result["parse_status"] == "invalid_label"
+
+
+def test_unknown_and_format_failure_categories_are_separate():
+    unclear = TrialMatchAIAdapter._parse_response(answer("Unclear"), CRITERION)
+    irrelevant = TrialMatchAIAdapter._parse_response(answer("Irrelevant"), CRITERION)
+    truncated = TrialMatchAIAdapter._parse_response(answer("Met"), CRITERION, truncated=True)
+    mismatch = TrialMatchAIAdapter._parse_response(answer(criterion="Another condition"), CRITERION)
+    assert unclear["parse_status"] == irrelevant["parse_status"] == "accepted"
+    assert unclear["unknown_reason"] == "medical_unknown"
+    assert irrelevant["unknown_reason"] == "irrelevant_condition"
+    assert truncated["parse_status"] == truncated["unknown_reason"] == "truncated"
+    assert mismatch["parse_status"] == "ambiguous_target"
+    assert all(row["state"] == "U" for row in (unclear, irrelevant, truncated, mismatch))
+
+
+def test_trial_wide_decision_is_a_warning_and_not_a_condition_label():
+    for decision in ("Possibly", None, {"nested": "Ineligible"}):
+        parsed = TrialMatchAIAdapter._parse_response(answer("Met", **{"Final Decision": decision}), CRITERION)
+        assert parsed["raw_label"] == "Met" and parsed["parse_error"] is None
+        assert "invalid_or_missing_final_decision_not_used" in parsed["parse_warnings"]
+
+
+def test_nested_json_in_justification_is_not_a_second_answer():
+    data = json.loads(answer("Not Met"))
+    data["Inclusion_Criteria_Evaluation"][0]["Justification"] = answer("Met")
+    parsed = TrialMatchAIAdapter._parse_response(json.dumps(data), CRITERION)
+    assert parsed["raw_label"] == "Not Met"
+    wrapped = TrialMatchAIAdapter._parse_response(json.dumps({"not_the_schema": data}), CRITERION)
+    assert wrapped["parse_error"] == "missing_schema_fields"
+
+
+def test_broken_json_and_duplicate_keys_are_never_repaired_by_guessing():
+    for raw in (answer()[:-1], answer().replace('"Classification": "Met"',
+            '"Classification": "Unclear", "Classification": "Met"'),
+            answer().replace('"Final Decision": "Eligible"', '"Final Decision": NaN')):
+        parsed = TrialMatchAIAdapter._parse_response(raw, CRITERION)
+        assert parsed["parse_error"] == "invalid_json_response"
+        assert parsed["raw_label"] is None
+
+
+def test_target_whitespace_reflow_is_exact_but_wording_and_punctuation_are_not():
+    reflowed = CRITERION.replace("Distant", "Distant\n  ")
+    result = TrialMatchAIAdapter._parse_response(answer("Met", criterion=reflowed), CRITERION)
+    assert result["parse_error"] is None and result["raw_label"] == "Met"
+    assert result["target_match_kind"] == "whitespace_normalized_exact"
+    result = TrialMatchAIAdapter._parse_response(answer("Met", criterion=CRITERION.rstrip(".")), CRITERION)
+    assert result["parse_error"] == "criterion_text_mismatch"

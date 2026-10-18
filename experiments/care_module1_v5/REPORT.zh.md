@@ -1,5 +1,7 @@
 # CARE 模块一 V5 实验报告
 
+后续解析器 V2 已对同一批缓存输出进行离线修复和复评；TrialMatchAI 条件级及规则级结果以 [PARSER_V2_REPORT.zh.md](PARSER_V2_REPORT.zh.md) 为更新结果。本报告及原始结果保留作为解析器 V1 基线。
+
 报告生成日期（UTC）：2026-10-18
 
 新模块一使用 Phi-4 基础模型及 TrialMatchAI LoRA 条件判断、BioLinkBERT-MedNLI 证据推断和确定性三值逻辑。Qwen3 只读取 V4 已保存对照，新模块一不调用它。

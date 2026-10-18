@@ -1,0 +1,611 @@
+{
+  "protocol": "post-freeze offline reparse; no model calls; gold observations used only in this evaluator",
+  "parser_version": "trialmatch-condition-json-v2.1",
+  "created_utc": "2026-10-18T09:29:39.570916+00:00",
+  "model_calls": 0,
+  "gpu_used": false,
+  "gold_reference_sha256": "eb884cc5f5bb7a22491248aa6a52c7f8faa91d043af570c04965cba765d46e2c",
+  "condition_count": 492,
+  "labels_composed_from_gold_atoms_verified": 192,
+  "parser_status_counts": {
+    "accepted": 423,
+    "truncated": 29,
+    "ambiguous_target": 40
+  },
+  "unknown_reason_counts": {
+    "medical_unknown": 45,
+    "truncated": 29,
+    "ambiguous_target": 40
+  },
+  "target_label_counts": {
+    "Met": 273,
+    "Not Met": 105,
+    "Unclear": 45
+  },
+  "old_parser": {
+    "n": 492,
+    "correct": 129,
+    "accuracy": 0.2621951219512195,
+    "macro_f1": 0.2523873364176743,
+    "gold_known_n": 413,
+    "gold_known_correct": 54,
+    "gold_known_accuracy": 0.13075060532687652,
+    "gold_known_to_unknown": 352,
+    "gold_unknown_n": 79,
+    "gold_unknown_correct": 75,
+    "confusion_order": [
+      "T",
+      "F",
+      "U"
+    ],
+    "confusion": [
+      [
+        37,
+        1,
+        255
+      ],
+      [
+        6,
+        17,
+        97
+      ],
+      [
+        1,
+        3,
+        75
+      ]
+    ],
+    "error_categories": {
+      "known_to_unknown": 352,
+      "correct": 129,
+      "false_acceptance_F_to_T": 6,
+      "unknown_to_known": 4,
+      "false_rejection_T_to_F": 1
+    }
+  },
+  "new_parser": {
+    "n": 492,
+    "correct": 381,
+    "accuracy": 0.774390243902439,
+    "macro_f1": 0.7292681626865702,
+    "gold_known_n": 413,
+    "gold_known_correct": 326,
+    "gold_known_accuracy": 0.7893462469733656,
+    "gold_known_to_unknown": 59,
+    "gold_unknown_n": 79,
+    "gold_unknown_correct": 55,
+    "confusion_order": [
+      "T",
+      "F",
+      "U"
+    ],
+    "confusion": [
+      [
+        239,
+        7,
+        47
+      ],
+      [
+        21,
+        87,
+        12
+      ],
+      [
+        13,
+        11,
+        55
+      ]
+    ],
+    "error_categories": {
+      "correct": 381,
+      "false_acceptance_F_to_T": 21,
+      "unknown_to_known": 24,
+      "known_to_unknown": 59,
+      "false_rejection_T_to_F": 7
+    }
+  },
+  "delta": {
+    "additional_correct_conditions": 252,
+    "newly_correct": 272,
+    "newly_incorrect": 20,
+    "changed_condition_states": 313
+  },
+  "accepted_condition_metrics": {
+    "n": 423,
+    "correct": 369,
+    "accuracy": 0.8723404255319149,
+    "macro_f1": 0.833390674745815,
+    "gold_known_n": 356,
+    "gold_known_correct": 326,
+    "gold_known_accuracy": 0.9157303370786517,
+    "gold_known_to_unknown": 2,
+    "gold_unknown_n": 67,
+    "gold_unknown_correct": 43,
+    "confusion_order": [
+      "T",
+      "F",
+      "U"
+    ],
+    "confusion": [
+      [
+        239,
+        7,
+        1
+      ],
+      [
+        21,
+        87,
+        1
+      ],
+      [
+        13,
+        11,
+        43
+      ]
+    ],
+    "error_categories": {
+      "correct": 369,
+      "false_acceptance_F_to_T": 21,
+      "unknown_to_known": 24,
+      "known_to_unknown": 2,
+      "false_rejection_T_to_F": 7
+    }
+  },
+  "accepted_gold_known_metrics": {
+    "n": 356,
+    "correct": 326,
+    "accuracy": 0.9157303370786517,
+    "macro_f1": 0.5999812153658307,
+    "gold_known_n": 356,
+    "gold_known_correct": 326,
+    "gold_known_accuracy": 0.9157303370786517,
+    "gold_known_to_unknown": 2,
+    "gold_unknown_n": 0,
+    "gold_unknown_correct": 0,
+    "confusion_order": [
+      "T",
+      "F",
+      "U"
+    ],
+    "confusion": [
+      [
+        239,
+        7,
+        1
+      ],
+      [
+        21,
+        87,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "error_categories": {
+      "correct": 326,
+      "false_acceptance_F_to_T": 21,
+      "known_to_unknown": 2,
+      "false_rejection_T_to_F": 7
+    }
+  },
+  "accepted_confident_label_metrics": {
+    "n": 378,
+    "correct": 326,
+    "accuracy": 0.8624338624338624,
+    "macro_f1": 0.579301111744326,
+    "gold_known_n": 354,
+    "gold_known_correct": 326,
+    "gold_known_accuracy": 0.9209039548022598,
+    "gold_known_to_unknown": 0,
+    "gold_unknown_n": 24,
+    "gold_unknown_correct": 0,
+    "confusion_order": [
+      "T",
+      "F",
+      "U"
+    ],
+    "confusion": [
+      [
+        239,
+        7,
+        0
+      ],
+      [
+        21,
+        87,
+        0
+      ],
+      [
+        13,
+        11,
+        0
+      ]
+    ],
+    "error_categories": {
+      "correct": 326,
+      "false_acceptance_F_to_T": 21,
+      "unknown_to_known": 24,
+      "false_rejection_T_to_F": 7
+    }
+  },
+  "by_parse_status": {
+    "accepted": {
+      "n": 423,
+      "correct": 369,
+      "accuracy": 0.8723404255319149,
+      "macro_f1": 0.833390674745815,
+      "gold_known_n": 356,
+      "gold_known_correct": 326,
+      "gold_known_accuracy": 0.9157303370786517,
+      "gold_known_to_unknown": 2,
+      "gold_unknown_n": 67,
+      "gold_unknown_correct": 43,
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          239,
+          7,
+          1
+        ],
+        [
+          21,
+          87,
+          1
+        ],
+        [
+          13,
+          11,
+          43
+        ]
+      ],
+      "error_categories": {
+        "correct": 369,
+        "false_acceptance_F_to_T": 21,
+        "unknown_to_known": 24,
+        "known_to_unknown": 2,
+        "false_rejection_T_to_F": 7
+      }
+    },
+    "ambiguous_target": {
+      "n": 40,
+      "correct": 7,
+      "accuracy": 0.175,
+      "macro_f1": 0.09929078014184396,
+      "gold_known_n": 33,
+      "gold_known_correct": 0,
+      "gold_known_accuracy": 0.0,
+      "gold_known_to_unknown": 33,
+      "gold_unknown_n": 7,
+      "gold_unknown_correct": 7,
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          0,
+          0,
+          28
+        ],
+        [
+          0,
+          0,
+          5
+        ],
+        [
+          0,
+          0,
+          7
+        ]
+      ],
+      "error_categories": {
+        "known_to_unknown": 33,
+        "correct": 7
+      }
+    },
+    "truncated": {
+      "n": 29,
+      "correct": 5,
+      "accuracy": 0.1724137931034483,
+      "macro_f1": 0.09803921568627451,
+      "gold_known_n": 24,
+      "gold_known_correct": 0,
+      "gold_known_accuracy": 0.0,
+      "gold_known_to_unknown": 24,
+      "gold_unknown_n": 5,
+      "gold_unknown_correct": 5,
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          0,
+          0,
+          18
+        ],
+        [
+          0,
+          0,
+          6
+        ],
+        [
+          0,
+          0,
+          5
+        ]
+      ],
+      "error_categories": {
+        "correct": 5,
+        "known_to_unknown": 24
+      }
+    }
+  },
+  "by_scenario": {
+    "contradiction": {
+      "n": 82,
+      "correct": 53,
+      "accuracy": 0.6463414634146342,
+      "macro_f1": 0.6070792924339835,
+      "gold_known_n": 48,
+      "gold_known_correct": 37,
+      "gold_known_accuracy": 0.7708333333333334,
+      "gold_known_to_unknown": 7,
+      "gold_unknown_n": 34,
+      "gold_unknown_correct": 16,
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          31,
+          0,
+          7
+        ],
+        [
+          4,
+          6,
+          0
+        ],
+        [
+          11,
+          7,
+          16
+        ]
+      ],
+      "error_categories": {
+        "unknown_to_known": 18,
+        "false_acceptance_F_to_T": 4,
+        "correct": 53,
+        "known_to_unknown": 7
+      }
+    },
+    "counterfactual": {
+      "n": 82,
+      "correct": 66,
+      "accuracy": 0.8048780487804879,
+      "macro_f1": 0.5753789193567048,
+      "gold_known_n": 82,
+      "gold_known_correct": 66,
+      "gold_known_accuracy": 0.8048780487804879,
+      "gold_known_to_unknown": 11,
+      "gold_unknown_n": 0,
+      "gold_unknown_correct": 0,
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          37,
+          0,
+          7
+        ],
+        [
+          5,
+          29,
+          4
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "error_categories": {
+        "correct": 66,
+        "false_acceptance_F_to_T": 5,
+        "known_to_unknown": 11
+      }
+    },
+    "multiple_values": {
+      "n": 82,
+      "correct": 64,
+      "accuracy": 0.7804878048780488,
+      "macro_f1": 0.5583171521035598,
+      "gold_known_n": 82,
+      "gold_known_correct": 64,
+      "gold_known_accuracy": 0.7804878048780488,
+      "gold_known_to_unknown": 11,
+      "gold_unknown_n": 0,
+      "gold_unknown_correct": 0,
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          43,
+          3,
+          10
+        ],
+        [
+          4,
+          21,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "error_categories": {
+        "correct": 64,
+        "known_to_unknown": 11,
+        "false_acceptance_F_to_T": 4,
+        "false_rejection_T_to_F": 3
+      }
+    },
+    "negation": {
+      "n": 82,
+      "correct": 64,
+      "accuracy": 0.7804878048780488,
+      "macro_f1": 0.5598290598290598,
+      "gold_known_n": 82,
+      "gold_known_correct": 64,
+      "gold_known_accuracy": 0.7804878048780488,
+      "gold_known_to_unknown": 12,
+      "gold_unknown_n": 0,
+      "gold_unknown_correct": 0,
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          44,
+          2,
+          10
+        ],
+        [
+          4,
+          20,
+          2
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "error_categories": {
+        "correct": 64,
+        "false_acceptance_F_to_T": 4,
+        "known_to_unknown": 12,
+        "false_rejection_T_to_F": 2
+      }
+    },
+    "original": {
+      "n": 82,
+      "correct": 67,
+      "accuracy": 0.8170731707317073,
+      "macro_f1": 0.5460842521911223,
+      "gold_known_n": 71,
+      "gold_known_correct": 61,
+      "gold_known_accuracy": 0.8591549295774648,
+      "gold_known_to_unknown": 7,
+      "gold_unknown_n": 11,
+      "gold_unknown_correct": 6,
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          60,
+          2,
+          7
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          4,
+          6
+        ]
+      ],
+      "error_categories": {
+        "correct": 67,
+        "false_acceptance_F_to_T": 1,
+        "known_to_unknown": 7,
+        "unknown_to_known": 5,
+        "false_rejection_T_to_F": 2
+      }
+    },
+    "partial_missing": {
+      "n": 82,
+      "correct": 67,
+      "accuracy": 0.8170731707317073,
+      "macro_f1": 0.7960085891120374,
+      "gold_known_n": 48,
+      "gold_known_correct": 34,
+      "gold_known_accuracy": 0.7083333333333334,
+      "gold_known_to_unknown": 11,
+      "gold_unknown_n": 34,
+      "gold_unknown_correct": 33,
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          24,
+          0,
+          6
+        ],
+        [
+          3,
+          10,
+          5
+        ],
+        [
+          1,
+          0,
+          33
+        ]
+      ],
+      "error_categories": {
+        "correct": 67,
+        "false_acceptance_F_to_T": 3,
+        "known_to_unknown": 11,
+        "unknown_to_known": 1
+      }
+    }
+  },
+  "condition_errors": {
+    "T": 54,
+    "F": 33,
+    "U": 24
+  },
+  "input_hashes": {
+    "conditions_public": "a8bb0e74fbe7819a8f8d552e851464a0c5f5131680980c9d1f5e6d72c8595467",
+    "predictions_public": "fc3a0c1ef041b5c4bc6cf8889baba29a652bd6c0a74372d98e4701907ee87a1f",
+    "rules": "e7fabfde2f1c8a1a8248a7e949a1d3b46d2e268740db8b8dce8b6a7790e83be0",
+    "labels_public": "bb4f8257050e921fc471804dab7469bc6db618920c97ee10d04707a198b54557",
+    "reference_facts": "eb884cc5f5bb7a22491248aa6a52c7f8faa91d043af570c04965cba765d46e2c"
+  },
+  "limitations": [
+    "192-case V4 data was used for method design; not independent validation.",
+    "Gold observations are source-read synthetic profiles and controlled edits; no clinician review."
+  ]
+}

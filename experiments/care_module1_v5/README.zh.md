@@ -1,6 +1,6 @@
 # CARE 模块一 V5
 
-192 条回归和 24 条新合成样本已真实运行完成。回归准确率：纯 TrialMatchAI 31.25%，加 BioLinkBERT 与数值程序 54.17%，历史 Qwen3 70.83%。当前不能作为正式模块一替换。详见 [中文实验报告](REPORT.zh.md)、[解析诊断](ANALYSIS_PARSE.zh.md)和[错误比较](ANALYSIS_ERRORS.zh.md)。
+原实验和 24 条新合成探索样本已完成。之后修复 TrialMatchAI 解析器，离线重解析原 492 条输出：成功 423/492，条件级准确率 381/492（77.44%），纯 TrialMatchAI 规则准确率由 31.25% 更新为 67.19%；没有重跑任何模型。组合方案用缓存 NLI 复算为 51.04%，历史 Qwen3 为 70.83%，当前仍不建议正式替换。原实验结果保留在 [初始实验报告](REPORT.zh.md)，解析器修复和复评见 [解析器 V2 报告](PARSER_V2_REPORT.zh.md)。
 
 V5 在 [src/module1/care_v5.py](../../src/module1/care_v5.py) 实现。`from src import module1` 后，`module1.run(guideline, patient, question)` 使用 V5；首次调用时加载指定的 TrialMatchAI 适配器和 MedNLI 模型，不导入旧 Qwen 后端。可选地用 `module1.set_default_v5(module1.CAREModule1V5.from_pretrained(device="cuda:6"))` 预先初始化。默认 `module1.Module1` 类同样使用 V5；旧实现只能显式通过 `module1.run_legacy` 或 `module1.LegacyModule1` 使用。
 
@@ -104,3 +104,30 @@ done
 `run_status.json` 中 `replay_wall_seconds`/`elapsed_seconds` 仅表示当前证据重放阶段墙钟；`trialmatch_generation_gpu_seconds` 表示原先单卡与四卡生成按条件分摊的累计调用工作秒，含主机开销，并非 CUDA 内核时间。`parallel_workers_wallclock_seconds` 是最早 worker 进程开始到最晚结束的墙钟，含模型加载。四卡每张卡的加载、进程耗时和显存峰值见 `parallel_manifest.parallel_workers`。证据重放显存只含 BioLinkBERT，不能作为 Phi-4 + LoRA 显存。最初单卡状态另保留 `runs/v5_serial_initial/run_status.json`；该状态被中断，未记录的峰值不补估。
 
 评价仍使用 `scripts/evaluate.py`。最终报告生成时可传入 `--initial-serial-status`、`--exploratory-metrics` 和 `--exploratory-status`，分别保留单卡、四卡、证据重放和新探索集的真实计时。报告表格中的方法耗时是累计生成工作秒加对应后处理墙钟，不是四卡端到端等待时间；Qwen3 的历史生成秒数来自不同的单卡规则级和批量协议，不能据此声称等价硬件提速。
+
+
+## TrialMatchAI 解析器 V2 离线复评
+
+修复后解析器从 JSON 对象中提取单个目标条件，不读取 `Final Decision` 代替条件标签；只接受目标数组中与请求条件严格相同且唯一的原文项和官方标签；仅允许空白重排，大小写和标点必须一致。代码围栏、附加说明、非目标数组和其 Irrelevant 空占位不参与目标判定。真正达到 token 上限、目标原文不匹配/不唯一、目标标签明确为 `Unclear` 分别记录为截断、目标不明确和医学未知。JSON 语法本身不修补；以前成功的标签须保持不变。
+
+所有解析输出与 492 条原始生成 SHA256 核验后写入独立的 `runs/v5_20261018/parser_v2_final/`。解析和指标复算均不调用模型或 GPU；规则级 BioLinkBERT 组合结果重用初次实验保存的 NLI 关系及证据位置。解析器代码、配置和结果见 [PARSER_V2_REPORT.zh.md](PARSER_V2_REPORT.zh.md)。`condition_eval` 使用服务器 V4 源读观察值做金标条件评价；该文件只在解析器冻结之后由评价脚本读取，不是推理输入。
+
+在服务器仓库根目录重现时，将输出目录设为尚不存在的新目录：
+
+```bash
+V5PY=/home/gcx/n/.venv/bin/python
+V5RUN=experiments/care_module1_v5/runs/v5_20261018/parser_v2_recheck
+"$V5PY" experiments/care_module1_v5/scripts/reparse_trialmatch.py --output "$V5RUN"
+"$V5PY" experiments/care_module1_v5/scripts/evaluate_reparsed_conditions.py \
+  --conditions "$V5RUN/conditions_public.jsonl" \
+  --predictions "$V5RUN/predictions_public.jsonl" \
+  --reference-facts /home/gcx/care_module1_20261018_v4/data/labels.jsonl \
+  --reparse-freeze "$V5RUN/REPARSE_FREEZE.json" --output "$V5RUN/condition_eval"
+"$V5PY" experiments/care_module1_v5/scripts/evaluate.py \
+  --labels experiments/care_module1_v5/data/labels_public.jsonl \
+  --pairs experiments/care_module1_v5/data/pairs_public.jsonl \
+  --predictions "$V5RUN/predictions_public.jsonl" \
+  --qwen-reference experiments/care_module1_v5/data/v4_qwen_direct_public.jsonl \
+  --output "$V5RUN/metrics.json" --errors "$V5RUN/errors_public.jsonl"
+"$V5PY" experiments/care_module1_v5/scripts/generate_reparse_report.py --run "$V5RUN"
+```

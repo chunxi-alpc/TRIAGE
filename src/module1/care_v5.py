@@ -467,74 +467,8 @@ class TrialMatchAIAdapter:
     @classmethod
     def _parse_response(cls, raw: str, criterion_text: str, criterion_kind: str = "inclusion",
                         *, truncated: bool = False) -> dict[str, Any]:
-        result: dict[str, Any] = {"raw_label": None, "state": UNKNOWN,
-                                  "parse_error": None, "truncated": truncated}
-        if truncated:
-            result["parse_error"] = "generation_truncated"
-            return result
-        clean = cls._strip_thinking(raw)
-        # A JSON markdown fence is presentation, not an alternative label source.
-        fence = re.fullmatch(r"```(?:json)?\s*([\s\S]*?)\s*```", clean, flags=re.IGNORECASE)
-        if fence:
-            clean = fence.group(1).strip()
-        def unique_keys(pairs):
-            obj = {}
-            for key, value in pairs:
-                if key in obj:
-                    raise ValueError(f"duplicate_json_key:{key}")
-                obj[key] = value
-            return obj
-        try:
-            data = json.loads(clean, object_pairs_hook=unique_keys)
-        except (json.JSONDecodeError, ValueError, TypeError) as exc:
-            result["parse_error"] = "invalid_json_response"
-            result["parse_error_detail"] = str(exc)
-            return result
-        if not isinstance(data, dict):
-            result["parse_error"] = "response_not_object"
-            return result
-        required = ("Inclusion_Criteria_Evaluation", "Exclusion_Criteria_Evaluation", "Final Decision")
-        if any(key not in data for key in required):
-            result["parse_error"] = "missing_schema_fields"
-            return result
-        inclusion, exclusion = data[required[0]], data[required[1]]
-        if not isinstance(inclusion, list) or not isinstance(exclusion, list):
-            result["parse_error"] = "invalid_criteria_arrays"
-            return result
-        target, other = (exclusion, inclusion) if criterion_kind == "exclusion" else (inclusion, exclusion)
-        other_kind = "inclusion" if criterion_kind == "exclusion" else "exclusion"
-        placeholder_pattern = rf"no {other_kind} criteria (?:were )?(?:provided|specified|listed)\.?"
-        ignored_placeholders = [entry for entry in other if isinstance(entry, dict)
-            and entry.get("Classification") == "Irrelevant"
-            and isinstance(entry.get("Criterion"), str)
-            and re.fullmatch(placeholder_pattern, entry["Criterion"].strip(), flags=re.IGNORECASE)]
-        if len(target) != 1 or len(ignored_placeholders) != len(other):
-            result["parse_error"] = "expected_exactly_one_target_criterion"
-            return result
-        if ignored_placeholders:
-            result["ignored_non_target_placeholders"] = ignored_placeholders
-        entry = target[0]
-        if not isinstance(entry, dict) or not all(isinstance(entry.get(key), str)
-                for key in ("Criterion", "Classification", "Justification")):
-            result["parse_error"] = "invalid_criterion_schema"
-            return result
-        if entry["Criterion"].strip() != criterion_text.strip():
-            result["parse_error"] = "criterion_text_mismatch"
-            return result
-        labels = cls._EXCLUSION_LABELS if criterion_kind == "exclusion" else cls._INCLUSION_LABELS
-        label = entry["Classification"]
-        if label not in labels:
-            result["parse_error"] = "invalid_classification"
-            return result
-        decisions = {"Eligible", "Likely Eligible", "Likely Ineligible", "Ineligible",
-                     "Likely Eligible (leaning toward inclusion)",
-                     "Likely Ineligible (leaning toward exclusion)"}
-        if not isinstance(data["Final Decision"], str) or data["Final Decision"] not in decisions:
-            result["parse_error"] = "invalid_final_decision"
-            return result
-        result.update(raw_label=label, state=map_trialmatch_label(label, criterion_kind),
-                      justification=entry["Justification"], parsed_response=data)
-        return result
+        from .trialmatch_parser import parse_trialmatch_response
+        return parse_trialmatch_response(raw, criterion_text, criterion_kind, truncated=truncated)
 
     @staticmethod
     def _eos_ids(tokenizer: Any, model: Any) -> set[int]:
