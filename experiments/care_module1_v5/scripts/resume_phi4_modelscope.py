@@ -10,6 +10,7 @@ import requests
 ROOT = pathlib.Path(os.environ.get('MODEL_DIR', '/home/gcx/models/care_module1_v5')) / 'phi-4'
 REPO = 'LLM-Research/phi-4'
 API = f'https://modelscope.cn/api/v1/models/{REPO}/repo/files?Revision=master&Recursive=true'
+PINNED_MANIFEST = pathlib.Path(__file__).resolve().parents[1] / 'provenance/downloads/phi4_modelscope.json'
 
 def session():
     s = requests.Session(); s.trust_env = False
@@ -62,6 +63,11 @@ def main():
     if metadata.get('Code') != 200: raise RuntimeError(metadata.get('Message'))
     items=[x for x in metadata['Data']['Files'] if x['Name'].endswith('.safetensors')]
     if len(items)!=6: raise RuntimeError(f'Expected six Phi-4 shards; got {len(items)}')
+    pinned=json.loads(PINNED_MANIFEST.read_text())
+    expected={row['name']:(row['bytes'],row['sha256']) for row in pinned['files']}
+    observed={row['Name']:(int(row['Size']),row['Sha256']) for row in items}
+    if observed!=expected:
+        raise RuntimeError('ModelScope files differ from the pinned Phi-4 run manifest; refusing changed weights')
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
         files=list(pool.map(download,items))
     result={'source':'https://modelscope.cn/models/LLM-Research/phi-4','model':'microsoft/phi-4',

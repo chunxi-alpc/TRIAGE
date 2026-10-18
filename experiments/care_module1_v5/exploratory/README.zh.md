@@ -35,3 +35,5 @@ cd /home/gcx/TRIAGE-v5-pr4
 评价复用主实验指标和严格证据协议，输出逐类错误、各场景正确数、证据定位、联合正确、反事实配对和耗时。本集没有 Qwen3 预测，不生成或假设该模型的比较结果。显存峰值和真实运行状态来自实验运行目录 `run_status.json`。
 
 首次原型包含未拆分的复合节点，规范检查后在任何探索集推理前替换。其冻结指纹保存在 `superseded_freeze.json`，修改理由见 `pre_run_schema_review.json`，完整未运行原型归档服务器 `/home/gcx/care_module1_v5_exploratory_superseded_before_run/`。未依据模型结果选择规则或调整标签。
+
+本集没有数值阈值，因此 A+数值组没有程序数值证据；其已知样本证据得分为 0 或联合指标只包含未知样本协议的得分时，反映缺少句级定位输出，不能与 B 的完整证据及联合指标当作同等能力比较。纯 TrialMatchAI 的证据定位和联合指标不适用。新增 NOT 条件也不是 TrialMatchAI 官方 exclusion criterion；排除侧 Not Violated 映射目前只有单元测试，没有真实排除标准的独立系统验证。
