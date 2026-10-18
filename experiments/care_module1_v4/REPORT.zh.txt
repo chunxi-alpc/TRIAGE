@@ -1,0 +1,73 @@
+CARE 模块一 v4 实测报告
+
+实际完成：服务器 Qwen3-8B，16 条新规则、32 个新原病例、192 个样本、32 对反事实。推理于 2026-10-18T03:27:16Z 至 2026-10-18T03:50:49Z（UTC）执行。没有填写未运行的模型结果。
+
+完整结构化相对直接判定：正确数变化 +4/192，宏 F1 变化 +0.0631，判定和证据同时正确变化 +12/192。
+完整结构化相对不核对证据：正确数变化 +0/192，同时正确变化 +25/192。
+
+方法 | 判定正确 | 宏 F1 | 已知样本证据正确 | 全部样本证据正确 | 判定和证据同时正确 | 反事实成对正确 | 推理秒数
+直接判定 | 136/192 (70.83%) | 0.7041 | 87/137 (63.50%) | 100/192 | 81/192 (42.19%) | 22/32 | 79.2
+结构化、不核对证据 | 140/192 (72.92%) | 0.7472 | 56/137 (40.88%) | 72/192 | 68/192 (35.42%) | 25/32 | 672.9
+修复后的完整结构化 | 140/192 (72.92%) | 0.7673 | 68/137 (49.64%) | 96/192 | 93/192 (48.44%) | 23/32 | 1331.0
+
+分组：每组 32 条；按直接 / 不核对 / 完整结构化顺序列出判定正确数。
+original：28 / 26 / 26
+counterfactual：25 / 27 / 25
+partial_missing：11 / 23 / 19
+multiple_values：21 / 28 / 23
+negation：25 / 28 / 25
+contradiction：26 / 8 / 22
+
+证据评价与统计：
+证据须覆盖一个充分的参考证明，且没有无关引用；允许运行前标注的替代证据。缺失未知按约定空引用，矛盾未知引用两份报告。引用位置正确不等于语义或标签正确。
+直接判定：引用支持率 369/473，矛盾证据 13/32，已知误判未知 4/137。
+结构化、不核对证据：引用支持率 246/356，矛盾证据 1/32，已知误判未知 2/137。
+修复后的完整结构化：引用支持率 216/300，矛盾证据 15/32，已知误判未知 11/137。
+按 rule_id 的 16 个组自助抽样 2000 次：完整减直接的宏 F1 差 95% 区间 [-0.055147580491319785, 0.17612770881798245]，同时正确率差区间 [-0.09895833333333337, 0.24999999999999994]。组数小，区间仅供探索性判断。
+按 source_row 的 32 个组自助抽样 2000 次：完整减直接的宏 F1 差 95% 区间 [-0.046281893415678545, 0.17519408120003246]，同时正确率差区间 [-0.0625, 0.19791666666666663]。组数小，区间仅供探索性判断。
+
+规则结构归一化准确 14/16；不匹配规则：['V01', 'V06']。没有用参考规则替换模型输出。
+证据核对相对不核对：纠正 21 个判定，同时引入 21 个错误。
+定位处理统计：{"unverified": {"relocated_citations": 38, "rejected_citations": 80, "citations": 701}, "verified": {"relocated_citations": 22, "rejected_citations": 60, "citations": 643}}
+
+本轮修复：
+1. 统一编号、数字字符串、对象引用与原文引用格式；小数不能错误取整为句号，分类字段不能把 1/-1 或实验室数值当阴阳性。
+2. 允许区间和开闭边界；模型给出的原文片段必须能在病例找到，错误句号可通过精确片段重新定位。
+3. 删除字段附近必须出现特定词的拒绝规则。增加一次模型全文核对，处理主体、时间、否定和冲突；已知事实需要真实原文片段，冲突保留两份证据。
+两种结构化方案共享格式处理、规则提取、首轮事实和确定性逻辑；无核对组不以证据有效性否决事实。完整组额外使用全文核对和原文片段约束。不是仅改一个开关的旧版同集比较，也不是独立模型裁判。
+
+补充字段诊断（不替代预先设定的主指标）：
+{"unverified": {"non_null_assertions": 408, "reference_entailed_values": 368, "correct_value_and_field_evidence": 218, "supported_assertion_precision": 0.5343137254901961}, "verified": {"non_null_assertions": 390, "reference_entailed_values": 360, "correct_value_and_field_evidence": 255, "supported_assertion_precision": 0.6538461538461539}, "note": "Supplementary post-run diagnostic; does not replace pre-frozen primary metrics. Direct arm does not emit per-field values, so it is not included."}
+未能解析为 JSON 对象的模型输出数：{"rule_extraction": 0, "direct": 0, "facts": 1, "verification": 0}
+
+完整结构化剩余错误：
+共 52 条，逐例字段差异见 data/remaining_errors.json；所有组的判定或证据错误见 data/errors.jsonl。
+错误分类：{"unsupported_rule_format": 24, "extraction_or_verification_semantic_error": 18, "evidence_gate_lost_correct_decision": 10}
+新增错误分类：{"extraction_or_verification_semantic_error": 11, "evidence_gate_lost_correct_decision": 10}
+V01 把 negative 放入 op 且缺少 value；V06 把 positive 放入 op。两种格式不在冻结的规则协议内，导致共 24 条 INVALID，全部计错，未删除或用参考结构代替。其余常见错误是第二次核对恢复了已经撤回的旧值、把缺失当阴性、把新旧记录误当尚未解决的矛盾，以及引文不匹配后将正确事实置为未知。
+C03_partial_missing：参考 U，预测 F；字段差异 {"flt3": {"gold": null, "unverified": null, "verified": "negative"}}
+C03_contradiction：参考 U，预测 T；字段差异 {"flt3": {"gold": null, "unverified": "positive", "verified": "positive"}}
+C04_partial_missing：参考 U，预测 F；字段差异 {"flt3": {"gold": null, "unverified": null, "verified": "negative"}}
+C05_multiple_values：参考 T，预测 U；字段差异 {"pn": {"gold": 0, "unverified": 0, "verified": null}}
+C06_contradiction：参考 U，预测 T；字段差异 {"pn": {"gold": null, "unverified": 0, "verified": 0}}
+C10_multiple_values：参考 F，预测 U；字段差异 {"ax_nodes": {"gold": 1, "unverified": 1, "verified": null}, "tumor_cm": {"gold": 0, "unverified": 0, "verified": null}, "margin_mm": {"gold": 1, "unverified": 1, "verified": null}}
+C10_negation：参考 F，预测 U；字段差异 {"ax_nodes": {"gold": 1, "unverified": 1, "verified": null}}
+C13_partial_missing：参考 U，预测 T；字段差异 {"distant": {"gold": null, "unverified": null, "verified": "negative"}}
+C14_counterfactual：参考 F，预测 U；字段差异 {"distant": {"gold": "positive", "unverified": "positive", "verified": null}}
+C14_partial_missing：参考 U，预测 T；字段差异 {"distant": {"gold": null, "unverified": null, "verified": "negative"}}
+
+数据和限制：
+此前 173 个原病例、46 条规则均排除，行号、原文哈希、规则来源节点哈希和标准化规则签名重叠均为零。对旧病例最大三词组 Jaccard 相似度 0.211。不保证模型预训练未见过数据，也不表示每个原子条件都是新概念。
+32 个原病例完整保留；160 个控制样本通过更正补充说明明确撤回目标旧信息。所有样本保留原病例全部文字，原病例平均 141.1 词，范围 82–198 词；多值样本平均 319.1 词。部分缺失组含 24 个多条件样本，其中 12 个可由其他条件确定。
+来源病例本身为合成病例，不是临床患者数据；控制修改有统一结构，不能排除对模板的适应。原病例往往已符合指南路径，分布偏向适用。标签由 Codex 阅读原文和明确修改产生，未做临床专家独立复核。证据参考组合可能未覆盖所有合法表述。
+16 条规则集中于可解析条件；部分为原指南分支投影。这里只验证规则谓词，不验证完整治疗方案。完整方案使用第二次模型推理，若结果更好，也不能排除额外计算与再提取本身的贡献。
+本轮 GPU 6：NVIDIA A100-SXM4-80GB，峰值分配 17.97 GiB、预留 22.83 GiB。加载 3.45 秒。表中耗时为 CUDA 同步后的批量生成；结构化包含一次规则提取，完整方案另包含核对，均不含加载、分词和文件 I/O。
+模型、源病例、完整原文引用不上传；服务器保留未修改的原始输出。公开结果包包含其哈希、去除引用后的记录、全部指标和可执行复现脚本。详见 README.zh.txt。
+
+结论和后续：
+本次只能认为部分改善，尚不能证明同时提高判定准确率与整体证据可靠性。虽然整体判定和联合指标的点估计提高，已知样本证据定位、全部样本证据正确数仍低于直接判定；未经修改的完整病例也只有 26/32 正确，低于直接判定的 28/32。
+下一步最有价值的是加入相同推理预算的“直接判定后再核对”对照，再用自然存在的缺失、时间冲突和否定病例做独立验证，并对少量争议标签做临床复核。不要在本测试集继续调提示后把结果作为新验证。
+至少一项主差值的按规则分组区间包含零，不能声称已统计证实两方面都有稳定提升。
+
+与上一轮的关系：上一轮完整结构化宏 F1 为 0.6190，主要问题是引用格式和过强的词面拒绝规则。本轮使用全新的数据与新实现，不能将两个数值相减当作同一测试集上的修复收益。旧缓存的四个定位例子见 provenance/old_format_regression.json：对象编号可恢复，但没有原文片段时，单靠格式转换不能修复引用错句；这也是本轮增加全文证据核对的原因。
+控制样本的数值按条件边界生成，可能含零值或与保留病史不自然的组合。明确更正使目标条件标签可确定，但不保证整份人工修改病例在临床上自然一致；结论仍限于这套规则压力测试。
