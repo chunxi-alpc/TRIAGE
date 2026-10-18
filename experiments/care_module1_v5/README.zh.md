@@ -1,8 +1,10 @@
 # CARE 模块一 V5
 
+192 条回归和 24 条新合成样本已真实运行完成。回归准确率：纯 TrialMatchAI 31.25%，加 BioLinkBERT 与数值程序 54.17%，历史 Qwen3 70.83%。当前不能作为正式模块一替换。详见 [中文实验报告](REPORT.zh.md)、[解析诊断](ANALYSIS_PARSE.zh.md)和[错误比较](ANALYSIS_ERRORS.zh.md)。
+
 V5 在 [src/module1/care_v5.py](../../src/module1/care_v5.py) 实现。`from src import module1` 后，`module1.run(guideline, patient, question)` 使用 V5；首次调用时加载指定的 TrialMatchAI 适配器和 MedNLI 模型，不导入旧 Qwen 后端。可选地用 `module1.set_default_v5(module1.CAREModule1V5.from_pretrained(device="cuda:6"))` 预先初始化。默认 `module1.Module1` 类同样使用 V5；旧实现只能显式通过 `module1.run_legacy` 或 `module1.LegacyModule1` 使用。
 
-TrialMatchAI 适配器是 Phi-4 上的 PEFT LoRA 生成模型，不是独立分类头。V5 按官方源码固定版本使用聊天模板及 JSON 输出格式，每次请求只含一个原子条件，批量大小为 8、生成上限 2048 token；保存原始生成。仅从目标条件的 Classification 读取标签，截断或解析失败记为 U。批量时间按每批实际请求数分摊，属于吞吐时间分配，不是单请求延迟。入组标签映射为：`Met→T`、`Not Met→F`、`Unclear/Irrelevant→U`。例外条件按排除条件映射：`Violated→T`、`Not Violated→U`。任何未知标签都映射为 U；适配器加载失败会停止，不会回退基础 Phi-4 或 Qwen3。BioLinkBERT 根据实际模型配置读取标签映射；蕴含/矛盾/中立分别保留为支持/反驳/未知。只有找到明确数值及单位时才运行确定性阈值判断；有多个未撤回数值时设为 U。
+TrialMatchAI 适配器是 Phi-4 上的 PEFT LoRA 生成模型，不是独立分类头。V5 按官方源码固定版本使用聊天模板及 JSON 输出格式，每次请求只含一个原子条件，批量大小为 8、生成上限 2048 token；保存原始生成。仅从目标条件的 Classification 读取标签，截断或解析失败记为 U。批量时间按每批实际请求数分摊，属于累计生成工作量，不是单请求延迟；多卡并行时也不是端到端墙钟。入组标签映射为：`Met→T`、`Not Met→F`、`Unclear/Irrelevant→U`。例外条件按排除条件映射：`Violated→T`、`Not Violated→U`。任何未知标签都映射为 U；适配器加载失败会停止，不会回退基础 Phi-4 或 Qwen3。BioLinkBERT 根据实际模型配置读取标签映射；蕴含/矛盾/中立分别保留为支持/反驳/未知。只有找到明确数值及单位时才运行确定性阈值判断；有多个未撤回数值时设为 U。
 
 患者文本按句子拆分并保存 Python 字符位置 `[start,end)`。BioLinkBERT 只接收筛选出的候选句和单个条件。超过 512 token 的候选句会记为未知并跳过，不会静默截断；完整 TrialMatchAI 输入若超出上下文也会停止该样本。明确标记为撤回的旧记录不用于证据筛选；未撤回的相互矛盾报告继续作为冲突保留。
 
@@ -14,7 +16,7 @@ TrialMatchAI 适配器是 Phi-4 上的 PEFT LoRA 生成模型，不是独立分�
 
 V4 提供的是研究用谓词改写，没有完整原始指南文本、治疗动作文本或其原文区间。`data/rules_v5.jsonl` 的条件区间指向规范化规则包中的离线条件，不冒充原始指南位置；动作为空并在输出中显式保留。要支持正式下游动作决策，仍需提供有来源许可的原始指南动作片段及独立验证标签。
 
-评价分别保留三组：纯 TrialMatchAI 标签与三值逻辑、TrialMatchAI 加确定性数值比较（方法 A）、以及在方法 A 上加入 BioLinkBERT-MedNLI 的证据关系（方法 B）。这样可以单独看出数值比较和证据模型各自带来的变化。
+评价分别保留纯 TrialMatchAI 标签与三值逻辑（方法 A）、增加确定性数值比较（A+数值）、以及在 A+数值上加入 BioLinkBERT-MedNLI（方法 B），另读取历史 Qwen3 直接判定（方法 C）。这样可以单独看出数值比较和证据模型各自带来的变化。
 
 ## 服务器复现
 
@@ -55,4 +57,50 @@ bash experiments/care_module1_v5/scripts/run_all_v5.sh
 
 V4 保存的直接判定为 136/192（70.83%）、宏 F1 0.7041、已知样本证据准确率 87/137（63.50%）、联合正确 81/192、反事实成对正确 22/32、生成耗时 79.2 秒。V5 使用同一批样本进行探索性回归，同时保存 TrialMatchAI 独立判定和加入证据模型后的结果。
 
-运行前先执行 `scripts/resume_phi4_modelscope.py`，可续传与 HF 摘要一致的 Phi-4 权重分片；适配器与 MedNLI 可用 `scripts/download_small_models.py` 下载，均逐文件校验。实际下载记录保存在公开 provenance 和服务器模型目录。完整顺序运行使用 `bash experiments/care_module1_v5/scripts/run_suite.sh`；它先运行 192 条回归，再运行 24 条新合成探针，两组共用 GPU 6。
+运行前先执行 `scripts/resume_phi4_modelscope.py`，可续传与 HF 摘要一致的 Phi-4 权重分片；适配器与 MedNLI 可用 `scripts/download_small_models.py` 下载，均逐文件校验。实际下载记录保存在公开 provenance 和服务器模型目录。完整单卡顺序复现可使用 `bash experiments/care_module1_v5/scripts/run_suite.sh`。本次实际运行根据用户要求由单卡转为四卡：GPU 6 已刷盘的 256/492 个条件原始输出归档保留，余下 236 个条件用 GPU 4/5/6/7 并行；原始完整 batch=8、批内顺序、提示、模型适配器和生成上限保持不变。最后只加载 BioLinkBERT，严格复用全部 492 条原始生成进行证据处理。
+
+
+## 本次四卡续跑与证据重放
+
+下列命令概要用于服务器已有冻结输入及已完成原始输出的情况。必须先确保原生成进程已经停止，旧结果已归档，且 `existing` 文件只含完整、已刷盘批次。脚本会检查输入和条件身份、原始批次边界及摘要，不读取标签；现有 worker 输出不允许覆盖。`WORK` 是服务器私有目录，含病历与模型原始生成，不提交仓库。四个 worker 独立加载指定 Phi-4 + TrialMatchAI 适配器。
+
+```bash
+V5PY=/home/gcx/n/.venv/bin/python
+V5EXP=/home/gcx/TRIAGE-v5-pr4/experiments/care_module1_v5
+V5WORK=/home/gcx/care_module1_v5_parallel_private
+V5SERIAL="$V5EXP/runs/v5_serial_initial"
+V5OUT="$V5EXP/runs/v5_parallel_replay"
+
+"$V5PY" "$V5EXP/scripts/parallel_trialmatch.py" prepare \
+  --inputs /home/gcx/care_module1_20261018_v4/data/private/inputs.jsonl \
+  --rules "$V5EXP/data/rules_v5.jsonl" \
+  --existing "$V5SERIAL/private/trialmatch_precomputed.jsonl" \
+  --work-dir "$V5WORK" --batch-size 8 --world-size 4
+
+for V5RANK in 0 1 2 3; do
+  V5GPU=$((V5RANK + 4))
+  "$V5PY" "$V5EXP/scripts/parallel_trialmatch.py" worker \
+    --work-dir "$V5WORK" --rank "$V5RANK" --device "cuda:$V5GPU" \
+    > "$V5WORK/worker_rank${V5RANK}.log" 2>&1 &
+done
+wait
+
+"$V5PY" "$V5EXP/scripts/parallel_trialmatch.py" merge \
+  --work-dir "$V5WORK" --output "$V5WORK/merged_private.jsonl"
+
+V5SOURCE_ARGS=(--source-status "$V5SERIAL/run_status.json")
+for V5RANK in 0 1 2 3; do
+  V5SOURCE_ARGS+=(--source-status "$V5WORK/worker_rank${V5RANK}_status_private.json")
+done
+"$V5PY" "$V5EXP/scripts/replay_evidence.py" \
+  --merged "$V5WORK/merged_private.jsonl" \
+  "${V5SOURCE_ARGS[@]}" \
+  --parallel-manifest "$V5WORK/timing_summary_private.json" \
+  --device cuda:6 --expected-count 192 --output "$V5OUT"
+```
+
+合并命令须在所有 worker 完成后执行；任何失败、缺失、重复或身份不匹配都会停止合并。`replay_evidence.py` 不加载基础模型或适配器，不重新判断条件，不调用 Qwen3；它校验来源状态及合并文件摘要，并保留原始 TrialMatchAI 输出。新的 24 条合成集用同一模型接口单独运行和评价。
+
+`run_status.json` 中 `replay_wall_seconds`/`elapsed_seconds` 仅表示当前证据重放阶段墙钟；`trialmatch_generation_gpu_seconds` 表示原先单卡与四卡生成按条件分摊的累计调用工作秒，含主机开销，并非 CUDA 内核时间。`parallel_workers_wallclock_seconds` 是最早 worker 进程开始到最晚结束的墙钟，含模型加载。四卡每张卡的加载、进程耗时和显存峰值见 `parallel_manifest.parallel_workers`。证据重放显存只含 BioLinkBERT，不能作为 Phi-4 + LoRA 显存。最初单卡状态另保留 `runs/v5_serial_initial/run_status.json`；该状态被中断，未记录的峰值不补估。
+
+评价仍使用 `scripts/evaluate.py`。最终报告生成时可传入 `--initial-serial-status`、`--exploratory-metrics` 和 `--exploratory-status`，分别保留单卡、四卡、证据重放和新探索集的真实计时。报告表格中的方法耗时是累计生成工作秒加对应后处理墙钟，不是四卡端到端等待时间；Qwen3 的历史生成秒数来自不同的单卡规则级和批量协议，不能据此声称等价硬件提速。

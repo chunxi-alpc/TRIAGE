@@ -1,0 +1,111 @@
+{
+  "revision_type": "post_run_reproduction_path_fix_only",
+  "created_utc": "2026-10-18T08:25:18.664197+00:00",
+  "change": "Only normalized freeze files keys changed from path.relative_to(BASE) to data/path.relative_to(output). Supports --output outside code directory. No inference, labels, prompts, thresholds or experiment data changed.",
+  "original_builder_sha256": "919cc0064d09981eb84b3c291b59a4e35bf2adfd3392c61a60f6aa71f07c4000",
+  "revised_builder_sha256": "4bea42b6ca60641cdc991e7b9ba538b05d58924977880810a745cbce505ca2a0",
+  "original_freeze_sha256": "b63d5b670a3f12f4eadba68d45bcbf688b253641b43d8c9e1cc510dae4c66612",
+  "original_frozen_builder_sha256": "919cc0064d09981eb84b3c291b59a4e35bf2adfd3392c61a60f6aa71f07c4000",
+  "original_freeze_unchanged": true,
+  "all_original_data_files_unchanged": true,
+  "rebuild_directory_server_only": "/tmp/care_v5_exploratory_repro_fix_20261018_wfel_bsq/data",
+  "rebuild_command": [
+    "/home/gcx/gcx261014/bin/python",
+    "/home/gcx/TRIAGE-v5-pr4/experiments/care_module1_v5/exploratory/build.py",
+    "--output",
+    "/tmp/care_v5_exploratory_repro_fix_20261018_wfel_bsq/data"
+  ],
+  "rebuild_exit_code": 0,
+  "rebuild_summary": {
+    "samples": 24,
+    "rules": 4,
+    "atomic_conditions": 11,
+    "trialmatch_requests": 66,
+    "labels": {
+      "T": 12,
+      "F": 4,
+      "U": 8
+    },
+    "unused_guideline_ids": [
+      42,
+      44,
+      80,
+      53
+    ],
+    "status": "frozen"
+  },
+  "rebuilt_freeze_sha256": "86f54f7c4abd59551e2dc2917356fc926c70fa0210bebaba1459b4a85904f9c2",
+  "rebuilt_freeze_key_prefix": "data/",
+  "rebuilt_freeze_all_files_verified": true,
+  "data_file_comparisons": {
+    "inputs_public.jsonl": {
+      "frozen_sha256": "50832babede3812c473d02e3413eaa2f4ebc6dbcffa3a9a070374d1b312c9b43",
+      "rebuilt_sha256": "50832babede3812c473d02e3413eaa2f4ebc6dbcffa3a9a070374d1b312c9b43",
+      "match": true
+    },
+    "labels_public.jsonl": {
+      "frozen_sha256": "bafff0019f1d0aeffb298cd9e6310d0826865a82a2f77fe15adb5139b53916b1",
+      "rebuilt_sha256": "bafff0019f1d0aeffb298cd9e6310d0826865a82a2f77fe15adb5139b53916b1",
+      "match": true
+    },
+    "pairs_public.jsonl": {
+      "frozen_sha256": "d34c7ebfa6b57ee2055ca303ea89e6f5ebc9a3a7fec1d5f6825b854929f0338d",
+      "rebuilt_sha256": "d34c7ebfa6b57ee2055ca303ea89e6f5ebc9a3a7fec1d5f6825b854929f0338d",
+      "match": true
+    },
+    "rule_manifest_public.jsonl": {
+      "frozen_sha256": "6a9fdc328a3d2db2f68bd0faf6509fca3b9590198bf4a4b095bed04dd5a01488",
+      "rebuilt_sha256": "6a9fdc328a3d2db2f68bd0faf6509fca3b9590198bf4a4b095bed04dd5a01488",
+      "match": true
+    },
+    "annotation_audit.jsonl": {
+      "frozen_sha256": "92c119f78cdc4839fe51dc9eebd271d497fb55ccbf703a84a3e1b2e9ed4f8e26",
+      "rebuilt_sha256": "92c119f78cdc4839fe51dc9eebd271d497fb55ccbf703a84a3e1b2e9ed4f8e26",
+      "match": true
+    },
+    "private/rules.jsonl": {
+      "frozen_sha256": "133718ebaaf27f4e8f0f0118aee7d6786510fe16c92ef77b773135bcc93086db",
+      "rebuilt_sha256": "133718ebaaf27f4e8f0f0118aee7d6786510fe16c92ef77b773135bcc93086db",
+      "match": true
+    },
+    "private/source_trees.jsonl": {
+      "frozen_sha256": "b1fa127f636d3665d8227a603c8c13ee95e6c7d577ad4df3c32514bf4fa6d621",
+      "rebuilt_sha256": "b1fa127f636d3665d8227a603c8c13ee95e6c7d577ad4df3c32514bf4fa6d621",
+      "match": true
+    },
+    "PROTOCOL.json": {
+      "frozen_sha256": "a1eb8be812a0d60c1bafea40be92ba3041c290d9c2bea059aa4144f6e849cfa5",
+      "rebuilt_sha256": "a1eb8be812a0d60c1bafea40be92ba3041c290d9c2bea059aa4144f6e849cfa5",
+      "match": true
+    }
+  },
+  "changed_non_data_reproduction_metadata": [
+    "FREEZE.json (new builder fingerprint/time)",
+    "history_audit.json and private/history_files.jsonl (newly existing historical result files)"
+  ],
+  "formal_predictions_read": false,
+  "models_or_GPU_called": false,
+  "note": "Original FREEZE remains the pre-inference record and retains the original builder hash. The revised reproduction builder must be verified against this separate post-run revision note, not by replacing the original FREEZE.",
+  "validation_after_compatibility_fix": {
+    "validated_utc": "2026-10-18T08:28:14.457760+00:00",
+    "command": [
+      "/home/gcx/n/.venv/bin/python",
+      "/home/gcx/TRIAGE-v5-pr4/experiments/care_module1_v5/exploratory/validate.py"
+    ],
+    "exit_code": 0,
+    "stdout": {
+      "status": "passed",
+      "samples": 24,
+      "rules": 4,
+      "counterfactual_pairs": 4,
+      "source_rule_action_spans": "exact",
+      "frozen_inputs_sha256": "verified",
+      "builder_revision": "disclosed single expression reproduction fix verified",
+      "model_run": false
+    },
+    "validator_sha256": "ffdf86300cebdaecc1648d52e26e84d7895234326de0bdf3055d274548fb8937",
+    "all_original_data_files_including_FREEZE_unchanged": true,
+    "original_data_file_count_checked": 11,
+    "strict_reverse_single_expression_fix_checked": true
+  }
+}

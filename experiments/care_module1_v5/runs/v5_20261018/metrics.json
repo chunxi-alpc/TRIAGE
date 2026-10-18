@@ -1,0 +1,352 @@
+{
+  "protocol": "exploratory_same_set_regression; V4 was used in method design",
+  "sample_count": 192,
+  "methods": {
+    "trialmatch_model_only": {
+      "status": "complete",
+      "n": 192,
+      "correct": 60,
+      "accuracy": 0.3125,
+      "macro_f1": 0.2250712250712251,
+      "evidence_available": false,
+      "known_evidence_accuracy": null,
+      "known_evidence_correct": null,
+      "known_evidence_n": null,
+      "all_sample_evidence_correct": null,
+      "joint_correct": null,
+      "joint_accuracy": null,
+      "counterfactual_pair_accuracy": 0.0,
+      "counterfactual_pairs_correct": 0,
+      "counterfactual_pair_n": 32,
+      "raw_prediction_flip_rate": 0.1875,
+      "mean_elapsed_seconds": 32.17758456490234,
+      "total_inference_seconds": 6178.09623646125,
+      "unknown_predictions": 179,
+      "gold_unknown": 55,
+      "error_categories": {
+        "known_to_unknown": 128,
+        "correct": 60,
+        "unknown_to_known": 4
+      },
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          4,
+          0,
+          62
+        ],
+        [
+          0,
+          5,
+          66
+        ],
+        [
+          2,
+          2,
+          51
+        ]
+      ],
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 29,
+          "unknown_predictions": 29
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 4,
+          "unknown_predictions": 28
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 2,
+          "unknown_predictions": 30
+        },
+        "negation": {
+          "n": 32,
+          "correct": 0,
+          "unknown_predictions": 32
+        },
+        "original": {
+          "n": 32,
+          "correct": 4,
+          "unknown_predictions": 29
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 21,
+          "unknown_predictions": 31
+        }
+      }
+    },
+    "trialmatch": {
+      "status": "complete",
+      "n": 192,
+      "correct": 63,
+      "accuracy": 0.328125,
+      "macro_f1": 0.2460939186306252,
+      "evidence_available": true,
+      "known_evidence_accuracy": 0.0364963503649635,
+      "known_evidence_correct": 5,
+      "known_evidence_n": 137,
+      "all_sample_evidence_correct": 27,
+      "joint_correct": 25,
+      "joint_accuracy": 0.13020833333333334,
+      "counterfactual_pair_accuracy": 0.0,
+      "counterfactual_pairs_correct": 0,
+      "counterfactual_pair_n": 32,
+      "raw_prediction_flip_rate": 0.25,
+      "mean_elapsed_seconds": 32.177750421141354,
+      "total_inference_seconds": 6178.12808085914,
+      "unknown_predictions": 178,
+      "gold_unknown": 55,
+      "error_categories": {
+        "correct": 63,
+        "known_to_unknown": 126,
+        "unknown_to_known": 3,
+        "evidence_error_known": 132,
+        "joint_correct": 25
+      },
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          7,
+          0,
+          59
+        ],
+        [
+          0,
+          4,
+          67
+        ],
+        [
+          2,
+          1,
+          52
+        ]
+      ],
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 29,
+          "unknown_predictions": 29
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 2,
+          "unknown_predictions": 30
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 2,
+          "unknown_predictions": 30
+        },
+        "negation": {
+          "n": 32,
+          "correct": 0,
+          "unknown_predictions": 32
+        },
+        "original": {
+          "n": 32,
+          "correct": 9,
+          "unknown_predictions": 26
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 21,
+          "unknown_predictions": 31
+        }
+      }
+    },
+    "combined": {
+      "status": "complete",
+      "n": 192,
+      "correct": 104,
+      "accuracy": 0.5416666666666666,
+      "macro_f1": 0.5253939612654878,
+      "evidence_available": true,
+      "known_evidence_accuracy": 0.5547445255474452,
+      "known_evidence_correct": 76,
+      "known_evidence_n": 137,
+      "all_sample_evidence_correct": 88,
+      "joint_correct": 53,
+      "joint_accuracy": 0.2760416666666667,
+      "counterfactual_pair_accuracy": 0.21875,
+      "counterfactual_pairs_correct": 7,
+      "counterfactual_pair_n": 32,
+      "raw_prediction_flip_rate": 0.6875,
+      "mean_elapsed_seconds": 32.202275541666666,
+      "total_inference_seconds": 6182.836904,
+      "unknown_predictions": 108,
+      "gold_unknown": 55,
+      "error_categories": {
+        "correct": 104,
+        "unknown_to_known": 9,
+        "known_to_unknown": 62,
+        "false_rejection_T_to_F": 16,
+        "false_acceptance_F_to_T": 1,
+        "evidence_error_known": 61,
+        "joint_correct": 53
+      },
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          18,
+          16,
+          32
+        ],
+        [
+          1,
+          40,
+          30
+        ],
+        [
+          0,
+          9,
+          46
+        ]
+      ],
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 29,
+          "unknown_predictions": 29
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 16,
+          "unknown_predictions": 15
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 12,
+          "unknown_predictions": 14
+        },
+        "negation": {
+          "n": 32,
+          "correct": 10,
+          "unknown_predictions": 17
+        },
+        "original": {
+          "n": 32,
+          "correct": 14,
+          "unknown_predictions": 12
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 23,
+          "unknown_predictions": 21
+        }
+      },
+      "conflicts": 273,
+      "conflict_samples": 135
+    },
+    "qwen_v4": {
+      "status": "complete",
+      "n": 192,
+      "correct": 136,
+      "accuracy": 0.7083333333333334,
+      "macro_f1": 0.7041353837656846,
+      "evidence_available": true,
+      "known_evidence_accuracy": 0.635036496350365,
+      "known_evidence_correct": 87,
+      "known_evidence_n": 137,
+      "all_sample_evidence_correct": 100,
+      "joint_correct": 81,
+      "joint_accuracy": 0.421875,
+      "counterfactual_pair_accuracy": 0.6875,
+      "counterfactual_pairs_correct": 22,
+      "counterfactual_pair_n": 32,
+      "raw_prediction_flip_rate": 0.75,
+      "mean_elapsed_seconds": 0.4124880497659736,
+      "total_inference_seconds": 79.19770555506693,
+      "unknown_predictions": 34,
+      "gold_unknown": 55,
+      "error_categories": {
+        "correct": 136,
+        "false_acceptance_F_to_T": 18,
+        "unknown_to_known": 25,
+        "known_to_unknown": 4,
+        "false_rejection_T_to_F": 9,
+        "evidence_error_known": 50,
+        "joint_correct": 81
+      },
+      "confusion_order": [
+        "T",
+        "F",
+        "U"
+      ],
+      "confusion": [
+        [
+          55,
+          9,
+          2
+        ],
+        [
+          18,
+          51,
+          2
+        ],
+        [
+          16,
+          9,
+          30
+        ]
+      ],
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 26,
+          "unknown_predictions": 26
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 25,
+          "unknown_predictions": 0
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 21,
+          "unknown_predictions": 0
+        },
+        "negation": {
+          "n": 32,
+          "correct": 25,
+          "unknown_predictions": 0
+        },
+        "original": {
+          "n": 32,
+          "correct": 28,
+          "unknown_predictions": 4
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 11,
+          "unknown_predictions": 4
+        }
+      },
+      "conflicts": 0,
+      "conflict_samples": 0
+    }
+  },
+  "paired_trialmatch_vs_combined": {
+    "n": 192,
+    "combined_rescued": 51,
+    "combined_regressed": 10,
+    "prediction_changed": 78,
+    "unknown_to_known": 74,
+    "known_to_unknown": 4
+  }
+}

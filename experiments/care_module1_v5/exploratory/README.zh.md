@@ -12,8 +12,8 @@
 
 ```bash
 cd /home/gcx/TRIAGE-v5-pr4
-/home/gcx/gcx261014/bin/python experiments/care_module1_v5/exploratory/build.py --output /tmp/care_v5_exploratory_rebuild
-/home/gcx/gcx261014/bin/python experiments/care_module1_v5/exploratory/validate.py
+/home/gcx/n/.venv/bin/python experiments/care_module1_v5/exploratory/build.py --output /tmp/care_v5_exploratory_rebuild
+/home/gcx/n/.venv/bin/python experiments/care_module1_v5/exploratory/validate.py
 ```
 
 `build.py` 拒绝覆盖既有冻结数据。源数据须另行按来源要求取得。`validate.py` 检查已冻结文件、规范条件/动作位置、原始条件局部引用和动作引用、24 条输入与标签一一对应、反事实配对和既往指南排除记录。
@@ -21,13 +21,13 @@ cd /home/gcx/TRIAGE-v5-pr4
 按任务要求汇报 GPU 资源后，使用主实验同一推理接口运行新集；不在本脚本里下载模型或自动启动 GPU：
 
 ```bash
-/home/gcx/gcx261014/bin/python experiments/care_module1_v5/scripts/run_experiment.py \
+/home/gcx/n/.venv/bin/python experiments/care_module1_v5/scripts/run_experiment.py \
   --expected-count 24 \
   --inputs experiments/care_module1_v5/exploratory/data/inputs_public.jsonl \
   --rules experiments/care_module1_v5/exploratory/data/private/rules.jsonl \
   --device cuda:6 \
   --output experiments/care_module1_v5/exploratory/runs/frozen_v1
-/home/gcx/gcx261014/bin/python experiments/care_module1_v5/exploratory/evaluate.py \
+/home/gcx/n/.venv/bin/python experiments/care_module1_v5/exploratory/evaluate.py \
   --predictions experiments/care_module1_v5/exploratory/runs/frozen_v1/predictions_public.jsonl \
   --output experiments/care_module1_v5/exploratory/results
 ```
@@ -37,3 +37,5 @@ cd /home/gcx/TRIAGE-v5-pr4
 首次原型包含未拆分的复合节点，规范检查后在任何探索集推理前替换。其冻结指纹保存在 `superseded_freeze.json`，修改理由见 `pre_run_schema_review.json`，完整未运行原型归档服务器 `/home/gcx/care_module1_v5_exploratory_superseded_before_run/`。未依据模型结果选择规则或调整标签。
 
 本集没有数值阈值，因此 A+数值组没有程序数值证据；其已知样本证据得分为 0 或联合指标只包含未知样本协议的得分时，反映缺少句级定位输出，不能与 B 的完整证据及联合指标当作同等能力比较。纯 TrialMatchAI 的证据定位和联合指标不适用。新增 NOT 条件也不是 TrialMatchAI 官方 exclusion criterion；排除侧 Not Violated 映射目前只有单元测试，没有真实排除标准的独立系统验证。
+
+`build.py` 只依赖 Python 标准库。运行后发现自定义 `--output` 位于代码目录外时，原构建器计算冻结清单相对路径失败；现仅修复这一行输出路径表达式，未改输入、标签或原始 `data/FREEZE.json`。修订和服务器重建比对证据见 `REPRODUCTION_PATH_FIX.json`。验证器先逐项核对全部冻结数据，再验证原始冻结文件摘要、旧构建器摘要、新构建器摘要；还将修复表达式反向还原并确认得到原构建器摘要，确保只接受该已披露的单行复现修复。

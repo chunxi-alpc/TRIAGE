@@ -1,0 +1,40 @@
+{
+  "status": "interrupted_for_requested_parallelization",
+  "start_utc": "2026-10-18T07:15:15.750077+00:00",
+  "device": "cuda:6",
+  "inputs": "/home/gcx/care_module1_20261018_v4/data/private/inputs.jsonl",
+  "sample_count": 192,
+  "models": [
+    "microsoft/phi-4 + majdabd33/trialmatchai-phi4-reasoning-lora",
+    "cnut1648/biolinkbert-mednli"
+  ],
+  "gpu_name": "NVIDIA A100-SXM4-80GB",
+  "gpu_total_memory_gib": 79.279,
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.8.0+cu128",
+    "transformers": "4.57.1",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2"
+  },
+  "trialmatch_load_seconds": 29.331,
+  "trialmatch_active_adapters": [
+    "default"
+  ],
+  "trialmatch_lora_parameter_count": 42598400,
+  "mednli_load_seconds": 0.675,
+  "mednli_id2label": {
+    "0": "entailment",
+    "1": "neutral",
+    "2": "contradiction"
+  },
+  "trialmatch_condition_count": 492,
+  "trialmatch_batch_size": 8,
+  "trialmatch_max_new_tokens": 2048,
+  "trialmatch_timing_method": "shared_batch_wall_time_divided_by_batch_size",
+  "trialmatch_conditions_completed": 256,
+  "trialmatch_elapsed_seconds": 2971.785,
+  "interruption_utc": "2026-10-18T08:06:32.570424+00:00",
+  "reason": "User requested multiple GPUs. Completed raw batches are retained and reused unchanged; partial in-flight batch is discarded.",
+  "saved_conditions": 256
+}
