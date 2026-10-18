@@ -1,0 +1,296 @@
+{
+  "status": "completed",
+  "start_utc": "2026-10-18T08:33:48.497867+00:00",
+  "device": "cuda:6",
+  "inputs": "/home/gcx/TRIAGE-v5-pr4/experiments/care_module1_v5/exploratory/data/inputs_public.jsonl",
+  "sample_count": 24,
+  "models": [
+    "microsoft/phi-4 + majdabd33/trialmatchai-phi4-reasoning-lora (unchanged cached generation)",
+    "cnut1648/biolinkbert-mednli"
+  ],
+  "trialmatch_loaded_in_replay": false,
+  "qwen_called": false,
+  "timing_note": "elapsed_seconds measures this replay stage only. Shared generation seconds are summed allocated GPU work, not parallel wall clock.",
+  "merged_file": "/home/gcx/TRIAGE-v5-pr4/experiments/care_module1_v5/exploratory/runs/parallel_generation/private/merged_trialmatch.jsonl",
+  "merged_sha256": "95b99380485ac54ea229b0d52bf465098b39ee973f28513c33e29d1b854e9e65",
+  "generator_status_sources": [
+    {
+      "path": "/home/gcx/TRIAGE-v5-pr4/experiments/care_module1_v5/runs/v5_serial_initial/run_status.json",
+      "sha256": "2e32494705926d5e539090e3a6b90fbdb653ea5cc8889a3339f77f467dd44cca",
+      "status": {
+        "status": "interrupted_for_requested_parallelization",
+        "start_utc": "2026-10-18T07:15:15.750077+00:00",
+        "device": "cuda:6",
+        "inputs": "/home/gcx/care_module1_20261018_v4/data/private/inputs.jsonl",
+        "sample_count": 192,
+        "models": [
+          "microsoft/phi-4 + majdabd33/trialmatchai-phi4-reasoning-lora",
+          "cnut1648/biolinkbert-mednli"
+        ],
+        "gpu_name": "NVIDIA A100-SXM4-80GB",
+        "gpu_total_memory_gib": 79.279,
+        "versions": {
+          "python": "3.12.3",
+          "torch": "2.8.0+cu128",
+          "transformers": "4.57.1",
+          "peft": "0.21.2",
+          "bitsandbytes": "0.50.2"
+        },
+        "trialmatch_load_seconds": 29.331,
+        "trialmatch_active_adapters": [
+          "default"
+        ],
+        "trialmatch_lora_parameter_count": 42598400,
+        "mednli_load_seconds": 0.675,
+        "mednli_id2label": {
+          "0": "entailment",
+          "1": "neutral",
+          "2": "contradiction"
+        },
+        "trialmatch_condition_count": 492,
+        "trialmatch_batch_size": 8,
+        "trialmatch_max_new_tokens": 2048,
+        "trialmatch_timing_method": "shared_batch_wall_time_divided_by_batch_size",
+        "trialmatch_conditions_completed": 256,
+        "trialmatch_elapsed_seconds": 2971.785,
+        "interruption_utc": "2026-10-18T08:06:32.570424+00:00",
+        "reason": "User requested multiple GPUs. Completed raw batches are retained and reused unchanged; partial in-flight batch is discarded.",
+        "saved_conditions": 256
+      }
+    }
+  ],
+  "trialmatch_generator_identities": [
+    {
+      "source_status": "/home/gcx/TRIAGE-v5-pr4/experiments/care_module1_v5/runs/v5_serial_initial/run_status.json",
+      "active_adapters": [
+        "default"
+      ],
+      "lora_parameter_count": 42598400,
+      "models": [
+        "microsoft/phi-4 + majdabd33/trialmatchai-phi4-reasoning-lora",
+        "cnut1648/biolinkbert-mednli"
+      ],
+      "device": "cuda:6",
+      "gpu_name": "NVIDIA A100-SXM4-80GB"
+    }
+  ],
+  "trialmatch_active_adapters": [
+    "default"
+  ],
+  "trialmatch_lora_parameter_count": 42598400,
+  "trialmatch_identity_source": "copied from actual generator statuses; not loaded by replay",
+  "parallel_worker_active_adapter_checks": [
+    {
+      "rank": 0,
+      "device": "cuda:4",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "active_adapters": [
+        "default"
+      ],
+      "parameter_count": 7886361600,
+      "trainable_parameter_count": 0,
+      "load_seconds": 32.212255678954534,
+      "elapsed_seconds": 133.635071162018,
+      "start_utc": "2026-10-18T08:31:33.026840+00:00",
+      "end_utc": "2026-10-18T08:33:46.661886+00:00",
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 13.30078125
+    },
+    {
+      "rank": 1,
+      "device": "cuda:5",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "active_adapters": [
+        "default"
+      ],
+      "parameter_count": 7886361600,
+      "trainable_parameter_count": 0,
+      "load_seconds": 33.55421741504688,
+      "elapsed_seconds": 115.5388559300336,
+      "start_utc": "2026-10-18T08:31:33.027118+00:00",
+      "end_utc": "2026-10-18T08:33:28.565944+00:00",
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 13.298828125
+    },
+    {
+      "rank": 2,
+      "device": "cuda:6",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "active_adapters": [
+        "default"
+      ],
+      "parameter_count": 7886361600,
+      "trainable_parameter_count": 0,
+      "load_seconds": 33.04279359400971,
+      "elapsed_seconds": 123.0103126129834,
+      "start_utc": "2026-10-18T08:31:33.027662+00:00",
+      "end_utc": "2026-10-18T08:33:36.037948+00:00",
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 13.298828125
+    },
+    {
+      "rank": 3,
+      "device": "cuda:7",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "active_adapters": [
+        "default"
+      ],
+      "parameter_count": 7886361600,
+      "trainable_parameter_count": 0,
+      "load_seconds": 33.49890693300404,
+      "elapsed_seconds": 110.0898341530119,
+      "start_utc": "2026-10-18T08:31:33.028868+00:00",
+      "end_utc": "2026-10-18T08:33:23.118671+00:00",
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 13.298828125
+    }
+  ],
+  "parallel_worker_lora_parameter_count_note": "Not measured separately by worker; actual serial LoRA count retained as provenance, never inferred from total worker parameters.",
+  "trialmatch_condition_count": 66,
+  "trialmatch_conditions_completed": 66,
+  "trialmatch_shared_generation_seconds": 338.6785424069967,
+  "trialmatch_generation_gpu_seconds": 338.6785424069967,
+  "trialmatch_parse_errors": {
+    "expected_exactly_one_target_criterion": 30,
+    "invalid_json_response": 13
+  },
+  "trialmatch_truncated_conditions": 0,
+  "trialmatch_output_tokens": 28521,
+  "parallel_manifest": {
+    "status": "completed",
+    "merged_utc": "2026-10-18T08:33:48.435720+00:00",
+    "request_count": 66,
+    "reused_count": 0,
+    "new_conditions": 66,
+    "original_batch_count": 9,
+    "sum_batch_active_seconds": 338.6785424069967,
+    "allocated_condition_seconds": 338.6785424069967,
+    "timing_method": "shared_batch_wall_time_divided_by_batch_size",
+    "parallel_workers": [
+      {
+        "status": "completed",
+        "start_utc": "2026-10-18T08:31:33.026840+00:00",
+        "rank": 0,
+        "device": "cuda:4",
+        "assigned_conditions": 18,
+        "completed_conditions": 18,
+        "max_new_tokens": 2048,
+        "batch_size": 8,
+        "labels_read": false,
+        "load_seconds": 32.212255678954534,
+        "active_adapters": [
+          "default"
+        ],
+        "parameter_count": 7886361600,
+        "trainable_parameter_count": 0,
+        "gpu_name": "NVIDIA A100-SXM4-80GB",
+        "last_original_batch_id": 8,
+        "elapsed_seconds": 133.635071162018,
+        "peak_allocated_gib": 13.174214363098145,
+        "peak_reserved_gib": 13.30078125,
+        "end_utc": "2026-10-18T08:33:46.661886+00:00"
+      },
+      {
+        "status": "completed",
+        "start_utc": "2026-10-18T08:31:33.027118+00:00",
+        "rank": 1,
+        "device": "cuda:5",
+        "assigned_conditions": 16,
+        "completed_conditions": 16,
+        "max_new_tokens": 2048,
+        "batch_size": 8,
+        "labels_read": false,
+        "load_seconds": 33.55421741504688,
+        "active_adapters": [
+          "default"
+        ],
+        "parameter_count": 7886361600,
+        "trainable_parameter_count": 0,
+        "gpu_name": "NVIDIA A100-SXM4-80GB",
+        "last_original_batch_id": 5,
+        "elapsed_seconds": 115.5388559300336,
+        "peak_allocated_gib": 13.174214363098145,
+        "peak_reserved_gib": 13.298828125,
+        "end_utc": "2026-10-18T08:33:28.565944+00:00"
+      },
+      {
+        "status": "completed",
+        "start_utc": "2026-10-18T08:31:33.027662+00:00",
+        "rank": 2,
+        "device": "cuda:6",
+        "assigned_conditions": 16,
+        "completed_conditions": 16,
+        "max_new_tokens": 2048,
+        "batch_size": 8,
+        "labels_read": false,
+        "load_seconds": 33.04279359400971,
+        "active_adapters": [
+          "default"
+        ],
+        "parameter_count": 7886361600,
+        "trainable_parameter_count": 0,
+        "gpu_name": "NVIDIA A100-SXM4-80GB",
+        "last_original_batch_id": 6,
+        "elapsed_seconds": 123.0103126129834,
+        "peak_allocated_gib": 13.174214363098145,
+        "peak_reserved_gib": 13.298828125,
+        "end_utc": "2026-10-18T08:33:36.037948+00:00"
+      },
+      {
+        "status": "completed",
+        "start_utc": "2026-10-18T08:31:33.028868+00:00",
+        "rank": 3,
+        "device": "cuda:7",
+        "assigned_conditions": 16,
+        "completed_conditions": 16,
+        "max_new_tokens": 2048,
+        "batch_size": 8,
+        "labels_read": false,
+        "load_seconds": 33.49890693300404,
+        "active_adapters": [
+          "default"
+        ],
+        "parameter_count": 7886361600,
+        "trainable_parameter_count": 0,
+        "gpu_name": "NVIDIA A100-SXM4-80GB",
+        "last_original_batch_id": 7,
+        "elapsed_seconds": 110.0898341530119,
+        "peak_allocated_gib": 13.174214363098145,
+        "peak_reserved_gib": 13.298828125,
+        "end_utc": "2026-10-18T08:33:23.118671+00:00"
+      }
+    ],
+    "output_sha256": "95b99380485ac54ea229b0d52bf465098b39ee973f28513c33e29d1b854e9e65",
+    "labels_read": false
+  },
+  "parallel_manifest_path": "/home/gcx/TRIAGE-v5-pr4/experiments/care_module1_v5/exploratory/runs/parallel_generation/private/timing_summary_private.json",
+  "discarded_serial_batch": "Only flushed completed rows enter merged output; interrupted/unflushed batch is excluded. Its elapsed work is not estimated here.",
+  "parallel_manifest_sha256": "a713b69ede89dab5ad56ab0a73a63680d20b597446f0f988ad61ad07c28e2661",
+  "parallel_workers_wallclock_seconds": 133.635046,
+  "parallel_wallclock_definition": "Latest worker completion minus earliest worker process start; includes loading; actual recorded UTC timestamps.",
+  "generation_by_source": {
+    "parallel_remaining_run": {
+      "conditions": 66,
+      "allocated_gpu_seconds": 338.6785424069967
+    }
+  },
+  "gpu_name": "NVIDIA A100-SXM4-80GB",
+  "gpu_total_memory_gib": 79.279,
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.8.0+cu128",
+    "transformers": "4.57.1"
+  },
+  "mednli_load_seconds": 2.24,
+  "mednli_id2label": {
+    "0": "entailment",
+    "1": "neutral",
+    "2": "contradiction"
+  },
+  "sample_count_completed": 24,
+  "peak_allocated_gib": 0.637,
+  "peak_reserved_gib": 0.65,
+  "end_utc": "2026-10-18T08:33:54.257509+00:00",
+  "elapsed_seconds": 5.76,
+  "replay_wall_seconds": 5.76
+}

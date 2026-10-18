@@ -1,0 +1,24 @@
+{
+  "experiment": "new synthetic exploratory logic probes",
+  "samples": 24,
+  "rules": 4,
+  "atomic_conditions": 11,
+  "trialmatch_requests": 66,
+  "counterfactual_pairs": 4,
+  "labels": {
+    "T": 12,
+    "F": 4,
+    "U": 8
+  },
+  "models": "same frozen V5 prompt, thresholds and precision as regression",
+  "independence": "New unused complete trees and entirely authored synthetic patient facts, no clinical gold",
+  "clinical_expert_review": false,
+  "reference_patient_paths_or_answers_used": false,
+  "dataset_files_read": [
+    "/home/gcx/TRIAGE/data/MEGA-CDP/train_val/decision_trees.jsonl"
+  ],
+  "third_party_license": "TBD; source trees and actions remain server-only",
+  "evidence_policy": "Same strict V5 sufficient-proof policy. Missing U expects empty evidence; conflict U exactly two conflict reports.",
+  "evidence_limit": "Short explicit synthetic facts, not long-note retrieval",
+  "schema_review": "Before any exploratory inference, compound prototype was replaced by explicit atomic AND/OR/NOT rules; see pre_run_schema_review.json and superseded_freeze.json."
+}

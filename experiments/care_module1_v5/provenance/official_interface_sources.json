@@ -1,0 +1,40 @@
+{
+  "repository": "https://github.com/cbib/TrialMatchAI",
+  "commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+  "adapter_revision": "9eaddaf048c8d4266a291884ff89db1cf05b07fc",
+  "mednli_revision": "f9f4a9d1e046a0e6574feef938f1308cecaebbd5",
+  "phi4_revision": "2db69c1c3e91a05d2c64a3185acfbaf36f744e25",
+  "files": [
+    {
+      "source_path": "src/trialmatchai/matching/eligibility_base.py",
+      "source_url": "https://raw.githubusercontent.com/cbib/TrialMatchAI/5c2df1654eed2894c526ef433e8f49bba189011b/src/trialmatchai/matching/eligibility_base.py",
+      "snapshot_file": "TrialMatchAI_eligibility_base.py",
+      "sha256": "cba5450c58cfbaf0e184084966f14d3595b24425196d09da0b9abe0343b92f4d"
+    },
+    {
+      "source_path": "src/trialmatchai/matching/eligibility_reasoning_vllm.py",
+      "source_url": "https://raw.githubusercontent.com/cbib/TrialMatchAI/5c2df1654eed2894c526ef433e8f49bba189011b/src/trialmatchai/matching/eligibility_reasoning_vllm.py",
+      "snapshot_file": "TrialMatchAI_eligibility_reasoning_vllm.py",
+      "sha256": "119165d91442e25e5554748c46369c65da73a2af2c396fb7267a1d1d219d49b5"
+    },
+    {
+      "source_path": "src/trialmatchai/matching/eligibility_reasoning_transformers.py",
+      "source_url": "https://raw.githubusercontent.com/cbib/TrialMatchAI/5c2df1654eed2894c526ef433e8f49bba189011b/src/trialmatchai/matching/eligibility_reasoning_transformers.py",
+      "snapshot_file": "TrialMatchAI_eligibility_reasoning_transformers.py",
+      "sha256": "c1df37cc2bca68289cbdf6955cbfbf501a21830f0639968b2b674eac02d7e33f"
+    },
+    {
+      "source_path": "src/trialmatchai/utils/json_utils.py",
+      "source_url": "https://raw.githubusercontent.com/cbib/TrialMatchAI/5c2df1654eed2894c526ef433e8f49bba189011b/src/trialmatchai/utils/json_utils.py",
+      "snapshot_file": "TrialMatchAI_json_utils.py",
+      "sha256": "858460e470dc18c163fd8eff0e0a9a44bffd7d6e30b23fd2d0f822ede3a6fe36"
+    },
+    {
+      "source_path": "LICENSE",
+      "source_url": "https://raw.githubusercontent.com/cbib/TrialMatchAI/5c2df1654eed2894c526ef433e8f49bba189011b/LICENSE",
+      "snapshot_file": "TrialMatchAI_LICENSE",
+      "sha256": "0145278d2aaf6f87db7fa367ed47e84f377f54f62e41cf3f8a47d95eb699f8f1"
+    }
+  ],
+  "interface_note": "CARE uses the official CoT message strings and tokenizer chat template, with one input criterion. It loads the required LoRA with PEFT and fails closed rather than inheriting official vLLM base-model fallbacks. JSON parsing is stricter: exact target criterion, exact label, and truncation/parse failures become U."
+}
