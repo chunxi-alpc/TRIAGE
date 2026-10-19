@@ -1,0 +1,243 @@
+{
+  "selection": "Among the 228 observed clean0 failures, sort item_id ascending and take the first 20; selected before semantic review.",
+  "selection_input_sha256": "3af8cfe1e1cc4707eca8addbdf6deb06fb28fbcbfecfc610059d42c5c0b2ad91",
+  "sample_size": 20,
+  "review_scope": "Agent semantic review of question/reference/output only. No downstream CARE outcomes, unobserved stages, or direction changes used. External sources consulted only for two suspected question errors.",
+  "category_counts": {
+    "equivalent_string_false_negative": 1,
+    "clearly_different_response": 17,
+    "suspected_reference_or_question_error": 2,
+    "undetermined": 0
+  },
+  "category_labels": {
+    "equivalent_string_false_negative": "明显等价但字符串漏判",
+    "clearly_different_response": "明确回答不同",
+    "suspected_reference_or_question_error": "参考标注或题干疑似错误/歧义",
+    "undetermined": "无法判断"
+  },
+  "rows": [
+    {
+      "item_id": "fact_0000",
+      "question": "Who was hired as the Phoenix Mercury general manager during the 2006 WNBA offseason?",
+      "reference": "Ann Meyers-Drysdale",
+      "output": "Tina Thompson",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0002",
+      "question": "In which year did Willie Marais become the leader of the Herstigte Nasionale Party?",
+      "reference": "2001",
+      "output": "1974",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0003",
+      "question": "From which city does the Turkish professional footballer Oğuz Dağlaroğlu, who was born on 18 August 1979 and played as a goalkeeper, hail?",
+      "reference": "Istanbul",
+      "output": "İstanbul",
+      "category": "equivalent_string_false_negative",
+      "reason": "Istanbul 与 İstanbul 是同一城市名称的常见书写差异。NFKD去音标和casefold后同为istanbul；原ASCII规则将后者拆成i stanbul。",
+      "sources": [],
+      "category_zh": "明显等价但字符串漏判"
+    },
+    {
+      "item_id": "fact_0004",
+      "question": "In which year did Nabil F.C. win the Liga 3 Riau, making them the defending champions in the subsequent season?",
+      "reference": "2017",
+      "output": "2021",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0005",
+      "question": "Who was the Czech-British female chess master born in Moscow to a Czech father and a British mother, and the younger sister of Vera Menchik?",
+      "reference": "Olga Menchik",
+      "output": "Lina Mednyánská",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0006",
+      "question": "Which city got its name from Whitley wood in Walton and had two previous units, Loxley and Ringoldsway, merged to form its current name in the 12th century?",
+      "reference": "Whitley",
+      "output": "Wolverhampton",
+      "category": "suspected_reference_or_question_error",
+      "reason": "题干问city，但这些线索对应Whitley Hundred这一历史行政区。原始史学研究核实了实体类型不符；未证明Wolverhampton正确。",
+      "sources": [
+        {
+          "title": "F. R. Thorn, Shapwick, Domesday Book and the Polden Estate, Somerset Archaeology and Natural History (2007)",
+          "url": "https://sanhs.org/wp-content/uploads/Thorn.pdf",
+          "location": "PDF page 1, introductory paragraph; original research published by Somerset Archaeological and Natural History Society",
+          "finding": "The original research identifies Whitley as a hundred formed from earlier hundreds; the benchmark question asks which city. This supports an entity-type error in the question, not the model answer Wolverhampton.",
+          "consulted_date": "2026-10-19"
+        }
+      ],
+      "category_zh": "参考标注或题干疑似错误/歧义"
+    },
+    {
+      "item_id": "fact_0007",
+      "question": "In which year did Union North win the Liverpool Society of Architects Awards?",
+      "reference": "2008",
+      "output": "2017",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0008",
+      "question": "What was the full name of the Hungarian wrestler born in 1911 and passed away in 1957?",
+      "reference": "József Palotás",
+      "output": "László Papp",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0009",
+      "question": "In which year did Igor Sokolov receive a gold medal in 50 m Running Target at the Summer Olympics?",
+      "reference": "1980",
+      "output": "1968",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0010",
+      "question": "How many points did N.C. State win by in the NCAA Tournament first round game against Chattanooga on March 25, 2023?",
+      "reference": "19",
+      "output": "62 points",
+      "category": "suspected_reference_or_question_error",
+      "reason": "题干日期2023-03-25与校方正式比赛记录不符。对应64-45、净胜19分的比赛实际为2024-03-23；参考19适用于该场2024比赛，但题干有日期错误。模型62分仍不获支持。",
+      "sources": [
+        {
+          "title": "NC State University Athletics: Wolfpack Advances in NCAA Tournament with 64-45 First Round Win Against Chattanooga",
+          "url": "https://gopack.com/news/2024/3/23/womens-basketball-wolfpack-advances-in-ncaa-tournament-with-64-45-first-round-win-against-chattanooga",
+          "location": "Official university game report dated March 23, 2024; score 64-45",
+          "finding": "The official first-round win was March 23, 2024, with a 19-point margin. The question says March 25, 2023. The reference 19 matches the 2024 event, but the question date is inconsistent. The model answer 62 is not supported.",
+          "consulted_date": "2026-10-19"
+        }
+      ],
+      "category_zh": "参考标注或题干疑似错误/歧义"
+    },
+    {
+      "item_id": "fact_0011",
+      "question": "Who was the 2nd wife of John Egerton, 6th Duke of Sutherland?",
+      "reference": "Diana Sutherland-Leveson-Gower",
+      "output": "Lady Mary Ponsonby.",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0012",
+      "question": "Who was the presenter associated with Capital East Midlands who previously worked for Leicester Sound and joined Capital after the 2011 merger?",
+      "reference": "Andy Twigge",
+      "output": "Andy Wilkins",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0013",
+      "question": "Who portrayed Aunt Harriet in the Canadian television series 'Harriet's Magic Hats'?",
+      "reference": "Lynne Thornton",
+      "output": "Shelley Long",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0014",
+      "question": "In which year did the Norway women's national football team compete for the first time?",
+      "reference": "1978",
+      "output": "1989",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0016",
+      "question": "Who was the 18th-century Welsh elegist and hymn writer that published approximately 20 booklets of hymns and elegies described prominent Methodists of his day?",
+      "reference": "Thomas Dafydd",
+      "output": "William Williams, Pantycelyn",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0017",
+      "question": "To which city did the Rooster Blues record label move in 1986, focusing on the area's Delta blues performers and building new recording studio facilities?",
+      "reference": "Clarksdale",
+      "output": "Memphis",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0018",
+      "question": "Which city is Anne Edwards, a former MLA and the first female Minister for Energy Mines and Petroleum Resources of British Columbia, originally from?",
+      "reference": "Tisdale",
+      "output": "Vancouver",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0019",
+      "question": "In which year was Sharat Raju named by Esquire as one of the 20 young film directors to watch?",
+      "reference": "2004",
+      "output": "2016",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0020",
+      "question": "Which city in South Carolina was the starting point for the theatrical release of the 1977 film 'Haunted', beginning on March 4, 1977?",
+      "reference": "Florence",
+      "output": "Columbia",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    },
+    {
+      "item_id": "fact_0021",
+      "question": "In which year was the Odd Fellows' Home for Orphans, Indigent and Aged listed on the National Register of Historic Places?",
+      "reference": "1980",
+      "output": "1976",
+      "category": "clearly_different_response",
+      "reason": "参考和输出给出不同的人名、年份、地点或数字；不是大小写、标点或普通音标差异。这里只判断答案不等价，未逐题外部验证参考的事实正确性。",
+      "sources": [],
+      "category_zh": "明确回答不同"
+    }
+  ],
+  "interpretation": [
+    "This is a deterministic first-20 diagnostic, not a random sample; category proportions must not be extrapolated to all 228 failures.",
+    "Clearly different response means semantic non-equivalence, not independently established model error or verified reference accuracy.",
+    "The two source problems do not establish that the corresponding model outputs are correct.",
+    "The one definite matcher false negative has unexecuted later filtering stages, so it does not increase the verified eligible direction-training set.",
+    "No original question, reference, prediction, filter status, direction, or experiment result was modified."
+  ]
+}

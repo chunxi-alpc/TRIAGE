@@ -1,0 +1,29 @@
+筛选淘汰复核（只读CPU分析）
+
+候选256条；首次clean失败228；后续4种指令变体再失败7；全部5种clean通过后冲突答案未匹配10；最终入选11。
+
+阶段 | 实际运行 | 原匹配通过 | 原匹配失败 | NFKD修正通过
+clean0 | 256 | 28 | 228 | 29
+clean1 | 28 | 26 | 2 | 26
+clean2 | 26 | 25 | 1 | 25
+clean3 | 25 | 21 | 4 | 21
+clean4 | 21 | 21 | 0 | 21
+conflict | 21 | 11 | 10 | 11
+
+NFKD去音标+casefold只改变1条已观察记录的判定，没有撤销原通过记录。其余匹配规则保持原样，没有增加别名词典，也没有用语义模型改标签。
+仅根据实际保存的所有必需阶段，合格训练对仍为11，新增已验证合格数为0。fact_0003的后续clean1–4及conflict从未运行，因此不能推测它最终通过。
+
+可人工核验短表（仅比较已保存的标签与原始输出，不替代外部事实核验）
+ID | 阶段 | 该阶段目标 | 模型原始输出
+fact_0003 | clean0 | Istanbul | İstanbul
+fact_0001 | clean3 | Antigua | St. John's
+fact_0059 | clean1 | 2011 | 2005
+fact_0015 | conflict | Copenhangover | Copenhagen
+fact_0028 | conflict | Indiopolis | Indianapolis
+
+fact_0003是确定的Unicode书写差异：Istanbul与İstanbul，标准化后可匹配。
+fact_0001问Which city...，标签为Antigua，输出为St. John's；问题措辞与目标标签值得人工核验。没有外部核验前，不将其计为匹配器修复或模型事实错误。
+两条conflict例子分别输出原答案Copenhagen/Indianapolis，而修改目标为Copenhangover/Indiopolis，Unicode修正不会改变其未跟随修改答案的判定。
+
+解释边界：筛选确实严格，但这批候选的主要损失在首次问题：228/256未匹配。额外四个指令变体只淘汰7/28个首轮通过者。不能仅凭11/256断言模型没有相关知识，也不能把主要损失都归因于五遍全对；答案别名、源标注、问题难度和模型知识覆盖仍需进一步核验。
+这里没有重新运行任何模型、推测未执行阶段、修改原始输出、重新学习方向或更改主实验结果。
