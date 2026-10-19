@@ -56,6 +56,15 @@ def preflight(args, cases, protocol):
             start, end = spans[rule["rule_id"]]
             if prompt[start:end] != rule["action"]:
                 raise ValueError("Complete-context action span mismatch")
+    if getattr(args, "structure_runs", None):
+        from joint.saved_structures import SavedStructureProvider
+        for source in args.sources:
+            if source not in {"v6", "v7"}:
+                continue
+            provider = SavedStructureProvider(source, args.structure_runs, sha256(args.cases), args.split)
+            # Fail before loading Qwen on any missing, drifted, or invalid prediction.
+            for case in cases:
+                provider.predict(case)
     learned_status = "not_supplied"
     if args.learned_assets:
         try:
@@ -68,8 +77,9 @@ def preflight(args, cases, protocol):
         "status": "ready_for_real_model_initialization" if not failures else "blocked_model_runtime",
         "failures": failures, "learned_subspace_status": learned_status,
         "data_sha256": sha256(args.cases), "protocol_sha256": sha256(args.protocol),
-        "source_sha256": {path.name: sha256(path) for path in sorted(Path(__file__).parent.glob("*.py"))},
+        "source_sha256": {str(path.relative_to(EXPERIMENT)): sha256(path) for folder in (Path(__file__).parent, EXPERIMENT / "module2") for path in sorted(folder.glob("*.py"))},
         "cases_in_requested_split": len(cases), "rule_families": len({c["family_id"] for c in cases}),
+        "training_throughput_preflight_only": bool(getattr(args, "case_limit", None)),
         "sources": args.sources, "modes": args.modes,
         "reference_diagnostic_authorized": args.include_reference_diagnostic,
         "model_inference_completed": False,
@@ -90,6 +100,8 @@ def main():
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--module1-device", default="cuda:0")
     parser.add_argument("--module1-cache")
+    parser.add_argument("--structure-runs", type=Path, nargs="+", help="Verified completed Phi-4 structure shards from the original module-one environment")
+    parser.add_argument("--case-limit", type=int, help="Training throughput check only")
     parser.add_argument("--module1-base-model")
     parser.add_argument("--module1-adapter-model")
     parser.add_argument("--module1-evidence-model")
@@ -105,9 +117,13 @@ def main():
         parser.error("--sources reference requires --include-reference-diagnostic")
     if len(args.sources) != len(set(args.sources)) or len(args.modes) != len(set(args.modes)):
         parser.error("Repeated sources/modes are prohibited")
+    if args.case_limit is not None and (args.split != "train" or args.case_limit < 1):
+        parser.error("A positive case-limit is allowed only for training throughput checks")
     if args.output.exists():
         parser.error("Output directory already exists; choose a new isolated directory. No files were overwritten.")
     cases = [c for c in read_jsonl(args.cases) if c["split"] == args.split]
+    if args.case_limit:
+        cases = cases[:args.case_limit]
     if not cases:
         parser.error("Requested split is empty")
     protocol = json.loads(args.protocol.read_text())
@@ -143,8 +159,18 @@ def main():
         return 2
     save(args.output / "model_provenance.json", backend.provenance)
     save(args.output / "model_compatibility.json", backend.compatibility_audit)
-    providers = {s: StructureProvider(s, include_reference_diagnostic=args.include_reference_diagnostic,
-                                       model_options=options) for s in args.sources}
+    providers = {}
+    structure_provenance = {}
+    for source in args.sources:
+        if args.structure_runs and source in {"v6", "v7"}:
+            from joint.saved_structures import SavedStructureProvider
+            providers[source] = SavedStructureProvider(source, args.structure_runs, status["data_sha256"], args.split)
+            structure_provenance[source] = providers[source].provenance
+        else:
+            providers[source] = StructureProvider(source, include_reference_diagnostic=args.include_reference_diagnostic,
+                                                   model_options=options)
+    if structure_provenance:
+        save(args.output / "structure_provenance.json", structure_provenance)
     records = []
     zero_records = []
     zero_journal = args.output / "zero_checks.jsonl"
@@ -258,13 +284,16 @@ def main():
         "comparison": "exact candidate logits and A/B/C/D probabilities; structured outputs reused",
         "nonzero_intervention_effects_validated": False,
     })
-    result = evaluate(read_jsonl(args.cases), records, args.split)
+    result = evaluate(cases, records, args.split)
     save(args.output / "metrics.json", result)
     complete = all(r["status"] == "completed" for r in records) and zero_passed
     status.update(status="completed_real_model_inference" if complete else "partial_real_model_inference",
                   model_inference_completed=True, journal_records=len(records), actual_forward_calls=backend.forward_calls,
                   elapsed_seconds=time.time()-started, prediction_log_sha256=sha256(journal),
                   source_load_failures=source_errors, shared_frozen_module1_adapters=True,
+                  structure_execution="verified_external_original_runtime" if args.structure_runs else "same_process",
+                  peak_allocated_gib=backend.torch.cuda.max_memory_allocated(backend.model.device) / 1024**3,
+                  peak_reserved_gib=backend.torch.cuda.max_memory_reserved(backend.model.device) / 1024**3,
                   signed_zero_checks_passed=zero_passed, signed_zero_coverage_by_source=zero_coverage,
                   model_provenance_sha256=sha256(args.output / "model_provenance.json"))
     save(args.output / "execution_status.json", status)

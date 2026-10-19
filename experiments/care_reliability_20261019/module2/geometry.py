@@ -144,7 +144,9 @@ def scalar_search(evaluate, target, max_relative_error=0.15):
 
     evaluate(a) returns (changed_keys, scalar_actual_rms). The numerical
     path is discrete, so we report and enforce an approximate RMS match.
-    No answer score or outcome is supplied to this search.
+    No answer score or outcome is supplied to this search. BF16 score RMS
+    need not be monotone, so a failed bisection is followed by a fixed grid
+    over its original bracket; the acceptance threshold is unchanged.
     """
     if target < 0 or not math.isfinite(target):
         raise ValueError("Nonnegative finite target required")
@@ -156,9 +158,11 @@ def scalar_search(evaluate, target, max_relative_error=0.15):
                           relative_error=0.0, calibration_status="zero")
     lo, hi = 0.0, 0.01
     best = None
+    candidate_count = 0
 
     def candidate(a):
-        nonlocal best
+        nonlocal best, candidate_count
+        candidate_count += 1
         changed, rms = evaluate(a)
         if not math.isfinite(rms) or rms < 0:
             raise ValueError("Non-finite or negative RMS")
@@ -173,15 +177,31 @@ def scalar_search(evaluate, target, max_relative_error=0.15):
         hi *= 2
     else:
         raise RuntimeError("Cannot bracket the specified actual-score RMS")
+    original_bracket_hi = hi
     for _ in range(28):
         mid = (lo + hi) / 2
         if candidate(mid) < target:
             lo = mid
         else:
             hi = mid
+    initial_relative_error = best[0] / target
+    search_method = 'bisection'
+    fallback_candidate_count = 0
+    if initial_relative_error > max_relative_error:
+        # The rounded, fixed-query RMS can decrease at a key-rounding boundary.
+        # Bisection may discard a feasible region; this bounded, deterministic
+        # grid uses no answer values and changes neither direction nor budget.
+        search_method = 'bisection_then_fixed_grid'
+        fallback_candidate_count = 4097
+        for i in range(fallback_candidate_count):
+            candidate(original_bracket_hi * i / (fallback_candidate_count - 1))
     error, scale, changed, actual = best
     relative_error = error / target
     if relative_error > max_relative_error:
         raise RuntimeError(f"RMS calibration outside frozen tolerance: {relative_error:.6g}")
     return changed, dict(scale=float(scale), actual_rms=float(actual), target_rms=float(target),
-                          relative_error=float(relative_error), calibration_status="matched")
+                          relative_error=float(relative_error), calibration_status="matched",
+                          search_method=search_method, candidate_count=candidate_count,
+                          fallback_candidate_count=fallback_candidate_count,
+                          original_bracket_hi=float(original_bracket_hi),
+                          bisection_relative_error=float(initial_relative_error))

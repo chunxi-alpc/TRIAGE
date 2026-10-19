@@ -1,0 +1,198 @@
+{
+  "status": "analysis_of_completed_real_inference",
+  "mode": "sealed_mechanism",
+  "clinical_efficacy_claim": false,
+  "cases": 144,
+  "pairs": 72,
+  "families": 8,
+  "primary_cases": 48,
+  "primary_pairs": 24,
+  "primary_population": "canonical confirmation variants only, 48 cases / 24 base pairs / 8 families",
+  "canonical_base_pairs": 24,
+  "oracle_applicability": true,
+  "oracle_action_span": true,
+  "primary": [
+    {
+      "method_a": "direct_bias",
+      "method_b": "b4_calibrated",
+      "metric": "paired_accuracy",
+      "delta_b_minus_a": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.0,
+      "co_primary": true,
+      "matched_direction_comparison": false,
+      "co_primary_ci975_low": 0.0,
+      "co_primary_ci975_high": 0.0
+    },
+    {
+      "method_a": "direct_bias",
+      "method_b": "mean_calibrated",
+      "metric": "paired_accuracy",
+      "delta_b_minus_a": 0.0,
+      "ci95_low": 0.0,
+      "ci95_high": 0.0,
+      "co_primary": true,
+      "matched_direction_comparison": false,
+      "co_primary_ci975_low": 0.0,
+      "co_primary_ci975_high": 0.0
+    }
+  ],
+  "matched_direction_comparisons": [
+    [
+      "random_projector_calibrated",
+      "b4_calibrated"
+    ],
+    [
+      "random_vector_calibrated",
+      "mean_calibrated"
+    ],
+    [
+      "shuffled_mean_calibrated",
+      "mean_calibrated"
+    ]
+  ],
+  "primary_interpretation": "Two frozen learned-minus-direct contrasts; 97.5% marginal intervals implement Bonferroni alpha allocation. Small-family percentile intervals are approximate.",
+  "confidence_interval_scope": "Family bootstrap conditional on fitted old training folds; no refitting uncertainty. All other comparisons exploratory.",
+  "selection": "No new head, rank, strength, seed or test subset selection",
+  "all_variants_secondary": {
+    "baseline": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3263888888888889,
+      "app_accuracy": 0.625,
+      "nonapp_accuracy": 0.027777777777777776,
+      "h_accuracy": 0.05319148936170213,
+      "misuse": 0.4166666666666667,
+      "gold_logit_margin": -0.2708333333333333,
+      "gold_probability_margin": -0.06132017800377475,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "b4_raw": {
+      "paired_accuracy": 0.013888888888888888,
+      "accuracy": 0.3333333333333333,
+      "app_accuracy": 0.625,
+      "nonapp_accuracy": 0.041666666666666664,
+      "h_accuracy": 0.078125,
+      "misuse": 0.4444444444444444,
+      "gold_logit_margin": -0.2760416666666667,
+      "gold_probability_margin": -0.06261511855862206,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "b4_calibrated": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3333333333333333,
+      "app_accuracy": 0.6388888888888888,
+      "nonapp_accuracy": 0.027777777777777776,
+      "h_accuracy": 0.05324074074074074,
+      "misuse": 0.4166666666666667,
+      "gold_logit_margin": -0.2699652777777778,
+      "gold_probability_margin": -0.060947553565104805,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "mean_raw": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3194444444444444,
+      "app_accuracy": 0.5972222222222222,
+      "nonapp_accuracy": 0.041666666666666664,
+      "h_accuracy": 0.07789855072463768,
+      "misuse": 0.4166666666666667,
+      "gold_logit_margin": -0.2699652777777778,
+      "gold_probability_margin": -0.061050095750639834,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "mean_calibrated": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3194444444444444,
+      "app_accuracy": 0.6111111111111112,
+      "nonapp_accuracy": 0.027777777777777776,
+      "h_accuracy": 0.05314009661835748,
+      "misuse": 0.4305555555555556,
+      "gold_logit_margin": -0.2803819444444444,
+      "gold_probability_margin": -0.06417890695027179,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "random_projector_raw": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3194444444444444,
+      "app_accuracy": 0.6111111111111112,
+      "nonapp_accuracy": 0.027777777777777776,
+      "h_accuracy": 0.05314009661835748,
+      "misuse": 0.4166666666666667,
+      "gold_logit_margin": -0.2725694444444444,
+      "gold_probability_margin": -0.06248793378472328,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "random_projector_calibrated": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3263888888888889,
+      "app_accuracy": 0.625,
+      "nonapp_accuracy": 0.027777777777777776,
+      "h_accuracy": 0.05319148936170213,
+      "misuse": 0.4027777777777778,
+      "gold_logit_margin": -0.28125,
+      "gold_probability_margin": -0.06457721571334535,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "random_vector_raw": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3472222222222222,
+      "app_accuracy": 0.6527777777777778,
+      "nonapp_accuracy": 0.041666666666666664,
+      "h_accuracy": 0.07833333333333334,
+      "misuse": 0.4444444444444444,
+      "gold_logit_margin": -0.2638888888888889,
+      "gold_probability_margin": -0.05973484724139174,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "random_vector_calibrated": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3333333333333333,
+      "app_accuracy": 0.6388888888888888,
+      "nonapp_accuracy": 0.027777777777777776,
+      "h_accuracy": 0.05324074074074074,
+      "misuse": 0.4305555555555556,
+      "gold_logit_margin": -0.2699652777777778,
+      "gold_probability_margin": -0.06109490980290704,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "shuffled_mean_raw": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3263888888888889,
+      "app_accuracy": 0.6111111111111112,
+      "nonapp_accuracy": 0.041666666666666664,
+      "h_accuracy": 0.07801418439716312,
+      "misuse": 0.4166666666666667,
+      "gold_logit_margin": -0.2751736111111111,
+      "gold_probability_margin": -0.0630034661023981,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "shuffled_mean_calibrated": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3263888888888889,
+      "app_accuracy": 0.6111111111111112,
+      "nonapp_accuracy": 0.041666666666666664,
+      "h_accuracy": 0.07801418439716312,
+      "misuse": 0.4166666666666667,
+      "gold_logit_margin": -0.2699652777777778,
+      "gold_probability_margin": -0.061103593609813184,
+      "all_variant_pair_accuracy": 0.0
+    },
+    "direct_bias": {
+      "paired_accuracy": 0.0,
+      "accuracy": 0.3263888888888889,
+      "app_accuracy": 0.625,
+      "nonapp_accuracy": 0.027777777777777776,
+      "h_accuracy": 0.05319148936170213,
+      "misuse": 0.4305555555555556,
+      "gold_logit_margin": -0.2777777777777778,
+      "gold_probability_margin": -0.06395802113951908,
+      "all_variant_pair_accuracy": 0.0
+    }
+  },
+  "source_journal_sha256": {
+    "fold0": "8aebe5decc275d00fd92e9b0f43d666fa17266832377a255d31d15ff05a5061d",
+    "fold1": "ac68ae9c21c2e6a8ca5d387373354dee4886c60cb57b59d98208a8854bc1921f",
+    "fold2": "6a58b19603c0515e18a2390edabeb933fbc4c56cea4f8248c69cbd5a7e3a1b7c"
+  },
+  "analysis_source_sha256": "c94c43bffbd5ace6efe9621bd77f8d70b246a46f34eddc2744a8b9b8616cb812",
+  "source_data_sha256": "f6d80f0f2926b5290064413d1289516bc348cdc62cbf84e99ffa8fec6bdef7b9"
+}

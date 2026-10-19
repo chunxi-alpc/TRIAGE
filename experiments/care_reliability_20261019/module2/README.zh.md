@@ -2,7 +2,7 @@
 
 **已准备：** 十一种干预条件、固定协议、真实模型运行器、按家族统计分析器、CPU 数值与日志完整性检查。
 
-**尚未执行：** PyTorch 适配器数值检查、真实模型钩子验证和 GPU 推断。当前 `checks/` 中的材料仅为 CPU 预检，不能作为模型效果。
+**2026-10-19 已完成：** 原服务器上的 PyTorch 适配器检查、真实 Qwen3-4B-Base 六任务三折实验与分析。结果见 [真实运行报告](results/work_20261019/REPORT.zh.md) 和 [机器可读摘要](results/work_20261019/summary.json)。原 checks 仍仅记录早期 CPU 预检。
 
 实验设计见 [冻结协议](PROTOCOL.zh.md) 和 [机器可读参数](protocol.json)。旧结果不被改写。
 
@@ -36,7 +36,7 @@ python experiments/care_reliability_20261019/module2/run.py \
 
 ## 在已确认的真实执行环境续跑
 
-先核对执行模式、服务器与当前授权 GPU，打印并确认资源计划，再运行真实任务。旧记录中的环境为 `/home/gcx/gcx261014`，固定模型历史路径为 `/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base`；两者须在真实环境现场核对，当前云端没有验证该路径可达。
+先核对执行模式、服务器与当前授权 GPU，打印并确认资源计划，再运行真实任务。旧记录中的环境为 `/home/gcx/gcx261014`，固定模型历史路径为 `/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base`；两者已在本次服务器运行中核对并复用。
 
 所需 Python 包为 NumPy、PyTorch、Transformers，其中原机制兼容门槛要求安装包版本精确为 PyTorch `2.8.0` / Transformers `4.57.6`。模型目录须含原始权重分片及对应 tokenizer/config。本运行器不下载权重。原权重哈希来自 `experiments/care_qwen3_4b_base_20261016/results/manifest.json`；该 manifest 本身也按冻结 SHA256 核验。21 个关键 config 字段在 AutoConfig 解析后与模型加载后各核对一次。环境差异及配置证据写入 `model_compatibility.json`。
 

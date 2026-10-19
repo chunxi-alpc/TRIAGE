@@ -71,3 +71,30 @@ python experiments/care_reliability_20261019/joint/evaluate.py \
   --predictions /path/to/joint_run/predictions.jsonl \
   --output /path/to/joint_run/recomputed_metrics.json
 ```
+
+## 在原服务器分环境执行
+
+现场核验发现原模块一实际使用 /home/gcx/n/.venv（transformers 4.57.1，
+bitsandbytes 0.50.2），原 Qwen 使用 /home/gcx/gcx261014（transformers 4.57.6）。
+新入口 run_server.py 默认先在 GPU 0、1、2、3、6、7 以原 Phi-4 环境生成结构，再在 GPU 0
+以原 Qwen 环境完成矩阵；不安装依赖，不合并两个环境。
+
+激活原环境后运行 python experiments/care_reliability_20261019/joint/run_server.py
+--output /home/gcx/care_reliability_runs/joint_formal_new。
+增加 --training-preflight 仅运行既定训练集前两例。确认集始终完整运行，不能限额。
+结构阶段按病例交错分片（默认六片，各 32 例），复用完全相同 patient、criterion text、criterion kind
+的真实生成结果。V6/V7 分别执行原数值、证据和门控逻辑，NLI 仍实际调用。
+batch=8 和 max_new_tokens=2048 复用原 TrialMatchAI 接口，批处理可能改变浮点舍入，
+不声称与逐条执行字节相同。两个版本从同一请求缓存读取以控制生成差异。
+
+每片保存 request_manifest.json、原始 trialmatch_generations.jsonl、原子提交的
+generation_batches、两版本原始图、精确输入摘要、源码摘要和模型全权重摘要。
+immutable_provenance.json 不可变；--resume 先核对数据、源码、模型字节和软件版本，
+拒绝后不会替换原记录。恢复保持原 batch 成员，仅复用完整批；旧 journal 保留。
+COMPLETE.json 标记完整结束。Qwen 的 --structure-runs 在加载模型前核对全部
+期望病例、原始图、规范化图、输入、源码、生成日志与不可变来源，任一缺失拒绝执行。
+
+控制器只等待自己启动的子进程退出，不轮询 GPU；结构成功后自动运行 Qwen。
+模块一子进程如失败可按其原命令增加 --resume 恢复，完成后以 --structure-runs
+显式提交全部完成目录给 run_joint.py。已完成目录禁止覆盖或继续。
+

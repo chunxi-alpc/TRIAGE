@@ -78,6 +78,29 @@ class GeometryProperties(unittest.TestCase):
         np.testing.assert_array_equal(zero, key)
         self.assertEqual(audit_zero['actual_rms'], 0)
 
+    def test_nonmonotone_rms_fallback_recovers_discarded_feasible_region(self):
+        def evaluate(scale):
+            # Bisection narrows around .004 and misses this later feasible island.
+            rms = .99 if .007 <= scale <= .0072 else (.7 if scale < .004 else 1.3)
+            return np.array([scale]), rms
+        changed, audit = scalar_search(evaluate, 1.0, .15)
+        self.assertEqual(audit['search_method'], 'bisection_then_fixed_grid')
+        self.assertEqual(audit['fallback_candidate_count'], 4097)
+        self.assertGreater(audit['bisection_relative_error'], .15)
+        self.assertLessEqual(audit['relative_error'], .15)
+        self.assertAlmostEqual(evaluate(float(changed[0]))[1], audit['actual_rms'])
+        self.assertLessEqual(audit['scale'], audit['original_bracket_hi'])
+
+    def test_nonmonotone_search_still_rejects_unreachable_budget(self):
+        samples = []
+        def evaluate(scale):
+            samples.append(scale)
+            return np.array([scale]), .7 if scale < .004 else 1.3
+        with self.assertRaisesRegex(RuntimeError, 'outside frozen tolerance'):
+            scalar_search(evaluate, 1.0, .15)
+        self.assertGreaterEqual(len(samples), 4097)
+        self.assertTrue(all(0 <= x <= .01 for x in samples))
+
     def test_nonnegative_certificate_does_not_hide_zero_coverage(self):
         audit = anchor_audit(np.zeros((4, 3)), -1, np.zeros(3, dtype=bool))
         self.assertEqual(audit['anchor_nonnegative_fraction'], 1)

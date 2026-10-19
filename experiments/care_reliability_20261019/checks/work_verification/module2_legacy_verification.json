@@ -1,0 +1,221 @@
+{
+  "status": "independently_verified_completed_legacy_real_inference",
+  "mode": "legacy384_regression",
+  "cases": 384,
+  "pairs": 192,
+  "families": 12,
+  "methods": 12,
+  "records": 4608,
+  "folds": [
+    {
+      "fold": 0,
+      "cases": 128,
+      "records": 1536,
+      "actual_forwards": 1654,
+      "zero_forwards": 138,
+      "no_op_records": 212,
+      "projector_error": 0.0,
+      "mean_direction_error": 0.0,
+      "seconds": 66.40579199790955,
+      "peak_reserved_gib": 7.595703125,
+      "physical_gpu": "1"
+    },
+    {
+      "fold": 1,
+      "cases": 128,
+      "records": 1536,
+      "actual_forwards": 1584,
+      "zero_forwards": 138,
+      "no_op_records": 282,
+      "projector_error": 0.0,
+      "mean_direction_error": 0.0,
+      "seconds": 64.51004767417908,
+      "peak_reserved_gib": 7.595703125,
+      "physical_gpu": "2"
+    },
+    {
+      "fold": 2,
+      "cases": 128,
+      "records": 1536,
+      "actual_forwards": 1594,
+      "zero_forwards": 138,
+      "no_op_records": 272,
+      "projector_error": 0.0,
+      "mean_direction_error": 0.0,
+      "seconds": 64.63615441322327,
+      "peak_reserved_gib": 7.59765625,
+      "physical_gpu": "3"
+    }
+  ],
+  "zero_checks": 414,
+  "model_weights_match_original_manifest": true,
+  "identity_environment_zero_coverage_and_budget_checks_passed": true,
+  "independent_primary_metrics": {
+    "baseline": {
+      "paired_correct": 72,
+      "pairs": 192,
+      "paired_accuracy": 0.375,
+      "case_correct": 237,
+      "cases": 384,
+      "case_accuracy": 0.6171875,
+      "no_op": 0,
+      "maximum_relative_error": null,
+      "mean_retained_token_fraction": null
+    },
+    "b4_raw": {
+      "paired_correct": 75,
+      "pairs": 192,
+      "paired_accuracy": 0.390625,
+      "case_correct": 239,
+      "cases": 384,
+      "case_accuracy": 0.6223958333333334,
+      "no_op": 0,
+      "maximum_relative_error": 0.07289869338273999,
+      "mean_retained_token_fraction": 1.0
+    },
+    "b4_calibrated": {
+      "paired_correct": 71,
+      "pairs": 192,
+      "paired_accuracy": 0.3697916666666667,
+      "case_correct": 236,
+      "cases": 384,
+      "case_accuracy": 0.6145833333333334,
+      "no_op": 164,
+      "maximum_relative_error": 0.030042998492717764,
+      "mean_retained_token_fraction": 0.2092698317307692
+    },
+    "mean_raw": {
+      "paired_correct": 75,
+      "pairs": 192,
+      "paired_accuracy": 0.390625,
+      "case_correct": 240,
+      "cases": 384,
+      "case_accuracy": 0.625,
+      "no_op": 0,
+      "maximum_relative_error": 0.04688955470919607,
+      "mean_retained_token_fraction": 1.0
+    },
+    "mean_calibrated": {
+      "paired_correct": 74,
+      "pairs": 192,
+      "paired_accuracy": 0.3854166666666667,
+      "case_correct": 239,
+      "cases": 384,
+      "case_accuracy": 0.6223958333333334,
+      "no_op": 138,
+      "maximum_relative_error": 0.025605853646993616,
+      "mean_retained_token_fraction": 0.5233506944444445
+    },
+    "random_projector_raw": {
+      "paired_correct": 75,
+      "pairs": 192,
+      "paired_accuracy": 0.390625,
+      "case_correct": 240,
+      "cases": 384,
+      "case_accuracy": 0.625,
+      "no_op": 0,
+      "maximum_relative_error": 0.05371326208114622,
+      "mean_retained_token_fraction": 1.0
+    },
+    "random_projector_calibrated": {
+      "paired_correct": 73,
+      "pairs": 192,
+      "paired_accuracy": 0.3802083333333333,
+      "case_correct": 237,
+      "cases": 384,
+      "case_accuracy": 0.6171875,
+      "no_op": 128,
+      "maximum_relative_error": 0.04615841805934908,
+      "mean_retained_token_fraction": 0.3304010225885226
+    },
+    "random_vector_raw": {
+      "paired_correct": 74,
+      "pairs": 192,
+      "paired_accuracy": 0.3854166666666667,
+      "case_correct": 239,
+      "cases": 384,
+      "case_accuracy": 0.6223958333333334,
+      "no_op": 0,
+      "maximum_relative_error": 0.047137752175331095,
+      "mean_retained_token_fraction": 1.0
+    },
+    "random_vector_calibrated": {
+      "paired_correct": 73,
+      "pairs": 192,
+      "paired_accuracy": 0.3802083333333333,
+      "case_correct": 238,
+      "cases": 384,
+      "case_accuracy": 0.6197916666666666,
+      "no_op": 176,
+      "maximum_relative_error": 0.04704946279525755,
+      "mean_retained_token_fraction": 0.473230979090354
+    },
+    "shuffled_mean_raw": {
+      "paired_correct": 76,
+      "pairs": 192,
+      "paired_accuracy": 0.3958333333333333,
+      "case_correct": 241,
+      "cases": 384,
+      "case_accuracy": 0.6276041666666666,
+      "no_op": 0,
+      "maximum_relative_error": 0.01773938909173014,
+      "mean_retained_token_fraction": 1.0
+    },
+    "shuffled_mean_calibrated": {
+      "paired_correct": 72,
+      "pairs": 192,
+      "paired_accuracy": 0.375,
+      "case_correct": 237,
+      "cases": 384,
+      "case_accuracy": 0.6171875,
+      "no_op": 160,
+      "maximum_relative_error": 0.00417844951152796,
+      "mean_retained_token_fraction": 0.42582465277777776
+    },
+    "direct_bias": {
+      "paired_correct": 77,
+      "pairs": 192,
+      "paired_accuracy": 0.4010416666666667,
+      "case_correct": 242,
+      "cases": 384,
+      "case_accuracy": 0.6302083333333334,
+      "no_op": 0,
+      "maximum_relative_error": 0.0009765624999999792,
+      "mean_retained_token_fraction": 1.0
+    }
+  },
+  "independent_primary_contrasts": {
+    "b4_calibrated-direct_bias": {
+      "delta": -0.03125,
+      "ci975": [
+        -0.052083333333333315,
+        -0.010416666666666685
+      ],
+      "ci95": [
+        -0.046875,
+        -0.015625
+      ]
+    },
+    "mean_calibrated-direct_bias": {
+      "delta": -0.015625,
+      "ci975": [
+        -0.03645833333333337,
+        0.01041666666666663
+      ],
+      "ci95": [
+        -0.036458333333333315,
+        0.00520833333333337
+      ]
+    }
+  },
+  "source_journal_sha256": {
+    "fold0": "b93d8d5151fc36791f8ebf222e3d02f6526a681841b057249bc9316110807396",
+    "fold1": "183c82bbcecca3815354f69d80a7d2ca69f4ecb3db531c3e13efbe158f2831fc",
+    "fold2": "9c514a0e905953e3c23686928b0194e01bc100f1de7a585b1316566ad1bb6e50"
+  },
+  "limits": [
+    "historical regression with supplied correct applicability and action span",
+    "new mechanism comparison remains failed/incomplete in original run",
+    "confidence intervals condition on fitted old training folds and 12 families"
+  ]
+}
