@@ -1,0 +1,27 @@
+{
+  "seed": 20261019,
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "gpu": "0",
+  "dtype": "bfloat16",
+  "batch_size": 12,
+  "max_new_tokens": 32,
+  "max_input_tokens": 2048,
+  "alpha_grid": [
+    -2,
+    -1,
+    0,
+    1,
+    2
+  ],
+  "direction": "mean(clean - misleading) final prompt residual on training recognition-known records only; average both option orders",
+  "layer": "minimum cosine between training clean and conflict mean, excluding final block",
+  "selection": "highest validation mean accuracy over aligned and misleading contexts, then smallest |alpha|",
+  "strict_primary": "test records correct on both independent open questions AND both closed-book option orders; no conflict-response filtering",
+  "recognition_secondary": "test records correct on both closed-book option orders",
+  "patient_track": "four held-out clinical condition pairs; simplified deterministic text scope gate diagnostic, not full CARE",
+  "data_hashes": {
+    "patient_pairs.json": "9e0fb690df23bad65fc0204e1cc90984b0bcdb7d832117c65f46630bd51ec5b4",
+    "open_probes.json": "bf4a6f9deee547a6d78759fdd97261fe3dafb8c048fc9ae0932f5ad013226c3f",
+    "items.json": "9bccfb8de7d50f83aa6fab4516501fb56122ac8d2b04e71439dde14db46aaea3"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "source": "https://huggingface.co/datasets/RDBH/DriftMed",
+  "revision": "5dcfe380f49c6f17f3c6ba5e25e0e958f9642f0e",
+  "files": {
+    "advice_pairs.jsonl": {
+      "bytes": 94873,
+      "sha256": "ed08f33e5834f01a71358cecc1addfc77813d4cf194afbaae56a50e600f0e563"
+    },
+    "ConflictMed_v2.jsonl": {
+      "bytes": 4181327,
+      "sha256": "c391320d44c7f3bb63b5e1566fa1b64dc693beb2d56f20bb8ed2487a83dbde2a"
+    },
+    "DriftMed_README.md": {
+      "bytes": 4196,
+      "sha256": "d59a5ed84f8879d4f6c8afc6c248b087b1d60a3bf77eda03f2b0dbe3c2e14597"
+    },
+    "ConflictMed.jsonl": {
+      "bytes": 5241884,
+      "sha256": "20f44c0047f5d14904ae0a1d5d43773cc3750069a7fbe855325a1e45dc3a409c"
+    },
+    "driftmed_api.json": {
+      "bytes": 1844,
+      "sha256": "b966a0e03191c44116ab04cf85dda082f0119090a928bdb0467eb5ed6cd664a9"
+    }
+  },
+  "counts": {
+    "advice_pairs.jsonl": 194,
+    "ConflictMed.jsonl": 4290,
+    "ConflictMed_v2.jsonl": 4290
+  },
+  "split_counts": {
+    "validation": 68,
+    "test": 68,
+    "train": 58
+  },
+  "group_counts": {
+    "train": 22,
+    "validation": 12,
+    "test": 14
+  },
+  "open_counts": {
+    "validation": 9,
+    "test": 14,
+    "train": 8
+  },
+  "near_duplicate_edges": [
+    [
+      76,
+      56,
+      1.0000000000000004
+    ],
+    [
+      77,
+      57,
+      1.0000000000000009
+    ],
+    [
+      120,
+      119,
+      0.7408508276733733
+    ],
+    [
+      163,
+      162,
+      0.8013704839498542
+    ],
+    [
+      180,
+      179,
+      0.7664404857165571
+    ]
+  ],
+  "forced_test_groups": [
+    6,
+    61,
+    111,
+    164
+  ],
+  "issues": [
+    "194 advice pairs versus 195 in paper and 4290/22 scenario groups; no row-to-scenario mapping assumed",
+    "Scenario versions/card and paper disagree on generation model; each preserved as published",
+    "wrong advice is manually fabricated pseudo-outdated content, not established historical guidance",
+    "No per-row guideline URL/year in advice file; row provenance is release provenance, not independent clinical validation",
+    "Research Use Only dataset card; raw files kept on server, not redistributed in Git",
+    "Topic groups plus lexical connected components reduce leakage but cannot prove full semantic disjointness",
+    "No native scenario train/test split supplied; native scenarios acquired and audited but not used for direction fitting or held-out evaluation"
+  ],
+  "created_utc": "2026-10-19T10:18:19.536341+00:00"
+}
