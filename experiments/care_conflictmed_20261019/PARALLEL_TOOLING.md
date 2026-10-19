@@ -1,4 +1,4 @@
-> 并行提交的方案原文，保留其脚本说明与提交时状态。本轮实测使用 src/ 下的脚本；此处根目录 prepare.py、evaluate.py、run_transformers.py 未用于本轮 GPU 结果。本文末尾“无 GPU、未下载”等状态只描述该并行提交的容器，不描述已完成的服务器实验。实际结果见 [README](README.md)。
+> 并行提交 47c8f85 的方案原文，保留其脚本说明与提交时状态。本轮实测使用 src/ 下的脚本；根目录 prepare.py、evaluate.py、run_transformers.py、conditions.py 未用于本轮 GPU 结果。本文“无 GPU、未下载”等状态只描述原并行提交的容器，不描述已完成的服务器实验。实际结果见 [README](README.md)。
 
 # CARE / ConflictMedQA：上下文—模型参数知识冲突实验（阶段一）
 
@@ -70,3 +70,21 @@ python experiments/care_conflictmed_20261019/evaluate.py \
 python -m pytest -q experiments/care_conflictmed_20261019/tests
 python -m py_compile experiments/care_conflictmed_20261019/*.py
 ```
+
+## 人群条件反事实：独立、待审查的结构轨
+
+`conditions.py` 支持独立专家核查后的条件标注文件。每条标注必须包含指南出处、审查者、数值条件、阈值、单位、T/F 两种患者取值以及只含一个 `{value}` 占位符的患者观察句。程序验证两种取值确实翻转规则适用性，并生成 T/F/U 三元组和可定位证据/规则字符跨度。
+
+```bash
+python experiments/care_conflictmed_20261019/conditions.py \
+  --annotations /ABSOLUTE/PATH/TO/INDEPENDENTLY_REVIEWED_RULES.jsonl \
+  --out local_data/conditional_prepared_01
+```
+
+这是**规则适用性**轨，不是治疗建议正确率，也不是已经验证的模型参数冲突；无患者动作标注时 `clinical_action_gold=null`，不可据此对 CARE 的临床动作决策评分。脚本拒绝没有出处或审查标记的临床条件标注；它不能取代真正的临床内容审核。
+
+## 已运行的本地预检（2026-10-19）
+
+- `pytest`: **6 passed**；`py_compile` 通过。
+- 基于 Hugging Face 数据卡片所显示的建议第 3、14 组，**人工转录的两组文本**，以 `--allow-partial` 构造了 12 条冲突输入；生成器记录了本地输入哈希，且状态为 `DATA_PREPARED_NOT_MODEL_EVALUATED`。这不是官方下载文件的完整性验证，也不能作为论文数据结果。
+- 当前执行环境不能访问 Hugging Face 外网，且没有 GPU；官方 194 组建议和 4,290 个场景的完整构造检查、真实模型推理、方向干预均标记为**未执行**。
