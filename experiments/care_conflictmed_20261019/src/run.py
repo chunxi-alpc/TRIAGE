@@ -149,7 +149,7 @@ def main():
     c,f=[x.mean(0) for x in captures];cos=torch.nn.functional.cosine_similarity(c,f,dim=-1)
     e.layer=int(cos[:-1].argmin());e.direction=c[e.layer]-f[e.layer]
     torch.save(dict(clean=captures[0],misleading=captures[1],direction=e.direction,layer=e.layer,train_ids=[r['id'] for r in train]),ROOT/'results/direction.pt')
-    dump(ROOT/'results/direction.json',dict(train_ids=[r['id'] for r in train],train_count=len(train),layer=e.layer,norm=float(e.direction.norm()),layer_cosines=cos.tolist(),definition=cfg['direction'],source='DriftMed medical advice only',heldout_accessed=False))
+    dump(ROOT/'results/direction.json',dict(train_ids=[r['id'] for r in train],train_count=len(train),layer=e.layer,norm=float(e.direction.norm()),layer_cosines=cos.tolist(),definition=cfg['direction'],source='DriftMed medical advice only',heldout_used_for_fitting=False,heldout_inference_started=False))
     vjobs=[mc(r,c,o) for r in items if r['split']=='validation' for c in ['misleading','aligned'] for o in [0,1]]
     grid=[]
     for alpha in cfg['alpha_grid']:

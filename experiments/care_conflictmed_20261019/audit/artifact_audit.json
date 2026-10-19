@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-10-19T10:27:34.479226+00:00",
+  "created_utc": "2026-10-19T10:30:38.623950+00:00",
   "release_checks": {
     "ConflictMed.jsonl": {
       "n": 4290,
@@ -45,7 +45,7 @@
     "sha256": "0cf3c6466532fb9b51f20e02e57e6e1a4c63d56496f19cf973590977136daafa",
     "exact_vector_equality": true
   },
-  "script_change_after_main": "Only Engine environment-output filename made configurable for continuation; default and inference unchanged. Main source was not pre-committed; config and data hashes were frozen before inference.",
+  "script_change_after_main": "After main run: made environment-output filename configurable; clarified heldout_accessed metadata to heldout_used_for_fitting / heldout_inference_started. All item text and labels are loaded by the common JSON reader, but only training IDs fit direction and only validation outcomes select alpha. No inference or numeric result was changed. Main source was not pre-committed; config/data hashes were frozen before inference. Concurrent root-level tooling and tests are preserved separately from src/ used for this run.",
   "verification": "Completed JSONL hashes, split isolation, coverage and actual nonzero prefill edits verified in analyze.py. Clinical label truth was not independently reviewed.",
   "prior_review": {
     "pr": 10,
