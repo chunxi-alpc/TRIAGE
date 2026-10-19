@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-10-19T07:08:37.965601+00:00",
+  "as_of": "2026-10-19T08:31:35.123717+00:00",
   "baseline_commit": "7557d3150214a3894f2d340df6d9964de75efce1",
   "branch": "codex/care-reliability-20261019-work",
-  "implementation_status": "real_model_execution_in_progress",
+  "implementation_status": "completed_real_model_experiments",
   "pretrained_model_inference_performed": true,
   "preparation_check_groups_passed": 14,
   "unit_tests": {
@@ -25,7 +25,7 @@
     "model_calls": 0,
     "stable_overall_improvement_established": false
   },
-  "next_action": "Wait for the six-shard structure controller to exit; then summarize actual joint results. Do not add tests or diagnostics.",
+  "next_action": "Review actual results and teacher report. Label mapping, truncation, and conservative gates are identified follow-up work, not changes to this frozen run.",
   "blocker": null,
   "current_validation": "checks/work_verification/README.zh.md",
   "handoff": "WORK_HANDOFF.zh.md",
@@ -36,7 +36,7 @@
     "server_run_root": "/home/gcx/care_reliability_runs/module2_work_02"
   },
   "module1_joint_real_run": {
-    "status": "running_six_structure_shards",
+    "status": "completed_real_model_inference",
     "controller_pid": 2825518,
     "server_run_root": "/home/gcx/care_reliability_runs/joint_formal_work_02",
     "physical_gpus": [
@@ -54,6 +54,19 @@
       1,
       1.5
     ],
-    "monitoring": "Stopped after one stable-start check; wait for controller exit only."
+    "monitoring": "Stopped after one stable-start check; wait for controller exit only.",
+    "actual_answer_records": 2496,
+    "actual_qwen_forward_calls": 4032,
+    "actual_zero_checks": 768,
+    "pipeline_elapsed_seconds": 4341.117615696974,
+    "finished_utc": "2026-10-19T08:17:46.411029+00:00",
+    "summary": "results/work_20261019/summary.json",
+    "raw_archive": "results/work_20261019/joint_raw_runs.tar.gz"
+  },
+  "teacher_report": "results/work_20261019/TEACHER_REPORT.zh.md",
+  "effectiveness_claims": {
+    "v7_primary_improvement_established": false,
+    "learned_direction_superiority_established": false,
+    "clinical_validation": false
   }
 }
