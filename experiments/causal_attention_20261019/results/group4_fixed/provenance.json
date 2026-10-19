@@ -1,0 +1,71 @@
+{
+  "model_path": "/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base",
+  "cuda_visible_devices": "1",
+  "device": "cuda:0",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "torch": "2.8.0+cu128",
+  "transformers": "4.57.6",
+  "dtype": "torch.bfloat16",
+  "num_layers": 36,
+  "query_heads": 32,
+  "kv_heads": 8,
+  "argv": [
+    "experiments/causal_attention_20261019/run_attention.py",
+    "--split",
+    "confirmation",
+    "--configs",
+    "experiments/causal_attention_20261019/configs/group4.json",
+    "--structures",
+    "experiments/causal_attention_20261019/structure/results/fixed.jsonl",
+    "--source",
+    "fixed",
+    "--baseline",
+    "experiments/causal_attention_20261019/results/group1_confirmation_main/baseline.jsonl",
+    "--output",
+    "experiments/causal_attention_20261019/results/group4_fixed"
+  ],
+  "split": "confirmation",
+  "configs": [
+    {
+      "layers": [],
+      "strength": 1.0,
+      "variant": "C",
+      "query_window": 1,
+      "method": "direct",
+      "name": "structure_only",
+      "with_structure": true
+    },
+    {
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1.0,
+      "variant": "C",
+      "query_window": 1,
+      "method": "direct",
+      "name": "attention_only",
+      "with_structure": false
+    },
+    {
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1.0,
+      "variant": "C",
+      "query_window": 1,
+      "method": "direct",
+      "name": "combined",
+      "with_structure": true
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "model_path": "/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base",
+  "cuda_visible_devices": "2",
+  "device": "cuda:0",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "torch": "2.8.0+cu128",
+  "transformers": "4.57.6",
+  "dtype": "torch.bfloat16",
+  "num_layers": 36,
+  "query_heads": 32,
+  "kv_heads": 8,
+  "argv": [
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/run_attention.py",
+    "--split",
+    "dev",
+    "--configs",
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/configs/group2_dev_gpu2.json",
+    "--output",
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/results/group2_dev_gpu2",
+    "--baseline",
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/results/group1_gpu0/baseline.jsonl"
+  ],
+  "split": "dev",
+  "configs": [
+    {
+      "name": "A_L18-23_s1_q1",
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1,
+      "variant": "A",
+      "query_window": 1,
+      "with_structure": false
+    },
+    {
+      "name": "B_L18-23_s1_q1",
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1,
+      "variant": "B",
+      "query_window": 1,
+      "with_structure": false
+    },
+    {
+      "name": "C_L18-23_s1_q1",
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1,
+      "variant": "C",
+      "query_window": 1,
+      "with_structure": false
+    },
+    {
+      "name": "D_L18-23_s1_q1",
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1,
+      "variant": "D",
+      "query_window": 1,
+      "with_structure": false
+    },
+    {
+      "name": "E_L18-23_s1_q1",
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1,
+      "variant": "E",
+      "query_window": 1,
+      "with_structure": false
+    }
+  ]
+}

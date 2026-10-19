@@ -1,0 +1,192 @@
+{
+  "stages": {
+    "original_v7_ungated": {
+      "cases": 192,
+      "rule_correct": 392,
+      "rules": 576,
+      "rule_accuracy": 0.6805555555555556,
+      "states": {
+        "U": 238,
+        "F": 297,
+        "T": 41
+      },
+      "confusion_gold_to_prediction": {
+        "T->U": 127,
+        "F->F": 296,
+        "F->U": 48,
+        "T->T": 33,
+        "F->T": 8,
+        "U->U": 63,
+        "U->F": 1
+      },
+      "execution_correct": 61,
+      "execution_accuracy": 0.3177083333333333,
+      "pairs": 72,
+      "pair_correct": 4,
+      "primary_pairs": 24,
+      "primary_pair_correct": 2,
+      "parse_failure_cases": 155
+    },
+    "mapping_only": {
+      "cases": 192,
+      "rule_correct": 475,
+      "rules": 576,
+      "rule_accuracy": 0.8246527777777778,
+      "states": {
+        "T": 123,
+        "F": 300,
+        "U": 153
+      },
+      "confusion_gold_to_prediction": {
+        "T->T": 114,
+        "F->F": 299,
+        "F->U": 45,
+        "T->U": 46,
+        "F->T": 8,
+        "U->U": 62,
+        "U->T": 1,
+        "U->F": 1
+      },
+      "execution_correct": 141,
+      "execution_accuracy": 0.734375,
+      "pairs": 72,
+      "pair_correct": 37,
+      "primary_pairs": 24,
+      "primary_pair_correct": 11,
+      "parse_failure_cases": 0
+    },
+    "reparse_only": {
+      "cases": 192,
+      "rule_correct": 449,
+      "rules": 576,
+      "rule_accuracy": 0.7795138888888888,
+      "states": {
+        "U": 173,
+        "F": 329,
+        "T": 74
+      },
+      "confusion_gold_to_prediction": {
+        "T->U": 101,
+        "F->F": 328,
+        "T->T": 59,
+        "F->T": 14,
+        "U->U": 62,
+        "F->U": 10,
+        "U->T": 1,
+        "U->F": 1
+      },
+      "execution_correct": 76,
+      "execution_accuracy": 0.3958333333333333,
+      "pairs": 72,
+      "pair_correct": 9,
+      "primary_pairs": 24,
+      "primary_pair_correct": 2,
+      "parse_failure_cases": 0
+    },
+    "mapping_and_reparse": {
+      "cases": 192,
+      "rule_correct": 555,
+      "rules": 576,
+      "rule_accuracy": 0.9635416666666666,
+      "states": {
+        "T": 175,
+        "F": 334,
+        "U": 67
+      },
+      "confusion_gold_to_prediction": {
+        "T->T": 160,
+        "F->F": 333,
+        "F->T": 14,
+        "U->U": 62,
+        "F->U": 5,
+        "U->T": 1,
+        "U->F": 1
+      },
+      "execution_correct": 177,
+      "execution_accuracy": 0.921875,
+      "pairs": 72,
+      "pair_correct": 58,
+      "primary_pairs": 24,
+      "primary_pair_correct": 20,
+      "parse_failure_cases": 0
+    },
+    "fixed": {
+      "cases": 192,
+      "rule_correct": 560,
+      "rules": 576,
+      "rule_accuracy": 0.9722222222222222,
+      "states": {
+        "T": 175,
+        "F": 339,
+        "U": 62
+      },
+      "confusion_gold_to_prediction": {
+        "T->T": 160,
+        "F->F": 338,
+        "F->T": 14,
+        "U->U": 62,
+        "U->T": 1,
+        "U->F": 1
+      },
+      "execution_correct": 177,
+      "execution_accuracy": 0.921875,
+      "pairs": 72,
+      "pair_correct": 58,
+      "primary_pairs": 24,
+      "primary_pair_correct": 20,
+      "parse_failure_cases": 0
+    }
+  },
+  "changes": [
+    {
+      "from": "original_v7_ungated",
+      "to": "mapping_only",
+      "changed_rules": 85,
+      "corrected_rules": 84,
+      "damaged_rules": 1,
+      "state_changes": {
+        "U->T": 82,
+        "U->F": 3
+      }
+    },
+    {
+      "from": "original_v7_ungated",
+      "to": "reparse_only",
+      "changed_rules": 65,
+      "corrected_rules": 58,
+      "damaged_rules": 1,
+      "state_changes": {
+        "U->F": 32,
+        "U->T": 33
+      }
+    },
+    {
+      "from": "mapping_only",
+      "to": "mapping_and_reparse",
+      "changed_rules": 86,
+      "corrected_rules": 80,
+      "damaged_rules": 0,
+      "state_changes": {
+        "U->F": 34,
+        "U->T": 52
+      }
+    },
+    {
+      "from": "mapping_and_reparse",
+      "to": "fixed",
+      "changed_rules": 5,
+      "corrected_rules": 5,
+      "damaged_rules": 0,
+      "state_changes": {
+        "U->F": 5
+      }
+    }
+  ],
+  "checks": {
+    "not_violated_exclusion_is_false": true,
+    "not_met_inclusion_is_false": true,
+    "negation_applied_once": true,
+    "unknown_kept_unknown": true,
+    "all_sources_have_all_192": true
+  }
+}

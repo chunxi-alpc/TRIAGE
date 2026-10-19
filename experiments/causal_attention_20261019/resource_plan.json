@@ -1,0 +1,86 @@
+{
+  "base_branch": "codex/care-reliability-20261019-work",
+  "base_commit": "8c85af5f66875d64325274de9822d7125e3a08e7",
+  "branch": "codex/causal-attention-20261019",
+  "server": "gcx@10.29.128.115",
+  "worktree": "/home/gcx/TRIAGE-worktrees/causal-attention-20261019",
+  "qwen_environment": "/home/gcx/gcx261014",
+  "structure_environment": "/home/gcx/n/.venv",
+  "planned_gpus": {
+    "attention": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "structure": [
+      6
+    ],
+    "conditional_key_edit": [
+      7
+    ]
+  },
+  "planned_peak_GiB": {
+    "attention_per_gpu": "10–14",
+    "structure": "20 reserved",
+    "key_edit": "12"
+  },
+  "planned_minutes": {
+    "groups1_2": "20–50",
+    "conditional_group3": "20–45"
+  },
+  "scope": "Exploratory reused synthetic routing data; no independent clinical confirmation. Structure sources compared on the same 192 confirmation cases. No confidence or evidence eligibility gate.",
+  "data_summary": {
+    "train": {
+      "cases": 288,
+      "families": 12,
+      "variants": {
+        "canonical": 120,
+        "unit_equivalent": 72,
+        "scope_and_order": 72,
+        "short_circuit": 24
+      },
+      "target_states": {
+        "T": 120,
+        "F": 120,
+        "U": 48
+      },
+      "primary_pairs": 36,
+      "all_pairs": 108
+    },
+    "dev": {
+      "cases": 96,
+      "families": 4,
+      "variants": {
+        "canonical": 40,
+        "unit_equivalent": 24,
+        "scope_and_order": 24,
+        "short_circuit": 8
+      },
+      "target_states": {
+        "T": 40,
+        "F": 40,
+        "U": 16
+      },
+      "primary_pairs": 12,
+      "all_pairs": 36
+    },
+    "confirmation": {
+      "cases": 192,
+      "families": 8,
+      "variants": {
+        "canonical": 80,
+        "unit_equivalent": 48,
+        "scope_and_order": 48,
+        "short_circuit": 16
+      },
+      "target_states": {
+        "T": 80,
+        "F": 80,
+        "U": 32
+      },
+      "primary_pairs": 24,
+      "all_pairs": 72
+    }
+  }
+}

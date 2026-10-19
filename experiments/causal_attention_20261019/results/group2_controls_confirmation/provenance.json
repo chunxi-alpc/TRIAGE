@@ -1,0 +1,58 @@
+{
+  "model_path": "/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base",
+  "cuda_visible_devices": "3",
+  "device": "cuda:0",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "torch": "2.8.0+cu128",
+  "transformers": "4.57.6",
+  "dtype": "torch.bfloat16",
+  "num_layers": 36,
+  "query_heads": 32,
+  "kv_heads": 8,
+  "argv": [
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/run_attention.py",
+    "--split",
+    "confirmation",
+    "--configs",
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/configs/group2_controls_confirmation.json",
+    "--output",
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/results/group2_controls_confirmation",
+    "--baseline",
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/results/group1_confirmation_main/baseline.jsonl"
+  ],
+  "split": "confirmation",
+  "configs": [
+    {
+      "name": "E_L18-23_s1_q16_reverse",
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1,
+      "variant": "E",
+      "query_window": 16,
+      "with_structure": false,
+      "control": "reverse"
+    },
+    {
+      "name": "E_L18-23_s1_q16_mismatch",
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1,
+      "variant": "E",
+      "query_window": 16,
+      "with_structure": false,
+      "control": "mismatch"
+    }
+  ]
+}

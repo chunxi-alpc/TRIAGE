@@ -1,0 +1,81 @@
+{
+  "case_id": "mechanism_04_conjunction_nested_disjunction-p01-canonical-app",
+  "zero_max_candidate_logit_difference": 0.125,
+  "zero_prediction_same": true,
+  "target_text": [
+    {
+      "text": "Route Cedar",
+      "rule_id": "R_TARGET",
+      "span": [
+        1199,
+        1210
+      ],
+      "sign": 1,
+      "kind": "action",
+      "token_indices": [
+        255,
+        256
+      ]
+    },
+    {
+      "text": "Route Maple",
+      "rule_id": "R_ALTERNATIVE",
+      "span": [
+        1289,
+        1300
+      ],
+      "sign": -1,
+      "kind": "action",
+      "token_indices": [
+        288,
+        289
+      ]
+    },
+    {
+      "text": "Route Juniper",
+      "rule_id": "R_EXCEPTION",
+      "span": [
+        1344,
+        1357
+      ],
+      "sign": -1,
+      "kind": "action",
+      "token_indices": [
+        305,
+        306,
+        307
+      ]
+    }
+  ],
+  "actual_nonzero_attention": [
+    {
+      "layer": 0,
+      "edited_query_rows": 1,
+      "query_heads": 32,
+      "callback": {},
+      "positive": {
+        "key_tokens": 2,
+        "finite_score_entries": 64,
+        "score_before_mean": 0.142616868019104,
+        "score_after_mean": 1.142616868019104,
+        "score_delta_mean": 1.0,
+        "score_delta_min": 0.9999997615814209,
+        "score_delta_max": 1.000000238418579,
+        "attention_mass_before": 0.0018381010740995407,
+        "attention_mass_after": 0.005039612762629986
+      },
+      "negative": {
+        "key_tokens": 5,
+        "finite_score_entries": 160,
+        "score_before_mean": -0.5413799285888672,
+        "score_after_mean": -1.5413799285888672,
+        "score_delta_mean": -1.0,
+        "score_delta_min": -1.000000238418579,
+        "score_delta_max": -0.9999997615814209,
+        "attention_mass_before": 0.007348253391683102,
+        "attention_mass_after": 0.0027545627672225237
+      },
+      "attention_absolute_change_mean": 0.01042872667312622
+    }
+  ]
+}

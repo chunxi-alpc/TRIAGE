@@ -1,0 +1,30 @@
+{
+  "experiment": "fixed_atomic_interface_v1",
+  "old_V7_unchanged": true,
+  "reference_used_only_for_evaluation": true,
+  "atomic_label_maps": {
+    "inclusion": {
+      "Met": "T",
+      "Not Met": "F",
+      "Unclear": "U",
+      "Irrelevant": "U"
+    },
+    "exclusion": {
+      "Violated": "T",
+      "Not Violated": "F",
+      "Unclear": "U",
+      "Irrelevant": "U"
+    }
+  },
+  "meaning": "Each condition text is a proposition. Exclusion Violated means proposition true; Not Violated means proposition false. Rule-level NOT and UNLESS are applied exactly once by the logic tree.",
+  "prediction_inputs": [
+    "patient",
+    "guideline",
+    "question"
+  ],
+  "cache_recovery": "Use completed final JSON for the one requested atom. Complete repeated outputs must agree. condition_id comes from the exact cached request manifest; no exact copied-text requirement.",
+  "compact_output": "{\"condition_id\":\"C1\",\"state\":\"T|F|U\"}",
+  "unknown_policy": "Unclear/Irrelevant/missing/conflicting model final labels remain U unless supplemented by actual compact generation. Existing V7 numeric precedence retained.",
+  "dev_scope": "96 dev remains the attention development set; this automatic structure comparison uses all 192 confirmation cases with existing V7 outputs.",
+  "interpretation": "Exploratory reused-data experiment, not independent clinical validation."
+}
