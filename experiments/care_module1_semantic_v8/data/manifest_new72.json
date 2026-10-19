@@ -1,0 +1,45 @@
+{
+  "dataset_id": "care_module1_semantic_v8_new72",
+  "frozen_at_utc": "2026-10-19T14:27:16.711744+00:00",
+  "cases": 72,
+  "families": 12,
+  "rules_per_case": 3,
+  "total_rule_judgments": 216,
+  "pairs": 24,
+  "u_scenarios": 24,
+  "split": "new72",
+  "synthetic": true,
+  "is_clinical": false,
+  "independent_clinical_validation": false,
+  "authoring": "Human-readable narratives authored before predictions; executable T/F/U references; no evaluated model used for labeling.",
+  "reference_rule_states": {
+    "T": 48,
+    "F": 120,
+    "U": 48
+  },
+  "files": {
+    "new72_cases.jsonl": "fc357d0918f7905b49b1bf2e5a8c3c9adfbfcf28897bcf49457df85d0ac7455e",
+    "new72_gold.jsonl": "01e228fa844be0382923d6c6535cc427072bffdebec3f89f6af0dada03be4433",
+    "new72_families.jsonl": "757085f4ce67c4cd21bc2a7de0017c544c351cadb781454aaa604e4308c0846f",
+    "new72_review.zh.md": "031786019d3b67399b4896b6726daa6301598906954a794436e6e8efb4cc48bc"
+  },
+  "prediction_allowlist": [
+    "case_id",
+    "question",
+    "patient",
+    "rules.rule_id",
+    "rules.text",
+    "rules.action"
+  ],
+  "a2_extra_input": [
+    "rules.conditions",
+    "rules.exceptions",
+    "rules.logic",
+    "rules.exception_logic"
+  ],
+  "review": "new72_review.zh.md",
+  "frozen_before_model_predictions": true,
+  "dataset_version": 2,
+  "prefreeze_revision": "Before any new72 predictions, improved grammatical wording of complete rule clauses and clarified archive catalog completeness to avoid conflating it with loan status; initial draft retained in new72_prefreeze_draft_v1.",
+  "review_wording_clarification": "Review description clarified as author/Codex text reading, not independent human or clinical expert review; case, gold, and family files unchanged."
+}

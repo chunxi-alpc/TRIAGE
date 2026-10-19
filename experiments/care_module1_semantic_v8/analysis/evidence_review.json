@@ -1,0 +1,157 @@
+{
+  "reviewer": "Codex author inspection; not independent expert or clinical annotation",
+  "scope": "4 illustrative A1 errors only: three dev cases (two F-to-T across different families and one U misclassification), plus one new72 F-to-T case. All quotes locate exactly. Post-inference author inspection, not an estimate of evidence entailment accuracy.",
+  "predictions_or_prompts_modified": false,
+  "conclusion_zh": "证据在患者原文中定位成功，只证明引文存在；不能证明该引文足以支持整条规则的T/F/U或模型理由。",
+  "examples": [
+    {
+      "case_id": "mechanism_04_conjunction_nested_disjunction-p01-unit_equivalent-app",
+      "family_id": "mechanism_04_conjunction_nested_disjunction",
+      "patient": "The patient's current age is 252 months. The current patient does not have routing authorization. The patient's current tumor diameter is 25 mm. The current patient does not have a routing suspension flag. The current patient does not have a suspension waiver.",
+      "rules": [
+        {
+          "rule_id": "R_TARGET",
+          "text": "When (the patient's current age is at least 21 years and (the current patient has routing authorization or the patient's current tumor diameter is at most 2.5 cm)), unless (the current patient has a routing suspension flag and it is not the case that (the current patient has a suspension waiver)), assign Route Cedar.",
+          "action": "Route Cedar"
+        },
+        {
+          "rule_id": "R_ALTERNATIVE",
+          "text": "When it is not the case that ((the patient's current age is at least 21 years and (the current patient has routing authorization or the patient's current tumor diameter is at most 2.5 cm))), unless (the current patient has a routing suspension flag and it is not the case that (the current patient has a suspension waiver)), assign Route Maple.",
+          "action": "Route Maple"
+        },
+        {
+          "rule_id": "R_EXCEPTION",
+          "text": "When (the current patient has a routing suspension flag and it is not the case that (the current patient has a suspension waiver)), assign Route Juniper.",
+          "action": "Route Juniper"
+        }
+      ],
+      "gold_state": "F",
+      "prediction": {
+        "rule_id": "R_ALTERNATIVE",
+        "state": "T",
+        "evidence_quote": "The current patient does not have routing authorization.",
+        "reason_short": "The patient fails the age-and-authorization or tumor diameter condition.",
+        "evidence_located": true,
+        "optional_evidence_char_span": [
+          41,
+          97
+        ]
+      },
+      "split": "dev",
+      "arm": "A1",
+      "author_review_zh": "252个月=21年，25毫米=2.5厘米；年龄要求成立，而且尺寸满足“授权或尺寸”中的后一支。因此目标前提为真，其否定的替代规则应为F。模型引用的“无授权”是真实原文，但不能据此否定整个OR条件，最终产生F→T。此例同时涉及单位换算，单条输出不能分离各因素的贡献。"
+    },
+    {
+      "case_id": "mechanism_04_conjunction_nested_disjunction-u-historical_only-canonical-unknown",
+      "family_id": "mechanism_04_conjunction_nested_disjunction",
+      "patient": "The current patient does not have routing authorization. The patient's current tumor diameter is 2.5 cm. The current patient does not have a routing suspension flag. The current patient does not have a suspension waiver. The patient's historical age was 21 years.",
+      "rules": [
+        {
+          "rule_id": "R_TARGET",
+          "text": "When (the patient's current age is at least 21 years and (the current patient has routing authorization or the patient's current tumor diameter is at most 2.5 cm)), unless (the current patient has a routing suspension flag and it is not the case that (the current patient has a suspension waiver)), assign Route Cedar.",
+          "action": "Route Cedar"
+        },
+        {
+          "rule_id": "R_ALTERNATIVE",
+          "text": "When it is not the case that ((the patient's current age is at least 21 years and (the current patient has routing authorization or the patient's current tumor diameter is at most 2.5 cm))), unless (the current patient has a routing suspension flag and it is not the case that (the current patient has a suspension waiver)), assign Route Maple.",
+          "action": "Route Maple"
+        },
+        {
+          "rule_id": "R_EXCEPTION",
+          "text": "When (the current patient has a routing suspension flag and it is not the case that (the current patient has a suspension waiver)), assign Route Juniper.",
+          "action": "Route Juniper"
+        }
+      ],
+      "gold_state": "U",
+      "prediction": {
+        "rule_id": "R_TARGET",
+        "state": "F",
+        "evidence_quote": "The current patient does not have routing authorization.",
+        "reason_short": "The patient lacks authorization, and age is not current.",
+        "evidence_located": true,
+        "optional_evidence_char_span": [
+          0,
+          56
+        ]
+      },
+      "split": "dev",
+      "arm": "A1",
+      "author_review_zh": "按历史基准“只采用当前观测”的人工约定：当前尺寸2.5厘米已满足“授权或尺寸”，无授权不能否定该OR条件；年龄仅有历史记录，参考状态因此为U。模型理由注意到年龄不是当前信息，却仍以无授权判F。这里评价的是遵循该基准约定及组合语义，并非真实世界的年龄推断：现实年龄具有单调性，历史已满21岁通常可以支持当前至少21岁，不能把此合成U标签当作临床效度结论。"
+    },
+    {
+      "case_id": "mechanism_10_entry_with_two_exclusions-p01-canonical-app",
+      "family_id": "mechanism_10_entry_with_two_exclusions",
+      "patient": "The patient's current age is 18 years. The current patient does not have routing authorization. The patient's current tumor diameter is 1.6 cm. The current patient does not have a routing suspension flag. The current patient does not have a suspension waiver.",
+      "rules": [
+        {
+          "rule_id": "R_TARGET",
+          "text": "When (the patient's current age is at least 18 years and it is not the case that ((the current patient has routing authorization or the patient's current tumor diameter is at most 1.5 cm))), unless (the current patient has a routing suspension flag and it is not the case that (the current patient has a suspension waiver)), assign Route Cedar.",
+          "action": "Route Cedar"
+        },
+        {
+          "rule_id": "R_ALTERNATIVE",
+          "text": "When it is not the case that ((the patient's current age is at least 18 years and it is not the case that ((the current patient has routing authorization or the patient's current tumor diameter is at most 1.5 cm)))), unless (the current patient has a routing suspension flag and it is not the case that (the current patient has a suspension waiver)), assign Route Maple.",
+          "action": "Route Maple"
+        },
+        {
+          "rule_id": "R_EXCEPTION",
+          "text": "When (the current patient has a routing suspension flag and it is not the case that (the current patient has a suspension waiver)), assign Route Juniper.",
+          "action": "Route Juniper"
+        }
+      ],
+      "gold_state": "F",
+      "prediction": {
+        "rule_id": "R_ALTERNATIVE",
+        "state": "T",
+        "evidence_quote": "The patient's current age is 18 years.",
+        "reason_short": "The age condition holds, but the lack of authorization and tumor diameter condition fails, making the negation true.",
+        "evidence_located": true,
+        "optional_evidence_char_span": [
+          0,
+          38
+        ]
+      },
+      "split": "dev",
+      "arm": "A1",
+      "author_review_zh": "年龄>=18成立；授权为假且尺寸<=1.5厘米为假，所以“并非(授权或尺寸<=1.5)”为真。目标前提为真，替代规则是其否定，应为F。模型仅引用年龄这一真事实，并在简短理由中错误处理内部否定与外部否定，产生F→T。"
+    },
+    {
+      "case_id": "v8_new_09_checkin_departure_room_override_p01_T",
+      "family_id": "v8_new_09_checkin_departure_room_override",
+      "patient": "The coordinator is directing the patient to an appointment room. Yesterday's visit ended normally. The patient checked in for today's appointment at 09:00. The patient remains in the facility and has not left since today's check-in. The assigned room is open today. No approved replacement room is available for this appointment.",
+      "rules": [
+        {
+          "rule_id": "R_TARGET",
+          "text": "Assign Route 09 Ready if the patient has checked in for today's appointment and has not left the facility since checking in, unless the assigned room is closed and no approved replacement room is available.",
+          "action": "Route 09 Ready"
+        },
+        {
+          "rule_id": "R_ALTERNATIVE",
+          "text": "Assign Route 09 Preparation if it is false that the patient has checked in for today's appointment and has not left the facility since checking in, unless the assigned room is closed and no approved replacement room is available.",
+          "action": "Route 09 Preparation"
+        },
+        {
+          "rule_id": "R_EXCEPTION",
+          "text": "If the assigned room is closed and no approved replacement room is available, assign Route 09 Exception; this exception takes precedence over the other two branches.",
+          "action": "Route 09 Exception"
+        }
+      ],
+      "gold_state": "F",
+      "prediction": {
+        "rule_id": "R_EXCEPTION",
+        "state": "T",
+        "evidence_quote": "No approved replacement room is available for this appointment.",
+        "reason_short": "The assigned room is open, but no replacement is available, triggering the exception.",
+        "evidence_located": true,
+        "optional_evidence_char_span": [
+          266,
+          329
+        ]
+      },
+      "split": "new72",
+      "arm": "A1",
+      "author_review_zh": "例外要求“原房间关闭”与“没有获批替代房间”同时成立。患者原文明示原房间开放，所以即使没有替代房间，例外也应为F。模型准确引用了无替代房间，却在理由中承认原房间开放仍判例外T，说明引文定位正确不能保证AND条件的完整适用性判断。"
+    }
+  ],
+  "historical_scope_note_zh": "历史数据把历史观测和当前观测严格分开，包括年龄等现实中可利用单调性推断的变量；相关U结果仅在该人工约定下解释。"
+}

@@ -1,0 +1,76 @@
+{
+  "model_path": "/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base",
+  "cuda_visible_devices": "3",
+  "device": "cuda:0",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "torch": "2.8.0+cu128",
+  "transformers": "4.57.6",
+  "dtype": "torch.bfloat16",
+  "num_layers": 36,
+  "query_heads": 32,
+  "kv_heads": 8,
+  "argv": [
+    "experiments/care_module1_semantic_v8/qwen_smoke.py",
+    "--predictions",
+    "experiments/care_module1_semantic_v8/results/confirmation_A1/predictions.jsonl",
+    "--variant",
+    "A1"
+  ],
+  "variant": "A1",
+  "predictions": "experiments/care_module1_semantic_v8/results/confirmation_A1/predictions.jsonl",
+  "configs": [
+    {
+      "name": "baseline",
+      "layers": [],
+      "strength": 1.0,
+      "variant": "C",
+      "query_window": 1,
+      "method": "direct",
+      "with_structure": false
+    },
+    {
+      "name": "structure_only",
+      "layers": [],
+      "strength": 1.0,
+      "variant": "C",
+      "query_window": 1,
+      "method": "direct",
+      "with_structure": true
+    },
+    {
+      "name": "attention_only",
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1.0,
+      "variant": "C",
+      "query_window": 1,
+      "method": "direct",
+      "with_structure": false
+    },
+    {
+      "name": "combined",
+      "layers": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "strength": 1.0,
+      "variant": "C",
+      "query_window": 1,
+      "method": "direct",
+      "with_structure": true
+    }
+  ],
+  "selection": "qwen_selection.json",
+  "scope": "interface and decision impact; no layer/head/strength search",
+  "clinical": false
+}

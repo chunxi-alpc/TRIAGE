@@ -1,0 +1,64 @@
+{
+  "status": "completed",
+  "arm": "A0",
+  "base_model": "/home/gcx/models/care_module1_v5/phi-4",
+  "adapter_model": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+  "base_model_source": "microsoft/phi-4",
+  "adapter_source": "majdabd33/trialmatchai-phi4-reasoning-lora",
+  "quantization": "same PR11 TrialMatchAIAdapter: NF4 4-bit, double quant, bfloat16 compute",
+  "device": "cuda:0",
+  "cuda_visible_devices": "0",
+  "gpu_name": "NVIDIA A100-SXM4-80GB",
+  "python_executable": "/home/gcx/n/.venv/bin/python",
+  "input_path": "/home/gcx/TRIAGE-worktrees/care-module1-semantic-v8-20261019/experiments/care_module1_semantic_v8/data/new72_cases.jsonl",
+  "split": null,
+  "total_cases": 72,
+  "cases_this_invocation": 72,
+  "existing_cases": 0,
+  "generation": {
+    "batch_size": 8,
+    "max_new_tokens": 384,
+    "do_sample": false,
+    "num_beams": 1,
+    "assistant_prefix": "{\"rules\":["
+  },
+  "call_budget": {
+    "primary_case_requests": 72,
+    "max_retry_case_requests": 72,
+    "max_retries_per_case": 1,
+    "max_generated_tokens": 55296,
+    "primary_generate_batches": 9
+  },
+  "prediction_input_fields": [
+    "question",
+    "patient",
+    "rules.rule_id",
+    "rules.text (whole natural-language rule; all adjacent branches)"
+  ],
+  "no_patient_structured_facts_or_gold_in_prediction_input": true,
+  "evidence_policy": "exact quote location is diagnostic only; unmatched quotes never change predicted applicability",
+  "failure_policy": "one short format retry; persistent failures are null, never medical U",
+  "prompt_sha256": "540bb328fad2a9574cf11fe28bfe560e965157663164663180834a1c9cd1c0ce",
+  "fewshot_sha256": null,
+  "fewshot_demonstrations": 0,
+  "fewshot_patient_narratives": 0,
+  "versions": {
+    "torch": "2.8.0+cu128",
+    "transformers": "4.57.1",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2"
+  },
+  "model_load_seconds": 27.121526764996815,
+  "elapsed_seconds": 124.5464430359425,
+  "generation_seconds": 97.3266874520341,
+  "counts": {
+    "accepted_first": 72,
+    "accepted_retry": 0,
+    "parse_failure": 0,
+    "runtime_error": 0,
+    "case_requests": 72,
+    "generate_batches": 9
+  },
+  "peak_allocated_gib": 13.174214363098145,
+  "peak_reserved_gib": 13.375
+}
