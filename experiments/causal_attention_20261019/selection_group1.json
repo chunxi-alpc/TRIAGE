@@ -1,0 +1,45 @@
+{
+  "selected_from": "dev only; reused data exploratory",
+  "selection_order": [
+    "primary_pair_correct",
+    "correct",
+    "mean_margin"
+  ],
+  "best": {
+    "name": "C_L18-23_s1_q1",
+    "layers": [
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "strength": 1,
+    "variant": "C",
+    "query_window": 1,
+    "with_structure": false
+  },
+  "representative": {
+    "name": "C_L12-17_s0.5_q1",
+    "layers": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "strength": 0.5,
+    "variant": "C",
+    "query_window": 1,
+    "with_structure": false
+  },
+  "group1_result": "All 24 settings 0/12 primary pairs; both selected settings 37/96 versus baseline35/96. Weak exploratory signal.",
+  "numerical_note": "One zero-strength necessary check maximum candidate-logit difference=0.125 BF16; prediction unchanged. Full recorded result retained.",
+  "engine_changes_after_group1": [
+    "No target rows now return original SDPA (all group1 interventions had >0 targets, so no group1 impact).",
+    "Missing external structures cannot fall back to reference.",
+    "Non-direct methods use actual edited keys in full causal attention; query window defines solver/diagnostics only."
+  ]
+}

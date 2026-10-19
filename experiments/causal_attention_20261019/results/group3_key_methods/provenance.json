@@ -1,0 +1,52 @@
+{
+  "model_path": "/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base",
+  "cuda_visible_devices": "7",
+  "device": "cuda:0",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "torch": "2.8.0+cu128",
+  "transformers": "4.57.6",
+  "dtype": "torch.bfloat16",
+  "num_layers": 36,
+  "query_heads": 32,
+  "kv_heads": 8,
+  "argv": [
+    "experiments/causal_attention_20261019/run_key_edit.py",
+    "--config",
+    "experiments/causal_attention_20261019/configs/group3_fixed.json",
+    "--output",
+    "experiments/causal_attention_20261019/results/group3_key_methods",
+    "--baseline-dev",
+    "experiments/causal_attention_20261019/results/group1_gpu0/baseline.jsonl",
+    "--baseline-confirmation",
+    "experiments/causal_attention_20261019/results/group1_confirmation_main/baseline.jsonl",
+    "--direct-dev",
+    "experiments/causal_attention_20261019/results/group1_gpu1/C_L18-23_s1_q1.jsonl",
+    "--direct-confirmation",
+    "experiments/causal_attention_20261019/results/group1_confirmation_main/C_L18-23_s1_q1.jsonl",
+    "--trigger-evidence",
+    "Group1 actual Qwen dev: layers18-23 C lambda1 final-query changed attention and predictions; 35 to 37 of96, corrected3 damaged1, primary0of12 unchanged. Weak exploratory signal."
+  ],
+  "conditional_trigger": "Group1 actual Qwen dev: layers18-23 C lambda1 final-query changed attention and predictions; 35 to 37 of96, corrected3 damaged1, primary0of12 unchanged. Weak exploratory signal.",
+  "config": {
+    "name": "C_L18-23_s1_q1",
+    "layers": [
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "strength": 1,
+    "variant": "C",
+    "query_window": 1,
+    "with_structure": false
+  },
+  "study_status": "exploratory reuse of existing development and confirmation sets",
+  "direction_space": "post-RoPE key vectors",
+  "scope": "Key methods affect every causally visible query; direct score bias only affects selected last 1/16 query rows",
+  "calibration": "Per selected causal 4-head query group, gamma=z/(z^2+0.01*||mean(Q)||^2/d); no sign gate; no RMS search",
+  "query_aligned": "ridge=0.01*mean(diag(A A^T)); A=selected causal Q/sqrt(d)",
+  "unknown_training_policy": "Unknown rule states do not define a T-F contrast; every case remains in evaluation",
+  "seed": 20261019
+}

@@ -1,0 +1,54 @@
+{
+  "model_path": "/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base",
+  "cuda_visible_devices": "1",
+  "device": "cuda:0",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "torch": "2.8.0+cu128",
+  "transformers": "4.57.6",
+  "dtype": "torch.bfloat16",
+  "num_layers": 36,
+  "query_heads": 32,
+  "kv_heads": 8,
+  "argv": [
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/run_attention.py",
+    "--split",
+    "confirmation",
+    "--configs",
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/configs/group1_confirmation_representative.json",
+    "--output",
+    "/home/gcx/TRIAGE-worktrees/causal-attention-20261019/experiments/causal_attention_20261019/results/group1_confirmation_representative"
+  ],
+  "split": "confirmation",
+  "configs": [
+    {
+      "name": "C_L12-17_s0.5_q1",
+      "layers": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "strength": 0.5,
+      "variant": "C",
+      "query_window": 1,
+      "with_structure": false
+    },
+    {
+      "name": "C_L12-17_s0.5_q1_structure",
+      "layers": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "strength": 0.5,
+      "variant": "C",
+      "query_window": 1,
+      "with_structure": true
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "status": "completed",
+  "model": "/home/gcx/models/care_module1_v5/phi-4",
+  "adapter": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+  "device": "cuda:0",
+  "cuda_visible_devices": "6",
+  "gpu_name": "NVIDIA A100-SXM4-80GB",
+  "python_executable": "/home/gcx/n/.venv/bin/python",
+  "requests": 17,
+  "output_contract": "condition_id is input metadata; Phi generates exactly one constrained T/F/U token. JSON is serialized without copying criterion text.",
+  "generation": {
+    "batch_size": 8,
+    "max_new_tokens": 1,
+    "do_sample": false,
+    "allowed_token_ids": {
+      "T": [
+        51
+      ],
+      "F": [
+        37
+      ],
+      "U": [
+        52
+      ]
+    }
+  },
+  "reference_labels_in_model_input": false,
+  "elapsed_seconds": 32.31244879798032,
+  "peak_allocated_gib": 13.174214363098145,
+  "peak_reserved_gib": 13.375,
+  "versions": {
+    "torch": "2.8.0",
+    "transformers": "4.57.1",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2"
+  }
+}
