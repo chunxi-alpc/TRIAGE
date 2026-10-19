@@ -1,3 +1,11 @@
+# 已完成的服务器实测
+
+已在 gcx@10.29.128.115 的 GPU 0 完成 Qwen3-8B 基线、方向校准和无选项补测，共 3,158 次真实生成。严格已知测试事实仅1组，错误上下文下无干预与方向均为0/2，不能据此声称CARE有效。完整结果、复现和未执行范围见 [服务器实测](SERVER_RUN.md)、[报告](REPORT.txt) 与 [原始输出](results/summary.json)。
+
+下文及 STATUS_2026-10-19.md 保留另一并行任务的协议和CPU预检状态。其“未下载、无GPU、未推理”仅适用于根目录的另一套工具及该任务容器，不覆盖本目录 src/ 脚本已经完成的服务器实验。两套协议的结果不可混用。
+
+---
+
 # CARE / ConflictMedQA：上下文—模型参数知识冲突实验（阶段一）
 
 本目录是**新的、独立的实验协议**，不修改 `experiments/care_steering_20261019` 已冻结的结果。所用公开数据集为论文 *Assessing and Mitigating Medical Knowledge Drift and Conflicts in Large Language Models* 所发布的 `RDBH/DriftMed`：194 组正确/错误临床建议，另有 4,290 条含患者背景的对照场景。原数据集基于 **2025 年 2 月** 的临床知识，不能当作 2026 年实时医疗指南。
