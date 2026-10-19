@@ -1,0 +1,82 @@
+{
+  "dataset_id": "sealed_mechanism_20261019",
+  "schema_version": "care.synthetic_mechanism.v1",
+  "status": "frozen_before_model_execution",
+  "base_repository_commit": "7557d3150214a3894f2d340df6d9964de75efce1",
+  "generator_sha256": "f0ab6182e15eb35aa31a24f80ac0e836c6aca32e99ab9b989fe745ffea4b36b8",
+  "is_clinical": false,
+  "reference_label_provenance": "executable strong-Kleene logic over deliberately invented routing facts",
+  "independent_expert_review": false,
+  "existing_model_outputs_read": false,
+  "method_development_blind": false,
+  "development_exposure": {
+    "timing": "frozen before model forward execution; not blind throughout method development",
+    "exposed_material": [
+      "schema",
+      "case wording"
+    ],
+    "use": "CPU development regression checks and fixes, including relative-subject recognition",
+    "case_label_or_split_changes_based_on_model_outputs": false,
+    "interpretation": "new synthetic mechanism test with prespecified family holdout; not independently blinded confirmation or clinical validation"
+  },
+  "existing_patient_or_rule_samples_reused": false,
+  "cases": 576,
+  "families": 24,
+  "family_counts": {
+    "train": 12,
+    "confirmation": 8,
+    "dev": 4
+  },
+  "case_counts_by_reference_state": {
+    "train": {
+      "T": 120,
+      "F": 120,
+      "U": 48
+    },
+    "dev": {
+      "T": 40,
+      "F": 40,
+      "U": 16
+    },
+    "confirmation": {
+      "T": 80,
+      "F": 80,
+      "U": 32
+    }
+  },
+  "pair_counts": {
+    "train": 108,
+    "confirmation": 72,
+    "dev": 36
+  },
+  "module2_sealed_scope": "confirmation split; complete T/F pairs only; fixed target action",
+  "outer_fold_policy": "SHA256(family_id) modulo 3; fixed selection among previously trained legacy assets",
+  "primary_analysis": "confirmation canonical pairs; all variants and U/proof subsets reported separately",
+  "prohibited_selection": [
+    "filtering cases by model confidence or effect",
+    "selecting methods on confirmation labels",
+    "calling random projections learned subspaces",
+    "dropping parsing failures from denominators"
+  ],
+  "limitations": [
+    "invented rules and templated simulated observations",
+    "no clinical validity or clinician adjudication",
+    "schema and wording were exposed during method-development regression fixes; not blind throughout development",
+    "syntactic family holdout does not establish open-world semantic generalization",
+    "surface variants share counterfactual groups and are not independent samples"
+  ],
+  "files": {
+    "mechanism_cases.jsonl": {
+      "sha256": "c160431b2de0d4d028aa323d21c09105bcbba0867bca6166b5206b086d0e516a",
+      "bytes": 5253919
+    },
+    "module2_sealed.jsonl": {
+      "sha256": "f6d80f0f2926b5290064413d1289516bc348cdc62cbf84e99ffa8fec6bdef7b9",
+      "bytes": 1336909
+    },
+    "family_split.json": {
+      "sha256": "daa538e26dc5f6163825c45f6d276ea2ccbe1a8408dd097d5a5fb7cc091eb4db",
+      "bytes": 19596
+    }
+  }
+}
