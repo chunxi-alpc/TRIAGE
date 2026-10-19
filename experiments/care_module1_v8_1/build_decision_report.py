@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+"""Build the final adoption report from completed, frozen experiment results."""
+import json
+from pathlib import Path
+from datetime import datetime
+from zoneinfo import ZoneInfo
+HERE=Path(__file__).resolve().parent
+
+def main():
+ m=json.loads((HERE/"analysis/metrics.json").read_text())
+ done=json.loads((HERE/"completion_manifest.json").read_text())
+ selected=json.loads((HERE/"selection.json").read_text())["selected"]
+ assert done["all_results_complete"] and selected=="A1"
+ names={"dev":"开发96", "confirmation":"历史192", "new72":"原新增72", "natural72":"本轮自然语言72"}
+ lines=["# CARE 模块一 V8.1：实际 GPU 实验与采用结论", "", "报告日期："+datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d")+"（北京时间）。基于 PR #12 的 `8fb87d15576b88500f44a88f04799267d9f2b5ee`，在原服务器完成。", "", "**结论：不采用本轮 V8.1 的 B1 或 B2 替换现有 A1。保留 A1 作为语义判断方案；V8.1 代码和结果保留为已完成的实验。**", "", "开发集按事先写入 protocol.json 的准确率、F→T、U 召回和完整推理成本顺序选择，结果仍为 A1。B1 的单次完整条件检查没有带来稳定的总体收益；B2 复核增加一次完整模型调用，纠错收益不足以抵消改错及成本。后续对照用于检验这一判断，没有重新选择方案或修改提示。这里不声称改进在任何数据上都无效，也不把某一项改善解释成整体方案更好。", "", "## 方法与实际完成范围", "", "A1 完全复用 PR #12 的提示、三个训练演示、Phi-4＋TrialMatchAI LoRA、NF4 4bit、batch 8、greedy、每次最多384输出token。B1 在同样提示中增加完整条件、例外、否定、AND/OR 和信息不足的检查指令，一次输出最终状态。B2 以 A1 原始回答为第一轮，再由同一模型复核完整规则并返回最终状态。没有程序规则改写、RAG、置信度或复杂规则门控。", "", "原 96/192/72 例的 A1 及 B2 首轮均复用既有输出。新自然语言72例的 A1、B1和B2复核全部新运行。开发集选择冻结后才开始后续三组推理，新增病例及标签也在推理前冻结。未重跑 A0、A2 或 Qwen 下游实验。", "", f"本轮实际新增 **{done['added_gpu_case_requests']} 次病例模型请求**，每次判断三条规则；格式重试 {done['format_retries']} 次，失败病例 {done['failed_cases']} 例。三臂四组共保存 {done['evaluated_rule_predictions']} 条最终规则评价，其中旧 A1 结果直接引用已有文件。", "", "## 主要结果", "", "|数据|方案|准确率|F→T / 真实F|U正确 / 真实U|反事实目标配对全对|", "|---|---|---:|---:|---:|---:|"]
+ for s,n in names.items():
+  for a in ("A1","B1","B2"):
+   r=m[s+"_"+a];u=r["confusion"]["U"]["U"];un=r["per_state"]["U"]["support"]
+   lines.append(f"|{n}|{a}|{r['correct']}/{r['rules']}（{r['accuracy']:.2%}）|{r['F_to_T']}/{r['F_to_T_denominator']}|{u}/{un}|{r['target_pair_correct']}/{r['target_pair_total']}|")
+ lines += ["", "各类别精确率/召回率/F1、完整混淆矩阵、整病例正确率和所有翻转规则配对见 [完整结果](RESULTS.zh.md)。反事实配对要求目标规则在两侧都正确，并非仅发生预测翻转。", "", "## 成本与资源", "", "|数据|方案|完整模型调用|输入＋输出token|相对A1 token成本|实际批次生成秒（完整成本）|", "|---|---|---:|---:|---:|---:|"]
+ for s,n in names.items():
+  for a in ("A1","B1","B2"):
+   r=m[s+"_"+a]
+   lines.append(f"|{n}|{a}|{r['model_calls']}|{r['total_tokens']}|{r['total_tokens']/m[s+'_A1']['total_tokens']:.2f}倍|{r['summed_case_inference_seconds']:.1f}|")
+ peaks=[r["peak_allocated_gib"] for r in done["runs"]]
+ lines += ["", f"实际使用 GPU 0、1、2（A100 80GB）；各运行峰值已分配显存 {min(peaks):.2f}–{max(peaks):.2f} GiB。新增 GPU 批次生成时间合计 {done['added_gpu_generation_seconds']:.1f} 秒，为多个运行的累加值，不是并行墙钟时长。", "", "B2 的完整成本包含被复用的 A1 首轮，本轮新增成本另列于 analysis/metrics.json 和完整结果。时间是批处理耗时分摊，不能当作单请求在线延迟；历史 A1 与本次运行时间仅作描述性比较。", "", "## 错误与采用理由", "", "开发集 B2 没有纠正任何错误，反而把同一信息不足病例的两条正确判断改错。历史192例 B2 纠正4条、改错8条，虽然减少4条 F→T，但总体正确数下降。B1 在开发集纠正9条、改错13条，其减少F→T的同时丢失部分U识别。", "", "典型问题是把未知条件当成否定，或没有完整解释嵌套否定。个别标签虽然改对，所附理由仍不正确，因此不能仅凭理由有原文摘录就认定整条判断成立。详细原文、规则和独立语义解释见 [案例分析](DEV_INTERPRETATION.zh.md)，所有错误见 [错误明细](analysis/errors.jsonl)。", "", "在原新增72例上，B2比A1多对1条，反事实配对由20/24升至22/24，但U识别由33/48降至31/48。在本轮新自然语言72例上，B2同样仅多对1条（190/216对189/216），少1次F→T（4对5），U识别持平（31/48），配对由18/24升至19/24；完整token成本约为A1的2.16倍。这些局部收益如实保留，不能抵消开发与历史对照的退步及额外成本。", "", "总体上，开发集没有选出新方案，历史对照也未展示稳定的准确率和U识别改善，B2则固定多一次完整推理。局部反事实配对或F→T改善值得记录，但不足以支持默认替换。", "", "## 数据范围与复现", "", "历史192例及原新增72例已经用于前序实验，只是回归对照。本轮新72例包含12个新主题、24对反事实病例和24个信息不足场景，全部为合成自然语言叙述和虚构分流规则；没有真实临床验证，也没有独立专家标注。主题内病例相关，不能把每条规则视为独立样本夸大证据。", "", "[复现入口](README.md) · [开发集冻结选择](selection.json) · [完成记录](completion_manifest.json) · [全部逐例结果](analysis/case_predictions.jsonl) · [B2纠正与改错](analysis/review_transitions.json) · [运行日志归档](artifacts/runtime_logs.tar.gz)", "", "模型原始提示、输出、tokens和耗时见 results 各子目录 predictions.jsonl；旧A1对应 PR #12 中的原文件。代码、数据、选择记录和输出哈希均保留。", ""]
+ (HERE/"REPORT.zh.md").write_text("\n".join(lines))
+if __name__=="__main__":main()

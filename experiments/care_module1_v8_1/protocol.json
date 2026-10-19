@@ -1,0 +1,19 @@
+{
+  "version": "V8.1",
+  "base_pr": "https://github.com/chunxi-alpc/TRIAGE/pull/12",
+  "base_commit": "8fb87d15576b88500f44a88f04799267d9f2b5ee",
+  "selection_split": "original dev96 only",
+  "selection_order": ["higher rule accuracy", "fewer F_to_T", "higher U recall", "lower full inference cost"],
+  "freeze_selection_before_followup": true,
+  "arms": {"A1":"unchanged V8 semantic fewshot judgement", "B1":"single complete-condition semantic check", "B2":"A1 initial judgement followed by complete-condition semantic review"},
+  "reuse": "Reuse original A1 dev96, historical192, new72 predictions, including as B2 first pass; do not repeat A0, A2, Qwen or historical A1 inference.",
+  "followup": ["historical192", "prior new72", "fresh natural72"],
+  "all_three_arms_reported": true,
+  "natural72": "72 new synthetic natural-language cases, 12 themes, 24 counterfactual pairs and 24 missing-information cases; frozen before prediction",
+  "metrics": ["rule T/F/U accuracy", "per-class precision recall F1", "F_to_T count and rate", "U recognition", "counterfactual pair accuracy", "calls tokens actual GPU generation time"],
+  "cost": "Report full two-pass logical cost separately from newly executed cost; amortized batch time is not online latency.",
+  "resources": {"gpus":[0,1,2], "estimated_memory_gib_per_gpu":[17,25], "estimated_gpu_inference_minutes":[20,35], "new_case_requests_without_retries":936},
+  "model": "original Phi-4 plus TrialMatchAI LoRA, original NF4 quantization, batch8 greedy max384 tokens per pass",
+  "excluded": ["RAG", "confidence", "complex rule gates", "new model training", "repeating completed experiments"],
+  "scope": "Synthetic fictional routing experiment, not clinical validation. Historical192 and prior new72 are regression comparisons."
+}
