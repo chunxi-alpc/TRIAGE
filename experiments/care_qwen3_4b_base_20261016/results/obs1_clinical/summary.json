@@ -1,0 +1,54 @@
+{
+  "scope": "source-grounded clinical rules with simulated patients; original factual rules, not fabricated counterfactual guidelines",
+  "screening": {
+    "cases": 384,
+    "eligible": 153,
+    "eligible_app": 78,
+    "eligible_non": 75,
+    "complete_eligible_pairs": 25,
+    "no_probability_threshold": true,
+    "selection_depends_on_intervention_outputs": false,
+    "data_sha256": "cbe6dc63cb95c64db60ce6b9062c0eeb910d15c7a68f42ed7ca7904d7cf6c28b",
+    "screen_sha256": "b99ad7e2d313fb387794d23bbc67a60a05bc8d5506bcbdd0892bdae53684515d"
+  },
+  "stable_cases": 329,
+  "stable_correct_excluded": 176,
+  "unstable_excluded": 55,
+  "rules": 24,
+  "families": 12,
+  "subsets": {
+    "all_cases": {
+      "status": "testable",
+      "n_cases": 384,
+      "n_families": 12,
+      "tradeoff": {
+        "seka": "not_observed",
+        "pasta": "not_observed"
+      }
+    },
+    "eligible_cases": {
+      "status": "testable",
+      "n_cases": 153,
+      "n_families": 12,
+      "tradeoff": {
+        "seka": "not_observed",
+        "pasta": "not_observed"
+      }
+    },
+    "complete_eligible_pairs": {
+      "status": "testable",
+      "n_cases": 50,
+      "n_families": 8,
+      "tradeoff": {
+        "seka": "not_observed",
+        "pasta": "not_observed"
+      }
+    }
+  },
+  "bootstrap": "10000 clinical-rule-family cluster resamples; paired methods and patients retained; fixed out-of-fold fits",
+  "model": "Qwen/Qwen3-4B-Base",
+  "model_revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+  "seka_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+  "independent_clinician_adjudication": false,
+  "high_confidence_cutoff": null
+}

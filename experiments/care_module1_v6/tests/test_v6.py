@@ -1,3 +1,4 @@
+from pathlib import Path
 import pathlib, sys
 ROOT=pathlib.Path(__file__).resolve().parents[3]; sys.path.insert(0,str(ROOT))
 from src.module1.care_v6 import CAREModule1V6, TRUE, FALSE, UNKNOWN, map_trialmatch_label, eval_logic
@@ -14,6 +15,11 @@ def test_v6_keeps_trialmatch_on_nli_conflict():
  assert out["rules"][0]["applicability"]==TRUE
  assert out["rules"][0]["evidence_status"]=="supported"
  assert out["rules"][0]["allow_attention_intervention"] is False
+ assert out["schema_version"] == "module1.v6"
+ assert out["applicability"][0]["state"] == TRUE
+ assert out["condition_evidence_relations"][0]["evidence_status"] == "supported"
+ for span in out["condition_evidence_relations"][0]["evidence"]:
+  assert "start" in span and "end" in span
 
 def test_v6_does_not_upgrade_unknown_from_nli():
  out=CAREModule1V6(TM("Unclear"),NLI("entailment")).run(rule(),"Current distant metastasis is present.","Assess")
@@ -25,3 +31,22 @@ def test_v6_numeric_overrides_only_when_observed():
  assert out["rules"][0]["applicability"]==TRUE
 if __name__ == "__main__":
  test_v6_keeps_trialmatch_on_nli_conflict(); test_v6_does_not_upgrade_unknown_from_nli(); test_v6_numeric_overrides_only_when_observed(); print("v6 basic tests passed")
+
+def test_v6_default_package_entry_uses_injected_v6_instance():
+ import src.module1 as module1
+ fake = CAREModule1V6(TM("Met"), NLI("entailment"))
+ module1.set_default_v6(fake)
+ result = module1.run(rule(), "Current distant metastasis is present.", "Assess")
+ assert result["schema_version"] == "module1.v6"
+
+def test_care_v6_run_factory_does_not_reference_compat_v5(monkeypatch):
+ import src.module1.care_v6 as care
+ care.set_default_v6(None)
+ created=[]
+ def factory(cls, **kwargs):
+  created.append(kwargs)
+  return CAREModule1V6(TM("Met"), NLI("entailment"))
+ monkeypatch.setattr(CAREModule1V6, "from_pretrained", classmethod(factory))
+ result=care.run(rule(), "Current distant metastasis is present.", "Assess")
+ assert created and result["schema_version"]=="module1.v6"
+ assert "compat_v5" not in Path(care.__file__).read_text()

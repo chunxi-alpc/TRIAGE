@@ -710,7 +710,9 @@ class CAREModule1V6:
                         "applicability_source": row["applicability_source"], "trialmatch_status": row["trialmatch"]["state"],
                         "evidence_status": row["evidence_status"], "evidence": row["support_evidence"]+row["refute_evidence"]+row["unknown_evidence"],
                         "refute_evidence": row["refute_evidence"], "support_evidence": row["support_evidence"], "unknown_evidence": row["unknown_evidence"],
-                        "allow_attention_intervention": row["allow_attention_intervention"], "uncertain": row["status"] == UNKNOWN})
+                        "allow_attention_intervention": row["allow_attention_intervention"],
+                        "confidence": 1.0 if row["allow_attention_intervention"] else 0.0,
+                        "uncertain": row["status"] == UNKNOWN})
             model_base, numeric_base = eval_logic(rule["logic"], raw_states), eval_logic(rule["logic"], numeric_states)
             if all_exceptions:
                 model_state = tri_and([model_base, tri_not(eval_logic(rule["exception_logic"], raw_states))])
@@ -729,7 +731,9 @@ class CAREModule1V6:
                 "support_evidence": support, "refute_evidence": refute, "evidence_status": evidence_status,
                 "allow_attention_intervention": allow, "uncertain": applicability == UNKNOWN or evidence_status == "disputed"})
         applicability_rows = [{"rule_id": r["rule_id"], "state": r["applicability"], "status": {TRUE:"applicable",FALSE:"not_applicable",UNKNOWN:"unknown"}[r["applicability"]],
-            "trialmatch_state": r["trialmatch_applicability"], "evidence_status": r["evidence_status"], "allow_attention_intervention": r["allow_attention_intervention"], "uncertain": r["uncertain"]} for r in output_rules]
+            "trialmatch_state": r["trialmatch_applicability"], "evidence_status": r["evidence_status"],
+            "decisive_condition_ids": [c["condition_id"] for c in r["conditions"] if c["status"] in (TRUE, FALSE)],
+            "allow_attention_intervention": r["allow_attention_intervention"], "uncertain": r["uncertain"]} for r in output_rules]
         critical_spans = [{"rule_id": x["rule_id"], "condition_id": x["condition_id"], **e} for x in relations for e in x["evidence"]]
         binding_gate, action_gate, conflict_scores, relation_weights = {}, {}, [], []
         for rule in output_rules:
@@ -763,6 +767,11 @@ def run(guideline: Any, patient: Any, question: str) -> dict[str, Any]:
     """
     global _default_v6
     if _default_v6 is None:
-        from .compat_v5 import Module1
-        _default_v6 = Module1()
+        device = os.environ.get("CARE_MODULE1_V6_DEVICE", "cuda:0")
+        cache_dir = os.environ.get("CARE_MODULE1_V6_CACHE")
+        base_model = os.environ.get("CARE_MODULE1_V6_BASE_MODEL", TRIALMATCH_BASE)
+        adapter_model = os.environ.get("CARE_MODULE1_V6_ADAPTER_MODEL", TRIALMATCH_ADAPTER)
+        evidence_model = os.environ.get("CARE_MODULE1_V6_EVIDENCE_MODEL", BIOLINK_MEDNLI)
+        _default_v6 = CAREModule1V6.from_pretrained(device=device, cache_dir=cache_dir,
+            base_model=base_model, adapter_model=adapter_model, evidence_model=evidence_model)
     return _default_v6.run(guideline, patient, question)

@@ -2,48 +2,20 @@
 
 TRIAGE 将指南规则检索、患者条件与证据判断、注意力头诊断及门控干预串联起来。三模块已经集成，目前处于小规模算法诊断与关键错误修复阶段，尚未运行完整基准。
 
-项目在服务器 `gcx@10.29.128.115:/home/gcx/TRIAGE` 运行，复用环境 `/home/gcx/gcx261014`、现有 Qwen3-8B、MedCPT-MedPair、投影参数及缓存。当前阶段没有重新部署、下载新模型或训练模型。
+TRIAGE 主流程在服务器 `gcx@10.29.128.115:/home/gcx/TRIAGE` 运行，复用环境 `/home/gcx/gcx261014`、现有 Qwen3-8B、MedCPT-MedPair、投影参数及缓存。该流水线阶段没有重新部署、下载新模型或训练模型；新增 CARE 独立实验使用 Qwen3-4B-Base，见下一节。
 
-## 最新关键实验：2026-10-15 正确标注下的目标切换诊断
+## 新增结果：2026-10-16 CARE 三项观察
 
-已完成 E0/E1 并独立复算全部 80 例。相同参考关系与证据、共同 β=2 下，固定增强 OF **68/80、31/40 对、OAR 2/40**；切换增强 OS **66/80、30/40 对、OAR 3/40**，原正确均保持 64/64。主比较没有切换收益，按停止条件暂停当前完整规则路线；E2 自标注优化、E3 新前向和独立验证均未运行。
+新增独立的 **Qwen3-4B-Base CARE 实测实验**，含真实临床规则的观察一补充；见 [CARE 实验目录](experiments/care_qwen3_4b_base_20261016/)。
 
-完整 Oracle 的 80 例掩码虽不同，但 OS 只是 OF 的子集，没有新增否定证据。仅参考目标规则的次要诊断在 40 例不适用病例真正改变目标，OS-target 比 OF-target 多纠正 3 例（65→68/80），保留为不可部署、知晓答案的局部机制信号，不能替代主比较。β=1 的完整 OF/OS 指标相同，未重新选择参数。
+- 临床 O1：12 个规则家族、24 条真实规则、384 个模拟病例；宽松闭卷筛选合格 **153 例（适用 78、不适用 75）**，**25 个完整配对两侧均合格**，不设高置信度门槛。
+- 三折按规则家族独立测试。原始模型、官方 SEKA、官方 PASTA 适用准确率均为 **33.3%（95% CI 19.5–50.7%）**；误用率为 **36.0%、33.3%、37.3%**，未观察到所假设的忠实性–误用权衡。
+- O2/O3 保持虚构规则机制实验范围：适用性 Key AUROC **0.738 [0.660, 0.832]**；实际 BF16 局部分数反向变化 **8.91% [8.70%, 9.14%]**，不能称为临床验证。
+- 数据来源、逐例输出、家族置信区间、代码和 **10 组 PNG/PDF/SVG 图**均已保存。完整服务器验收 **65 项检查通过**；患者模拟，无独立医生复核。
 
-- [任务书](docs/ACRE/07-next-experiments.md)、[中文评审](docs/ACRE/08-oracle-switch-results.md)
-- [新结果与复现](results/acre_pilot/oracle_switch_diagnostic/README.md)、[完整指标](results/acre_pilot/oracle_switch_diagnostic/oracle_factorial_metrics.json)、[独立复算](results/acre_pilot/oracle_switch_diagnostic/recompute_check.json)
-- 历史 revision3 和旧模块不变。正常预测与 Oracle 来源隔离。全部结果仍属已观察开发集的探索性分析。
+[更新报告](experiments/care_qwen3_4b_base_20261016/results/observations_summary.md) · [临床详细报告](experiments/care_qwen3_4b_base_20261016/results/obs1_clinical/clinical_report.md) · [逐例核验表](experiments/care_qwen3_4b_base_20261016/data/clinical/case_review.csv) · [完整数据 Release](https://github.com/chunxi-alpc/TRIAGE/releases/tag/care-qwen3-4b-base-20261016)
 
-## 上一轮：2026-10-15 简化 ACRE 开发集预实验
-
-完成 **40 对、80 例**可程序核验的反事实开发样本，覆盖 36 个新指南；旧筛选只得 4 对主要由条件覆盖、全文匹配和选项上限造成。JSON 与原文引用已修复，另外发现并修正受限解码对“不适用”的分词偏置，在同一冻结数据上重新运行 B0–B6。
-
-共享 beta=2，动作同义表达审计修正后的结果：
-
-| 方法 | 正确 | 成对正确 | 目标动作误用 |
-| --- | ---: | ---: | ---: |
-| B0 原始指南 | 64/80 | 29/40 | 4/40 |
-| B1 整条增强 | 63/80 | 28/40 | 5/40 |
-| B2 固定目标 | 64/80 | 29/40 | 3/40 |
-| B3 ACRE | 64/80 | 29/40 | 3/40 |
-| B4 结构化提示 | 60/80 | 24/40 | 7/40 |
-| B5 标注直接决策 | 37/80 | 12/40 | 7/40 |
-| B6 参考标注 | 66/80 | 30/40 | 3/40 |
-
-目标规则适用性判断 60/80（75%），不适用误判适用 12/40（30%）；决定性证据召回 74/80。原文定位 100% 是 ID 机制保证，不代表语义正确。20 项 CPU 测试与 GPU 检查通过，80 例零偏置/空目标完全一致，实际目标及指标已独立复算。
-
-**上一轮 B3 没有优于 B2。最新同源 Oracle 对照见下节；当前不进入独立验证或完整论文实验。** B6 有两例纠正；仅替换适用性状态的额外诊断为 67/80，仍属于参考信息诊断，优先改进适用性和相关性。噪声诊断已完成，片段替换没有改变最终增强集合，只能作为失败记录。37/40 对是资源/可实施性条件，没有临床专家盲审；未知真值和完整动作语义评价尚缺。动作别名计数是公开的事后指标修正，原始计数保留。
-
-- [中文评审与完整复现说明](docs/ACRE/06-pilot-results.md)
-- [开发数据审计](results/acre_pilot/round2/data_audit.json)、[动作别名审计](results/acre_pilot/round2/action_alias_audit.json)
-- [最终指标](results/acre_pilot/round2/revision3/metrics.json)、[标注质量](results/acre_pilot/round2/revision3/annotation_metrics.json)、[工程验收](results/acre_pilot/round2/revision3/acceptance.json)
-- [逐例完整结果](results/acre_pilot/round2/revision3/case_results.jsonl.gz)、[标注原始缓存](results/acre_pilot/round2/revision3/annotations.jsonl.gz)、[噪声结果](results/acre_pilot/round2/revision3/noise_metrics.json)
-- 最终配置 `configs/acre_pilot_v3.json`；解压入口 `scripts/unpack_acre_pilot_artifacts.py`，运行入口 `scripts/run_acre_pilot.py`，离线复算 `scripts/verify_acre_records.py`。模型和环境均复用服务器现有版本。
-
-初轮 24 例只作回归，初轮四对数据门槛记录见 [归档报告](docs/ACRE/archive/06-pilot-results-round1.md)。`results/acre_pilot/round2/` 根目录保留失败的 v2 解码实验，**最终结果仅以 revision3 为准**。以下旧阶段结果和模块保持原样。
-
-
-## 当前结果：2026-10-14 小规模诊断
+## 既有 TRIAGE 流水线结果：2026-10-14 小规模诊断
 
 使用 MEGA-CDP **train_val 的 24 例**，覆盖 6 个指南；排除此前用于组件校准的指南 3。概率对照采用完整指南的全部去重动作加“证据不足”作为固定选项，不属于完整基准或自由文本准确率评估。无规则基线仍能看到动作选项，但没有规则条件。
 
@@ -153,3 +125,7 @@ result = module1.run(guideline=R, patient=P, question=Q)
 
 仓库保存代码、配置、文档及可分析的实验产物；详细运行日志留在服务器对应结果目录。
 
+
+## CARE Module1 V6
+
+V6 keeps TrialMatchAI as the applicability authority. Deterministic numeric comparison is used only when a reliable observation is found; BioLinkBERT-MedNLI locates evidence and controls intervention permission without overriding T/F/U. See [experiments/care_module1_v6/REPORT.zh.md](experiments/care_module1_v6/REPORT.zh.md).

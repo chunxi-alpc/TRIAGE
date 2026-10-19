@@ -1,0 +1,49 @@
+{
+  "seed": 261016,
+  "cases": 384,
+  "pairs": 192,
+  "families": 12,
+  "rules": 24,
+  "clinical_rule_family_outer_folds": {
+    "bone_density": 0,
+    "sore_throat": 1,
+    "copd": 2,
+    "adiposity": 0,
+    "hypoglycemia": 1,
+    "venous_thromboembolism": 2,
+    "anaemia": 0,
+    "renal": 1,
+    "glycemia": 2,
+    "blood_pressure": 0,
+    "pneumonia": 1,
+    "atrial_fibrillation": 2
+  },
+  "outer_folds": 3,
+  "inner_dev_rule_families": 2,
+  "strengths": {
+    "seka": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ],
+    "pasta": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.605170186
+    ]
+  },
+  "selection": "development all-case harmonic mean of app/non accuracy; tie smaller strength",
+  "eligibility": "source verified AND same argmax letter for two closedbook formulations AND closedbook argmax differs from rule gold; NO confidence threshold",
+  "main_unit": "eligible cases, separate app/non denominators",
+  "secondary_unit": "complete pairs with both members eligible",
+  "screening_order": "all candidates screened before intervention results",
+  "confidence_interval": "10000 clinical-rule-family cluster bootstrap replicates",
+  "cross_fitting": "Each family has one outer-test fold. Projection and strength selection exclude all examples of its family.",
+  "source_scope": "Authentic public clinical reference rules, faithfully paraphrased; simulated patients; no guideline counterfactuals or patient records.",
+  "no_claim": "Stable closedbook disagreement is an operational measure, not proof of a memorized medical belief or clinical safety.",
+  "model_id": "Qwen/Qwen3-4B-Base"
+}

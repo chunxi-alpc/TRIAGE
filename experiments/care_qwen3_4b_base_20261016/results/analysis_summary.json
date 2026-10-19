@@ -1,0 +1,201 @@
+{
+  "obs1": {
+    "clinical_prior_conflict_status": "not_testable",
+    "clinically_validated_eligible": 0,
+    "conditional_rule_status": {
+      "seka": "not_observed",
+      "pasta": "not_observed"
+    },
+    "test_groups": 12,
+    "test_cases_per_method": 24,
+    "closedbook_cases_all_splits": 120,
+    "stable_closedbook": 120,
+    "synthetic_prior_disagreements": 93,
+    "selected_strengths": {
+      "seka": 0.25,
+      "pasta": 0.25
+    },
+    "ci": "5000 paired group bootstrap, percentile 95%"
+  },
+  "obs2": {
+    "status": "completed_exploratory",
+    "n_groups": 60,
+    "n_test_groups": 12,
+    "test_states": 4,
+    "layers": 36,
+    "kv_heads": 8,
+    "selected_head": {
+      "layer": 2.0,
+      "kv_head": 0.0,
+      "relevance_shift": 0.16252292692661285,
+      "applicability_shift": 0.0035568338353186846,
+      "same_side_shift": 0.0035293276887387037,
+      "interaction_shift": 0.004743907134979963,
+      "relevance_consistency": 0.9991330504417419,
+      "applicability_consistency": 0.24955110251903534,
+      "cross_per_unit_minus_same_side_per_unit": -0.002635726472362876,
+      "numeric_control_p": 0.00048828125,
+      "relevance_cv_auc": 1.0,
+      "relevance_test_auc": 1.0,
+      "relevance_test_p": 0.000244140625,
+      "applicability_cv_auc": 0.6311728395061728,
+      "applicability_test_auc": 0.7378472222222222,
+      "applicability_test_p": 0.000244140625,
+      "relevance_test_p_fdr": 0.0002511160714285714,
+      "applicability_test_p_fdr": 0.00027791501976284587,
+      "numeric_control_p_fdr": 0.0005040322580645161,
+      "relevance_auc_ci": [
+        0.9999999999999999,
+        1.0
+      ],
+      "applicability_auc_ci": [
+        0.6597222222222222,
+        0.8315972222222222
+      ]
+    },
+    "displacement": {
+      "relevance": {
+        "estimate": 0.16252291823426882,
+        "ci95": [
+          0.16037350877498585,
+          0.1642180573195219
+        ]
+      },
+      "applicability": {
+        "estimate": 0.003556834029344221,
+        "ci95": [
+          0.0033807916668592954,
+          0.0037398125234176403
+        ]
+      },
+      "same_side": {
+        "estimate": 0.0035293278245565793,
+        "ci95": [
+          0.0032730350552204373,
+          0.003803086560219526
+        ]
+      }
+    },
+    "n_heads_app_auc_significant_fdr": 277,
+    "n_heads_relevance_auc_significant_fdr": 280,
+    "limitations": [
+      "single fictional protocol grammar",
+      "question wording and length confounded with relevance",
+      "numeric perturbations only; same-side per-unit comparison is exploratory, not a causal applicability estimate",
+      "PCA fitted on train only; two-component projection is not a causal test"
+    ]
+  },
+  "obs3": {
+    "status": "supported",
+    "primary": {
+      "projection_variant": "official_posneg",
+      "weight_type": "unit",
+      "n_records": 23040,
+      "n_valid": 23039,
+      "near_zero_records": 1,
+      "n_groups": 12,
+      "mismatch_rate": 0.08923986559840195,
+      "ci_low": 0.08702998455684383,
+      "ci_high": 0.09175347222222223,
+      "negative_z_rate": 0.0892399843743218,
+      "max_formula_abs_error": 3.814697265625e-06,
+      "actual_bf16_opposite_rate": 0.08906627710468416,
+      "actual_bf16_ci_low": 0.0870263465491286,
+      "actual_bf16_ci_high": 0.0914138042093683,
+      "actual_bf16_near_zero_delta_records": 0,
+      "median_abs_delta_a": 1.3795401453971863,
+      "max_abs_bf16_delta_discrepancy": 0.03704977035522461,
+      "probability_direction_mismatch_rate": 0.08928338903598246
+    },
+    "sensitivity": [
+      {
+        "projection_variant": "official_posneg",
+        "weight_type": "continuous",
+        "n_records": 23040,
+        "n_valid": 23039,
+        "near_zero_records": 1,
+        "n_groups": 12,
+        "mismatch_rate": 0.08923986559840195,
+        "ci_low": 0.08711312948729083,
+        "ci_high": 0.091796875,
+        "negative_z_rate": 0.0892399843743218,
+        "max_formula_abs_error": 2.443790435791016e-06,
+        "actual_bf16_opposite_rate": 0.0891530600428464,
+        "actual_bf16_ci_low": 0.08719618055555556,
+        "actual_bf16_ci_high": 0.0912797961539575,
+        "actual_bf16_near_zero_delta_records": 0,
+        "median_abs_delta_a": 0.3200620412826538,
+        "max_abs_bf16_delta_discrepancy": 0.032223463058471624,
+        "probability_direction_mismatch_rate": 0.08928338903598246
+      },
+      {
+        "projection_variant": "official_posneg",
+        "weight_type": "unit",
+        "n_records": 23040,
+        "n_valid": 23039,
+        "near_zero_records": 1,
+        "n_groups": 12,
+        "mismatch_rate": 0.08923986559840195,
+        "ci_low": 0.08702998455684383,
+        "ci_high": 0.09175347222222223,
+        "negative_z_rate": 0.0892399843743218,
+        "max_formula_abs_error": 3.814697265625e-06,
+        "actual_bf16_opposite_rate": 0.08906627710468416,
+        "actual_bf16_ci_low": 0.0870263465491286,
+        "actual_bf16_ci_high": 0.0914138042093683,
+        "actual_bf16_near_zero_delta_records": 0,
+        "median_abs_delta_a": 1.3795401453971863,
+        "max_abs_bf16_delta_discrepancy": 0.03704977035522461,
+        "probability_direction_mismatch_rate": 0.08928338903598246
+      },
+      {
+        "projection_variant": "positive_only",
+        "weight_type": "continuous",
+        "n_records": 23040,
+        "n_valid": 23040,
+        "near_zero_records": 0,
+        "n_groups": 12,
+        "mismatch_rate": 0.0912326388888889,
+        "ci_low": 0.08945312500000001,
+        "ci_high": 0.09309895833333333,
+        "negative_z_rate": 0.09123263888888888,
+        "max_formula_abs_error": 2.9802322387695312e-06,
+        "actual_bf16_opposite_rate": 0.09110243055555556,
+        "actual_bf16_ci_low": 0.08919270833333333,
+        "actual_bf16_ci_high": 0.09331597222222222,
+        "actual_bf16_near_zero_delta_records": 0,
+        "median_abs_delta_a": 0.6282039880752563,
+        "max_abs_bf16_delta_discrepancy": 0.0455902814865112,
+        "probability_direction_mismatch_rate": 0.09123263888888888
+      },
+      {
+        "projection_variant": "positive_only",
+        "weight_type": "unit",
+        "n_records": 23040,
+        "n_valid": 23040,
+        "near_zero_records": 0,
+        "n_groups": 12,
+        "mismatch_rate": 0.0912326388888889,
+        "ci_low": 0.08940972222222222,
+        "ci_high": 0.09314236111111111,
+        "negative_z_rate": 0.09123263888888888,
+        "max_formula_abs_error": 5.245208740234375e-06,
+        "actual_bf16_opposite_rate": 0.09105902777777779,
+        "actual_bf16_ci_low": 0.08919270833333333,
+        "actual_bf16_ci_high": 0.09314236111111109,
+        "actual_bf16_near_zero_delta_records": 0,
+        "median_abs_delta_a": 2.6969685554504395,
+        "max_abs_bf16_delta_discrepancy": 0.055742263793945535,
+        "probability_direction_mismatch_rate": 0.09388020833333334
+      }
+    ],
+    "fixed_query": true,
+    "coordinate": "QK-normalized pre-RoPE keys; realized RoPE applied once; float32 local algebra",
+    "limitations": [
+      "fixed baseline query, not a full multi-layer causal effect",
+      "all measurements cluster within 12 rule groups",
+      "oracle signs and designed magnitudes, not learned confidence or clinical negative weights",
+      "BF16 arithmetic diagnostics reported separately from float32 identity"
+    ]
+  }
+}

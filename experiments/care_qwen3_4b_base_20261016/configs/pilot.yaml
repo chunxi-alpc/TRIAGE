@@ -1,0 +1,41 @@
+project: CARE-observations
+model:
+  id: Qwen/Qwen3-4B-Base
+  fallback_id: null
+  torch_dtype: bfloat16
+  expected_num_layers: 36
+  expected_num_attention_heads: 32
+  expected_num_key_value_heads: 8
+  expected_head_dim: 128
+  batch_size: 1
+  max_input_tokens: 1024
+  attn_implementation: sdpa
+  eval_dtype: float32
+seed: 42
+data:
+  n_groups: 60
+  train_ratio: 0.6
+  dev_ratio: 0.2
+  test_ratio: 0.2
+  pilot_path: data/derived/pilot.jsonl
+  strict_prior_screen: true
+experiment1:
+  methods: [baseline, seka, pasta]
+  steering_target: modified_rule_action_only
+  selection: candidate_loglikelihood
+  bootstrap_reps: 2000
+  strength_grid: [0.25, 0.5, 0.8, 1.0]
+experiment2:
+  conditions: [RA, RN, IA, IN]
+  same_side_control: true
+  layers: all
+  head_selection_split: dev
+  max_pca_pairs: 100
+experiment3:
+  layers: last10
+  lambda: 0.8
+  z_near_zero_eps: 1.0e-6
+  float32_tolerance: 1.0e-4
+plot:
+  dpi: 300
+  styles: paper
