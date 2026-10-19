@@ -1,127 +1,124 @@
 # TRIAGE
 
-TRIAGE 将指南规则检索、患者条件与证据判断、注意力头诊断及门控干预串联起来。三模块已经集成，目前处于小规模算法诊断与关键错误修复阶段，尚未运行完整基准。
+TRIAGE 研究指南规则的适用性判断、患者证据定位，以及受适用性约束的注意力干预。仓库同时保存三模块实现、CARE 独立实验和 ACRE 历史研究。
 
-TRIAGE 主流程在服务器 `gcx@10.29.128.115:/home/gcx/TRIAGE` 运行，复用环境 `/home/gcx/gcx261014`、现有 Qwen3-8B、MedCPT-MedPair、投影参数及缓存。该流水线阶段没有重新部署、下载新模型或训练模型；新增 CARE 独立实验使用 Qwen3-4B-Base，见下一节。
+**当前模块一为 CARE V6。** 包级调用、命令行和统一流水线均使用 V6。模块二、三保留现有实现及校准产物；模块二最新研究为 2026-10-19 的有符号适用性诊断。项目仍处于组件验证和小规模研究阶段，尚未完成 V6 三模块端到端基准。版本来源与整理范围见 [版本记录](docs/REPOSITORY_STATUS.md)。
 
-## 新增结果：2026-10-16 CARE 三项观察
+[模块一](src/module1/README.md) · [模块二](src/module2/README.md) · [模块三](src/module3/README.md) · [统一流水线](src/pipeline/README.md) · [实验索引](experiments/README.md) · [运行说明](docs/RUNNING.md)
 
-新增独立的 **Qwen3-4B-Base CARE 实测实验**，含真实临床规则的观察一补充；见 [CARE 实验目录](experiments/care_qwen3_4b_base_20261016/)。
+## 三模块与当前状态
 
-- 临床 O1：12 个规则家族、24 条真实规则、384 个模拟病例；宽松闭卷筛选合格 **153 例（适用 78、不适用 75）**，**25 个完整配对两侧均合格**，不设高置信度门槛。
-- 三折按规则家族独立测试。原始模型、官方 SEKA、官方 PASTA 适用准确率均为 **33.3%（95% CI 19.5–50.7%）**；误用率为 **36.0%、33.3%、37.3%**，未观察到所假设的忠实性–误用权衡。
-- O2/O3 保持虚构规则机制实验范围：适用性 Key AUROC **0.738 [0.660, 0.832]**；实际 BF16 局部分数反向变化 **8.91% [8.70%, 9.14%]**，不能称为临床验证。
-- 数据来源、逐例输出、家族置信区间、代码和 **10 组 PNG/PDF/SVG 图**均已保存。完整服务器验收 **65 项检查通过**；患者模拟，无独立医生复核。
+| 部分 | 职责 | 当前实现与边界 |
+| --- | --- | --- |
+| [模块一：适用性与证据](src/module1/README.md) | 将结构化规则和患者文本转换为适用性、证据位置与门控 | CARE V6；Phi-4 + TrialMatchAI LoRA 判断条件，数值比较处理支持字段，BioLinkBERT-MedNLI 定位证据。V6 不解析自由文本指南，也不进行规则检索 |
+| [模块二：查询头定位](src/module2/README.md) | 通过查询头输出消融，估计适用性相关贡献 | 主流程保留 Qwen3-8B 的历史校准组件；CARE 子空间研究单独保存，未自动替换在线定位实现 |
+| [模块三：门控干预](src/module3/README.md) | 按规则与证据门控编辑选定查询头的键向量，并保留输出投影抑制路径 | 复用原 rank=4 投影。普通 V6 输出的先验竞争权重为零；投影尚未针对 V6 重新校准 |
+| [统一流水线](src/pipeline/README.md) | V6 图 → 词元位置映射 → Qwen3-8B 原始与干预推理 | 只接受 `module1.v6`。模块一独立加载模型；原始与干预生成共享最终 Qwen 实例 |
 
-[更新报告](experiments/care_qwen3_4b_base_20261016/results/observations_summary.md) · [临床详细报告](experiments/care_qwen3_4b_base_20261016/results/obs1_clinical/clinical_report.md) · [逐例核验表](experiments/care_qwen3_4b_base_20261016/data/clinical/case_review.csv) · [完整数据 Release](https://github.com/chunxi-alpc/TRIAGE/releases/tag/care-qwen3-4b-base-20261016)
+已有组件可连接并不等于新组合已经获得性能增益。模块一的数值主体与时间识别、合取规则证据门控仍有已知限制，详见 [模块一说明](src/module1/README.md#已知限制)。
 
-## 既有 TRIAGE 流水线结果：2026-10-14 小规模诊断
+## 从哪里开始
 
-使用 MEGA-CDP **train_val 的 24 例**，覆盖 6 个指南；排除此前用于组件校准的指南 3。概率对照采用完整指南的全部去重动作加“证据不足”作为固定选项，不属于完整基准或自由文本准确率评估。无规则基线仍能看到动作选项，但没有规则条件。
-
-| 版本 | 正确动作选择 |
-| --- | ---: |
-| 原始模型，无规则条件、无干预 | 15/24 |
-| 原始模型，提供完整指南、无干预 | 13/24 |
-| 正确规则片段引导，仅作诊断上界 | 24/24 |
-| TRIAGE 提示，关闭注意力干预 | 16/24 |
-| 完整 TRIAGE | 15/24 |
-
-- **关键规则召回：6/24 → 24/24。** 本轮的小指南保留全部规则；这说明候选截断问题得到改善，不代表大指南的检索排序已经改善。
-- **条件判断仍是主要问题。** 正确规则被判适用 15 例，另 9 例为未知。
-- 完整流程相对无规则基线，正确动作与先验动作的对数概率差平均增加 **3.83**，正确动作概率平均增加 **3.11 个百分点**；但平均正确动作对数概率下降约 **0.33**，且准确率没有净提升。
-- 完整流程纠正 **4 例**，同时使 **4 例退化**。单独注意力干预纠正 **0 例**、退化 **1 例**，正确动作概率平均下降约 **0.37 个百分点**。
-- 候选头采用从零开始的编号：**层 35/头 8、层 12/头 24**。前者在 15 个活跃病例中 4 例正向、11 例为零；后者 7 例正向、6 例负向、2 例为零，不能认为现有干预具有稳定增益。
-- **零门控和零强度：24/24 例与原始计算精确一致。**
-- 对历史病例 5:1、9:1 另外检查了自由文本输出，两例完整 TRIAGE 动作均与对应规则一致；原始完整指南输出也正确，没有观察到注意力单独带来的决策纠正。
-
-下一步优先改进条件与患者证据的匹配和复核，减少正确规则被判为未知的情况。当前结果不支持整体准确率已经提高的结论。
-
-## 结果与文档入口
-
-| 内容 | 文件 |
+| 目标 | 入口 |
 | --- | --- |
-| 本轮最终摘要、指标定义与错误统计 | [summary.json](results/algorithm_diagnostic/summary.json) |
-| 24 例决策、概率变化、规则召回和错误原因 | [cases.csv](results/algorithm_diagnostic/cases.csv) |
-| 两例自由文本验证 | [free_generation.json](results/algorithm_diagnostic/free_generation.json) |
-| 固定病例及完整指南输入 | [manifest.json](results/algorithm_diagnostic/manifest.json) |
-| 独立离线参考路径与动作 | [references.json](results/algorithm_diagnostic/references.json) |
-| 采样与数据来源审计 | [data_audit.json](results/algorithm_diagnostic/data_audit.json) |
-| 逐例完整模块输出与干预记录 | [algorithm_diagnostic](results/algorithm_diagnostic/) 中的 `case_*.json` |
-| 首轮错误及第二轮修复的历史结果 | [round1](results/algorithm_diagnostic/round1/)、[round2](results/algorithm_diagnostic/round2/) |
-| 最初三模块集成记录，属于历史阶段 | [TRIAGE_MVP.md](TRIAGE_MVP.md)、[triage_mvp_report.json](results/triage_mvp_report.json) |
-| 组件及校准来源 | [components.json](results/module2/components.json)、[module2/report.json](results/module2/report.json) |
-| 复用投影及其元数据 | [projections.pt](results/module3/projections.pt)、[projections.json](results/module3/projections.json) |
-| 条件判断回归与干预检查 | [diagnostic_module1_checks.json](results/diagnostic_module1_checks.json)、[module23_checks.json](results/diagnostic/module23_checks.json) |
+| 使用当前模块一 | [输入与 API](src/module1/README.md) · [结构化输入示例](examples/module1_v6_input.json) |
+| 运行三模块流程 | [流水线配置](src/pipeline/README.md) · [服务器运行说明](docs/RUNNING.md) |
+| 查看模块一最新结果 | [V6 实验导航](experiments/care_module1_v6/README.md) |
+| 查看模块二最新结果 | [有符号适用性诊断](experiments/care_module2_signed_20261019/README.md) |
+| 查找旧实验与失败记录 | [实验索引](experiments/README.md) · [结果索引](results/README.md) |
+| 理解版本来源与研究演变 | [版本记录](docs/REPOSITORY_STATUS.md) · [ACRE 归档](docs/ACRE/README.md) |
 
-首轮证据核对误把“有引用”当成“条件为真”，第二轮修复了真假和编号判断，最后修复了被阻断动作仍进入最终提示的问题。各阶段结果保留，最终结论以根目录下的 `summary.json`、`cases.csv` 为准，不能混用不同阶段。
+## 当前入口示例
 
-**参考答案只用于离线评价，不进入常规推理、门控或注意力干预。** 唯一单列的诊断上界使用正确的官方规则片段，不输入参考答案正文或路径标签，也不参与门控计算。
-
-## 原有研究设计文档
-
-原仓库的 ACRE 研究设计文档继续保留。这些文件是方案与评审归档；条件—证据成对注意力偏置、完整基准和论文机制主张仍需后续验证，不能把设计方案视为本轮已实现的功能。
-
-- [设计评审与近邻工作](docs/ACRE/01-design-review.md)
-- [方法定义](docs/ACRE/02-method.md)
-- [实验设计](docs/ACRE/03-experiments.md)
-- [风险与实施计划](docs/ACRE/04-plan-and-risks.md)
-- [参考文献核验清单](docs/ACRE/05-reference-checklist.md)
-
-## 三模块实现
-
-1. **模块一：** [src/module1](src/module1/) 使用问题和患者信息检索规则，默认候选数量为 12；不超过 24 个规则的小指南全部保留。条件判断使用明确的真假状态、稳定条件 ID、条件原文核对以及患者引用证据复核。未知和不适用规则的动作门控为零。
-2. **模块二：** [src/module2](src/module2/) 对固定候选注意力头进行消融诊断。当前组件来自独立的非测试校准病例；没有进行大规模注意力头搜索。
-3. **模块三：** [src/module3](src/module3/) 复用 rank=4 投影，仅编辑选中的查询头，使用现有门控控制键向量修改及先验输出抑制。默认强度仍为 `context_strength=0.1`、`prior_strength=0.1`。
-
-[统一推理入口](src/pipeline/runner.py) 复用同一 Qwen 实例。最终提示保留条件判断和患者证据，但只展示已适用规则的动作；被阻断或未知分支不能作为建议依据。输出仍需进一步验证，尚未实现强制的动作语义一致性校验。
-
-门控、相关性分数和证据置信度都是未校准的启发式权重。投影属于少量校准激活的 SVD，先验方向是注意力输出的近似子空间，不是已证明的独立先验方向。
-
-## 服务器运行
+从仓库根目录运行。下列模型推理命令需要先按 [运行说明](docs/RUNNING.md) 配置服务器环境与本地模型路径。
 
 ```bash
-ssh gcx@10.29.128.115
-source /home/gcx/gcx261014/bin/activate
-cd /home/gcx/TRIAGE
-```
+# 查看参数，不加载模型
+python -m src.module1 --help
+python scripts/run_pipeline.py --help
 
-**实验只在服务器运行。** 可用 GPU 为 **0、1、2、3、6、7**。正式启动前必须汇报计划使用的 GPU、预计显存、样本规模和时长；稳定运行后停止持续监控。
+# 单独运行模块一 V6
+python -m src.module1 \
+  --input examples/module1_v6_input.json \
+  --output results/module1_v6/example.json
 
-模型与数据路径见 [configs/models.json](configs/models.json)、[configs/datasets.json](configs/datasets.json)，依赖版本见 [configs/environment.lock.txt](configs/environment.lock.txt)。原始数据、模型权重、第三方仓库和环境保留在服务器。
-
-输入 JSON 只包含 `guideline`、`patient`、`question`；可选 `input_source` 用于来源记录：
-
-```bash
-CUDA_VISIBLE_DEVICES=0 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 \
+# 统一流水线：V6 + 原有组件与投影
 python scripts/run_pipeline.py \
-  --input /absolute/path/input.json \
-  --output results/pipeline/inference.json
+  --config configs/pipeline_minimal.json \
+  --input examples/module1_v6_input.json \
+  --output results/pipeline/v6_example/inference.json
 ```
 
-模块一也可单独调用：
+输入包含 `guideline`、`patient`、`question`；V6 的 `guideline` 必须是预先结构化的规则。示例只演示接口格式，不属于实验数据。当前模型依赖入口为 [requirements-module1-v6.txt](requirements-module1-v6.txt)。三个模块一模型可通过 `CARE_MODULE1_V6_*` 环境变量指定；完整配置见 [模块一说明](src/module1/README.md)。
+
+Python 调用：
 
 ```python
-from src import module1
-result = module1.run(guideline=R, patient=P, question=Q)
+from src.module1 import create_module1_v6
+
+module1 = create_module1_v6(device="cuda:0")
+graph = module1.run(guideline=structured_rules, patient=patient, question=question)
+assert graph["schema_version"] == "module1.v6"
 ```
 
-`R` 支持文本、条款列表或 `{"rules": [...]}`，`P` 和 `Q` 为字符串。批量调用可创建 `module1.Module1(top_k=12)` 复用模型。患者引用记录原文字符区间 `[start,end)`，保留满足、不满足和未知三种状态。
+历史 Qwen/MedCPT 模块一保留为 `LegacyModule1`、`run_legacy` 和命令行 `--legacy`。旧 `Module1` 类别名供历史脚本使用；新代码应使用明确的 V6 入口。旧 `module1.v1` 缓存不能直接传给当前流水线。
 
-本轮诊断入口为 [scripts/run_algorithm_diagnostic.py](scripts/run_algorithm_diagnostic.py)，支持 `--worker`、`--workers` 和 `--module1-cache-dir`。复用 `results/algorithm_diagnostic/round2` 可只重算最终概率与干预，避免重复运行模块一。离线汇总入口为 [scripts/summarize_algorithm_diagnostic.py](scripts/summarize_algorithm_diagnostic.py)；它只生成基础指标摘要与 CSV，不调用模型。已保存的最终摘要另含自由文本验证、资源和修复记录。
+## 最新已保存结果
 
-## 每次实验的上传要求
+### 模块一 V6
 
-**每次实验完成后，必须将对应的结果和文档提交并推送到本仓库 `git@github.com:chunxi-alpc/TRIAGE.git`。只在服务器保存，不算实验交付完成。**
+V6 将 BioLinkBERT 的职责限制为证据定位与门控，不再由它覆盖适用性标签。最终方法 C 的已保存结果如下；旧集与新增集分别解释。
 
-至少上传：
+| 数据 | 适用性准确率 | 宏平均 F1 | 已知样本证据定位准确率 | 判定与证据同时正确 |
+| --- | ---: | ---: | ---: | ---: |
+| 旧 192 条，离线重合成 | 151/192（78.65%） | 0.7754 | 55.47% | 38.54% |
+| 新增 100 条 | 73/100（73.00%） | 0.7339 | 37.68% | 25.00% |
 
-- 简洁的结果摘要、逐例或汇总指标、错误案例和原因；失败实验也要保留真实结果。
-- 数据集和 split、样本选择与来源、运行入口和参数、随机种子、模型与组件版本或指纹。
-- 相应代码或配置变更，以及必要的可复现产物；参考答案与普通推理输入分开保存。
-- 更新本 README 的当前阶段、结果入口、主要结论、尚未解决的问题；必要时同步相关技术文档。
+来源：[保存指标](experiments/care_module1_v6/data/v6_metrics.json) · [逐例结果与复现边界](experiments/care_module1_v6/README.md)。旧 192 条复用已有 V5 条件与证据结果，并非重新运行 V6 模型。证据可靠性仍有限；本表不代表完整三模块流程的表现。
 
-保留不同实验阶段，不用新结果覆盖旧实验依据。提交信息应说明实验内容；推送后核对远端提交。模型权重、完整数据、环境、凭据和无关下载日志不进入仓库。
+### 模块二有符号适用性诊断
 
-仓库保存代码、配置、文档及可分析的实验产物；详细运行日志留在服务器对应结果目录。
+2026-10-19 的 Qwen3-4B-Base 独立实验使用 384 个模拟病例、192 对和 12 个规则家族。干预使用参考适用性标签，因而不评价模块一预测错误。
 
+| 方法 | 成对准确率 |
+| --- | ---: |
+| 无干预 | 37.50% |
+| 原始 B4 正向放大 | 38.54% |
+| 有符号 B4 | 39.06% |
+| 有符号均值位移 | 39.06% |
+| 直接有符号分数偏置 | 40.10% |
+
+成对准确率要求一对病例的两侧均正确。**尚未建立学习方向优于直接分数偏置的证据。** 直接偏置的成对准确率点估计最高，但正确答案边际略低于无干预；方法间差异及不确定性见 [原结果报告](experiments/care_module2_signed_20261019/results/analysis/README.md)。该研究属于单模型、模拟病例的探索性诊断。
+
+## 历史实验入口
+
+| 阶段 | 保存内容与结论 | 入口 |
+| --- | --- | --- |
+| 模块一 V4/V5 | 证据修复、模型组合、解析器修复与失败条件重生成；同时保留改善和退化 | [V4](experiments/care_module1_v4/README.md) · [V5](experiments/care_module1_v5/README.md) |
+| CARE 三项观察 | 临床来源规则的 O1 与虚构规则的 O2/O3；没有观察到假设中的稳定忠实性—误用权衡 | [实验目录](experiments/care_qwen3_4b_base_20261016/README.md) |
+| 模块二 O2 复核与 B1–B4 | 头选择、数值混杂、家族留出与干预对照；未建立可靠学习子空间优势 | [O2 复核](experiments/care_qwen3_4b_base_20261016/results/module2_o2_reanalysis/README.md) · [B1–B4](experiments/care_qwen3_4b_base_20261016/results/module2_followup/README.md) |
+| TRIAGE 原 24 例诊断 | 完整 TRIAGE 与无规则基线均为 15/24；纠正与退化各 4 例，未获得净准确率提升 | [结果索引](results/README.md) · [原摘要](results/algorithm_diagnostic/summary.json) |
+| ACRE 同源参考对照 | 完整规则切换 66/80，固定增强 68/80；完整规则路线暂停 | [研究归档](docs/ACRE/README.md) |
+
+各阶段的模型、样本、筛选条件和评价目标不同。历史指标按对应协议保留，不合并为整体性能结论。原始研究提案与已执行结果在索引中明确标注。
+
+## 仓库结构
+
+| 路径 | 内容 |
+| --- | --- |
+| [src/](src/) | 当前三模块、流水线、历史兼容代码和独立 ACRE 实现 |
+| [configs/](configs/) | 流水线参数、模型与数据位置、历史环境记录 |
+| [examples/](examples/) | 当前结构化输入格式示例 |
+| [experiments/](experiments/README.md) | 按实验版本保存的代码、协议、预测、指标与图表 |
+| [results/](results/README.md) | 原流水线诊断、校准组件、投影及 ACRE 历史产物 |
+| [docs/](docs/README.md) | 文档导航、运行说明、版本记录与研究归档 |
+| [scripts/](scripts/README.md) | 当前推理入口和按版本说明的历史脚本 |
+| [tests/](tests/) | 仓库接口检查及历史独立实验检查 |
+
+## 运行与维护约定
+
+模型实验在既有服务器运行，可用 GPU 为 **0、1、2、3、6、7**。启动前说明 GPU、预计显存、样本规模与时长；稳定运行后停止持续监控。服务器和环境记录见 [运行说明](docs/RUNNING.md)。普通静态检查与已存结果的离线复核不需要启动模型。
+
+每轮实验完成后，将代码、配置、结果摘要、逐例或汇总指标、失败案例、数据划分、模型指纹与复现说明提交并推送到本仓库。只保存在服务器不算交付完成。新实验使用新目录，保留负结果和旧校验清单，并同步更新本首页及相关模块入口。
+
+参考答案仅用于独立离线评价；使用参考标签的诊断必须单独标注。模型权重、完整环境、受限原文、凭据及无关运行日志依各轮约定留在服务器，不进入仓库。不能用文档整理替代模型或临床效果验证。

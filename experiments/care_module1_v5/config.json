@@ -1,0 +1,36 @@
+{
+  "experiment": "CARE module-one V5 exploratory regression",
+  "date": "2026-10-18",
+  "models": {
+    "trialmatch_base": "microsoft/phi-4",
+    "trialmatch_adapter": "majdabd33/trialmatchai-phi4-reasoning-lora",
+    "evidence_model": "cnut1648/biolinkbert-mednli",
+    "mirror": "https://huggingface.co via SSH-forwarded proxy when needed"
+  },
+  "device": "cuda:6",
+  "precision": "bfloat16 compute; 4-bit NF4 TrialMatchAI base loading",
+  "sample_count": 192,
+  "rule_count": 16,
+  "case_scenarios": [
+    "original",
+    "counterfactual",
+    "partial_missing",
+    "multiple_values",
+    "negation",
+    "contradiction"
+  ],
+  "trialmatch_max_new_tokens": 2048,
+  "candidate_sentence_limit": 8,
+  "nli_batch_size": 32,
+  "max_sequence_length": 512,
+  "random_seed": 20261018,
+  "protocol_status": "exploratory_same_set_regression; V4 data were used during method design",
+  "independent_validation": "not available in this run; do not represent V4 as independent",
+  "trialmatch_batch_size": 8,
+  "new_synthetic_exploration": {
+    "samples": 24,
+    "rules": 4,
+    "condition_requests": 66,
+    "freeze": "exploratory/data/FREEZE.json"
+  }
+}

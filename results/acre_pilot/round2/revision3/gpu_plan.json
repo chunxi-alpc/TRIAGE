@@ -1,0 +1,84 @@
+{
+  "gpus": [
+    0,
+    1,
+    2,
+    3,
+    6,
+    7
+  ],
+  "model": "existing Qwen3-8B BF16",
+  "workers": 6,
+  "development_pairs": 40,
+  "development_cases": 80,
+  "betas": [
+    0,
+    0.25,
+    0.5,
+    1,
+    2
+  ],
+  "per_gpu_expected_gib": [
+    18,
+    24
+  ],
+  "expected_minutes": [
+    8,
+    15
+  ],
+  "smoke_peak_gib": 18.647278785705566,
+  "stages": [
+    "normal B0 B1 B2 B3 B4 B5",
+    "separate offline B6 pass"
+  ],
+  "data_gate": "40 pairs verified before launch",
+  "ongoing_monitoring": false,
+  "annotation_protocol": "source_ids_json_grammar.v3",
+  "rerun_reason": "Correct shared quote prefix across applicability states; initial v2 results retained, not final method evidence",
+  "same_frozen_data": true,
+  "actual": {
+    "all_cases_completed": 80,
+    "main_workers_completed": 6,
+    "oracle_workers_completed": 6,
+    "peak_allocated_gib": 18.646353721618652,
+    "main_sum_case_seconds": 2411.439343690872,
+    "oracle_sum_case_seconds": 181.04134964942932,
+    "noise_workers_completed": 6,
+    "noise_plan_gpu_ids": [
+      0,
+      1,
+      2,
+      3,
+      6,
+      7
+    ],
+    "noise_expected_gib": [
+      16,
+      22
+    ],
+    "noise_estimated_minutes": [
+      2,
+      4
+    ]
+  },
+  "reference_state_only": {
+    "cases": 80,
+    "gpu_ids": [
+      0,
+      1,
+      2,
+      3,
+      6,
+      7
+    ],
+    "expected_gib": [
+      16,
+      22
+    ],
+    "estimated_minutes": [
+      1,
+      3
+    ],
+    "completed": true
+  }
+}

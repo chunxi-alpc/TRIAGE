@@ -1,0 +1,158 @@
+{
+  "status": "completed_real_inference_and_analysis",
+  "date": "2026-10-17",
+  "server_root": "/home/gcx/care_module2_followup_20261017",
+  "run_root": "/home/gcx/care_module2_followup_20261017/results/module2_followup/parallel_v3",
+  "inference_source_commit": "9a56022dad02cf82b0a6475f80550c78afad4183",
+  "physical_gpus": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "main_journal_records": 80568,
+  "additional_nonzero_records": 360,
+  "unit_tests": "11 passed",
+  "compressed_record_reproduction": {
+    "status": "passed",
+    "compressed_journal_metric_reproduction": {
+      "clinical": true,
+      "o2": true
+    },
+    "unit_tests": "11 passed in 1.59s",
+    "inference_code_commit": "9a56022dad02cf82b0a6475f80550c78afad4183",
+    "main_records": 80568,
+    "nonzero_sensitivity_records": 360,
+    "baseline_candidate_probabilities_equal_archived": true
+  },
+  "main_runtime_seconds": {
+    "o2": 170.25902581214905,
+    "clinical_fold0": 540.3368632793427,
+    "clinical_fold1": 526.7547688484192,
+    "clinical_fold2": 524.4341444969177
+  },
+  "maximum_main_allocated_GiB": 7.598788261413574,
+  "maximum_main_reserved_GiB": 9.63671875,
+  "clinical_baseline_pair_accuracy": 0.375,
+  "clinical_B3_pair_accuracy": 0.375,
+  "clinical_B4_pair_accuracy": 0.3854166666666667,
+  "clinical_B4_pair_change_ci95": [
+    -0.010416666666666666,
+    0.03125
+  ],
+  "conclusion": "No reliable advantage for learned applicability subspaces over random projections or matched direct-score bias in this exploratory fixed-model grid.",
+  "secondary_analysis_designed_after_primary_results": true,
+  "full_archive": {
+    "filename": "CARE_module2_full_results_20261017.tar.gz",
+    "bytes": 128231201,
+    "sha256": "cce01cd680ea046754ca9fea9755d3154ba3c140c58844e04f5a3459de49f544"
+  },
+  "running": [],
+  "pending": [],
+  "continuous_monitoring": false,
+  "startup_validation": {
+    "status": "four_gpu_jobs_launched_results_pending",
+    "observed_at_beijing": "2026-10-17T23:28:29.651620+08:00",
+    "server": "gpu-a100-01",
+    "server_root": "/home/gcx/care_module2_followup_20261017",
+    "run_root": "/home/gcx/care_module2_followup_20261017/results/module2_followup/parallel_v3",
+    "physical_gpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "assignment": {
+      "0": "o2",
+      "1": "clinical_fold0",
+      "2": "clinical_fold1",
+      "3": "clinical_fold2"
+    },
+    "jobs": [
+      {
+        "name": "o2",
+        "pid": 1811685
+      },
+      {
+        "name": "clinical_fold0",
+        "pid": 1811686
+      },
+      {
+        "name": "clinical_fold1",
+        "pid": 1811687
+      },
+      {
+        "name": "clinical_fold2",
+        "pid": 1811688
+      }
+    ],
+    "unit_tests": "8 passed",
+    "python_compilation": "passed",
+    "archived_clinical_python_reproduction": "exact saved-metric verification passed",
+    "model": "Qwen/Qwen3-4B-Base",
+    "model_revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+    "model_weight_shards": "all matched archived official revision SHA256",
+    "smoke": {
+      "o2": {
+        "status": "passed",
+        "zero_edit_max_error": 0,
+        "bf16_key_score_probability_max_error": 0.023350656032562256,
+        "bf16_equivalence_claimed": false,
+        "realized_key_edit_norm": 1.4931402206420898,
+        "bf16_baseline_to_key_probability_max_change": 0.0046654269099235535,
+        "float32_key_score_probability_max_error": 0.0000011324882507324219,
+        "float32_tolerance": 0.0001,
+        "peak_allocated_GiB": 15.821658611297607,
+        "paired_token_ids": [
+          3293,
+          9572,
+          56648
+        ]
+      },
+      "clinical": {
+        "status": "passed",
+        "zero_edit_max_error": 0,
+        "bf16_key_score_probability_max_error": 0.005076967179775238,
+        "bf16_equivalence_claimed": false,
+        "realized_key_edit_norm": 1.9158437252044678,
+        "bf16_baseline_to_key_probability_max_change": 0,
+        "float32_key_score_probability_max_error": 0.000001341104507446289,
+        "float32_tolerance": 0.0001,
+        "peak_allocated_GiB": 15.82553768157959,
+        "paired_token_ids": [
+          9793,
+          43354,
+          4680,
+          26
+        ]
+      }
+    },
+    "o2_cache_reextraction": {
+      "cases": 18,
+      "maximum_absolute_error": 0
+    },
+    "source_sha256": {
+      "run_module2_followup.py": "7252bfd816586f33b7a99e5e97a312ac24b0ccaafb54ea15d844aa5d03b97f18",
+      "module2_subspaces.py": "704807d48c427bb817895a2f99c37521cb8b9a5cd23adf751d4c4922bcf1267e",
+      "launch_module2_multigpu.py": "18690a9d63fbd3df6be9b62ba371804afb81037fb82f0cb373fe81c8f8b82660",
+      "analyze_module2_followup.py": "701a86722794aa212aa1a16f63b9c4731d9a6cb404fd239135157ef4100f01fa"
+    },
+    "versions": {
+      "torch": "2.8.0",
+      "transformers": "4.57.6",
+      "numpy": "2.5.4"
+    },
+    "initial_failures_resolved": [
+      "BF16 final-output equivalence replaced by strict FP32 diagnostic with BF16 differences retained",
+      "Restored rotary buffer dtypes after FP32 diagnostic",
+      "O2 archive token tensor now decompressed once",
+      "Smoke verifies realized key perturbation without requiring a favorable downstream effect"
+    ],
+    "limits": [
+      "Full B1-B4 causal comparison remains running; no improvement claimed",
+      "BF16 key versus nonuniform-bias output equivalence is not claimed",
+      "Results and figures will be generated by the server launcher after jobs finish"
+    ],
+    "monitoring": "Stop continuous monitoring once all four workers are observed producing real development journals"
+  }
+}

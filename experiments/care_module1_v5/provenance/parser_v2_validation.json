@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "server_worktree": "/home/gcx/TRIAGE-v5-pr4",
+  "python": "/home/gcx/n/.venv/bin/python",
+  "unit_test_command": "python -m pytest experiments/care_module1_v5/tests experiments/care_module1_v4/test_repairs.py -q",
+  "unit_test_result": "54 passed in 1.30s",
+  "parser_version": "trialmatch-condition-json-v2.1",
+  "raw_conditions_reparsed": 492,
+  "sample_count": 192,
+  "model_calls": 0,
+  "gpu_used": false,
+  "cached_nli_reused": true,
+  "parse_status_counts": {
+    "accepted": 423,
+    "truncated": 29,
+    "ambiguous_target": 40
+  },
+  "unknown_reason_counts": {
+    "medical_unknown": 45,
+    "truncated": 29,
+    "ambiguous_target": 40
+  },
+  "frozen_code_sha256": {
+    "src/module1/trialmatch_parser.py": "2254f8bef75c211e307cfb2c91c5268092becd661caca059794ddbdd5ce79b14",
+    "src/module1/care_v5.py": "c2ac73cd7af0c8f3e6e874fbd964469e9430346d973ed4f46f7e621e37accdb0",
+    "experiments/care_module1_v5/scripts/reparse_trialmatch.py": "89d84e883e1f689fd809551d31d8e7f6d1fd1ddd95d8957f4675066fe46d0e2a"
+  },
+  "public_artifact_sha256": {
+    "experiments/care_module1_v5/runs/v5_20261018/parser_v2_final/REPARSE_FREEZE.json": "2e065a00cbf5235d502b92f2c04117752ea74052ec49d74d36e70420be93ab7b",
+    "experiments/care_module1_v5/runs/v5_20261018/parser_v2_final/run_status.json": "e1ff0fe77a74231ad2f0bffc8ba870c5627da0fc8e901c34618a34e70399df33",
+    "experiments/care_module1_v5/runs/v5_20261018/parser_v2_final/conditions_public.jsonl": "a8bb0e74fbe7819a8f8d552e851464a0c5f5131680980c9d1f5e6d72c8595467",
+    "experiments/care_module1_v5/runs/v5_20261018/parser_v2_final/predictions_public.jsonl": "fc3a0c1ef041b5c4bc6cf8889baba29a652bd6c0a74372d98e4701907ee87a1f",
+    "experiments/care_module1_v5/runs/v5_20261018/parser_v2_final/condition_eval/condition_metrics.json": "d85a96e1a284ea947470121258d39919c4ca42d146144fe4830328da33c34e31",
+    "experiments/care_module1_v5/runs/v5_20261018/parser_v2_final/metrics.json": "83caed40eb4b61c8dac63a2e48525226fc97cfc81bc9e74a71a4e5807955b840",
+    "experiments/care_module1_v5/runs/v5_20261018/parser_v2_final/errors_public.jsonl": "08f6f55747211b48aab29ceae56dd1886a253dca41eeba6251ee37a5b4424853",
+    "experiments/care_module1_v5/PARSER_V2_REPORT.zh.md": "8a14f7794aa96d91b728af3310b82483e937266a9c0ccb261b0c9ffddf41bcf7"
+  },
+  "truncation_audit": {
+    "recorded_truncated": 29,
+    "truncated_output_tokens": {
+      "2048": 29
+    },
+    "max_new_tokens": [
+      2048
+    ],
+    "truncated_below_limit": 0,
+    "truncated_above_limit": 0,
+    "unflagged_at_limit": 0,
+    "source_raw_sha256": "ba04ddddb2392119dad602c94de1918906c63d712b3c1cb67909b071a6ab4739",
+    "interpretation": "The frozen generator set truncated only when completion reached max_new_tokens and emitted no EOS."
+  }
+}

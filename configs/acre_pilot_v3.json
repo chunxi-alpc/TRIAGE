@@ -1,0 +1,34 @@
+{
+  "seed": 20261015,
+  "betas": [
+    0,
+    0.25,
+    0.5,
+    1.0,
+    2.0
+  ],
+  "default_beta": 1.0,
+  "max_input_tokens": 24576,
+  "annotation_max_new_tokens": 10000,
+  "historical_guidelines": [
+    3,
+    5,
+    9,
+    14,
+    18,
+    20,
+    22
+  ],
+  "development_pairs_target": 40,
+  "validation_pairs_target": 70,
+  "selection": "PairAcc then accuracy then lower OAR then lower beta; shared beta selected by B3 on development only",
+  "backend": "sdpa",
+  "independent_validation_gate": "B3 beats B2 and B4, OAR does not rise; all engineering and data checks pass",
+  "noise_gate": "B3 beats B2 or B6 shows potential",
+  "no_training": true,
+  "annotation_protocol": "source_ids_json_grammar.v3",
+  "annotation_evidence_slots": 6,
+  "data_audit_required": "results/acre_pilot/round2/data_audit.json",
+  "minimum_verified_pairs": 40,
+  "data_selection_frozen_before_predictions": true
+}

@@ -1,18 +1,28 @@
-"""Shared-model module1 -> selected heads/projection -> gated inference."""
+"""V6 rule analysis followed by shared-Qwen baseline and gated inference."""
 import copy
 import hashlib
 import json
+import os
 import time
+import warnings
 from pathlib import Path
 from .tokens import build_prompt_and_mapping
-from src.module1 import Module1
+from src.module1 import create_module1_v6, validate_v6_input
 from src.module1.backend import LocalBackend,ROOT
 
 class TriagePipeline:
-    def __init__(self,components_path=None,projection_path=None,device="cuda:0",top_k=12,
-                 max_new_tokens=384,backend=None):
+    def __init__(self,components_path=None,projection_path=None,device="cuda:0",top_k=None,
+                 max_new_tokens=384,backend=None,module1=None,module1_device=None,module1_cache=None):
+        if top_k is not None:
+            warnings.warn("top_k is retained for legacy call compatibility and has no effect on V6; "
+                          "V6 evaluates all supplied structured rules", FutureWarning, stacklevel=2)
         self.backend=backend or LocalBackend(device=device)
-        self.module1=Module1(backend=self.backend,top_k=top_k)
+        self.module1=module1
+        self.module1_device=(module1_device if module1_device is not None
+                             else os.environ.get("CARE_MODULE1_V6_DEVICE") or device)
+        self.module1_cache=(module1_cache if module1_cache is not None
+                            else os.environ.get("CARE_MODULE1_V6_CACHE") or None)
+        self.top_k=top_k
         self.components_path=Path(components_path or ROOT/"results/module2/components.json")
         self.projection_path=Path(projection_path or ROOT/"results/module3/projections.pt")
         self.components=None
@@ -21,6 +31,12 @@ class TriagePipeline:
         self.backend._load_qwen()
         if self.components is None: self.components=json.loads(self.components_path.read_text())
         return self
+
+    def _get_module1(self):
+        if self.module1 is None:
+            self.module1 = create_module1_v6(
+                device=self.module1_device, cache_dir=self.module1_cache)
+        return self.module1
     def build_projections(self,records,rank=4):
         self.load()
         from src.module3 import build_projections
@@ -51,11 +67,25 @@ class TriagePipeline:
             return self.backend.model(**encoded,use_cache=False).logits[0,-1].float().detach().cpu()
     def run(self,guideline,patient,question,module1_output=None,check_zero_gate=True,
             check_prior_control=False,input_source=None):
+        if module1_output is None:
+            validate_v6_input(guideline, patient, question)
+            if not isinstance(patient, str) or not patient.strip():
+                raise ValueError("Pipeline patient must be a nonempty string")
+        if module1_output is not None and (not isinstance(module1_output, dict)
+                or module1_output.get("schema_version") != "module1.v6"):
+            raise ValueError("Unified pipeline requires a module1.v6 output; pass a V6 graph or omit module1_output")
         import torch
         from src.module3 import GatedAttentionIntervention
         started=time.time()
         self.load()
-        graph=module1_output or self.module1.run(guideline=guideline,patient=patient,question=question)
+        if module1_output is None:
+            graph = self._get_module1().run(guideline=guideline, patient=patient, question=question)
+            module1_source = "computed_live_v6"
+        else:
+            graph = module1_output
+            module1_source = "provided_output"
+        if not isinstance(graph, dict) or graph.get("schema_version") != "module1.v6":
+            raise ValueError("Unified pipeline requires a module1.v6 output; pass a V6 graph or omit module1_output")
         prompt,encoded,mapping=build_prompt_and_mapping(self.backend.tokenizer,patient,question,graph)
         if encoded["input_ids"].shape[1]>self.backend.max_input_tokens:
             raise ValueError("Pipeline prompt exceeds configured input budget")
@@ -71,7 +101,9 @@ class TriagePipeline:
         diff=changed_logits-base_logits
         result={"schema_version":"triage_pipeline.v1","input_source":input_source,
             "patient":patient,"question":question,"guideline":guideline,"module1":graph,
-            "module1_source":"provided_output" if module1_output else "computed_live",
+            "module1_source": module1_source,
+            "module1_schema_version": graph.get("schema_version"),
+            "module1_metadata": graph.get("metadata", {}),
             "baseline":baseline,"intervened":intervened,"intervention_stats":hook.stats,
             "gates":{"binding_gate":graph["binding_gate"],"action_gate":graph["action_gate"],
                      "prior_weights":[r.get("prior_competition_weight",0) for r in graph["relation_weights"]]},
@@ -84,7 +116,9 @@ class TriagePipeline:
                 "projection_sha256":hashlib.sha256(self.projection_path.read_bytes()).hexdigest(),
                 "context_strength":.1,"prior_strength":.1},
             "inference_settings":{"do_sample":False,"use_cache":False,"max_new_tokens":self.max_new_tokens,
-                                  "same_prompt_for_baseline_and_intervention":True,"shared_qwen_instance":True}}
+                                  "same_prompt_for_baseline_and_intervention":True,"shared_qwen_instance":True,
+                                  "shared_qwen_scope":"baseline_and_intervention_only",
+                                  "module1_shares_generation_model":False}}
         if check_zero_gate:
             zero=copy.deepcopy(graph)
             zero["binding_gate"]={rid:{cid:0.0 for cid in v} for rid,v in graph["binding_gate"].items()}

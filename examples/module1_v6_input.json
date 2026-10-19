@@ -1,0 +1,30 @@
+{
+  "input_source": {
+    "kind": "synthetic_interface_example",
+    "note": "Illustrates the input schema only; not an experimental case or result."
+  },
+  "guideline": {
+    "rules": [
+      {
+        "rule_id": "demo_age_rule",
+        "text": "For this fictional study, a participant aged at least 18 years satisfies the age rule.",
+        "conditions": [
+          {
+            "condition_id": "c1",
+            "text": "The patient is at least 18 years old.",
+            "field": "age",
+            "numeric": {
+              "operator": ">=",
+              "value": 18,
+              "unit": "years"
+            }
+          }
+        ],
+        "logic": {"op": "AND", "args": ["c1"]},
+        "action": "Mark the fictional study's age rule as satisfied."
+      }
+    ]
+  },
+  "patient": "The patient is 36 years old.",
+  "question": "Is the age rule for this fictional study satisfied?"
+}

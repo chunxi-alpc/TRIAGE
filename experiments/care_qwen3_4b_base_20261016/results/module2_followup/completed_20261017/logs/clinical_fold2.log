@@ -1,0 +1,14 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00, 123.38it/s]
+MODEL_READY clinical
+SMOKE: BF16 diagnostics complete; starting FP32 algebra check
+SMOKE: FP32 weights ready
+Computing Traditional Projectors:   0%|          | 0/4 [00:00<?, ?layer/s]Computing Traditional Projectors:  50%|█████     | 2/4 [00:00<00:00, 19.63layer/s]Computing Traditional Projectors: 100%|██████████| 4/4 [00:00<00:00, 19.39layer/s]Computing Traditional Projectors: 100%|██████████| 4/4 [00:00<00:00, 19.41layer/s]
+
+Traditional Projection Summary:
+ ✔ Applied projection: 32
+Saved positive projectors to /home/gcx/care_module2_followup_20261017/results/module2_followup/parallel_v3/clinical_fold2/fold2/official, (4, 8, 128, 128)
+Saved negative projectors to /home/gcx/care_module2_followup_20261017/results/module2_followup/parallel_v3/clinical_fold2/fold2/official, (4, 8, 128, 128)
+FOLD_DEV_START 2 64 76
+FOLD_SELECTION_COMPLETE 2 {'B1': {'config': 'B1-r16-L20-H5-s42', 'epsilon': 0.01, 'dev_pair_accuracy': 0.3125, 'dev_accuracy': 0.578125}, 'B2': {'config': 'B2-r0-L2-H0-s42', 'epsilon': 0.05, 'dev_pair_accuracy': 0.34375, 'dev_accuracy': 0.578125}, 'B3': {'config': 'B3-r16-L9-H0-s42', 'epsilon': 0.01, 'dev_pair_accuracy': 0.3125, 'dev_accuracy': 0.59375}, 'B4': {'config': 'B4-r4-L9-H0-s42', 'epsilon': 0.1, 'dev_pair_accuracy': 0.34375, 'dev_accuracy': 0.5625}, 'random42': {'config': 'random42-r4-L9-H0-s42', 'epsilon': 0.05, 'dev_pair_accuracy': 0.375, 'dev_accuracy': 0.578125}, 'random43': {'config': 'random43-r16-L9-H0-s43', 'epsilon': 0.05, 'dev_pair_accuracy': 0.34375, 'dev_accuracy': 0.59375}, 'random44': {'config': 'random44-r1-L20-H5-s44', 'epsilon': 0.01, 'dev_pair_accuracy': 0.34375, 'dev_accuracy': 0.578125}}
+FOLD_TEST_COMPLETE 2 128

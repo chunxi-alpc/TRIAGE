@@ -1,0 +1,211 @@
+{
+  "status": "completed_archived_results_reanalysis",
+  "date": "2026-10-17",
+  "source_repo_path": "experiments/care_qwen3_4b_base_20261016/results/obs2/layer_head_stats.csv",
+  "source_git_blob_sha": "5f56624a14420678291bfa009e23f76177098a8d",
+  "n_layer_head_positions": 288,
+  "n_test_auc_ge_0_8": 252,
+  "n_test_auc_ge_0_9": 196,
+  "n_app_test_fdr_lt_0_05": 277,
+  "n_positive_boundary_per_unit": 0,
+  "correlation_app_and_same_side_shift": 0.9295428843184709,
+  "correlation_rel_and_app_cv_auc": 0.4939399181589084,
+  "applicability_test_auc_summary": {
+    "mean": 0.9053216628086422,
+    "median": 0.9409722222222222,
+    "min": 0.5,
+    "max": 1
+  },
+  "original_relevance_selected": {
+    "layer": 2,
+    "kv_head": 0,
+    "selection_score": 0.6311728395061728,
+    "applicability_cv_auc": 0.6311728395061728,
+    "applicability_test_auc": 0.7378472222222222,
+    "relevance_test_auc": 1,
+    "applicability_shift": 0.0035568338353186846,
+    "same_side_shift": 0.0035293276887387037,
+    "cross_per_unit_minus_same_side_per_unit": -0.002635726472362876
+  },
+  "original_head_train_app_rank": 269,
+  "best_train_app_cv_head": {
+    "layer": 20,
+    "kv_head": 5,
+    "selection_score": 0.9951774691358025,
+    "applicability_cv_auc": 0.9951774691358025,
+    "applicability_test_auc": 1,
+    "relevance_test_auc": 1,
+    "applicability_shift": 0.03295884653925896,
+    "same_side_shift": 0.013941178098320961,
+    "cross_per_unit_minus_same_side_per_unit": -0.005452251527458429
+  },
+  "top10_train_app_cv_mean_test_auc": 0.9984375,
+  "layer_bins": [
+    {
+      "layers": "0-8",
+      "heads": 72,
+      "train_cv_auc": {
+        "mean": 0.6885663151577499,
+        "median": 0.716820987654321,
+        "min": 0.5,
+        "max": 0.8570601851851852
+      },
+      "test_auc": {
+        "mean": 0.7662519290123458,
+        "median": 0.8098958333333334,
+        "min": 0.5,
+        "max": 0.9878472222222223
+      },
+      "positive_boundary_per_unit": 0
+    },
+    {
+      "layers": "9-17",
+      "heads": 72,
+      "train_cv_auc": {
+        "mean": 0.8660220550411525,
+        "median": 0.8643904320987654,
+        "min": 0.7293595679012347,
+        "max": 0.9791666666666666
+      },
+      "test_auc": {
+        "mean": 0.9224054783950617,
+        "median": 0.921875,
+        "min": 0.7534722222222222,
+        "max": 1
+      },
+      "positive_boundary_per_unit": 0
+    },
+    {
+      "layers": "18-26",
+      "heads": 72,
+      "train_cv_auc": {
+        "mean": 0.9653795867626889,
+        "median": 0.9663387345679013,
+        "min": 0.8998842592592592,
+        "max": 0.9951774691358025
+      },
+      "test_auc": {
+        "mean": 0.9853153935185186,
+        "median": 0.9921875,
+        "min": 0.907986111111111,
+        "max": 1
+      },
+      "positive_boundary_per_unit": 0
+    },
+    {
+      "layers": "27-35",
+      "heads": 72,
+      "train_cv_auc": {
+        "mean": 0.9193699631344308,
+        "median": 0.919849537037037,
+        "min": 0.8314043209876544,
+        "max": 0.9637345679012346
+      },
+      "test_auc": {
+        "mean": 0.9473138503086419,
+        "median": 0.9505208333333334,
+        "min": 0.8368055555555555,
+        "max": 0.9947916666666667
+      },
+      "positive_boundary_per_unit": 0
+    }
+  ],
+  "eight_train_selected_distinct_layers": [
+    {
+      "layer": 20,
+      "kv_head": 5,
+      "selection_score": 0.9951774691358025,
+      "applicability_cv_auc": 0.9951774691358025,
+      "applicability_test_auc": 1,
+      "relevance_test_auc": 1,
+      "applicability_shift": 0.03295884653925896,
+      "same_side_shift": 0.013941178098320961,
+      "cross_per_unit_minus_same_side_per_unit": -0.005452251527458429
+    },
+    {
+      "layer": 21,
+      "kv_head": 1,
+      "selection_score": 0.9951774691358024,
+      "applicability_cv_auc": 0.9951774691358024,
+      "applicability_test_auc": 0.998263888888889,
+      "relevance_test_auc": 1,
+      "applicability_shift": 0.01633303612470627,
+      "same_side_shift": 0.010056478902697563,
+      "cross_per_unit_minus_same_side_per_unit": -0.005966574419289827
+    },
+    {
+      "layer": 19,
+      "kv_head": 0,
+      "selection_score": 0.9942129629629629,
+      "applicability_cv_auc": 0.9942129629629629,
+      "applicability_test_auc": 1,
+      "relevance_test_auc": 1,
+      "applicability_shift": 0.019756346940994263,
+      "same_side_shift": 0.01129376981407404,
+      "cross_per_unit_minus_same_side_per_unit": -0.006221044808626175
+    },
+    {
+      "layer": 24,
+      "kv_head": 0,
+      "selection_score": 0.990162037037037,
+      "applicability_cv_auc": 0.990162037037037,
+      "applicability_test_auc": 1,
+      "relevance_test_auc": 1,
+      "applicability_shift": 0.01377793587744236,
+      "same_side_shift": 0.00804534275084734,
+      "cross_per_unit_minus_same_side_per_unit": -0.004765853751450777
+    },
+    {
+      "layer": 22,
+      "kv_head": 3,
+      "selection_score": 0.9859182098765432,
+      "applicability_cv_auc": 0.9859182098765432,
+      "applicability_test_auc": 0.9913194444444444,
+      "relevance_test_auc": 1,
+      "applicability_shift": 0.01582348719239235,
+      "same_side_shift": 0.009044828824698925,
+      "cross_per_unit_minus_same_side_per_unit": -0.005142882466316223
+    },
+    {
+      "layer": 18,
+      "kv_head": 2,
+      "selection_score": 0.9849537037037037,
+      "applicability_cv_auc": 0.9849537037037037,
+      "applicability_test_auc": 1,
+      "relevance_test_auc": 1,
+      "applicability_shift": 0.02594659850001335,
+      "same_side_shift": 0.012600301764905453,
+      "cross_per_unit_minus_same_side_per_unit": -0.006130207795649767
+    },
+    {
+      "layer": 26,
+      "kv_head": 5,
+      "selection_score": 0.9812885802469136,
+      "applicability_cv_auc": 0.9812885802469136,
+      "applicability_test_auc": 0.9913194444444444,
+      "relevance_test_auc": 1,
+      "applicability_shift": 0.02186456322669983,
+      "same_side_shift": 0.01184182520955801,
+      "cross_per_unit_minus_same_side_per_unit": -0.0065025570802390575
+    },
+    {
+      "layer": 23,
+      "kv_head": 7,
+      "selection_score": 0.98070987654321,
+      "applicability_cv_auc": 0.98070987654321,
+      "applicability_test_auc": 0.9774305555555556,
+      "relevance_test_auc": 1,
+      "applicability_shift": 0.021819010376930237,
+      "same_side_shift": 0.010316128842532635,
+      "cross_per_unit_minus_same_side_per_unit": -0.005091074388474226
+    }
+  ],
+  "interpretation": [
+    "Archived O2 fictional-rule measurements; not clinical validation.",
+    "AUC measures decodability, not effectiveness of key editing.",
+    "Reanalysis was motivated by inspecting existing test results and is exploratory, not a preregistered prospective evaluation.",
+    "Head statistics share rule groups and cannot be treated as independent samples.",
+    "Per-unit boundary-control statistic depends on contrast construction and normalization.",
+    "No model forward passes, activation patching, or projector B1-B4 comparisons were performed in this reanalysis."
+  ]
+}

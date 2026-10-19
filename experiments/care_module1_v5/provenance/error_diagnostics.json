@@ -1,0 +1,238 @@
+{
+  "status": "aggregate_summary_only",
+  "created_utc": "2026-10-18T08:47:41.843722+00:00",
+  "source": "/home/gcx/TRIAGE-v5-pr4/experiments/care_module1_v5/runs/v5_20261018/metrics.json",
+  "source_sha256": "d96988d949cfc57716afd92f4d90394648a00c2a658fe2035f6d35a3149694e4",
+  "source_sample_count": 192,
+  "methods": {
+    "trialmatch_model_only": {
+      "n": 192,
+      "correct": 60,
+      "accuracy": 0.3125,
+      "macro_f1": 0.2250712250712251,
+      "known_evidence_correct": null,
+      "known_evidence_n": null,
+      "known_evidence_accuracy": null,
+      "joint_correct": null,
+      "joint_accuracy": null,
+      "unknown_predictions": 179,
+      "error_categories": {
+        "known_to_unknown": 128,
+        "correct": 60,
+        "unknown_to_known": 4
+      },
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 29,
+          "unknown_predictions": 29
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 4,
+          "unknown_predictions": 28
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 2,
+          "unknown_predictions": 30
+        },
+        "negation": {
+          "n": 32,
+          "correct": 0,
+          "unknown_predictions": 32
+        },
+        "original": {
+          "n": 32,
+          "correct": 4,
+          "unknown_predictions": 29
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 21,
+          "unknown_predictions": 31
+        }
+      },
+      "counterfactual_pairs_correct": 0,
+      "counterfactual_pair_n": 32
+    },
+    "trialmatch": {
+      "n": 192,
+      "correct": 63,
+      "accuracy": 0.328125,
+      "macro_f1": 0.2460939186306252,
+      "known_evidence_correct": 5,
+      "known_evidence_n": 137,
+      "known_evidence_accuracy": 0.0364963503649635,
+      "joint_correct": 25,
+      "joint_accuracy": 0.13020833333333334,
+      "unknown_predictions": 178,
+      "error_categories": {
+        "correct": 63,
+        "known_to_unknown": 126,
+        "unknown_to_known": 3,
+        "evidence_error_known": 132,
+        "joint_correct": 25
+      },
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 29,
+          "unknown_predictions": 29
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 2,
+          "unknown_predictions": 30
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 2,
+          "unknown_predictions": 30
+        },
+        "negation": {
+          "n": 32,
+          "correct": 0,
+          "unknown_predictions": 32
+        },
+        "original": {
+          "n": 32,
+          "correct": 9,
+          "unknown_predictions": 26
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 21,
+          "unknown_predictions": 31
+        }
+      },
+      "counterfactual_pairs_correct": 0,
+      "counterfactual_pair_n": 32
+    },
+    "combined": {
+      "n": 192,
+      "correct": 104,
+      "accuracy": 0.5416666666666666,
+      "macro_f1": 0.5253939612654878,
+      "known_evidence_correct": 76,
+      "known_evidence_n": 137,
+      "known_evidence_accuracy": 0.5547445255474452,
+      "joint_correct": 53,
+      "joint_accuracy": 0.2760416666666667,
+      "unknown_predictions": 108,
+      "error_categories": {
+        "correct": 104,
+        "unknown_to_known": 9,
+        "known_to_unknown": 62,
+        "false_rejection_T_to_F": 16,
+        "false_acceptance_F_to_T": 1,
+        "evidence_error_known": 61,
+        "joint_correct": 53
+      },
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 29,
+          "unknown_predictions": 29
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 16,
+          "unknown_predictions": 15
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 12,
+          "unknown_predictions": 14
+        },
+        "negation": {
+          "n": 32,
+          "correct": 10,
+          "unknown_predictions": 17
+        },
+        "original": {
+          "n": 32,
+          "correct": 14,
+          "unknown_predictions": 12
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 23,
+          "unknown_predictions": 21
+        }
+      },
+      "counterfactual_pairs_correct": 7,
+      "counterfactual_pair_n": 32
+    },
+    "qwen_v4": {
+      "n": 192,
+      "correct": 136,
+      "accuracy": 0.7083333333333334,
+      "macro_f1": 0.7041353837656846,
+      "known_evidence_correct": 87,
+      "known_evidence_n": 137,
+      "known_evidence_accuracy": 0.635036496350365,
+      "joint_correct": 81,
+      "joint_accuracy": 0.421875,
+      "unknown_predictions": 34,
+      "error_categories": {
+        "correct": 136,
+        "false_acceptance_F_to_T": 18,
+        "unknown_to_known": 25,
+        "known_to_unknown": 4,
+        "false_rejection_T_to_F": 9,
+        "evidence_error_known": 50,
+        "joint_correct": 81
+      },
+      "by_variant": {
+        "contradiction": {
+          "n": 32,
+          "correct": 26,
+          "unknown_predictions": 26
+        },
+        "counterfactual": {
+          "n": 32,
+          "correct": 25,
+          "unknown_predictions": 0
+        },
+        "multiple_values": {
+          "n": 32,
+          "correct": 21,
+          "unknown_predictions": 0
+        },
+        "negation": {
+          "n": 32,
+          "correct": 25,
+          "unknown_predictions": 0
+        },
+        "original": {
+          "n": 32,
+          "correct": 28,
+          "unknown_predictions": 4
+        },
+        "partial_missing": {
+          "n": 32,
+          "correct": 11,
+          "unknown_predictions": 4
+        }
+      },
+      "counterfactual_pairs_correct": 22,
+      "counterfactual_pair_n": 32
+    }
+  },
+  "A_vs_B": {
+    "n": 192,
+    "combined_rescued": 51,
+    "combined_regressed": 10,
+    "prediction_changed": 78,
+    "unknown_to_known": 74,
+    "known_to_unknown": 4
+  },
+  "original_preservation_intersection": "unavailable in aggregate metrics; not inferred from marginal correct counts",
+  "verification_scope": "Only aggregate metrics.json read; no predictions, labels, errors, private or raw output accessed by this task; no metric recomputation or new sample-level data.",
+  "limitations": [
+    "Automatic approval review rejected new sample-level diagnostics. This report does not claim independent semantic audit.",
+    "Existing per-case evidence remains in runs/v5_20261018/errors_public.jsonl; this task did not read or alter that file.",
+    "V4 regression was used in V5 method design and is not independent clinical validation."
+  ]
+}
