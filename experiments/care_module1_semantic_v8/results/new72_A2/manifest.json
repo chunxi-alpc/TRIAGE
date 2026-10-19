@@ -1,0 +1,49 @@
+{
+  "status": "completed",
+  "method": "A2_PR11_compact_atomic_plus_fixed_three_value_aggregation",
+  "model": "/home/gcx/models/care_module1_v5/phi-4",
+  "adapter": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+  "device": "cuda:0",
+  "cuda_visible_devices": "2",
+  "gpu_name": "NVIDIA A100-SXM4-80GB",
+  "python_executable": "/home/gcx/n/.venv/bin/python",
+  "cases": 72,
+  "unique_atomic_requests": 207,
+  "request_uses": 558,
+  "generation": {
+    "batch_size": 8,
+    "max_new_tokens": 1,
+    "do_sample": false,
+    "allowed_token_ids": {
+      "T": [
+        51
+      ],
+      "F": [
+        37
+      ],
+      "U": [
+        52
+      ]
+    }
+  },
+  "reference_labels_in_model_input": false,
+  "structured_patient_facts_in_model_input": false,
+  "system_prompt": "Classify the truth of one atomic proposition using only the current patient observations. T means explicitly true; F means explicitly false; U means missing or conflicting current patient information. Historical or family-member observations do not establish the current patient state. The criterion is a proposition, not an eligibility decision. Give only the requested compact JSON; no explanation.",
+  "input_advantage": "A2 receives author-supplied atomic rule decomposition and Boolean logic. A0/A1 receive the same complete rule meanings as natural text, without this decomposition.",
+  "relation_to_PR11": "Same Phi-4/TrialMatchAI LoRA adapter, compact constrained atomic-label interface and fixed eval_logic/tri_and/tri_not aggregation. Historical A2 reused old verbose caches, deterministic numeric processing and 17 compact repairs; all new atoms here use actual compact model generation. There are no numeric deterministic overrides.",
+  "evidence_note": "Compact atomic interface does not generate evidence quotes. Do not interpret empty evidence as a failed quote-location diagnostic or a semantic model comparison of evidence quality.",
+  "model_load_seconds": 30.904009203019086,
+  "inference_seconds": 8.86303237901302,
+  "elapsed_seconds": 39.771398216020316,
+  "actual_atomic_calls": 207,
+  "actual_generation_batches": 26,
+  "parse_failures": 0,
+  "peak_allocated_gib": 13.174214363098145,
+  "peak_reserved_gib": 13.375,
+  "versions": {
+    "torch": "2.8.0+cu128",
+    "transformers": "4.57.1",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2"
+  }
+}

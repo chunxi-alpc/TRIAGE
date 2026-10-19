@@ -1,0 +1,54 @@
+{
+  "created_utc": "2026-10-19T14:23:02.412004+00:00",
+  "historical_base_commit": "f0c3c28a30096bdda37c021f6db9de85754cb8e7",
+  "selection_order": [
+    "higher_dev_rule_accuracy",
+    "fewer_dev_F_to_T",
+    "higher_dev_macro_F1",
+    "prefer_A0_if_tied"
+  ],
+  "selection_split": "dev96",
+  "run_both_variants_on_confirmation_and_new72": true,
+  "batching": "one_case_all_rules",
+  "historical_confirmation_scope": "historical regression exploration; previously used during development",
+  "new72_scope": "synthetic fictional routing; not clinical validation",
+  "no_confidence_study": true,
+  "evidence_location_is_soft_diagnostic": true,
+  "parse_retry_budget": 1,
+  "no_outcome_based_exclusion": true,
+  "resources": {
+    "A0": {
+      "gpu": 0,
+      "estimated_GiB": [
+        14,
+        25
+      ]
+    },
+    "A1": {
+      "gpu": 1,
+      "estimated_GiB": [
+        14,
+        25
+      ]
+    },
+    "A2_new": {
+      "gpu": 2,
+      "estimated_GiB": [
+        14,
+        25
+      ]
+    },
+    "Qwen": {
+      "gpu": 3,
+      "estimated_GiB": [
+        10,
+        14
+      ]
+    },
+    "spare_gpu": 7
+  },
+  "estimated_runtime_minutes": [
+    60,
+    120
+  ]
+}

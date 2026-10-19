@@ -1,0 +1,464 @@
+{
+  "status": "completed",
+  "selected": "A1",
+  "base_commit": "f0c3c28a30096bdda37c021f6db9de85754cb8e7",
+  "gpu_devices_used": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "semantic_case_predictions": 720,
+  "semantic_rule_predictions": 2160,
+  "a2_new_unique_atomic_requests": 207,
+  "a2_historical_reused_cases": 192,
+  "qwen_forward_calls": 97,
+  "runs": {
+    "dev_A0": {
+      "status": "completed",
+      "arm": "A0",
+      "base_model": "/home/gcx/models/care_module1_v5/phi-4",
+      "adapter_model": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+      "base_model_source": "microsoft/phi-4",
+      "adapter_source": "majdabd33/trialmatchai-phi4-reasoning-lora",
+      "quantization": "same PR11 TrialMatchAIAdapter: NF4 4-bit, double quant, bfloat16 compute",
+      "device": "cuda:0",
+      "cuda_visible_devices": "0",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "input_path": "/home/gcx/TRIAGE-worktrees/care-module1-semantic-v8-20261019/experiments/care_module1_semantic_v8/data/semantic_dev_inputs.jsonl",
+      "split": null,
+      "total_cases": 96,
+      "cases_this_invocation": 96,
+      "existing_cases": 0,
+      "generation": {
+        "batch_size": 8,
+        "max_new_tokens": 384,
+        "do_sample": false,
+        "num_beams": 1,
+        "assistant_prefix": "{\"rules\":["
+      },
+      "call_budget": {
+        "primary_case_requests": 96,
+        "max_retry_case_requests": 96,
+        "max_retries_per_case": 1,
+        "max_generated_tokens": 73728,
+        "primary_generate_batches": 12
+      },
+      "prediction_input_fields": [
+        "question",
+        "patient",
+        "rules.rule_id",
+        "rules.text (whole natural-language rule; all adjacent branches)"
+      ],
+      "no_patient_structured_facts_or_gold_in_prediction_input": true,
+      "evidence_policy": "exact quote location is diagnostic only; unmatched quotes never change predicted applicability",
+      "failure_policy": "one short format retry; persistent failures are null, never medical U",
+      "prompt_sha256": "540bb328fad2a9574cf11fe28bfe560e965157663164663180834a1c9cd1c0ce",
+      "fewshot_sha256": null,
+      "fewshot_demonstrations": 0,
+      "fewshot_patient_narratives": 0,
+      "versions": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2"
+      },
+      "model_load_seconds": 26.93268596602138,
+      "elapsed_seconds": 172.61446294101188,
+      "generation_seconds": 145.53403827606235,
+      "counts": {
+        "accepted_first": 96,
+        "accepted_retry": 0,
+        "parse_failure": 0,
+        "runtime_error": 0,
+        "case_requests": 96,
+        "generate_batches": 12
+      },
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 13.375
+    },
+    "dev_A1": {
+      "status": "completed",
+      "arm": "A1",
+      "base_model": "/home/gcx/models/care_module1_v5/phi-4",
+      "adapter_model": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+      "base_model_source": "microsoft/phi-4",
+      "adapter_source": "majdabd33/trialmatchai-phi4-reasoning-lora",
+      "quantization": "same PR11 TrialMatchAIAdapter: NF4 4-bit, double quant, bfloat16 compute",
+      "device": "cuda:0",
+      "cuda_visible_devices": "1",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "input_path": "/home/gcx/TRIAGE-worktrees/care-module1-semantic-v8-20261019/experiments/care_module1_semantic_v8/data/semantic_dev_inputs.jsonl",
+      "split": null,
+      "total_cases": 96,
+      "cases_this_invocation": 96,
+      "existing_cases": 0,
+      "generation": {
+        "batch_size": 8,
+        "max_new_tokens": 384,
+        "do_sample": false,
+        "num_beams": 1,
+        "assistant_prefix": "{\"rules\":["
+      },
+      "call_budget": {
+        "primary_case_requests": 96,
+        "max_retry_case_requests": 96,
+        "max_retries_per_case": 1,
+        "max_generated_tokens": 73728,
+        "primary_generate_batches": 12
+      },
+      "prediction_input_fields": [
+        "question",
+        "patient",
+        "rules.rule_id",
+        "rules.text (whole natural-language rule; all adjacent branches)"
+      ],
+      "no_patient_structured_facts_or_gold_in_prediction_input": true,
+      "evidence_policy": "exact quote location is diagnostic only; unmatched quotes never change predicted applicability",
+      "failure_policy": "one short format retry; persistent failures are null, never medical U",
+      "prompt_sha256": "540bb328fad2a9574cf11fe28bfe560e965157663164663180834a1c9cd1c0ce",
+      "fewshot_sha256": "3fe71cdc1573c69a422c7892491a62fa99dc45ac538509e169c3adeac9fa08a8",
+      "fewshot_demonstrations": 3,
+      "fewshot_patient_narratives": 4,
+      "versions": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2"
+      },
+      "model_load_seconds": 27.406611570972018,
+      "elapsed_seconds": 287.036981104,
+      "generation_seconds": 259.3284127539373,
+      "counts": {
+        "accepted_first": 96,
+        "accepted_retry": 0,
+        "parse_failure": 0,
+        "runtime_error": 0,
+        "case_requests": 96,
+        "generate_batches": 12
+      },
+      "peak_allocated_gib": 16.875479221343994,
+      "peak_reserved_gib": 18.3046875
+    },
+    "confirmation_A0": {
+      "status": "completed",
+      "arm": "A0",
+      "base_model": "/home/gcx/models/care_module1_v5/phi-4",
+      "adapter_model": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+      "base_model_source": "microsoft/phi-4",
+      "adapter_source": "majdabd33/trialmatchai-phi4-reasoning-lora",
+      "quantization": "same PR11 TrialMatchAIAdapter: NF4 4-bit, double quant, bfloat16 compute",
+      "device": "cuda:0",
+      "cuda_visible_devices": "0",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "input_path": "/home/gcx/TRIAGE-worktrees/care-module1-semantic-v8-20261019/experiments/care_module1_semantic_v8/data/semantic_confirmation_inputs.jsonl",
+      "split": null,
+      "total_cases": 192,
+      "cases_this_invocation": 192,
+      "existing_cases": 0,
+      "generation": {
+        "batch_size": 8,
+        "max_new_tokens": 384,
+        "do_sample": false,
+        "num_beams": 1,
+        "assistant_prefix": "{\"rules\":["
+      },
+      "call_budget": {
+        "primary_case_requests": 192,
+        "max_retry_case_requests": 192,
+        "max_retries_per_case": 1,
+        "max_generated_tokens": 147456,
+        "primary_generate_batches": 24
+      },
+      "prediction_input_fields": [
+        "question",
+        "patient",
+        "rules.rule_id",
+        "rules.text (whole natural-language rule; all adjacent branches)"
+      ],
+      "no_patient_structured_facts_or_gold_in_prediction_input": true,
+      "evidence_policy": "exact quote location is diagnostic only; unmatched quotes never change predicted applicability",
+      "failure_policy": "one short format retry; persistent failures are null, never medical U",
+      "prompt_sha256": "540bb328fad2a9574cf11fe28bfe560e965157663164663180834a1c9cd1c0ce",
+      "fewshot_sha256": null,
+      "fewshot_demonstrations": 0,
+      "fewshot_patient_narratives": 0,
+      "versions": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2"
+      },
+      "model_load_seconds": 28.111176972975954,
+      "elapsed_seconds": 328.70957896800246,
+      "generation_seconds": 300.31740032706875,
+      "counts": {
+        "accepted_first": 192,
+        "accepted_retry": 0,
+        "parse_failure": 0,
+        "runtime_error": 0,
+        "case_requests": 192,
+        "generate_batches": 24
+      },
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 13.375
+    },
+    "confirmation_A1": {
+      "status": "completed",
+      "arm": "A1",
+      "base_model": "/home/gcx/models/care_module1_v5/phi-4",
+      "adapter_model": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+      "base_model_source": "microsoft/phi-4",
+      "adapter_source": "majdabd33/trialmatchai-phi4-reasoning-lora",
+      "quantization": "same PR11 TrialMatchAIAdapter: NF4 4-bit, double quant, bfloat16 compute",
+      "device": "cuda:0",
+      "cuda_visible_devices": "1",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "input_path": "/home/gcx/TRIAGE-worktrees/care-module1-semantic-v8-20261019/experiments/care_module1_semantic_v8/data/semantic_confirmation_inputs.jsonl",
+      "split": null,
+      "total_cases": 192,
+      "cases_this_invocation": 192,
+      "existing_cases": 0,
+      "generation": {
+        "batch_size": 8,
+        "max_new_tokens": 384,
+        "do_sample": false,
+        "num_beams": 1,
+        "assistant_prefix": "{\"rules\":["
+      },
+      "call_budget": {
+        "primary_case_requests": 192,
+        "max_retry_case_requests": 192,
+        "max_retries_per_case": 1,
+        "max_generated_tokens": 147456,
+        "primary_generate_batches": 24
+      },
+      "prediction_input_fields": [
+        "question",
+        "patient",
+        "rules.rule_id",
+        "rules.text (whole natural-language rule; all adjacent branches)"
+      ],
+      "no_patient_structured_facts_or_gold_in_prediction_input": true,
+      "evidence_policy": "exact quote location is diagnostic only; unmatched quotes never change predicted applicability",
+      "failure_policy": "one short format retry; persistent failures are null, never medical U",
+      "prompt_sha256": "540bb328fad2a9574cf11fe28bfe560e965157663164663180834a1c9cd1c0ce",
+      "fewshot_sha256": "3fe71cdc1573c69a422c7892491a62fa99dc45ac538509e169c3adeac9fa08a8",
+      "fewshot_demonstrations": 3,
+      "fewshot_patient_narratives": 4,
+      "versions": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2"
+      },
+      "model_load_seconds": 27.32947562803747,
+      "elapsed_seconds": 541.1915612530429,
+      "generation_seconds": 513.2851787038962,
+      "counts": {
+        "accepted_first": 192,
+        "accepted_retry": 0,
+        "parse_failure": 0,
+        "runtime_error": 0,
+        "case_requests": 192,
+        "generate_batches": 24
+      },
+      "peak_allocated_gib": 16.889400005340576,
+      "peak_reserved_gib": 18.384765625
+    },
+    "confirmation_A2": {
+      "status": "reused_historical"
+    },
+    "new72_A0": {
+      "status": "completed",
+      "arm": "A0",
+      "base_model": "/home/gcx/models/care_module1_v5/phi-4",
+      "adapter_model": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+      "base_model_source": "microsoft/phi-4",
+      "adapter_source": "majdabd33/trialmatchai-phi4-reasoning-lora",
+      "quantization": "same PR11 TrialMatchAIAdapter: NF4 4-bit, double quant, bfloat16 compute",
+      "device": "cuda:0",
+      "cuda_visible_devices": "0",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "input_path": "/home/gcx/TRIAGE-worktrees/care-module1-semantic-v8-20261019/experiments/care_module1_semantic_v8/data/new72_cases.jsonl",
+      "split": null,
+      "total_cases": 72,
+      "cases_this_invocation": 72,
+      "existing_cases": 0,
+      "generation": {
+        "batch_size": 8,
+        "max_new_tokens": 384,
+        "do_sample": false,
+        "num_beams": 1,
+        "assistant_prefix": "{\"rules\":["
+      },
+      "call_budget": {
+        "primary_case_requests": 72,
+        "max_retry_case_requests": 72,
+        "max_retries_per_case": 1,
+        "max_generated_tokens": 55296,
+        "primary_generate_batches": 9
+      },
+      "prediction_input_fields": [
+        "question",
+        "patient",
+        "rules.rule_id",
+        "rules.text (whole natural-language rule; all adjacent branches)"
+      ],
+      "no_patient_structured_facts_or_gold_in_prediction_input": true,
+      "evidence_policy": "exact quote location is diagnostic only; unmatched quotes never change predicted applicability",
+      "failure_policy": "one short format retry; persistent failures are null, never medical U",
+      "prompt_sha256": "540bb328fad2a9574cf11fe28bfe560e965157663164663180834a1c9cd1c0ce",
+      "fewshot_sha256": null,
+      "fewshot_demonstrations": 0,
+      "fewshot_patient_narratives": 0,
+      "versions": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2"
+      },
+      "model_load_seconds": 27.121526764996815,
+      "elapsed_seconds": 124.5464430359425,
+      "generation_seconds": 97.3266874520341,
+      "counts": {
+        "accepted_first": 72,
+        "accepted_retry": 0,
+        "parse_failure": 0,
+        "runtime_error": 0,
+        "case_requests": 72,
+        "generate_batches": 9
+      },
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 13.375
+    },
+    "new72_A1": {
+      "status": "completed",
+      "arm": "A1",
+      "base_model": "/home/gcx/models/care_module1_v5/phi-4",
+      "adapter_model": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+      "base_model_source": "microsoft/phi-4",
+      "adapter_source": "majdabd33/trialmatchai-phi4-reasoning-lora",
+      "quantization": "same PR11 TrialMatchAIAdapter: NF4 4-bit, double quant, bfloat16 compute",
+      "device": "cuda:0",
+      "cuda_visible_devices": "1",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "input_path": "/home/gcx/TRIAGE-worktrees/care-module1-semantic-v8-20261019/experiments/care_module1_semantic_v8/data/new72_cases.jsonl",
+      "split": null,
+      "total_cases": 72,
+      "cases_this_invocation": 72,
+      "existing_cases": 0,
+      "generation": {
+        "batch_size": 8,
+        "max_new_tokens": 384,
+        "do_sample": false,
+        "num_beams": 1,
+        "assistant_prefix": "{\"rules\":["
+      },
+      "call_budget": {
+        "primary_case_requests": 72,
+        "max_retry_case_requests": 72,
+        "max_retries_per_case": 1,
+        "max_generated_tokens": 55296,
+        "primary_generate_batches": 9
+      },
+      "prediction_input_fields": [
+        "question",
+        "patient",
+        "rules.rule_id",
+        "rules.text (whole natural-language rule; all adjacent branches)"
+      ],
+      "no_patient_structured_facts_or_gold_in_prediction_input": true,
+      "evidence_policy": "exact quote location is diagnostic only; unmatched quotes never change predicted applicability",
+      "failure_policy": "one short format retry; persistent failures are null, never medical U",
+      "prompt_sha256": "540bb328fad2a9574cf11fe28bfe560e965157663164663180834a1c9cd1c0ce",
+      "fewshot_sha256": "3fe71cdc1573c69a422c7892491a62fa99dc45ac538509e169c3adeac9fa08a8",
+      "fewshot_demonstrations": 3,
+      "fewshot_patient_narratives": 4,
+      "versions": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2"
+      },
+      "model_load_seconds": 26.946550197026227,
+      "elapsed_seconds": 226.46831387397833,
+      "generation_seconds": 199.2973288631183,
+      "counts": {
+        "accepted_first": 72,
+        "accepted_retry": 0,
+        "parse_failure": 0,
+        "runtime_error": 0,
+        "case_requests": 72,
+        "generate_batches": 9
+      },
+      "peak_allocated_gib": 16.40895175933838,
+      "peak_reserved_gib": 17.46484375
+    },
+    "new72_A2": {
+      "status": "completed",
+      "method": "A2_PR11_compact_atomic_plus_fixed_three_value_aggregation",
+      "model": "/home/gcx/models/care_module1_v5/phi-4",
+      "adapter": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+      "device": "cuda:0",
+      "cuda_visible_devices": "2",
+      "gpu_name": "NVIDIA A100-SXM4-80GB",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "cases": 72,
+      "unique_atomic_requests": 207,
+      "request_uses": 558,
+      "generation": {
+        "batch_size": 8,
+        "max_new_tokens": 1,
+        "do_sample": false,
+        "allowed_token_ids": {
+          "T": [
+            51
+          ],
+          "F": [
+            37
+          ],
+          "U": [
+            52
+          ]
+        }
+      },
+      "reference_labels_in_model_input": false,
+      "structured_patient_facts_in_model_input": false,
+      "system_prompt": "Classify the truth of one atomic proposition using only the current patient observations. T means explicitly true; F means explicitly false; U means missing or conflicting current patient information. Historical or family-member observations do not establish the current patient state. The criterion is a proposition, not an eligibility decision. Give only the requested compact JSON; no explanation.",
+      "input_advantage": "A2 receives author-supplied atomic rule decomposition and Boolean logic. A0/A1 receive the same complete rule meanings as natural text, without this decomposition.",
+      "relation_to_PR11": "Same Phi-4/TrialMatchAI LoRA adapter, compact constrained atomic-label interface and fixed eval_logic/tri_and/tri_not aggregation. Historical A2 reused old verbose caches, deterministic numeric processing and 17 compact repairs; all new atoms here use actual compact model generation. There are no numeric deterministic overrides.",
+      "evidence_note": "Compact atomic interface does not generate evidence quotes. Do not interpret empty evidence as a failed quote-location diagnostic or a semantic model comparison of evidence quality.",
+      "model_load_seconds": 30.904009203019086,
+      "inference_seconds": 8.86303237901302,
+      "elapsed_seconds": 39.771398216020316,
+      "actual_atomic_calls": 207,
+      "actual_generation_batches": 26,
+      "parse_failures": 0,
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 13.375,
+      "versions": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2"
+      }
+    }
+  },
+  "qwen": {
+    "status": "completed",
+    "forward_calls": 97,
+    "elapsed_seconds": 7.293924943951424,
+    "peak_allocated_gib": 7.587952136993408,
+    "peak_reserved_gib": 7.611328125,
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "cuda_visible_devices": "3"
+  },
+  "scope": "synthetic study; historical confirmation is regression exploration"
+}

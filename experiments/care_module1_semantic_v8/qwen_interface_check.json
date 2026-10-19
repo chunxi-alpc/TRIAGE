@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "case_id": "mechanism_02_disjunction-p01-canonical-app",
+  "checks": [
+    "all original rule/action IDs retained",
+    "full-prompt character-to-token offsets",
+    "unlocated evidence does not gate T/F/U",
+    "missing parsed states remain null, never U"
+  ],
+  "full_prompt_tokens": 343,
+  "S": [
+    {
+      "rule_id": "R_TARGET",
+      "state": "T",
+      "action_char_span": [
+        1082,
+        1093
+      ],
+      "optional_evidence_char_span": [
+        562,
+        599
+      ],
+      "evidence_location_status": "exact_patient_substring",
+      "evidence_occurrences": 1,
+      "action_token_indices": [
+        220,
+        221
+      ],
+      "optional_evidence_token_indices": [
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107
+      ]
+    },
+    {
+      "rule_id": "R_ALTERNATIVE",
+      "state": "F",
+      "action_char_span": [
+        1163,
+        1174
+      ],
+      "evidence_location_status": "not_exact_patient_substring",
+      "action_token_indices": [
+        249,
+        250
+      ]
+    },
+    {
+      "rule_id": "R_EXCEPTION",
+      "state": "U",
+      "action_char_span": [
+        1218,
+        1231
+      ],
+      "evidence_location_status": "not_exact_patient_substring",
+      "action_token_indices": [
+        266,
+        267,
+        268
+      ]
+    }
+  ]
+}

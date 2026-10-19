@@ -1,0 +1,36 @@
+{
+  "case_id": "mechanism_02_disjunction-p01-canonical-app",
+  "fixture": "synthetic all-U interface",
+  "same_prompt": true,
+  "same_prediction": true,
+  "max_candidate_logit_difference": 0.0,
+  "target_token_count": 0,
+  "raw": {
+    "status": "completed",
+    "is_model_prediction": true,
+    "prediction": "B",
+    "candidate_logits": [
+      27.875,
+      28.625,
+      28.5,
+      27.375
+    ],
+    "candidate_probabilities": [
+      0.17883405089378357,
+      0.3785916864871979,
+      0.3341059982776642,
+      0.10846833884716034
+    ],
+    "margin": 0.125,
+    "prompt": "This is an invented routing simulation for logic research. The numerical fields and routing rules below are fictional and are not medical guidance. Use only current observations about the patient. Historical or family-member observations do not establish the patient's current state. Missing or conflicting current observations are unknown, not false. Apply the rules using three-valued logic. If a unique route cannot be established, request review.\n\nQuestion: Which routing action follows from the patient's current observations and all of the rules?\nPatient: The patient's current age is 19 years. The current patient does not have routing authorization. The current patient does not have a routing suspension flag. The current patient does not have a suspension waiver.\nGuidance:\nAtomic conditions:\nC1: The patient's current age is at least 19 years.\nC2: The current patient has routing authorization.\nE1: The current patient has a routing suspension flag.\nE2: The current patient has a suspension waiver.\nRouting rules:\nR_TARGET: IF (C1 OR C2) UNLESS (E1 AND NOT (E2)), assign Route Cedar.\nR_ALTERNATIVE: IF NOT ((C1 OR C2)) UNLESS (E1 AND NOT (E2)), assign Route Maple.\nR_EXCEPTION: IF (E1 AND NOT (E2)), assign Route Juniper.\nIf no unique route is established, Request review.\nOptions:\nA. Route Juniper\nB. Route Cedar\nC. Request review\nD. Route Maple\nReturn exactly one option letter.\nAnswer:",
+    "prompt_tokens": 311,
+    "targets": [],
+    "target_token_count": 0,
+    "noop": true,
+    "attention_diagnostics": [],
+    "structure_status": "ok",
+    "structure_parse_failure": false,
+    "elapsed_seconds": 0.03027427097549662
+  },
+  "passed": true
+}
