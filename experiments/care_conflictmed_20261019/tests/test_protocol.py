@@ -89,3 +89,22 @@ def test_immutable_prepare(tmp_path):
     assert manifest["status"] == "DATA_PREPARED_NOT_MODEL_EVALUATED"
     with pytest.raises(FileExistsError):
         prepare(af, sf, out, allow_partial=True)
+
+
+def test_conditional_flip_requires_verification_and_remains_action_blind():
+    from conditions import generate
+    example = {"family_id": "fictional-threshold-01", "question": "Does fictional rule R apply?",
+               "rule_text": "If level is at least 30 points, apply R.",
+               "patient_template": "Fictional level = {value} points.",
+               "condition": {"field": "fictional_level", "operator": ">=", "threshold": 30, "unit": "points"},
+               "values": {"T": 31, "F": 29},
+               "provenance": {"verified": True, "reviewer": "test-fixture-review", "source_url": "https://example.org/fictional"}}
+    inp, gold = generate([example])
+    assert [x["state"] for x in gold] == ["T", "F", "U"]
+    assert all(x["clinical_action_gold"] is None for x in gold)
+    assert inp[0]["prompt"].replace("31", "<X>") == inp[1]["prompt"].replace("29", "<X>")
+    assert all(x["prompt"][slice(*x["evidence_span"])] in x["prompt"] for x in inp)
+    with pytest.raises(ValueError, match="reviewed"):
+        generate([{**example, "provenance": {"verified": False}}])
+    with pytest.raises(ValueError, match="flip applicability"):
+        generate([{**example, "values": {"T": 31, "F": 40}}])
