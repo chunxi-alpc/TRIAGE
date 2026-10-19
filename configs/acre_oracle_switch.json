@@ -1,0 +1,28 @@
+{
+  "seed": 20261015,
+  "base_remote_commit": "c25da4420d467e281dfe5243a15ed8315b8a8c90",
+  "betas": [
+    2,
+    1
+  ],
+  "identity_beta": 0,
+  "case_count": 80,
+  "pair_count": 40,
+  "guideline_count": 36,
+  "methods": [
+    "OF",
+    "OS",
+    "OF-target",
+    "OS-target"
+  ],
+  "main_comparison": "full-reference OS vs OF; target-only is secondary non-deployable diagnostic",
+  "annotation_source": "same frozen development_oracle for both strategies",
+  "operator": "unchanged AttentionBias; all layers/heads, final decision query",
+  "no_annotation_retraining": true,
+  "no_beta_search": true,
+  "OS_reuse": "all 80 masks exact replay; representative GPU logits checks at beta 1 and 2",
+  "E2_gate": "full Oracle net behavioral benefit without OAR or retention degradation; otherwise stop",
+  "E3_gate": "E0 actual differences and E1 positive directional benefit; no posthoc modules",
+  "bootstrap_clusters": "guideline; intact counterfactual pairs",
+  "bootstrap_samples": 2000
+}

@@ -1,0 +1,173 @@
+{
+  "planned_at": "2026-10-15",
+  "smoke_gpu": 0,
+  "gpus": [
+    0,
+    1,
+    2,
+    3,
+    6,
+    7
+  ],
+  "gpu_model": "NVIDIA A100-SXM4-80GB",
+  "estimated_peak_gib_per_gpu": [
+    18,
+    24
+  ],
+  "estimated_minutes": [
+    3,
+    8
+  ],
+  "cases": 80,
+  "pairs": 40,
+  "guidelines": 36,
+  "betas": [
+    2,
+    1
+  ],
+  "target_only_secondary_diagnostic": true,
+  "normal_model_annotation_calls": 0,
+  "OS_reused_from": "revision3 B6; all masks replayed and six prompt-length-selected cases logits checked",
+  "monitoring": "one stability check; no continuous GPU monitoring; read completion after other work",
+  "independent_validation": false,
+  "smoke_peak_allocated_gib": 16.613930702209473,
+  "smoke_seconds": 25.3160240650177,
+  "revised_peak_gib_per_gpu": [
+    17,
+    20
+  ],
+  "revised_full_minutes": [
+    2,
+    5
+  ],
+  "full_start_utc": "2026-10-15T03:13:15Z",
+  "full_end_utc": "2026-10-15T03:14:22Z",
+  "full_wall_seconds": 67.0,
+  "workers": [
+    {
+      "complete": true,
+      "worker": 0,
+      "cases": 14,
+      "seconds_including_model_load": 64.11052942276001,
+      "model_forward_calls": 118,
+      "identical_mask_reuses": 8,
+      "peak_allocated_gib": 16.613411903381348,
+      "peak_reserved_gib": 18.48046875
+    },
+    {
+      "complete": true,
+      "worker": 1,
+      "cases": 14,
+      "seconds_including_model_load": 47.424253940582275,
+      "model_forward_calls": 78,
+      "identical_mask_reuses": 48,
+      "peak_allocated_gib": 16.61331272125244,
+      "peak_reserved_gib": 18.48046875
+    },
+    {
+      "complete": true,
+      "worker": 2,
+      "cases": 13,
+      "seconds_including_model_load": 58.86024475097656,
+      "model_forward_calls": 109,
+      "identical_mask_reuses": 8,
+      "peak_allocated_gib": 16.186299324035645,
+      "peak_reserved_gib": 17.6796875
+    },
+    {
+      "complete": true,
+      "worker": 3,
+      "cases": 13,
+      "seconds_including_model_load": 47.80751371383667,
+      "model_forward_calls": 73,
+      "identical_mask_reuses": 44,
+      "peak_allocated_gib": 16.186498641967773,
+      "peak_reserved_gib": 17.6796875
+    },
+    {
+      "complete": true,
+      "worker": 4,
+      "cases": 13,
+      "seconds_including_model_load": 48.00316905975342,
+      "model_forward_calls": 117,
+      "identical_mask_reuses": 0,
+      "peak_allocated_gib": 15.912723541259766,
+      "peak_reserved_gib": 16.806640625
+    },
+    {
+      "complete": true,
+      "worker": 5,
+      "cases": 13,
+      "seconds_including_model_load": 29.675355672836304,
+      "model_forward_calls": 65,
+      "identical_mask_reuses": 52,
+      "peak_allocated_gib": 15.912662506103516,
+      "peak_reserved_gib": 16.806640625
+    }
+  ],
+  "actual_peak_allocated_gib": 16.613411903381348,
+  "actual_peak_reserved_gib": 18.48046875,
+  "actual_new_forwards": 560,
+  "identical_mask_reuses": 160,
+  "smoke_checks": {
+    "passed": true,
+    "cases": [
+      {
+        "case_id": "v2_1446_2_counterfactual",
+        "prompt_tokens": 496,
+        "B0_and_B6_logits_exact": true,
+        "zero_and_empty_full_vocabulary_exact": true
+      },
+      {
+        "case_id": "v2_1446_2_original",
+        "prompt_tokens": 497,
+        "B0_and_B6_logits_exact": true,
+        "zero_and_empty_full_vocabulary_exact": true
+      },
+      {
+        "case_id": "v2_244_7_counterfactual",
+        "prompt_tokens": 3894,
+        "B0_and_B6_logits_exact": true,
+        "zero_and_empty_full_vocabulary_exact": true
+      },
+      {
+        "case_id": "v2_244_7_original",
+        "prompt_tokens": 3895,
+        "B0_and_B6_logits_exact": true,
+        "zero_and_empty_full_vocabulary_exact": true
+      },
+      {
+        "case_id": "v2_68_17_counterfactual",
+        "prompt_tokens": 13499,
+        "B0_and_B6_logits_exact": true,
+        "zero_and_empty_full_vocabulary_exact": true
+      },
+      {
+        "case_id": "v2_68_17_original",
+        "prompt_tokens": 13500,
+        "B0_and_B6_logits_exact": true,
+        "zero_and_empty_full_vocabulary_exact": true
+      }
+    ],
+    "case_selection": "six fixed prompt-length order statistics: 0,1,38,39,78,79; chosen without inspecting new outcomes",
+    "seconds": 25.3160240650177,
+    "peak_allocated_gib": 16.613930702209473,
+    "peak_reserved_gib": 17.685546875,
+    "physical_gpu": "0",
+    "operator_checks": "operator_gpu_checks.json",
+    "code_fingerprints": {
+      "src/acre_pilot/attention_bias.py": "5d3abb7f4f20947b7ddd0c42240391366e533d6ca8e68ea1b3e70d9333b8cbfe",
+      "src/acre_pilot/constrained_annotation.py": "bb2b09866c769e6d73837e01c97131267e6512d2d680a5e37d6e66c0d40f5f63",
+      "src/acre_pilot/pair_verification.py": "fd95711301dc8b74a84d0a9783124cfb4f3723817a32530e11e184c03a8b2b7d",
+      "src/acre_pilot/span_mapping.py": "4472db1c5ddbafa0b72af58b0ca70208e5274493108dccaff7e9ad6cc4fc8619",
+      "src/acre_pilot/__init__.py": "2460741f93e34cd346924cf86d888518f29cfbccc7d1b288fd4f056d9473a832",
+      "src/acre_pilot/oracle_diagnostic.py": "a952d468bf6c82067cd96cf9cc99b52e23eb79edc34eb816e14ec1d5f5481385",
+      "src/acre_pilot/evaluator.py": "6317f9e7bced1fcf23ceec29363dd2da84b52092cc481e4b0b8d59cd83f33d19",
+      "src/acre_pilot/annotator.py": "71d1a505448d8788d22a903f9627d5b7a256483a5cf0859c67b22ed8f14b798d",
+      "scripts/run_acre_oracle_factorial.py": "69f0c4382a7c2e69a02f325eaae1336e697e1f4e94d3f89b009fa1e274adbb22",
+      "scripts/audit_acre_switch_masks.py": "6aaadf869875542a896a4bb441b80c295b4f0236bf4aee9cdd44dc0a09e3e528",
+      "configs/acre_oracle_switch.json": "11283f6c110886d5479a261195b1555192ca61759db2664f22bd876a04a8a388"
+    }
+  },
+  "runtime_exit_status": 0
+}

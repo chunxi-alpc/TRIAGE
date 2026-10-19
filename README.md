@@ -125,3 +125,7 @@ result = module1.run(guideline=R, patient=P, question=Q)
 
 仓库保存代码、配置、文档及可分析的实验产物；详细运行日志留在服务器对应结果目录。
 
+
+## CARE Module1 V6
+
+V6 keeps TrialMatchAI as the applicability authority. Deterministic numeric comparison is used only when a reliable observation is found; BioLinkBERT-MedNLI locates evidence and controls intervention permission without overriding T/F/U. See [experiments/care_module1_v6/REPORT.zh.md](experiments/care_module1_v6/REPORT.zh.md).

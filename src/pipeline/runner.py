@@ -2,17 +2,21 @@
 import copy
 import hashlib
 import json
+import os
 import time
 from pathlib import Path
 from .tokens import build_prompt_and_mapping
-from src.module1 import Module1
+from src.module1.care_v6 import CAREModule1V6
 from src.module1.backend import LocalBackend,ROOT
 
 class TriagePipeline:
     def __init__(self,components_path=None,projection_path=None,device="cuda:0",top_k=12,
-                 max_new_tokens=384,backend=None):
+                 max_new_tokens=384,backend=None,module1=None,module1_device=None,module1_cache=None):
         self.backend=backend or LocalBackend(device=device)
-        self.module1=Module1(backend=self.backend,top_k=top_k)
+        self.module1=module1
+        self.module1_device=module1_device or os.environ.get("CARE_MODULE1_V6_DEVICE", device)
+        self.module1_cache=module1_cache or os.environ.get("CARE_MODULE1_V6_CACHE")
+        self.top_k=top_k
         self.components_path=Path(components_path or ROOT/"results/module2/components.json")
         self.projection_path=Path(projection_path or ROOT/"results/module3/projections.pt")
         self.components=None
@@ -21,6 +25,12 @@ class TriagePipeline:
         self.backend._load_qwen()
         if self.components is None: self.components=json.loads(self.components_path.read_text())
         return self
+
+    def _get_module1(self):
+        if self.module1 is None:
+            self.module1 = CAREModule1V6.from_pretrained(
+                device=self.module1_device, cache_dir=self.module1_cache)
+        return self.module1
     def build_projections(self,records,rank=4):
         self.load()
         from src.module3 import build_projections
@@ -55,7 +65,14 @@ class TriagePipeline:
         from src.module3 import GatedAttentionIntervention
         started=time.time()
         self.load()
-        graph=module1_output or self.module1.run(guideline=guideline,patient=patient,question=question)
+        if module1_output is None:
+            graph = self._get_module1().run(guideline=guideline, patient=patient, question=question)
+            module1_source = "computed_live_v6"
+        else:
+            graph = module1_output
+            module1_source = "provided_output"
+        if not isinstance(graph, dict) or graph.get("schema_version") != "module1.v6":
+            raise ValueError("Unified pipeline requires a module1.v6 output; pass a V6 graph or omit module1_output")
         prompt,encoded,mapping=build_prompt_and_mapping(self.backend.tokenizer,patient,question,graph)
         if encoded["input_ids"].shape[1]>self.backend.max_input_tokens:
             raise ValueError("Pipeline prompt exceeds configured input budget")
@@ -71,7 +88,8 @@ class TriagePipeline:
         diff=changed_logits-base_logits
         result={"schema_version":"triage_pipeline.v1","input_source":input_source,
             "patient":patient,"question":question,"guideline":guideline,"module1":graph,
-            "module1_source":"provided_output" if module1_output else "computed_live",
+            "module1_source": module1_source,
+            "module1_schema_version": graph.get("schema_version"),
             "baseline":baseline,"intervened":intervened,"intervention_stats":hook.stats,
             "gates":{"binding_gate":graph["binding_gate"],"action_gate":graph["action_gate"],
                      "prior_weights":[r.get("prior_competition_weight",0) for r in graph["relation_weights"]]},

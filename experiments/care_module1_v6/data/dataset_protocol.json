@@ -1,0 +1,23 @@
+{
+  "name": "CARE module-one V4 regression reused for V5 exploratory comparison",
+  "sample_count": 192,
+  "rule_count": 16,
+  "base_synthetic_cases": 32,
+  "controlled_variants": 160,
+  "label_counts": {"T": 66, "F": 71, "U": 55},
+  "scenario_counts": {
+    "original": 32,
+    "counterfactual": 32,
+    "partial_missing": 32,
+    "multiple_values": 32,
+    "negation": 32,
+    "contradiction": 32
+  },
+  "earlier_v4_overlap_audit": {"source_rows": 0, "rule_node_hashes": 0, "normalized_rule_signatures": 0, "patient_profile_hashes": 0},
+  "label_source": "source-read annotations and explicit controlled edits; no model predictions used as gold",
+  "independent_clinician_review": false,
+  "synthetic_source_profiles": true,
+  "independent_v5_validation_available": false,
+  "reason_not_independent": "V4 samples and rules were used during method development; no untouched labeled case-rule set with reliable annotations was found in the server checkout.",
+  "limitations": ["Controlled text variants are not independent clinical records.", "No independent clinician annotation.", "V4 rule manifest contains research predicate paraphrases, not full source guideline actions."]
+}
