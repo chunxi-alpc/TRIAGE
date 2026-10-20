@@ -50,7 +50,12 @@ def _prompt(row: dict[str, Any], method: str, control: dict[str, Any] | None = N
 
 
 def _options(row: dict[str, Any]) -> dict[str, str]:
-    return row.get("options") or row.get("option_map") or {"A": "A", "B": "B"}
+    mapping = row.get("options") or row.get("option_map") or {"A": "A", "B": "B"}
+    # Prompts explicitly request option letters.  The human-readable action
+    # text remains in the input/label artifacts; scoring the letters avoids a
+    # hidden mismatch where a model answers "A" but is scored against a route
+    # name.
+    return {str(key): str(key) for key in mapping}
 
 
 def _target_key(row: dict[str, Any], control: dict[str, Any] | None = None) -> str:
@@ -208,7 +213,8 @@ def _score_row(scorer: OptionScorer, row: dict[str, Any], method: str, vectors: 
     return {"case_id": row["case_id"], "task": row["task"], "method": method, "prediction": prediction,
             "scores": scores, "prompt_sha256": details["prompt_sha256"], "control": control, "gold_answer": row.get("gold_answer"),
             "gold_DQ": row.get("gold_DQ"), "gold_A": row.get("gold_A"), "a1_signal": row.get("a1_signal"),
-            "forward_count": len(_options(row)), "hook": details["options"].get(next(iter(details["options"])), {}).get("hook")}
+            "option_labels": row.get("options") or row.get("option_map"), "forward_count": len(_options(row)),
+            "hook": details["options"].get(next(iter(details["options"])), {}).get("hook")}
 
 
 def evaluate_stage(args) -> int:
