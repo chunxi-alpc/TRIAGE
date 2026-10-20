@@ -4,11 +4,14 @@
 
 本目录保存独立实验的代码、协议与结果。当前模块实现及其接口见 `src/`；实验结论按原模型、数据、筛选条件和运行阶段解读。
 
+**模块一研究信号已冻结为 [语义 A1](care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md)**。这里保存提示、固定示例、批量运行和 A1→模块二信号导出入口；完整历史 GPU 输出仍在 PR #12 的来源分支，不在当前主线重复导入。旧 V6 CLI 和流水线继续保留历史契约。
+
 ## 当前优先入口
 
 | 方向 | 最新入口 | 样本与模型 | 已存结论 |
 | --- | --- | --- | --- |
-| 模块一 | [CARE V6](care_module1_v6/README.md) | 旧 192 条离线重算；新增 100 条；Phi-4 + TrialMatchAI LoRA、BioLinkBERT-MedNLI | 最终适用性准确率为 78.65% / 73.00%；证据定位仍有限 |
+| 模块一（研究默认） | [A1 冻结与接口](care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md) · [原研究 PR #12](https://github.com/chunxi-alpc/TRIAGE/pull/12) | Phi-4＋TrialMatchAI LoRA、三个固定 few-shot、直接 T/F/U | 作为模块二固定信号源，U 不编辑，不用金标挑选样本；不声称已具临床准确性 |
+| 模块一（旧 V6） | [CARE V6](care_module1_v6/README.md) | 旧 192 条离线重算；新增 100 条；Phi-4 + TrialMatchAI LoRA、BioLinkBERT-MedNLI | 原有适用性与证据门控接口保留用于复现，78.65% / 73.00% 是旧样本结果 |
 | 模块二研究 | [有符号诊断](care_module2_signed_20261019/README.md) | 384 个模拟病例、192 对、12 个规则家族；Qwen3-4B-Base | 尚未建立学习方向优于直接分数偏置的证据 |
 
 模块一指标来自 [V6 指标文件](care_module1_v6/data/v6_metrics.json)。模块二结论来自 [保存结果](care_module2_signed_20261019/results/analysis/README.md)。两者的样本和评价目标不同，不能相互替代或合并为端到端结果。
@@ -21,7 +24,7 @@
 | V5：模型组合 | [目录说明](care_module1_v5/README.md) · [初始报告](care_module1_v5/REPORT.zh.md) | 保留初始解析失败、组合退化与错误分析 |
 | V5：解析器 V2 | [解析器复评](care_module1_v5/PARSER_V2_REPORT.zh.md) | 对缓存的 492 条输出做离线解析修复 |
 | V5：解析器 V3 | [失败条件重生成报告](care_module1_v5/runs/v5_20261018/parser_v3_retry/RETRY_REPORT.zh.md) | 仅重生成仍失败的 69 条条件，保留其余原输出 |
-| V6：证据定位与真假判定分离 | [目录说明](care_module1_v6/README.md) · [原报告](care_module1_v6/REPORT.zh.md) | 当前默认模块一；旧样本离线重算与新增样本运行分别保存 |
+| V6：证据定位与真假判定分离 | [目录说明](care_module1_v6/README.md) · [原报告](care_module1_v6/REPORT.zh.md) | V6 历史入口；旧样本离线重算与新增样本运行分别保存 |
 
 V4/V5 为历史比较。V5 解析成功率提升并未证明组合判定有效；不要只引用修复后覆盖率而省略组合方案的退化。V6 保留主判定，将 BioLinkBERT 用于证据定位与干预门控；实际门控限制见 [当前模块说明](../src/module1/README.md)。
 
