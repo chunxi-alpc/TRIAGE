@@ -2,7 +2,9 @@
 
 TRIAGE 研究指南规则的适用性判断、患者证据定位，以及受适用性约束的注意力干预。仓库同时保存三模块实现、CARE 独立实验和 ACRE 历史研究。
 
-**当前模块一为 CARE V6。** 包级调用、命令行和统一流水线均使用 V6。模块二、三保留现有实现及校准产物；模块二最新研究为 2026-10-19 的有符号适用性诊断。项目仍处于组件验证和小规模研究阶段，尚未完成 V6 三模块端到端基准。版本来源与整理范围见 [版本记录](docs/REPOSITORY_STATUS.md)。
+**模块一研究决策（2026-10-20）：后续模块二实验的适用性信号固定为语义版 A1。** 使用 Phi-4＋TrialMatchAI LoRA、PR #12 原固定 few-shot、直接输出规则 T/F/U；T 为 +1、F 为 −1、U 不编辑。不使用置信度、原子分解、二次复核和证据硬门控。[冻结协议与导出入口](experiments/care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md) · [配置](configs/care_module1_for_module2.json)。PR #14 的 U 示例属于未采纳的开发集探索。
+
+**兼容说明：仓库当前 `python -m src.module1` 和 `src/pipeline` 仍使用 CARE V6。** A1 是模块二研究的固定信号来源，不是对现有 V6 图接口的隐式替换。模块二、三仍保留原实现和校准产物；项目尚未建立完整 CARE 的端到端有效性。版本来源见 [版本记录](docs/REPOSITORY_STATUS.md)。
 
 [模块一](src/module1/README.md) · [模块二](src/module2/README.md) · [模块三](src/module3/README.md) · [统一流水线](src/pipeline/README.md) · [实验索引](experiments/README.md) · [运行说明](docs/RUNNING.md)
 
@@ -22,6 +24,7 @@ TRIAGE 研究指南规则的适用性判断、患者证据定位，以及受适�
 | 目标 | 入口 |
 | --- | --- |
 | 使用当前模块一 | [输入与 API](src/module1/README.md) · [结构化输入示例](examples/module1_v6_input.json) |
+| 为模块二提供冻结 A1 信号 | [冻结方法](experiments/care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md) · [离线导出器](experiments/care_module1_semantic_v8/export_a1_signals.py) |
 | 运行三模块流程 | [流水线配置](src/pipeline/README.md) · [服务器运行说明](docs/RUNNING.md) |
 | 查看模块一最新结果 | [V6 实验导航](experiments/care_module1_v6/README.md) |
 | 查看模块二最新结果 | [有符号适用性诊断](experiments/care_module2_signed_20261019/README.md) |
