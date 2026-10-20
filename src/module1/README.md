@@ -1,10 +1,39 @@
 # 模块一：规则适用性与证据定位
 
-当前入口为 **CARE V6**，输出模式为 `module1.v6`。实现来自 [V6 集成提交](https://github.com/chunxi-alpc/TRIAGE/commit/2cc2e84d8f80988c456f14b1387892ef46624858)。本次整理统一了包级调用、命令行和流水线的模型配置入口，保留原有适用性计算、数值解析和门控算法。
+**当前模块二研究的默认模块一信号源为语义 A1。** Phi-4＋TrialMatchAI LoRA、固定 few-shot，对每条完整自然语言规则直接输出 T/F/U。下面的 V6 说明作为历史兼容文档保留，输出契约是 `module1.v6`；它仍供旧 CLI 和三模块流水线复现使用。
 
 [项目首页](../../README.md) · [统一流水线](../pipeline/README.md) · [V6 实验导航](../../experiments/care_module1_v6/README.md)
 
-## 当前实现
+
+## A1：当前研究信号入口
+
+- [冻结决定和 PR #14 对照](../../experiments/care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md) · [配置文件](../../configs/care_module1_for_module2.json)
+- A1 接收患者文本、问题，以及已标识好的完整自然语言**规则列表**（每条有 rule_id、text、action）。不需要预先做原子拆解；但也**不声称能直接分割任意长的原始指南文档**。
+- 一次模型判断各规则状态：T 适用→+1，F 不适用→−1，U 信息不足→0。技术失败是 null，不能当成医学 U。证据摘录是可选诊断，不作为准入门控。
+- **模块二研究样本选择**只看模型预测是否具有 T/F 信号和原始动作；不能用正确金标或后续干预效果挑选病例。动作 token 位置仍需要在最终提示分词后按 ID 映射。
+- PR #13 的完整复核和 PR #14 的新 U 示例均不进入研究默认 A1。后者只增加固定训练示例，未运行历史/新测试组，而且 U 召回在 dev96 下降。
+
+```python
+from src.module1 import create_module1, signal_targets
+engine = create_module1(device="cuda:0", base_model="/home/gcx/models/care_module1_v5/phi-4",
+    adapter_model="/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora")
+graph = engine.run(guideline=natural_rules, patient=patient, question=question)
+assert graph["schema_version"] == "module1.a1"
+targets = signal_targets(graph)
+```
+
+亦可从仓库根目录运行：
+
+```bash
+python scripts/run_module1_a1.py --input examples/module1_a1_input.json \
+  --output results/module1_a1/example.json
+```
+
+批量复现实验继续使用 `experiments/care_module1_semantic_v8/semantic_runner.py --arm A1`；将既有 A1 预测导出为模块二信号时，使用 `export_a1_signals.py`。加载模型的推理仅适用于有已授权 GPU、模型权重及原依赖的环境。
+
+## V6 历史实现
+
+## 当前实现（V6）
 
 V6 接收预先结构化的指南规则，逐项判断条件，并返回规则适用性、证据字符区间和注意力干预门控。
 

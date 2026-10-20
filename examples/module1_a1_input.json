@@ -1,0 +1,21 @@
+{
+  "question": "Which fictional route is justified by the available observations?",
+  "patient": "The visitor has a valid library card. The visitor does not have a paid day pass. The desk is open.",
+  "rules": [
+    {
+      "rule_id": "R1",
+      "text": "When the visitor has a valid library card, unless the desk is closed, assign Route Cedar.",
+      "action": "Route Cedar"
+    },
+    {
+      "rule_id": "R2",
+      "text": "When the visitor has no valid library card, unless the desk is closed, assign Route Maple.",
+      "action": "Route Maple"
+    },
+    {
+      "rule_id": "R3",
+      "text": "When the desk is closed, assign Route Juniper.",
+      "action": "Route Juniper"
+    }
+  ]
+}

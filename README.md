@@ -2,7 +2,9 @@
 
 TRIAGE 研究指南规则的适用性判断、患者证据定位，以及受适用性约束的注意力干预。仓库同时保存三模块实现、CARE 独立实验和 ACRE 历史研究。
 
-**当前模块一为 CARE V6。** 包级调用、命令行和统一流水线均使用 V6。模块二、三保留现有实现及校准产物；模块二最新研究为 2026-10-19 的有符号适用性诊断。项目仍处于组件验证和小规模研究阶段，尚未完成 V6 三模块端到端基准。版本来源与整理范围见 [版本记录](docs/REPOSITORY_STATUS.md)。
+**当前 CARE 模块一研究默认信号源已固定为语义 A1（2026-10-20）。** 使用 Phi-4＋TrialMatchAI LoRA、原 PR #12 固定 few-shot，直接判断完整自然语言规则的 T/F/U；T=+1、F=−1、U=0，技术错误单列。无原子分解、RAG、置信度或证据硬门控。[A1 冻结说明](experiments/care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md) · [冻结配置](configs/care_module1_for_module2.json)。
+
+**兼容：** 原 `src.module1.run`、`python -m src.module1` 和 `TriagePipeline` 仍执行旧 V6 契约；新研究使用 `create_module1()` / `create_module1_a1()` 或 [A1 入口](scripts/run_module1_a1.py)。V6 不被 A1 的简化状态伪装替换。模块二、三尚未证明端到端增益。版本记录见 [版本与整理记录](docs/REPOSITORY_STATUS.md)。
 
 [模块一](src/module1/README.md) · [模块二](src/module2/README.md) · [模块三](src/module3/README.md) · [统一流水线](src/pipeline/README.md) · [实验索引](experiments/README.md) · [运行说明](docs/RUNNING.md)
 
@@ -10,7 +12,7 @@ TRIAGE 研究指南规则的适用性判断、患者证据定位，以及受适�
 
 | 部分 | 职责 | 当前实现与边界 |
 | --- | --- | --- |
-| [模块一：适用性与证据](src/module1/README.md) | 将结构化规则和患者文本转换为适用性、证据位置与门控 | CARE V6；Phi-4 + TrialMatchAI LoRA 判断条件，数值比较处理支持字段，BioLinkBERT-MedNLI 定位证据。V6 不解析自由文本指南，也不进行规则检索 |
+| [模块一：适用性信号](src/module1/README.md) | 为后续模块二输出逐规则 T/F/U、正负方向和动作 ID | **研究默认 A1**：同一 Phi-4＋TrialMatchAI LoRA、固定示例、直接判断整条自然语言规则；无严格证据门控。**历史 V6** 原子＋MedNLI 流水线仍保留兼容 |
 | [模块二：查询头定位](src/module2/README.md) | 通过查询头输出消融，估计适用性相关贡献 | 主流程保留 Qwen3-8B 的历史校准组件；CARE 子空间研究单独保存，未自动替换在线定位实现 |
 | [模块三：门控干预](src/module3/README.md) | 按规则与证据门控编辑选定查询头的键向量，并保留输出投影抑制路径 | 复用原 rank=4 投影。普通 V6 输出的先验竞争权重为零；投影尚未针对 V6 重新校准 |
 | [统一流水线](src/pipeline/README.md) | V6 图 → 词元位置映射 → Qwen3-8B 原始与干预推理 | 只接受 `module1.v6`。模块一独立加载模型；原始与干预生成共享最终 Qwen 实例 |
@@ -21,9 +23,11 @@ TRIAGE 研究指南规则的适用性判断、患者证据定位，以及受适�
 
 | 目标 | 入口 |
 | --- | --- |
-| 使用当前模块一 | [输入与 API](src/module1/README.md) · [结构化输入示例](examples/module1_v6_input.json) |
+| 使用冻结的 A1 模块一 | [A1 API](src/module1/README.md) · [自然语言规则输入示例](examples/module1_a1_input.json) · [研究信号导出](experiments/care_module1_semantic_v8/export_a1_signals.py) |
+| 复现历史 V6 模块一 | [V6 接口](src/module1/README.md#v6-历史实现) · [V6 输入示例](examples/module1_v6_input.json) |
 | 运行三模块流程 | [流水线配置](src/pipeline/README.md) · [服务器运行说明](docs/RUNNING.md) |
-| 查看模块一最新结果 | [V6 实验导航](experiments/care_module1_v6/README.md) |
+| 查看模块一 A1 实验 | [PR #12 语义 A1](https://github.com/chunxi-alpc/TRIAGE/pull/12) · [PR #14 示例变体](https://github.com/chunxi-alpc/TRIAGE/pull/14)（未采纳） |
+| 查看旧 V6 实验 | [V6 实验导航](experiments/care_module1_v6/README.md) |
 | 查看模块二最新结果 | [有符号适用性诊断](experiments/care_module2_signed_20261019/README.md) |
 | 查找旧实验与失败记录 | [实验索引](experiments/README.md) · [结果索引](results/README.md) |
 | 理解版本来源与研究演变 | [版本记录](docs/REPOSITORY_STATUS.md) · [ACRE 归档](docs/ACRE/README.md) |
@@ -33,7 +37,11 @@ TRIAGE 研究指南规则的适用性判断、患者证据定位，以及受适�
 从仓库根目录运行。下列模型推理命令需要先按 [运行说明](docs/RUNNING.md) 配置服务器环境与本地模型路径。
 
 ```bash
-# 查看参数，不加载模型
+# 研究默认模块一 A1：完整自然语言规则 + 固定 few-shot
+python scripts/run_module1_a1.py --input examples/module1_a1_input.json \
+  --output results/module1_a1/example.json
+
+# 历史 V6 入口（保持原语义）
 python -m src.module1 --help
 python scripts/run_pipeline.py --help
 
@@ -49,23 +57,28 @@ python scripts/run_pipeline.py \
   --output results/pipeline/v6_example/inference.json
 ```
 
-输入包含 `guideline`、`patient`、`question`；V6 的 `guideline` 必须是预先结构化的规则。示例只演示接口格式，不属于实验数据。当前模型依赖入口为 [requirements-module1-v6.txt](requirements-module1-v6.txt)。三个模块一模型可通过 `CARE_MODULE1_V6_*` 环境变量指定；完整配置见 [模块一说明](src/module1/README.md)。
+研究 A1 输入可用 `rules`、`patient`、`question`，规则条目需有 ID、完整自然语言条款和动作；旧 V6 输入为 `guideline`、`patient`、`question`，需预先结构化。示例只演示接口格式，不属于实验数据。当前模型依赖入口为 [requirements-module1-v6.txt](requirements-module1-v6.txt)。三个模块一模型可通过 `CARE_MODULE1_V6_*` 环境变量指定；完整配置见 [模块一说明](src/module1/README.md)。
 
 Python 调用：
 
 ```python
-from src.module1 import create_module1_v6
+from src.module1 import create_module1, signal_targets
 
-module1 = create_module1_v6(device="cuda:0")
-graph = module1.run(guideline=structured_rules, patient=patient, question=question)
-assert graph["schema_version"] == "module1.v6"
+engine = create_module1(device="cuda:0", base_model="/home/gcx/models/care_module1_v5/phi-4",
+    adapter_model="/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora")
+result = engine.run(guideline=natural_rules, patient=patient, question=question)
+assert result["schema_version"] == "module1.a1"
+# 只取 T/F；U 或技术失败不产生动作干预。模块二需在最终提示中按 rule_id 定位 action token。
+targets = signal_targets(result)
+
+# 复现历史 V6 时仍显式使用 create_module1_v6。
 ```
 
 历史 Qwen/MedCPT 模块一保留为 `LegacyModule1`、`run_legacy` 和命令行 `--legacy`。旧 `Module1` 类别名供历史脚本使用；新代码应使用明确的 V6 入口。旧 `module1.v1` 缓存不能直接传给当前流水线。
 
 ## 最新已保存结果
 
-### 模块一 V6
+### 模块一 V6（历史结果）
 
 V6 将 BioLinkBERT 的职责限制为证据定位与门控，不再由它覆盖适用性标签。最终方法 C 的已保存结果如下；旧集与新增集分别解释。
 

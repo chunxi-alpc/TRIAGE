@@ -2,13 +2,14 @@
 
 [项目首页](../README.md) · [运行说明](../docs/RUNNING.md) · [实验索引](../experiments/README.md)
 
-脚本按其对应版本使用。旧脚本和保存结果共同构成历史复现材料，不能仅因为位于 `scripts/` 就认为它使用当前 V6。
+脚本按其对应版本使用。新模块二研究以 A1 作为模块一固定信号来源；旧 `python -m src.module1` 和原流水线仍是 V6，以便历史复现。
 
 ## 当前入口
 
 | 入口 | 作用 |
 | --- | --- |
-| `python -m src.module1` | 默认运行 CARE V6；参数见 [模块一说明](../src/module1/README.md) |
+| [run_module1_a1.py](run_module1_a1.py) | **新模块二研究默认**：轻量 A1 规则 T/F/U；输入示例见 [A1](../examples/module1_a1_input.json) |
+| `python -m src.module1` | 历史 V6 CLI；参数见 [模块一说明](../src/module1/README.md) |
 | [run_pipeline.py](run_pipeline.py) | 结构化输入 → V6 → 原 Qwen3-8B 门控推理；配置见 [流水线说明](../src/pipeline/README.md) |
 
 完整模型推理只在既有服务器和指定环境运行。先核对模型路径、组件与投影，再启动；格式示例见 [module1_v6_input.json](../examples/module1_v6_input.json)。
