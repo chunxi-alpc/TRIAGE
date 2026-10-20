@@ -1,0 +1,862 @@
+{
+  "schema_version": "care.module2.preexperiment_protocol.v1",
+  "protocol_id": "care_module2_interface_20261020",
+  "protocol_date": "2026-10-20",
+  "timezone": "UTC",
+  "language": "zh-CN",
+  "repository": "chunxi-alpc/TRIAGE",
+  "source_commit": "7557d3150214a3894f2d340df6d9964de75efce1",
+  "snapshot_scope": "partial_verified_snapshot",
+  "research_status": "exploratory_protocol_not_model_results",
+  "neural_execution_status": "blocked_remote_compute",
+  "blocking_reasons": [
+    "当前执行环境无可用 GPU",
+    "当前执行环境无固定模型权重",
+    "既有远程计算环境的 SSH 连接被拒绝",
+    "新的完整 P0–P6 神经运行器尚未实现",
+    "来源、信息充分性与组合新基准尚未实例化"
+  ],
+  "implementation_status": {
+    "protocol": "specified",
+    "numpy_estimation_and_numeric_checks": "separate_artifacts_not_certified_by_this_protocol",
+    "historical_result_reanalysis": "separate_artifacts_not_new_model_inference",
+    "neural_runner": "not_implemented",
+    "dataset_budgets": "planned_not_evidence_of_materialized_datasets"
+  },
+  "invariants": [
+    "冻结模块一实现、模型和已有逐例信号；不为通过实验而改写其标签",
+    "不修改主语言模型参数",
+    "真实标签机制诊断与冻结模块一端到端评测分开报告",
+    "旧 12 家族只作历史回归，不作为新的确认性验证",
+    "没有实际模型输出时所有新效果指标为 null，不用数值夹具或模拟预测补齐",
+    "每个基础病例的全部反事实版本、供体关联版本和模板版本在同一外层划分",
+    "中性提示保留全部规则和动作；控制标签仅进入干预接口",
+    "显式标签提示与规则过滤作为独立强基线",
+    "所有参数选择在测试前冻结并保存哈希",
+    "失败、跳过、阻断和完成分别记录"
+  ],
+  "model": {
+    "primary_model_id": "Qwen/Qwen3-4B-Base",
+    "revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+    "revision_origin": "experiments/care_module2_signed_20261019/PROTOCOL.md",
+    "weights_available_here": false,
+    "weight_sha256_manifest_required": true,
+    "dtype": "bfloat16",
+    "attention_implementation": "sdpa",
+    "batch_size_initial": 1,
+    "use_cache_initial": false,
+    "expected_config": {
+      "num_hidden_layers": 36,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 8,
+      "head_dim": 128
+    },
+    "alternate_model": null,
+    "alternate_model_policy": "若另加指令模型，事先登记修订、预算和独立校准；不得与主模型合并为同一实验"
+  },
+  "data_domains": {
+    "historical_regression": {
+      "status": "existing_artifacts_replay_only",
+      "families": 12,
+      "cases": 384,
+      "pairs": 192,
+      "reuse": "历史指标和算子回归",
+      "confirmatory": false,
+      "reference": "experiments/care_module2_signed_20261019"
+    },
+    "oracle_mechanism": {
+      "status": "requires_new_dataset_and_model_execution",
+      "label_source": "独立可执行规则、允许属性补全集及独立来源真值",
+      "module1_predictions_as_gold": false,
+      "split": {
+        "unit": "semantic_rule_or_fact_family",
+        "train_families": 12,
+        "dev_families": 4,
+        "test_families": 8,
+        "total_families_per_dataset": 24,
+        "seed": 20261020,
+        "family_definition": "共享语义规则、原始知识事实族或底层病例生成机制的项目必须合并成一个家族；随机名称不创建独立家族",
+        "cross_dataset_linkage": "共享原始事实、病例或规则的跨数据集项目继承同一划分；不跨域借用测试供体",
+        "split_frozen_before_activation_extraction": true
+      },
+      "budgets": {
+        "routing": {
+          "base_cases_per_family": 8,
+          "variants_per_base_case": 4,
+          "planned_prompt_instances": 768,
+          "variants": [
+            "applicable_reference",
+            "applicability_flip",
+            "matched_magnitude_nonflipping_change",
+            "irrelevant_attribute_change"
+          ]
+        },
+        "source": {
+          "base_conflicts_per_family": 8,
+          "calibration_intents_per_base": 2,
+          "planned_intent_prompt_instances": 384,
+          "planned_neutral_recipient_prompts": 192,
+          "closedbook_forms_per_base": 2,
+          "planned_closedbook_screen_forwards": 384,
+          "note": "以上是数据与基线筛查预算，不是总方法前向数；没有足量独立事实族时不得以虚构参数知识补齐"
+        },
+        "decidability": {
+          "base_cases_per_family": 8,
+          "variants_per_base_case": 4,
+          "planned_prompt_instances": 768,
+          "variants": [
+            "decisive_attribute_known",
+            "decisive_attribute_missing",
+            "irrelevant_attribute_missing",
+            "missing_but_completion_invariant"
+          ]
+        },
+        "composition": {
+          "base_cases_per_family": 4,
+          "source_decidability_cells": 4,
+          "multirule_sign_patterns": 2,
+          "planned_prompt_instances": 768,
+          "source_decidability_cells_definition": [
+            "context_answer",
+            "prior_answer",
+            "context_ask_then_answer",
+            "prior_ask_then_answer"
+          ],
+          "construction_note": "来源与信息充分性联合任务使用真实先验事实的接收问题，缺失属性决定目标事实或规则分支；补齐后按原来源目标作答。不可把虚构默认答案称为参数先验。"
+        },
+        "transfer": {
+          "uses_only_heldout_test_families": true,
+          "new_content_versions_per_test_base": 2,
+          "minimum_test_base_cases_per_family": 8,
+          "planned_additional_prompt_instances_per_transfer_dataset": 128,
+          "variants": [
+            "new_rule_or_fact_content",
+            "new_template_or_option_mapping"
+          ],
+          "frozen_interface": true,
+          "composition_note": "若扩展到联合任务，每个测试家族另建8个基础病例；不把主联合集每家族4个重复计数为8个。"
+        }
+      },
+      "availability_note": "所有新数据预算均为待实现并审计的目标；本协议不声明这些数据已生成或已通过核验"
+    },
+    "fixed_module1": {
+      "status": "requires_exact_signal_join_and_downstream_contract_audit",
+      "implementation_frozen": true,
+      "signal_files_and_hashes": [],
+      "population_count": null,
+      "join_fields": [
+        "source_case_id",
+        "patient_text_sha256",
+        "structured_rule_sha256",
+        "module1_version"
+      ],
+      "prohibited_join": "不得把模块一的 192 条记录与模块二的 192 对病例按序号或样本量直接连接",
+      "required_contract": [
+        "original_patient_text",
+        "question",
+        "complete_rule_conditions",
+        "validated_action_text",
+        "frozen_applicability_signal",
+        "independent_evaluation_target"
+      ],
+      "missing_action_policy": "缺少原始动作或决策目标时标记 blocked_rule_action_contract，不补写未经核验的临床动作",
+      "source_and_decidability_policy": "仅评测已实际存在的冻结输出；没有字段时不伪造其预测，可单列外部真值机制诊断",
+      "cached_predictions_as_gold": false,
+      "available_frozen_cache_count": 292,
+      "downstream_eligible_population": null,
+      "available_signal_cache_provenance": [
+        {
+          "path": "experiments/care_module1_v6/data/old_192_predictions_v6.jsonl",
+          "sha256": "6a27cc27c1cc5327eaaf01bdb569e3a9b7f8ebc9fd263aa62dc7b135fc422b1f"
+        },
+        {
+          "path": "experiments/care_module1_v6/data/new_100_predictions_v6.jsonl",
+          "sha256": "48a1d28e5fd4f4aca582345f53ecd7e1714654e96c73e225bbdf8b39f63f3535"
+        }
+      ]
+    }
+  },
+  "estimators": {
+    "mean_difference": {
+      "definition": "mean_train(delta)",
+      "uses_oriented_differences": true
+    },
+    "uncentered_difference_svd": {
+      "definition": "D = U S V^T; B = V[:, :r]; P = B B^T",
+      "ranks": [
+        1,
+        2,
+        4
+      ]
+    },
+    "centered_difference_pca": {
+      "role": "secondary_centering_ablation",
+      "warning": "中心化可能消除共同位移，不能与未中心化方法混称"
+    },
+    "mixture": {
+      "definition": "Omega_z = D_z^T D_z / n_z; optional trace normalization; Omega=(1-beta)Omega_rel+beta*Omega_app",
+      "beta_candidates": [
+        0.0,
+        0.5,
+        1.0
+      ],
+      "default_first_pass": 1.0,
+      "optional_grid_gate": "仅在单一适用性路由候选有开发集因果信号后开展，独立计入预算",
+      "normalization": "训练集上按迹归一化，零迹矩阵显式拒绝"
+    },
+    "random_control": {
+      "ranks": [
+        1,
+        2,
+        4
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "distribution": "高斯矩阵 QR 后的同秩正交基",
+      "perturbation_match_required": true
+    },
+    "permutation_control": {
+      "prohibited": "仅翻转差分行符号后重新计算 D^T D",
+      "reason": "若 S 为对角 ±1 矩阵，则 (SD)^T(SD)=D^T D；投影完全不变，不能形成置换阴性对照",
+      "allowed": [
+        "在训练集的可交换块内置换原始条件标签并重新构造差分与子空间",
+        "在匹配长度、模板与属性扰动类型的训练项目间打乱配对并重新估计",
+        "额外设置错误控制符号作为执行策略阴性对照，明确其不是新估计器"
+      ],
+      "exchangeability_blocks": [
+        "training_split",
+        "template",
+        "attribute_type",
+        "token_length_bin"
+      ],
+      "seeds": [
+        101,
+        211,
+        307
+      ],
+      "sign_only_control_label": "algebraic_invariance_check_not_permutation_null"
+    },
+    "das": {
+      "role": "optional_separately_labeled_refinement",
+      "status": "not_required_for_initial_gradient_free_suite",
+      "model_weights_frozen": true,
+      "budget_must_be_registered_before_execution": true
+    }
+  },
+  "intervention": {
+    "routing": {
+      "formula": "k_prime = k + alpha_j_role * P_role * k",
+      "capture_and_edit": "归一化后、RoPE 前的键",
+      "canonical_head_type": "key_value_head",
+      "gqa_scope": "同时影响该键值头对应的全部查询头；所有对照保持相同范围",
+      "head_mapping": "由模型配置推导，不硬编码四头或三十二头",
+      "role_targets_initial": [
+        "action"
+      ],
+      "role_extension": [
+        "condition",
+        "support_evidence",
+        "refute_evidence"
+      ],
+      "role_extension_gate": "动作角色有效后单列扩展；反驳证据不因动作不适用而自动取负号",
+      "overlap_policy": "显式保存逐规则贡献；共享词元冲突不得沿用只取非负最大值的旧聚合",
+      "direct_score_bias": "在同一查询头、同一目标片段和同一因果支持上添加有符号注意力分数偏置",
+      "strength_candidates_target_score_rms": [
+        0.0,
+        0.01,
+        0.05,
+        0.1
+      ],
+      "calibration": "在实际 BF16 舍入及恰好一次 RoPE 后，用固定查询的分数变化均方根近似匹配",
+      "calibration_relative_error_gate": 0.1,
+      "calibration_failure_policy": "记录失败，不静默换强度；保留意向处理分母并单列可校准子集",
+      "positive_gain_semantics": "只表示投影分量放大，不保证所有注意力分数增加"
+    },
+    "arbitration": {
+      "location": "候选 Transformer 层输出残差流的最后有效输入词元",
+      "coordinate_update": "h_prime=h+lambda*Q*(mu_target-Q^T*h)",
+      "lambda_candidates": [
+        0.0,
+        0.25,
+        0.5,
+        1.0
+      ],
+      "rank_candidates": [
+        1,
+        2,
+        4
+      ],
+      "centroid_fit_split": "train",
+      "orthogonality_claim": "数值正交不等于来源与信息充分性的功能独立",
+      "initial_layers_per_intervention": 1,
+      "cross_layer_2d_claim": "若未来多层独立控制，不称为全局二维；全局二维需显式共享控制坐标",
+      "random_budget_match": "同位置、同作用步、相同实际残差扰动范数；记录相对原残差范数",
+      "generated_token_intervention": "not_in_initial_scope"
+    },
+    "token_and_prefix_audit": [
+      "患者属性位于待提取规则键的因果可见前缀",
+      "对齐词元文本、角色、字符区间与实际 token ID",
+      "最后有效输入词元不得用未核验 padding 下的固定 -1 代替",
+      "不使用已生成标准答案激活拟合决策位置方向",
+      "每次前向钩子作用次数与移除状态可核验"
+    ]
+  },
+  "selection": {
+    "candidate_locations_per_axis_max": 8,
+    "candidate_screen_source": "仅训练集的表征统计或预先定义深度分层；不看测试表现",
+    "candidate_screen_is_causal_evidence": false,
+    "dev_scan_base_cases": 16,
+    "dev_scan_family_balance": "四个开发家族各四个基础病例，所有必要反事实成员一同进入",
+    "full_dev_confirmation_passes": 1,
+    "zero_intervention_eligible": true,
+    "selection_rule": [
+      "最高预先指定开发集主指标",
+      "较小实际扰动预算",
+      "较低秩",
+      "较少干预位置",
+      "固定字典序"
+    ],
+    "methods_select_independently": true,
+    "shared_budget_comparison": "独立配置比较之外，单列同位置同预算估计器比较",
+    "test_grid_policy": "只评价冻结配置；若报告全部固定强度网格，不据测试结果选最佳点",
+    "frozen_manifest_required_before_test": [
+      "dataset_manifest_sha256",
+      "split_manifest_sha256",
+      "source_commit",
+      "runner_sha256",
+      "model_revision",
+      "weight_manifest_sha256",
+      "locations",
+      "ranks",
+      "strengths",
+      "beta",
+      "basis_sha256",
+      "centroid_sha256",
+      "selection_rule",
+      "random_seeds"
+    ],
+    "forward_budget_policy": "先小规模实测吞吐量，再公布 GPU、峰值显存估计、样本和方法网格、前向次数上限与时长；不自动无界搜索",
+    "expand_search_after_test": false
+  },
+  "iia": {
+    "low_level_exchange": "h_b_prime=h_b+B*B^T*(h_s-h_b)",
+    "centroid_control_is_iia": false,
+    "routing_high_level": "根据明确的属性或适用性变量干预重新执行独立规则模型；不合法干预必须标记",
+    "source_high_level": "来源模式取自供体，答案内容取自接收样本自己的上下文或独立先验真值",
+    "source_donor_constraints": [
+      "different_base_question",
+      "different_answer_content",
+      "same_dataset_split",
+      "no_test_donor_for_training_or_dev"
+    ],
+    "decidability_output_abstraction": [
+      "answer",
+      "ask"
+    ],
+    "decidability_policy_iia": "仅比较 kappa(y)，单独报告强制作答或强制追问的策略响应",
+    "decidability_fact_scoring": "不能把 do(d=1) 当作补齐缺失属性；具体答案正确性在实际信息状态下独立评价",
+    "information_counterfactual": "若实际补齐或删除属性，则重新计算高层完整输出并评价事实与追问目标",
+    "required_strata": [
+      "all_valid_interchanges",
+      "output_changing_interchanges",
+      "same_state_negative_control",
+      "cross_content_interchanges"
+    ],
+    "sampling_manifest_required": true
+  },
+  "statistics": {
+    "primary_unit": "independent_family",
+    "paired_comparisons": true,
+    "bootstrap": {
+      "method": "共享家族配对重采样",
+      "replicates": 10000,
+      "seed": 20261020,
+      "confidence_level": 0.95
+    },
+    "bootstrap_limits": "条件于冻结拟合与选择；不含重新拟合不确定性；家族少或区间零宽不证明等效",
+    "permutation": {
+      "replicates_for_statistical_test": 10000,
+      "unit": "family",
+      "require_exchangeability_statement": true,
+      "learned_null_requires_refit": true
+    },
+    "multiplicity": {
+      "confirmatory_control": "Holm",
+      "primary_contrast_family": [
+        "P2_learned_route_vs_direct_score_bias",
+        "P3_learned_source_vs_mean_difference",
+        "P4_learned_decidability_vs_mean_difference",
+        "P5_joint_vs_dev_selected_best_single_component",
+        "P6_transfer_learned_vs_matched_simple_control",
+        "P6_fixed_module1_internal_vs_fixed_module1_prompt_filter"
+      ],
+      "secondary_metrics": "明确标记探索性，完整呈现，不挑选显著结果",
+      "historical_results": "不把本协议的多重比较规则追溯伪装成历史预注册"
+    },
+    "practical_minimum_effect": null,
+    "noninferiority_margin": null,
+    "confirmatory_pass_enabled": false,
+    "interpretation": "本轮预实验默认探索性；实际最小效应及可接受退化需在新的确认性测试前冻结，不能事后按结果设定",
+    "model_seeds_not_independent_cases": true,
+    "required_denominators": [
+      "cases",
+      "base_cases",
+      "pairs",
+      "families",
+      "eligible_cases",
+      "eligible_pairs",
+      "failed_interventions"
+    ]
+  },
+  "metrics": {
+    "routing": [
+      "paired_accuracy",
+      "case_accuracy",
+      "applicable_accuracy",
+      "inapplicable_accuracy",
+      "rule_misuse_rate",
+      "gold_logit_margin",
+      "target_score_sign_agreement",
+      "unrelated_rule_damage"
+    ],
+    "source": [
+      "context_target_accuracy",
+      "prior_target_accuracy",
+      "source_iia",
+      "cross_content_source_iia",
+      "donor_answer_copy_rate",
+      "content_preservation"
+    ],
+    "decidability": [
+      "policy_iia",
+      "premature_answer_rate",
+      "unnecessary_question_rate",
+      "question_attribute_accuracy",
+      "post_information_answer_accuracy"
+    ],
+    "composition": [
+      "joint_policy_accuracy",
+      "multirule_pair_accuracy",
+      "component_interference",
+      "source_to_question_crosstalk",
+      "decidability_to_source_crosstalk"
+    ],
+    "transfer_and_fixed_module1": [
+      "frozen_interface_accuracy",
+      "oracle_vs_fixed_signal_gap",
+      "prompt_filter_comparison",
+      "no_conflict_retention"
+    ],
+    "operational": [
+      "actual_forward_count",
+      "elapsed_seconds",
+      "peak_memory_bytes",
+      "calibration_error",
+      "hook_failures"
+    ]
+  },
+  "sample_schema": {
+    "required": [
+      "case_id",
+      "base_case_id",
+      "pair_id",
+      "family_id",
+      "split",
+      "domain",
+      "task",
+      "question",
+      "patient_or_attribute_text",
+      "rules_or_context",
+      "neutral_prompt",
+      "prompt_sha256",
+      "option_map",
+      "gold_task_target",
+      "gold_control",
+      "gold_provenance",
+      "decidability_completion_oracle",
+      "target_spans",
+      "module1_signal_provenance"
+    ],
+    "nullable": [
+      "pair_id",
+      "option_map",
+      "decidability_completion_oracle",
+      "module1_signal_provenance"
+    ],
+    "required_when_fixed_module1": [
+      "source_case_id",
+      "patient_text_sha256",
+      "structured_rule_sha256",
+      "module1_version",
+      "signal_file_sha256"
+    ],
+    "required_when_source": [
+      "prior_gold",
+      "context_gold",
+      "prior_gold_provenance",
+      "closedbook_screen_results",
+      "source_conflict_eligible"
+    ],
+    "required_when_decidability": [
+      "missing_attributes",
+      "allowed_completions_digest",
+      "possible_actions",
+      "required_question_attributes"
+    ]
+  },
+  "per_case_result_schema": {
+    "required": [
+      "run_id",
+      "experiment_id",
+      "case_id",
+      "base_case_id",
+      "family_id",
+      "split",
+      "method",
+      "control_source",
+      "model_id",
+      "model_revision",
+      "prompt_sha256",
+      "interface_sha256",
+      "status",
+      "prediction",
+      "candidate_logits",
+      "generated_text",
+      "gold_task_target",
+      "gold_control",
+      "task_correct",
+      "policy_correct",
+      "interchange",
+      "perturbation_audit",
+      "module1_signal_provenance",
+      "timing",
+      "failure_reason"
+    ],
+    "nullable_until_model_execution": [
+      "prediction",
+      "candidate_logits",
+      "generated_text",
+      "task_correct",
+      "policy_correct",
+      "interchange",
+      "perturbation_audit",
+      "timing"
+    ],
+    "status_values": [
+      "completed",
+      "failed",
+      "blocked_remote_compute",
+      "blocked_data_contract",
+      "blocked_by_gate",
+      "not_run"
+    ],
+    "control_source_values": [
+      "oracle",
+      "fixed_module1",
+      "explicit_prompt_baseline",
+      "none"
+    ],
+    "interchange_fields": [
+      "donor_case_id",
+      "donor_split",
+      "variable",
+      "high_level_counterfactual_target",
+      "output_abstraction",
+      "validity",
+      "output_changing"
+    ],
+    "perturbation_audit_fields": [
+      "layer",
+      "head_type",
+      "head_ids",
+      "token_indices",
+      "strength",
+      "rank",
+      "delta_norm",
+      "actual_score_rms",
+      "calibration_relative_error",
+      "affected_query_heads",
+      "hook_calls"
+    ]
+  },
+  "execution_status_policy": {
+    "overall_neural_status_initial": "blocked_remote_compute",
+    "no_fabricated_outputs": true,
+    "blocked_stage_metrics": null,
+    "gate_values": [
+      "pass",
+      "fail",
+      "blocked",
+      "not_run"
+    ],
+    "stage_completion_requires": [
+      "verified_inputs",
+      "validated_runner",
+      "real_model_predictions",
+      "integrity_checks",
+      "all_predeclared_comparisons_or_explicit_failures",
+      "analysis_with_denominators"
+    ]
+  },
+  "experiments": [
+    {
+      "id": "P0",
+      "name_zh": "算子与数据契约审计",
+      "status": "blocked_remote_compute",
+      "inputs": [
+        "固定模型及权重哈希",
+        "数据与划分清单",
+        "对齐词元区间",
+        "待验证神经干预实现"
+      ],
+      "cpu_work_separate": [
+        "投影代数、符号不变性、显式 RoPE 分数公式等数值夹具",
+        "历史结果复算"
+      ],
+      "contrasts": [
+        "zero_strength_vs_baseline",
+        "zero_gate_vs_baseline",
+        "selected_vs_unselected_heads",
+        "edited_vs_unedited_tokens",
+        "hook_cleanup"
+      ],
+      "outputs": [
+        "per_case_runtime_audit",
+        "tensor_difference_summary",
+        "input_contract_violations"
+      ],
+      "gate": "真实固定模型的零干预、编辑位置、GQA、RoPE 及钩子检查通过后才解释后续神经结果",
+      "blockers": [
+        "blocked_remote_compute",
+        "blocked_runner_not_implemented",
+        "blocked_new_benchmark_not_materialized"
+      ]
+    },
+    {
+      "id": "P1",
+      "name_zh": "任务能力与可干预位置阳性诊断",
+      "status": "blocked_remote_compute",
+      "inputs": [
+        "P0 通过",
+        "独立任务真值",
+        "明确来源指令对",
+        "充分／不足信息对",
+        "合法供体清单"
+      ],
+      "contrasts": [
+        "neutral_prompt",
+        "explicit_policy_instruction",
+        "wide_residual_exchange"
+      ],
+      "outputs": [
+        "task_capability_by_mode",
+        "candidate_location_response",
+        "failure_examples"
+      ],
+      "gate": "若阳性任务失败，记录能力限制；可继续已预设独立诊断，不以更窄空间自动补救",
+      "blockers": [
+        "blocked_remote_compute",
+        "new_dataset_not_yet_audited"
+      ]
+    },
+    {
+      "id": "P2",
+      "name_zh": "适用性路由因果诊断",
+      "status": "blocked_remote_compute",
+      "inputs": [
+        "P0 通过",
+        "路由训练／开发／测试家族",
+        "跨阈值与同侧等幅阴性对",
+        "冻结位置／秩／强度清单"
+      ],
+      "methods": [
+        "baseline",
+        "historical_b4_positive",
+        "signed_b4_when_archived_requirements_available",
+        "mean_difference",
+        "uncentered_difference_svd",
+        "random_matched",
+        "repaired_pair_permutation",
+        "direct_score_bias",
+        "explicit_policy_prompt",
+        "rule_filter"
+      ],
+      "outputs": [
+        "routing_metrics",
+        "counterfactual_response",
+        "per_family_paired_changes",
+        "perturbation_budget_audit"
+      ],
+      "gate": "不胜随机或直接偏置时仍保存结果；结论限于未建立学习子空间额外价值",
+      "blockers": [
+        "blocked_remote_compute",
+        "new_dataset_not_yet_audited"
+      ]
+    },
+    {
+      "id": "P3",
+      "name_zh": "跨内容来源选择诊断",
+      "status": "blocked_remote_compute",
+      "inputs": [
+        "P0 通过",
+        "独立先验事实来源",
+        "两种闭卷筛查结果",
+        "C/P 校准对",
+        "无来源指令的接收提示",
+        "跨问题且不同答案供体"
+      ],
+      "methods": [
+        "baseline",
+        "explicit_source_instruction",
+        "mean_difference",
+        "uncentered_difference_svd",
+        "random_matched",
+        "repaired_pair_permutation",
+        "interchange",
+        "centroid_control"
+      ],
+      "outputs": [
+        "source_metrics",
+        "all_cases_and_eligible_subsets",
+        "donor_copy_audit"
+      ],
+      "gate": "仅同题供体成功或复制供体答案时，不接受可复用来源轴主张",
+      "blockers": [
+        "blocked_remote_compute",
+        "verified_prior_fact_pool_not_materialized"
+      ]
+    },
+    {
+      "id": "P4",
+      "name_zh": "任务信息充分性诊断",
+      "status": "blocked_remote_compute",
+      "inputs": [
+        "P0 通过",
+        "允许属性补全集或等价枚举",
+        "四类信息状态",
+        "目标追问属性真值",
+        "策略输出抽象"
+      ],
+      "methods": [
+        "baseline",
+        "explicit_information_policy",
+        "mean_difference",
+        "uncentered_difference_svd",
+        "random_matched",
+        "repaired_pair_permutation",
+        "policy_interchange",
+        "centroid_control"
+      ],
+      "outputs": [
+        "decidability_metrics",
+        "policy_and_factual_scores_separately",
+        "generic_refusal_vs_targeted_question_audit"
+      ],
+      "gate": "只增加拒答、只识别未知字样、或对无关缺失同样追问，均不构成目标机制成功",
+      "blockers": [
+        "blocked_remote_compute",
+        "completion_oracle_dataset_not_yet_audited"
+      ]
+    },
+    {
+      "id": "P5",
+      "name_zh": "多规则与多轴组合诊断",
+      "status": "blocked_remote_compute",
+      "inputs": [
+        "P0 通过",
+        "P2/P3/P4 冻结的单项接口与结果",
+        "同提示正负零规则",
+        "来源乘信息充分性四格",
+        "补齐信息后的第二轮目标"
+      ],
+      "methods": [
+        "baseline",
+        "route_only",
+        "source_only",
+        "decidability_only",
+        "route_source",
+        "route_decidability",
+        "source_decidability",
+        "joint",
+        "direct_bias_plus_mean_axes",
+        "explicit_policy_prompt_filter"
+      ],
+      "outputs": [
+        "composition_metrics",
+        "single_vs_joint_paired_changes",
+        "crosstalk_table"
+      ],
+      "gate": "单项未建立时组合可作为预登记探索继续，但必须标记 unsupported_component；不得当作验证了组成部分",
+      "blockers": [
+        "blocked_remote_compute",
+        "component_interfaces_not_fitted",
+        "composition_dataset_not_yet_audited"
+      ]
+    },
+    {
+      "id": "P6",
+      "name_zh": "冻结接口迁移与固定模块一连接",
+      "status": "blocked_remote_compute",
+      "inputs": [
+        "P0 通过",
+        "冻结完整接口清单",
+        "未见家族／内容／模板／答案映射",
+        "经精确连接与契约核验的固定模块一缓存"
+      ],
+      "methods": [
+        "baseline",
+        "oracle_interface",
+        "fixed_module1_interface",
+        "oracle_simple_controls",
+        "fixed_module1_prompt_filter"
+      ],
+      "outputs": [
+        "transfer_metrics",
+        "oracle_prediction_gap",
+        "contract_coverage_and_exclusions",
+        "failure_cases"
+      ],
+      "gate": "动作契约缺失的固定模块一记录单独阻断；不能用其他合成数据代称该端到端实验",
+      "blockers": [
+        "blocked_remote_compute",
+        "frozen_interface_not_available",
+        "fixed_module1_downstream_contract_not_yet_verified"
+      ]
+    }
+  ],
+  "conclusion_levels": [
+    {
+      "level": "L0",
+      "name_zh": "实现与统计可复算",
+      "requires": "数值或离线检查完成",
+      "does_not_imply": "任何真实模型有效性"
+    },
+    {
+      "level": "L1",
+      "name_zh": "局部可控制",
+      "requires": "真实模型上语义特异、双向且超过阴性对照的响应",
+      "does_not_imply": "优于简单方法或跨内容泛化"
+    },
+    {
+      "level": "L2",
+      "name_zh": "学习接口有增量价值",
+      "requires": "相对强简单对照的可靠收益或预登记效率优势",
+      "does_not_imply": "可组合或临床有效"
+    },
+    {
+      "level": "L3",
+      "name_zh": "可组合与可迁移",
+      "requires": "冻结接口在联合及未见内容条件中成立",
+      "does_not_imply": "固定模块一端到端有效"
+    },
+    {
+      "level": "L4",
+      "name_zh": "固定模块一端到端初步有效",
+      "requires": "真实固定信号驱动时优于同信号提示／过滤基线，且报告误差传播",
+      "does_not_imply": "临床有效性或普遍二维机制"
+    }
+  ]
+}

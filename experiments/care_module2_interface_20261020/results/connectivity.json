@@ -1,0 +1,39 @@
+{
+  "schema": "care.module2.connectivity.v1",
+  "recorded_date_utc": "2026-10-20",
+  "status": "blocked",
+  "target": {
+    "host": "10.29.128.115",
+    "port": 22,
+    "user": "gcx",
+    "source": "docs/RUNNING.md at 7557d3150214a3894f2d340df6d9964de75efce1"
+  },
+  "evidence_origin": "Two SSH connection attempts executed by the coordinating agent in this session and reported to the environment-audit agent; this artifact does not initiate another connection.",
+  "attempts": [
+    {
+      "sequence": 1,
+      "execution_mode": "default_sandbox",
+      "observed_error_fragment": "Operation not permitted",
+      "failure_stage": "local_socket_creation",
+      "remote_authentication_reached": false,
+      "exact_attempt_timestamp_utc": null
+    },
+    {
+      "sequence": 2,
+      "execution_mode": "require_escalated",
+      "automatic_approval_decision": "approved",
+      "observed_error_fragment": "Connection refused",
+      "failure_stage": "TCP_connection_to_10.29.128.115_port_22",
+      "remote_authentication_reached": false,
+      "exact_attempt_timestamp_utc": null
+    }
+  ],
+  "ssh_access_established": false,
+  "remote_command_executed": false,
+  "remote_environment_verified": false,
+  "remote_gpu_job_started": false,
+  "automatic_approval_rejected": false,
+  "interpretation": "The authorized connection attempt was refused before authentication. This is not an automatic approval rejection or evidence of invalid credentials. The private server's current models, inputs and GPU availability remain unverified.",
+  "additional_network_probe_performed_by_environment_audit": false,
+  "credentials_read_or_created": false
+}

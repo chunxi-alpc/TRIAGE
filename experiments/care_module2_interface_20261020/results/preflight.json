@@ -1,0 +1,340 @@
+{
+  "schema": "care.module2.preflight.v1",
+  "created_utc": "2026-10-20T05:32:21.855958+00:00",
+  "status": "blocked",
+  "audit_mode": "offline_read_only_except_explicit_report",
+  "repo_root": "/workspace/scratch/acd4a488f203/TRIAGE",
+  "reference_snapshot_commit": "7557d3150214a3894f2d340df6d9964de75efce1",
+  "reference_snapshot_is_not_a_live_git_head_check": true,
+  "network_access_attempted": false,
+  "packages_installed": false,
+  "model_loaded": false,
+  "inference_performed": false,
+  "module1_modified_or_recomputed": false,
+  "output_policy": {
+    "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module2_interface_20261020/results/preflight.json",
+    "mode": "exclusive_create",
+    "overwrite_allowed": false,
+    "new_experiment_run_directory_required": true
+  },
+  "checks": {
+    "repo_root_present": {
+      "status": "pass",
+      "detail": {
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE"
+      }
+    },
+    "import_torch": {
+      "status": "blocked",
+      "detail": {
+        "importable": false,
+        "reason": "module_not_installed"
+      }
+    },
+    "import_transformers": {
+      "status": "blocked",
+      "detail": {
+        "importable": false,
+        "reason": "module_not_installed"
+      }
+    },
+    "cuda_available": {
+      "status": "blocked",
+      "detail": {
+        "cuda_available": null,
+        "cuda_device_count": null,
+        "note": "No model, tensor allocation, or inference is attempted."
+      }
+    },
+    "gpu_authorization": {
+      "status": "pass",
+      "detail": {
+        "requested_physical_ids": [
+          0
+        ],
+        "allowed_physical_ids": [
+          0,
+          1,
+          2,
+          3,
+          6,
+          7
+        ]
+      }
+    },
+    "gpu_visibility": {
+      "status": "pass",
+      "detail": {
+        "CUDA_VISIBLE_DEVICES": null,
+        "requested_physical_ids": [
+          0
+        ],
+        "interpretation": "No explicit visibility mask; future runners must set one explicitly."
+      }
+    },
+    "requested_gpu_present": {
+      "status": "blocked",
+      "detail": {
+        "nvidia_smi": null,
+        "devices": [],
+        "reason": "nvidia_smi_not_available"
+      }
+    },
+    "model_revision_evidence": {
+      "status": "pass",
+      "detail": {
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module2_signed_20261019/results/fold0/provenance.json",
+        "expected_revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+        "observed_revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+        "sha256": "a130b6f86db50854ade56daae9803da6f69bb51844d0ed17df241d1243b9a841"
+      }
+    },
+    "model_config": {
+      "status": "blocked",
+      "detail": {
+        "path": "/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base/config.json",
+        "error": "FileNotFoundError: [Errno 2] No such file or directory: '/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base/config.json'"
+      }
+    },
+    "model_weight_index": {
+      "status": "blocked",
+      "detail": {
+        "path": "/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base/model.safetensors.index.json",
+        "error": "FileNotFoundError: [Errno 2] No such file or directory: '/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base/model.safetensors.index.json'"
+      }
+    },
+    "model_weight_hashes": {
+      "status": "blocked",
+      "detail": [
+        {
+          "name": "model-00001-of-00003.safetensors",
+          "expected_sha256": "4c807e2503d68ae373d508689d00a41f4b33f33c2536da97ab81a20caddc1241",
+          "present": false,
+          "verified": false
+        },
+        {
+          "name": "model-00002-of-00003.safetensors",
+          "expected_sha256": "f4707585548b2fc75a6b1d732e8465c62040a8699903c32850781beeb9b27826",
+          "present": false,
+          "verified": false
+        },
+        {
+          "name": "model-00003-of-00003.safetensors",
+          "expected_sha256": "c7b1aa8fb672de2e00423c99876926022e50b18d4f0d140670788510a27f9965",
+          "present": false,
+          "verified": false
+        }
+      ]
+    },
+    "tokenizer_files": {
+      "status": "blocked",
+      "detail": {
+        "tokenizer.json": false,
+        "tokenizer_config.json": false
+      }
+    },
+    "raw_input_provenance": {
+      "status": "pass",
+      "detail": {
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/new_set_manifest.json",
+        "sha256": "b67a9117d87676e479df7dd67b2bc6953c33f013ef45eb6ab46d2244ab130b7d",
+        "recorded_hashes": {
+          "inputs_192.jsonl": "32ec4446d80a3f514827da8a5df8a0206aa4eceea63f9940df99876de7c4955b",
+          "new_inputs_100.jsonl": "3d0c58bd3cadb0b23038954bee95df58e066936d7de21623f09d39e7e4de8602"
+        },
+        "expected_hashes": {
+          "inputs_192.jsonl": "32ec4446d80a3f514827da8a5df8a0206aa4eceea63f9940df99876de7c4955b",
+          "new_inputs_100.jsonl": "3d0c58bd3cadb0b23038954bee95df58e066936d7de21623f09d39e7e4de8602"
+        }
+      }
+    },
+    "raw_input_inputs_192": {
+      "status": "blocked",
+      "detail": {
+        "name": "inputs_192.jsonl",
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/inputs_192.jsonl",
+        "expected_sha256": "32ec4446d80a3f514827da8a5df8a0206aa4eceea63f9940df99876de7c4955b",
+        "expected_rows": 192,
+        "present": false,
+        "verified": false
+      }
+    },
+    "raw_input_new_inputs_100": {
+      "status": "blocked",
+      "detail": {
+        "name": "new_inputs_100.jsonl",
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/new_inputs_100.jsonl",
+        "expected_sha256": "3d0c58bd3cadb0b23038954bee95df58e066936d7de21623f09d39e7e4de8602",
+        "expected_rows": 100,
+        "present": false,
+        "verified": false
+      }
+    },
+    "frozen_old_192_predictions_v6": {
+      "status": "pass",
+      "detail": {
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/old_192_predictions_v6.jsonl",
+        "expected_rows": 192,
+        "verified": true,
+        "rows": 192,
+        "unique_sample_ids": 192,
+        "sha256": "6a27cc27c1cc5327eaaf01bdb569e3a9b7f8ebc9fd263aa62dc7b135fc422b1f"
+      }
+    },
+    "frozen_new_100_predictions_v6": {
+      "status": "pass",
+      "detail": {
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/new_100_predictions_v6.jsonl",
+        "expected_rows": 100,
+        "verified": true,
+        "rows": 100,
+        "unique_sample_ids": 100,
+        "sha256": "48a1d28e5fd4f4aca582345f53ecd7e1714654e96c73e225bbdf8b39f63f3535"
+      }
+    }
+  },
+  "runtime_blockers": [
+    "import_torch",
+    "import_transformers",
+    "cuda_available",
+    "requested_gpu_present",
+    "model_config",
+    "model_weight_index",
+    "model_weight_hashes",
+    "tokenizer_files",
+    "raw_input_inputs_192",
+    "raw_input_new_inputs_100"
+  ],
+  "runtime": {
+    "python": "3.12.14",
+    "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "imports": {
+      "torch": {
+        "importable": false,
+        "reason": "module_not_installed"
+      },
+      "transformers": {
+        "importable": false,
+        "reason": "module_not_installed"
+      },
+      "numpy": {
+        "importable": true,
+        "version": "2.3.5"
+      },
+      "scipy": {
+        "importable": true,
+        "version": "1.17.0"
+      }
+    },
+    "gpu_inventory": {
+      "nvidia_smi": null,
+      "devices": [],
+      "reason": "nvidia_smi_not_available"
+    }
+  },
+  "model": {
+    "path": "/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base",
+    "model_id": "Qwen/Qwen3-4B-Base",
+    "required_revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+    "weights_bound_to_frozen_revision": false
+  },
+  "data": {
+    "raw_inputs": [
+      {
+        "name": "inputs_192.jsonl",
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/inputs_192.jsonl",
+        "expected_sha256": "32ec4446d80a3f514827da8a5df8a0206aa4eceea63f9940df99876de7c4955b",
+        "expected_rows": 192,
+        "present": false,
+        "verified": false
+      },
+      {
+        "name": "new_inputs_100.jsonl",
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/new_inputs_100.jsonl",
+        "expected_sha256": "3d0c58bd3cadb0b23038954bee95df58e066936d7de21623f09d39e7e4de8602",
+        "expected_rows": 100,
+        "present": false,
+        "verified": false
+      }
+    ],
+    "frozen_predictions": [
+      {
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/old_192_predictions_v6.jsonl",
+        "expected_rows": 192,
+        "verified": true,
+        "rows": 192,
+        "unique_sample_ids": 192,
+        "sha256": "6a27cc27c1cc5327eaaf01bdb569e3a9b7f8ebc9fd263aa62dc7b135fc422b1f"
+      },
+      {
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/new_100_predictions_v6.jsonl",
+        "expected_rows": 100,
+        "verified": true,
+        "rows": 100,
+        "unique_sample_ids": 100,
+        "sha256": "48a1d28e5fd4f4aca582345f53ecd7e1714654e96c73e225bbdf8b39f63f3535"
+      }
+    ],
+    "rule_action_audit": [
+      {
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/rules_v5.jsonl",
+        "rows": 16,
+        "missing_or_empty_action_count": 16,
+        "rules_without_action": [
+          "V01",
+          "V02",
+          "V03",
+          "V04",
+          "V05",
+          "V06",
+          "V07",
+          "V08",
+          "V09",
+          "V10",
+          "V11",
+          "V12",
+          "V13",
+          "V14",
+          "V15",
+          "V16"
+        ],
+        "sha256": "e7fabfde2f1c8a1a8248a7e949a1d3b46d2e268740db8b8dce8b6a7790e83be0"
+      },
+      {
+        "path": "/workspace/scratch/acd4a488f203/TRIAGE/experiments/care_module1_v6/data/new_rules_100.jsonl",
+        "rows": 9,
+        "missing_or_empty_action_count": 9,
+        "rules_without_action": [
+          "N09",
+          "N05",
+          "N03",
+          "N07",
+          "N01",
+          "N08",
+          "N06",
+          "N04",
+          "N02"
+        ],
+        "sha256": "86c1d01242303201c358e50fc05a669bae2bf0baad6cf4216f4a9be5433b020b"
+      }
+    ]
+  },
+  "scope": {
+    "complete_new_model_suite_implemented": false,
+    "complete_new_model_suite_runnable": false,
+    "full_care_efficacy_evaluable_from_current_frozen_data": false,
+    "limitations": [
+      "The frozen V6 dataset evaluates predicate applicability (T/F/U), not complete clinical treatment actions.",
+      "Missing rule actions cannot be supplied by inventing clinical recommendations or reconstructing patients from labels.",
+      "Frozen M1 predictions and gold evaluation labels must remain separate; no M1 recomputation is authorized by this audit.",
+      "A controlled routing task needs an explicit answer/control-domain contract, rule-family splits, token roles, and held-out scoring.",
+      "The source axis needs matched context/prior conflicts with verified closed-book knowledge; such pairs are not supplied by V6 labels.",
+      "The determination axis needs known/unknown critical-attribute pairs and answer/clarification targets; safety-refusal labels are not a substitute.",
+      "The historical 384-case signed-routing dataset can be recovered from GitHub; it does not supply new M1-driven source/determination or unknown-attribute evaluations.",
+      "Passing runtime prerequisites permits limited runtime checks only; it does not imply a complete runnable P0-P6 suite or method efficacy."
+    ]
+  },
+  "runtime_prerequisites_ready": false,
+  "efficacy_claim": "none"
+}
