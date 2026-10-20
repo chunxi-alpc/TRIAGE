@@ -1,5 +1,12 @@
 # 当前状态
 
-v2: cpu_verified。S1/N1–N5 的本轮实际状态见 runs/ 下新的 v2 运行目录。
-v1 N1 输出因数据与算子问题无效，仅作失败日志保存；禁止引用为有效负结果。
-A1 冻结，没有任何新 A1 推理或重训。历史 GPU 实验不重跑。
+本轮已结束，退出码 0；按协议保留门槛停止。
+
+- S1: gpu_smoke_passed
+- N1: dev 已评估；test not_run_gate_fail
+- N2/N3/N5: gpu_evaluated
+- N4: not_run_gate_fail
+
+最终报告：runs/v2_20261020T134304Z/REPORT.zh.md
+实际新前向1157次，所有 route 开发选择为零强度；无新L1/L2/L3正证据。
+A1冻结，历史实验未重跑，未合并main。
