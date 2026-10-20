@@ -1,0 +1,49 @@
+{
+  "created_utc": "2026-10-20T00:35:59.920512+00:00",
+  "base_commit": "671ca599bbd85058c4a32d2be987523cea452642",
+  "scope": "One candidate on original dev96 only; no other datasets or follow-up inference.",
+  "candidate": "A1 with U-focused contrastive training examples",
+  "baseline": "Existing cached A1 dev96",
+  "only_experimental_change": "Training demonstrations replaced; A1 system, target case, JSON field order and generation unchanged.",
+  "training_examples": {
+    "groups": 2,
+    "narratives": 6,
+    "topics": [
+      "OR",
+      "unknown exception"
+    ],
+    "source": "New authored training narratives, not copied evaluation cases"
+  },
+  "generation": {
+    "batch_size": 8,
+    "max_new_tokens": 384,
+    "do_sample": false,
+    "max_format_retries": 1
+  },
+  "resources": {
+    "gpu": 0,
+    "estimated_memory_gib": [
+      17,
+      25
+    ],
+    "expected_minutes": [
+      5,
+      10
+    ],
+    "new_primary_requests": 96
+  },
+  "metrics": [
+    "accuracy",
+    "U precision recall F1",
+    "F_to_T",
+    "calls input/output tokens generation time"
+  ],
+  "freeze_sha256": {
+    "experiments/care_module1_u_examples_dev/data/u_examples.json": "2a7dba0c5d116067cc679afb131b55590ec2b4f9e4cb63b42c05c03db9121262",
+    "experiments/care_module1_u_examples_dev/prompts.py": "5d4deba7243a8ab2c5ab75641d4f0a5a36001267cfe21c806be8904540018e07",
+    "experiments/care_module1_u_examples_dev/runner.py": "b61016917fd250fa9a9a9bae29691250c597391b9b9aeccd870e52d29a79b589",
+    "experiments/care_module1_semantic_v8/data/semantic_dev_inputs.jsonl": "17118b6f7928d249f34dddc87b68a55dbf9891d9594580eab13bdfdf39a06ed9",
+    "experiments/care_module1_semantic_v8/results/dev_A1/predictions.jsonl": "5a021454dda0a045527a9c1e96c3818a366fc34991481f34dc2e24e9e943ef86"
+  },
+  "expansion": "Requires a separate decision after this dev result; not scheduled."
+}

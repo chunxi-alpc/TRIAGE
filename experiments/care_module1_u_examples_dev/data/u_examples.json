@@ -1,0 +1,288 @@
+{
+  "count_demonstrations": 2,
+  "count_patient_narratives": 6,
+  "source": "New authored training examples; no evaluation patient, threshold, case ID, or gold reused.",
+  "frozen_before_dev_inference": true,
+  "demonstrations": [
+    {
+      "description": "OR true, false and unresolved; irrelevant unknown does not prevent T",
+      "cases": [
+        {
+          "source_case_id": "u_training_or_T",
+          "source_family_id": "new_training_or",
+          "input": {
+            "question": "Which routing action follows from the visitor's current situation and all of the rules?",
+            "patient": "The visitor has a valid library card. The record does not say whether the visitor has a paid day pass. The library desk is open.",
+            "rules": [
+              {
+                "rule_id": "R_TARGET",
+                "text": "When the visitor has a valid library card or has a paid day pass, unless the library desk is closed, assign Route Cedar.",
+                "action": "Route Cedar"
+              },
+              {
+                "rule_id": "R_ALTERNATIVE",
+                "text": "When it is not the case that (the visitor has a valid library card or has a paid day pass), unless the library desk is closed, assign Route Maple.",
+                "action": "Route Maple"
+              },
+              {
+                "rule_id": "R_EXCEPTION",
+                "text": "When the library desk is closed, assign Route Juniper.",
+                "action": "Route Juniper"
+              }
+            ]
+          },
+          "output": [
+            {
+              "rule_id": "R_TARGET",
+              "state": "T",
+              "evidence_quote": "The visitor has a valid library card.",
+              "reason_short": "A valid card establishes one OR alternative; the unknown pass does not change applicability."
+            },
+            {
+              "rule_id": "R_ALTERNATIVE",
+              "state": "F",
+              "evidence_quote": "The visitor has a valid library card.",
+              "reason_short": "One OR alternative is established, so negating the entire OR is false."
+            },
+            {
+              "rule_id": "R_EXCEPTION",
+              "state": "F",
+              "evidence_quote": "The library desk is open.",
+              "reason_short": "The desk is explicitly open, so the closed-desk exception is false."
+            }
+          ]
+        },
+        {
+          "source_case_id": "u_training_or_F",
+          "source_family_id": "new_training_or",
+          "input": {
+            "question": "Which routing action follows from the visitor's current situation and all of the rules?",
+            "patient": "The visitor does not have a valid library card. The visitor does not have a paid day pass. The library desk is open.",
+            "rules": [
+              {
+                "rule_id": "R_TARGET",
+                "text": "When the visitor has a valid library card or has a paid day pass, unless the library desk is closed, assign Route Cedar.",
+                "action": "Route Cedar"
+              },
+              {
+                "rule_id": "R_ALTERNATIVE",
+                "text": "When it is not the case that (the visitor has a valid library card or has a paid day pass), unless the library desk is closed, assign Route Maple.",
+                "action": "Route Maple"
+              },
+              {
+                "rule_id": "R_EXCEPTION",
+                "text": "When the library desk is closed, assign Route Juniper.",
+                "action": "Route Juniper"
+              }
+            ]
+          },
+          "output": [
+            {
+              "rule_id": "R_TARGET",
+              "state": "F",
+              "evidence_quote": "The visitor does not have a valid library card. The visitor does not have a paid day pass.",
+              "reason_short": "Both OR alternatives are explicitly false, so the prerequisite is false."
+            },
+            {
+              "rule_id": "R_ALTERNATIVE",
+              "state": "T",
+              "evidence_quote": "The visitor does not have a valid library card. The visitor does not have a paid day pass.",
+              "reason_short": "Both alternatives are explicitly false, establishing the negation of the whole OR."
+            },
+            {
+              "rule_id": "R_EXCEPTION",
+              "state": "F",
+              "evidence_quote": "The library desk is open.",
+              "reason_short": "The desk is explicitly open, so the exception is false."
+            }
+          ]
+        },
+        {
+          "source_case_id": "u_training_or_U",
+          "source_family_id": "new_training_or",
+          "input": {
+            "question": "Which routing action follows from the visitor's current situation and all of the rules?",
+            "patient": "The record does not establish whether the visitor has a valid library card. The visitor does not have a paid day pass. The library desk is open.",
+            "rules": [
+              {
+                "rule_id": "R_TARGET",
+                "text": "When the visitor has a valid library card or has a paid day pass, unless the library desk is closed, assign Route Cedar.",
+                "action": "Route Cedar"
+              },
+              {
+                "rule_id": "R_ALTERNATIVE",
+                "text": "When it is not the case that (the visitor has a valid library card or has a paid day pass), unless the library desk is closed, assign Route Maple.",
+                "action": "Route Maple"
+              },
+              {
+                "rule_id": "R_EXCEPTION",
+                "text": "When the library desk is closed, assign Route Juniper.",
+                "action": "Route Juniper"
+              }
+            ]
+          },
+          "output": [
+            {
+              "rule_id": "R_TARGET",
+              "state": "U",
+              "evidence_quote": "The record does not establish whether the visitor has a valid library card.",
+              "reason_short": "The pass is absent, but the card alternative is unresolved; the OR could still be true or false."
+            },
+            {
+              "rule_id": "R_ALTERNATIVE",
+              "state": "U",
+              "evidence_quote": "The record does not establish whether the visitor has a valid library card.",
+              "reason_short": "The OR is unresolved, so its negation is also unresolved."
+            },
+            {
+              "rule_id": "R_EXCEPTION",
+              "state": "F",
+              "evidence_quote": "The library desk is open.",
+              "reason_short": "The desk is explicitly open, so the exception is false."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Exception explicitly absent, present and unresolved; a false prerequisite remains F",
+      "cases": [
+        {
+          "source_case_id": "u_training_exception_absent",
+          "source_family_id": "new_training_exception",
+          "input": {
+            "question": "Which routing action follows from the visitor's current situation and all of the rules?",
+            "patient": "The visitor has completed registration and requested an appointment. The booking office is open.",
+            "rules": [
+              {
+                "rule_id": "R_TARGET",
+                "text": "When the visitor has completed registration and has requested an appointment, unless the booking office is closed, assign Route Cedar.",
+                "action": "Route Cedar"
+              },
+              {
+                "rule_id": "R_ALTERNATIVE",
+                "text": "When it is not the case that (the visitor has completed registration and has requested an appointment), unless the booking office is closed, assign Route Maple.",
+                "action": "Route Maple"
+              },
+              {
+                "rule_id": "R_EXCEPTION",
+                "text": "When the booking office is closed, assign Route Juniper.",
+                "action": "Route Juniper"
+              }
+            ]
+          },
+          "output": [
+            {
+              "rule_id": "R_TARGET",
+              "state": "T",
+              "evidence_quote": "The visitor has completed registration and requested an appointment.",
+              "reason_short": "Both prerequisites hold and the exception is explicitly absent."
+            },
+            {
+              "rule_id": "R_ALTERNATIVE",
+              "state": "F",
+              "evidence_quote": "The visitor has completed registration and requested an appointment.",
+              "reason_short": "Both prerequisites hold, so their combined negation is false."
+            },
+            {
+              "rule_id": "R_EXCEPTION",
+              "state": "F",
+              "evidence_quote": "The booking office is open.",
+              "reason_short": "The office is explicitly open, so the exception is false."
+            }
+          ]
+        },
+        {
+          "source_case_id": "u_training_exception_present",
+          "source_family_id": "new_training_exception",
+          "input": {
+            "question": "Which routing action follows from the visitor's current situation and all of the rules?",
+            "patient": "The visitor has completed registration and requested an appointment. The booking office is closed.",
+            "rules": [
+              {
+                "rule_id": "R_TARGET",
+                "text": "When the visitor has completed registration and has requested an appointment, unless the booking office is closed, assign Route Cedar.",
+                "action": "Route Cedar"
+              },
+              {
+                "rule_id": "R_ALTERNATIVE",
+                "text": "When it is not the case that (the visitor has completed registration and has requested an appointment), unless the booking office is closed, assign Route Maple.",
+                "action": "Route Maple"
+              },
+              {
+                "rule_id": "R_EXCEPTION",
+                "text": "When the booking office is closed, assign Route Juniper.",
+                "action": "Route Juniper"
+              }
+            ]
+          },
+          "output": [
+            {
+              "rule_id": "R_TARGET",
+              "state": "F",
+              "evidence_quote": "The booking office is closed.",
+              "reason_short": "The established closed-office exception prevents this rule from applying despite satisfied prerequisites."
+            },
+            {
+              "rule_id": "R_ALTERNATIVE",
+              "state": "F",
+              "evidence_quote": "The visitor has completed registration and requested an appointment.",
+              "reason_short": "The negated prerequisite is false; the established exception also prevents applicability."
+            },
+            {
+              "rule_id": "R_EXCEPTION",
+              "state": "T",
+              "evidence_quote": "The booking office is closed.",
+              "reason_short": "The office is explicitly closed, establishing the exception."
+            }
+          ]
+        },
+        {
+          "source_case_id": "u_training_exception_U",
+          "source_family_id": "new_training_exception",
+          "input": {
+            "question": "Which routing action follows from the visitor's current situation and all of the rules?",
+            "patient": "The visitor has completed registration and requested an appointment. The note does not establish whether the booking office is open or closed.",
+            "rules": [
+              {
+                "rule_id": "R_TARGET",
+                "text": "When the visitor has completed registration and has requested an appointment, unless the booking office is closed, assign Route Cedar.",
+                "action": "Route Cedar"
+              },
+              {
+                "rule_id": "R_ALTERNATIVE",
+                "text": "When it is not the case that (the visitor has completed registration and has requested an appointment), unless the booking office is closed, assign Route Maple.",
+                "action": "Route Maple"
+              },
+              {
+                "rule_id": "R_EXCEPTION",
+                "text": "When the booking office is closed, assign Route Juniper.",
+                "action": "Route Juniper"
+              }
+            ]
+          },
+          "output": [
+            {
+              "rule_id": "R_TARGET",
+              "state": "U",
+              "evidence_quote": "The note does not establish whether the booking office is open or closed.",
+              "reason_short": "The prerequisites hold, but the unknown exception could change applicability; absence of documentation does not establish an open office."
+            },
+            {
+              "rule_id": "R_ALTERNATIVE",
+              "state": "F",
+              "evidence_quote": "The visitor has completed registration and requested an appointment.",
+              "reason_short": "Both prerequisites hold, making their negation false regardless of the unknown exception."
+            },
+            {
+              "rule_id": "R_EXCEPTION",
+              "state": "U",
+              "evidence_quote": "The note does not establish whether the booking office is open or closed.",
+              "reason_short": "The office status is unresolved, so the exception cannot be established or ruled out."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
