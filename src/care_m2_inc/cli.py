@@ -41,13 +41,14 @@ def cmd_smoke(args: argparse.Namespace) -> int:
     if args.model:
         from .gpu_smoke import run
         result = run(args.model, _default_data(args.config, None), args.out, args.device)
+        result["valid"] = result.get("status") == "gpu_smoke_passed"
     else:
         from .smoke import cpu_contract_smoke
         result = cpu_contract_smoke(_default_data(args.config, None))
     if args.out:
         write_json(args.out, result)
     print(json.dumps(result, ensure_ascii=False, indent=2))
-    return 0 if result["valid"] else 2
+    return 0 if result.get("valid", result.get("status") == "gpu_smoke_passed") else 2
 
 
 def cmd_n5_join(args: argparse.Namespace) -> int:

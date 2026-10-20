@@ -49,5 +49,6 @@ def run(model_path: str, data_dir: str | Path, out: str | Path, device: str = "c
                           "gqa_contract": bool(result_gqa := (int(getattr(config, "num_attention_heads", 0)) % max(1, int(getattr(config, "num_key_value_heads", 1))) == 0)),
                           "bf16": next(model.parameters()).dtype == torch.bfloat16},
               "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    result["valid"] = result["status"] == "gpu_smoke_passed"
     write_json(out, result)
     return result
