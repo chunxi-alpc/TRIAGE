@@ -6,6 +6,7 @@ import torch
 from care_m2_inc.model import load_qwen, _layers
 from care_m2_inc.io import write_json,read_json,sha256_file
 from .data import digest
+from .candidates import candidate_contract, score_key, score_candidates
 
 LAYER=24
 SEED=261014
@@ -26,18 +27,14 @@ class Engine:
                  'gpu':torch.cuda.get_device_name(0),'revision_declared':'906bfd4b4dc7f14ee4320094d8b41684abff8539',
                  'git':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()}
         self.modelhash=digest(self.fp['files']); write_json(self.out/'model_fingerprint.json',self.fp)
-        self.calls=0; self.cache={}; self.hiddens={}; self.token_ids={}
-        for k in 'ABCDEFGH':
-            ids=self.tokenizer.encode(k,add_special_tokens=False)
-            assert len(ids)==1,(k,ids)
-            self.token_ids[k]=ids[0]
+        self.calls=0; self.cache={}; self.hiddens={}
         self.journal=self.out/'forward_journal.jsonl'
         if self.journal.exists():
             for line in self.journal.read_text().splitlines():
                 rec=json.loads(line); assert rec['checksum']==digest(rec['payload']); self.cache[rec['key']]=rec['payload']
         torch.cuda.reset_peak_memory_stats(); self.start=time.time()
     def tokens(self,prompt):
-        enc=self.tokenizer(prompt,return_offsets_mapping=True,return_tensors='pt')
+        enc=self.tokenizer(prompt,add_special_tokens=False,return_offsets_mapping=True,return_tensors='pt')
         offsets=enc.pop('offset_mapping')[0].tolist()
         return {k:v.to(self.device) for k,v in enc.items()},offsets
     def positions(self,row,prompt=None):
@@ -120,16 +117,16 @@ class Engine:
         def serial(e): return {k:(digest(v.detach().cpu().tolist()) if torch.is_tensor(v) else v) for k,v in e.items()}
         edits=[e for e in (edits or []) if e['beta']!=0]; biases=[(p,b) for p,b in (biases or []) if b!=0]
         spec={'edits':[serial(e) for e in edits],'biases':biases}
-        key=digest([self.modelhash,prompt,options,spec])
+        candidates=candidate_contract(self.tokenizer,prompt,options)
+        key=score_key(self.modelhash,prompt,options,spec,candidates)
         if cache and key in self.cache: return {**self.cache[key],'cache_hit':True}
         enc,_=self.tokens(prompt); started=time.time()
         with self.edit(enc,edits or [],biases or []) as stats:
             with torch.inference_mode(): logits=self.model(**enc,use_cache=False).logits[0,-1].float()
         self.calls+=1
-        scores={k:float(logits[self.token_ids[k]]) for k in options}
-        top=int(logits.argmax()); pred=max(scores,key=scores.get)
-        payload={'prediction':pred,'candidate_logits':scores,'top_unconstrained_token':self.tokenizer.decode([top]),
-            'unconstrained_is_candidate':top in [self.token_ids[k] for k in options],
+        scored=score_candidates(logits,candidates,self.tokenizer)
+        scores=scored['candidate_logits']
+        payload={**scored,
             'prompt_sha256':hashlib.sha256(prompt.encode()).hexdigest(),'output_sha256':digest(scores),
             'prompt_tokens':enc['input_ids'].shape[-1],'spec':spec,'hook':stats,'elapsed_seconds':time.time()-started,
             'forward_count':1,'cache_hit':False,'model_hash':self.modelhash,'failure_code':None}
@@ -151,9 +148,12 @@ class Engine:
         return rec
 
 def fit_axis(pos,neg):
-    p=torch.stack(pos).float(); n=torch.stack(neg).float(); diff=p-n if len(p)==len(n) else None
-    if diff is None:
-        m=min(len(p),len(n)); diff=p[:m]-n[:m]
+    if not pos or len(pos)!=len(neg):
+        raise ValueError('fit_axis requires nonempty, equally sized matched pairs')
+    p=torch.stack(pos).float(); n=torch.stack(neg).float()
+    if p.shape!=n.shape or not torch.isfinite(p).all() or not torch.isfinite(n).all():
+        raise ValueError('invalid paired activations')
+    diff=p-n
     centered=diff-diff.mean(0)
     _,s,v=torch.linalg.svd(centered,full_matrices=False)
     rank=min(2,int((s>1e-6).sum()))

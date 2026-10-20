@@ -6,6 +6,8 @@ import torch
 from care_m2_inc.io import read_json,read_jsonl,write_json,write_jsonl,sha256_file
 from .data import BASE,digest,oracle
 from .engine import Engine,fit_axis,LAYER,SEED
+from .candidates import SCORING_CONTRACT
+from .n5_pairs import matched_pairs
 
 METHODS={
 'N1':['baseline','text','direct_bias','R_only','A_only','route','mean','spectral','wrong_sign','wrong_rule','wrong_position','random','repaired_pairs','oracle'],
@@ -60,17 +62,24 @@ def train(engine,rows,out):
                 by[control].append(h); captures.append({'case_id':r['case_id'],'policy':control})
         axes['source' if t=='N2' else 'DQ']=fit_axis(by[controls[0]],by[controls[1]])
     elif t=='N5':
-        for r in rows:
-            positions=engine.positions(r)
-            for s,pos in zip([s for s in r['signals'] if s['span']],positions):
-                if s['signal'] not in (1,-1):continue
-                h=engine.capture(r['prompt'],pos);by[s['signal']].append(h);captures.append({'case_id':r['case_id'],'rule_id':s['rule_id'],'state':s['state']})
+        pairs,pair_audit=matched_pairs(rows)
+        write_json(Path(out)/'n5_pair_audit.json',pair_audit)
+        if not pairs: raise ValueError('no matched predicted T/F training pairs')
+        lookup={r['case_id']:r for r in rows}
+        for pair in pairs:
+            for side,signal in [('positive',1),('negative',-1)]:
+                observation=pair[side]; r=lookup[observation['case_id']]
+                pos=engine.positions({**r,'spans':[observation['span']]})[0]
+                if not pos: raise ValueError('empty training action token span')
+                by[signal].append(engine.capture(r['prompt'],pos))
+                captures.append({**observation,'positions':pos})
         axes['A1']=fit_axis(by[1],by[-1])
     torch.save(axes,Path(out)/'axes.pt')
     meta={'task':t,'split':'train','case_ids':[r['case_id'] for r in rows],'input_hash':digest(rows),'captures':captures,'layer':LAYER,
-          'rank':2,'centered_covariance':True,'family_weights':'equal cases per family; N5 each valid predicted T/F rule equal',
+          'rank':2,'centered_covariance':True,'family_weights':pair_audit['weighting'] if t=='N5' else 'equal cases per family',
           'difference_sign':'positive minus negative','spectral_lambda':.5,'seed':SEED,'axes_sha256':sha256_file(Path(out)/'axes.pt'),
           'axes':{k:{'basis_rank':a['basis'].shape[1],'singular_values':a['singular_values'].tolist()} for k,a in axes.items()}}
+    if t=='N5':meta['fit_contract']=pair_audit['fit_contract'];meta['pair_audit_sha256']=sha256_file(Path(out)/'n5_pair_audit.json')
     if t=='N1':meta['RA_overlap_singular_values']=torch.linalg.svdvals(axes['R']['basis'].T@axes['A']['basis']).tolist()
     write_json(Path(out)/'train_fit.json',meta)
     return axes
@@ -131,7 +140,7 @@ def runone(engine,r,c,method,beta,axes,allrows):
             if method=='iia_random':target_i=(ix+5)%12;src='P' if ix%2 else 'C'
             if method=='iia_opposite':src='P' if src=='C' else 'C'
             dr=next(x for x in pool if int(x['case_id'].split('_')[1])==target_i)
-            donor=engine.capture(append_policy(dr['prompt'],policy(dr,{'source':src})))
+            donor=engine.capture(append_policy(dr['prompt'],policy(dr,{'source':src}))) if beta else None
             donor_meta={'case_id':dr['case_id'],'split':dr['split'],'source':src,'answer':dr['source_answers'][src], 'same_fact':dr['case_id']==r['case_id']}
         prompt,edits,biases=spec(engine,r,c,method,beta,axes,donor)
         result=engine.score(prompt,r['options'],edits,biases)
@@ -159,19 +168,24 @@ def select(engine,rows,axes,out,allrows):
             records.extend(preds);by[beta]=primary(task,preds)
         selected[method]=max(by,key=lambda b:(by[b],-b));scores[method]=by
     write_jsonl(Path(out)/'dev_predictions.jsonl',records)
-    selection={'task':task,'layer':LAYER,'grid':GRID,'selected':selected,'scores':scores,'selection_rule':'maximize registered primary metric; ties smaller beta',
+    selection={'scoring_contract':SCORING_CONTRACT,'task':task,'layer':LAYER,'grid':GRID,'selected':selected,'scores':scores,'selection_rule':'maximize registered primary metric; ties smaller beta',
                'axes_sha256':sha256_file(Path(out)/'axes.pt'),'dev_input_sha256':digest(rows),'data_manifest_sha256':sha256_file(Path(out)/'data_manifest.json')}
     selection['sha256']=digest(selection);write_json(Path(out)/'dev_selection.json',selection)
     return selection,records
 
 def evaluate(engine,rows,axes,selection,out,allrows):
+    if selection.get('scoring_contract')!=SCORING_CONTRACT:
+        raise ValueError('selection uses an incompatible candidate scoring contract')
     assert all(r['split']=='test' for r in rows)
     assert selection['sha256']==digest({k:v for k,v in selection.items() if k!='sha256'})
     assert selection['axes_sha256']==sha256_file(Path(out)/'axes.pt')
     assert selection['data_manifest_sha256']==sha256_file(Path(out)/'data_manifest.json')
     path=Path(out)/'test_predictions.jsonl'; done={}
     if path.exists():
-        for p in read_jsonl(path):done[digest([p['case_id'],p['control'],p['method']])]=p
+        for p in read_jsonl(path):
+            if 'diagnostic' not in p and p.get('scoring_contract')!=SCORING_CONTRACT:
+                raise ValueError('test journal uses an incompatible candidate scoring contract')
+            done[digest([p['case_id'],p['control'],p['method']])]=p
     preds=[]
     for r in rows:
         for c in controls(r):
