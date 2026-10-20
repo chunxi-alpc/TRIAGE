@@ -104,6 +104,8 @@ def cmd_analyze(args: argparse.Namespace) -> int:
     rows = [{**i, **label, **split} for i, label, split in zip(inputs, labels, splits) if split["split"] == "test"]
     result = summarize(task, predictions, rows)
     write_json(Path(args.run) / "analysis.json", result)
+    from .reporting import write_case_reports
+    write_case_reports(args.run, task, predictions, rows)
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
