@@ -36,14 +36,14 @@
 
 - 尚未重新生成完成机制隔离的新正式训练、开发、测试数据。
 - 尚未实现或在 GPU 验证 N1–N5 的完整神经运行器；本次文档 PR 不声称已有可运行的 5 个新任务。
-- 未运行新的 Qwen/Phi 前向；所有新结果状态为 \`not_run\`。
-- 旧的 600 条合成研究前置样例及其 22 项 CPU 测试此前在独立本地包中验证，**本 PR 没有假装它们已经符合新的 N1–N5 因果设计，也没有把该本地 ZIP 当作已入库代码**。Codex 可以拿用户另附的 \`CARE_module2_A1_preexperiments.zip\` 做迁移起点，但必须完成本文规定的数据重构和测试。
+- 未运行新的 Qwen/Phi 前向；所有新结果状态为 `not_run`。
+- 旧的 600 条合成研究前置样例及其 22 项 CPU 测试此前在独立本地包中验证，**本 PR 没有假装它们已经符合新的 N1–N5 因果设计，也没有把该本地 ZIP 当作已入库代码**。Codex 可以拿用户另附的 `CARE_module2_A1_preexperiments.zip` 做迁移起点，但必须完成本文规定的数据重构和测试。
 
 ## 冻结上游及证据边界
 
-- A1：\`configs/care_module1_for_module2.json\`，source commit \`8fb87d15576b88500f44a88f04799267d9f2b5ee\`。
+- A1：`configs/care_module1_for_module2.json`，source commit `8fb87d15576b88500f44a88f04799267d9f2b5ee`。
 - T=+1，F=−1，U=0，解析技术失败=null；不能让 gold 或 downstream effect 参与信号筛选。
-- Qwen/Qwen3-4B-Base revision \`906bfd4b4dc7f14ee4320094d8b41684abff8539\`；权重、tokenizer 与来源校验必须与旧档一致。
+- Qwen/Qwen3-4B-Base revision `906bfd4b4dc7f14ee4320094d8b41684abff8539`；权重、tokenizer 与来源校验必须与旧档一致。
 - 实验是模拟机制研究；历史医学任务是探索性合成和特定来源数据，不代表临床有效性。
 - **学习可解码方向、算子真的改变注意力、方法优于简单基线、真实 A1 端到端提升**是四个不同证据层级，不得相互替代。
 

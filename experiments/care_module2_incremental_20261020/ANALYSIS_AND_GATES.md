@@ -1,13 +1,13 @@
 # 主统计方案、强基线、阶段门槛和停止规则
 
-**在访问新正式测试输出之前**，冻结本文件中的主要指标、参数选择策略、候选空间、随机种子、测试家族列表与负结果判据；保存 \`selection.json\` 和 \`freeze_manifest.json\` 两份带哈希记录。
+**在访问新正式测试输出之前**，冻结本文件中的主要指标、参数选择策略、候选空间、随机种子、测试家族列表与负结果判据；保存 `selection.json` 和 `freeze_manifest.json` 两份带哈希记录。
 
 ## 五项主比较
 
 | 实验 | 主要终点与配对单位 | 必须公平比较的强基线 | 失败及护栏 |
 | --- | --- | --- | --- |
-| N1 | 同 \`family_id\` 的 R×A 四格**全对**比例 | 同层/同信息/开发预算的直接 score bias | R−A+ 误选适用但无关动作 |
-| N2 | 同 \`receiver_id\` 两个 C/P 来源目标**均正确**比例 | 具有同一政策比特的明确文本来源策略 | donor 答案复制、无真实 P 闭卷能力 |
+| N1 | 同 `family_id` 的 R×A 四格**全对**比例 | 同层/同信息/开发预算的直接 score bias | R−A+ 误选适用但无关动作 |
+| N2 | 同 `receiver_id` 两个 C/P 来源目标**均正确**比例 | 具有同一政策比特的明确文本来源策略 | donor 答案复制、无真实 P 闭卷能力 |
 | N3 | 按家族平衡的 D/Q**策略正确率** | 显式可决断流程、any-unknown 启发式 | Q 误决定率、D 无需追问却追问率 |
 | N4 | 同机制 16 格**全对**比例 | 简单按 Q/D → C/P → route 执行的阶段政策 | 轴串扰、非法确定答案 |
 | N5 | 同 A1 信号下低维路由减**直接 bias**的配对正确率 | A1 文本提示与 A1 规则过滤独立报告 | A1 错误放大、非目标损伤、覆盖率 |
@@ -17,7 +17,7 @@
 ## 基线必须是同信息量的
 
 - 无干预模型；明确策略提示（可见同一选择位，但额外词元长度应记录）；直接 score bias；必要时确定性执行流程。
-- 随机子空间采用匹配秩/位置/实际强度的**独立随机种子**，不在 test 上挑有利种子。仅对成对位移 \`D\` 逐行随机翻号不能改变 \`DᵀD\`，所以不算有效空间随机对照。
+- 随机子空间采用匹配秩/位置/实际强度的**独立随机种子**，不在 test 上挑有利种子。仅对成对位移 `D` 逐行随机翻号不能改变 `DᵀD`，所以不算有效空间随机对照。
 - 固定层/head/token 位置集合及各方法的开发选参预算；复杂算法如果搜索更多位置，必须把额外开销和无偏差比较放到独立轨报告。
 - Key editing 和 score bias 统一报告 post-RoPE 的实际 QK score RMS 或残差相对扰动范数；BF16 导致离散化须记录目标/实际值及误差，不声称精确等效。
 - oracle 标签仅作为单独“能力/机制上界”，不能作为真实 A1 或自动来源/可决断判定结果。
@@ -35,7 +35,7 @@
 - 使用相同家族的配对抽样 10,000 次 bootstrap 形成差值区间（固定 seed、记录假设），若家族很少，额外报告适当的家族级符号翻转/置换检验，且显式注明选择/聚类不确定性。
 - 对 N1–N5 **预先声明的五项主假设**使用 Holm 校正（仅对实际达到执行资格的实验，未执行的状态清楚说明）；二级指标与多 seed/多强度敏感性均为探索性，不事后升主指标。
 - 当只有少数可独立统计的机制家族，bootstrap 区间不能作总体有效性或等效性保证；将结论降为探索性。
-- 要判断不劣于简易方法或非目标损伤可接受，需要先预设效应/风险界限；未经预先指定不得把 \`p>0.05\` 解释为“与基线相同”。
+- 要判断不劣于简易方法或非目标损伤可接受，需要先预设效应/风险界限；未经预先指定不得把 `p>0.05` 解释为“与基线相同”。
 
 ## 阶段门槛 / stop-gates
 
@@ -52,7 +52,7 @@
 ## 报告产物契约
 
 每阶段输出：
-\`data_manifest.json\`、\`model_fingerprint.json\`、\`train_fit.json\`、\`dev_selection.json\`、\`test_predictions.jsonl\`、\`per_family.csv\`、\`summary.json\`、\`failure_cases.jsonl\`、\`run_manifest.json\` 和 \`STATUS.md\`。
+`data_manifest.json`、`model_fingerprint.json`、`train_fit.json`、`dev_selection.json`、`test_predictions.jsonl`、`per_family.csv`、`summary.json`、`failure_cases.jsonl`、`run_manifest.json` 和 `STATUS.md`。
 
-\`STATUS.md\` 必须区分 \`data_prepared / cpu_verified / gpu_smoke_passed / gpu_evaluated / blocked / not_run\`；不因脚本可执行就写成 GPU 已跑。保存所有尝试的失败信息、重试次数和污染风险。日志完整和 provenance 成立后才能报告效果。
+`STATUS.md` 必须区分 `data_prepared / cpu_verified / gpu_smoke_passed / gpu_evaluated / blocked / not_run`；不因脚本可执行就写成 GPU 已跑。保存所有尝试的失败信息、重试次数和污染风险。日志完整和 provenance 成立后才能报告效果。
 
