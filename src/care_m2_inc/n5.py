@@ -27,6 +27,7 @@ def build(cases_path: str | Path, gold_path: str | Path, predictions_path: str |
     cases = {row["case_id"]: row for row in read_jsonl(cases_path)}
     gold = {row["case_id"]: row for row in read_jsonl(gold_path)}
     predictions = {row["case_id"]: row for row in read_jsonl(predictions_path)}
+    family_order = {family: index for index, family in enumerate(sorted({row["family_id"] for row in cases.values()}), 1)}
     rows = []
     for case_id in sorted(cases):
         case, label, prediction = cases[case_id], gold.get(case_id), predictions.get(case_id)
@@ -38,9 +39,11 @@ def build(cases_path: str | Path, gold_path: str | Path, predictions_path: str |
         options = case.get("option_map", {})
         if not action or not options:
             raise ValueError(f"No downstream action/options for {case_id}")
+        family_index = family_order[case["family_id"]]
+        split = "train" if family_index <= 6 else "dev" if family_index <= 8 else "test"
         rows.append({"task": "N5", "case_id": case_id, "family_id": case["family_id"],
                      "underlying_mechanism_id": "frozen_A1_new72", "root_case_id": label.get("pair_id", case_id),
-                     "pair_id": label.get("pair_id", case_id), "fact_group_id": case["family_id"], "split": "test",
+                     "pair_id": label.get("pair_id", case_id), "fact_group_id": case["family_id"], "split": split,
                      "prompt_text": case["prompt"], "gold_answer": label["gold_answer"], "gold_action": action,
                      "a1_state": state, "a1_status": status, "a1_signal": SIGNAL_MAP[status],
                      "rule_id": rule_id, "option_map": options, "a1_method_version": "semantic_A1_frozen_PR12",
@@ -58,6 +61,7 @@ def build(cases_path: str | Path, gold_path: str | Path, predictions_path: str |
                 "source_files": {"cases": sha256_file(cases_path), "gold": sha256_file(gold_path), "predictions": sha256_file(predictions_path)},
                 "status_counts": {status: sum(row["a1_status"] == status for row in rows) for status in ("T", "F", "U", "technical_failure")},
                 "eligible_rows": sum(bool(row["eligibility"]) for row in rows),
+                "split_counts": {split: sum(row["split"] == split for row in rows) for split in ("train", "dev", "test")},
                 "selection_rule": "all PR12 new72 rows with exact case/rule/text hashes; no gold-based filtering"}
     write_json(out_dir / "manifest.json", manifest)
     return manifest

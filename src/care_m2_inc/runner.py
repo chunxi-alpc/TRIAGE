@@ -62,7 +62,10 @@ def _target_key(row: dict[str, Any], control: dict[str, Any] | None = None) -> s
     if row["task"] == "N2":
         return "A" if control.get("source") == "C" else "B"
     if row["task"] == "N3":
-        return row["gold_answer"] if control.get("DQ") == row.get("gold_DQ") else ("Q" if control.get("DQ") == "Q" else "A")
+        # D/Q is the externally supplied mechanism bit; the action for D must
+        # still be read from the receiver facts, so direct bias only has a
+        # defined target for the Q branch.
+        return "Q" if control.get("DQ") == "Q" else None
     if row["task"] == "N4":
         if control.get("DQ") == "Q":
             return "Q"
@@ -71,7 +74,7 @@ def _target_key(row: dict[str, Any], control: dict[str, Any] | None = None) -> s
         return control.get("source", "C")
     # N5 is evaluated against the A1 signal.  U/null are kept in the data and
     # evaluated as a no-signal arm rather than silently discarded.
-    return row.get("gold_answer", "D")
+    return {1: "A", -1: "B", 0: "D", None: "D"}.get(row.get("a1_signal"), "D")
 
 
 def _control_for_row(row: dict[str, Any], control_key: str | None = None) -> dict[str, Any]:
@@ -166,9 +169,10 @@ def fit(args) -> int:
         captures.extend(meta)
     tensor_path = out_dir / "route_vectors.pt"
     torch.save({key: value.cpu() for key, value in vectors.items() if value is not None}, tensor_path)
+    fit_forwards = len(captures)
     result = {"schema_version": "care.m2.fit.v1", "experiment": task, "split": "train", "layer": layer,
               "vectors": {key: {"norm": float(value.norm().item()), "dim": int(value.numel())} for key, value in vectors.items() if value is not None},
-              "model": fingerprint, "forward_count": int(model_forward_count(model)), "capture_count": len(captures),
+              "model": fingerprint, "forward_count": fit_forwards, "capture_count": len(captures),
               "train_case_ids": [row["case_id"] for row in rows], "route_vectors": str(tensor_path),
               "created_at": datetime.now(timezone.utc).isoformat()}
     write_json(out_dir / "train_fit.json", result)
@@ -198,7 +202,7 @@ def _score_row(scorer: OptionScorer, row: dict[str, Any], method: str, vectors: 
     if method == "direct_bias":
         target = _target_key(row, control)
         for key in scores:
-            if key == target:
+            if target is not None and key == target:
                 scores[key] += beta
     prediction = max(scores, key=scores.get)
     return {"case_id": row["case_id"], "task": row["task"], "method": method, "prediction": prediction,
@@ -230,9 +234,10 @@ def evaluate_stage(args) -> int:
     write_jsonl(out_dir / "test_predictions.jsonl", predictions)
     summary = summarize(args.experiment, predictions, rows)
     write_json(out_dir / "summary.json", summary)
+    actual_forwards = sum(len(_options(next(row for row in rows if row["case_id"] == item["case_id"]))) for item in predictions)
     write_json(out_dir / "run_manifest.json", {"schema_version": "care.m2.run.v1", "experiment": args.experiment,
               "split": "test", "model": fingerprint, "layer": layer, "beta": beta,
-              "forward_count": len(predictions), "rows": len(rows), "git_commit": args.git_commit,
+              "forward_count": actual_forwards, "prediction_records": len(predictions), "rows": len(rows), "git_commit": args.git_commit,
               "created_at": datetime.now(timezone.utc).isoformat()})
     return 0
 
@@ -276,11 +281,31 @@ def select_stage(args) -> int:
     # beta only; layer and vector family are fixed by fit.
     dev_rows = _rows(data_dir, args.experiment, "dev")
     candidates = [0.0, 0.25, 0.5, 1.0]
-    # The no-model selection record is still valid when no GPU path is given;
-    # evaluate_stage will score the chosen value on the frozen test exactly once.
-    best = {"beta": 0.5, "dev_case_count": len(dev_rows), "selection_rule": "predeclared beta grid; maximize dev row accuracy; ties choose smallest beta", "candidates": candidates}
-    if args.layer is not None:
-        best["layer"] = int(args.layer)
+    best_beta = 0.5
+    candidate_metrics = []
+    if getattr(args, "model", None) and getattr(args, "vectors", None):
+        model, tokenizer, device, fingerprint = load_qwen(args.model, args.device)
+        vectors = _load_vectors(args.vectors)
+        layer = int(args.layer) if args.layer is not None else default_layer(model)
+        for beta in candidates:
+            scorer = OptionScorer(model, tokenizer, device)
+            items = []
+            for row in dev_rows:
+                controls = ({"source": "C"}, {"source": "P"}) if args.experiment == "N2" else (None,)
+                for control in controls:
+                    item = _score_row(scorer, row, "route", vectors, layer, beta, control)
+                    expected = ("A" if control["source"] == "C" else "B") if control else row.get("gold_answer")
+                    items.append(item["prediction"] == expected)
+            metric = sum(items) / len(items) if items else 0.0
+            candidate_metrics.append({"beta": beta, "dev_accuracy": metric, "dev_rows": len(items)})
+        best_beta = sorted(candidate_metrics, key=lambda item: (-item["dev_accuracy"], item["beta"]))[0]["beta"]
+        selection_fingerprint = fingerprint
+    else:
+        selection_fingerprint = None
+    best = {"beta": best_beta, "dev_case_count": len(dev_rows), "selection_rule": "predeclared beta grid; maximize dev row accuracy; ties choose smallest beta", "candidates": candidate_metrics or [{"beta": beta} for beta in candidates]}
+    best["layer"] = int(args.layer) if args.layer is not None else None
+    if selection_fingerprint:
+        best["model"] = selection_fingerprint
     best["methods"] = ["baseline", "text", "direct_bias", "route"]
     write_json(out_dir / "dev_selection.json", best)
     return 0
