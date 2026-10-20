@@ -4,11 +4,14 @@
 
 本目录保存独立实验的代码、协议与结果。当前模块实现及其接口见 `src/`；实验结论按原模型、数据、筛选条件和运行阶段解读。
 
+**后续模块二研究的模块一信号来源已固定为 [语义 A1](care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md)**（不是旧 V6 统一流水线的默认替换）。PR #13 的复核方案和 PR #14 的 U 示例实验仅保留为对照；不把金标或下游正确率用于筛选有信号病例。
+
 ## 当前优先入口
 
 | 方向 | 最新入口 | 样本与模型 | 已存结论 |
 | --- | --- | --- | --- |
 | 模块一 | [CARE V6](care_module1_v6/README.md) | 旧 192 条离线重算；新增 100 条；Phi-4 + TrialMatchAI LoRA、BioLinkBERT-MedNLI | 最终适用性准确率为 78.65% / 73.00%；证据定位仍有限 |
+| 模块一→模块二（研究冻结） | [语义 A1 冻结协议](care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md) | 同一 Phi-4＋LoRA；固定 few-shot，直接判断 T/F/U | 不做置信度门控或完整规则审核；仅以预测可用信号进入模块二，保留全母集统计 |
 | 模块二研究 | [有符号诊断](care_module2_signed_20261019/README.md) | 384 个模拟病例、192 对、12 个规则家族；Qwen3-4B-Base | 尚未建立学习方向优于直接分数偏置的证据 |
 
 模块一指标来自 [V6 指标文件](care_module1_v6/data/v6_metrics.json)。模块二结论来自 [保存结果](care_module2_signed_20261019/results/analysis/README.md)。两者的样本和评价目标不同，不能相互替代或合并为端到端结果。
