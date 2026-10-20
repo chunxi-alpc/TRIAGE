@@ -1,5 +1,7 @@
 # 当前状态
 
+最新附加开发检查：[N3保留均值方向的基底](runs/v4_n3_mean_basis_20261020T151946Z/REPORT.zh.md)。31项CPU测试通过，新增48次开发前向，beta=.5为11/16，mean/旧route为10/16，text为12/16。N2、N5和原测试结果未动；以下仍是原主研究结果。
+
 2026-10-20：候选 token 和 N5 拟合修复完成；22项CPU测试、原oracle/无泄漏检查、672条实际tokenizer边界检查通过。开发与测试阶段均已结束，退出码0。
 
 - S1：gpu_smoke_passed。
