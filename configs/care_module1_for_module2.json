@@ -1,0 +1,45 @@
+{
+  "schema_version": "care.module1_signal_source.v1",
+  "decision": "frozen_for_module2_research",
+  "date": "2026-10-20",
+  "method": "A1",
+  "source_pr": 12,
+  "source_commit": "8fb87d15576b88500f44a88f04799267d9f2b5ee",
+  "base_model": "microsoft/phi-4",
+  "adapter_model": "majdabd33/trialmatchai-phi4-reasoning-lora",
+  "inference_entrypoint": "experiments/care_module1_semantic_v8/semantic_runner.py",
+  "inference_arm": "A1",
+  "prompt_path": "experiments/care_module1_semantic_v8/prompts.py",
+  "prompt_sha256": "540bb328fad2a9574cf11fe28bfe560e965157663164663180834a1c9cd1c0ce",
+  "fixed_examples_path": "experiments/care_module1_semantic_v8/data/fewshot_examples.json",
+  "fixed_examples_sha256": "3fe71cdc1573c69a422c7892491a62fa99dc45ac538509e169c3adeac9fa08a8",
+  "example_count": {
+    "demonstrations": 3,
+    "patient_narratives": 4
+  },
+  "generation": {
+    "batch_size": 8,
+    "max_new_tokens": 384,
+    "do_sample": false,
+    "num_beams": 1,
+    "max_format_retries": 1
+  },
+  "signal_export_entrypoint": "experiments/care_module1_semantic_v8/export_a1_signals.py",
+  "signal_policy": {
+    "T": 1,
+    "F": -1,
+    "U": 0,
+    "technical_failure": null,
+    "eligibility": "At least one predicted T or F and a nonempty action in the original guideline; resolve exact token spans in module-two's final prompt",
+    "selection_uses_gold_labels": false,
+    "selection_uses_module2_effect": false,
+    "retain_full_case_denominator_in_export": true,
+    "confidence_threshold": null,
+    "evidence_gate": false,
+    "nli_gate": false,
+    "rule_proof_gate": false,
+    "retrieval": false
+  },
+  "not_default": ["A0", "A1_U", "A2", "B1", "B2"],
+  "scope": "Research signal source for module two only. Existing src.module1 V6 CLI and legacy pipeline are unchanged and not A1-backed."
+}
