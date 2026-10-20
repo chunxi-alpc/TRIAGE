@@ -47,3 +47,18 @@
 - 实验是模拟机制研究；历史医学任务是探索性合成和特定来源数据，不代表临床有效性。
 - **学习可解码方向、算子真的改变注意力、方法优于简单基线、真实 A1 端到端提升**是四个不同证据层级，不得相互替代。
 
+
+## 当前有效入口：v2（2026-10-20 接手修复）
+
+v1 的数据/算子问题及修复预登记见 `reports/v2_preflight/REPAIR_AND_FREEZE.zh.md`。
+v1 GPU CLI 已禁用；原结果只作为失败日志，不是 N1 门槛结果。
+CPU 已通过的新数据在 `data_v2_ready/`；模型实验必须使用 `python -m care_m2_v2.cli`。
+运行示例（仅授权服务器，在 gcx261014 环境）：
+
+```bash
+export PYTHONPATH=src CUDA_VISIBLE_DEVICES=0
+python -m care_m2_v2.cli run --data experiments/care_module2_incremental_20261020/data_v2_ready --out experiments/care_module2_incremental_20261020/runs/UNIQUE_RUN_ID --push
+```
+
+`run` 按 S1→N1→N2→N3→N4（门槛）→N5 执行，逐阶段提交同一分支。
+各阶段的 `STATUS.md`、原始 journal、summary、逐例结果为实际状态依据；启动并不代表已完成。

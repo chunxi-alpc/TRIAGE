@@ -169,6 +169,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.command in {"fit", "select", "evaluate"} or (args.command == "smoke" and getattr(args,"model",None)):
+        raise RuntimeError("v1 GPU runner withdrawn: invalid option prompts and output-logit bias. Use python -m care_m2_v2.cli; preserve v1 outputs as failed attempts.")
     return int(args.func(args))
 
 
