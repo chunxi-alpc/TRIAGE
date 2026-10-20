@@ -1,0 +1,123 @@
+{
+  "manifest": {
+    "file_sha256": {
+      "N1/inputs.jsonl": "70c873573001c4131502ff5a672577f5fca39ff35eec29337da348f57d832042",
+      "N1/labels.jsonl": "6da7c295d4cea9bd8b0f15c639015ca8d72a4b9185c92ccde1bd22396014af34",
+      "N1/splits.jsonl": "9357e1b28d6c0d482273c56604feb3cf10658bb4ec70865ee65e1bd34fb3b2fe",
+      "N2/inputs.jsonl": "caaca42c5d494b9affa4c13cd86a09b9932e786d8dd62110fc129d078d3114ae",
+      "N2/labels.jsonl": "7c9a7839b9c549fb4861f7691c3cccafb8fdd233a2f860946b3a66264371be0e",
+      "N2/splits.jsonl": "e6f15d69a3714840b17ffa71b2ee17a1cb5fa1d6c5541c538e71defea6b8ac4b",
+      "N3/inputs.jsonl": "822e47b9c248cde01277be33582794ba5a091af826190ea2d7c924d6f6e0aa12",
+      "N3/labels.jsonl": "92935527f05ed190128e851c27dc44a7ebda8b5ae1d6f9544511c54204bb0acc",
+      "N3/splits.jsonl": "42591ee8fd55e9ab18482c9e6126e42dc7a946e0849f64804bebf2ee10378f9e",
+      "N4/inputs.jsonl": "f12c03ae0fa972c54b061d5d8c755b56c06b5f335c0e1238a6feb3f9a59848da",
+      "N4/labels.jsonl": "6c76fce036fdc1e2a11efaae6ad68f29d1fd5f3af35d2ae62a8c3f489e28da9f",
+      "N4/splits.jsonl": "ce5f83f543acca776bb3a6cdd250ebf94190565cc20d75348d534cd58e5326ac"
+    },
+    "files": [
+      "N1/inputs.jsonl",
+      "N1/labels.jsonl",
+      "N1/splits.jsonl",
+      "N2/inputs.jsonl",
+      "N2/labels.jsonl",
+      "N2/splits.jsonl",
+      "N3/inputs.jsonl",
+      "N3/labels.jsonl",
+      "N3/splits.jsonl",
+      "N4/inputs.jsonl",
+      "N4/labels.jsonl",
+      "N4/splits.jsonl"
+    ],
+    "generator": "care_m2_inc.generate",
+    "prompt_policy": {
+      "control_target_scorer_only": true,
+      "gold_fields_excluded": true
+    },
+    "schema_version": "care.m2.incremental.data.v1",
+    "seed": 261014,
+    "tasks": {
+      "N1": {
+        "families": 24,
+        "rows": 96,
+        "splits": {
+          "dev": 16,
+          "test": 32,
+          "train": 48
+        }
+      },
+      "N2": {
+        "families": 12,
+        "rows": 12,
+        "splits": {
+          "dev": 2,
+          "test": 4,
+          "train": 6
+        }
+      },
+      "N3": {
+        "families": 24,
+        "rows": 59,
+        "splits": {
+          "dev": 10,
+          "test": 24,
+          "train": 25
+        }
+      },
+      "N4": {
+        "families": 8,
+        "rows": 128,
+        "splits": {
+          "dev": 32,
+          "test": 64,
+          "train": 32
+        }
+      }
+    }
+  },
+  "schema_version": "care.m2.leakcheck.v1",
+  "tasks": {
+    "N1": {
+      "checks": {
+        "four_cell_blocks": true,
+        "r_a_cell_balance": true
+      },
+      "families": 24,
+      "overlaps": [],
+      "rows": 96,
+      "valid": true
+    },
+    "N2": {
+      "checks": {
+        "neutral_receiver_prompt": true,
+        "receiver_donor_separation": true,
+        "synthetic_p_track_labeled": true
+      },
+      "families": 12,
+      "overlaps": [],
+      "rows": 12,
+      "valid": true
+    },
+    "N3": {
+      "checks": {
+        "both_dq": true,
+        "exhaustive_dq": true
+      },
+      "families": 24,
+      "overlaps": [],
+      "rows": 59,
+      "valid": true
+    },
+    "N4": {
+      "checks": {
+        "order_invariant": true,
+        "sixteen_cell_blocks": true
+      },
+      "families": 8,
+      "overlaps": [],
+      "rows": 128,
+      "valid": true
+    }
+  },
+  "valid": true,
+  "violations": []
+}
