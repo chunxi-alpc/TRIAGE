@@ -38,8 +38,12 @@ def cmd_verify(args: argparse.Namespace) -> int:
 
 def cmd_smoke(args: argparse.Namespace) -> int:
     """CPU contract smoke; model smoke is implemented in model.py when a path is supplied."""
-    from .smoke import cpu_contract_smoke
-    result = cpu_contract_smoke(_default_data(args.config, None))
+    if args.model:
+        from .gpu_smoke import run
+        result = run(args.model, _default_data(args.config, None), args.out, args.device)
+    else:
+        from .smoke import cpu_contract_smoke
+        result = cpu_contract_smoke(_default_data(args.config, None))
     if args.out:
         write_json(args.out, result)
     print(json.dumps(result, ensure_ascii=False, indent=2))
@@ -114,6 +118,8 @@ def build_parser() -> argparse.ArgumentParser:
     p = sub.add_parser("smoke")
     p.add_argument("--config")
     p.add_argument("--out")
+    p.add_argument("--model")
+    p.add_argument("--device", default="cuda")
     p.set_defaults(func=cmd_smoke)
     p = sub.add_parser("n5-join")
     p.add_argument("--cases", required=True)

@@ -50,7 +50,7 @@ def _output_hidden(output: Any) -> torch.Tensor:
 @contextmanager
 def residual_intervention(model: Any, intervention: Intervention, token_position: int):
     """Add a residual vector at exactly the final prompt token."""
-    if intervention.vector is None or intervention.layer is None or intervention.scale == 0:
+    if intervention.vector is None or intervention.layer is None:
         yield {"changed_l1": 0.0, "target_position": token_position, "layer": intervention.layer}
         return
     layers = _layers(model)
