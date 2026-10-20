@@ -52,6 +52,7 @@ def build(cases_path: str | Path, gold_path: str | Path, predictions_path: str |
     out_dir.mkdir(parents=True, exist_ok=True)
     write_jsonl(out_dir / "inputs.jsonl", [{k: v for k, v in row.items() if not k.startswith("gold_")} for row in rows])
     write_jsonl(out_dir / "labels.jsonl", [{k: v for k, v in row.items() if k.startswith("gold_")} for row in rows])
+    write_jsonl(out_dir / "splits.jsonl", [{k: row[k] for k in ("case_id", "family_id", "underlying_mechanism_id", "root_case_id", "pair_id", "fact_group_id", "split")} for row in rows])
     manifest = {"schema_version": "care.m2.n5.join.v1", "rows": len(rows),
                 "source_commit": rows[0]["source_commit"] if rows else None,
                 "source_files": {"cases": sha256_file(cases_path), "gold": sha256_file(gold_path), "predictions": sha256_file(predictions_path)},

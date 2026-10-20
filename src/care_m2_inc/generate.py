@@ -107,7 +107,9 @@ def _n2_records() -> list[dict[str, Any]]:
     rows = []
     routes = [("Cedar", "Maple"), ("Quartz", "Willow"), ("Amber", "Slate"), ("Birch", "Coral"),
               ("Dawn", "Frost"), ("Elm", "Grove"), ("Harbor", "Ivory"), ("Jade", "Linen"),
-              ("Mica", "Navy"), ("Olive", "Pine"), ("Rose", "Stone"), ("Teal", "Umber")]
+              ("Mica", "Navy"), ("Olive", "Pine"), ("Rose", "Stone"), ("Teal", "Umber"),
+              ("Aster", "Basil"), ("Cobalt", "Denim"), ("Flint", "Glacier"), ("Hazel", "Indigo"),
+              ("Kelp", "Larch"), ("Moss", "Nimbus")]
     for index, (c_route, p_route) in enumerate(routes, 1):
         fact_group = f"n2_fact_{index:02d}"
         receiver = f"receiver_{index:02d}"
@@ -117,7 +119,7 @@ def _n2_records() -> list[dict[str, Any]]:
                   f"Context note: the current record states that the recommended route is {c_route}.\n"
                   f"Question: A separate closed-book record may contain a different route. Which route follows for this record?\n"
                   "Answer with A or B; do not explain.")
-        split = "train" if index <= 6 else "dev" if index <= 8 else "test"
+        split = "train" if index <= 6 else "dev" if index <= 10 else "test"
         rows.append({"task": "N2", "case_id": receiver, "receiver_id": receiver, "donor_id": donor,
                      "family_id": f"n2_family_{index:02d}", "underlying_mechanism_id": f"source_pair_{index:02d}",
                      "root_case_id": receiver, "pair_id": receiver, "fact_group_id": fact_group, "split": split,
@@ -125,6 +127,7 @@ def _n2_records() -> list[dict[str, Any]]:
                      "gold_source_answer_C": c_route, "gold_source_answer_P": p_route,
                      "gold_answer": "A", "control_target": {"source": "C"},
                      "source_context": c_route, "source_parametric": p_route,
+                     "domain": ["laboratory", "authorization", "scheduling", "inventory"][index % 4],
                      "track": "synthetic_prior", "p_verified": False, "origin_dataset": "care_m2_n2_generated_v1",
                      "options": {"A": c_route, "B": p_route}})
     return rows

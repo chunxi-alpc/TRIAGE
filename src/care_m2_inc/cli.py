@@ -71,6 +71,38 @@ def cmd_environment(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_fit(args: argparse.Namespace) -> int:
+    from .runner import fit
+    return fit(args)
+
+
+def cmd_select(args: argparse.Namespace) -> int:
+    from .runner import select_stage
+    return select_stage(args)
+
+
+def cmd_evaluate(args: argparse.Namespace) -> int:
+    from .runner import evaluate_stage
+    return evaluate_stage(args)
+
+
+def cmd_analyze(args: argparse.Namespace) -> int:
+    from .io import read_jsonl, read_json, write_json
+    from .runner import summarize
+    predictions = read_jsonl(Path(args.run) / "test_predictions.jsonl")
+    task = args.experiment
+    data = Path(args.data)
+    rows = []
+    inputs = read_jsonl(data / task / "inputs.jsonl")
+    labels = read_jsonl(data / task / "labels.jsonl")
+    splits = read_jsonl(data / task / "splits.jsonl")
+    rows = [{**i, **label, **split} for i, label, split in zip(inputs, labels, splits) if split["split"] == "test"]
+    result = summarize(task, predictions, rows)
+    write_json(Path(args.run) / "analysis.json", result)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="care_m2_inc", description="CARE module-two incremental N1--N5 runner")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -91,6 +123,35 @@ def build_parser() -> argparse.ArgumentParser:
     p.set_defaults(func=cmd_n5_join)
     p = sub.add_parser("environment")
     p.set_defaults(func=cmd_environment)
+    p = sub.add_parser("fit")
+    p.add_argument("--experiment", choices=("N1", "N2", "N3", "N5"), required=True)
+    p.add_argument("--data", required=True)
+    p.add_argument("--model", required=True)
+    p.add_argument("--out", required=True)
+    p.add_argument("--device", default="cuda")
+    p.add_argument("--layer", type=int)
+    p.set_defaults(func=cmd_fit)
+    p = sub.add_parser("select")
+    p.add_argument("--experiment", choices=("N1", "N2", "N3", "N4", "N5"), required=True)
+    p.add_argument("--data", required=True)
+    p.add_argument("--out", required=True)
+    p.add_argument("--layer", type=int)
+    p.set_defaults(func=cmd_select)
+    p = sub.add_parser("evaluate")
+    p.add_argument("--experiment", choices=("N1", "N2", "N3", "N4", "N5"), required=True)
+    p.add_argument("--data", required=True)
+    p.add_argument("--model", required=True)
+    p.add_argument("--out", required=True)
+    p.add_argument("--vectors")
+    p.add_argument("--selection")
+    p.add_argument("--device", default="cuda")
+    p.add_argument("--git-commit", default="unknown")
+    p.set_defaults(func=cmd_evaluate)
+    p = sub.add_parser("analyze")
+    p.add_argument("--experiment", choices=("N1", "N2", "N3", "N4", "N5"), required=True)
+    p.add_argument("--data", required=True)
+    p.add_argument("--run", required=True)
+    p.set_defaults(func=cmd_analyze)
     return parser
 
 
