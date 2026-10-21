@@ -51,6 +51,9 @@ def validate_policy(policy):
         raise ValueError('rule ids and priority order must be unique')
     if not isinstance(policy.get('default_action'),str) or not policy['default_action']:
         raise ValueError('explicit default_action required')
+    askable=policy.get('askable_atoms',atoms)
+    if not isinstance(askable,list) or len(set(askable))!=len(askable) or not set(askable).issubset(set(atoms)) or any(not isinstance(x,str) for x in askable):
+        raise ValueError('askable_atoms must be a unique subset of atoms')
     constraints=policy.get('constraints',[])
     if not isinstance(constraints,list):raise ValueError('constraints must be list')
     for c in constraints:_expression(c,probe)
@@ -110,7 +113,7 @@ def feasible_worlds(policy, observations, rule_label_sets):
 def _question_rank(worlds,policy,observations,possible_actions):
     candidate=[];all_n=len(worlds)
     if not all_n:return []
-    for attr in policy['atoms']:
+    for attr in policy.get('askable_atoms',policy['atoms']):
         if observations.get(attr) in ('T','F'):continue
         partition={False:[],True:[]}
         for w in worlds:partition[w[attr]].append(w)

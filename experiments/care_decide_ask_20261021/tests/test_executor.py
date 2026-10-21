@@ -56,6 +56,19 @@ class ExecutionTests(unittest.TestCase):
         p=policy();p['rules'][1]['priority']=0
         with self.assertRaises(ValueError):decide_or_ask(p,{},self.full)
 
+    def test_unanswerable_attributes_trigger_review_instead_of_fake_question(self):
+        p=policy();p['askable_atoms']=['clearance','archive_ok']
+        row={'eligible':'U','clearance':'T','exception':'F','archive_ok':'T'}
+        result=decide_or_ask(p,row,self.full)
+        self.assertEqual(result['status'],'REVIEW')
+        self.assertEqual(result['reason'],'multiple_actions_but_no_answerable_single_attribute')
+
+    def test_restrict_questions_to_answerable_attributes(self):
+        p=policy();p['askable_atoms']=['eligible','archive_ok']
+        row={'eligible':'U','clearance':'T','exception':'F','archive_ok':'U'}
+        result=decide_or_ask(p,row,self.full)
+        self.assertEqual((result['status'],result['ask_attribute']),('ASK','eligible'))
+
     def test_no_empty_constraint_silent_answer(self):
         p=policy();p['constraints']=[{'and':[{'atom':'exception'}, {'not':{'atom':'exception'}}]}]
         self.assertEqual(decide_or_ask(p,{},self.full)['status'],'REVIEW')
