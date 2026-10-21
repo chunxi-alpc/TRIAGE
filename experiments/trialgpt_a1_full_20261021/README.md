@@ -1,6 +1,6 @@
 # TrialGPT 全量专家标签评估：冻结模块一 A1
 
-**当前状态：官方数据已核验、CPU 验证通过，尚未报告 GPU 完成。** 仅在确认 MedGUIDE PR #19 原远端进程和所有子进程已经终止后才能启动。
+**当前状态：GPU 0/1/2/3 已稳定运行，核验时返回 96/1,014 条请求；全量尚未完成，已停止监控。** 仅在确认 MedGUIDE PR #19 原远端进程和所有子进程已经终止后才能启动。
 
 ## 数据来源和任务
 
@@ -61,3 +61,5 @@ prepare 下载官方 Parquet，记录精确数据集 SHA、文件 SHA、真实�
     nohup bash experiments/trialgpt_a1_full_20261021/run.sh > experiments/trialgpt_a1_full_20261021/private/launcher.log 2>&1 < /dev/null &
 
 脚本完成后自动评分并写入 results/，不会自动提交或推送。断线不影响运行；重启通过原 runner 已有 case_id 跳过已返回记录。执行前检查原任务已经退出，不能同时启动重复实例。当前真实完成度以 private/a1_*/manifest.json、private/exit_status.txt 及 results/summary.json 为准。
+
+首批稳定性核验见 startup_verified.json，启动源提交见 launch.json。核验时每卡显存约 18.5–19.3 GiB；这是启动阶段观测值，不是全程峰值。评估结束后生成全部指标，当前未报告最终准确率或 F1。
