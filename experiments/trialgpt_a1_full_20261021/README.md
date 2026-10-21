@@ -63,3 +63,7 @@ prepare 下载官方 Parquet，记录精确数据集 SHA、文件 SHA、真实�
 脚本完成后自动评分并写入 results/，不会自动提交或推送。断线不影响运行；重启通过原 runner 已有 case_id 跳过已返回记录。执行前检查原任务已经退出，不能同时启动重复实例。当前真实完成度以 private/a1_*/manifest.json、private/exit_status.txt 及 results/summary.json 为准。
 
 首批稳定性核验见 startup_verified.json，启动源提交见 launch.json。核验时每卡显存约 18.5–19.3 GiB；这是启动阶段观测值，不是全程峰值。评估结束后生成全部指标，最终指标现已写入 results/REPORT.zh.md；startup_verified.json 与 launch.json 保留为历史启动记录。
+
+## U 分歧逐条分析
+
+已对全部124条专家U、A1预测T/F的分歧逐条复核：明确A1判断错误90条（72.58%），标签定义或上下文差异16条（12.90%），无法确定18条（14.52%）。这是Codex事后文本复核，不是独立专家裁定或新金标；原始标签、预测和全量评分保持不变。详见 [逐条报告](analysis/U_ERROR_REVIEW.zh.md)、[124条复核记录](analysis/u_error_review.jsonl) 和 [汇总](analysis/u_error_review_summary.json)。
