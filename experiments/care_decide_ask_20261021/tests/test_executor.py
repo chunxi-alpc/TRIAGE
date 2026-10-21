@@ -69,6 +69,13 @@ class ExecutionTests(unittest.TestCase):
         result=decide_or_ask(p,row,self.full)
         self.assertEqual((result['status'],result['ask_attribute']),('ASK','eligible'))
 
+    def test_default_manual_review_is_not_counted_as_automatic_decision(self):
+        p={'atoms':['eligible'],'rules':[{'rule_id':'R','priority':0,'when':{'atom':'eligible'},'action':'APPROVE'}],
+           'default_action':'REVIEW'}
+        result=decide_or_ask(p,{'eligible':'F'},{'R':['T','F','U']})
+        self.assertEqual((result['status'],result['action'],result['reason']),
+                         ('REVIEW',None,'policy_requires_manual_review'))
+
     def test_no_empty_constraint_silent_answer(self):
         p=policy();p['constraints']=[{'and':[{'atom':'exception'}, {'not':{'atom':'exception'}}]}]
         self.assertEqual(decide_or_ask(p,{},self.full)['status'],'REVIEW')

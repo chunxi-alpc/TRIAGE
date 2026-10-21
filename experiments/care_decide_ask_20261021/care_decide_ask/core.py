@@ -54,6 +54,9 @@ def validate_policy(policy):
     askable=policy.get('askable_atoms',atoms)
     if not isinstance(askable,list) or len(set(askable))!=len(askable) or not set(askable).issubset(set(atoms)) or any(not isinstance(x,str) for x in askable):
         raise ValueError('askable_atoms must be a unique subset of atoms')
+    review_actions=policy.get('review_actions',['REVIEW'])
+    if not isinstance(review_actions,list) or len(set(review_actions))!=len(review_actions) or any(not isinstance(x,str) or not x for x in review_actions):
+        raise ValueError('review_actions must be unique, nonempty strings in a list')
     constraints=policy.get('constraints',[])
     if not isinstance(constraints,list):raise ValueError('constraints must be list')
     for c in constraints:_expression(c,probe)
@@ -143,6 +146,10 @@ def decide_or_ask(policy,observations,rule_label_sets,*,assurance='uncalibrated'
                 'possible_actions':[],'world_count':0,'assurance':assurance}
     actions=sorted({action_in_world(policy,w) for w in worlds})
     if len(actions)==1:
+        if actions[0] in policy.get('review_actions',['REVIEW']):
+            return {'status':'REVIEW','action':None,'ask_attribute':None,
+                    'reason':'policy_requires_manual_review','possible_actions':actions,
+                    'world_count':len(worlds),'assurance':assurance}
         return {'status':'DECIDE','action':actions[0],'ask_attribute':None,
                 'reason':'all_admissible_completions_agree',
                 'possible_actions':actions,'world_count':len(worlds),'assurance':assurance}
