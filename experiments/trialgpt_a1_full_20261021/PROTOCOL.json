@@ -1,0 +1,31 @@
+{
+  "schema_version": "care.trialgpt.a1.full.v1",
+  "status": "prepared_not_executed",
+  "source_pr12_commit": "8fb87d15576b88500f44a88f04799267d9f2b5ee",
+  "dataset": "ncbi/TrialGPT-Criterion-Annotations",
+  "split": "train",
+  "expected_rows": 1015,
+  "expected_patients": 53,
+  "expected_trials": 103,
+  "a1_runner": "experiments/care_module1_semantic_v8/semantic_runner.py",
+  "a1_unchanged": true,
+  "training": false,
+  "evaluator": "criterion-level expert eligibility projection; not native six-label accuracy",
+  "unscorable_label": "not applicable",
+  "map": {
+    "inclusion/included": "T",
+    "inclusion/not included": "F",
+    "exclusion/excluded": "T",
+    "exclusion/not excluded": "F",
+    "inclusion/not enough information": "U",
+    "exclusion/not enough information": "U",
+    "inclusion/not applicable": null,
+    "exclusion/not applicable": null
+  },
+  "keep_all_rows": true,
+  "grouping": [
+    "patient_id",
+    "trial_id"
+  ],
+  "run_only_after_stop_pr19": true
+}
