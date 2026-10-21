@@ -35,7 +35,7 @@ TrialGPT 的原生六类不能无损等同 A1 的三类。预注册映射：
     ps -eo pid,ppid,pgid,args | grep '[m]edguide_full_20261021'
     nvidia-smi
 
-确认旧进程为零后，在仓库根目录：
+本分支包含 stop_medguide.py：在服务器先执行 python experiments/trialgpt_a1_full_20261021/stop_medguide.py（只读预览），核对 PID，再由有权限的 Codex 执行同一命令加 --execute；该脚本只按旧项目路径定位进程，保留所有历史日志。确认旧进程为零后，在仓库根目录：
 
     source /home/gcx/gcx261014/bin/activate
     export PYTHONPATH=/home/gcx/care_steering_20261019/.deps

@@ -188,6 +188,15 @@ def main():
         file = Path(hf_hub_download(repo_id=REPO_ID, repo_type="dataset",
                                     revision=rev, filename=PARQUET_FILE))
         source = {"revision": rev, "parquet_sha256": sha256(file)}
+    existing_manifest = args.out / "dataset_manifest.json"
+    if existing_manifest.exists():
+        old = json.loads(existing_manifest.read_text())
+        for key in ("revision", "parquet_sha256"):
+            if old.get(key) != source.get(key):
+                raise RuntimeError("Dataset already frozen; cannot resume using a new source revision")
+        for filename, h in old.get("file_sha256", {}).items():
+            if not (args.out / filename).is_file() or sha256(args.out / filename) != h:
+                raise RuntimeError("Frozen local TrialGPT input or labels changed: " + filename)
     import pandas as pd
     df = pd.read_parquet(file)
     manifest = prepare_dataframe(df, args.out, source)
