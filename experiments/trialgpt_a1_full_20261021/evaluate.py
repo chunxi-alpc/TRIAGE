@@ -80,23 +80,35 @@ def cluster_bootstrap(rows, field, replicates=10000, seed=20261021):
     grouped = collections.defaultdict(list)
     for row in rows:
         if row["mapped_gold"] in CLASSES:
-            grouped[row[field]].append(int(row["prediction"] == row["mapped_gold"]))
+            grouped[row[field]].append(row)
     keys = sorted(grouped)
     if not keys:
-        return {"clusters": 0, "ci95": [None, None]}
+        return {"clusters": 0, "ci95": [None, None], "macro_f1_ci95": [None, None]}
+    matrices = []
+    for key in keys:
+        c = class_metrics(grouped[key])["confusion"]
+        matrices.append([c[g][p] for g in CLASSES for p in PRED_CLASSES])
     rng = random.Random(seed)
-    totals = {k: (sum(v), len(v)) for k, v in grouped.items()}
-    samples = []
+    accuracies, f1s = [], []
     for _ in range(replicates):
-        picked = [totals[rng.choice(keys)] for _ in keys]
-        denominator = sum(n for c, n in picked)
-        if denominator:
-            samples.append(sum(c for c, n in picked) / denominator)
-    samples.sort()
-    lo = samples[int(0.025 * (len(samples) - 1))]
-    hi = samples[int(0.975 * (len(samples) - 1))]
-    return {"clusters": len(keys), "bootstrap": len(samples), "seed": seed,
-            "ci95": [lo, hi]}
+        c = [0] * 12
+        for _ in keys:
+            m = rng.choice(matrices)
+            for j in range(12):
+                c[j] += m[j]
+        accuracies.append(sum(c[i*4+i] for i in range(3)) / sum(c))
+        f = []
+        for i in range(3):
+            tp = c[i*4+i]
+            den = sum(c[i*4:i*4+4]) + sum(c[g*4+i] for g in range(3))
+            f.append(2*tp/den if den else 0.)
+        f1s.append(sum(f)/3)
+    def interval(values):
+        values.sort()
+        return [values[int(q*(len(values)-1))] for q in (0.025, 0.975)]
+    return {"clusters": len(keys), "bootstrap": replicates, "seed": seed,
+            "ci95": interval(accuracies), "macro_f1_ci95": interval(f1s),
+            "method": "separate one-way cluster bootstrap; patient and trial intervals are not joint two-way intervals"}
 
 
 def evaluate(labels, pred_records, source_manifest):
@@ -126,6 +138,12 @@ def evaluate(labels, pred_records, source_manifest):
             "mapped_gold": g, "prediction": prediction,
             "correct": prediction == g if g is not None else None,
             "source_input_valid": lab["valid_input"],
+            "outcome": ("invalid_input" if not lab["valid_input"] else
+                        "missing_prediction" if cid not in by_id else
+                        "parse_failure" if by_id[cid].get("status") == "parse_failure" else
+                        "invalid_output" if prediction == "ERROR" else "valid"),
+            "mapping_status": ("not_applicable" if lab["expert_eligibility"] == "not applicable" else
+                               "unmapped" if g is None else "mapped"),
         })
     eligible = [x for x in derived if x["mapped_gold"] in CLASSES]
     core = class_metrics(eligible)
@@ -144,7 +162,17 @@ def evaluate(labels, pred_records, source_manifest):
         "a1_prediction_rows": len(by_id),
         "official_rows_without_prediction": sum(x["case_id"] not in by_id for x in derived),
         "expert_native_labels": dict(collections.Counter(x["expert_eligibility"] for x in derived)),
-        "unmapped_not_applicable": sum(x["mapped_gold"] is None for x in derived),
+        "unmapped_not_applicable": sum(x["mapping_status"] == "not_applicable" for x in derived),
+        "unmapped_other": sum(x["mapping_status"] == "unmapped" for x in derived),
+        "outcomes": dict(collections.Counter(x["outcome"] for x in derived)),
+        "native_label_by_a1_state": {
+            g: {p: sum(x["expert_eligibility"] == g and x["prediction"] == p for x in derived)
+                for p in PRED_CLASSES}
+            for g in sorted({x["expert_eligibility"] for x in derived})},
+        "by_native_label": grouped_stats(derived, "expert_eligibility"),
+        "not_excluded_without_expert_evidence": class_metrics([
+            x for x in derived if x["expert_eligibility"] == "not excluded"
+            and x["evidence_present"] is False and x["mapped_gold"] in CLASSES]),
         "mapped_population": len(eligible),
         "mapping_coverage_of_all_rows": len(eligible) / COUNT,
         "valid_model_state": sum(x["prediction"] in CLASSES for x in derived),
@@ -163,6 +191,9 @@ def evaluate(labels, pred_records, source_manifest):
             "Frozen PR12 A1 prompt describes invented routing simulation; this is domain transfer.",
             "One criterion per input differs from historical three-rule A1 prompts.",
             "The 1015 rows reuse only 53 patient notes and 103 clinical trials.",
+            "One official empty criterion is retained as invalid_input, without a fabricated model request.",
+            "No training here does not establish absence of these data from base-model or adapter training.",
+            "Separate patient and trial cluster intervals do not jointly account for crossed clustering.",
             "No score threshold or hyperparameter selected on expert labels.",
         ],
     }
@@ -185,6 +216,8 @@ def write_results(out, summary, rows):
             "mapped_gold": row["mapped_gold"],
             "predicted_a1_state": row["prediction"],
             "correct": row["correct"],
+            "outcome": row["outcome"],
+            "mapping_status": row["mapping_status"],
         })
     with (out / "predictions.jsonl").open("w", encoding="utf-8") as f:
         for x in public_rows:

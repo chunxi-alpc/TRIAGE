@@ -57,6 +57,9 @@ def check_frozen_a1(root=ROOT):
     if original.returncode:
         raise RuntimeError("PR12 source commit unavailable; fetch the exact immutable commit first")
     assert runner.read_bytes() == original.stdout, "runner differs from frozen PR12"
+    for rel in ("src/module1/care_v6.py", config["prompt_path"], config["fixed_examples_path"]):
+        expected = subprocess.check_output(["git", "show", SOURCE_COMMIT + ":" + rel], cwd=root)
+        assert (root / rel).read_bytes() == expected, "Frozen dependency changed: " + rel
     return {"source_commit": SOURCE_COMMIT,
             "prompt_sha256": config["prompt_sha256"],
             "fewshot_sha256": config["fixed_examples_sha256"],
@@ -89,8 +92,6 @@ def records_to_inputs_and_labels(records):
         ids.add(rid)
         t = canonical(r["criterion_type"]).lower()
         g = canonical(r["expert_eligibility"]).lower()
-        if (t, g) not in LABEL_MAP:
-            raise ValueError("unexpected official eligibility label: " + repr((t, g)))
         patient, criterion = canonical(r["note"]), canonical(r["criterion_text"])
         valid = bool(patient and criterion)
         cid = "trialgpt_%05d" % rid
@@ -107,7 +108,7 @@ def records_to_inputs_and_labels(records):
             "trial_id": canonical(r["trial_id"]),
             "criterion_type": t,
             "expert_eligibility": g,
-            "mapped_gold": LABEL_MAP[(t, g)],
+            "mapped_gold": LABEL_MAP.get((t, g)),
             "training_flag": bool(r["training"]),
             "evidence_present": evidence_present(r.get("expert_sentences")),
             "valid_input": valid,
@@ -150,7 +151,8 @@ def prepare_dataframe(dataframe, out, source):
         "expert_records": COUNT, "model_input_records": len(inputs),
         "technical_invalid_input": COUNT - len(inputs),
         "mapped_label_records": sum(r["mapped_gold"] is not None for r in labels),
-        "unmapped_not_applicable_records": sum(r["mapped_gold"] is None for r in labels),
+        "unmapped_not_applicable_records": sum(r["expert_eligibility"] == "not applicable" for r in labels),
+        "unmapped_other_records": sum(r["mapped_gold"] is None and r["expert_eligibility"] != "not applicable" for r in labels),
         "patients": len({r["patient_id"] for r in labels}),
         "trials": len({r["trial_id"] for r in labels}),
         "expert_native_labels": counts,
@@ -170,7 +172,7 @@ def prepare_dataframe(dataframe, out, source):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--local-parquet", type=Path)
-    p.add_argument("--revision", default="main",
+    p.add_argument("--revision", default="1cfcafde94a1560a33b4addc1638664fe28fc059",
                    help="Hugging Face dataset revision, resolved and pinned to commit SHA")
     p.add_argument("--out", type=Path, default=HERE / "private")
     args = p.parse_args()
@@ -197,6 +199,9 @@ def main():
         for filename, h in old.get("file_sha256", {}).items():
             if not (args.out / filename).is_file() or sha256(args.out / filename) != h:
                 raise RuntimeError("Frozen local TrialGPT input or labels changed: " + filename)
+        assert old["frozen_a1"] == frozen, "A1 freeze changed"
+        print(json.dumps({"status": "existing_freeze_verified", "expert_records": old["expert_records"]}))
+        return
     import pandas as pd
     df = pd.read_parquet(file)
     manifest = prepare_dataframe(df, args.out, source)

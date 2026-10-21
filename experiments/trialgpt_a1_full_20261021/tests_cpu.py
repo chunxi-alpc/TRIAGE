@@ -43,8 +43,8 @@ class DatasetTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             records_to_inputs_and_labels([rec(1,"inclusion","included"),
                                           rec(1,"exclusion","excluded")])
-        with self.assertRaises(ValueError):
-            records_to_inputs_and_labels([rec(1,"inclusion","not excluded")])
+        _, labels = records_to_inputs_and_labels([rec(1,"inclusion","not excluded")])
+        self.assertIsNone(labels[0]["mapped_gold"])
 
     def test_a1_parser_and_failure_denominator(self):
         a={"status":"ok","rules":[{"rule_id":"R_CRITERION","state":"U"}]}
@@ -58,12 +58,48 @@ class DatasetTests(unittest.TestCase):
         self.assertEqual((score["correct"],score["total"]),(1,3))
         self.assertEqual(score["confusion"]["F"]["ERROR"],1)
 
+    def test_empty_criterion_retained(self):
+        r = rec(883, "exclusion", "not excluded")
+        r["criterion_text"] = ""
+        inputs, labels = records_to_inputs_and_labels([r])
+        self.assertEqual(inputs, [])
+        self.assertEqual(len(labels), 1)
+        self.assertEqual(labels[0]["mapped_gold"], "F")
+        self.assertFalse(labels[0]["valid_input"])
+
+    def test_full_population_and_failure_categories(self):
+        from unittest.mock import patch
+        from evaluate import evaluate
+        samples = [rec(i, "inclusion", "included") for i in range(1015)]
+        samples[0]["criterion_text"] = ""
+        samples[1]["expert_eligibility"] = "not applicable"
+        samples[2]["expert_eligibility"] = "unknown"
+        _, labels = records_to_inputs_and_labels(samples)
+        preds = [{"case_id": x["case_id"], "status": "ok",
+                  "rules": [{"rule_id": "R_CRITERION", "state": "T"}]}
+                 for x in labels if x["valid_input"]]
+        preds[2]["status"] = "parse_failure"
+        manifest = {"source_dataset": "test_fixture", "revision": "test", "parquet_sha256": "test"}
+        with patch("evaluate.cluster_bootstrap", return_value={}):
+            summary, rows = evaluate(labels, preds, manifest)
+            self.assertEqual(summary["status"], "complete")
+            self.assertEqual(len(rows), 1015)
+            self.assertEqual(summary["mapped_population"], 1013)
+            self.assertEqual(summary["unmapped_not_applicable"], 1)
+            self.assertEqual(summary["unmapped_other"], 1)
+            self.assertEqual(summary["outcomes"]["invalid_input"], 1)
+            self.assertEqual(summary["outcomes"]["parse_failure"], 1)
+            incomplete, _ = evaluate(labels, preds[:-1], manifest)
+            self.assertEqual(incomplete["status"], "incomplete")
+            self.assertEqual(incomplete["outcomes"]["missing_prediction"], 1)
+
     def test_patient_bootstrap(self):
         rows=[{"patient_id":"p1","mapped_gold":"T","prediction":"T"},
               {"patient_id":"p1","mapped_gold":"F","prediction":"F"},
               {"patient_id":"p2","mapped_gold":"U","prediction":"ERROR"}]
         b=cluster_bootstrap(rows,"patient_id",replicates=40)
         self.assertEqual(b["clusters"],2)
+        self.assertTrue(all(0<=v<=1 for v in b["macro_f1_ci95"]))
         self.assertTrue(all(0<=v<=1 for v in b["ci95"]))
         self.assertEqual(hash_id("patient","p1"),hash_id("patient","p1"))
 

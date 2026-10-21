@@ -1,12 +1,12 @@
 # TrialGPT 全量专家标签评估：冻结模块一 A1
 
-**当前状态：代码与协议准备中；没有新的 A1 GPU 结果。** 仅在确认 MedGUIDE PR #19 原远端进程和所有子进程已经终止后才能启动。
+**当前状态：官方数据已核验、CPU 验证通过，尚未报告 GPU 完成。** 仅在确认 MedGUIDE PR #19 原远端进程和所有子进程已经终止后才能启动。
 
 ## 数据来源和任务
 
 - 官方： https://huggingface.co/datasets/ncbi/TrialGPT-Criterion-Annotations
 - 共 1,015 条医生专家标注的患者—试验标准记录，53 位合成患者说明、103 项试验。数据官方只有一个名为 train 的分区；**这里完整用于冻结 A1 外部评价，不训练、不调参**。
-- 患者原文 note、单条 criterion_text 和 criterion_type 可作模型输入；expert_eligibility 仅在独立评分器读取。不得输入原数据的 gpt4_eligibility、gpt4_explanation、expert_sentences、专家 gold。
+- 患者原文 note 和单条 criterion_text 构成模型输入；criterion_type 仅用于评分分层；expert_eligibility 仅在独立评分器读取。不得输入原数据的 gpt4_eligibility、gpt4_explanation、expert_sentences、专家 gold。
 - 不生成新病例，不手工标注，也不从模型输出伪造金标。所有 1,015 条保留在母集；错误和缺失输出保留分母。
 
 ## A1 不变
@@ -47,3 +47,17 @@ prepare 下载官方 Parquet，记录精确数据集 SHA、文件 SHA、真实�
 
 未取得全部请求输出或服务器失败必须标记 **INCOMPLETE**。不自动合并主分支，不恢复或重跑已取消的 MedGUIDE 实验。
 
+
+## 本次实际核验（2026-10-21）
+
+旧 MedGUIDE 独立进程组 3226347 已终止，141 个父子进程（含编译子进程），ps 和 nvidia-smi 均核验；未更改其他作业。原日志与中间文件完整保留在旧 worktree/private。核验摘要见 stop_verified.json。
+
+官方数据固定 revision 1cfcafde94a1560a33b4addc1638664fe28fc059，Parquet SHA256 见 dataset_manifest.json。原始字段已实际核验；included=150、not included=23、excluded=10、not excluded=484、not enough information=293、not applicable=55。960 条可做有损 T/F/U 投影，55 条单列不适用，其他未映射=0。annotation_id=883 标准文本为空，不补写、不构造请求，在全母集和投影分母中保留为 invalid_input；实际推理输入为 1,014 条。
+
+评分区分 invalid_input、missing_prediction、parse_failure、invalid_output、valid；保留六类原标签对 A1 输出的交叉计数，以及三类投影混淆矩阵。患者、试验分别提供 accuracy 与 macro F1 的 10,000 次聚类 bootstrap 区间。这两个区间不是同时处理患者与试验交叉相关的双向区间。基础模型或 LoRA 是否曾见过这些数据无法由本次不训练来排除。
+
+启动前预算：GPU 0/1/2/3，每卡约 25–35 GiB，预计 30–60 分钟。稳定后不持续监控。可在服务器仓库根目录执行：
+
+    nohup bash experiments/trialgpt_a1_full_20261021/run.sh > experiments/trialgpt_a1_full_20261021/private/launcher.log 2>&1 < /dev/null &
+
+脚本完成后自动评分并写入 results/，不会自动提交或推送。断线不影响运行；重启通过原 runner 已有 case_id 跳过已返回记录。执行前检查原任务已经退出，不能同时启动重复实例。当前真实完成度以 private/a1_*/manifest.json、private/exit_status.txt 及 results/summary.json 为准。
