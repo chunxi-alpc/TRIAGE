@@ -9,6 +9,7 @@ _ACTIVE_STRENGTHS = (0.0, 0.0)
 @contextlib.contextmanager
 def signed_attention_patch(modeling_llama, strength_app, strength_sibling, app_mask, sibling_mask):
     """Add signed key-position biases to eager attention probabilities at every decode step."""
+    import torch
     global _ACTIVE_MASKS, _ACTIVE_STRENGTHS
     original = modeling_llama.eager_attention_forward
     _ACTIVE_MASKS = (app_mask, sibling_mask)
