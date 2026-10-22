@@ -62,6 +62,8 @@ def render_rules(app_path, sib_path, app_action, sib_action, order):
 
 def make_case(row, paths, index, seed):
     """Return (case, None) or (None, explicit exclusion reason)."""
+    if not isinstance(row.get("profile"), str) or not row["profile"].strip():
+        return None, "missing_patient_profile"
     source_path = path_tuple(row.get("path"))
     disease = row.get("disease")
     if source_path is None:
