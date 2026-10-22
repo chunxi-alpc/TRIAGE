@@ -121,11 +121,11 @@ def make_case(row, paths, index, seed):
         option for option in remaining
         if norm(option) not in {norm(original_action), norm(sibling_action), norm(replacement_action)}
     ]
+    pool = [sibling_action, replacement_action] + additional
     if len(pool) < len(opts) - 1:
         return None, "ambiguous_duplicate_options"
     fixed = [None] * len(opts)
     fixed[gold_index] = original_action
-    pool = [sibling_action, replacement_action] + additional
     for pos in range(len(fixed)):
         if pos != gold_index:
             fixed[pos] = pool.pop(0)
