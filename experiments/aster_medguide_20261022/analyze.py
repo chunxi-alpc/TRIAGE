@@ -159,10 +159,11 @@ def main():
     args = ap.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     expected = {x["case_id"]: x for x in read_jsonl(args.cases)}
-    actual = {x["case_id"]: x for x in read_jsonl(args.predictions)}
+    predicted_rows = list(read_jsonl(args.predictions))
+    actual = {x["case_id"]: x for x in predicted_rows}
     if not expected:
         raise ValueError("No prepared cases to evaluate")
-    if len(actual) != len(set(actual)):
+    if len(predicted_rows) != len(actual):
         raise ValueError("Duplicate prediction IDs")
     unexpected = set(actual) - set(expected)
     if unexpected:
@@ -238,8 +239,10 @@ def main():
         primary["baseline_A_minus_C"] = (
             m["A"]["baseline"]["accuracy_full_denominator"] - m["C"]["baseline"]["accuracy_full_denominator"])
     categories = Counter(r["category"] for r in errors)
+    required = {"baseline", "manual_zero", "whole", "changed", "positive", "unsigned", "explicit", "reversed"}
+    all_modes_covered = all(required.issubset(m[v]) and any(k.startswith("signed@") for k in m[v]) for v in "ABC")
     summary = {
-        "status": "completed" if metrics and len(actual) == len(expected) and all(
+        "status": "completed" if all_modes_covered and len(actual) == len(expected) and all(
             r["failed_or_missing"] == 0 for r in metrics) else "incomplete",
         "prepared_cases": len(expected), "recorded_cases": len(actual),
         "missing_case_ids": sorted(set(expected) - set(actual)),
