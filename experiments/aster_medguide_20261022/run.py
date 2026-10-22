@@ -107,7 +107,7 @@ class Engine:
         signed = self.current["signs"]
         assert signed.numel() == before.shape[-1]
         strength = float(self.current["strength"])
-        if strength != 0 and bool(torch.any(signed != 0)):
+        if self.current.get("force_manual") or (strength != 0 and bool(torch.any(signed != 0))):
             after = before + strength * signed[None, None, None, :]
             p1 = torch.softmax(after, dim=-1)
             edited = torch.matmul(p1.to(v.dtype), v).transpose(1, 2).contiguous()
@@ -207,9 +207,10 @@ class Engine:
         elif arm == "reversed":
             signs[app] = -1.0
             signs[sib] = 1.0
-        elif arm not in ("baseline", "explicit", "closedbook"):
+        elif arm not in ("baseline", "manual_zero", "explicit", "closedbook"):
             raise ValueError(arm)
-        self.current = {"signs": signs, "strength": strength if bool(signs.any()) else 0.0}
+        self.current = {"signs": signs, "strength": strength if bool(signs.any()) else 0.0,
+                        "force_manual": arm == "manual_zero"}
         self.diagnostics = []
         now = time.monotonic()
         try:
@@ -236,7 +237,7 @@ class Engine:
 
 
 def iterate_conditions(strengths):
-    conditions = [("baseline", 0.0), ("whole", 1.0), ("changed", 1.0),
+    conditions = [("baseline", 0.0), ("manual_zero", 0.0), ("whole", 1.0), ("changed", 1.0),
                   ("positive", 1.0), ("unsigned", 1.0), ("explicit", 0.0)]
     conditions.extend(("signed", x) for x in strengths)
     conditions.append(("reversed", 1.0))
