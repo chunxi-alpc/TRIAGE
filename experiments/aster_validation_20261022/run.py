@@ -62,7 +62,7 @@ def main():
   key=hashlib.sha256(json.dumps([content,list(options),spans,strengths,diagnostic,generate]).encode()).hexdigest()
   if key in cache:return cache[key]
   att=[];patch=signed_attention_patch(modeling,*strengths,*masks) if strengths is not None else contextlib.nullcontext({'calls':0})
-  # Outer capture observes the ORIGINAL attention probabilities before patch restores.
+  # The bias wrapper calls capture with the adjusted mask; recorded weights are post-intervention.
   with capture_attention(modeling,masks,att) if diagnostic else contextlib.nullcontext():
    with patch as state,torch.inference_mode():
     logits=model(**encoded,use_cache=False).logits[0,-1].float()
