@@ -6,9 +6,11 @@
 
 **模块一研究信号已冻结为 [语义 A1](care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md)**。这里保存提示、固定示例、批量运行和 A1→模块二信号导出入口；完整历史 GPU 输出仍在 PR #12 的来源分支，不在当前主线重复导入。旧 V6 CLI 和流水线继续保留历史契约。
 
-## ASTER 反事实预实验代码（2026-10-22）
+## ASTER MedGUIDE 反事实实验
 
-已新增 [ASTER MedGUIDE 三版本实验](aster_medguide_20261022/README.md)，包含严格同父兄弟路径与三真实动作的 A/B/C 生成器、Llama-3.1-8B-Instruct 注意力分数干预运行器、成对准确率、错误归因及强度分析。**本次新增的是可执行代码，尚无真实 GPU 结果**；不可把历史 Qwen 的结果替代为 ASTER 新实验成绩。本目录与关闭未合并的 MedGUIDE 全量 PR #19 相互独立。
+[20例真实模型先导实验](aster_medguide_20261022/PILOT.md) · [数据构建](aster_medguide_20261022/prepare_dataset.py) · [模型实验](aster_medguide_20261022/run_pilot.py) · [统计分析](aster_medguide_20261022/analyze_pilot.py)。实际结果见该目录 results/REPORT.zh.txt，不能用历史 Qwen 结果替代。
+
+已有[强度扫描预实验入口](aster_medguide_20261022/README.md)保留；两套输入和输出格式分别使用各自的构建器、运行器和分析器，不能混用。
 
 ## 当前优先入口
 

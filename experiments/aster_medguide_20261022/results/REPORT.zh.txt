@@ -1,0 +1,55 @@
+ASTER MedGUIDE 真实20例先导实验
+
+服务器115，gcx261014环境，GPU 0：A100-SXM4-80GB。
+样本：真实MedGUIDE 20例、60条A/B/C；每模型320次greedy生成。
+数据固定种子20261022；3645条可构造记录中随机抽取，未根据模型表现选择。
+A原始；B适用动作改为第三动作；C相邻分支改为同一第三动作。选项固定。
+全部指南路径输入；gold path用于oracle干预及direct_rule，不是学习的适用性。
+直接规则提示仅提供适用规则，与注意力组输入不同。
+
+主要观察：直接规则提示改善最明显；B上有符号干预未稳定优于仅增强适用规则或baseline。
+答案按输出开头明确字母提取，兼容加粗及选项文字；保留原始输出，仅离线修正提取格式。
+
+准确率（正确数/20）：
+模型 | 版本 | baseline | direct_rule | applicable_only | unsigned | signed
+llama | A | 13/20 | 20/20 | 18/20 | 16/20 | 16/20
+llama | B | 5/20 | 17/20 | 7/20 | 6/20 | 7/20
+llama | C | 12/20 | 20/20 | 16/20 | 16/20 | 17/20
+llama 闭卷：10/20；总耗时 91.1秒；峰值分配显存 16.95GiB。
+llama 无效或缺失输出：1/320。
+llama A/direct_rule 相对baseline：纠正7，损害0。
+llama A/applicable_only 相对baseline：纠正5，损害0。
+llama A/unsigned 相对baseline：纠正3，损害0。
+llama A/signed 相对baseline：纠正4，损害1。
+llama B/direct_rule 相对baseline：纠正12，损害0。
+llama B/applicable_only 相对baseline：纠正2，损害0。
+llama B/unsigned 相对baseline：纠正1，损害0。
+llama B/signed 相对baseline：纠正2，损害0。
+llama C/direct_rule 相对baseline：纠正8，损害0。
+llama C/applicable_only 相对baseline：纠正4，损害0。
+llama C/unsigned 相对baseline：纠正4，损害0。
+llama C/signed 相对baseline：纠正5，损害0。
+qwen | A | 17/20 | 19/20 | 18/20 | 18/20 | 17/20
+qwen | B | 7/20 | 14/20 | 8/20 | 7/20 | 7/20
+qwen | C | 16/20 | 19/20 | 18/20 | 19/20 | 18/20
+qwen 闭卷：11/20；总耗时 126.8秒；峰值分配显存 17.26GiB。
+qwen 无效或缺失输出：0/320。
+qwen A/direct_rule 相对baseline：纠正2，损害0。
+qwen A/applicable_only 相对baseline：纠正1，损害0。
+qwen A/unsigned 相对baseline：纠正1，损害0。
+qwen A/signed 相对baseline：纠正1，损害1。
+qwen B/direct_rule 相对baseline：纠正8，损害1。
+qwen B/applicable_only 相对baseline：纠正2，损害1。
+qwen B/unsigned 相对baseline：纠正1，损害1。
+qwen B/signed 相对baseline：纠正1，损害1。
+qwen C/direct_rule 相对baseline：纠正3，损害0。
+qwen C/applicable_only 相对baseline：纠正2，损害0。
+qwen C/unsigned 相对baseline：纠正3，损害0。
+qwen C/signed 相对baseline：纠正2，损害0。
+
+验证：11项CPU单元测试通过；Llama/Qwen3真实tokenizer各验证全部60条规则区间。
+测试包括原生GQA、零偏置相等、signed分数公式、因果遮罩、prefill及KV缓存解码、异常恢复、A/B/C标签与缺失分母。
+原始病例、指南、模型长输出只留服务器private目录；仓库结果仅含派生统计与字母预测。
+这是20例可构造子集的描述性结果，不代表全量MedGUIDE或独立临床验证。结构相邻不保证医学条件互斥。
+所有oracle使用gold路径，不能推断端到端收益；没有训练或调参，未做后续强度搜索。
+同一指南的多个病例并非独立规则家族；不以少量准确率差异宣称稳定收益。
