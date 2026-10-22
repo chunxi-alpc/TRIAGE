@@ -94,6 +94,8 @@ def make_case(row, paths, index, seed):
     if not 0 <= gold_index < len(opts):
         return None, "invalid_gold_letter"
     original_action = opts[gold_index]
+    if norm(original_action).rstrip(" .;:") != norm(active[-1]).rstrip(" .;:"):
+        return None, "gold_option_not_aligned_with_source_action"
     rng = random.Random(f"{seed}:{disease}:{index}")
     sibling_order = list(siblings)
     rng.shuffle(sibling_order)
