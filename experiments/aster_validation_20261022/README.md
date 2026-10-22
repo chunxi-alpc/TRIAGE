@@ -1,3 +1,5 @@
+> Active scope updated by user: **500 held-out test cases**. See results/run500/REPORT.zh.md and worker500.sh. Earlier 3645-case and 200-case plans below are retained as history.
+
 # ASTER 全量验证（2026-10-23）
 
 本轮承接 `aster_medguide_20261022` 的真实 20 例先导，新增引导诊断、全量配对评价、错误适用信息实验和独立判断翻转实验。代码和已完成结果提交仓库；未完成任务只写运行状态，不预填准确率。最新实际状态见 [结果报告](results/REPORT.zh.md) 和 [机器状态](results/STATUS.json)。
@@ -83,3 +85,7 @@ See `VERSION_AUDIT.zh.md` for the old-main/current-run comparison. K/U means obs
 200 held-out IDs are selected by a fixed SHA256 rank, without using model outcomes; the selection is saved in option_order_design.json. Two nonidentity cyclic rotations move every option to a different letter, identically across A/B/C. Option text, patient, rules and rule order stay fixed. Gold and intervention labels are remapped with the same bijection. All main choice conditions plus unsigned are rerun (58 records per case, including unchanged judgment diagnostics excluded from order comparisons). CAD/prune_cad receive the same 128-token repair as the original-order run. Inference uses the already selected gains, without retuning. Each model runs after its entire existing main/CAD/unsigned/positive-control queue.
 
 Results compare original versus rotated order on exactly those IDs, mapping predictions back to original action identities. Each rotation reports paired accuracy differences, valid-pair action agreement, both parse-failure counts and exact McNemar with Holm adjustment. Original-order K/U is fixed when comparing strata. Rotations are not treated as independent extra cases. This is a two-rotation sensitivity check, not exhaustive permutation invariance; judgment yes/no labels are not rotated. Raw completions stay private; numeric paired scores and summaries are published after both queues finish.
+
+
+### Revised 500-case execution
+Main results are reused for the first 500 IDs of the original fixed shuffled test split; all 40 development IDs are excluded. Original 3645-run partial outputs are preserved unchanged. CAD128 correction covers all nine CAD/prune-CAD arms per case. Unsigned, statistics and two option rotations use the same 500 IDs; gains are fixed from the earlier development run. The independent positive control uses CounterFact examples 5000:5500 with model-specific projections built from 200 synthetic pairs. GPU0 worker PID86135, GPU1 worker PID86139 at launch; private outputs under /home/gcx/aster_validation_20261022/private/run500. Commands: `CUDA_VISIBLE_DEVICES=0 bash experiments/aster_validation_20261022/worker500.sh llama /home/gcx/TRIAGE/models/modelscope/Meta-Llama-3.1-8B-Instruct` and the analogous GPU1 Qwen3-8B invocation. Worker logs and status files record every stage.

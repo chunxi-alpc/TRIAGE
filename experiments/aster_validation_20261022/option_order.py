@@ -20,8 +20,8 @@ def rotate(row,shift):
   lo,hi=r[span];assert r['prompt_text'][lo:hi]==r[text]
  return r,{v:k for k,v in mapping.items()}
 
-def prepare(root):
- manifest=json.loads((root/'dataset_manifest.json').read_text());ids=sorted(manifest['splits']['test']['ids'],key=lambda x:hashlib.sha256(('option-order-20261023:'+x).encode()).hexdigest())[:200]
+def prepare(root,count=200):
+ manifest=json.loads((root/'dataset_manifest.json').read_text());ids=sorted(manifest['splits']['test']['ids'],key=lambda x:hashlib.sha256(('option-order-20261023:'+x).encode()).hexdigest())[:count]
  rows=[json.loads(l) for l in (root/'all.jsonl').read_text().splitlines()];rows=[r for r in rows if r['id'] in set(ids)]
  dest=root/'option_order';dest.mkdir(exist_ok=True);maps={}
  for rotation in ('left','right'):
@@ -60,6 +60,6 @@ def analyze(root,model,out):
  out.mkdir(parents=True,exist_ok=True);(out/'summary.json').write_text(json.dumps(report,indent=2));(out/'paired_scores.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in scores))
  print('Option-order analysis complete',model)
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('mode',choices=['prepare','analyze']);p.add_argument('--root',type=Path,required=True);p.add_argument('--model');p.add_argument('--out',type=Path);a=p.parse_args()
- if a.mode=='prepare':prepare(a.root)
+ p=argparse.ArgumentParser();p.add_argument('mode',choices=['prepare','analyze']);p.add_argument('--root',type=Path,required=True);p.add_argument('--count',type=int,default=200);p.add_argument('--model');p.add_argument('--out',type=Path);a=p.parse_args()
+ if a.mode=='prepare':prepare(a.root,a.count)
  else:analyze(a.root,a.model,a.out)
