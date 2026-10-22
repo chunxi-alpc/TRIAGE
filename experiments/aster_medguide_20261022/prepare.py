@@ -17,7 +17,7 @@ from pathlib import Path
 
 
 def norm(value):
-    return re.sub(r"\\s+", " ", str(value)).strip().casefold()
+    return re.sub(r"\s+", " ", str(value)).strip().casefold()
 
 
 def path_tuple(path):
@@ -46,9 +46,9 @@ def render_rules(app_path, sib_path, app_action, sib_action, order):
         path, action = source[rid]
         condition = " > ".join(path[:-1])
         prefix = f"{rid}: If the patient's clinical pathway follows {condition}, the next action is "
-        line = prefix + action + ".\\n"
+        line = prefix + action + ".\n"
         spans[rid] = {
-            "rule": [cursor, cursor + len(line.rstrip("\\n"))],
+            "rule": [cursor, cursor + len(line.rstrip("\n"))],
             "action": [cursor + len(prefix), cursor + len(prefix) + len(action)],
         }
         parts.append(line)
@@ -180,7 +180,7 @@ def demo_source(n):
 
 
 def write_json(path, obj):
-    path.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    path.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def main():
@@ -218,7 +218,7 @@ def main():
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w", encoding="utf-8") as out:
         for case in cases:
-            out.write(json.dumps(case, ensure_ascii=False) + "\\n")
+            out.write(json.dumps(case, ensure_ascii=False) + "\n")
     stats = {
         "status": "prepared", "synthetic_demo": args.demo, "seed": args.seed,
         "requested": args.max_cases, "constructed": len(cases),
