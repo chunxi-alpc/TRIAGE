@@ -54,7 +54,7 @@ printf 'positive_counterfact_efficacy_5000\n' > "$status"
 for condition in baseline seka; do
  args=()
  if [[ "$condition" == seka ]]; then args=(--seka --pos "${projections[0]}" --amplify_pos 1.56 --amplify_neg 0.0 --layers last10); fi
- if ! PYTHONPATH="$seka" python benchmarks/eval_fact_gen.py --model "$model_path" --data_path "$run_root/counterfact_prepared.jsonl" --output_dir "$positive_dir/$condition" --benchmarks efficacy --example_subset 5000:10000 --batch_size 1 --max_length 300 --max_new_tokens 1 "${args[@]}" > "$positive_dir/${condition}.log" 2>&1; then
+ if ! PYTHONPATH="$seka" python benchmarks/eval_fact_gen.py --model "$model_path" --data_path "$run_root/counterfact_official" --output_dir "$positive_dir/$condition" --benchmarks efficacy --example_subset 5000:10000 --batch_size 1 --max_length 300 --max_new_tokens 1 "${args[@]}" > "$positive_dir/${condition}.log" 2>&1; then
   printf 'main_complete; positive_blocked: official evaluation failed\n' > "$status"
   exit 0
  fi

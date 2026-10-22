@@ -6,6 +6,9 @@ import numpy as np
 from scipy.stats import binomtest
 from run import noisy_assignment
 
+def option_prediction(row):
+ return row.get('score_prediction') or row.get('prediction')
+
 def wilson(k,n):
  if not n:return [None,None]
  z=1.959963984540054;p=k/n;d=1+z*z/n
@@ -35,7 +38,7 @@ def paired(a,b,seed=20261022,reps=2000):
 
 def metrics(rows):
  n=len(rows);k=sum(r['correct'] for r in rows)
- return {'n':n,'correct':k,'accuracy':k/n if n else None,'wilson95':wilson(k,n),'score_accuracy':sum(r.get('score_prediction',r['prediction'])==r['gold_answer'] for r in rows)/n if n else None,'parse_failure_rate':sum(r['prediction'] is None for r in rows)/n if n else None,'memory_wilson95':wilson(sum(r['prediction']==r['original_answer'] for r in rows),n),'misuse_wilson95':wilson(sum(r['prediction']==r['sibling_action_label'] for r in rows),n),'memory_rate':sum(r['prediction']==r['original_answer'] for r in rows)/n if n else None,'sibling_misuse_rate':sum(r['prediction']==r['sibling_action_label'] for r in rows)/n if n else None,'margin_prior':float(np.mean([r['margin_prior'] for r in rows])) if n else None,'margin_sibling':float(np.mean([r['margin_sibling'] for r in rows])) if n else None}
+ return {'n':n,'correct':k,'accuracy':k/n if n else None,'wilson95':wilson(k,n),'score_accuracy':sum(option_prediction(r)==r['gold_answer'] for r in rows)/n if n else None,'parse_failure_rate':sum(r['prediction'] is None for r in rows)/n if n else None,'memory_wilson95':wilson(sum(r['prediction']==r['original_answer'] for r in rows),n),'misuse_wilson95':wilson(sum(r['prediction']==r['sibling_action_label'] for r in rows),n),'memory_rate':sum(r['prediction']==r['original_answer'] for r in rows)/n if n else None,'sibling_misuse_rate':sum(r['prediction']==r['sibling_action_label'] for r in rows)/n if n else None,'margin_prior':float(np.mean([r['margin_prior'] for r in rows])) if n else None,'margin_sibling':float(np.mean([r['margin_sibling'] for r in rows])) if n else None}
 
 def corrupt_ids(ids,rate,seed):
  return set(sorted(ids,key=lambda i:hashlib.sha256(f'{seed}:{i}'.encode()).digest())[:round(len(ids)*rate)])
@@ -66,12 +69,12 @@ def main():
   if annotation_file.exists():
    annotation=json.loads(annotation_file.read_text());labels={k:v['label'] for k,v in annotation['labels'].items()};result['condition_annotation']=annotation['annotation']
   for r in rows:r['condition_type']=labels.get(r['id'],r.get('condition_type'))
-  result['condition_label_counts']=dict(Counter(labels.values()))
+  result['condition_label_counts']=dict(Counter(labels[i] for i in groups if i in labels))
   result['condition_label_status']='Exploratory AI semantic labels when annotation file exists; otherwise keyword candidates. Not expert clinical ground truth.'
  # Private audit includes raw completions for 20 source cases. Public report contains counts only.
  audit=[{k:r.get(k) for k in ('id','variant','method','completion','parsed_prediction','prediction','score_prediction','unconstrained_first_token')} for r in rows if 'completion' in r]
  (inp.parent/(inp.stem+'_parse_audit.json')).write_text(json.dumps(audit,indent=2))
- result['parse_audit']={'rows':len(audit),'unparsed':sum(r['parsed_prediction'] is None for r in audit),'generation_vs_option_disagreement':sum(r['parsed_prediction']!=r.get('score_prediction',r['prediction']) for r in audit),'human_review':'pending: private raw audit available; no human review claimed'}
+ result['parse_audit']={'rows':len(audit),'unparsed':sum(r['parsed_prediction'] is None for r in audit),'generation_vs_option_disagreement':sum(r['parsed_prediction']!=option_prediction(r) for r in audit),'human_review':'pending: private raw audit available; no human review claimed'}
  if phase=='diagnostic':
   buckets=defaultdict(list)
   for r in rows:

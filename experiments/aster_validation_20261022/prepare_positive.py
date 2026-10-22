@@ -19,3 +19,7 @@ raw=root/'counterfact_original.json';rows=json.loads(raw.read_text());out=root/'
 with out.open('w') as f:
  for row in rows:f.write(json.dumps(ns['_reformat_counterfact_sample'](row))+'\n')
 (root/'positive_preparation.json').write_text(json.dumps({'n':len(rows),'source_url':'https://rome.baulab.info/data/dsets/counterfact.json','raw_sha256':hashlib.sha256(raw.read_bytes()).hexdigest(),'formatter_url':url,'formatter_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'prepared_sha256':hashlib.sha256(out.read_bytes()).hexdigest(),'spacy':spacy.__version__,'en_core_web_sm':spacy.load('en_core_web_sm').meta['version'],'deviation':'Original source + upstream PASTA formatter; SEKA release byte identity unverified.'},indent=2))
+
+folder=root/'counterfact_official';folder.mkdir(exist_ok=True)
+link=folder/'counterfact.jsonl'
+if not link.exists():link.symlink_to(out)

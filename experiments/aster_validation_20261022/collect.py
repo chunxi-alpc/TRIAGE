@@ -14,7 +14,10 @@ for name in ('llama','qwen'):
   if p.exists():shutil.copyfile(p,dst/p.name)
  state={k:(private/(name+k)).read_text().strip() if (private/(name+k)).exists() else 'not_started' for k in ('.status','.finish_status')}
  summary=dst/'full/summary.json';state['main_results_exist']=summary.exists()
- state['all_model_stages_complete']=state['.finish_status']=='complete'
+ final_manifest=private/(name+'_complete.manifest.json')
+ required_metrics=[private/'positive'/name/arm/'efficacy_metrics.json' for arm in ('baseline','seka')]
+ state['required_artifacts_present']=summary.exists() and final_manifest.exists() and all(p.exists() for p in required_metrics)
+ state['all_model_stages_complete']=state['.finish_status']=='complete' and state['required_artifacts_present'] and json.loads(final_manifest.read_text()).get('complete',False)
  pos=private/'positive'/name
  for arm in ('baseline','seka'):
   p=pos/arm/'efficacy_metrics.json'
@@ -24,7 +27,8 @@ for name in ('llama','qwen'):
  for arm in ('baseline','seka'):
   p=pos/arm/'efficacy.json'
   if p.exists():
-   d=json.loads(p.read_text());safe=[{k:r[k] for k in ('id','target_score','comparator_score') if k in r} for r in d.get('samples',[])]
+   d=json.loads(p.read_text());samples=d.get('samples',[]) if isinstance(d,dict) else d if isinstance(d,list) else []
+   safe=[{k:r[k] for k in ('id','target_score','comparator_score') if k in r} for r in samples if isinstance(r,dict)]
    (dst/'positive').mkdir(exist_ok=True);(dst/'positive'/(arm+'_scores.json')).write_text(json.dumps(safe))
  status['models'][name]=state
 status['all_model_runs_complete']=all(v['all_model_stages_complete'] for v in status['models'].values())
