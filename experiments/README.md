@@ -6,6 +6,12 @@
 
 **模块一研究信号已冻结为 [语义 A1](care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md)**。这里保存提示、固定示例、批量运行和 A1→模块二信号导出入口；完整历史 GPU 输出仍在 PR #12 的来源分支，不在当前主线重复导入。旧 V6 CLI 和流水线继续保留历史契约。
 
+## ASTER：MedGUIDE 有符号规则引导
+
+[实验说明与运行入口](aster_medguide_20261022/README.md) · [数据构建](aster_medguide_20261022/prepare_dataset.py) · [模型实验](aster_medguide_20261022/run_pilot.py) · [统计分析](aster_medguide_20261022/analyze.py)
+
+该分支补充 MedGUIDE/Llama-3.1-8B-Instruct 的 A/B/C 反事实先导管线。相关工作已包含通用注意力高亮与干扰抑制；ASTER 的待验证区别是外部适用性信号驱动的有符号规则级干预。当前只有代码与协议，尚无 MedGUIDE 模型实验结果。
+
 ## 当前优先入口
 
 | 方向 | 最新入口 | 样本与模型 | 已存结论 |
