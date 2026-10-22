@@ -145,7 +145,8 @@ def write_csv(path, rows):
         path.write_text("", encoding="utf-8")
         return
     with path.open("w", encoding="utf-8", newline="") as sink:
-        writer = csv.DictWriter(sink, fieldnames=list(rows[0]))
+        fieldnames = list(dict.fromkeys(key for row in rows for key in row))
+        writer = csv.DictWriter(sink, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
 
@@ -213,6 +214,11 @@ def main():
                     for x in paired
                 ]
                 info["family_bootstrap_delta_ci"] = ci_by_family(boot_rows, "new", "base")
+                if arm != "manual_zero":
+                    zero = [actual.get(case_id, {}).get("variants", {}).get(variant, {}).get("manual_zero", {"status": "not_run"}) for case_id in expected]
+                    info["delta_accuracy_vs_manual_zero"] = (
+                        sum(bool(x["result"].get("correct")) for x in paired) - sum(bool(x.get("correct")) for x in zero)
+                    ) / len(paired)
             metrics.append(info)
             for correctness in (True, False):
                 attention.append({
@@ -233,7 +239,7 @@ def main():
             m["A"]["baseline"]["accuracy_full_denominator"] - m["C"]["baseline"]["accuracy_full_denominator"])
     categories = Counter(r["category"] for r in errors)
     summary = {
-        "status": "completed" if len(actual) == len(expected) and all(
+        "status": "completed" if metrics and len(actual) == len(expected) and all(
             r["failed_or_missing"] == 0 for r in metrics) else "incomplete",
         "prepared_cases": len(expected), "recorded_cases": len(actual),
         "missing_case_ids": sorted(set(expected) - set(actual)),
