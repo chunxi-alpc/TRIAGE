@@ -4,7 +4,7 @@ import argparse, json, random, re
 from collections import defaultdict
 
 def norm(x):
-    return re.sub(r"\\s+", " ", str(x or "")).strip().casefold()
+    return " ".join(str(x or "").split()).casefold()
 
 def path_ids(x):
     if isinstance(x, str):
