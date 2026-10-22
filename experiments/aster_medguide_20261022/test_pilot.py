@@ -42,9 +42,11 @@ class DatasetTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'third'):build_example(self.row,self.paths,0,1)
     def test_eight_options_and_parser(self):
         self.assertEqual(parse_answer('H','ABCDEFGH'),'H')
-        for text in ('A patient','Answer: B','A or B','think A then C','Z',''):
+        for text in ('A patient','A or B','think A then C','Z',''):
             self.assertIsNone(parse_answer(text))
         self.assertIsNone(parse_answer('H','AB'))
+        for text in ('Answer: B','**B**','**Answer: B**','B: treatment','B. treatment','B\n\nExplanation: text','The correct answer is B.'):
+            self.assertEqual(parse_answer(text),'B')
     def test_span(self):
         self.assertEqual(span_mask([(0,0),(0,3),(3,5),(5,8)],(3,5)).tolist(),[0,0,1,0])
 
@@ -101,7 +103,6 @@ class AttentionTests(unittest.TestCase):
                         model.generate(ids,attention_mask=mask,max_new_tokens=3,do_sample=False)
                         self.assertGreaterEqual(state['calls'],6)
 
-if __name__=='__main__':unittest.main(verbosity=2)
 
 class AnalysisTests(unittest.TestCase):
     def test_missing_invalid_and_current_sibling(self):
@@ -119,3 +120,5 @@ class AnalysisTests(unittest.TestCase):
         from analyze_pilot import summarize
         row={'id':'x','variant':'A_original','condition':'baseline'}
         with self.assertRaisesRegex(ValueError,'duplicate'):summarize([row,row])
+
+if __name__=='__main__':unittest.main(verbosity=2)

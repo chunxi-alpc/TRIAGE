@@ -51,4 +51,4 @@ python experiments/aster_medguide_20261022/prepare.py --demo --max-cases 20 \
 
 相关工作：[PASTA，ICLR 2024](https://proceedings.iclr.cc/paper_files/paper/2024/hash/b99d6cc40b05809c3d84b57a165448cd-Abstract-Conference.html)；[SEKA／AdaSEKA，ICLR 2026](https://github.com/waylonli/SEKA)；[MedGUIDE 数据集](https://huggingface.co/datasets/MedGUIDE/MedGUIDE-MCQA-8K)。通用注意力增强及直接有符号分数偏置不是 ASTER 的全新技术。
 
-**实际状态：代码已实现并提交；本次环境无 GPU 或 Llama 本地模型，尚无新的真实模型准确率结果。**
+**本页原强度扫描协议尚无新的完整实跑报告。新增20例 Llama/Qwen3 固定强度先导已完成，使用不同入口，结果见 [PILOT.md](PILOT.md)。**

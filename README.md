@@ -116,7 +116,7 @@ V6 将 BioLinkBERT 的职责限制为证据定位与门控，不再由它覆盖�
 各阶段的模型、样本、筛选条件和评价目标不同。历史指标按对应协议保留，不合并为整体性能结论。原始研究提案与已执行结果在索引中明确标注。
 
 
-**新增反事实预实验入口：**[ASTER MedGUIDE A/B/C 实现](experiments/aster_medguide_20261022/README.md)。该目录已包含数据准备、Llama 推理及注意力干预和统计程序；尚无新 GPU 运行结果，不能与已有 Qwen 结果混用。
+**ASTER MedGUIDE：**[真实20例 A/B/C 先导实验](experiments/aster_medguide_20261022/PILOT.md)已在115服务器完成 Llama-3.1-8B-Instruct 和 Qwen3-8B 推理，每模型320次生成。直接规则提示改善最明显，有符号干预尚未建立稳定优势；详见[完整报告](experiments/aster_medguide_20261022/results/REPORT.zh.txt)。
 
 ## 仓库结构
 

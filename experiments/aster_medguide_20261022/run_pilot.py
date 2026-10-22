@@ -50,9 +50,14 @@ def signed_attention_patch(modeling, strength_app, strength_sibling, app_mask, s
         modeling.eager_attention_forward=original
 
 def parse_answer(text, labels='ABCDEFGH'):
-    # Never interpret an English article or a reasoning paragraph as option A.
-    m=re.fullmatch(r'\s*\(?([A-Ha-h])\)?[.)]?\s*',text)
-    return m.group(1).upper() if m and m.group(1).upper() in labels else None
+    # Accept a leading explicit answer, including ordinary Markdown and option
+    # text. Never search arbitrary prose for an English article such as "A".
+    clean=text.strip().replace('**','').replace('`','')
+    prefix=r'(?:(?:the\s+)?(?:correct\s+)?answer\s*(?:is\s*)?:?\s*)?'
+    match=re.match(r'^'+prefix+r'\(?([A-H])\)?\s*(?:\n|$)',clean,re.IGNORECASE)
+    if match is None:
+        match=re.match(r'^'+prefix+r'\(?([A-H])[.):](?=\s|$)',clean,re.IGNORECASE)
+    return match.group(1).upper() if match and match.group(1).upper() in labels else None
 
 def span_mask(offsets,span):
     import torch

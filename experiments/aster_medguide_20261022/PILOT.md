@@ -2,6 +2,19 @@
 
 使用真实 MedGUIDE-MCQA-8K 和原作者 `all_paths.json`，测试规则动作改变时模型是否遵循给定规则。运行状态和数值以 `results/REPORT.zh.txt`、各模型 `summary.json` 和运行 manifest 为准。随机初始化的小模型 CPU 测试不属于 MedGUIDE 模型结果。
 
+## 本次实跑结果
+
+两模型均已完成320次生成，全部原始输出保存在服务器。主要反事实 B 的正确数（每组20例）：
+
+| 模型 | baseline | 直接规则提示 | 仅增强适用规则 | 无符号 | 有符号 |
+|---|---|---|---|---|---|
+| Llama-3.1-8B-Instruct | 5 | 17 | 7 | 6 | 7 |
+| Qwen3-8B | 7 | 14 | 8 | 7 | 7 |
+
+本轮直接规则提示改善最明显；有符号干预在 B 上没有稳定超过仅增强或无干预。完整 A/C、闭卷和配对纠正/损害见 [实跑报告](results/REPORT.zh.txt)。Llama耗时91.1秒、峰值16.95GiB；Qwen耗时126.8秒、峰值17.26GiB。11项CPU测试通过。
+
+答案提取兼容输出开头的字母、加粗、Answer标记及选项文字；不额外调用模型作判断。保留原始生成文件，统一修正提取格式后离线重算，没有重新生成。剩余1条Llama输出无法提取明确答案，计为错误；Qwen无缺失或无法提取答案。
+
 ## 数据与 A/B/C
 
 数据源：[MedGUIDE](https://huggingface.co/datasets/MedGUIDE/MedGUIDE-MCQA-8K)，固定 revision `1460ec478280a7295040b92f7eb985327f77dcbe`。实际字段包括 disease、profile、options（2–8个文本选项）、answer（A–H）、answer_text、path（临床文本字符串数组）和 prompt。prompt 已含病例和选项，本实现从 profile 和 options 重新渲染一次，避免重复或遗漏选项。
@@ -33,7 +46,7 @@ a、b、c 必须对应三个不同选项，选项文字及顺序始终不变。�
 
 注意力组与 baseline 输入逐字相同，使用原生 eager 接口 `(module, query, key, value, attention_mask, ...)`，把规则词元的偏置加到 softmax 前的分数遮罩中。保留因果/填充遮罩，调用原生 GQA 展开、dropout 和 `[batch, query, heads, dim]` 输出，不在输出概率上二次重算错误形状。全部层、头和查询位置干预，KV 缓存解码继续使用原始规则 key 位置。每条干预结果验证补丁实际被调用，退出或异常时恢复函数。仅支持已测 Llama/Qwen3，单进程串行使用。
 
-使用各自 chat template，字符区间映射到模板内真实偏移，不重复添加特殊词元。Qwen3 使用 `enable_thinking=False`。两模型均 BF16、greedy、最多8个新词元，无训练、无调参。仅完整单字母输出判作有效，不把解释中的英文 A 当答案。
+使用各自 chat template，字符区间映射到模板内真实偏移，不重复添加特殊词元。Qwen3 使用 `enable_thinking=False`。两模型均 BF16、greedy、最多8个新词元，无训练、无调参。解析输出开头的选项字母，兼容加粗、Answer 标记和后接选项文字；不从任意解释正文中搜索英文 A。保存原始输出，解析修正可离线复算。
 
 ## 复算
 
