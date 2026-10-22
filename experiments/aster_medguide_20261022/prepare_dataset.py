@@ -1,107 +1,130 @@
 #!/usr/bin/env python3
-"""Build ASTER A/B/C examples from MedGUIDE and a normalized tree export."""
-import argparse, json, random, re
-from collections import defaultdict
+"""Build counterfactuals from actual MedGUIDE string paths and published all_paths."""
+import argparse
+import hashlib
+import json
+import random
+from collections import Counter
+from pathlib import Path
+
+VARIANTS = ('A_original', 'B_applicable_rule_changed', 'C_sibling_rule_changed')
 
 def norm(x):
-    return " ".join(str(x or "").split()).casefold()
+    return ' '.join(str(x).split()).casefold()
 
-def path_ids(x):
-    if isinstance(x, str):
-        x = json.loads(x)
-    if not isinstance(x, list):
-        raise ValueError("path must be a JSON list of node IDs")
-    out=[]
-    for n in x:
-        if isinstance(n, dict): n=n.get("node_id", n.get("id"))
-        if n is None: raise ValueError("path node lacks node_id/id")
-        out.append(str(n))
-    return out
+def digest(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
-def options_map(x):
-    if isinstance(x, dict): return {str(k).upper():str(v).strip() for k,v in x.items()}
-    if isinstance(x, list):
-        return {str(v.get("label", v.get("key", chr(65+i))).upper()):str(v.get("text", v.get("value", v.get("option","")))).strip()
-                if isinstance(v,dict) else str(v).strip() for i,v in enumerate(x)}
-    raise ValueError("options must be a list or object")
+def options_map(options):
+    if not isinstance(options, list) or not 2 <= len(options) <= 8:
+        raise ValueError('MedGUIDE options must be a list of 2–8 strings')
+    if any(not isinstance(x, str) or not x.strip() for x in options):
+        raise ValueError('empty/non-string option')
+    if len({norm(x) for x in options}) != len(options):
+        raise ValueError('duplicate options')
+    return {chr(65+i): x for i, x in enumerate(options)}
 
-def label_for(opts, action):
-    found=[k for k,v in opts.items() if norm(v)==norm(action)]
-    return found[0] if len(found)==1 else None
+def validate_path(path):
+    if not isinstance(path, list) or len(path) < 2 or any(not isinstance(x, str) or not x.strip() for x in path):
+        raise ValueError('published path must contain clinical text strings, not invented node IDs')
+    return path
+
+def render_rule(path, action):
+    return 'IF the clinical sequence is: ' + ' -> '.join(path[:-1]) + '\nTHEN the next step is: ' + action + '.'
+
+def build_example(row, paths, row_index, seed):
+    opts = options_map(row['options'])
+    gold = row['answer'].strip().upper()
+    path = validate_path(row['path'])
+    if gold not in opts or norm(opts[gold]) != norm(row['answer_text']) or norm(path[-1]) != norm(row['answer_text']):
+        raise ValueError('gold/path/options mismatch')
+    disease_paths = [validate_path(p) for p in paths.get(row['disease'], [])]
+    # Retain source ordering and deduplicate only byte-identical complete paths.
+    disease_paths = list({tuple(p): p for p in disease_paths}.values())
+    if path not in disease_paths:
+        raise ValueError('case path missing from independent published source')
+    app_index = disease_paths.index(path)
+    # Adjacent alternatives must share the complete preceding clinical sequence;
+    # their final condition differs, not merely their terminal action.
+    siblings = [(i,p) for i,p in enumerate(disease_paths)
+                if len(p)==len(path) and p[:-2]==path[:-2] and p[-2]!=path[-2]
+                and norm(p[-1])!=norm(path[-1]) and any(norm(p[-1])==norm(v) for v in opts.values())]
+    if not siblings:
+        raise ValueError('no observed sibling path with an option-aligned action')
+    sib_index, sibling = siblings[0]
+    sibling_label = next(k for k,v in opts.items() if norm(v)==norm(sibling[-1]))
+    # Use a THIRD action for both edits. Neither counterfactual collapses both
+    # branches to the same recommendation; options never change across A/B/C.
+    replacement_label = next((k for k in opts if k not in (gold,sibling_label)), None)
+    if replacement_label is None:
+        raise ValueError('counterfactual requires a third distinct option')
+    replacement = opts[replacement_label]
+    if not isinstance(row['profile'], str) or not row['profile'].strip():
+        raise ValueError('missing profile')
+    case = ('Patient:\n' + row['profile'].strip() + '\n\nWhat is the appropriate next step?\nOptions:\n'
+            + '\n'.join(f'{k}: {v}' for k,v in opts.items()) + '\nReturn only one option letter.')
+    order = list(range(len(disease_paths)))
+    random.Random(seed + row_index).shuffle(order)
+    result = []
+    for variant in VARIANTS:
+        actions = [p[-1] for p in disease_paths]
+        answer = gold
+        if variant == VARIANTS[1]:
+            actions[app_index] = replacement; answer = replacement_label
+        elif variant == VARIANTS[2]:
+            actions[sib_index] = replacement
+        # Include ALL published paths for the disease, with identical rule order.
+        text = ('Use the supplied decision rules for this offline hypothetical task. '
+                'If a supplied recommendation conflicts with medical memory, follow the supplied rule.\n\nDecision rules:\n')
+        spans = {}; rules = {}
+        for i in order:
+            rule = render_rule(disease_paths[i], actions[i])
+            spans[i] = [len(text), len(text)+len(rule)]
+            rules[i] = rule
+            text += rule + '\n\n'
+        text += case
+        result.append({'id':f'medguide_{row_index:05d}', 'source_row':row_index, 'disease':row['disease'],
+                       'variant':variant, 'options':opts, 'gold_answer':answer, 'original_answer':gold,
+                       'original_action':path[-1], 'replacement_action':replacement,
+                       'replacement_action_label':replacement_label,
+                       'sibling_action':actions[sib_index],
+                       'sibling_action_label':next(k for k,v in opts.items() if norm(v)==norm(actions[sib_index])),
+                       'original_sibling_action_label':sibling_label,
+                       'applicable_rule_text':rules[app_index], 'sibling_rule_text':rules[sib_index],
+                       'applicable_char_span':spans[app_index], 'sibling_char_span':spans[sib_index],
+                       'prompt_text':text, 'closed_book_prompt':case,
+                       'direct_rule_prompt':('Use this applicable decision rule for the offline hypothetical task, '
+                                            'even if it conflicts with medical memory:\n'+rules[app_index]+'\n\n'+case),
+                       'source_path_index':app_index,'sibling_path_index':sib_index,'rule_count':len(disease_paths),
+                       'path':path,'sibling_path':sibling,
+                       'oracle_note':'Gold source path selects interventions and direct-rule baseline; applicability is not learned.'})
+    return result
 
 def main():
     p=argparse.ArgumentParser()
-    p.add_argument("--dataset",default="MedGUIDE/MedGUIDE-MCQA-8K")
-    p.add_argument("--split",default="train")
-    p.add_argument("--tree-json",required=True)
-    p.add_argument("--output",required=True)
-    p.add_argument("--limit",type=int,default=300)
-    p.add_argument("--seed",type=int,default=20261022)
-    p.add_argument("--cache-dir")
+    p.add_argument('--parquet',required=True); p.add_argument('--paths-json',required=True)
+    p.add_argument('--output',required=True); p.add_argument('--limit',type=int,default=20)
+    p.add_argument('--seed',type=int,default=20261022)
     a=p.parse_args()
-    from datasets import load_dataset
-    tree=json.load(open(a.tree_json,encoding="utf-8"))
-    nodes=tree.get("nodes",[]) if isinstance(tree,dict) else []
-    byid={str(n["node_id"]):n for n in nodes if n.get("node_id") is not None}
-    children=defaultdict(list)
-    for n in nodes:
-        if n.get("node_id") is not None: children[str(n.get("parent_id","root"))].append(n)
-    ds=load_dataset(a.dataset,split=a.split,cache_dir=a.cache_dir)
-    rng=random.Random(a.seed); candidates=[]; counts=defaultdict(int)
-    for idx,row in enumerate(ds):
-        try:
-            ids=path_ids(row.get("path"))
-            if not ids or any(i not in byid for i in ids): counts["path_tree_mismatch"]+=1; continue
-            selected=None
-            for nid in reversed(ids):
-                node=byid[nid]
-                sibs=[s for s in children[str(node.get("parent_id","root"))]
-                      if str(s.get("node_id"))!=nid and norm(s.get("action")) and norm(s.get("action"))!=norm(node.get("action"))]
-                if sibs: selected=(node,sibs[0]); break
-            if not selected: counts["no_sibling"]+=1; continue
-            app,sib=selected; opts=options_map(row.get("options"))
-            old=str(app.get("action","")).strip(); new=str(sib.get("action","")).strip()
-            old_label,new_label=label_for(opts,old),label_for(opts,new)
-            gold=str(row.get("answer","")).strip().upper()
-            if old_label is None or new_label is None or old_label==new_label: counts["action_not_in_options"]+=1; continue
-            if gold!=old_label and norm(row.get("answer_text"))!=norm(old): counts["gold_action_mismatch"]+=1; continue
-            profile=str(row.get("profile","")).strip(); prompt=str(row.get("prompt","")).strip()
-            if not profile or not prompt: counts["missing_text"]+=1; continue
-            rule=f"IF {app.get('condition','')}, THEN {old}."
-            sibling_rule=f"IF {sib.get('condition','')}, THEN {new}."
-            common={"id":str(row.get("id",row.get("example_id",idx))),"profile":profile,"prompt":prompt,
-                    "options":opts,"path":ids,"applicable_rule_id":str(app["node_id"]),
-                    "sibling_rule_id":str(sib["node_id"]),"original_action":old,"sibling_action":new,
-                    "original_answer":gold,"original_answer_text":str(row.get("answer_text",old)),
-                    "closed_book_prompt":profile+"\n\n"+prompt,
-                    "rule_text":rule+"\n"+sibling_rule}
-            variants=[]
-            for variant in ("A_original","B_applicable_rule_changed","C_sibling_rule_changed"):
-                r1,r2=rule,sibling_rule; ans=gold
-                if variant=="B_applicable_rule_changed":
-                    r1=f"IF {app.get('condition','')}, THEN {new}."; ans=new_label
-                elif variant=="C_sibling_rule_changed":
-                    r2=f"IF {sib.get('condition','')}, THEN {old}."
-                guide="Relevant decision rules:\n"+r1+"\n"+r2+"\n\n"
-                full=guide+common["closed_book_prompt"]
-                # Exact character spans are retained for tokenizer offset mapping.
-                app_text=r1; sib_text=r2
-                common_variant={**common,"variant":variant,"prompt_text":full,"gold_answer":ans,
-                                "applicable_rule_text":app_text,"sibling_rule_text":sib_text,
-                                "applicable_char_span":[full.index(app_text),full.index(app_text)+len(app_text)],
-                                "sibling_char_span":[full.index(sib_text),full.index(sib_text)+len(sib_text)]}
-                variants.append(common_variant)
-            candidates.extend(variants); counts["eligible_examples"]+=1
-        except (ValueError,KeyError,TypeError,json.JSONDecodeError):
-            counts["invalid_record"]+=1
-    # Sample at example-group level, preserving all A/B/C variants.
-    groups={}
-    for r in candidates: groups.setdefault(r["id"],[]).append(r)
-    keys=sorted(groups); rng.shuffle(keys); keys=keys[:a.limit]
-    import os
-    os.makedirs(os.path.dirname(os.path.abspath(a.output)),exist_ok=True)
-    with open(a.output,"w",encoding="utf-8") as f:
-        for k in keys:
-            for r in groups[k]: f.write(json.dumps(r,ensure_ascii=False)+"\n")
-    print(json.dumps({"output":a.output,"examples":len(keys),"rows":sum(len(groups[k]) for k in keys),"counts":dict(counts)},ensure_ascii=False,indent=2))
-if __name__=="__main__": main()
+    if a.limit<=0: p.error('--limit must be positive')
+    import pyarrow.parquet as pq
+    rows=pq.read_table(a.parquet).to_pylist()
+    paths=json.loads(Path(a.paths_json).read_text())
+    groups=[]; counts=Counter()
+    for i,row in enumerate(rows):
+        try: groups.append(build_example(row,paths,i,a.seed)); counts['eligible']+=1
+        except (ValueError,KeyError,TypeError) as exc: counts[str(exc)]+=1
+    random.Random(a.seed).shuffle(groups)
+    chosen=groups[:a.limit]
+    out=Path(a.output);out.parent.mkdir(parents=True,exist_ok=True)
+    out.write_text(''.join(json.dumps(r,ensure_ascii=False)+'\n' for group in chosen for r in group))
+    manifest={'dataset':'MedGUIDE/MedGUIDE-MCQA-8K','revision':'1460ec478280a7295040b92f7eb985327f77dcbe',
+              'parquet_sha256':digest(a.parquet),'paths_sha256':digest(a.paths_json),
+              'source_rows':len(rows),'requested_examples':a.limit,'examples':len(chosen),'rows':len(chosen)*3,
+              'seed':a.seed,'counts':dict(counts),'selected_source_rows':[g[0]['source_row'] for g in chosen],
+              'dataset_sha256':digest(out),'complete':len(chosen)==a.limit}
+    out.with_suffix('.manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    print(json.dumps(manifest))
+    if not manifest['complete']:raise SystemExit('insufficient aligned examples; see manifest')
+
+if __name__=='__main__':main()
