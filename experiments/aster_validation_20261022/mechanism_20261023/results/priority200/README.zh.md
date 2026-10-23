@@ -20,3 +20,6 @@
 
 
 最新执行安排：用户要求保存Llama并只先做Qwen200，Llama于2026-10-23 13:32保存后停止（左移重排367完整病例，见llama_saved_manifest.json）。尚未启动的双卡分片等待已撤下。Qwen机制200直接在释放的GPU0运行，GPU1原Qwen CAD与重排继续，不中断、不重启、不改设置。复现脚本priority200_gpu0.sh。机制结果不等待CAD；CAD自然完成后再补只读审计，不能把机制完成写成CAD完成。
+
+
+后续联合汇总：SSH已恢复，新增joint_cad200.py按相同200病例只读统计CAD8/CAD128/过滤版及三个选项顺序，解析失败和有效选择错误分开。当前中期汇总位于../joint200_interim_20261023_1555；过滤版未完成。后台finish_joint200.sh(PID198824)等待现有Qwen CAD自然结束及既有发布完成后，生成../joint200_final并提交原PR，不新增推理、不修改CAD。补跑复用计数见parser_repair_accounting.json，缓存命中数未单独计量，不伪称独立推理次数。
