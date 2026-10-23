@@ -24,9 +24,9 @@ PY
  exit "$CODE"
 }
 trap failed ERR
-CUDA_VISIBLE_DEVICES=0 python "$EXP/run.py" --input "$PRIVATE/shard0.jsonl" --output "$PRIVATE/predictions0.jsonl" > "$PRIVATE/gpu0.log" 2>&1 &
+CUDA_VISIBLE_DEVICES=0 python "$EXP/run.py" --input "$PRIVATE/shard0.jsonl" --output "$PRIVATE/predictions0.jsonl" --reuse-cache "$PRIVATE/reuse_cache.jsonl" > "$PRIVATE/gpu0.log" 2>&1 &
 P0=$!
-CUDA_VISIBLE_DEVICES=1 python "$EXP/run.py" --input "$PRIVATE/shard1.jsonl" --output "$PRIVATE/predictions1.jsonl" > "$PRIVATE/gpu1.log" 2>&1 &
+CUDA_VISIBLE_DEVICES=1 python "$EXP/run.py" --input "$PRIVATE/shard1.jsonl" --output "$PRIVATE/predictions1.jsonl" --reuse-cache "$PRIVATE/reuse_cache.jsonl" > "$PRIVATE/gpu1.log" 2>&1 &
 P1=$!
 python - "$P0" "$P1" <<'PY'
 import json,sys,datetime
