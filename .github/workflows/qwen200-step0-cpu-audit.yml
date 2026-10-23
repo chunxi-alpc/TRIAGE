@@ -33,6 +33,9 @@ jobs:
           python -m unittest discover \
             -s experiments/aster_validation_20261022/mechanism_20261023 \
             -p 'test_step0_cluster_sensitivity.py' -v
+          python -m unittest discover \
+            -s experiments/aster_validation_20261022/mechanism_20261023 \
+            -p 'test_step0_cohort_scope_audit.py' -v
       - name: Reproduce public descriptive audit
         run: |
           python experiments/aster_validation_20261022/mechanism_20261023/step0_extended_audit.py \
@@ -65,4 +68,21 @@ jobs:
           assert x['contrasts']['visible_A_minus_D_branch']['net_correct_first_minus_second']==47
           assert x['contrasts']['hidden_minus_visible_D']['net_correct_first_minus_second']==33
           assert x['method']['independent_guideline_sources_verified'] is False
+          PY
+      - name: Audit fixed PR25 800-case cohort overlap without running models
+        run: |
+          git fetch --depth=1 --no-tags origin 2407c15824f6c2d957dc166f3ad70f57361cabab
+          git show 2407c15824f6c2d957dc166f3ad70f57361cabab:experiments/qwen800_methods_20261023/results/case_manifest.jsonl > "$RUNNER_TEMP/pr25_case_manifest.jsonl"
+          python experiments/aster_validation_20261022/mechanism_20261023/step0_cohort_scope_audit.py \
+            --pr25-manifest "$RUNNER_TEMP/pr25_case_manifest.jsonl" \
+            --output "$RUNNER_TEMP/pr25_cohort_scope.json"
+          python - "$RUNNER_TEMP/pr25_cohort_scope.json" <<'PY'
+          import json,sys
+          x=json.load(open(sys.argv[1],encoding='utf-8'))
+          assert x['provenance']['pr25_cohort_n']==800
+          assert x['counts']['no_case_overlap_with_200']['n']==781
+          assert x['counts']['no_tree_overlap_with_200']['n']==403
+          assert x['counts']['no_tree_overlap_strict']['n']==43
+          assert x['counts']['no_tree_overlap_strict_single']['n']==2
+          assert x['provenance']['tested_800_predictions'] is False
           PY
