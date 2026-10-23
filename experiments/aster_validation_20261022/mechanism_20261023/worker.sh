@@ -7,10 +7,10 @@ cd /home/gcx/TRIAGE-worktrees/aster-validation
 source /home/gcx/gcx261014/bin/activate
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 OMP_NUM_THREADS=4
 root=/home/gcx/aster_validation_20261022/private/run500
-private="$root/mechanism"
+private="${MECHANISM_PRIVATE:-$root/mechanism}"
 exp=experiments/aster_validation_20261022
 mech="$exp/mechanism_20261023"
-public="$mech/results/$name"
+public="${MECHANISM_PUBLIC:-$mech/results/$name}"
 trap 'printf "failed at line %s\n" "$LINENO" > "$private/$name.status"' ERR
 printf 'waiting_for_modified_CAD_natural_completion\n' > "$private/$name.status"
 tail --pid="$cad_pid" -f /dev/null
