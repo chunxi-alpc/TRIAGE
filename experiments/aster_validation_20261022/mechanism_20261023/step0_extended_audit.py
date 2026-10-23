@@ -212,12 +212,36 @@ def private_case_audit(cases, scores, selected_ids):
     action_examples = collections.defaultdict(lambda: collections.defaultdict(list))
     oracle = collections.defaultdict(collections.Counter)
     top2 = collections.defaultdict(collections.Counter)
+    directions = collections.defaultdict(collections.Counter)
+    direction_case_ids = collections.defaultdict(list)
     a24 = {"ids": [], "A_gold_action_in_wrong_branch": [],
            "A_gold_action_absent_from_wrong_branch": [],
            "D_gold_action_in_predicted_branch": [],
            "D_gold_action_absent_from_predicted_branch": []}
     for id_ in sorted(ids):
         c = by_id[id_]
+        a_visible = lookup[id_, "A", "branch_visible"]
+        d_visible = lookup[id_, "D", "branch_visible"]
+        expected_gold = chr(65 + c["app_branch"])
+        expected_sibling = chr(65 + c["sib_branch"])
+        if a_visible["gold"] != expected_gold or d_visible["gold"] != expected_gold:
+            raise ValueError("private branch gold mismatches public scores: " + id_)
+        def branch_role(prediction):
+            if prediction is None:
+                return "unparsed"
+            if prediction == expected_gold:
+                return "gold"
+            if prediction == expected_sibling:
+                return "sibling"
+            return "other"
+        a_role, d_role = branch_role(a_visible["prediction"]), branch_role(d_visible["prediction"])
+        state = a_role + "_to_" + d_role
+        for group in ("all", a_visible["stratum"]):
+            directions[group][state] += 1
+        if (a_role, d_role) == ("gold", "sibling"):
+            direction_case_ids["harmful_gold_to_sibling"].append(id_)
+        if (a_role, d_role) == ("sibling", "gold"):
+            direction_case_ids["reverse_sibling_to_gold"].append(id_)
         rules_a, rules_d = c["variant_rules"]["A"], c["variant_rules"]["D"]
         ai, si = c["app_rule"], c["sib_rule"]
         if len(rules_a) != len(rules_d) or not 0 <= ai < len(rules_a) or not 0 <= si < len(rules_a) or ai == si:
@@ -289,6 +313,17 @@ def private_case_audit(cases, scores, selected_ids):
                         status = ("first" if a["prediction"] in first_allowed else "") + \
                                  ("second" if a["prediction"] in second_allowed else "")
                         top2[v]["selected_option_origin_" + (status or "neither")] += 1
+                        baseline = lookup[id_, v, "hidden_prune"]
+                        if a["correct"] and not baseline["correct"]:
+                            kind = "rescued"
+                        elif baseline["correct"] and not a["correct"]:
+                            kind = "damaged"
+                        else:
+                            kind = "unchanged_correct" if a["correct"] else "unchanged_wrong"
+                        top2[v][kind] += 1
+                        top2[v][kind + "_selected_option_origin_" + (status or "neither")] += 1
+                        if kind in ("rescued", "damaged"):
+                            top2[v][kind + "_runner_is_gold"] += (indices[1] == c["gold_branch"][v])
             # The 24 A events are a prespecified retrospective inspection set.
         ba = lookup[id_, "A", "branch_hidden"]
         aa = lookup[id_, "A", "hidden_prune"]
@@ -310,6 +345,8 @@ def private_case_audit(cases, scores, selected_ids):
         "method_variant_example_ids": {v + "/" + m: dict(examples)
                                        for (v, m), examples in sorted(action_examples.items())},
         "oracle_error_rule_membership": {v: dict(oracle[v]) for v in VARIANTS},
+        "A_visible_to_D_visible_branch_roles": {k: dict(v) for k, v in sorted(directions.items())},
+        "directional_branch_case_ids": dict(sorted(direction_case_ids.items())),
         "top2_option_source": {v: dict(top2[v]) for v in VARIANTS},
         "A_wrong_branch_right_answer_cohort": a24,
         "interpretation_limits": [
