@@ -1,0 +1,48 @@
+name: Qwen200 step-0 CPU evidence audit
+
+on:
+  push:
+    paths:
+      - '.github/workflows/qwen200-step0-cpu-audit.yml'
+      - 'experiments/aster_validation_20261022/mechanism_20261023/**'
+  pull_request:
+    paths:
+      - '.github/workflows/qwen200-step0-cpu-audit.yml'
+      - 'experiments/aster_validation_20261022/mechanism_20261023/**'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-public-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run standard-library unit tests
+        run: |
+          python -m unittest discover \
+            -s experiments/aster_validation_20261022/mechanism_20261023 \
+            -p 'test_step0*_audit.py' -v
+          python -m unittest discover \
+            -s experiments/aster_validation_20261022/mechanism_20261023 \
+            -p 'test_step0_reanalysis.py' -v
+      - name: Reproduce public descriptive audit
+        run: |
+          python experiments/aster_validation_20261022/mechanism_20261023/step0_extended_audit.py \
+            --output "$RUNNER_TEMP/qwen200_extended_audit.json"
+          python - "$RUNNER_TEMP/qwen200_extended_audit.json" <<'PY'
+          import json, sys
+          x=json.load(open(sys.argv[1], encoding='utf-8'))
+          assert x['provenance']['n']==200
+          assert x['provenance']['disease_labels']==23
+          assert x['provenance']['family_prefix_groups']==13
+          assert x['A_to_D_visible_transition']['correct/wrong/changed']==55
+          assert x['A_to_D_visible_transition']['wrong/correct/changed']==8
+          assert x['paired_visibility_hidden_minus_visible']['D']['net_hidden_minus_visible']==33
+          assert x['alert_for_visible_answer_error']['D']['true_positive']==62
+          assert x['private_case_checks']['status']=='not_performed_requires_private_prepared_cases'
+          PY
