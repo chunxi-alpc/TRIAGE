@@ -132,3 +132,8 @@ python experiments/aster_validation_20261022/collect_cad200.py
 ## 第二轮步骤0审计索引（2026-10-23）
 
 [扩展证据与严格解释边界](step0_review/EXTENDED_AUDIT.zh.md)、[已核验的公开分析快照](step0_review/extended_public.json)、[CPU重算与私有结构检查](../step0_extended_audit.py)。该审计没有改变原报告的金标、模型输出、比较族或正式p值；真实指南树源映射、私有规则成员关系、临床合理性和CAD词元轨迹仍待核验。
+
+
+### 2026-10-24：剩余证据审计索引
+
+固定200例真实私有CPU核查见[PRIVATE_STRUCTURE_AUDIT.zh.md](step0_review/PRIVATE_STRUCTURE_AUDIT.zh.md)、[无原文逐例结构证据](step0_review/private_structure_summary.json)、[医学双人盲审协议](step0_review/CLINICAL_REVIEW_PROTOCOL.zh.md)。A24中19例原动作在错误分支、5例缺失；D6全部字面允许；D多动作兄弟23例；22/6方向复现。CAD16例损失的金标字母在首步必被屏蔽，其中13例旧CAD首选就是该字母；缺后续轨迹，不能完成全部因果归因。原正式评价与统计不变，专家审阅和真正来源独立性仍开放。
