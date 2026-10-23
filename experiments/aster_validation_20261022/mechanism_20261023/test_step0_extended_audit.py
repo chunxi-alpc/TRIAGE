@@ -75,6 +75,9 @@ class ExtendedAuditTests(unittest.TestCase):
         a_visible = next(r for r in rows if r["variant"] == "A" and r["method"] == "branch_visible")
         a_visible["prediction"] = "A"
         a_visible["correct"] = True
+        # The action-stage prediction must consume the same branch as its paired visible predictor.
+        a_action = next(r for r in rows if r["variant"] == "A" and r["method"] == "visible_prune")
+        a_action["predicted_branch"] = 0
         result = private_case_audit([case], rows, ["synthetic"])
         self.assertEqual(result["A_visible_to_D_visible_branch_roles"]["all"]["gold_to_sibling"], 1)
         self.assertEqual(result["directional_branch_case_ids"]["harmful_gold_to_sibling"], ["synthetic"])
