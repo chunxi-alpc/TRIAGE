@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 
 from step0_reanalysis import ROOT, read_jsonl
+from step0_cluster_sensitivity import cancer_prefix_proxy
 
 PR25_FROZEN_COMMIT = "2407c15824f6c2d957dc166f3ad70f57361cabab"
 PR25_MANIFEST_PATH = "experiments/qwen800_methods_20261023/results/case_manifest.jsonl"
@@ -53,6 +54,7 @@ def analyse(old_scores, original_ids, expanded_rows):
         raise ValueError("Original200 cases lack matching A hidden branch records")
     old_ids = set(original_ids)
     old_trees = set(old_map.values())
+    old_cancer_prefixes = {cancer_prefix_proxy(tree) for tree in old_trees}
     allowed_protocols = {"PR23_strict", "extended_offpath"}
     for r in expanded_rows:
         if r["pair_protocol"] not in allowed_protocols:
@@ -71,6 +73,10 @@ def analyse(old_scores, original_ids, expanded_rows):
         "all": expanded_rows,
         "no_case_overlap_with_200": [r for r in expanded_rows if r["id"] not in old_ids],
         "no_tree_overlap_with_200": [r for r in expanded_rows if r["disease"] not in old_trees],
+        "no_cancer_prefix_overlap_with_200": [
+            r for r in expanded_rows
+            if cancer_prefix_proxy(r["disease"]) not in old_cancer_prefixes
+        ],
         "no_case_overlap_strict": [
             r for r in expanded_rows
             if r["id"] not in old_ids and r["pair_protocol"] == "PR23_strict"
@@ -84,6 +90,17 @@ def analyse(old_scores, original_ids, expanded_rows):
         "no_tree_overlap_strict": [
             r for r in expanded_rows
             if r["disease"] not in old_trees and r["pair_protocol"] == "PR23_strict"
+        ],
+        "no_cancer_prefix_overlap_strict": [
+            r for r in expanded_rows
+            if cancer_prefix_proxy(r["disease"]) not in old_cancer_prefixes
+            and r["pair_protocol"] == "PR23_strict"
+        ],
+        "no_cancer_prefix_overlap_strict_single": [
+            r for r in expanded_rows
+            if cancer_prefix_proxy(r["disease"]) not in old_cancer_prefixes
+            and r["pair_protocol"] == "PR23_strict"
+            and r["single_action_gold_branch"]
         ],
         "no_tree_overlap_strict_single": [
             r for r in expanded_rows
@@ -107,6 +124,10 @@ def analyse(old_scores, original_ids, expanded_rows):
         "counts": {key: scope_cell(rows) for key, rows in subsets.items()},
         "original200_tree_ids": sorted(old_trees),
         "new_tree_ids": sorted(set(per_tree) - old_trees),
+        "original200_cancer_prefix_proxies": sorted(old_cancer_prefixes),
+        "new_cancer_prefix_proxies": sorted(
+            {cancer_prefix_proxy(tree) for tree in per_tree} - old_cancer_prefixes
+        ),
         "original200_overlap_ids": sorted(
             set(r["id"] for r in expanded_rows) & old_ids
         ),
@@ -122,6 +143,7 @@ def analyse(old_scores, original_ids, expanded_rows):
             "Nonoverlapping case IDs do not guarantee independence of source trees.",
             "Post-hoc new-tree/strict/single-action intersections are descriptive.",
             "The PR23 strict and PR25 extended_offpath construction protocols differ.",
+            "Cancer-type prefixes are a heuristic, not a validated oncology guideline source/version.",
             "New trees are data-tree IDs, not verified independent NCCN guideline versions.",
             "No PR25 action outcome has been evaluated by this script.",
             "The 84 CS cases are one-tree synthetic changes, not cross-tree validation.",
