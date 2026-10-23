@@ -97,6 +97,38 @@ def public_audit(scores, selected_ids):
                                  cluster_ci(delta, [disease[i] for i in chosen]),
                              "cluster_ci_family_proxy_descriptive":
                                  cluster_ci(delta, [family_proxy(disease[i]) for i in chosen])}
+    visibility = {}
+    for v in VARIANTS:
+        losses = gains = 0
+        paired_delta = []
+        labels_disease = []
+        families = collections.defaultdict(lambda: {"n": 0, "net": 0})
+        for id_ in ids:
+            visible = lookup[id_, v, "visible_prune"]
+            hidden = lookup[id_, v, "hidden_prune"]
+            diff = int(hidden["correct"]) - int(visible["correct"])
+            losses += diff == -1
+            gains += diff == 1
+            paired_delta.append(diff)
+            labels_disease.append(disease[id_])
+            g = families[family_proxy(disease[id_])]
+            g["n"] += 1
+            g["net"] += diff
+        lofo = [fraction(sum(paired_delta) - x["net"], len(ids) - x["n"])
+                for x in families.values() if x["n"] < len(ids)]
+        visibility[v] = {
+            "n": len(ids),
+            "visible_right_hidden_wrong": losses,
+            "visible_wrong_hidden_right": gains,
+            "net_hidden_minus_visible": gains - losses,
+            "effect_hidden_minus_visible": fraction(gains - losses, len(ids)),
+            "cluster_ci_disease_descriptive": cluster_ci(paired_delta, labels_disease),
+            "cluster_ci_family_proxy_descriptive":
+                cluster_ci(paired_delta, [family_proxy(x) for x in labels_disease]),
+            "leave_one_family_proxy_out_effect_range":
+                [min(lofo), max(lofo)] if lofo else None,
+            "noninferiority_established": False,
+        }
     alerts = {}
     for v in VARIANTS:
         tp = fp = fn = tn = 0
@@ -139,6 +171,7 @@ def public_audit(scores, selected_ids):
         "A_to_D_group_effects": by_stratum,
         "by_disease": by_disease, "by_family_proxy": by_family,
         "leave_one_family_proxy_out": loo,
+        "paired_visibility_hidden_minus_visible": visibility,
         "alert_for_visible_answer_error": alerts,
         "statistical_scope": [
             "Bootstrap percentile intervals are descriptive; not Holm-adjusted or preregistered.",
