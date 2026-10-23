@@ -68,6 +68,8 @@ jobs:
           assert x['contrasts']['visible_A_minus_D_branch']['net_correct_first_minus_second']==47
           assert x['contrasts']['hidden_minus_visible_D']['net_correct_first_minus_second']==33
           assert x['method']['independent_guideline_sources_verified'] is False
+          frozen=json.load(open('experiments/aster_validation_20261022/mechanism_20261023/results/step0_review/cluster_sensitivity.json',encoding='utf-8'))
+          assert x==frozen, 'cluster sensitivity snapshot changed; audit before updating it'
           PY
       - name: Audit fixed PR25 800-case cohort overlap without running models
         run: |
@@ -84,5 +86,8 @@ jobs:
           assert x['counts']['no_tree_overlap_with_200']['n']==403
           assert x['counts']['no_tree_overlap_strict']['n']==43
           assert x['counts']['no_tree_overlap_strict_single']['n']==2
+          assert x['counts']['no_cancer_prefix_overlap_with_200']['n']==98
+          assert x['counts']['no_cancer_prefix_overlap_strict']['n']==6
+          assert x['counts']['no_cancer_prefix_overlap_strict_single']['n']==0
           assert x['provenance']['tested_800_predictions'] is False
           PY
