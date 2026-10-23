@@ -26,6 +26,12 @@ def prune_prompt(case,v,bs=None,single=None):
  rules=case['variant_rules'][v];texts=['IF the clinical sequence is: '+rules[i]['condition']+'\nTHEN the next step is: '+rules[i]['action']+'.' for i in indices]
  return 'Follow this supplied rule even if it conflicts with medical memory:\n'+'\n\n'.join(texts)+'\n\n'+case['closed_book_prompt']
 
+def greedy_with_logits(model,enc,pad_token_id):
+ # generate already computes the decision logits: reuse its RAW logits, not processed scores.
+ # No extra prefill and no change to decoding, cache settings, gain, or maximum length.
+ result=model.generate(**enc,do_sample=False,max_new_tokens=8,pad_token_id=pad_token_id,return_dict_in_generate=True,output_logits=True)
+ return result.sequences,result.logits[0][0].float()
+
 def main():
  p=argparse.ArgumentParser();p.add_argument('--input',required=True);p.add_argument('--model',required=True);p.add_argument('--base',required=True);p.add_argument('--gain-file',required=True);p.add_argument('--output',required=True);p.add_argument('--limit',type=int,default=0);p.add_argument('--phase',choices=['all','branch','action'],default='all');p.add_argument('--branches',type=Path);a=p.parse_args()
  import torch
@@ -51,8 +57,8 @@ def main():
   if intervention:
    ma=sum((masks[i] for i in intervention['positive']),torch.zeros_like(masks[0]));mb=sum((masks[i] for i in intervention['other']),torch.zeros_like(masks[0]));patch=signed_attention_patch(modeling,gain,intervention['other_gain'],ma,mb)
   with patch,torch.inference_mode():
-   z=model(**enc,use_cache=False).logits[0,-1].float();vals={k:float(z[ids[k][0]]) for k in labels}
-   gen=model.generate(**enc,do_sample=False,max_new_tokens=8,pad_token_id=tok.eos_token_id);text=tok.decode(gen[0,enc['input_ids'].shape[1]:],skip_special_tokens=True)
+   gen,z=greedy_with_logits(model,enc,tok.eos_token_id);vals={k:float(z[ids[k][0]]) for k in labels}
+   text=tok.decode(gen[0,enc['input_ids'].shape[1]:],skip_special_tokens=True)
   r={'prediction':parse(text,labels),'completion':text,'option_logits':vals,'ranked':sorted(vals,key=vals.get,reverse=True),'reused':False};cache[key]=r;return dict(r)
  with out.open('w') as f:
   for ci,c in enumerate(cases):
