@@ -2,6 +2,8 @@
 
 > 起点：[200例审计报告](results/step0_review/REPORT.zh.md)、[机器可读逐题再分析](results/step0_review/summary.json)。这是研究计划，不意味着步骤1–6已经完成、已获医学审核或已启动GPU任务。原范围限制仍然有效；除非明确批准，不恢复Llama或500例队列，不扩展病例。
 
+> **2026-10-23更新：** [第二轮详细审计](results/step0_review/EXTENDED_AUDIT.zh.md)已补齐A/D错误→错误转移8例、23疾病键/13前缀代理组稳健性、A/C配对增损、报警的精确率/灵敏度，以及D单条规则交换的构造风险。由[扩展审计程序](step0_extended_audit.py)和[回归测试](test_step0_extended_audit.py)支持；[冻结公开快照](results/step0_review/extended_public.json)受CI一致性检查。真实指南来源独立性、24例实际规则集合、D临床合理性和CAD逐词元掩码仍未核实，**步骤1–6均未启动**。
+
 ## 执行原则
 
 - **三个不同的终点**：①任意分支输出/正确性变化；②指向特定诱饵分支的有害方向；③模型内部注意力因果机制。分别定义零假设与比较族，不用一个显著结果替代另一个。
