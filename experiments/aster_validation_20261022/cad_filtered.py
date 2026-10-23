@@ -1,4 +1,6 @@
 """Separate CAD128 variant with a relative conditional-probability filter; preserve all originals."""
+from delegate_pending import wait_if_delegated
+if __name__=='__main__':wait_if_delegated()
 import argparse,ast,hashlib,json,os,time
 from pathlib import Path
 import torch

@@ -1,4 +1,6 @@
 """Full unsigned steering ablation; kept separate from the running 52-arm protocol."""
+from delegate_pending import wait_if_delegated
+if __name__=='__main__':wait_if_delegated()
 import argparse,hashlib,importlib,json,sys,time
 from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parents[1]/'aster_medguide_20261022'))

@@ -1,4 +1,6 @@
 """Same main protocol, with CAD128 from the outset to avoid a redundant CAD8 pass."""
+from delegate_pending import wait_if_delegated
+if __name__=='__main__':wait_if_delegated()
 from pathlib import Path
 p=Path(__file__).with_name('run.py');s=p.read_text()
 assert s.count('for step in range(8):')==1
