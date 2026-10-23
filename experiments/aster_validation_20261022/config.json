@@ -1,0 +1,56 @@
+{
+  "seed": 20261022,
+  "source_rows": 7747,
+  "eligible_paired_cases": 3645,
+  "development_cases": 40,
+  "diagnostic_cases": 20,
+  "heldout_cases": 3605,
+  "main_cases": 3645,
+  "variants": [
+    "A_original",
+    "B_applicable_rule_changed",
+    "C_sibling_rule_changed"
+  ],
+  "gains": [
+    0,
+    0.5,
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "noise_rates": [
+    0,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "noise_seeds": [
+    11,
+    22,
+    33
+  ],
+  "cad_alpha": 1,
+  "bootstrap_repetitions": 2000,
+  "dtype": "bfloat16",
+  "gpus": {
+    "llama": 0,
+    "qwen": 1
+  },
+  "qwen_enable_thinking": false,
+  "generation": {
+    "do_sample": false,
+    "max_new_tokens": 8,
+    "audit_cases": 20
+  },
+  "primary_decoding": "parsed free greedy generation, 8 new tokens, invalid parses counted as wrong",
+  "steering": "all layers, all heads, all query positions, additive score bias",
+  "training": "none; gain selected only on development data",
+  "config_role": "Frozen protocol record; CLI parameters and implementation are the executable settings.",
+  "secondary_decoding": "argmax over single-token option label logits at first answer position",
+  "gain_selection": "development signed B first-position option-score accuracy; tie chooses smaller gain",
+  "unsigned_supplement_records_per_case": 6,
+  "final_records_per_case": 58,
+  "cad_eos": "tokenizer EOS, max 8 tokens"
+}

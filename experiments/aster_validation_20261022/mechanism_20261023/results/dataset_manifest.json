@@ -1,0 +1,39 @@
+{
+  "coverage": {
+    "test": {
+      "cases": 500,
+      "D_cases": 500,
+      "CS_cases": 2,
+      "single_action_gold_branch": 303,
+      "types": {
+        "judgment": 113,
+        "ambiguous": 173,
+        "objective_candidate": 205,
+        "treatment_judgment": 9
+      },
+      "sha256": "c227d7bc917350165bcc6dac3ed05917c75dd905164b14ab778d265bf43c7a15"
+    },
+    "dev": {
+      "cases": 40,
+      "D_cases": 40,
+      "CS_cases": 0,
+      "single_action_gold_branch": 16,
+      "types": {
+        "ambiguous": 14,
+        "judgment": 10,
+        "objective_candidate": 15,
+        "treatment_judgment": 1
+      },
+      "sha256": "222b6885a81ef152c1be5353c1dc68c037f8a80bea3ed6e303f831a6a55869a6"
+    }
+  },
+  "CS_exclusions": {
+    "no verified complementary scalar pair": 455,
+    "same threshold condition has multiple action leaves; unique new action unverifiable": 42,
+    "eligible": 2,
+    "nodule measurement/type/singularity not unambiguous": 1
+  },
+  "branch_gold": "equivalence class of identical full condition paths",
+  "CS_policy": "Fixed threshold doubling 6-to-12 months or mm; explicit anchored patient scalar, complementary pair, unique action per branch; no per-case threshold tuning",
+  "label_review": "AI review, not clinical-expert review"
+}

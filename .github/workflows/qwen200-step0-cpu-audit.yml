@@ -1,0 +1,95 @@
+name: Qwen200 step-0 CPU evidence audit
+
+on:
+  push:
+    paths:
+      - '.github/workflows/qwen200-step0-cpu-audit.yml'
+      - 'experiments/aster_validation_20261022/mechanism_20261023/**'
+  pull_request:
+    paths:
+      - '.github/workflows/qwen200-step0-cpu-audit.yml'
+      - 'experiments/aster_validation_20261022/mechanism_20261023/**'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-public-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run standard-library unit tests
+        run: |
+          python -m unittest discover \
+            -s experiments/aster_validation_20261022/mechanism_20261023 \
+            -p 'test_step0*_audit.py' -v
+          python -m unittest discover \
+            -s experiments/aster_validation_20261022/mechanism_20261023 \
+            -p 'test_step0_reanalysis.py' -v
+          python -m unittest discover \
+            -s experiments/aster_validation_20261022/mechanism_20261023 \
+            -p 'test_step0_cluster_sensitivity.py' -v
+          python -m unittest discover \
+            -s experiments/aster_validation_20261022/mechanism_20261023 \
+            -p 'test_step0_cohort_scope_audit.py' -v
+      - name: Reproduce public descriptive audit
+        run: |
+          python experiments/aster_validation_20261022/mechanism_20261023/step0_extended_audit.py \
+            --output "$RUNNER_TEMP/qwen200_extended_audit.json"
+          python - "$RUNNER_TEMP/qwen200_extended_audit.json" <<'PY'
+          import json, sys
+          x=json.load(open(sys.argv[1], encoding='utf-8'))
+          assert x['provenance']['n']==200
+          assert x['provenance']['disease_labels']==23
+          assert x['provenance']['family_prefix_groups']==13
+          assert x['A_to_D_visible_transition']['correct/wrong/changed']==55
+          assert x['A_to_D_visible_transition']['wrong/correct/changed']==8
+          assert x['paired_visibility_hidden_minus_visible']['D']['net_hidden_minus_visible']==33
+          assert x['alert_for_visible_answer_error']['D']['true_positive']==62
+          assert x['private_case_checks']['status']=='not_performed_requires_private_prepared_cases'
+          frozen=json.load(open('experiments/aster_validation_20261022/mechanism_20261023/results/step0_review/extended_public.json',encoding='utf-8'))
+          assert x==frozen, 'public audit snapshot is stale or differs from code'
+          print('STEP0_PUBLIC_AUDIT_SNAPSHOT_JSON='+json.dumps(x,ensure_ascii=False,sort_keys=True,separators=(',',':')))
+          PY
+      - name: Reproduce exploratory tree and cancer-type sign-flip analysis
+        run: |
+          python experiments/aster_validation_20261022/mechanism_20261023/step0_cluster_sensitivity.py \
+            --output "$RUNNER_TEMP/qwen200_cluster_sensitivity.json"
+          python - "$RUNNER_TEMP/qwen200_cluster_sensitivity.json" <<'PY'
+          import json,sys
+          x=json.load(open(sys.argv[1],encoding='utf-8'))
+          assert x['provenance']['cases']==200
+          assert x['provenance']['disease_tree_keys']==23
+          assert x['provenance']['cancer_prefix_proxy_groups']==13
+          assert x['contrasts']['visible_A_minus_D_branch']['net_correct_first_minus_second']==47
+          assert x['contrasts']['hidden_minus_visible_D']['net_correct_first_minus_second']==33
+          assert x['method']['independent_guideline_sources_verified'] is False
+          frozen=json.load(open('experiments/aster_validation_20261022/mechanism_20261023/results/step0_review/cluster_sensitivity.json',encoding='utf-8'))
+          assert x==frozen, 'cluster sensitivity snapshot changed; audit before updating it'
+          PY
+      - name: Audit fixed PR25 800-case cohort overlap without running models
+        run: |
+          git fetch --depth=1 --no-tags origin 2407c15824f6c2d957dc166f3ad70f57361cabab
+          git show 2407c15824f6c2d957dc166f3ad70f57361cabab:experiments/qwen800_methods_20261023/results/case_manifest.jsonl > "$RUNNER_TEMP/pr25_case_manifest.jsonl"
+          python experiments/aster_validation_20261022/mechanism_20261023/step0_cohort_scope_audit.py \
+            --pr25-manifest "$RUNNER_TEMP/pr25_case_manifest.jsonl" \
+            --output "$RUNNER_TEMP/pr25_cohort_scope.json"
+          python - "$RUNNER_TEMP/pr25_cohort_scope.json" <<'PY'
+          import json,sys
+          x=json.load(open(sys.argv[1],encoding='utf-8'))
+          assert x['provenance']['pr25_cohort_n']==800
+          assert x['counts']['no_case_overlap_with_200']['n']==781
+          assert x['counts']['no_tree_overlap_with_200']['n']==403
+          assert x['counts']['no_tree_overlap_strict']['n']==43
+          assert x['counts']['no_tree_overlap_strict_single']['n']==2
+          assert x['counts']['no_cancer_prefix_overlap_with_200']['n']==98
+          assert x['counts']['no_cancer_prefix_overlap_strict']['n']==6
+          assert x['counts']['no_cancer_prefix_overlap_strict_single']['n']==0
+          assert x['provenance']['tested_800_predictions'] is False
+          frozen=json.load(open('experiments/aster_validation_20261022/mechanism_20261023/results/step0_review/cohort_scope_pr25_frozen.json',encoding='utf-8'))
+          assert x==frozen, 'PR25 fixed cohort snapshot drifted from pinned ref'
+          PY

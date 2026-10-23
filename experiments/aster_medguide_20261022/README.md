@@ -1,5 +1,7 @@
 # ASTER：MedGUIDE 三版本反事实预实验
 
+本页保留原强度扫描协议。新增固定选项、完整指南和两模型的20例实跑见 [PILOT.md](PILOT.md)，其结果见 [results/REPORT.zh.txt](results/REPORT.zh.txt)。两个入口的输出格式不同，分别使用各自的分析器。
+
 这是可执行实现，不是仅含方案的文件。目录包含数据构造（prepare.py）、Llama 模型实际前向及注意力干预（run.py）、统计与曲线（analyze.py）、统一入口（run.sh）。已有同类干预历史结果不再重复。
 
 ## 已实现的四项实验
@@ -49,4 +51,4 @@ python experiments/aster_medguide_20261022/prepare.py --demo --max-cases 20 \
 
 相关工作：[PASTA，ICLR 2024](https://proceedings.iclr.cc/paper_files/paper/2024/hash/b99d6cc40b05809c3d84b57a165448cd-Abstract-Conference.html)；[SEKA／AdaSEKA，ICLR 2026](https://github.com/waylonli/SEKA)；[MedGUIDE 数据集](https://huggingface.co/datasets/MedGUIDE/MedGUIDE-MCQA-8K)。通用注意力增强及直接有符号分数偏置不是 ASTER 的全新技术。
 
-**实际状态：代码已实现并提交；本次环境无 GPU 或 Llama 本地模型，尚无新的真实模型准确率结果。**
+**本页原强度扫描协议尚无新的完整实跑报告。新增20例 Llama/Qwen3 固定强度先导已完成，使用不同入口，结果见 [PILOT.md](PILOT.md)。**
