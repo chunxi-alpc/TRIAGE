@@ -1,6 +1,6 @@
 # Qwen3-8B 固定200例：步骤0补充审计与证据边界（2026-10-23）
 
-> **审计范围。** 本报告只使用PR #23已经完成的200例逐题输出、既有程序与结果，不新抽样、不启动GPU、不调整原有检验族或解码参数。原始正式评价以[FINAL200.zh.md](../FINAL200.zh.md)为准；第一版十项问题核对见[REPORT.zh.md](REPORT.zh.md)。本轮新增的[可复算统计快照](extended_public.json)由[CPU审计脚本](../../step0_extended_audit.py)生成，已由[自动化回归检查](../../../../../../.github/workflows/qwen200-step0-cpu-audit.yml)核对。所有“正确”均指**合成任务金标**，不能直接解释为医学决策正确。
+> **审计范围。** 本报告只使用PR #23已经完成的200例逐题输出、既有程序与结果，不新抽样、不启动GPU、不调整原有检验族或解码参数。原始正式评价以[FINAL200.zh.md](../FINAL200.zh.md)为准；第一版十项问题核对见[REPORT.zh.md](REPORT.zh.md)。本轮新增的[可复算统计快照](extended_public.json)由[CPU审计脚本](../../step0_extended_audit.py)生成，已由[自动化回归检查](../../../../../.github/workflows/qwen200-step0-cpu-audit.yml)核对。所有“正确”均指**合成任务金标**，不能直接解释为医学决策正确。
 >
 > **三种证据必须分开。** ①已观测的成对行为变化；②符合这些变化但尚未识别的行为原因；③参数记忆、动机性筛查或内部注意力通路。第一种有数据支持，第二种需要额外对照，第三种尚未证实。
 
@@ -157,21 +157,21 @@ D中仍有**43/105可见错误未报警**；在95个可见正确病例中也会�
 
 从仓库根目录执行；以下命令**均不加载模型、不调用GPU**：
 
-\`\`\`bash
+```bash
 python experiments/aster_validation_20261022/mechanism_20261023/step0_extended_audit.py \
   --output /tmp/qwen200_step0_extended_public.json
 python -m unittest discover \
   -s experiments/aster_validation_20261022/mechanism_20261023 \
   -p 'test_step0*_audit.py' -v
-\`\`\`
+```
 
 只有在已持有原始私有准备病例结构的实验服务器上，才可补完动作归属：
 
-\`\`\`bash
+```bash
 python experiments/aster_validation_20261022/mechanism_20261023/step0_extended_audit.py \
   --cases /home/gcx/aster_validation_20261022/private/run500/mechanism/priority200/test.jsonl \
   --output /tmp/qwen200_step0_with_private_structure.json
-\`\`\`
+```
 
 输出仅含计数与病例ID，不含病历或完整规则文本；**不要把私有病例、审阅记录原文或带敏感信息的输出提交到Git仓库**。如脚本报告“构造金标未出现在金标分支”或“A/D不是精确的双规则动作交换”，先定位构造问题，停止基于受影响病例做先验归因。代码检查不是临床判断的替代品。
 
