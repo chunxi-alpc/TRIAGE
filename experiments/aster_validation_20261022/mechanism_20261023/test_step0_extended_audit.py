@@ -65,6 +65,20 @@ class ExtendedAuditTests(unittest.TestCase):
                          ["wrong_branch_right_answer_gold_absent"], 1)
         self.assertEqual(result["oracle_error_rule_membership"]["A"]
                          ["wrong_option_absent_from_gold_rules"], 1)
+        self.assertEqual(result["A_visible_to_D_visible_branch_roles"]["all"]["sibling_to_sibling"], 1)
+        self.assertEqual(result["top2_option_source"]["A"]["damaged_selected_option_origin_first"], 1)
+        self.assertEqual(result["top2_option_source"]["D"]["rescued_selected_option_origin_second"], 1)
+        self.assertEqual(result["top2_option_source"]["D"]["rescued_runner_is_gold"], 1)
+
+    def test_directional_decoy_transitions_are_not_all_branch_changes(self):
+        case, rows = fixture()
+        a_visible = next(r for r in rows if r["variant"] == "A" and r["method"] == "branch_visible")
+        a_visible["prediction"] = "A"
+        a_visible["correct"] = True
+        result = private_case_audit([case], rows, ["synthetic"])
+        self.assertEqual(result["A_visible_to_D_visible_branch_roles"]["all"]["gold_to_sibling"], 1)
+        self.assertEqual(result["directional_branch_case_ids"]["harmful_gold_to_sibling"], ["synthetic"])
+        self.assertNotIn("reverse_sibling_to_gold", result["directional_branch_case_ids"])
 
     def test_malformed_swap_reported(self):
         case, rows = fixture()
