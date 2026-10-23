@@ -15,3 +15,6 @@
 
 
 更新：Qwen200已拆成GPU0与GPU1各100题，各自等待该卡既有CAD自然完成；GPU0等待Llama CAD PID87624，GPU1等待Qwen CAD PID87628。两份输出分别写入私有priority200/gpu0与gpu1目录，合并后仍按同一200题和固定K/U统计，不取两份均值冒充整体指标。仅修改尚未开始的机制等待任务；现有CAD与重排进程保持运行。合并时检验200题覆盖、逐题键唯一与各100题manifest完成，注意力门槛在完整200题上计算，不在分片上决定。复现脚本priority200_shard.sh、merge_priority200.py、finish_priority200.sh。
+
+
+最新执行安排：用户要求保存Llama并只先做Qwen200，Llama于2026-10-23 13:32保存后停止（左移重排367完整病例，见llama_saved_manifest.json）。尚未启动的双卡分片等待已撤下。Qwen机制200直接在释放的GPU0运行，GPU1原Qwen CAD与重排继续，不中断、不重启、不改设置。复现脚本priority200_gpu0.sh。机制结果不等待CAD；CAD自然完成后再补只读审计，不能把机制完成写成CAD完成。
