@@ -1,0 +1,51 @@
+{
+  "pr24_head": "c615f8330652d5399a4f696f8b5df3b0cfb12bd8",
+  "pr23_head": "3e4fac744bf63564cd32045f15c102390ac57c28",
+  "cases": 800,
+  "strata": {
+    "U": 374,
+    "K": 426
+  },
+  "protocols": {
+    "PR23_strict": 304,
+    "extended_offpath": 496
+  },
+  "variants": {
+    "A": 800,
+    "B": 800,
+    "C": 800,
+    "D": 797,
+    "CS": 84
+  },
+  "single_action_branches": 661,
+  "overlap200": 19,
+  "input_sha256": "1d8062c67d2c7f809d98e58efa5e5afcb4af4bae1a9de6484a5b06fc17c65d21",
+  "pr24_cohort_sha256": "c49a14fa44c485dd0ead425bab6c7168e75d6b6bc3ebc7b758c7c07b080ddc00",
+  "gain": 0.5,
+  "attention": "eager; K/U frozen from PR24 SDPA closed-book",
+  "main_tokens": 8,
+  "cad_tokens": 128,
+  "filtered_cad_beta": 0.1,
+  "methods": [
+    "existing_baseline",
+    "existing_prune",
+    "existing_app",
+    "existing_signed",
+    "gold_branch_prune",
+    "visible_prune",
+    "hidden_prune",
+    "hidden_top2",
+    "hidden_signed",
+    "hidden_unsigned",
+    "CAD8",
+    "CAD128",
+    "CAD_filtered128"
+  ],
+  "branch_methods": [
+    "branch_hidden",
+    "branch_visible",
+    "branch_hide_inapp"
+  ],
+  "expected_rows": 52496,
+  "extended_policy": "nearest shared-prefix off-path condition with option-aligned different action; third option preferred; binary C uses original action; no fabricated D for missing option-aligned alternative"
+}
