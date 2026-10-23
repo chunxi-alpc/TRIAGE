@@ -12,3 +12,6 @@
 
 复现：固定选择见selection.json；服务器数据在private/run500/mechanism/priority200。正式命令使用MECHANISM_PRIVATE与MECHANISM_PUBLIC设置独立目录，worker.sh保持原增益和解码设置，CUDA_VISIBLE_DEVICES=1，等待CAD PID87628。
 正式机制结果完成后见qwen/full/REPORT.zh.md、summary.json与scores.jsonl；existing目录仅为已完成ABC复用结果。CS两例同病种，四版本K组调和平均仅作描述，不作为总体排名。
+
+
+更新：Qwen200已拆成GPU0与GPU1各100题，各自等待该卡既有CAD自然完成；GPU0等待Llama CAD PID87624，GPU1等待Qwen CAD PID87628。两份输出分别写入私有priority200/gpu0与gpu1目录，合并后仍按同一200题和固定K/U统计，不取两份均值冒充整体指标。仅修改尚未开始的机制等待任务；现有CAD与重排进程保持运行。合并时检验200题覆盖、逐题键唯一与各100题manifest完成，注意力门槛在完整200题上计算，不在分片上决定。复现脚本priority200_shard.sh、merge_priority200.py、finish_priority200.sh。
