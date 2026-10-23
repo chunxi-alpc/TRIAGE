@@ -4,9 +4,10 @@ from pathlib import Path
 from analyze import bootstrap,paired
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args();assert not a.out.exists();r=a.root;selection=json.loads((r/'mechanism/priority200/selection.json').read_text());ids=set(selection['ids']);assert len(ids)==200
+ p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--out',type=Path,required=True);p.add_argument('--cad-dir',type=Path);a=p.parse_args();assert not a.out.exists();r=a.root;selection=json.loads((r/'mechanism/priority200/selection.json').read_text());ids=set(selection['ids']);assert len(ids)==200
  mech=Path(__file__).resolve().parent/'results/priority200/qwen/full_parser_v2/summary.json';report={'time':datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).isoformat(),'cases':200,'selection_sha256':hashlib.sha256((r/'mechanism/priority200/selection.json').read_bytes()).hexdigest(),'CAD_cells':{},'paired_filtered_vs_unfiltered':{},'pending':[],'mechanism':json.loads(mech.read_text()),'read_only':True};buckets={};safe=[]
  sources=[('CAD8',r/'qwen_full_8token_original.jsonl'),('CAD128',r/'qwen_full.jsonl')]+[(f'CAD_filtered_{order}',r/'cad_fix'/f'qwen_{order}_filtered.jsonl') for order in ['original','left','right']]
+ if a.cad_dir:sources=sources[:2]+[(f'CAD_filtered_{order}',a.cad_dir/f'{order}_filtered.jsonl') for order in ['original','left','right']]
  for revision,source in sources:
   mf=source.with_suffix('.manifest.json')
   if not source.exists() or not mf.exists() or not json.loads(mf.read_text()).get('complete',True):report['pending'].append(revision);continue
