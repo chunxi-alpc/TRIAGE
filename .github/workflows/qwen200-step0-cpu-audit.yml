@@ -30,6 +30,9 @@ jobs:
           python -m unittest discover \
             -s experiments/aster_validation_20261022/mechanism_20261023 \
             -p 'test_step0_reanalysis.py' -v
+          python -m unittest discover \
+            -s experiments/aster_validation_20261022/mechanism_20261023 \
+            -p 'test_step0_cluster_sensitivity.py' -v
       - name: Reproduce public descriptive audit
         run: |
           python experiments/aster_validation_20261022/mechanism_20261023/step0_extended_audit.py \
@@ -48,4 +51,18 @@ jobs:
           frozen=json.load(open('experiments/aster_validation_20261022/mechanism_20261023/results/step0_review/extended_public.json',encoding='utf-8'))
           assert x==frozen, 'public audit snapshot is stale or differs from code'
           print('STEP0_PUBLIC_AUDIT_SNAPSHOT_JSON='+json.dumps(x,ensure_ascii=False,sort_keys=True,separators=(',',':')))
+          PY
+      - name: Reproduce exploratory tree and cancer-type sign-flip analysis
+        run: |
+          python experiments/aster_validation_20261022/mechanism_20261023/step0_cluster_sensitivity.py \
+            --output "$RUNNER_TEMP/qwen200_cluster_sensitivity.json"
+          python - "$RUNNER_TEMP/qwen200_cluster_sensitivity.json" <<'PY'
+          import json,sys
+          x=json.load(open(sys.argv[1],encoding='utf-8'))
+          assert x['provenance']['cases']==200
+          assert x['provenance']['disease_tree_keys']==23
+          assert x['provenance']['cancer_prefix_proxy_groups']==13
+          assert x['contrasts']['visible_A_minus_D_branch']['net_correct_first_minus_second']==47
+          assert x['contrasts']['hidden_minus_visible_D']['net_correct_first_minus_second']==33
+          assert x['method']['independent_guideline_sources_verified'] is False
           PY
