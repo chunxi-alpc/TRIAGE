@@ -90,4 +90,6 @@ jobs:
           assert x['counts']['no_cancer_prefix_overlap_strict']['n']==6
           assert x['counts']['no_cancer_prefix_overlap_strict_single']['n']==0
           assert x['provenance']['tested_800_predictions'] is False
+          frozen=json.load(open('experiments/aster_validation_20261022/mechanism_20261023/results/step0_review/cohort_scope_pr25_frozen.json',encoding='utf-8'))
+          assert x==frozen, 'PR25 fixed cohort snapshot drifted from pinned ref'
           PY
