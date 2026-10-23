@@ -8,7 +8,7 @@ def wait_if_delegated(plan_path=DEFAULT_PLAN,argv=None):
  if '--output' not in argv or not plan_path.exists():return
  output=Path(argv[argv.index('--output')+1]).resolve();plan=json.loads(plan_path.read_text());task=next((t for t in plan['tasks'] if Path(t['output']).resolve()==output),None)
  if task is None:return
- if plan.get('cancelled'):raise RuntimeError('Old task plan cancelled: '+plan['cancelled'])
+ if plan.get('cancelled') and not task.get('selected200_only'):raise RuntimeError('Old task plan cancelled: '+plan['cancelled'])
  for flag,want in [('--input',task['input']),('--model',task['model'])]:
   assert flag in argv and Path(argv[argv.index(flag)+1]).resolve()==Path(want).resolve(),f'delegated task argument mismatch: {flag}'
  owner=os.environ.get('TRIAGE_JOB_OWNER')==task['owner'];manifest=output.with_suffix('.manifest.json');printed=False
