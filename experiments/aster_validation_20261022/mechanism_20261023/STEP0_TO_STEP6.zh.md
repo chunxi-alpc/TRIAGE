@@ -8,6 +8,9 @@
 
 > 阻断性任务追踪：[Issue #26：规则归属、指南来源、临床合理性与CAD轨迹](https://github.com/chunxi-alpc/TRIAGE/issues/26)。在该Issue关闭前，不将步骤0条件性结论升级为机制性证明。
 
+
+> **2026-10-24新增证据边界：** [树/癌种层级的精确符号翻转敏感性与800例交叉队列审计](results/step0_review/CLUSTER_AND_COHORT_DECISION.zh.md)；[200例分组稳健性JSON](results/step0_review/cluster_sensitivity.json)、[PR25固定800例队列范围JSON](results/step0_review/cohort_scope_pr25_frozen.json)。800例仅781个与原200不重叠的ID；新树且原严格唯一动作仅2例，新癌种且原严格唯一动作0例。新增检验均为探索性，未触及原预设比较族；不代表PR25模型推理已完成。
+
 ## 执行原则
 
 - **三个不同的终点**：①任意分支输出/正确性变化；②指向特定诱饵分支的有害方向；③模型内部注意力因果机制。分别定义零假设与比较族，不用一个显著结果替代另一个。
