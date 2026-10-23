@@ -23,7 +23,7 @@ class MechanismTest(unittest.TestCase):
     original=model(**enc,use_cache=False).logits[0,-1].float();expected=model.generate(**enc,do_sample=False,max_new_tokens=8,pad_token_id=0);actual,raw=greedy_with_logits(model,enc,0)
    self.assertTrue(torch.equal(actual,expected));self.assertTrue(torch.allclose(original,raw,atol=1e-6,rtol=1e-5))
  def test_parser(self):
-  self.assertEqual(parse('**Answer: O**',list('ABCDEFGHIJKLMNO')),'O');self.assertIsNone(parse('A patient has a fever',list('ABC')));self.assertIsNone(parse('Z',list('ABC')))
+  self.assertEqual(parse('**Answer: O**',list('ABCDEFGHIJKLMNO')),'O');self.assertEqual(parse('**Answer: A**\n\n**Explanation:',list('ABC')),'A');self.assertEqual(parse('**C**\n\n**Reasoning:**',list('ABC')),'C');self.assertIsNone(parse('A patient has a fever',list('ABC')));self.assertIsNone(parse('Z',list('ABC')))
  def test_attention_block_exact_head_query(self):
   captured={}
   def native(module,q,k,v,mask,**kw):captured['mask']=mask;return mask

@@ -1,3 +1,5 @@
+> 解析修复更新：正式分支结果以[BRANCH_DIAGNOSIS.zh.md](BRANCH_DIAGNOSIS.zh.md)和qwen/branches_parser_v2为准；原branches/full含已确认的解析错误，仅保留对照。下游修复结果将保存full_parser_v2，不覆盖旧输出。
+
 # Qwen优先200题
 
 按原500题的固定顺序选取金标条件分支只有一个动作的前200题，不依据模型表现筛选。K=76、U=124，CS=2。原500题与CAD/重排任务保持运行；两模型原机制500题等待任务已撤下，先执行Qwen200。现有ABC结果全部复用，新分支/D/CS与改进方法仍等待修改版CAD自然完成。
