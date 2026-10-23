@@ -124,3 +124,7 @@ python experiments/aster_validation_20261022/collect_cad200.py
 全部1200条逐题比较记录（原400复用、新800）解析失败为0、名单外和重复键为0。实际新增处置推理548次、相同提示缓存复用252次，分支判断完全复用；GPU0与GPU1各负责一个顺序，均自然完成，Llama未恢复。原分支/动作竞争及动机性筛查门槛结论保持：动作归属改变有偏移信号，但未达到原校正门槛，未执行注意力阻断。本补充增强了D版隐藏裁剪收益对处置选项顺序的证据，不证明动机性机制，也不外推未验证的分支候选重排。
 
 本补充主检验族为三顺序隐藏对可见的比较，独立于原机制全比较族；原顺序的Holm p因比较族不同而不同，原始输出与原始配对p未改变。详细K/U、配对区间和顺序变化见[d_option_order/summary.json](d_option_order/summary.json)，逐题见[d_option_order/paired_scores.jsonl](d_option_order/paired_scores.jsonl)，命令见[../D_OPTION_ORDER.md](../D_OPTION_ORDER.md)。原最终报告备份[FINAL200_before_D_option_order.zh.md](FINAL200_before_D_option_order.zh.md)。
+
+## 追加：步骤0研究审计的证据边界
+
+2026-10-23 对公开逐题数据做**只读、无新增GPU**复核，详见[完整研究问题审计](step0_review/REPORT.zh.md)、[统计快照](step0_review/summary.json)及[后续路线](../STEP0_TO_STEP6.zh.md)。A可见→D可见的分支正确率由140/200降至93/200，逐题55例对转错、8例错转对（**新增探索性、未校正**精确配对p=9.76e-10）；该检验**不同于**原方案针对K组指向特定诱饵分支的预设校正后门槛，后者仍未通过，注意力阻断仍未执行。A中24例错误分支下回答正确、D中均选回原动作的观察已核对，但由于没有公开的错误分支动作集合，**不能直接断言24例全部无视裁剪规则**。原有最终结果、历史解析版本和审核状态保持不变。
