@@ -137,3 +137,7 @@ python experiments/aster_validation_20261022/collect_cad200.py
 ### 2026-10-24：剩余证据审计索引
 
 固定200例真实私有CPU核查见[PRIVATE_STRUCTURE_AUDIT.zh.md](step0_review/PRIVATE_STRUCTURE_AUDIT.zh.md)、[无原文逐例结构证据](step0_review/private_structure_summary.json)、[医学双人盲审协议](step0_review/CLINICAL_REVIEW_PROTOCOL.zh.md)。A24中19例原动作在错误分支、5例缺失；D6全部字面允许；D多动作兄弟23例；22/6方向复现。CAD16例损失的金标字母在首步必被屏蔽，其中13例旧CAD首选就是该字母；缺后续轨迹，不能完成全部因果归因。原正式评价与统计不变，专家审阅和真正来源独立性仍开放。
+
+## 追加来源稳健性与PR25队列审计（2026-10-24）
+
+[聚类敏感性及800例协议可比性报告](step0_review/CLUSTER_AND_COHORT_DECISION.zh.md)，[冻结树/癌种统计](step0_review/cluster_sensitivity.json)、[冻结PR25结构范围](step0_review/cohort_scope_pr25_frozen.json)。该后续探索性分析不改变原实验输入、结果或原多重比较族；PR25的800例最终方法准确率尚未据本报告计算。
