@@ -89,3 +89,7 @@ Results compare original versus rotated order on exactly those IDs, mapping pred
 
 ### Revised 500-case execution
 Main results are reused for the first 500 IDs of the original fixed shuffled test split; all 40 development IDs are excluded. Original 3645-run partial outputs are preserved unchanged. CAD128 correction covers all nine CAD/prune-CAD arms per case. Unsigned, statistics and two option rotations use the same 500 IDs; gains are fixed from the earlier development run. The independent positive control uses CounterFact examples 5000:5500 with model-specific projections built from 200 synthetic pairs. GPU0 worker PID86135, GPU1 worker PID86139 at launch; private outputs under /home/gcx/aster_validation_20261022/private/run500. Commands: `CUDA_VISIBLE_DEVICES=0 bash experiments/aster_validation_20261022/worker500.sh llama /home/gcx/TRIAGE/models/modelscope/Meta-Llama-3.1-8B-Instruct` and the analogous GPU1 Qwen3-8B invocation. Worker logs and status files record every stage.
+
+
+### CAD decoding correction beyond length
+See CAD_FIX.zh.md. A first-token probe confirmed low-conditional-probability tokens can win unfiltered CAD and trigger rule copying. A separate conditional-relative probability filter (beta=0.1) is queued on all 500 cases and both option rotations, without replacing original outputs. A separate legal-choice constrained decoding control is computed exactly from saved logits for CAD and matched baseline/prune. Existing experiments continue. Completion now requires the additional CAD correction artifacts.

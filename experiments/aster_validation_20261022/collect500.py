@@ -11,7 +11,7 @@ for model in ['llama','qwen']:
  dest=out/model;dest.mkdir(exist_ok=True)
  for f in root.glob(model+'*.manifest.json'):shutil.copyfile(f,dest/f.name)
  stages={}
- for name in ['status','positive_status']:
+ for name in ['status','positive_status','cad_fix_status']:
   f=root/f'{model}.{name}';stages[name]=f.read_text().strip() if f.exists() else 'not_started'
  stages['main_complete']=(dest/'full/summary.json').exists();stages['option_order_complete']=(dest/'option_order/summary.json').exists()
  stages['positive_complete']=stages['positive_status']=='complete'
@@ -20,7 +20,8 @@ for model in ['llama','qwen']:
   stages['positive_complete'] &= f.exists()
   if f.exists():
    (dest/'positive').mkdir(exist_ok=True);shutil.copyfile(f,dest/'positive'/f'{arm}_efficacy_metrics.json')
- stages['complete']=stages['main_complete'] and stages['option_order_complete'] and stages['positive_complete'];status['models'][model]=stages
+ stages['cad_fix_complete']=stages['cad_fix_status']=='complete' and (dest/'cad_fix/summary.json').exists()
+ stages['complete']=stages['cad_fix_complete'] and stages['main_complete'] and stages['option_order_complete'] and stages['positive_complete'];status['models'][model]=stages
 status['requested_run_complete']=all(x['complete'] for x in status['models'].values());(out/'STATUS.json').write_text(json.dumps(status,indent=2))
 lines=['# 500 道测试题实验','',f"检查时间：{status['checked_at']}",'范围：原固定留出划分的前500题，排除40道开发题；不是根据模型准确率筛题。原3645题任务的已有结果保留，500题对应主输出原样复用。','CAD/prune_cad全部重跑128 token；两种选项重排覆盖同一500题；SEKA独立正对照500题。','']
 for model,stages in status['models'].items():lines.append(model+': '+json.dumps(stages,ensure_ascii=False))
