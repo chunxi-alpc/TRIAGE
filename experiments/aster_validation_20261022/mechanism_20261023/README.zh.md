@@ -1,5 +1,7 @@
 # 分支判断与动作竞争机制实验（2026-10-23）
 
+> **当前状态说明：** 本文前半部分保留最初的排队/运行历史，不表示2026-10-23仍有GPU任务在运行。Qwen200已完成；Llama/500队列未恢复。最新结论与限制见[正式200例报告](results/FINAL200.zh.md)、[第二轮步骤0证据审计](results/step0_review/EXTENDED_AUDIT.zh.md)、[公开统计快照](results/step0_review/extended_public.json)及[CPU审计CI](../../../.github/workflows/qwen200-step0-cpu-audit.yml)。
+
 本实验接续原分支和目录，保留原500道留出题及原闭卷K/U；40道开发题仅用于实现检查与条件触发后的层/头选择。K仅表示闭卷原动作偏好，不能直接证明参数记忆。新增文件与结果独立保存，不覆盖原实验。
 
 ## 已完成与执行顺序
