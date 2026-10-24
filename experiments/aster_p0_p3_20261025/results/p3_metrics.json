@@ -1,0 +1,337 @@
+{
+  "complete": true,
+  "results": [
+    {
+      "method": "candidate",
+      "model": "qwen",
+      "n": 12288,
+      "accuracy": 0.552978515625,
+      "baseline_accuracy": 0.470458984375,
+      "both_correct": 5670,
+      "corrected": 1125,
+      "harmed": 111,
+      "both_wrong": 5382,
+      "harm_all": 0.009033203125,
+      "harm_given_baseline_correct": 0.019200830306175403,
+      "correction_given_baseline_wrong": 0.17289073305670816,
+      "changed_fraction": 0.107177734375,
+      "harm_given_changed": 0.08428246013667426,
+      "coverage": 0.20556640625,
+      "brier": 0.8147108115793377,
+      "ece_10_equal_width": 0.3595093366569921,
+      "cluster_inference": {
+        "clusters": 22,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.038419913419913417,
+          0.1314795743220048
+        ],
+        "harm_all_ci95": [
+          0.001199040767386091,
+          0.022958289519803714
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": ""
+      }
+    },
+    {
+      "method": "candidate",
+      "model": "llama",
+      "n": 12288,
+      "accuracy": 0.5684407552083334,
+      "baseline_accuracy": 0.524658203125,
+      "both_correct": 6201,
+      "corrected": 784,
+      "harmed": 246,
+      "both_wrong": 5057,
+      "harm_all": 0.02001953125,
+      "harm_given_baseline_correct": 0.03815728245695672,
+      "correction_given_baseline_wrong": 0.1342235918507105,
+      "changed_fraction": 0.096923828125,
+      "harm_given_changed": 0.20654911838790932,
+      "coverage": 0.21044921875,
+      "brier": 0.6626974705809021,
+      "ece_10_equal_width": 0.16855831247825914,
+      "cluster_inference": {
+        "clusters": 22,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.00857371794871795,
+          0.08068039950062422
+        ],
+        "harm_all_ci95": [
+          0.006761006289308176,
+          0.0404258725584374
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": ""
+      }
+    },
+    {
+      "method": "threshold",
+      "model": "qwen",
+      "n": 12288,
+      "accuracy": 0.7120768229166666,
+      "baseline_accuracy": 0.470458984375,
+      "both_correct": 5069,
+      "corrected": 3681,
+      "harmed": 712,
+      "both_wrong": 2826,
+      "harm_all": 0.057942708333333336,
+      "harm_given_baseline_correct": 0.12316208268465663,
+      "correction_given_baseline_wrong": 0.5656984785615491,
+      "changed_fraction": 0.3956705729166667,
+      "harm_given_changed": 0.14644179350061703,
+      "coverage": 0.773193359375,
+      "brier": 0.5004933854810315,
+      "ece_10_equal_width": 0.16518891001960787,
+      "cluster_inference": {
+        "clusters": 22,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.1704081632653061,
+          0.3150730411686587
+        ],
+        "harm_all_ci95": [
+          0.034702549575070823,
+          0.08460925039872408
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": ""
+      }
+    },
+    {
+      "method": "threshold",
+      "model": "llama",
+      "n": 12288,
+      "accuracy": 0.59130859375,
+      "baseline_accuracy": 0.524658203125,
+      "both_correct": 5648,
+      "corrected": 1618,
+      "harmed": 799,
+      "both_wrong": 4223,
+      "harm_all": 0.06502278645833333,
+      "harm_given_baseline_correct": 0.12393361253296106,
+      "correction_given_baseline_wrong": 0.27700736175312446,
+      "changed_fraction": 0.22005208333333334,
+      "harm_given_changed": 0.29548816568047337,
+      "coverage": 0.475830078125,
+      "brier": 0.6231093480508224,
+      "ece_10_equal_width": 0.1499505307673188,
+      "cluster_inference": {
+        "clusters": 22,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.024939800481596146,
+          0.10807034845496384
+        ],
+        "harm_all_ci95": [
+          0.03380423814328961,
+          0.10089829964709657
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": ""
+      }
+    },
+    {
+      "method": "direct",
+      "model": "qwen",
+      "n": 12288,
+      "accuracy": 0.734619140625,
+      "baseline_accuracy": 0.470458984375,
+      "both_correct": 4475,
+      "corrected": 4552,
+      "harmed": 1306,
+      "both_wrong": 1955,
+      "harm_all": 0.10628255208333333,
+      "harm_given_baseline_correct": 0.22591247189067634,
+      "correction_given_baseline_wrong": 0.6995543261103427,
+      "changed_fraction": 0.5696614583333334,
+      "harm_given_changed": 0.18657142857142858,
+      "coverage": 1.0,
+      "brier": 0.4006238081769562,
+      "ece_10_equal_width": 0.12364985660576498,
+      "cluster_inference": {
+        "clusters": 22,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.19064295977011494,
+          0.3415326395458846
+        ],
+        "harm_all_ci95": [
+          0.07418154761904762,
+          0.14089439655172414
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": ""
+      }
+    },
+    {
+      "method": "direct",
+      "model": "llama",
+      "n": 12288,
+      "accuracy": 0.5732421875,
+      "baseline_accuracy": 0.524658203125,
+      "both_correct": 3971,
+      "corrected": 3073,
+      "harmed": 2476,
+      "both_wrong": 2768,
+      "harm_all": 0.20149739583333334,
+      "harm_given_baseline_correct": 0.3840545990383124,
+      "correction_given_baseline_wrong": 0.5261085430576956,
+      "changed_fraction": 0.60009765625,
+      "harm_given_changed": 0.3357743422836995,
+      "coverage": 1.0,
+      "brier": 0.5833714377043626,
+      "ece_10_equal_width": 0.16465474746704073,
+      "cluster_inference": {
+        "clusters": 22,
+        "replicates": 10000,
+        "delta_ci95": [
+          -0.013175906913073238,
+          0.10890522875816994
+        ],
+        "harm_all_ci95": [
+          0.16108247422680413,
+          0.24281609195402298
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": ""
+      }
+    },
+    {
+      "method": "none",
+      "model": "qwen",
+      "n": 12288,
+      "accuracy": 0.470458984375,
+      "baseline_accuracy": 0.470458984375,
+      "both_correct": 5781,
+      "corrected": 0,
+      "harmed": 0,
+      "both_wrong": 6507,
+      "harm_all": 0.0,
+      "harm_given_baseline_correct": 0.0,
+      "correction_given_baseline_wrong": 0.0,
+      "changed_fraction": 0.0,
+      "harm_given_changed": null,
+      "coverage": 0.0,
+      "brier": 0.9569426242588697,
+      "ece_10_equal_width": 0.45293521994583946,
+      "cluster_inference": {
+        "clusters": 22,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "harm_all_ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": ""
+      }
+    },
+    {
+      "method": "none",
+      "model": "llama",
+      "n": 12288,
+      "accuracy": 0.524658203125,
+      "baseline_accuracy": 0.524658203125,
+      "both_correct": 6447,
+      "corrected": 0,
+      "harmed": 0,
+      "both_wrong": 5841,
+      "harm_all": 0.0,
+      "harm_given_baseline_correct": 0.0,
+      "correction_given_baseline_wrong": 0.0,
+      "changed_fraction": 0.0,
+      "harm_given_changed": null,
+      "coverage": 0.0,
+      "brier": 0.6918555246429303,
+      "ece_10_equal_width": 0.22826151217203827,
+      "cluster_inference": {
+        "clusters": 22,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "harm_all_ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": ""
+      }
+    },
+    {
+      "method": "blind_direct",
+      "model": "qwen",
+      "n": 12288,
+      "accuracy": 0.615234375,
+      "baseline_accuracy": 0.470458984375,
+      "both_correct": 4215,
+      "corrected": 3345,
+      "harmed": 1566,
+      "both_wrong": 3162,
+      "harm_all": 0.12744140625,
+      "harm_given_baseline_correct": 0.27088738972496107,
+      "correction_given_baseline_wrong": 0.5140617796219455,
+      "changed_fraction": 0.5222981770833334,
+      "harm_given_changed": 0.24400124649423496,
+      "coverage": 1.0,
+      "brier": 0.6911509920296118,
+      "ece_10_equal_width": 0.3195657870305545,
+      "cluster_inference": {
+        "clusters": 22,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.07849740932642488,
+          0.2089640094180962
+        ],
+        "harm_all_ci95": [
+          0.09010957324106113,
+          0.1654658981748319
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": ""
+      }
+    },
+    {
+      "method": "blind_direct",
+      "model": "llama",
+      "n": 12288,
+      "accuracy": 0.619384765625,
+      "baseline_accuracy": 0.524658203125,
+      "both_correct": 4629,
+      "corrected": 2982,
+      "harmed": 1818,
+      "both_wrong": 2859,
+      "harm_all": 0.14794921875,
+      "harm_given_baseline_correct": 0.281991624011168,
+      "correction_given_baseline_wrong": 0.5105290190035953,
+      "changed_fraction": 0.5131022135416666,
+      "harm_given_changed": 0.2883425852498017,
+      "coverage": 1.0,
+      "brier": 0.5513567996720908,
+      "ece_10_equal_width": 0.17686635347290994,
+      "cluster_inference": {
+        "clusters": 22,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.01634768740031898,
+          0.17511961722488037
+        ],
+        "harm_all_ci95": [
+          0.10533841754051478,
+          0.1926048565121413
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": ""
+      }
+    }
+  ],
+  "human_audit": "pending; do not equate automated evaluation with human review",
+  "seed_semantics": "Data construction seeds 0/1/2; deterministic model inference, not three independent model training runs."
+}
