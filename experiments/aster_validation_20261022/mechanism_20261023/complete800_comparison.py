@@ -109,7 +109,7 @@ def write_report(d,out):
  '## 文件与证据','cohort_comparison.json保留全部方法、新旧分组、来源与协议子集及原800配对统计；accuracy_comparison.csv便于查表。输入和程序SHA256见provenance，旧200和新800正式文件只读。18例CAD真实轨迹结论另见CAD18_TRACE.zh.md。']
  (out/'COHORT800_COMPARISON.zh.md').write_text('\n'.join(lines)+'\n')
  with (out/'accuracy_comparison.csv').open('w',newline='') as f:
-  w=csv.DictWriter(f,fieldnames=list(d['cross_cohort'][0]));w.writeheader();w.writerows(d['cross_cohort'])
+  w=csv.DictWriter(f,fieldnames=list(d['cross_cohort'][0]),lineterminator='\n');w.writeheader();w.writerows(d['cross_cohort'])
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('--results800',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
