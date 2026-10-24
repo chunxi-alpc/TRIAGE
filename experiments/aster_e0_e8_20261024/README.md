@@ -1,3 +1,9 @@
+## FlexAttention 工程验证
+
+`flex_engine.py` 提供独立的 `FlexEngine`，用 `score_mod` 实现软分数调整，用 `create_block_mask`/`block_mask` 实现因果、盲判和硬门控访问控制；GQA使用原生 `enable_gqa`，不展开KV头。当前范围为原Engine使用的单条、无填充、完整序列评分；未接入KV缓存或批量填充解码。不会替换正在运行的Engine。
+
+`run_flex_validation.sh` 只使用GPU6，在实验目录提取Python开发头文件，未修改系统环境。`validate_flex.py` 比较FP32/BF16、GQA和129词元跨块边界、分数/访问控制、三层间接传播，以及两8B模型的4种模式。模型接口对照每模型仅1条开发样本，不是性能实验；实际差异保留在结果文件中。SEKA和头选择尚未加入。
+
 ## 新增：seed=0 开发集改进实验
 
 `launch_improvement.sh` 在空闲GPU6顺序运行两个8B模型。`improve_branch.py` 添加不含处置的逐条条件三分类判断、全层门控、跨树选择融合权重和判断一致才启用干预的对照。四种分支来源均比较直接映射、裁剪、全层软/硬门控；共22种答案配置，部分复用此前同配置结果。只用200例开发集四卷 seed=0，不更改原测试锁定配置。结果位于 `results/improvement_seed0_v1/`，每个模型结束后自动汇总并推送本PR。
