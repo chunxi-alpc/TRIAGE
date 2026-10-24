@@ -13,7 +13,7 @@ def official_green(engine,roles,selected,projection,layers='last10',gain=1.,root
  try:
   from src.model.seka_llm import SEKALLM
   obj=SEKALLM.__new__(SEKALLM);obj.model=engine.model;obj._hooks=[];obj.pos_pt=str(path);obj.neg_pt=None;obj.layers=layers;obj.amplify_pos=gain;obj.amplify_neg=0.;obj.feature_function=None
-  mask=torch.tensor([rs is not None and selected in rs for rs in roles],device=engine.model.device,dtype=torch.bool)
+  mask=torch.tensor([engine.role(rs)[0] in ('action','option') and selected in engine.role(rs)[1] for rs in roles],device=engine.model.device,dtype=torch.bool)
   obj.attach_projection(steer_mask_tensor=mask,silence=True)
   try:yield
   finally:obj.remove_projection()

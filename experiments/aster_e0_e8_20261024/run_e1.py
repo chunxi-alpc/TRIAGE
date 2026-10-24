@@ -22,7 +22,7 @@ def main():
    p=[.01/(len(c['rules'])-1)]*len(c['rules']);p[c['gold_rule']]=.99
    arms={}
    for name,form,mode in [('group3','crop','none'),('group4','crop_action','none'),('group9_hard','full','hard'),('strict_diagnostic','full','strict')]:
-    pred,logits=e.answer(c,form,mode,p);arms[name]={'prediction':pred,'correct':pred==c['gold_option'],'logits':logits}
+    pred,logits=e.answer(c,form,mode,p,selected=c['gold_rule'],write_rule=True,blind=mode in ('hard','strict'),gate_options=True);arms[name]={'prediction':pred,'correct':pred==c['gold_option'],'logits':logits}
    r={k:c[k] for k in ['id','tree','variant','seed','gold_rule','gold_option']};r.update(blind=blind,hidden=hidden,arms=arms,seconds=time.time()-t);f.write(json.dumps(r)+'\n');f.flush()
  rows=list(map(json.loads,(out/'scores.jsonl').read_text().splitlines()));t2=sum(max(range(len(r['blind'])),key=lambda j:r['blind'][j])==max(range(len(r['hidden'])),key=lambda j:r['hidden'][j]) for r in rows)/len(rows)
  acc=lambda field:sum(max(range(len(r[field])),key=lambda j:r[field][j])==r['gold_rule'] for r in rows)/len(rows)
