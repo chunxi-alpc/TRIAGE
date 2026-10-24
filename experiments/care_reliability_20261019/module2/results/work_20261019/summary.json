@@ -1,0 +1,357 @@
+{
+  "status": "completed_real_model_experiments",
+  "model": "Qwen/Qwen3-4B-Base",
+  "model_revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+  "server": "gcx@10.29.128.115",
+  "environment": "/home/gcx/gcx261014",
+  "model_path": "/home/gcx/care_20261016/CARE_Codex_Pilot/models/Qwen3-4B-Base",
+  "versions": {
+    "torch": "2.8.0",
+    "transformers": "4.57.6"
+  },
+  "physical_gpus": [
+    1,
+    2,
+    3
+  ],
+  "memory_budget_GiB_per_gpu": 24,
+  "peak_reserved_GiB": 7.7578125,
+  "started_at": "2026-10-19T15:01:18.093271+08:00",
+  "finished_at": "2026-10-19T15:03:14.528550+08:00",
+  "wall_seconds": 116.435279,
+  "actual_model_forwards": 6905,
+  "prediction_records": 6336,
+  "zero_check_forwards": 588,
+  "all_zero_checks_passed": true,
+  "formal_run_root": "/home/gcx/care_reliability_runs/module2_work_02",
+  "initial_attempt_preserved": "/home/gcx/care_reliability_runs/module2_work_01",
+  "final_geometry_sha256": "a7ae77c466a8881efe9a3eca7552e4787671a65c4f73dec726a22d5d2df1bde5",
+  "legacy": {
+    "cases": 384,
+    "pairs": 192,
+    "families": 12,
+    "metrics": {
+      "baseline": {
+        "paired_accuracy": {
+          "value": 0.375,
+          "n": 192
+        },
+        "accuracy": {
+          "value": 0.6171875,
+          "n": 384
+        },
+        "misuse": {
+          "value": 0.21875,
+          "n": 192
+        },
+        "no_conflict_retention": {
+          "value": 1.0,
+          "n": 149
+        }
+      },
+      "b4_calibrated": {
+        "paired_accuracy": {
+          "value": 0.3697916666666667,
+          "n": 192
+        },
+        "accuracy": {
+          "value": 0.6145833333333334,
+          "n": 384
+        },
+        "misuse": {
+          "value": 0.20833333333333334,
+          "n": 192
+        },
+        "no_conflict_retention": {
+          "value": 0.9865771812080537,
+          "n": 149
+        }
+      },
+      "mean_calibrated": {
+        "paired_accuracy": {
+          "value": 0.3854166666666667,
+          "n": 192
+        },
+        "accuracy": {
+          "value": 0.6223958333333334,
+          "n": 384
+        },
+        "misuse": {
+          "value": 0.21875,
+          "n": 192
+        },
+        "no_conflict_retention": {
+          "value": 1.0,
+          "n": 149
+        }
+      },
+      "direct_bias": {
+        "paired_accuracy": {
+          "value": 0.4010416666666667,
+          "n": 192
+        },
+        "accuracy": {
+          "value": 0.6302083333333334,
+          "n": 384
+        },
+        "misuse": {
+          "value": 0.203125,
+          "n": 192
+        },
+        "no_conflict_retention": {
+          "value": 1.0,
+          "n": 149
+        }
+      }
+    },
+    "primary_comparisons": [
+      {
+        "method_a": "direct_bias",
+        "method_b": "b4_calibrated",
+        "metric": "paired_accuracy",
+        "delta_b_minus_a": -0.03125,
+        "ci95_low": -0.046875,
+        "ci95_high": -0.015625,
+        "co_primary": true,
+        "matched_direction_comparison": false,
+        "co_primary_ci975_low": -0.052083333333333315,
+        "co_primary_ci975_high": -0.010416666666666685
+      },
+      {
+        "method_a": "direct_bias",
+        "method_b": "mean_calibrated",
+        "metric": "paired_accuracy",
+        "delta_b_minus_a": -0.015625,
+        "ci95_low": -0.036458333333333315,
+        "ci95_high": 0.00520833333333337,
+        "co_primary": true,
+        "matched_direction_comparison": false,
+        "co_primary_ci975_low": -0.03645833333333337,
+        "co_primary_ci975_high": 0.01041666666666663
+      }
+    ],
+    "interpretation_zh": "旧数据回归未显示校准学习方向优于直接分数偏置。"
+  },
+  "sealed": {
+    "cases": 144,
+    "surface_pairs": 72,
+    "families": 8,
+    "primary_cases": 48,
+    "primary_pairs": 24,
+    "all_12_conditions_primary_pair_correct": 0,
+    "metrics": {
+      "baseline": {
+        "paired_accuracy": {
+          "value": 0.0,
+          "n": 24
+        },
+        "accuracy": {
+          "value": 0.3333333333333333,
+          "n": 48
+        },
+        "misuse": {
+          "value": 0.2916666666666667,
+          "n": 24
+        }
+      },
+      "b4_calibrated": {
+        "paired_accuracy": {
+          "value": 0.0,
+          "n": 24
+        },
+        "accuracy": {
+          "value": 0.3333333333333333,
+          "n": 48
+        },
+        "misuse": {
+          "value": 0.2916666666666667,
+          "n": 24
+        }
+      },
+      "mean_calibrated": {
+        "paired_accuracy": {
+          "value": 0.0,
+          "n": 24
+        },
+        "accuracy": {
+          "value": 0.3333333333333333,
+          "n": 48
+        },
+        "misuse": {
+          "value": 0.3333333333333333,
+          "n": 24
+        }
+      },
+      "direct_bias": {
+        "paired_accuracy": {
+          "value": 0.0,
+          "n": 24
+        },
+        "accuracy": {
+          "value": 0.3125,
+          "n": 48
+        },
+        "misuse": {
+          "value": 0.3333333333333333,
+          "n": 24
+        }
+      }
+    },
+    "primary_comparisons": [
+      {
+        "method_a": "direct_bias",
+        "method_b": "b4_calibrated",
+        "metric": "paired_accuracy",
+        "delta_b_minus_a": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "co_primary": true,
+        "matched_direction_comparison": false,
+        "co_primary_ci975_low": 0.0,
+        "co_primary_ci975_high": 0.0
+      },
+      {
+        "method_a": "direct_bias",
+        "method_b": "mean_calibrated",
+        "metric": "paired_accuracy",
+        "delta_b_minus_a": 0.0,
+        "ci95_low": 0.0,
+        "ci95_high": 0.0,
+        "co_primary": true,
+        "matched_direction_comparison": false,
+        "co_primary_ci975_low": 0.0,
+        "co_primary_ci975_high": 0.0
+      }
+    ],
+    "calibrated_b4_no_op_cases": 128,
+    "calibrated_b4_token_coverage": 0.05555555555555555,
+    "calibrated_mean_no_op_cases": 54,
+    "calibrated_mean_token_coverage": 0.5486111111111112,
+    "interpretation_zh": "新合成机制集全部12条件主要成对正确率均为0/24；低成功率和有限家族导致该终点无法区分方法，不支持等效或临床有效性结论。"
+  },
+  "numerical_fix": {
+    "cause": "Nonmonotone BF16 score RMS made bisection miss feasible scales",
+    "unchanged_relative_error_limit": 0.15,
+    "fallback": "4097 fixed points in original bracket, only after failed bisection; selection uses RMS only",
+    "fallback_records": 2,
+    "final_maximum_relative_error": 0.1496042348444462,
+    "captured_numerical_evidence": "/home/gcx/care_reliability_runs/module2_work_01/numerical_failure_diagnostic",
+    "tests_passed": 22,
+    "all_six_tasks_restarted": true
+  },
+  "folds": [
+    {
+      "status": "completed_real_inference",
+      "mode": "legacy384_regression",
+      "fold": 0,
+      "cases": 128,
+      "records": 1536,
+      "actual_model_forwards": 1654,
+      "zero_check_forwards": 138,
+      "no_eligible_no_op_records": 212,
+      "elapsed_seconds": 67.9105019569397,
+      "peak_allocated_GiB": 7.572224140167236,
+      "peak_reserved_GiB": 7.595703125,
+      "physical_gpu_visibility": "1",
+      "run_directory": "/home/gcx/care_reliability_runs/module2_work_02/legacy384_regression/fold0",
+      "journal_sha256": "fa8b0c9baee798812898dca3c52a628d57925626263b31715ff4d195457c751c",
+      "run_manifest_sha256": "12167ff236affb798fea3e86ba1dd07511dab972c59f7d54797c1d3f0766796d",
+      "geometry_source_sha256": "a7ae77c466a8881efe9a3eca7552e4787671a65c4f73dec726a22d5d2df1bde5"
+    },
+    {
+      "status": "completed_real_inference",
+      "mode": "legacy384_regression",
+      "fold": 1,
+      "cases": 128,
+      "records": 1536,
+      "actual_model_forwards": 1584,
+      "zero_check_forwards": 138,
+      "no_eligible_no_op_records": 282,
+      "elapsed_seconds": 63.43738770484924,
+      "peak_allocated_GiB": 7.572505950927734,
+      "peak_reserved_GiB": 7.595703125,
+      "physical_gpu_visibility": "2",
+      "run_directory": "/home/gcx/care_reliability_runs/module2_work_02/legacy384_regression/fold1",
+      "journal_sha256": "4926f80f84b4d10904dc8c041f48ae774e95d57e0f8a67c9b050257daf1d34c4",
+      "run_manifest_sha256": "167815c8096909f40152e1ee65d17978fb87dedb449d5aa067e8de5ffc0569cc",
+      "geometry_source_sha256": "a7ae77c466a8881efe9a3eca7552e4787671a65c4f73dec726a22d5d2df1bde5"
+    },
+    {
+      "status": "completed_real_inference",
+      "mode": "legacy384_regression",
+      "fold": 2,
+      "cases": 128,
+      "records": 1536,
+      "actual_model_forwards": 1594,
+      "zero_check_forwards": 138,
+      "no_eligible_no_op_records": 272,
+      "elapsed_seconds": 65.73235821723938,
+      "peak_allocated_GiB": 7.578246593475342,
+      "peak_reserved_GiB": 7.59765625,
+      "physical_gpu_visibility": "3",
+      "run_directory": "/home/gcx/care_reliability_runs/module2_work_02/legacy384_regression/fold2",
+      "journal_sha256": "324fc83dea2f814e95c3b3c1b63b025023d47d1866a4a0e7e124f1504787bbca",
+      "run_manifest_sha256": "b08e54fc8414d983f93f4de78de76983a7a4d13ca9174818ff91778820e2dd47",
+      "geometry_source_sha256": "a7ae77c466a8881efe9a3eca7552e4787671a65c4f73dec726a22d5d2df1bde5"
+    },
+    {
+      "status": "completed_real_inference",
+      "mode": "sealed_mechanism",
+      "fold": 0,
+      "cases": 54,
+      "records": 648,
+      "actual_model_forwards": 758,
+      "zero_check_forwards": 64,
+      "no_eligible_no_op_records": 146,
+      "elapsed_seconds": 45.46722960472107,
+      "peak_allocated_GiB": 7.607480049133301,
+      "peak_reserved_GiB": 7.673828125,
+      "physical_gpu_visibility": "1",
+      "run_directory": "/home/gcx/care_reliability_runs/module2_work_02/sealed_mechanism/fold0",
+      "journal_sha256": "8aebe5decc275d00fd92e9b0f43d666fa17266832377a255d31d15ff05a5061d",
+      "run_manifest_sha256": "63ecb83e502296fdbfba3e784595f6ca2a1305df2b25dde5bff9f42f9ea140fd",
+      "geometry_source_sha256": "a7ae77c466a8881efe9a3eca7552e4787671a65c4f73dec726a22d5d2df1bde5"
+    },
+    {
+      "status": "completed_real_inference",
+      "mode": "sealed_mechanism",
+      "fold": 1,
+      "cases": 72,
+      "records": 864,
+      "actual_model_forwards": 934,
+      "zero_check_forwards": 82,
+      "no_eligible_no_op_records": 204,
+      "elapsed_seconds": 51.04371905326843,
+      "peak_allocated_GiB": 7.613040924072266,
+      "peak_reserved_GiB": 7.7578125,
+      "physical_gpu_visibility": "2",
+      "run_directory": "/home/gcx/care_reliability_runs/module2_work_02/sealed_mechanism/fold1",
+      "journal_sha256": "ac68ae9c21c2e6a8ca5d387373354dee4886c60cb57b59d98208a8854bc1921f",
+      "run_manifest_sha256": "98771a749fd401f056f1edcafe23c2b78c6e58af3aeb2c176ba95867153d1941",
+      "geometry_source_sha256": "a7ae77c466a8881efe9a3eca7552e4787671a65c4f73dec726a22d5d2df1bde5"
+    },
+    {
+      "status": "completed_real_inference",
+      "mode": "sealed_mechanism",
+      "fold": 2,
+      "cases": 18,
+      "records": 216,
+      "actual_model_forwards": 381,
+      "zero_check_forwards": 28,
+      "no_eligible_no_op_records": 55,
+      "elapsed_seconds": 27.921143054962158,
+      "peak_allocated_GiB": 7.604016304016113,
+      "peak_reserved_GiB": 7.650390625,
+      "physical_gpu_visibility": "3",
+      "run_directory": "/home/gcx/care_reliability_runs/module2_work_02/sealed_mechanism/fold2",
+      "journal_sha256": "6a58b19603c0515e18a2390edabeb933fbc4c56cea4f8248c69cbd5a7e3a1b7c",
+      "run_manifest_sha256": "f4c41c97bb4973bdc9821e0988f83f3c386a15d0f7d72de1351dceadd243200a",
+      "geometry_source_sha256": "a7ae77c466a8881efe9a3eca7552e4787671a65c4f73dec726a22d5d2df1bde5"
+    }
+  ],
+  "evidence_limits": [
+    "Oracle applicability and target spans; not predicted module-one end-to-end results",
+    "New synthetic wording informed parser development; not fully development-blind confirmation",
+    "No clinical effectiveness, free-generation, KV-cache, or evidence-budget claim"
+  ]
+}

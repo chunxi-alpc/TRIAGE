@@ -1,0 +1,166 @@
+{
+  "run_type": "deterministic_synthetic_cpu_diagnostic_not_model_inference",
+  "baseline_commit": "7557d3150214a3894f2d340df6d9964de75efce1",
+  "created_at": "2026-10-19T06:41:34.146291+00:00",
+  "python": "3.12.14",
+  "source_hashes": {
+    "src/module1/care_v6.py": "8c2394d51c4973b19882b2c97cc1c05317feaa3b35a20a64f4fd8b61802f194e",
+    "src/module1/care_v7.py": "8c9353e3b9f116ab25618c75ffb0e399ace4413b7c56fc459446db33c3f82dac"
+  },
+  "n": 56,
+  "expert_review": false,
+  "test_policy": "development_regression_not_held_out",
+  "unit_tests": {
+    "run": 17,
+    "failures": 0,
+    "errors": 0
+  },
+  "numeric_methods": {
+    "v6": {
+      "correct": 30,
+      "accuracy": 0.5357142857142857,
+      "resolved": 31,
+      "unsafe_override_in_abstention_cases": 14,
+      "abstention_cases_n": 27,
+      "by_category": {
+        "boundary": {
+          "n": 8,
+          "correct": 8
+        },
+        "unit": {
+          "n": 8,
+          "correct": 6
+        },
+        "wording": {
+          "n": 1,
+          "correct": 1
+        },
+        "range": {
+          "n": 6,
+          "correct": 6
+        },
+        "contradiction": {
+          "n": 3,
+          "correct": 1
+        },
+        "subject": {
+          "n": 9,
+          "correct": 1
+        },
+        "time": {
+          "n": 4,
+          "correct": 1
+        },
+        "missing": {
+          "n": 1,
+          "correct": 1
+        },
+        "negation": {
+          "n": 1,
+          "correct": 1
+        },
+        "uncertain": {
+          "n": 1,
+          "correct": 1
+        },
+        "invalid": {
+          "n": 2,
+          "correct": 1
+        },
+        "binding": {
+          "n": 1,
+          "correct": 0
+        },
+        "new_field": {
+          "n": 8,
+          "correct": 0
+        },
+        "unsupported": {
+          "n": 3,
+          "correct": 2
+        }
+      }
+    },
+    "v7": {
+      "correct": 56,
+      "accuracy": 1.0,
+      "resolved": 29,
+      "unsafe_override_in_abstention_cases": 0,
+      "abstention_cases_n": 27,
+      "by_category": {
+        "boundary": {
+          "n": 8,
+          "correct": 8
+        },
+        "unit": {
+          "n": 8,
+          "correct": 8
+        },
+        "wording": {
+          "n": 1,
+          "correct": 1
+        },
+        "range": {
+          "n": 6,
+          "correct": 6
+        },
+        "contradiction": {
+          "n": 3,
+          "correct": 3
+        },
+        "subject": {
+          "n": 9,
+          "correct": 9
+        },
+        "time": {
+          "n": 4,
+          "correct": 4
+        },
+        "missing": {
+          "n": 1,
+          "correct": 1
+        },
+        "negation": {
+          "n": 1,
+          "correct": 1
+        },
+        "uncertain": {
+          "n": 1,
+          "correct": 1
+        },
+        "invalid": {
+          "n": 2,
+          "correct": 2
+        },
+        "binding": {
+          "n": 1,
+          "correct": 1
+        },
+        "new_field": {
+          "n": 8,
+          "correct": 8
+        },
+        "unsupported": {
+          "n": 3,
+          "correct": 3
+        }
+      }
+    }
+  },
+  "category_counts": {
+    "boundary": 8,
+    "unit": 8,
+    "wording": 1,
+    "range": 6,
+    "contradiction": 3,
+    "subject": 9,
+    "time": 4,
+    "missing": 1,
+    "negation": 1,
+    "uncertain": 1,
+    "invalid": 2,
+    "binding": 1,
+    "new_field": 8,
+    "unsupported": 3
+  }
+}
