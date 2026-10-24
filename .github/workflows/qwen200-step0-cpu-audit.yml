@@ -36,6 +36,14 @@ jobs:
           python -m unittest discover \
             -s experiments/aster_validation_20261022/mechanism_20261023 \
             -p 'test_step0_cohort_scope_audit.py' -v
+      - name: Test completed-cohort comparison and private-trace evidence checks
+        run: |
+          python -m unittest discover \
+            -s experiments/aster_validation_20261022/mechanism_20261023 \
+            -p 'test_step0_continuation.py' -v
+          python -m unittest discover \
+            -s experiments/aster_validation_20261022/mechanism_20261023 \
+            -p 'test_complete800_cad18.py' -v
       - name: Reproduce public descriptive audit
         run: |
           python experiments/aster_validation_20261022/mechanism_20261023/step0_extended_audit.py \
