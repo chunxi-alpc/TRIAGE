@@ -1,0 +1,41 @@
+{
+  "source_head": "3a3e9ff4ad5ce5559984b966a5798eb8855ae719",
+  "cases": 44,
+  "cells": 176,
+  "new_check_requests": 176,
+  "focus_K_cases": 18,
+  "possible_unique_final_requests": 352,
+  "cached_final_requests": 316,
+  "missing_possible_final_requests": 36,
+  "sources": {
+    "/home/gcx/qwen800_methods_20261023/private/reuse_cache.jsonl": "6586b8713755222c40594dafc8cc9c037b380aa427dbbeccaae45fdc89721f0e",
+    "/home/gcx/qwen800_methods_20261023/private/predictions0.inference.jsonl": "4d6a890687bc974542b15866744ba26610265b080528c66f064ce719383365a2",
+    "/home/gcx/qwen800_methods_20261023/private/predictions1.inference.jsonl": "69c98074faac75554587ad1c1a7923adaa6e2ae9e78d07703d3e0a4f5872bab8",
+    "/home/gcx/cs44_threshold_order_20261024/private/reused.jsonl": "57b5c727b74dac1144975e2d6464e4047acd83a640eaa58fb99dbcd47a519572",
+    "/home/gcx/cs44_threshold_order_20261024/private/new0.jsonl": "ee1ed10e7cb0fc9f7c19512fc3e18eeff40c7e6321b0bc363567e2000c50acd7",
+    "/home/gcx/cs44_threshold_order_20261024/private/new1.jsonl": "3149ea14eb671e06b5ada51857a36da30c8920d7222aebaacba58caf971daccd",
+    "/home/gcx/TRIAGE-worktrees/cs44-explicit-check/experiments/cs44_threshold_order_20261024/results/request_manifest.jsonl": "5ad18d861752c8969db6a1e2d9ddcb238db1aa65c7e31b1dc2d0c53ae7e991af",
+    "/home/gcx/TRIAGE-worktrees/cs44-explicit-check/experiments/cs44_threshold_order_20261024/results/scores.jsonl": "e9d9be3a5221a35b173d814c5ef72d3421c9d5e0a039001e72d5cf85637e3d1b",
+    "/home/gcx/TRIAGE-worktrees/cs44-explicit-check/experiments/cs44_threshold_order_20261024/results/case_patterns.jsonl": "2ff326ce5144f2337acab85e4827311d50d4a7dc8c8b402546830c471cb78940",
+    "/home/gcx/qwen800_methods_20261023/private/cases.jsonl": "1d8062c67d2c7f809d98e58efa5e5afcb4af4bae1a9de6484a5b06fc17c65d21"
+  },
+  "checker_inputs": [
+    "patient text",
+    "two conditions in displayed order"
+  ],
+  "checker_excludes": [
+    "gold labels",
+    "K/U",
+    "focus18",
+    "old/new threshold flag",
+    "closed-book predictions",
+    "source paths",
+    "patient_value annotations",
+    "actions",
+    "answer options"
+  ],
+  "uncertain_policy": "keep original two candidates; use existing final prompt/cache",
+  "check_instruction": "Check the patient facts against the two supplied branch CONDITIONS before any treatment decision. Identify the relevant nodule type, number and measured size from the patient text. Explicitly compare that value with each supplied numeric threshold and consider any other conditions. Use the thresholds as written, even if they differ from familiar guidelines. Give a short factual check, then finish with exactly \"Branch: A\" or \"Branch: B\" for the condition that applies. If the patient facts do not resolve the choice, finish with \"Branch: uncertain\". Do not choose a treatment here.",
+  "checker_max_tokens": 160,
+  "final_max_tokens": 8
+}
