@@ -1,0 +1,34 @@
+{
+  "items": 440,
+  "families": 44,
+  "split_items": {
+    "test": 160,
+    "train": 120,
+    "dev": 80,
+    "transfer": 80
+  },
+  "split_families": {
+    "test": 16,
+    "train": 12,
+    "dev": 8,
+    "transfer": 8
+  },
+  "pair_tests": "three numeric-only minimal pairs and one exception-only pair per family",
+  "family_leakage": false,
+  "gold_counts": {
+    "D": 103,
+    "B": 115,
+    "C": 113,
+    "A": 109
+  },
+  "seed": 20261019,
+  "sha256": "426364257240ee73c1aedf7e0911fe15ecfeb5c797ded60dec56f36faf95b0bd",
+  "generator_sha256": "ab830a8236b63ead316306a9354492d83b299530b7af437375bec198cc9ba928",
+  "source": "Synthetic, authored for this experiment. No prior outputs or existing cases read.",
+  "limitations": [
+    "Shared logical templates across splits; only exact rule families/action vocabulary combinations and thresholds are split.",
+    "Fictional routing, not clinical validation.",
+    "Explicit old-rule context, not verified pretrained parametric knowledge.",
+    "Transfer changes domain and held-out rule families but retains logical structure."
+  ]
+}
