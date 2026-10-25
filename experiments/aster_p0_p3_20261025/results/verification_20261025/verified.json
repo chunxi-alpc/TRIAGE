@@ -1,0 +1,1618 @@
+{
+  "verified_unix": 1792897379.9744563,
+  "frozen_sha256": "069515fc451a69350eb604925beb7a5010b80d6ae9b9c03d82a43c38215f3b11",
+  "checks": [
+    "exact expected key sets, no duplicates",
+    "all seeds/variants/tree split",
+    "frozen code, selection and data fingerprints",
+    "fresh record provenance and explicit exact-input memoization",
+    "independent selector replay agrees with published predictions",
+    "independent aggregate counts agree with published metrics"
+  ],
+  "models": {
+    "qwen": {
+      "raw_sha256": "3a508282616467c2db01ebcd061c943e5df5037edb6db93c9d7257643ed76063",
+      "cache_sha256": "92f9216fc73140bdf6add56eb6cce263e3789abff58ce1a6f686b7796183eb4e",
+      "rows": 12288,
+      "unique_condition_inputs": 1096,
+      "condition_reused_rows": 11192,
+      "counts": {
+        "0|AC": 1000,
+        "0|IC": 1000,
+        "0|NC": 1000,
+        "0|SW": 1000,
+        "1|AC": 1000,
+        "1|IC": 1000,
+        "1|NC": 1000,
+        "1|SW": 1000,
+        "2|AC": 1000,
+        "2|IC": 1000,
+        "2|NC": 1000,
+        "2|SW": 1000,
+        "0|CS": 48,
+        "0|CS-null": 48,
+        "1|CS": 48,
+        "1|CS-null": 48,
+        "2|CS": 48,
+        "2|CS-null": 48
+      },
+      "status": {
+        "completed": 12288,
+        "total": 12288,
+        "complete": true,
+        "elapsed_seconds": 10764.545003414154,
+        "new_call_units": 32271,
+        "peak_GiB": 15.506609916687012,
+        "updated_unix": 1792871273.7413492
+      },
+      "metrics": {
+        "all": {
+          "none": {
+            "n": 12288,
+            "correct": 5781,
+            "accuracy": 0.470458984375,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 12288,
+            "correct": 6795,
+            "accuracy": 0.552978515625,
+            "harmed": 111,
+            "harm_rate": 0.009033203125,
+            "harm_given_baseline_correct": 0.019200830306175403,
+            "corrected": 1125,
+            "coverage": 0.20556640625
+          },
+          "threshold": {
+            "n": 12288,
+            "correct": 8750,
+            "accuracy": 0.7120768229166666,
+            "harmed": 712,
+            "harm_rate": 0.057942708333333336,
+            "harm_given_baseline_correct": 0.12316208268465663,
+            "corrected": 3681,
+            "coverage": 0.773193359375
+          },
+          "direct": {
+            "n": 12288,
+            "correct": 9027,
+            "accuracy": 0.734619140625,
+            "harmed": 1306,
+            "harm_rate": 0.10628255208333333,
+            "harm_given_baseline_correct": 0.22591247189067634,
+            "corrected": 4552,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 12288,
+            "correct": 7560,
+            "accuracy": 0.615234375,
+            "harmed": 1566,
+            "harm_rate": 0.12744140625,
+            "harm_given_baseline_correct": 0.27088738972496107,
+            "corrected": 3345,
+            "coverage": 1.0
+          }
+        },
+        "core": {
+          "none": {
+            "n": 12000,
+            "correct": 5617,
+            "accuracy": 0.46808333333333335,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 12000,
+            "correct": 6631,
+            "accuracy": 0.5525833333333333,
+            "harmed": 111,
+            "harm_rate": 0.00925,
+            "harm_given_baseline_correct": 0.019761438490297312,
+            "corrected": 1125,
+            "coverage": 0.2095
+          },
+          "threshold": {
+            "n": 12000,
+            "correct": 8579,
+            "accuracy": 0.7149166666666666,
+            "harmed": 681,
+            "harm_rate": 0.05675,
+            "harm_given_baseline_correct": 0.12123909560263486,
+            "corrected": 3643,
+            "coverage": 0.7715
+          },
+          "direct": {
+            "n": 12000,
+            "correct": 8841,
+            "accuracy": 0.73675,
+            "harmed": 1269,
+            "harm_rate": 0.10575,
+            "harm_given_baseline_correct": 0.2259213103079936,
+            "corrected": 4493,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 12000,
+            "correct": 7356,
+            "accuracy": 0.613,
+            "harmed": 1566,
+            "harm_rate": 0.1305,
+            "harm_given_baseline_correct": 0.27879651059284316,
+            "corrected": 3305,
+            "coverage": 1.0
+          }
+        },
+        "NC": {
+          "none": {
+            "n": 3000,
+            "correct": 1979,
+            "accuracy": 0.6596666666666666,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 3000,
+            "correct": 2067,
+            "accuracy": 0.689,
+            "harmed": 44,
+            "harm_rate": 0.014666666666666666,
+            "harm_given_baseline_correct": 0.02223345123799899,
+            "corrected": 132,
+            "coverage": 0.202
+          },
+          "threshold": {
+            "n": 3000,
+            "correct": 2237,
+            "accuracy": 0.7456666666666667,
+            "harmed": 219,
+            "harm_rate": 0.073,
+            "harm_given_baseline_correct": 0.11066195048004042,
+            "corrected": 477,
+            "coverage": 0.736
+          },
+          "direct": {
+            "n": 3000,
+            "correct": 2068,
+            "accuracy": 0.6893333333333334,
+            "harmed": 491,
+            "harm_rate": 0.16366666666666665,
+            "harm_given_baseline_correct": 0.24810510358767054,
+            "corrected": 580,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 3000,
+            "correct": 1798,
+            "accuracy": 0.5993333333333334,
+            "harmed": 631,
+            "harm_rate": 0.21033333333333334,
+            "harm_given_baseline_correct": 0.31884790298130367,
+            "corrected": 450,
+            "coverage": 1.0
+          }
+        },
+        "AC": {
+          "none": {
+            "n": 3000,
+            "correct": 885,
+            "accuracy": 0.295,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 3000,
+            "correct": 1285,
+            "accuracy": 0.42833333333333334,
+            "harmed": 3,
+            "harm_rate": 0.001,
+            "harm_given_baseline_correct": 0.003389830508474576,
+            "corrected": 403,
+            "coverage": 0.211
+          },
+          "threshold": {
+            "n": 3000,
+            "correct": 2281,
+            "accuracy": 0.7603333333333333,
+            "harmed": 51,
+            "harm_rate": 0.017,
+            "harm_given_baseline_correct": 0.0576271186440678,
+            "corrected": 1447,
+            "coverage": 0.838
+          },
+          "direct": {
+            "n": 3000,
+            "correct": 2613,
+            "accuracy": 0.871,
+            "harmed": 62,
+            "harm_rate": 0.020666666666666667,
+            "harm_given_baseline_correct": 0.07005649717514124,
+            "corrected": 1790,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 3000,
+            "correct": 1947,
+            "accuracy": 0.649,
+            "harmed": 202,
+            "harm_rate": 0.06733333333333333,
+            "harm_given_baseline_correct": 0.22824858757062147,
+            "corrected": 1264,
+            "coverage": 1.0
+          }
+        },
+        "IC": {
+          "none": {
+            "n": 3000,
+            "correct": 1938,
+            "accuracy": 0.646,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 3000,
+            "correct": 2036,
+            "accuracy": 0.6786666666666666,
+            "harmed": 39,
+            "harm_rate": 0.013,
+            "harm_given_baseline_correct": 0.020123839009287926,
+            "corrected": 137,
+            "coverage": 0.184
+          },
+          "threshold": {
+            "n": 3000,
+            "correct": 2146,
+            "accuracy": 0.7153333333333334,
+            "harmed": 310,
+            "harm_rate": 0.10333333333333333,
+            "harm_given_baseline_correct": 0.15995872033023736,
+            "corrected": 518,
+            "coverage": 0.766
+          },
+          "direct": {
+            "n": 3000,
+            "correct": 1973,
+            "accuracy": 0.6576666666666666,
+            "harmed": 582,
+            "harm_rate": 0.194,
+            "harm_given_baseline_correct": 0.30030959752321984,
+            "corrected": 617,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 3000,
+            "correct": 1814,
+            "accuracy": 0.6046666666666667,
+            "harmed": 592,
+            "harm_rate": 0.19733333333333333,
+            "harm_given_baseline_correct": 0.30546955624355004,
+            "corrected": 468,
+            "coverage": 1.0
+          }
+        },
+        "SW": {
+          "none": {
+            "n": 3000,
+            "correct": 815,
+            "accuracy": 0.27166666666666667,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 3000,
+            "correct": 1243,
+            "accuracy": 0.41433333333333333,
+            "harmed": 25,
+            "harm_rate": 0.008333333333333333,
+            "harm_given_baseline_correct": 0.03067484662576687,
+            "corrected": 453,
+            "coverage": 0.241
+          },
+          "threshold": {
+            "n": 3000,
+            "correct": 1915,
+            "accuracy": 0.6383333333333333,
+            "harmed": 101,
+            "harm_rate": 0.033666666666666664,
+            "harm_given_baseline_correct": 0.12392638036809817,
+            "corrected": 1201,
+            "coverage": 0.746
+          },
+          "direct": {
+            "n": 3000,
+            "correct": 2187,
+            "accuracy": 0.729,
+            "harmed": 134,
+            "harm_rate": 0.04466666666666667,
+            "harm_given_baseline_correct": 0.16441717791411042,
+            "corrected": 1506,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 3000,
+            "correct": 1797,
+            "accuracy": 0.599,
+            "harmed": 141,
+            "harm_rate": 0.047,
+            "harm_given_baseline_correct": 0.17300613496932515,
+            "corrected": 1123,
+            "coverage": 1.0
+          }
+        },
+        "CS": {
+          "none": {
+            "n": 144,
+            "correct": 21,
+            "accuracy": 0.14583333333333334,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 144,
+            "correct": 21,
+            "accuracy": 0.14583333333333334,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.020833333333333332
+          },
+          "threshold": {
+            "n": 144,
+            "correct": 48,
+            "accuracy": 0.3333333333333333,
+            "harmed": 10,
+            "harm_rate": 0.06944444444444445,
+            "harm_given_baseline_correct": 0.47619047619047616,
+            "corrected": 37,
+            "coverage": 0.75
+          },
+          "direct": {
+            "n": 144,
+            "correct": 69,
+            "accuracy": 0.4791666666666667,
+            "harmed": 10,
+            "harm_rate": 0.06944444444444445,
+            "harm_given_baseline_correct": 0.47619047619047616,
+            "corrected": 58,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 144,
+            "correct": 60,
+            "accuracy": 0.4166666666666667,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 39,
+            "coverage": 1.0
+          }
+        },
+        "CS-null": {
+          "none": {
+            "n": 144,
+            "correct": 143,
+            "accuracy": 0.9930555555555556,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 144,
+            "correct": 143,
+            "accuracy": 0.9930555555555556,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0625
+          },
+          "threshold": {
+            "n": 144,
+            "correct": 123,
+            "accuracy": 0.8541666666666666,
+            "harmed": 21,
+            "harm_rate": 0.14583333333333334,
+            "harm_given_baseline_correct": 0.14685314685314685,
+            "corrected": 1,
+            "coverage": 0.9375
+          },
+          "direct": {
+            "n": 144,
+            "correct": 117,
+            "accuracy": 0.8125,
+            "harmed": 27,
+            "harm_rate": 0.1875,
+            "harm_given_baseline_correct": 0.1888111888111888,
+            "corrected": 1,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 144,
+            "correct": 144,
+            "accuracy": 1.0,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 1,
+            "coverage": 1.0
+          }
+        }
+      },
+      "paired": {
+        "all": {
+          "none": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": 0.08251953125,
+            "accuracy_delta_ci95": [
+              0.03912753912753913,
+              0.13152920962199313
+            ],
+            "harm_delta": 0.009033203125,
+            "harm_delta_ci95": [
+              0.001201923076923077,
+              0.02215644061715106
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "threshold": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": -0.15909830729166666,
+            "accuracy_delta_ci95": [
+              -0.21767631103074142,
+              -0.10418848167539267
+            ],
+            "harm_delta": -0.048909505208333336,
+            "harm_delta_ci95": [
+              -0.0693298969072165,
+              -0.029842931937172777
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "direct": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": -0.181640625,
+            "accuracy_delta_ci95": [
+              -0.24275015933715743,
+              -0.12260825780463243
+            ],
+            "harm_delta": -0.09724934895833333,
+            "harm_delta_ci95": [
+              -0.1280779125321573,
+              -0.06834420627524075
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          }
+        },
+        "core": {
+          "none": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": 0.0845,
+            "accuracy_delta_ci95": [
+              0.04022687609075044,
+              0.13389328063241107
+            ],
+            "harm_delta": 0.00925,
+            "harm_delta_ci95": [
+              0.001232741617357002,
+              0.022485410230003434
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "threshold": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": -0.16233333333333333,
+            "accuracy_delta_ci95": [
+              -0.22258333333333333,
+              -0.10583756345177665
+            ],
+            "harm_delta": -0.0475,
+            "harm_delta_ci95": [
+              -0.06835114998380304,
+              -0.028097731239092497
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "direct": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": -0.18416666666666667,
+            "accuracy_delta_ci95": [
+              -0.24752554278416347,
+              -0.12366666666666666
+            ],
+            "harm_delta": -0.0965,
+            "harm_delta_ci95": [
+              -0.12806719516798792,
+              -0.06633141762452108
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          }
+        },
+        "CS": {
+          "none": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": 0.0,
+            "accuracy_delta_ci95": [
+              0.0,
+              0.0
+            ],
+            "harm_delta": 0.0,
+            "harm_delta_ci95": [
+              0.0,
+              0.0
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "threshold": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": -0.1875,
+            "accuracy_delta_ci95": [
+              -0.1875,
+              -0.1875
+            ],
+            "harm_delta": -0.06944444444444445,
+            "harm_delta_ci95": [
+              -0.06944444444444445,
+              -0.06944444444444445
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "direct": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": -0.3333333333333333,
+            "accuracy_delta_ci95": [
+              -0.3333333333333333,
+              -0.3333333333333333
+            ],
+            "harm_delta": -0.06944444444444445,
+            "harm_delta_ci95": [
+              -0.06944444444444445,
+              -0.06944444444444445
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          }
+        },
+        "CS-null": {
+          "none": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": 0.0,
+            "accuracy_delta_ci95": [
+              0.0,
+              0.0
+            ],
+            "harm_delta": 0.0,
+            "harm_delta_ci95": [
+              0.0,
+              0.0
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "threshold": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": 0.1388888888888889,
+            "accuracy_delta_ci95": [
+              0.1388888888888889,
+              0.1388888888888889
+            ],
+            "harm_delta": -0.14583333333333334,
+            "harm_delta_ci95": [
+              -0.14583333333333334,
+              -0.14583333333333334
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "direct": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": 0.18055555555555555,
+            "accuracy_delta_ci95": [
+              0.18055555555555555,
+              0.18055555555555555
+            ],
+            "harm_delta": -0.1875,
+            "harm_delta_ci95": [
+              -0.1875,
+              -0.1875
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          }
+        }
+      },
+      "core_seeds": {
+        "0": {
+          "none": {
+            "n": 4000,
+            "correct": 1853,
+            "accuracy": 0.46325,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 4000,
+            "correct": 2195,
+            "accuracy": 0.54875,
+            "harmed": 34,
+            "harm_rate": 0.0085,
+            "harm_given_baseline_correct": 0.01834862385321101,
+            "corrected": 376,
+            "coverage": 0.2095
+          },
+          "threshold": {
+            "n": 4000,
+            "correct": 2855,
+            "accuracy": 0.71375,
+            "harmed": 214,
+            "harm_rate": 0.0535,
+            "harm_given_baseline_correct": 0.11548839719373988,
+            "corrected": 1216,
+            "coverage": 0.7715
+          },
+          "direct": {
+            "n": 4000,
+            "correct": 2948,
+            "accuracy": 0.737,
+            "harmed": 414,
+            "harm_rate": 0.1035,
+            "harm_given_baseline_correct": 0.2234214786832164,
+            "corrected": 1509,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 4000,
+            "correct": 2452,
+            "accuracy": 0.613,
+            "harmed": 508,
+            "harm_rate": 0.127,
+            "harm_given_baseline_correct": 0.27415002698327035,
+            "corrected": 1107,
+            "coverage": 1.0
+          }
+        },
+        "1": {
+          "none": {
+            "n": 4000,
+            "correct": 1898,
+            "accuracy": 0.4745,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 4000,
+            "correct": 2227,
+            "accuracy": 0.55675,
+            "harmed": 36,
+            "harm_rate": 0.009,
+            "harm_given_baseline_correct": 0.018967334035827187,
+            "corrected": 365,
+            "coverage": 0.2095
+          },
+          "threshold": {
+            "n": 4000,
+            "correct": 2861,
+            "accuracy": 0.71525,
+            "harmed": 235,
+            "harm_rate": 0.05875,
+            "harm_given_baseline_correct": 0.1238145416227608,
+            "corrected": 1198,
+            "coverage": 0.7715
+          },
+          "direct": {
+            "n": 4000,
+            "correct": 2935,
+            "accuracy": 0.73375,
+            "harmed": 441,
+            "harm_rate": 0.11025,
+            "harm_given_baseline_correct": 0.23234984193888303,
+            "corrected": 1478,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 4000,
+            "correct": 2450,
+            "accuracy": 0.6125,
+            "harmed": 521,
+            "harm_rate": 0.13025,
+            "harm_given_baseline_correct": 0.2744994731296101,
+            "corrected": 1073,
+            "coverage": 1.0
+          }
+        },
+        "2": {
+          "none": {
+            "n": 4000,
+            "correct": 1866,
+            "accuracy": 0.4665,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 4000,
+            "correct": 2209,
+            "accuracy": 0.55225,
+            "harmed": 41,
+            "harm_rate": 0.01025,
+            "harm_given_baseline_correct": 0.02197213290460879,
+            "corrected": 384,
+            "coverage": 0.2095
+          },
+          "threshold": {
+            "n": 4000,
+            "correct": 2863,
+            "accuracy": 0.71575,
+            "harmed": 232,
+            "harm_rate": 0.058,
+            "harm_given_baseline_correct": 0.12433011789924973,
+            "corrected": 1229,
+            "coverage": 0.7715
+          },
+          "direct": {
+            "n": 4000,
+            "correct": 2958,
+            "accuracy": 0.7395,
+            "harmed": 414,
+            "harm_rate": 0.1035,
+            "harm_given_baseline_correct": 0.22186495176848875,
+            "corrected": 1506,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 4000,
+            "correct": 2454,
+            "accuracy": 0.6135,
+            "harmed": 537,
+            "harm_rate": 0.13425,
+            "harm_given_baseline_correct": 0.2877813504823151,
+            "corrected": 1125,
+            "coverage": 1.0
+          }
+        }
+      }
+    },
+    "llama": {
+      "raw_sha256": "8155c4f572cd3c9fdd758efbf046700d2880354d610793890259c3bbe551b1d9",
+      "cache_sha256": "36328d13c837efc97d21ea57cb22b40cfbc5d48d852e0766a1c9c7055a631860",
+      "rows": 12288,
+      "unique_condition_inputs": 1096,
+      "condition_reused_rows": 11192,
+      "counts": {
+        "0|AC": 1000,
+        "0|IC": 1000,
+        "0|NC": 1000,
+        "0|SW": 1000,
+        "1|AC": 1000,
+        "1|IC": 1000,
+        "1|NC": 1000,
+        "1|SW": 1000,
+        "2|AC": 1000,
+        "2|IC": 1000,
+        "2|NC": 1000,
+        "2|SW": 1000,
+        "0|CS": 48,
+        "0|CS-null": 48,
+        "1|CS": 48,
+        "1|CS-null": 48,
+        "2|CS": 48,
+        "2|CS-null": 48
+      },
+      "status": {
+        "completed": 12288,
+        "total": 12288,
+        "complete": true,
+        "elapsed_seconds": 15050.353188037872,
+        "new_call_units": 32271,
+        "peak_GiB": 15.230424880981445,
+        "updated_unix": 1792875559.5501134
+      },
+      "metrics": {
+        "all": {
+          "none": {
+            "n": 12288,
+            "correct": 6447,
+            "accuracy": 0.524658203125,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 12288,
+            "correct": 6985,
+            "accuracy": 0.5684407552083334,
+            "harmed": 246,
+            "harm_rate": 0.02001953125,
+            "harm_given_baseline_correct": 0.03815728245695672,
+            "corrected": 784,
+            "coverage": 0.21044921875
+          },
+          "threshold": {
+            "n": 12288,
+            "correct": 7266,
+            "accuracy": 0.59130859375,
+            "harmed": 799,
+            "harm_rate": 0.06502278645833333,
+            "harm_given_baseline_correct": 0.12393361253296106,
+            "corrected": 1618,
+            "coverage": 0.475830078125
+          },
+          "direct": {
+            "n": 12288,
+            "correct": 7044,
+            "accuracy": 0.5732421875,
+            "harmed": 2476,
+            "harm_rate": 0.20149739583333334,
+            "harm_given_baseline_correct": 0.3840545990383124,
+            "corrected": 3073,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 12288,
+            "correct": 7611,
+            "accuracy": 0.619384765625,
+            "harmed": 1818,
+            "harm_rate": 0.14794921875,
+            "harm_given_baseline_correct": 0.281991624011168,
+            "corrected": 2982,
+            "coverage": 1.0
+          }
+        },
+        "core": {
+          "none": {
+            "n": 12000,
+            "correct": 6269,
+            "accuracy": 0.5224166666666666,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 12000,
+            "correct": 6810,
+            "accuracy": 0.5675,
+            "harmed": 243,
+            "harm_rate": 0.02025,
+            "harm_given_baseline_correct": 0.038762163024405806,
+            "corrected": 784,
+            "coverage": 0.21375
+          },
+          "threshold": {
+            "n": 12000,
+            "correct": 7067,
+            "accuracy": 0.5889166666666666,
+            "harmed": 791,
+            "harm_rate": 0.06591666666666667,
+            "harm_given_baseline_correct": 0.12617642367203702,
+            "corrected": 1589,
+            "coverage": 0.48025
+          },
+          "direct": {
+            "n": 12000,
+            "correct": 6876,
+            "accuracy": 0.573,
+            "harmed": 2419,
+            "harm_rate": 0.20158333333333334,
+            "harm_given_baseline_correct": 0.38586696442813845,
+            "corrected": 3026,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 12000,
+            "correct": 7422,
+            "accuracy": 0.6185,
+            "harmed": 1812,
+            "harm_rate": 0.151,
+            "harm_given_baseline_correct": 0.2890413144042112,
+            "corrected": 2965,
+            "coverage": 1.0
+          }
+        },
+        "NC": {
+          "none": {
+            "n": 3000,
+            "correct": 2190,
+            "accuracy": 0.73,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 3000,
+            "correct": 2150,
+            "accuracy": 0.7166666666666667,
+            "harmed": 110,
+            "harm_rate": 0.03666666666666667,
+            "harm_given_baseline_correct": 0.0502283105022831,
+            "corrected": 70,
+            "coverage": 0.229
+          },
+          "threshold": {
+            "n": 3000,
+            "correct": 2205,
+            "accuracy": 0.735,
+            "harmed": 136,
+            "harm_rate": 0.04533333333333334,
+            "harm_given_baseline_correct": 0.062100456621004566,
+            "corrected": 151,
+            "coverage": 0.408
+          },
+          "direct": {
+            "n": 3000,
+            "correct": 1643,
+            "accuracy": 0.5476666666666666,
+            "harmed": 870,
+            "harm_rate": 0.29,
+            "harm_given_baseline_correct": 0.3972602739726027,
+            "corrected": 323,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 3000,
+            "correct": 1846,
+            "accuracy": 0.6153333333333333,
+            "harmed": 678,
+            "harm_rate": 0.226,
+            "harm_given_baseline_correct": 0.3095890410958904,
+            "corrected": 334,
+            "coverage": 1.0
+          }
+        },
+        "AC": {
+          "none": {
+            "n": 3000,
+            "correct": 1022,
+            "accuracy": 0.3406666666666667,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 3000,
+            "correct": 1421,
+            "accuracy": 0.4736666666666667,
+            "harmed": 1,
+            "harm_rate": 0.0003333333333333333,
+            "harm_given_baseline_correct": 0.0009784735812133072,
+            "corrected": 400,
+            "coverage": 0.225
+          },
+          "threshold": {
+            "n": 3000,
+            "correct": 1868,
+            "accuracy": 0.6226666666666667,
+            "harmed": 68,
+            "harm_rate": 0.02266666666666667,
+            "harm_given_baseline_correct": 0.06653620352250489,
+            "corrected": 914,
+            "coverage": 0.631
+          },
+          "direct": {
+            "n": 3000,
+            "correct": 2493,
+            "accuracy": 0.831,
+            "harmed": 73,
+            "harm_rate": 0.024333333333333332,
+            "harm_given_baseline_correct": 0.07142857142857142,
+            "corrected": 1544,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 3000,
+            "correct": 1977,
+            "accuracy": 0.659,
+            "harmed": 210,
+            "harm_rate": 0.07,
+            "harm_given_baseline_correct": 0.2054794520547945,
+            "corrected": 1165,
+            "coverage": 1.0
+          }
+        },
+        "IC": {
+          "none": {
+            "n": 3000,
+            "correct": 2114,
+            "accuracy": 0.7046666666666667,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 3000,
+            "correct": 2063,
+            "accuracy": 0.6876666666666666,
+            "harmed": 101,
+            "harm_rate": 0.033666666666666664,
+            "harm_given_baseline_correct": 0.04777672658467361,
+            "corrected": 50,
+            "coverage": 0.186
+          },
+          "threshold": {
+            "n": 3000,
+            "correct": 1822,
+            "accuracy": 0.6073333333333333,
+            "harmed": 463,
+            "harm_rate": 0.15433333333333332,
+            "harm_given_baseline_correct": 0.21901608325449384,
+            "corrected": 171,
+            "coverage": 0.539
+          },
+          "direct": {
+            "n": 3000,
+            "correct": 1198,
+            "accuracy": 0.3993333333333333,
+            "harmed": 1172,
+            "harm_rate": 0.39066666666666666,
+            "harm_given_baseline_correct": 0.554399243140965,
+            "corrected": 256,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 3000,
+            "correct": 1844,
+            "accuracy": 0.6146666666666667,
+            "harmed": 650,
+            "harm_rate": 0.21666666666666667,
+            "harm_given_baseline_correct": 0.3074739829706717,
+            "corrected": 380,
+            "coverage": 1.0
+          }
+        },
+        "SW": {
+          "none": {
+            "n": 3000,
+            "correct": 943,
+            "accuracy": 0.31433333333333335,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 3000,
+            "correct": 1176,
+            "accuracy": 0.392,
+            "harmed": 31,
+            "harm_rate": 0.010333333333333333,
+            "harm_given_baseline_correct": 0.032873806998939555,
+            "corrected": 264,
+            "coverage": 0.215
+          },
+          "threshold": {
+            "n": 3000,
+            "correct": 1172,
+            "accuracy": 0.39066666666666666,
+            "harmed": 124,
+            "harm_rate": 0.04133333333333333,
+            "harm_given_baseline_correct": 0.13149522799575822,
+            "corrected": 353,
+            "coverage": 0.343
+          },
+          "direct": {
+            "n": 3000,
+            "correct": 1542,
+            "accuracy": 0.514,
+            "harmed": 304,
+            "harm_rate": 0.10133333333333333,
+            "harm_given_baseline_correct": 0.32237539766702017,
+            "corrected": 903,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 3000,
+            "correct": 1755,
+            "accuracy": 0.585,
+            "harmed": 274,
+            "harm_rate": 0.09133333333333334,
+            "harm_given_baseline_correct": 0.29056203605514314,
+            "corrected": 1086,
+            "coverage": 1.0
+          }
+        },
+        "CS": {
+          "none": {
+            "n": 144,
+            "correct": 67,
+            "accuracy": 0.4652777777777778,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 144,
+            "correct": 67,
+            "accuracy": 0.4652777777777778,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.020833333333333332
+          },
+          "threshold": {
+            "n": 144,
+            "correct": 65,
+            "accuracy": 0.4513888888888889,
+            "harmed": 5,
+            "harm_rate": 0.034722222222222224,
+            "harm_given_baseline_correct": 0.07462686567164178,
+            "corrected": 3,
+            "coverage": 0.14583333333333334
+          },
+          "direct": {
+            "n": 144,
+            "correct": 39,
+            "accuracy": 0.2708333333333333,
+            "harmed": 43,
+            "harm_rate": 0.2986111111111111,
+            "harm_given_baseline_correct": 0.6417910447761194,
+            "corrected": 15,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 144,
+            "correct": 69,
+            "accuracy": 0.4791666666666667,
+            "harmed": 6,
+            "harm_rate": 0.041666666666666664,
+            "harm_given_baseline_correct": 0.08955223880597014,
+            "corrected": 8,
+            "coverage": 1.0
+          }
+        },
+        "CS-null": {
+          "none": {
+            "n": 144,
+            "correct": 111,
+            "accuracy": 0.7708333333333334,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 144,
+            "correct": 108,
+            "accuracy": 0.75,
+            "harmed": 3,
+            "harm_rate": 0.020833333333333332,
+            "harm_given_baseline_correct": 0.02702702702702703,
+            "corrected": 0,
+            "coverage": 0.125
+          },
+          "threshold": {
+            "n": 144,
+            "correct": 134,
+            "accuracy": 0.9305555555555556,
+            "harmed": 3,
+            "harm_rate": 0.020833333333333332,
+            "harm_given_baseline_correct": 0.02702702702702703,
+            "corrected": 26,
+            "coverage": 0.4375
+          },
+          "direct": {
+            "n": 144,
+            "correct": 129,
+            "accuracy": 0.8958333333333334,
+            "harmed": 14,
+            "harm_rate": 0.09722222222222222,
+            "harm_given_baseline_correct": 0.12612612612612611,
+            "corrected": 32,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 144,
+            "correct": 120,
+            "accuracy": 0.8333333333333334,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 9,
+            "coverage": 1.0
+          }
+        }
+      },
+      "paired": {
+        "all": {
+          "none": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": 0.043782552083333336,
+            "accuracy_delta_ci95": [
+              0.009207240948813982,
+              0.08058435438265787
+            ],
+            "harm_delta": 0.02001953125,
+            "harm_delta_ci95": [
+              0.006583172768143866,
+              0.03949524745984923
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "threshold": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": -0.022867838541666668,
+            "accuracy_delta_ci95": [
+              -0.058167570825798674,
+              0.013888888888888888
+            ],
+            "harm_delta": -0.045003255208333336,
+            "harm_delta_ci95": [
+              -0.08403141361256544,
+              -0.008090614886731391
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "direct": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": -0.004801432291666667,
+            "accuracy_delta_ci95": [
+              -0.04784387787220649,
+              0.03996763754045307
+            ],
+            "harm_delta": -0.18147786458333334,
+            "harm_delta_ci95": [
+              -0.21919720767888307,
+              -0.14485903814262024
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          }
+        },
+        "core": {
+          "none": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": 0.045083333333333336,
+            "accuracy_delta_ci95": [
+              0.009709557581898008,
+              0.08267522211253701
+            ],
+            "harm_delta": 0.02025,
+            "harm_delta_ci95": [
+              0.006498848305363607,
+              0.04013678905687545
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "threshold": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": -0.021416666666666667,
+            "accuracy_delta_ci95": [
+              -0.05702583490863264,
+              0.014957264957264958
+            ],
+            "harm_delta": -0.04566666666666667,
+            "harm_delta_ci95": [
+              -0.08508604206500955,
+              -0.007718966603654695
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "direct": {
+            "clusters": 22,
+            "replicates": 10000,
+            "accuracy_delta": -0.0055,
+            "accuracy_delta_ci95": [
+              -0.04951939581187779,
+              0.040268456375838924
+            ],
+            "harm_delta": -0.18133333333333335,
+            "harm_delta_ci95": [
+              -0.21952281435040055,
+              -0.14348302300109528
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          }
+        },
+        "CS": {
+          "none": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": 0.0,
+            "accuracy_delta_ci95": [
+              0.0,
+              0.0
+            ],
+            "harm_delta": 0.0,
+            "harm_delta_ci95": [
+              0.0,
+              0.0
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "threshold": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": 0.013888888888888888,
+            "accuracy_delta_ci95": [
+              0.013888888888888888,
+              0.013888888888888888
+            ],
+            "harm_delta": -0.034722222222222224,
+            "harm_delta_ci95": [
+              -0.034722222222222224,
+              -0.034722222222222224
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "direct": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": 0.19444444444444445,
+            "accuracy_delta_ci95": [
+              0.19444444444444445,
+              0.19444444444444445
+            ],
+            "harm_delta": -0.2986111111111111,
+            "harm_delta_ci95": [
+              -0.2986111111111111,
+              -0.2986111111111111
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          }
+        },
+        "CS-null": {
+          "none": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": -0.020833333333333332,
+            "accuracy_delta_ci95": [
+              -0.020833333333333332,
+              -0.020833333333333332
+            ],
+            "harm_delta": 0.020833333333333332,
+            "harm_delta_ci95": [
+              0.020833333333333332,
+              0.020833333333333332
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "threshold": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": -0.18055555555555555,
+            "accuracy_delta_ci95": [
+              -0.18055555555555555,
+              -0.18055555555555555
+            ],
+            "harm_delta": 0.0,
+            "harm_delta_ci95": [
+              0.0,
+              0.0
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          },
+          "direct": {
+            "clusters": 1,
+            "replicates": 10000,
+            "accuracy_delta": -0.14583333333333334,
+            "accuracy_delta_ci95": [
+              -0.14583333333333334,
+              -0.14583333333333334
+            ],
+            "harm_delta": -0.0763888888888889,
+            "harm_delta_ci95": [
+              -0.0763888888888889,
+              -0.0763888888888889
+            ],
+            "note": "candidate minus comparator; harm for BOTH relative to original no-intervention"
+          }
+        }
+      },
+      "core_seeds": {
+        "0": {
+          "none": {
+            "n": 4000,
+            "correct": 2088,
+            "accuracy": 0.522,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 4000,
+            "correct": 2274,
+            "accuracy": 0.5685,
+            "harmed": 80,
+            "harm_rate": 0.02,
+            "harm_given_baseline_correct": 0.038314176245210725,
+            "corrected": 266,
+            "coverage": 0.21375
+          },
+          "threshold": {
+            "n": 4000,
+            "correct": 2354,
+            "accuracy": 0.5885,
+            "harmed": 255,
+            "harm_rate": 0.06375,
+            "harm_given_baseline_correct": 0.1221264367816092,
+            "corrected": 521,
+            "coverage": 0.48025
+          },
+          "direct": {
+            "n": 4000,
+            "correct": 2300,
+            "accuracy": 0.575,
+            "harmed": 801,
+            "harm_rate": 0.20025,
+            "harm_given_baseline_correct": 0.38362068965517243,
+            "corrected": 1013,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 4000,
+            "correct": 2471,
+            "accuracy": 0.61775,
+            "harmed": 600,
+            "harm_rate": 0.15,
+            "harm_given_baseline_correct": 0.28735632183908044,
+            "corrected": 983,
+            "coverage": 1.0
+          }
+        },
+        "1": {
+          "none": {
+            "n": 4000,
+            "correct": 2096,
+            "accuracy": 0.524,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 4000,
+            "correct": 2279,
+            "accuracy": 0.56975,
+            "harmed": 83,
+            "harm_rate": 0.02075,
+            "harm_given_baseline_correct": 0.03959923664122137,
+            "corrected": 266,
+            "coverage": 0.21375
+          },
+          "threshold": {
+            "n": 4000,
+            "correct": 2358,
+            "accuracy": 0.5895,
+            "harmed": 270,
+            "harm_rate": 0.0675,
+            "harm_given_baseline_correct": 0.12881679389312978,
+            "corrected": 532,
+            "coverage": 0.48025
+          },
+          "direct": {
+            "n": 4000,
+            "correct": 2289,
+            "accuracy": 0.57225,
+            "harmed": 811,
+            "harm_rate": 0.20275,
+            "harm_given_baseline_correct": 0.3869274809160305,
+            "corrected": 1004,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 4000,
+            "correct": 2471,
+            "accuracy": 0.61775,
+            "harmed": 606,
+            "harm_rate": 0.1515,
+            "harm_given_baseline_correct": 0.28912213740458015,
+            "corrected": 981,
+            "coverage": 1.0
+          }
+        },
+        "2": {
+          "none": {
+            "n": 4000,
+            "correct": 2085,
+            "accuracy": 0.52125,
+            "harmed": 0,
+            "harm_rate": 0.0,
+            "harm_given_baseline_correct": 0.0,
+            "corrected": 0,
+            "coverage": 0.0
+          },
+          "candidate": {
+            "n": 4000,
+            "correct": 2257,
+            "accuracy": 0.56425,
+            "harmed": 80,
+            "harm_rate": 0.02,
+            "harm_given_baseline_correct": 0.03836930455635491,
+            "corrected": 252,
+            "coverage": 0.21375
+          },
+          "threshold": {
+            "n": 4000,
+            "correct": 2355,
+            "accuracy": 0.58875,
+            "harmed": 266,
+            "harm_rate": 0.0665,
+            "harm_given_baseline_correct": 0.1275779376498801,
+            "corrected": 536,
+            "coverage": 0.48025
+          },
+          "direct": {
+            "n": 4000,
+            "correct": 2287,
+            "accuracy": 0.57175,
+            "harmed": 807,
+            "harm_rate": 0.20175,
+            "harm_given_baseline_correct": 0.38705035971223023,
+            "corrected": 1009,
+            "coverage": 1.0
+          },
+          "blind_direct": {
+            "n": 4000,
+            "correct": 2480,
+            "accuracy": 0.62,
+            "harmed": 606,
+            "harm_rate": 0.1515,
+            "harm_given_baseline_correct": 0.2906474820143885,
+            "corrected": 1001,
+            "coverage": 1.0
+          }
+        }
+      }
+    }
+  }
+}
