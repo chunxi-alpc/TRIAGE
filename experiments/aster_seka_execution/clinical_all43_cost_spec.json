@@ -1,0 +1,82 @@
+{
+  "status": "planned",
+  "scope": "Exact artifact and generation-process cost references for final43-method clinical summary; not a result",
+  "calibration_jobs": {
+    "seka_clinical": {
+      "family": "seka",
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/build_clinical_yarn100_job/run_manifest.json",
+      "scope": "Actual clinical configuration artifact build or required storage-equivalence validation"
+    },
+    "pasta_clinical": {
+      "family": "pasta",
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/pasta_heads_clinical_yarn100_job/run_manifest.json",
+      "scope": "Actual clinical configuration artifact build or required storage-equivalence validation"
+    },
+    "ada_synthetic": {
+      "family": "adaseka",
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_clinical_yarn_synthetic100_job/run_manifest.json",
+      "scope": "Actual clinical configuration artifact build or required storage-equivalence validation"
+    },
+    "ada_counterfact": {
+      "family": "adaseka",
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_clinical_yarn_counterfact200_job/run_manifest.json",
+      "scope": "Actual clinical configuration artifact build or required storage-equivalence validation"
+    },
+    "ada_biasbios": {
+      "family": "adaseka",
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_clinical_yarn_biasbios200_job/run_manifest.json",
+      "scope": "Actual clinical configuration artifact build or required storage-equivalence validation"
+    },
+    "ada_hotpot": {
+      "family": "adaseka",
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_clinical_yarn_hotpot200_job/run_manifest.json",
+      "scope": "Actual clinical configuration artifact build or required storage-equivalence validation"
+    },
+    "ada_hotpot_storage_validation": {
+      "family": "adaseka",
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/hotpot_clinical_yarn_validation_job/run_manifest.json",
+      "scope": "Actual clinical configuration artifact build or required storage-equivalence validation"
+    }
+  },
+  "family_jobs": {
+    "seka": [
+      "seka_clinical"
+    ],
+    "pasta": [
+      "pasta_clinical"
+    ],
+    "adaseka": [
+      "ada_synthetic",
+      "ada_counterfact",
+      "ada_biasbios",
+      "ada_hotpot",
+      "ada_hotpot_storage_validation"
+    ],
+    "fusion": []
+  },
+  "generation_processes": [
+    {
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/mega_dev16_seed0_gpu01_job/run_manifest.json"
+    },
+    {
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/mega_dev16_attention_gpu01_job/run_manifest.json"
+    },
+    {
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/mega_dev16_additional_gpu01_A0_job/run_manifest.json"
+    },
+    {
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/mega_dev16_additional_gpu01_A1_job/run_manifest.json"
+    },
+    {
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/mega_dev16_seed0_job/run_manifest.json"
+    },
+    {
+      "run_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/mega_dev16_seed0_parser_v2_job/run_manifest.json"
+    }
+  ],
+  "limitations": [
+    "Historical fusion parameter search cost is not established by these new manifests; fusion family is explicitly missing, not free",
+    "Interrupted main runs retained in process ledger; their costs are not attributed as successful current predictions",
+    "Only completed real evaluation directories may enter the final summary; no estimate replaces measurements"
+  ]
+}
