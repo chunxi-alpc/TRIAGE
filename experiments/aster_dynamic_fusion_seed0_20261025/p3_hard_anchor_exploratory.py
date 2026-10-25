@@ -54,7 +54,7 @@ def summarize(rows, model):
     variants = defaultdict(lambda: {"n":0,"base":0,"direct":0,"fusion":0,
                                     "harm_direct":0,"harm_fusion":0,
                                     "fix_direct":0,"fix_fusion":0})
-    seeds = defaultdict(lambda: {"n":0,"base":0,"direct":0,"fusion":0})
+    seeds = defaultdict(lambda: {"n":0,"base":0,"direct":0,"fusion":0, "harm_direct":0,"harm_fusion":0,"fix_direct":0,"fix_fusion":0})
     mismatch = 0
     q_not_norm = 0
     for r in rr:
@@ -68,11 +68,10 @@ def summarize(rows, model):
         for store, key in ((trees,r["tree"]),(variants,r["variant"]),(seeds,str(r["seed"]))):
             x=store[key];x["n"]+=1
             x["base"]+=base_ok;x["direct"]+=direct_ok;x["fusion"]+=fusion_ok
-            if store is not seeds:
-                x["harm_direct"]+=base_ok and not direct_ok
-                x["harm_fusion"]+=base_ok and not fusion_ok
-                x["fix_direct"]+=(not base_ok) and direct_ok
-                x["fix_fusion"]+=(not base_ok) and fusion_ok
+            x["harm_direct"]+=base_ok and not direct_ok
+            x["harm_fusion"]+=base_ok and not fusion_ok
+            x["fix_direct"]+=(not base_ok) and direct_ok
+            x["fix_fusion"]+=(not base_ok) and fusion_ok
     assert mismatch == 0, f"{model}: direct argmax mismatch {mismatch}"
     assert q_not_norm == 0, f"{model}: q not normalized on {q_not_norm} rows"
     n=sum(x["n"] for x in variants.values())
@@ -93,6 +92,7 @@ def summarize(rows, model):
           "harm_fusion":sum(x["harm_fusion"] for x in variants.values()),
           "fix_direct":sum(x["fix_direct"] for x in variants.values()),
           "fix_fusion":sum(x["fix_fusion"] for x in variants.values())}),
+      "by_tree":{k:compact(v) for k,v in trees.items()},
       "by_variant":{k:compact(v) for k,v in variants.items()},
       "by_seed":{k:compact(v) for k,v in seeds.items()},
       "cluster_bootstrap_95":bootstrap(tree_counts, 20261025+(0 if model=="qwen" else 1))
@@ -110,7 +110,7 @@ def main():
     assert {r["seed"] for r in rows}=={0,1,2}
     result={
       "protocol":{"status":"exploratory_post_hoc",
-        "source":str(SOURCE),"rows":len(rows),"beta":BETA,
+        "source":str(SOURCE.relative_to(ROOT.parent.parent)),"rows":len(rows),"beta":BETA,
         "support_temperature":TEMPERATURE,
         "formula":"argmax(0.2*onehot(original_answer)+0.8*normalize(q**4))",
         "coverage":1.0,

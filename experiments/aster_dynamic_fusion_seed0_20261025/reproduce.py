@@ -61,7 +61,7 @@ def fold_configurations(kind):
         methods = ATT if kind=="residual" else ("action_bias_1.0_all",)
         for method,b,t0,g,scale in itertools.product(
             methods,(.75,.85,.9,.95),(1,2,3),(-.5,-.25,.1,.25,.5,1),(2,4)):
-            yield dict(kind=kind,method=method,beta=b,t0=t0,gamma=g,scale=scale)
+            yield dict(kind=kind,method=method,beta=b,t0=t0,gamma=g,scale=scale,legacy_unmatched=True)
 
 def seed_sign(name):
     h=0
@@ -85,7 +85,12 @@ def predict(row,c):
         mixed=(1-b)*p+b*s
     if k not in ("static","gate","linear"):
         orig=np.asarray(row["scores"]["original"], dtype=float)
-        zero=np.asarray(row["scores"]["mass_zero_control"], dtype=float)
+        zero_key = "zero_last_half" if c["method"].endswith("last_half") else "zero_all"
+        if zero_key not in row["scores"]:
+            if c["method"].endswith("last_half") and not c.get("legacy_unmatched", False):
+                raise ValueError("Missing matched last-half zero control; use fresh logits")
+            zero_key = "mass_zero_control"
+        zero=np.asarray(row["scores"][zero_key], dtype=float)
         if k=="numeric_null":
             delta=zero-orig
         else:
@@ -102,11 +107,13 @@ def predict(row,c):
 def metric(rows,preds):
     y=np.asarray([r["gold_option"] for r in rows])
     base=np.asarray([r["answers"]["original"] if "answers" in r else r["none"] for r in rows])
+    preds=np.asarray(preds)
+    if len(preds)!=len(rows): raise ValueError("prediction count mismatch")
     hit=preds==y
     split={}
     for variant in ("NC","AC","IC","SW"):
         ix=np.asarray([r["variant"]==variant for r in rows])
-        split[variant]=float(hit[ix].mean())
+        split[variant]=float(hit[ix].mean()) if ix.any() else None
     return dict(correct=int(hit.sum()),accuracy=float(hit.mean()),
        harm_rate=float(np.mean((base==y)&(~hit))),
        correction_rate=float(np.mean((base!=y)&hit)),by_variant=split)
@@ -130,12 +137,15 @@ def crossfit(rows,kind):
                 chosen[held]=cfg
                 output[tree==held]=preds[tree==held]
     return dict(configs=seen,metrics=metric(rows,output),
+                predictions=output.tolist(),
                 folds={t:dict(params=chosen[t],train_score=best_score[t],
+                      metrics=metric([r for r in rows if r["tree"]==t],output[tree==t]),
                       heldout_score=float((output[tree==t]==gold[tree==t]).mean()))
                        for t in groups})
 
 def main():
-    summary={"scope":"seed0 development only; four trees; offline cached logits"}
+    summary={"scope":"seed0 development only; four trees; offline cached logits",
+      "warning":"Historical grids retained for reproduction only. Last-half residuals lack matched zero control; see balanced_analysis.py for corrected full-layer comparisons."}
     for model in ("qwen","llama"):
         src=ROOT/"data"/f"{model}_dev_seed0_{'logits_numeric' if model=='qwen' else 'numeric'}.jsonl"
         rows=[prepare(json.loads(line)) for line in src.read_text().splitlines() if line.strip()]

@@ -1,3 +1,20 @@
+# 2026-10-25 实际执行复核补充
+
+详见 [中文研究报告](REVIEW.zh.md)、[公平网格结果](balanced_cached.json)、[资源核对](resource_inventory.json)、[冻结候选](frozen_candidate.json)。
+原两个脚本已在115服务器实际跑通，主要点估计复现。P3分种子退化/纠正累计已修复；历史后半层残差缺少对应零强度，下面原结果仅保留作历史探索性记录。
+两模型新前向各800条已启动，完成状态以 [run_state.json](run_state.json) 为准；只有 complete_verified 表示完整结果已验证。
+完成后交付 balanced_fresh.json、fresh_report.zh.md、execution.json 和 fresh_numeric/ 中的匿名逐例输出。
+独立新指南树验证尚未完成：未发现可用的新独立标注病例集。
+
+新增CPU复现：
+    python -m unittest discover -s experiments/aster_dynamic_fusion_seed0_20261025 -p 'test_*.py'
+    python experiments/aster_dynamic_fusion_seed0_20261025/balanced_analysis.py
+    python experiments/aster_dynamic_fusion_seed0_20261025/render_report.py
+
+新前向完成后，fresh_numeric/{qwen,llama}.jsonl.gz 可分别解压为一个新目录的 qwen/predictions.jsonl、llama/predictions.jsonl，再用 balanced_analysis.py --fresh-root 该目录 --output 新结果.json 进行无需模型权重的CPU复算。
+
+---
+
 # ASTER seed=0: 条件概率校准、动态融合与注意力残差
 
 **状态：开发集离线复分析完成；没有启动新 GPU 前向；不是独立测试。**
