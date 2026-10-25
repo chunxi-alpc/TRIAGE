@@ -1,0 +1,769 @@
+{
+  "folds": [
+    {
+      "heldout_tree": "aml_7",
+      "training_trees": [
+        "bre_1",
+        "pancreatic_11",
+        "vulvar_3"
+      ],
+      "evidence": {
+        "kind": "evidence",
+        "support": 0.7,
+        "uncertainty": 0.3,
+        "margin": 0.05,
+        "agreement": false
+      },
+      "threshold": {
+        "kind": "threshold",
+        "threshold": 0.4
+      }
+    },
+    {
+      "heldout_tree": "bre_1",
+      "training_trees": [
+        "aml_7",
+        "pancreatic_11",
+        "vulvar_3"
+      ],
+      "evidence": {
+        "kind": "evidence",
+        "support": 0.7,
+        "uncertainty": 0.3,
+        "margin": 0.05,
+        "agreement": false
+      },
+      "threshold": {
+        "kind": "threshold",
+        "threshold": 0.5
+      }
+    },
+    {
+      "heldout_tree": "pancreatic_11",
+      "training_trees": [
+        "aml_7",
+        "bre_1",
+        "vulvar_3"
+      ],
+      "evidence": {
+        "kind": "evidence",
+        "support": 0.7,
+        "uncertainty": 0.3,
+        "margin": 0.05,
+        "agreement": false
+      },
+      "threshold": {
+        "kind": "threshold",
+        "threshold": 0.4
+      }
+    },
+    {
+      "heldout_tree": "vulvar_3",
+      "training_trees": [
+        "aml_7",
+        "bre_1",
+        "pancreatic_11"
+      ],
+      "evidence": {
+        "kind": "evidence",
+        "support": 0.7,
+        "uncertainty": 0.3,
+        "margin": 0.05,
+        "agreement": false
+      },
+      "threshold": {
+        "kind": "threshold",
+        "threshold": 0.4
+      }
+    }
+  ],
+  "selected_on_all_development": {
+    "evidence": {
+      "kind": "evidence",
+      "support": 0.7,
+      "uncertainty": 0.3,
+      "margin": 0.05,
+      "agreement": false
+    },
+    "threshold": {
+      "kind": "threshold",
+      "threshold": 0.4
+    }
+  },
+  "results": [
+    {
+      "method": "evidence_oof",
+      "model": "qwen",
+      "n": 800,
+      "accuracy": 0.5075,
+      "baseline_accuracy": 0.46875,
+      "both_correct": 375,
+      "corrected": 31,
+      "harmed": 0,
+      "both_wrong": 394,
+      "harm_all": 0.0,
+      "harm_given_baseline_correct": 0.0,
+      "correction_given_baseline_wrong": 0.07294117647058823,
+      "changed_fraction": 0.03875,
+      "harm_given_changed": 0.0,
+      "coverage": 0.1325,
+      "brier": 0.8883446073557657,
+      "ece_10_equal_width": 0.3905014008471023,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.0,
+          0.105
+        ],
+        "harm_all_ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "evidence_oof",
+      "model": "llama",
+      "n": 800,
+      "accuracy": 0.5125,
+      "baseline_accuracy": 0.4675,
+      "both_correct": 374,
+      "corrected": 36,
+      "harmed": 0,
+      "both_wrong": 390,
+      "harm_all": 0.0,
+      "harm_given_baseline_correct": 0.0,
+      "correction_given_baseline_wrong": 0.08450704225352113,
+      "changed_fraction": 0.045,
+      "harm_given_changed": 0.0,
+      "coverage": 0.0875,
+      "brier": 0.7192761003224796,
+      "ece_10_equal_width": 0.20677017232232947,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.0075,
+          0.0825
+        ],
+        "harm_all_ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "threshold_oof",
+      "model": "qwen",
+      "n": 800,
+      "accuracy": 0.5475,
+      "baseline_accuracy": 0.46875,
+      "both_correct": 328,
+      "corrected": 110,
+      "harmed": 47,
+      "both_wrong": 315,
+      "harm_all": 0.05875,
+      "harm_given_baseline_correct": 0.12533333333333332,
+      "correction_given_baseline_wrong": 0.25882352941176473,
+      "changed_fraction": 0.265,
+      "harm_given_changed": 0.22169811320754718,
+      "coverage": 0.575,
+      "brier": 0.6862769908000227,
+      "ece_10_equal_width": 0.18971931529027453,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.04,
+          0.13375
+        ],
+        "harm_all_ci95": [
+          0.01125,
+          0.1275
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "threshold_oof",
+      "model": "llama",
+      "n": 800,
+      "accuracy": 0.46625,
+      "baseline_accuracy": 0.4675,
+      "both_correct": 323,
+      "corrected": 50,
+      "harmed": 51,
+      "both_wrong": 376,
+      "harm_all": 0.06375,
+      "harm_given_baseline_correct": 0.13636363636363635,
+      "correction_given_baseline_wrong": 0.11737089201877934,
+      "changed_fraction": 0.16,
+      "harm_given_changed": 0.3984375,
+      "coverage": 0.3275,
+      "brier": 0.7031035686861664,
+      "ece_10_equal_width": 0.12332143688477851,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          -0.01875,
+          0.015
+        ],
+        "harm_all_ci95": [
+          0.0,
+          0.15
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "direct",
+      "model": "qwen",
+      "n": 800,
+      "accuracy": 0.54125,
+      "baseline_accuracy": 0.46875,
+      "both_correct": 248,
+      "corrected": 185,
+      "harmed": 127,
+      "both_wrong": 240,
+      "harm_all": 0.15875,
+      "harm_given_baseline_correct": 0.33866666666666667,
+      "correction_given_baseline_wrong": 0.43529411764705883,
+      "changed_fraction": 0.55625,
+      "harm_given_changed": 0.2853932584269663,
+      "coverage": 1.0,
+      "brier": 0.5430291258701075,
+      "ece_10_equal_width": 0.10255975358537484,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.0275,
+          0.1275
+        ],
+        "harm_all_ci95": [
+          0.0975,
+          0.205
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "direct",
+      "model": "llama",
+      "n": 800,
+      "accuracy": 0.5475,
+      "baseline_accuracy": 0.4675,
+      "both_correct": 240,
+      "corrected": 198,
+      "harmed": 134,
+      "both_wrong": 228,
+      "harm_all": 0.1675,
+      "harm_given_baseline_correct": 0.3582887700534759,
+      "correction_given_baseline_wrong": 0.4647887323943662,
+      "changed_fraction": 0.59125,
+      "harm_given_changed": 0.2832980972515856,
+      "coverage": 1.0,
+      "brier": 0.6331540860000995,
+      "ece_10_equal_width": 0.18276715491981468,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.0025,
+          0.17125
+        ],
+        "harm_all_ci95": [
+          0.09125,
+          0.21875
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "none",
+      "model": "qwen",
+      "n": 800,
+      "accuracy": 0.46875,
+      "baseline_accuracy": 0.46875,
+      "both_correct": 375,
+      "corrected": 0,
+      "harmed": 0,
+      "both_wrong": 425,
+      "harm_all": 0.0,
+      "harm_given_baseline_correct": 0.0,
+      "correction_given_baseline_wrong": 0.0,
+      "changed_fraction": 0.0,
+      "harm_given_changed": null,
+      "coverage": 0.0,
+      "brier": 0.9301522141528774,
+      "ece_10_equal_width": 0.44493566091199926,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "harm_all_ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "none",
+      "model": "llama",
+      "n": 800,
+      "accuracy": 0.4675,
+      "baseline_accuracy": 0.4675,
+      "both_correct": 374,
+      "corrected": 0,
+      "harmed": 0,
+      "both_wrong": 426,
+      "harm_all": 0.0,
+      "harm_given_baseline_correct": 0.0,
+      "correction_given_baseline_wrong": 0.0,
+      "changed_fraction": 0.0,
+      "harm_given_changed": null,
+      "coverage": 0.0,
+      "brier": 0.7388839776752767,
+      "ece_10_equal_width": 0.20839072886361162,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          0.0,
+          0.0
+        ],
+        "harm_all_ci95": [
+          0.0,
+          0.0
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "blind_direct",
+      "model": "qwen",
+      "n": 800,
+      "accuracy": 0.45125,
+      "baseline_accuracy": 0.46875,
+      "both_correct": 193,
+      "corrected": 168,
+      "harmed": 182,
+      "both_wrong": 257,
+      "harm_all": 0.2275,
+      "harm_given_baseline_correct": 0.48533333333333334,
+      "correction_given_baseline_wrong": 0.3952941176470588,
+      "changed_fraction": 0.64875,
+      "harm_given_changed": 0.35067437379576105,
+      "coverage": 1.0,
+      "brier": null,
+      "ece_10_equal_width": null,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          -0.0875,
+          0.06
+        ],
+        "harm_all_ci95": [
+          0.19375,
+          0.25875
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "blind_direct",
+      "model": "llama",
+      "n": 800,
+      "accuracy": 0.50875,
+      "baseline_accuracy": 0.4675,
+      "both_correct": 220,
+      "corrected": 187,
+      "harmed": 154,
+      "both_wrong": 239,
+      "harm_all": 0.1925,
+      "harm_given_baseline_correct": 0.4117647058823529,
+      "correction_given_baseline_wrong": 0.43896713615023475,
+      "changed_fraction": 0.6275,
+      "harm_given_changed": 0.30677290836653387,
+      "coverage": 1.0,
+      "brier": null,
+      "ece_10_equal_width": null,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          -0.13625,
+          0.2375
+        ],
+        "harm_all_ci95": [
+          0.095,
+          0.265
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "condition_crop",
+      "model": "qwen",
+      "n": 800,
+      "accuracy": 0.49625,
+      "baseline_accuracy": 0.46875,
+      "both_correct": 255,
+      "corrected": 142,
+      "harmed": 120,
+      "both_wrong": 283,
+      "harm_all": 0.15,
+      "harm_given_baseline_correct": 0.32,
+      "correction_given_baseline_wrong": 0.3341176470588235,
+      "changed_fraction": 0.4925,
+      "harm_given_changed": 0.30456852791878175,
+      "coverage": 1.0,
+      "brier": null,
+      "ece_10_equal_width": null,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          -0.09125,
+          0.17125
+        ],
+        "harm_all_ci95": [
+          0.0825,
+          0.2175
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "condition_crop",
+      "model": "llama",
+      "n": 800,
+      "accuracy": 0.485,
+      "baseline_accuracy": 0.4675,
+      "both_correct": 247,
+      "corrected": 141,
+      "harmed": 127,
+      "both_wrong": 285,
+      "harm_all": 0.15875,
+      "harm_given_baseline_correct": 0.339572192513369,
+      "correction_given_baseline_wrong": 0.33098591549295775,
+      "changed_fraction": 0.53125,
+      "harm_given_changed": 0.2988235294117647,
+      "coverage": 1.0,
+      "brier": null,
+      "ece_10_equal_width": null,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          -0.11375,
+          0.15625
+        ],
+        "harm_all_ci95": [
+          0.075,
+          0.2425
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "condition_soft_all",
+      "model": "qwen",
+      "n": 800,
+      "accuracy": 0.49125,
+      "baseline_accuracy": 0.46875,
+      "both_correct": 324,
+      "corrected": 69,
+      "harmed": 51,
+      "both_wrong": 356,
+      "harm_all": 0.06375,
+      "harm_given_baseline_correct": 0.136,
+      "correction_given_baseline_wrong": 0.1623529411764706,
+      "changed_fraction": 0.25125,
+      "harm_given_changed": 0.2537313432835821,
+      "coverage": 1.0,
+      "brier": null,
+      "ece_10_equal_width": null,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          -0.02125,
+          0.055
+        ],
+        "harm_all_ci95": [
+          0.035,
+          0.0925
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "condition_soft_all",
+      "model": "llama",
+      "n": 800,
+      "accuracy": 0.45625,
+      "baseline_accuracy": 0.4675,
+      "both_correct": 305,
+      "corrected": 60,
+      "harmed": 69,
+      "both_wrong": 366,
+      "harm_all": 0.08625,
+      "harm_given_baseline_correct": 0.18449197860962566,
+      "correction_given_baseline_wrong": 0.14084507042253522,
+      "changed_fraction": 0.25375,
+      "harm_given_changed": 0.3399014778325123,
+      "coverage": 1.0,
+      "brier": null,
+      "ece_10_equal_width": null,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          -0.05375,
+          0.0325
+        ],
+        "harm_all_ci95": [
+          0.06125,
+          0.1025
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "condition_hard_all",
+      "model": "qwen",
+      "n": 800,
+      "accuracy": 0.48,
+      "baseline_accuracy": 0.46875,
+      "both_correct": 243,
+      "corrected": 141,
+      "harmed": 132,
+      "both_wrong": 284,
+      "harm_all": 0.165,
+      "harm_given_baseline_correct": 0.352,
+      "correction_given_baseline_wrong": 0.33176470588235296,
+      "changed_fraction": 0.51375,
+      "harm_given_changed": 0.32116788321167883,
+      "coverage": 1.0,
+      "brier": null,
+      "ece_10_equal_width": null,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          -0.09375,
+          0.1425
+        ],
+        "harm_all_ci95": [
+          0.10125,
+          0.22
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    },
+    {
+      "method": "condition_hard_all",
+      "model": "llama",
+      "n": 800,
+      "accuracy": 0.43875,
+      "baseline_accuracy": 0.4675,
+      "both_correct": 236,
+      "corrected": 115,
+      "harmed": 138,
+      "both_wrong": 311,
+      "harm_all": 0.1725,
+      "harm_given_baseline_correct": 0.3689839572192513,
+      "correction_given_baseline_wrong": 0.2699530516431925,
+      "changed_fraction": 0.51125,
+      "harm_given_changed": 0.3374083129584352,
+      "coverage": 1.0,
+      "brier": null,
+      "ece_10_equal_width": null,
+      "cluster_inference": {
+        "clusters": 4,
+        "replicates": 10000,
+        "delta_ci95": [
+          -0.12,
+          0.06875
+        ],
+        "harm_all_ci95": [
+          0.10375,
+          0.2375
+        ],
+        "unit": "tree; all patients, variants and seeds retained together",
+        "warning": "Only four development trees; intervals unstable"
+      }
+    }
+  ],
+  "selection": "Leave one tree out jointly across both models; maximize equally weighted model/tree accuracy, ties prefer less harm then less coverage. Labels used for training folds only. Inference receives rules/options/probabilities, not gold or variant.",
+  "evidence_definition": "Three-way condition judgments supply support, contradiction and insufficient-information probabilities. Require a supported rule for mapped action, low contradiction/unknown, separation from competing-action rules, optionally blind agreement. No claim of human-verified evidence spans.",
+  "candidate_grid": [
+    {
+      "kind": "evidence",
+      "support": 0.7,
+      "uncertainty": 0.1,
+      "margin": 0.05,
+      "agreement": false
+    },
+    {
+      "kind": "evidence",
+      "support": 0.7,
+      "uncertainty": 0.1,
+      "margin": 0.05,
+      "agreement": true
+    },
+    {
+      "kind": "evidence",
+      "support": 0.7,
+      "uncertainty": 0.1,
+      "margin": 0.2,
+      "agreement": false
+    },
+    {
+      "kind": "evidence",
+      "support": 0.7,
+      "uncertainty": 0.1,
+      "margin": 0.2,
+      "agreement": true
+    },
+    {
+      "kind": "evidence",
+      "support": 0.7,
+      "uncertainty": 0.3,
+      "margin": 0.05,
+      "agreement": false
+    },
+    {
+      "kind": "evidence",
+      "support": 0.7,
+      "uncertainty": 0.3,
+      "margin": 0.05,
+      "agreement": true
+    },
+    {
+      "kind": "evidence",
+      "support": 0.7,
+      "uncertainty": 0.3,
+      "margin": 0.2,
+      "agreement": false
+    },
+    {
+      "kind": "evidence",
+      "support": 0.7,
+      "uncertainty": 0.3,
+      "margin": 0.2,
+      "agreement": true
+    },
+    {
+      "kind": "evidence",
+      "support": 0.9,
+      "uncertainty": 0.1,
+      "margin": 0.05,
+      "agreement": false
+    },
+    {
+      "kind": "evidence",
+      "support": 0.9,
+      "uncertainty": 0.1,
+      "margin": 0.05,
+      "agreement": true
+    },
+    {
+      "kind": "evidence",
+      "support": 0.9,
+      "uncertainty": 0.1,
+      "margin": 0.2,
+      "agreement": false
+    },
+    {
+      "kind": "evidence",
+      "support": 0.9,
+      "uncertainty": 0.1,
+      "margin": 0.2,
+      "agreement": true
+    },
+    {
+      "kind": "evidence",
+      "support": 0.9,
+      "uncertainty": 0.3,
+      "margin": 0.05,
+      "agreement": false
+    },
+    {
+      "kind": "evidence",
+      "support": 0.9,
+      "uncertainty": 0.3,
+      "margin": 0.05,
+      "agreement": true
+    },
+    {
+      "kind": "evidence",
+      "support": 0.9,
+      "uncertainty": 0.3,
+      "margin": 0.2,
+      "agreement": false
+    },
+    {
+      "kind": "evidence",
+      "support": 0.9,
+      "uncertainty": 0.3,
+      "margin": 0.2,
+      "agreement": true
+    }
+  ],
+  "threshold_grid": [
+    {
+      "kind": "threshold",
+      "threshold": 0.4
+    },
+    {
+      "kind": "threshold",
+      "threshold": 0.5
+    },
+    {
+      "kind": "threshold",
+      "threshold": 0.6
+    },
+    {
+      "kind": "threshold",
+      "threshold": 0.7
+    },
+    {
+      "kind": "threshold",
+      "threshold": 0.8
+    },
+    {
+      "kind": "threshold",
+      "threshold": 0.9
+    },
+    {
+      "kind": "threshold",
+      "threshold": 1.01
+    }
+  ]
+}
