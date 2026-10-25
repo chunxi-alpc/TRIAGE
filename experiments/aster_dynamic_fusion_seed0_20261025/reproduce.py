@@ -67,7 +67,7 @@ def seed_sign(name):
     h=0
     for ch in name:
         h=(h*33+ord(ch)) & 0xffffffff
-    return -1 if h%2 else 1
+    return 1 if h%2 else -1
 
 def predict(row,c):
     p = temp(row["_orig"], c.get("t0",1))
