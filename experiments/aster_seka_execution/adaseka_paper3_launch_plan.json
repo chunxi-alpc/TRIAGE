@@ -1,12 +1,12 @@
 {
-  "status": "planned",
+  "status": "running",
   "created_at_utc": "2026-10-25T17:36:21.757153+00:00",
   "command": [
     "/home/gcx/venvs/aster-seka-20261025/bin/python",
     "-u",
     "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_official_job.py",
     "--gpu",
-    "1",
+    "0",
     "--source",
     "/home/gcx/TRIAGE/third_party/SEKA",
     "--model",
@@ -45,7 +45,7 @@
     "--layers",
     "last10"
   ],
-  "gpu": 1,
+  "gpu": 0,
   "start_after": "current GPU1 BiasBios queue exits and coordinator confirms resource",
   "scope": "paper amplification setting on adapted Qwen3-8B checkpoint; not Base reproduction",
   "amplify_factor": 3,
@@ -59,5 +59,8 @@
   "estimate_minutes": [
     40,
     90
-  ]
+  ],
+  "started_at_utc": "2026-10-25T17:44:11.398428+00:00",
+  "resource_reason": "CAD failed before full completion; GPU0 is free while code fix proceeds",
+  "pid": 424854
 }

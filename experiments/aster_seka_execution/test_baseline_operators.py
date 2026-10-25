@@ -77,6 +77,17 @@ class AlgebraTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Nonidentity generation processor"):
             cad_first_token(FakeGenerationModel(True), CharTokenizer(), "abcd", "a")
 
+    def test_empty_attribute_does_not_remove_cad_question(self):
+        row = {"context": "A lives in B", "prompt": "A lives in B. Where does A live?",
+               "target_mediated": "B", "target_unmediated": "C", "attribute": ""}
+        full, prior, spans = prompts_from_row(row)
+        self.assertEqual(prior, "Where does A live?")
+        self.assertEqual(spans, [])
+        model = FakeGenerationModel()
+        result = cad_first_token(model, CharTokenizer(), full, prior)
+        self.assertEqual(len(model.calls), 2)
+        self.assertEqual(result.metadata["prompt_tokens_per_path"], [len(full), len(prior)])
+
     def test_spotlight_log_ratio_not_log_odds(self):
         logits = torch.tensor([[[[.02, .98]]]]).log()
         selected = torch.tensor([[[[True, False]]]])
@@ -177,6 +188,16 @@ class TinyActualQwenTests(unittest.TestCase):
                                         target=.5, control=control)
             self.assertTrue(torch.isfinite(result.first_token_scores).all())
             self.assertEqual(result.metadata["attention_calls"], 2)
+
+    def test_empty_spotlight_evidence_keeps_original_prediction(self):
+        plain = spotlight_generate(self.model, self.tokenizer, "abcde", [], control="no_hook")
+        for control, status in [("normal", "no_support"), ("wrong_span", "control_unavailable")]:
+            result = spotlight_generate(self.model, self.tokenizer, "abcde", [], control=control)
+            self.assertEqual(result.output_token_ids, plain.output_token_ids)
+            torch.testing.assert_close(result.first_token_scores, plain.first_token_scores, rtol=0, atol=0)
+            self.assertEqual(result.metadata["status"], status)
+            self.assertFalse(result.metadata["intervention_applied"])
+            self.assertEqual(result.metadata["attention_calls"], 0)
 
 
 if __name__ == "__main__":

@@ -38,18 +38,16 @@ def prompts_from_row(row: dict):
     if not row["prompt"].startswith(prefix):
         raise ValueError("Official contextual prompt does not start with its exact context prefix")
     prior = row["prompt"][len(prefix):]
+    if not prior:
+        raise ValueError("Empty prior question")
     old_fact = row["context"].replace(row["target_mediated"], row["target_unmediated"]) + ". "
     full = f"Previously {old_fact}Currently {row['prompt']}"
-    attribute = row["attribute"]
-    if not attribute or not prior:
-        raise ValueError("Empty attribute or prior question")
+    attribute = row.get("attribute") or ""
     # str.replace in the upstream marked path edits every nonoverlapping occurrence.
     spans, start = [], 0
-    while (index := full.find(attribute, start)) >= 0:
+    while attribute and (index := full.find(attribute, start)) >= 0:
         spans.append((index, index + len(attribute)))
         start = index + len(attribute)
-    if not spans:
-        raise ValueError("Official attribute was not found in the complete prompt")
     return full, prior, spans
 
 
@@ -103,6 +101,7 @@ def main():
         "controls": controls, "seed": args.seed, "alpha": 1.0, "spotlight_target": .1,
         "max_new_tokens": 1, "greedy": True, "batch_size": 1,
         "add_unmediated_fact": True, "chat": False, "candidate_filtering": False,
+        "missing_support_policy": "CAD ignores attribute; Spotlight uses original-context no-hook fallback and records unavailable intervention",
         "versions": {p: importlib.metadata.version(p) for p in ["torch", "transformers", "tokenizers", "datasets"]},
     }
     manifest_path = args.output_dir / "manifest.json"
@@ -132,12 +131,11 @@ def main():
                 reference = None
                 for control in controls:
                     actual_forward_calls = [0]
-
                     def count_forward(*unused):
                         actual_forward_calls[0] += 1
 
-                    handle = model.register_forward_hook(count_forward)
                     torch.cuda.reset_peak_memory_stats(model.device)
+                    handle = model.register_forward_hook(count_forward)
                     try:
                         if args.method == "cad":
                             result = cad_first_token(model, tokenizer, full, prior,
@@ -158,6 +156,7 @@ def main():
                     comparator_logp = float(log_probs[comparator_ids].max())
                     record = {
                         "id": str(row["id"]), "control": control,
+                        "status": result.metadata.get("status", "ok"),
                         "prediction": result.text, "output_token_ids": result.output_token_ids,
                         "target_token_ids": target_ids.tolist(), "comparator_token_ids": comparator_ids.tolist(),
                         "target_logp": target_logp, "comparator_logp": comparator_logp,

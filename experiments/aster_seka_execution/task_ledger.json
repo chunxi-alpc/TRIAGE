@@ -35,13 +35,13 @@
     6
   ],
   "gpu_assignment": {
-    "0": "CAD then Spotlight 5000 standard cases with controls",
-    "1": "BiasBios SEKA then matched-zero 5000 cases",
-    "6": "AdaSEKA default1 5000 efficacy + 5000 paraphrase cases, then 5000 zero efficacy"
+    "0": "AdaSEKA paper factor3, adapted Qwen3-8B standard run",
+    "1": "BiasBios zero; queued Spotlight/CAD empty-attribute fix full standards",
+    "6": "AdaSEKA default factor1 full standards then zero efficacy"
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-25T17:38:55.814171+00:00",
+  "updated_at_utc": "2026-10-25T17:54:24.322127+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -154,6 +154,22 @@
       "id": "MedPIC_native_interface",
       "status": "complete_verified",
       "scope": "synthetic interface tests only; no test inference"
+    },
+    {
+      "id": "BiasBios_SEKA_5000",
+      "status": "complete_verified",
+      "evidence": "biasbios_full_seka_verified/audit.json"
+    },
+    {
+      "id": "CAD_empty_attribute_fix",
+      "status": "complete_verified",
+      "scope": "17 server tests; new full GPU run pending resource release",
+      "evidence": "EMPTY_ATTRIBUTE_FIX.zh.md"
+    },
+    {
+      "id": "AdaSEKA_FP32_same_input_control",
+      "status": "complete_verified",
+      "evidence": "adaseka_fp32_matched_audit/audit.json"
     }
   ]
 }

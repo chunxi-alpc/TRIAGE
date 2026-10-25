@@ -254,6 +254,8 @@ def main():
                     require(meta['gain'] == (0 if control == 'matched_zero' else (-1 if control == 'reverse' else 1)), 'Spotlight gain differs')
                     require(isinstance(meta['input_tokens'],int) and meta['input_tokens']>0, 'Spotlight input token count invalid')
                 record = dict(id=case, control=control, prompt_sha256=row['prompt_sha256'],prior_sha256=row['prior_sha256'],
+                    status=row.get('status',meta.get('status','ok')),
+                    attribute_span_count=len(row.get('attribute_character_spans',[])),
                     generation_sha256=text_sha(row['prediction']), generation_token_count=len(token_ids),
                     generation_token_ids_sha256=text_sha(json.dumps(token_ids,separators=(',',':'))),
                     target_token_ids_sha256=text_sha(json.dumps(row['target_token_ids'],separators=(',',':'))),
@@ -266,6 +268,22 @@ def main():
                     prompt_tokens_per_path=meta.get('prompt_tokens_per_path',[meta.get('input_tokens')]))
                 if method == 'spotlight':
                     record.update({key:meta[key] for key in ['span_mask_sha256','highlighted_tokens','attention_calls','layers_touched','rows_below_target']})
+                    # New explicit metadata distinguishes an actual attention
+                    # control from an empty-attribute no-hook result. Legacy
+                    # files without these fields retain None, not invented data.
+                    record.update({key:meta.get(key) for key in ['no_support','control_unavailable_reason',
+                                                                 'intervention_applied','effective_control']})
+                    require(record['status']==meta.get('status','ok'),'Top-level and operator status differ')
+                    if record['status'] in {'no_support','control_unavailable'}:
+                        require(record['no_support'] is True and record['highlighted_tokens']==0,
+                                'This audit adaptation covers empty-attribute/no-evidence cases only')
+                        require(record['intervention_applied'] is False and record['effective_control']=='no_hook'
+                                and record['attention_calls']==0 and record['layers_touched']==[]
+                                and record['rows_below_target']==0,
+                                'Unavailable control was not explicitly recorded as zero-call no-hook')
+                    elif record['intervention_applied'] is not None:
+                        require(record['intervention_applied']==(record['attention_calls']>0),
+                                'Declared intervention application differs from observed attention calls')
                 if control == 'no_hook':
                     reference_rows[case] = row
                 if control == 'matched_zero':
@@ -304,8 +322,23 @@ def main():
                     'Scored target token candidates differ across controls')
             if method == 'spotlight' and 'wrong_span' in controls and 'normal' in controls:
                 normal, wrong = by_control['normal'][case], by_control['wrong_span'][case]
-                require(normal['highlighted_tokens'] == wrong['highlighted_tokens']>0
-                        and normal['span_mask_sha256'] != wrong['span_mask_sha256'], 'Wrong-span count/hash diagnostic differs')
+                # Only the explicitly verified unavailable no-hook case skips
+                # this assertion. It remains in the full metric denominator.
+                if wrong['status'] not in {'no_support','control_unavailable'}:
+                    require(normal['highlighted_tokens'] == wrong['highlighted_tokens']>0
+                            and normal['span_mask_sha256'] != wrong['span_mask_sha256'], 'Wrong-span count/hash diagnostic differs')
+        if method == 'spotlight':
+            report['attention_control_availability'] = {
+                control:dict(source_case_denominator=len(rows),
+                    explicit_no_support_cases=sum(r['no_support'] is True for r in rows.values()),
+                    no_support_status_cases=sum(r['status']=='no_support' for r in rows.values()),
+                    control_unavailable_cases=sum(r['status']=='control_unavailable' for r in rows.values()),
+                    attention_operator_executed_cases=sum(r['attention_calls']>0 for r in rows.values()),
+                    explicit_no_hook_fallback_cases=sum(r['status'] in {'no_support','control_unavailable'} for r in rows.values()),
+                    application_metadata_missing_cases=sum(r['intervention_applied'] is None for r in rows.values()),
+                    unavailable_case_ids=sorted(case for case,r in rows.items() if r['status'] in {'no_support','control_unavailable'}))
+                for control,rows in by_control.items()}
+            report['control_availability_scope'] = 'All source cases remain in efficacy/effect denominators. Explicit unavailable no-hook cases are not counted as implemented attention/negative controls.'
         metrics_path = args.input_dir/'efficacy_metrics.json'
         saved_metrics = json.loads(metrics_path.read_text())
         report['raw_files_sha256'][str(metrics_path)] = sha(metrics_path)
@@ -325,7 +358,7 @@ def main():
             target_logp_max_abs_recomputed=max((abs(r['target_logp_drift_recomputed']) for r in by_control.get('matched_zero',{}).values()),default=None),
             comparator_logp_max_abs_recomputed=max((abs(r['comparator_logp_drift_recomputed']) for r in by_control.get('matched_zero',{}).values()),default=None),
             full_vocabulary_scope='Recorded max drift checked against both saved diagnostic files; full logits unavailable for independent recomputation',
-            wrong_span_scope='Equal token count and differing mask hashes checked; disjointness follows inspected adapter source, full masks were not saved')
+            wrong_span_scope='Equal positive token count and differing mask hashes checked for implemented controls only. Explicit empty-evidence no-hook controls are counted separately and remain in all denominators. Disjointness follows inspected source; full masks were not saved.')
         comparisons = {}
         per_case_comparisons = []
         for comparator in controls:
@@ -340,9 +373,16 @@ def main():
                 delta = int(a['target_wins'])-int(b['target_wins'])
                 differences.append(delta)
                 per_case_comparisons.append(dict(id=case,primary='normal',comparator=comparator,score_difference=delta,
-                                                magnitude_difference=a['probability_margin']-b['probability_margin']))
+                    magnitude_difference=a['probability_margin']-b['probability_margin'],
+                    primary_status=a['status'],comparator_status=b['status'],
+                    primary_intervention_applied=a.get('intervention_applied'),
+                    comparator_intervention_applied=b.get('intervention_applied')))
             comparisons['normal_vs_'+comparator] = dict(cases=len(ids),corrected=corrected,regressed=regressed,
                                                         score_difference=math.fsum(differences)/len(ids))
+            if method == 'spotlight':
+                comparisons['normal_vs_'+comparator].update(
+                    comparator_attention_operator_executed_cases=sum(r['attention_calls']>0 for r in by_control[comparator].values()),
+                    comparator_control_unavailable_cases=sum(r['status']=='control_unavailable' for r in by_control[comparator].values()))
         comparisons_path = args.output_dir/'paired_case_effects.jsonl'
         with comparisons_path.open('x') as handle:
             for row in per_case_comparisons:

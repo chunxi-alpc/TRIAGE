@@ -215,12 +215,12 @@ def spotlight_generate(model, tokenizer, text: str, spans: Sequence[tuple[int, i
         raise ValueError("Load the model with attn_implementation='eager' for all matched comparisons")
     torch.manual_seed(seed)
     inputs, mask, visible = encode_spans(tokenizer, text, spans)
-    if control == "wrong_span":
+    no_support = not bool(mask.any())
+    unavailable_reason = "No evidence tokens in the original input" if no_support and control != "no_hook" else None
+    if control == "wrong_span" and not no_support:
         mask = wrong_span_mask(mask, visible)
-    if control != "no_hook" and not mask.any():
-        raise ValueError("Spotlight intervention/control needs at least one valid highlighted token")
     gain = 0.0 if control == "matched_zero" else (-1.0 if control == "reverse" else 1.0)
-    operator = None if control == "no_hook" else SpotlightQwen(model, mask, target=target, gain=gain)
+    operator = None if control == "no_hook" or unavailable_reason else SpotlightQwen(model, mask, target=target, gain=gain)
     input_count = inputs["input_ids"].numel()
     inputs = {k: v.to(model.device) for k, v in inputs.items()}
     _sync(model.device)
@@ -236,6 +236,9 @@ def spotlight_generate(model, tokenizer, text: str, spans: Sequence[tuple[int, i
         raise ValueError("Non-finite Spotlight generation scores")
     return DecodeResult(tokenizer.decode(tokens, skip_special_tokens=True), first_scores, tokens, {
         "method": "Spotlight_paper_reimplementation_Qwen", "control": control, "target_mass": target,
+        "status": ("no_support" if control == "normal" and no_support else "control_unavailable") if unavailable_reason else "ok",
+        "no_support": no_support, "control_unavailable_reason": unavailable_reason,
+        "intervention_applied": operator is not None, "effective_control": "no_hook" if operator is None else control,
         "gain": gain, "forward_calls": len(output.scores), "input_tokens": input_count,
         "output_tokens": len(tokens), "max_new_tokens": max_new_tokens, "generation_seed": seed,
         "greedy": True, "elapsed_seconds": time.perf_counter() - start,
