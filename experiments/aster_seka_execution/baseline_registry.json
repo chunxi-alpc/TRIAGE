@@ -49,22 +49,27 @@
     },
     {
       "name": "CAD",
-      "status": "running",
+      "status": "complete_verified",
       "implementation": "formula/implementation adaptation",
       "smoke_evidence": "cad_smoke16_verified_v2/audit.json",
-      "previous_full_attempt": "failed with 8372 retained predictions; empty attribute fix tested; new full run queued"
+      "previous_full_attempt": "failed with 8372 retained predictions; empty attribute fix tested; new full run queued",
+      "scope": "CounterFact 5000 efficacy implementation adaptation; clinical run remains planned",
+      "evidence": "cad_full5000_v2_verified/audit.json",
+      "paired_interval": "cad_full5000_v2_entity_ci/entity_ci.json"
     },
     {
       "name": "Spotlight",
       "status": "running",
       "implementation": "paper reimplementation, not claimed official author release",
       "smoke_evidence": "spotlight_smoke16_verified_v2/audit.json",
-      "full_run_state": "queued behind current GPU1 job; not yet asserted running"
+      "full_run_state": "Retry v3 uses actual preceding process exit; v2 resource preflight zero-forward failure preserved"
     },
     {
       "name": "BiasBios SEKA and matched zero",
-      "status": "running",
-      "smoke_evidence": "biasbios_smoke16_v3_verified/audit.json"
+      "status": "complete_verified",
+      "smoke_evidence": "biasbios_smoke16_v3_verified/audit.json",
+      "scope": "Qwen3-8B posttrained; 5000 fixed cases",
+      "evidence": "biasbios_full_paired_comparison/comparison.json"
     },
     {
       "name": "clinical 2x2 and strong probability fusion",

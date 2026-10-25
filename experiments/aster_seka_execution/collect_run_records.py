@@ -50,7 +50,7 @@ def main():
     (public / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2) + '\n')
     if records:
         with (public / 'costs.csv').open('w', newline='') as handle:
-            writer = csv.DictWriter(handle, fieldnames=list(records[0]))
+            writer = csv.DictWriter(handle, fieldnames=list(records[0]), lineterminator='\n')
             writer.writeheader()
             writer.writerows(records)
     print(json.dumps({'runs': len(records), 'completed_forwards_in_exited_runs': summary['completed_forwards_in_exited_runs']}))

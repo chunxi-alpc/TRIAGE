@@ -35,13 +35,13 @@
     6
   ],
   "gpu_assignment": {
-    "0": "AdaSEKA paper factor3, adapted Qwen3-8B standard run",
-    "1": "BiasBios zero; queued Spotlight/CAD empty-attribute fix full standards",
-    "6": "AdaSEKA default factor1 full standards then zero efficacy"
+    "0": "Ada paper3; then Base BiasBios/PASTA standards and four expert construction",
+    "1": "Spotlight fixed full standard; then clinical YaRN PASTA heads and Ada experts",
+    "6": "Ada default1/zero standards; then verified dependency launches MEGA train_val dev16"
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-25T17:54:24.322127+00:00",
+  "updated_at_utc": "2026-10-25T18:20:31.526844+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -82,12 +82,12 @@
     {
       "id": "CounterFact_Qwen_paraphrase_matched",
       "status": "complete_verified",
-      "evidence": "runtime/paraphrase_v3_queue.json"
+      "evidence": "counterfact_paraphrase_v2_comparison/comparison.json"
     },
     {
       "id": "CounterFact_Base",
       "status": "complete_verified",
-      "evidence": "runtime/base_counterfact_queue.json"
+      "evidence": "counterfact_base_comparison/comparison.json"
     },
     {
       "id": "AdaSEKA_four_experts",
@@ -106,8 +106,9 @@
     },
     {
       "id": "BiasBios_standard",
-      "status": "running",
-      "evidence": "runtime/biasbios_smoke16_v3.log"
+      "status": "complete_verified",
+      "evidence": "biasbios_full_paired_comparison/comparison.json",
+      "scope": "Existing post-trained Qwen3-8B; Base remains planned"
     },
     {
       "id": "MEGA_dev16_input_freeze",
@@ -117,7 +118,8 @@
     {
       "id": "clinical_2x2_and_controls",
       "status": "planned",
-      "evidence": "CLINICAL_DEV.zh.md"
+      "evidence": "clinical_dev16_launch_plan.json",
+      "execution": "queued after real standard completion and independent export"
     },
     {
       "id": "strong_output_fusion",
@@ -163,13 +165,25 @@
     {
       "id": "CAD_empty_attribute_fix",
       "status": "complete_verified",
-      "scope": "17 server tests; new full GPU run pending resource release",
+      "scope": "17 server tests; full rerun executed, export pending",
       "evidence": "EMPTY_ATTRIBUTE_FIX.zh.md"
     },
     {
       "id": "AdaSEKA_FP32_same_input_control",
       "status": "complete_verified",
       "evidence": "adaseka_fp32_matched_audit/comparison.json"
+    },
+    {
+      "id": "clinical_YaRN_PASTA_Ada_calibration",
+      "status": "planned",
+      "execution": "queued",
+      "evidence": "clinical_calibration_launch_plan.json"
+    },
+    {
+      "id": "Base_remaining_standards",
+      "status": "planned",
+      "execution": "queued",
+      "evidence": "base_completion_launch_plan.json"
     }
   ]
 }

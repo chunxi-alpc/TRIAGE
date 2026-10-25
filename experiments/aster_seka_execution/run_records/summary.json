@@ -1,5 +1,5 @@
 {
-  "snapshot_utc": "2026-10-25T17:54:24.394207+00:00",
+  "snapshot_utc": "2026-10-25T18:22:48.187602+00:00",
   "running_counts_are_not_final": true,
   "successful_exit_is_not_independent_verification": true,
   "all_runs_including_failures": [
@@ -200,17 +200,17 @@
     },
     {
       "run": "biasbios_full_matched_zero_job",
-      "process_state": "running",
-      "exit_code": null,
+      "process_state": "exited",
+      "exit_code": 0,
       "verification_status": "pending",
       "gpu_physical": 1,
-      "forward_attempts": 0,
-      "forward_completed": 0,
-      "elapsed_seconds": null,
-      "peak_allocated_gib": null,
-      "peak_reserved_gib": null,
+      "forward_attempts": 20032,
+      "forward_completed": 20032,
+      "elapsed_seconds": 1194.3976380289532,
+      "peak_allocated_gib": 18.020304203033447,
+      "peak_reserved_gib": 19.34375,
       "python_hash_seed": "0",
-      "manifest_sha256": "9ae904cb1123f9d7ade87668b379d9f041959ba404a65bb67520105d510dbcd9",
+      "manifest_sha256": "412350c071fb21e0bfe007ac74252d401e55a212a39fe35c50ff8ae21e8269f0",
       "error": null
     },
     {
@@ -347,6 +347,21 @@
       "python_hash_seed": "0",
       "manifest_sha256": "fe54c7c05c73c22953f470c64b607341776b39930dbbf94380aef3cf4800ba97",
       "error": "ValueError: Empty attribute or prior question"
+    },
+    {
+      "run": "cad_full5000_v2_job",
+      "process_state": "exited",
+      "exit_code": 0,
+      "verification_status": "pending",
+      "gpu_physical": 1,
+      "forward_attempts": 35000,
+      "forward_completed": 35000,
+      "elapsed_seconds": 1153.059686004999,
+      "peak_allocated_gib": 15.273290157318115,
+      "peak_reserved_gib": 15.43359375,
+      "python_hash_seed": "0",
+      "manifest_sha256": "86c9b4a45a710d8f4d938e9a83d441936f25160d3d9cdd970e331a0aeecbb3bd",
+      "error": null
     },
     {
       "run": "cad_smoke16_job",
@@ -604,6 +619,36 @@
       "error": null
     },
     {
+      "run": "spotlight_full5000_v2_job",
+      "process_state": "exited",
+      "exit_code": 1,
+      "verification_status": "pending",
+      "gpu_physical": 1,
+      "forward_attempts": 0,
+      "forward_completed": 0,
+      "elapsed_seconds": 0.02977437397930771,
+      "peak_allocated_gib": null,
+      "peak_reserved_gib": null,
+      "python_hash_seed": "0",
+      "manifest_sha256": "e8ee0f520174e6d3e418e72bd584710b9cfb7b8fbaf346b7d2017469003d5665",
+      "error": "RuntimeError: GPU 1 already uses 20327 MiB; no job started"
+    },
+    {
+      "run": "spotlight_full5000_v3_job",
+      "process_state": "running",
+      "exit_code": null,
+      "verification_status": "pending",
+      "gpu_physical": 1,
+      "forward_attempts": 0,
+      "forward_completed": 0,
+      "elapsed_seconds": null,
+      "peak_allocated_gib": null,
+      "peak_reserved_gib": null,
+      "python_hash_seed": "0",
+      "manifest_sha256": "dbf1e2e88fc637a1a2de5373c5842dd3be051c7bba666386cd9db4e56c8c3989",
+      "error": null
+    },
+    {
       "run": "spotlight_smoke16_job",
       "process_state": "exited",
       "exit_code": 0,
@@ -619,7 +664,7 @@
       "error": null
     }
   ],
-  "completed_forwards_in_exited_runs": 49779,
+  "completed_forwards_in_exited_runs": 104811,
   "source_bundle_sha256": {
     "adaptive_storage.py": "4b1c4834d5addf6b8ffb1e7b95918226a6f50662aaee916b0ca9b42ad231491e",
     "aster_seka_adapter.py": "11d9fdd9bd2d902f78a57c3b7201b4963efd4da3a83133fd023626cae4d2d825",
@@ -632,6 +677,7 @@
     "clinical_core.py": "b06e18e57933259bc20ef8dc419000531d3cfa54416a352ba27c1baf45dd83c1",
     "collect_run_records.py": "6411cdbdd3e39e80c2db5c900e1239b8bc617636a5675a1fae5968bc70c5e1d3",
     "compare_adaptive_counterfact.py": "0360bbab9e31d3c5d262dfe5a940e0ef13ec63b89025275fd585f2ef14c6e11c",
+    "compare_biasbios_paired.py": "0a7ff160fafbe629684c9a064f049107324d897ab93725962213f571c5a04a37",
     "compare_standard.py": "04d46f51de677183d6dfaa1eab834ddc2897218cd5757b7dfa6408b782243fc2",
     "compare_standard_v1.py": "7f4bf36bb856b6f2a8bacbc854c8dec2ef742f146e59d4f26fb6cbad1298d057",
     "counterfact_entity_ci.py": "567514750ebe2c5ff267e28fd1cd24c53447c01bbc26d45739bc19b7a14cf870",
@@ -655,15 +701,17 @@
     "preflight_mega_tokens.py": "7f04615299a014443fb8e574cc81fe33374b4599b2a511003277c34ca25c792c",
     "prepare_biasbios.py": "598f34ec19844e500fb2975f2dda319a3dbc8e0b67870f00fc70aca5a94f3e59",
     "prepare_counterfact_smoke.py": "06d9e47c2d77d05776f337d7d6f17299a5fa6e1dd61cb417f0682d47d4adfe62",
-    "run_baseline_queue.py": "f0afd37979f3e6117527ceef9761629cf132b309d04e08c546cb595a6d7211b6",
+    "run_baseline_queue.py": "d594a60b06500b09e8ae26c0e2ee83f17db4de85136690312cbe30e82546463f",
     "run_counterfact_baselines.py": "2687f698a6736985b66379eadbfabf5f3f618d00725ca04a5a91e96ae144a850",
     "run_mega_additional_baselines.py": "a86e53257c231cda9f4c19b49df06519b7de12b60221f4aac311e264db363cfa",
     "run_mega_development.py": "689340986f7e587bbe32d13eafb4e9be26ffafe305d47e5e6aa87e8dba9e6c3d",
     "run_official_job.py": "2ab51999b974d2ea629a5ca601c2443b7df5c296844bfde3be8ee07989190c48",
     "run_queue.py": "6bf448d4cc294306afc1656fcfcc244bca5b641560b4f4019234aaa66753cf99",
+    "run_stage_transition.py": "1e1e8c9dbe77aac4a93c4908bd36040769ef0cc96025554b9e67ddd6dde5bab9",
     "setup_nltk_data.py": "75dd7bd43b034c10b62fca3191715cafe2666ccb4f67ffb19fc36585ab2d29af",
     "test_aster_seka_adapter.py": "cdc12afe708613102ad076fd7e16280a64a5d61ddc68d73f26bd090f7613a905",
     "test_baseline_operators.py": "e66473d37e221fc2596ec1c61ca79a16dec4fb338c165dfb8df2cfb0e1ee313a",
+    "test_biasbios_paired.py": "2733dd764bf49bc29d801ead21ce35a75cc6e7705eafd863cd1914bc205a73c7",
     "test_clinical_core.py": "7b3b696ff66a910ddab42e5980a195c1314a34ecaf9e313e0dd6e67b758a8dcc",
     "test_counterfact_method_selection.py": "62ccb89fd17b224adc46c4e43369ea0203ea6e28c8e1ec0259ce5fe0dd8b4e9c",
     "test_evaluation.py": "2a4b7e474230fcfb2def42d5b8cdce5db67fadfe1afc5bea464efb7a7135861a",

@@ -1,0 +1,61 @@
+{
+  "protocol": "medpic_native_option_applicability_seka_v1",
+  "status": "planned",
+  "frozen": false,
+  "frozen_at": null,
+  "dataset_revision": "9ef6db4f13865b14fc2e6be3f94dcfaf3a0cf983",
+  "expected_rows": 467,
+  "development_data": "synthetic examples only; no MedPIC test questions or labels opened in this preparation",
+  "condition_semantics": "Option applicability with original choices visible; NOT the action-blind guideline condition stage of MEGA",
+  "seeds": [0, 1, 2],
+  "arms": ["A0B0", "A0B1", "A1B0", "A1B1"],
+  "config": {
+    "execution_max_new_tokens": 512,
+    "context_limit": 32768,
+    "condition_max_new_tokens": 1,
+    "chat_role": "user",
+    "enable_thinking": false,
+    "greedy": true
+  },
+  "selector": "original_patient_sentences_lexical_option_overlap_v1",
+  "condition_instruction_sha256": null,
+  "source_hashes": null,
+  "model_fingerprint": null,
+  "projection_manifest": null,
+  "operator": {
+    "kind": "SEKA",
+    "source_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+    "layers": "inherit unchanged frozen MEGA setting",
+    "amplify_pos": "inherit unchanged frozen MEGA setting",
+    "amplify_neg": "inherit unchanged frozen MEGA setting"
+  },
+  "formal_baseline_status": {
+    "same_information_text_two_stage": "implemented in A0B0; server runtime verification pending",
+    "fixed_A1_no_execution_attention": "implemented in A1B0; server runtime verification pending",
+    "native_single_pass": "existing adapter available; integration and matched tokenizer verification pending",
+    "direct_TFU_mapping": "helper implemented; lower computation cost must be reported",
+    "calibrated_probability_fusion": "planned; no native per-option calibrated fusion implementation or frozen parameters claimed"
+  },
+  "controls": {
+    "required": ["matched_zero", "wrong_patient_span", "misaligned_option_evidence", "reverse", "full_vocabulary_first_token_drift"],
+    "status": "construction and upstream adapter interfaces ready; orchestration and server verification pending",
+    "matching": "same final chat token IDs, same highlighted token count, changed masks; wrong spans disjoint",
+    "unavailable_policy": "explicit unavailable with full-input no-hook fallback; never call fallback an executed control"
+  },
+  "evaluation": {
+    "primary": "exact_option_set_accuracy, all 467 rows",
+    "secondary": ["GF_accuracy", "CF_accuracy", "linked_pair_accuracy"],
+    "failures": "retain every missing/invalid/error prediction in full denominator",
+    "pair_mapping": "blocked: no verified published mapping of 89 pairs",
+    "cluster_mapping": "blocked: no verified patient/source cluster identities",
+    "inference_without_clusters": "point estimates only; do not assume independent questions or seeds",
+    "primary_comparison_family": null,
+    "greedy_seeds": "identical greedy duplicates are not independent replications"
+  },
+  "execution": {
+    "synthetic_CPU_tests": "planned_not_run_locally",
+    "synthetic_Qwen_smoke": "planned_not_run",
+    "MedPIC_inference": "planned_not_run",
+    "MedPIC_evaluation": "planned_not_run"
+  }
+}

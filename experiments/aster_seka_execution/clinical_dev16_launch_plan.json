@@ -1,14 +1,14 @@
 {
-  "status": "planned",
+  "status": "queued_after_standard_verification",
   "created_at_utc": "2026-10-25T17:33:09.461343+00:00",
-  "start_after": "G1 standard validation and resource release; coordinator checks actual results",
-  "gpu": 1,
+  "start_after": "current standard jobs exit and independent metrics export succeeds; provisional train_val engineering run, no SOTA claim",
+  "gpu": 6,
   "command": [
     "/home/gcx/venvs/aster-seka-20261025/bin/python",
     "-u",
     "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_official_job.py",
     "--gpu",
-    "1",
+    "6",
     "--source",
     "/home/gcx/TRIAGE/third_party/SEKA",
     "--model",
@@ -63,8 +63,8 @@
     65
   ],
   "estimate_minutes": [
-    45,
-    120
+    60,
+    180
   ],
   "model_fingerprint": "f6a9f8c62bda7ea4c333f4930115623c650582bed77870c754d1520aaf1a356a",
   "frozen_inputs": "mega_dev16_input_lock.json",
