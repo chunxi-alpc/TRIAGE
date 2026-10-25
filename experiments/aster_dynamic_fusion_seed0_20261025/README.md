@@ -1,3 +1,7 @@
+# 最新完成状态
+
+两模型各800条新前向已完成并验证，详见 [完成报告与分组对照](COMPLETED.zh.md)、[完整新前向报告](fresh_report.zh.md)、[匿名逐例答案](completed_predictions.csv)。独立新增数据验证未完成。以下旧阶段记录保留供追溯。
+
 # 2026-10-25 实际执行复核补充
 
 详见 [中文研究报告](REVIEW.zh.md)、[公平网格结果](balanced_cached.json)、[资源核对](resource_inventory.json)、[冻结候选](frozen_candidate.json)。
