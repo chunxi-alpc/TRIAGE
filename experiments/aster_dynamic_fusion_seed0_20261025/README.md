@@ -51,3 +51,8 @@ python experiments/aster_dynamic_fusion_seed0_20261025/reproduce.py
 脚本只读取 \`data/\` 下的匿名数值文件，在 CPU 上完成配置选择，输出每折结果和汇总。运行不需 GPU、不修改 PR #31/#32 原始预测。
 
 **剩余工作**：Qwen 新模型前向复核；Llama 真正的注意力残差实验；至少一组未参与方法设计的新增决策树和人工标注。不能把此前被使用过的 P3 测试结果继续称为全新独立测试。
+
+
+## P3 exploratory post-hoc hard-anchor fusion
+
+See [P3_EXPLORATORY.md](P3_EXPLORATORY.md) and [JSON metrics](p3_hard_anchor_exploratory.json). Using fixed development-selected parameters beta=0.8 and support temperature=0.25 on the previously inspected P3 action support vectors gives Qwen 73.375% accuracy / 4.842% regression and Llama 60.433% / 10.967% regression, at 100% coverage. Accuracy differences versus direct mapping have tree-bootstrap intervals crossing zero; regression rates fall. This is an exploratory post-hoc analysis, not a new confirmatory test, and it does not evaluate attention.
