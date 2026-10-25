@@ -56,6 +56,19 @@ class ArithmeticTests(unittest.TestCase):
         for x in changed:
             if x["tree"]=="a": x["gold_option"]=1-x["gold_option"]
         self.assertEqual(before,fit(changed,"static")["folds"]["a"]["parameters"])
+    def test_waits_for_all_processes(self):
+        import subprocess, sys
+        from wait_processes import wait_all
+        long=subprocess.Popen([sys.executable,"-c","import time; time.sleep(.3)"])
+        short=subprocess.Popen([sys.executable,"-c","pass"])
+        try:
+            short.wait()
+            wait_all([long.pid,short.pid])
+            self.assertIsNotNone(long.poll())
+        finally:
+            long.wait()
+            short.wait()
+
     def test_published_p3_identity(self):
         data=json.loads((r.ROOT/"p3_hard_anchor_exploratory.json").read_text())
         for m,x in data["models"].items():

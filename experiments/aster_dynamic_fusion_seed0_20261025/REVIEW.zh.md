@@ -60,3 +60,7 @@ NC 标签来自原数据路径对齐；AC/IC/SW 是实验反事实规则标签�
 
 所有执行均在115服务器 gcx261014 环境。运行同目录 test_reproduction.py、reproduce.py、p3_hard_anchor_exploratory.py；balanced_analysis.py 默认使用仓库匿名数值数据。新前向用 fresh_forward.py --name qwen/llama --root 私有运行目录，分别设置 CUDA_VISIBLE_DEVICES=0/1。
 balanced_analysis.py --fresh-root 私有运行目录 --output balanced_fresh.json 生成新前向分析。历史来源、权重config、软件版本和开销保存在运行manifest与execution.json。
+
+## 自动汇总状态更正
+
+两模型仍在运行时，旧多PID等待命令提前返回，导致汇总误报缺少完成标志。模型进程没有失败。已改为Linux进程退出通知，等待所有指定进程结束后再校验两份完成标志。最终结果仍以完整800条/模型为准，不分析部分样本宣称胜负。
