@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-10-25T17:54:24.322127+00:00",
+  "updated_at_utc": "2026-10-25T18:51:22.892942+00:00",
   "overall_status": "running",
   "standards_are_not_clinical_effects": true,
   "methods": [
@@ -33,9 +33,9 @@
     },
     {
       "name": "AdaSEKA default1",
-      "status": "running",
-      "scope": "full adapted CounterFact, not paper strength3",
-      "evidence": "adaseka_config_lock_addendum.json"
+      "status": "complete_verified",
+      "scope": "Posttrained Qwen FP32 full CounterFact efficacy/paraphrase, not paper strength3; full zero comparison pending",
+      "evidence": "adaseka_cf_full_adaptive_verified/efficacy/audit.json"
     },
     {
       "name": "AdaSEKA paper3",
@@ -59,10 +59,13 @@
     },
     {
       "name": "Spotlight",
-      "status": "running",
+      "status": "complete_verified",
       "implementation": "paper reimplementation, not claimed official author release",
       "smoke_evidence": "spotlight_smoke16_verified_v2/audit.json",
-      "full_run_state": "Retry v3 uses actual preceding process exit; v2 resource preflight zero-forward failure preserved"
+      "full_run_state": "Retry v3 uses actual preceding process exit; v2 resource preflight zero-forward failure preserved",
+      "scope": "5000 CounterFact first-token efficacy, paper reimplementation; clinical pending",
+      "evidence": "spotlight_full5000_v3_verified/audit.json",
+      "paired_interval": "spotlight_full5000_v3_entity_ci_v2/entity_ci.json"
     },
     {
       "name": "BiasBios SEKA and matched zero",

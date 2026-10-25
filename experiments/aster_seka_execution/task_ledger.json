@@ -41,7 +41,7 @@
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-25T18:41:13.613085+00:00",
+  "updated_at_utc": "2026-10-25T18:51:22.893212+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -101,8 +101,9 @@
     },
     {
       "id": "CAD_Spotlight_adaptations",
-      "status": "running",
-      "evidence": "runtime/baseline_smoke_queue_results.json"
+      "status": "complete_verified",
+      "evidence": "spotlight_full5000_v3_verified/audit.json",
+      "scope": "Fixed CounterFact 5000 first-token standards only; clinical remains queued"
     },
     {
       "id": "BiasBios_standard",
@@ -208,6 +209,12 @@
       "status": "complete_verified",
       "scope": "MedCalc repository/data metadata and FaithEval source only; FaithEval dataset access unverified",
       "evidence": "extension_source_access.json"
+    },
+    {
+      "id": "extension_native_interfaces",
+      "status": "complete_verified",
+      "scope": "8 server synthetic tests plus 2 fake MedCalc cases only; no model evaluation",
+      "evidence": "EXTENSIONS.zh.md"
     }
   ]
 }

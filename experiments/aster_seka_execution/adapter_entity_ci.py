@@ -24,11 +24,20 @@ def main():
     require(source_sha == audit['fingerprints']['data_sha256'], 'Entity/source fingerprint differs')
     controls = list(audit['recomputed_metrics'])
     values = {name: {} for name in controls}
+    unavailable = {name: 0 for name in controls}
     for line in predictions_path.open():
         row = json.loads(line)
         name, sid = row['control'], str(row['id'])
         require(name in values and sid not in values[name], 'Unknown or duplicate case/control')
-        require(row['status'] == 'ok' and isinstance(row['target_wins'], bool), 'Invalid case result')
+        measured_fallback = (row.get('status') in ('no_support', 'control_unavailable')
+                             and row.get('no_support') is True
+                             and row.get('effective_control') == 'no_hook'
+                             and row.get('intervention_applied') is False
+                             and row.get('attention_calls') == 0
+                             and row.get('highlighted_tokens') == 0)
+        require((row['status'] == 'ok' or measured_fallback) and isinstance(row['target_wins'], bool),
+                'Invalid case result')
+        unavailable[name] += int(measured_fallback)
         values[name][sid] = int(row['target_wins'])
     for name in controls:
         require(set(values[name]) == set(mapping), 'All fixed 5000 cases must remain in every control')
@@ -57,6 +66,8 @@ def main():
                   checker_sha256=digest(__file__), bootstrap_source_sha256=digest(Path(__file__).with_name('counterfact_entity_ci.py')),
                   group='exact CounterFact entity; not patient', n_groups=len(set(entities)),
                   bootstrap_replicates=10000, bootstrap_seed=0, all_fixed_cases_retained=True,
+                  verified_measured_fallbacks_per_control=unavailable,
+                  fallback_scope='Retain actual no-hook predictions for empty evidence; these are not implemented interventions',
                   greedy_single_run=True, comparisons=comparisons,
                   numerical_drift_evidence=audit['numerical_controls'])
     args.output_dir.mkdir(parents=True, exist_ok=False)
