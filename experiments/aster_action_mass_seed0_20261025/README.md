@@ -1,5 +1,11 @@
 # ASTER 动作级质量守恒：单种子开发实验
 
+## 当前执行：先完成 Qwen，GPU 0、1、6
+
+按用户后续要求，停止原顺序任务，保留已完成44条；三卡各加载Qwen，按病例动态领取剩余756条，完整保留23项配置。Llama暂停，未启动全量。只改变任务分配，算子、提示、p(r)/S(a)计算与参数集合不变。GPU1此前报告功率限制并降速，随后空闲检查已不再报告该状态；具体原因未确定，不能据此断言硬件故障。
+
+当前启动入口：`bash experiments/aster_action_mass_seed0_20261025/launch_qwen_multi.sh`。私有新路径：`/home/gcx/aster_action_mass_seed0_20261025/qwen_dual_v1`（目录名保留创建时名称，实际三卡）。自动合并全部800条后汇总并独立复算，只发布Qwen结果到 `results/qwen_multi_v1/REPORT.zh.md`。`results/run_state.json` 为 `qwen_complete_verified` 才表示完成；该状态不表示Llama完成。旧启动脚本与下文顺序运行说明保留为历史记录，不再作为当前任务入口。
+
 基于 PR #31 `cf3298d054d2681911c4c4925eee0bd922c17036`；已读取 PR #30 最新 head `1dae58a14a8242c620e8c5810be432ae198949cf` 的实验说明与引擎。保留两者及全部旧记录。
 
 ## 范围与资源

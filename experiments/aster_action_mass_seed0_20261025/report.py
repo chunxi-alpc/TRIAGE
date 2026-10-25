@@ -21,9 +21,9 @@ def paired(rows,a,b):
  ds.sort()
  return {'accuracy_delta':sum(v for n,v in totals)/len(rows),'tree_bootstrap_95':[ds[50],ds[1950]],'trees':len(totals),'replicates':2000}
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--root',type=Path,default=Path('/home/gcx/aster_action_mass_seed0_20261025'));ap.add_argument('--output',type=Path,required=True);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--root',type=Path,default=Path('/home/gcx/aster_action_mass_seed0_20261025'));ap.add_argument('--output',type=Path,required=True);ap.add_argument('--models',nargs='+',choices=['qwen','llama'],default=['qwen','llama']);a=ap.parse_args()
  a.output.mkdir(parents=True,exist_ok=False);report={};text=['# ASTER 动作级质量守恒：seed=0 开发集实测','', '本报告只评价原有 200 病例 × NC/AC/IC/SW。未重新运行或使用独立测试标签选参。所有候选完整报告；开发集最优成绩不代表独立测试效果。','']
- for model in ('qwen','llama'):
+ for model in a.models:
   folder=a.root/model;status=json.loads((folder/'status.json').read_text());assert status['complete']
   rows=[json.loads(l) for l in (folder/'predictions.jsonl').read_text().splitlines()]
   assert len(rows)==800 and len({(r['id'],r['variant']) for r in rows})==800

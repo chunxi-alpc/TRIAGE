@@ -3,11 +3,11 @@ import argparse,json,math,gzip
 from pathlib import Path
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--root',type=Path,required=True);ap.add_argument('--report',type=Path,required=True);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--root',type=Path,required=True);ap.add_argument('--report',type=Path,required=True);ap.add_argument('--models',nargs='+',choices=['qwen','llama'],default=['qwen','llama']);a=ap.parse_args()
  data=[json.loads(l) for l in (a.root/'dev.jsonl').read_text().splitlines()]
  expected={(c['id'],c['variant']):c for c in data};assert len(expected)==800
  summary=json.loads((a.report/'summary.json').read_text());result={}
- for model in ('qwen','llama'):
+ for model in a.models:
   with gzip.open(a.report/f'{model}_predictions.jsonl.gz','rt') as f:rows=[json.loads(l) for l in f]
   assert len(rows)==800 and {(r['id'],r['variant']) for r in rows}==set(expected)
   for r in rows:
