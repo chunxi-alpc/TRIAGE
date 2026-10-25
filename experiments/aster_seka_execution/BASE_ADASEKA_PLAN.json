@@ -1,0 +1,40 @@
+{
+  "status": "planned",
+  "source_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+  "checkpoint": "Qwen3-8B-Base, original config",
+  "gpu": 1,
+  "wait_for_existing_queue_pids": [425321, 427918],
+  "attention_dependency_version": "parser-v2 attention parent; replaces stopped v1 dependency",
+  "generator": "prepare_base_adaseka_queue.py",
+  "runner_argument": "--runner <experiment_root>/run_official_job.py; checked to exist",
+  "runtime_argument": "--runtime remains <experiment_root>/runtime artifact/data directory",
+  "starts_processes": false,
+  "batch_size": 1,
+  "seed": 0,
+  "expected_dtype": "official default FP32; actual runtime manifest must confirm",
+  "top_k_singular": 5,
+  "combination_method": "weighted_top_k",
+  "temperature": "upstream default 1; no benchmark CLI option",
+  "layers": "last10",
+  "expert_config_pending": "runtime/adaseka_base_audit/expert_config.json",
+  "smoke": [
+    {"task": "BiasBios", "slice": "4500:4516", "method": "AdaSEKA", "gain": 0.5, "max_new_tokens": 64, "maximum_forwards": 1040, "status": "planned"},
+    {"task": "BiasBios", "slice": "4500:4516", "method": "AdaSEKA zero", "gain": 0.0, "max_new_tokens": 64, "maximum_forwards": 1040, "status": "planned"},
+    {"task": "BiasBios", "slice": "4500:4516", "method": "nohook FP32 loader wrapper", "max_new_tokens": 64, "maximum_forwards": 1024, "status": "planned"}
+  ],
+  "full": [
+    {"task": "CounterFact efficacy and paraphrase", "slice": "5000:10000", "method": "AdaSEKA", "gain": 3.0, "expected_forwards": 30000, "status": "planned"},
+    {"task": "CounterFact efficacy", "slice": "5000:10000", "method": "AdaSEKA zero", "gain": 0.0, "expected_forwards": 10000, "status": "planned"},
+    {"task": "CounterFact efficacy", "slice": "5000:10000", "method": "nohook FP32 loader wrapper", "expected_forwards": 5000, "status": "planned"},
+    {"task": "BiasBios", "slice": "5000:10000", "method": "AdaSEKA", "gain": 0.5, "max_new_tokens": 64, "maximum_forwards": 325000, "status": "planned"},
+    {"task": "BiasBios", "slice": "5000:10000", "method": "AdaSEKA zero", "gain": 0.0, "max_new_tokens": 64, "maximum_forwards": 325000, "status": "planned"}
+  ],
+  "counterfact_PS_required": "Included by default with efficacy in the same full normal g3 job; no duplicate standalone normal PS run",
+  "runtime_estimate": "No Ada BiasBios batch1 measurement yet; use actual 16-case validation runs before scheduling full runtime, never SEKA batch16 throughput",
+  "memory_planning_gib": [40, 60],
+  "memory_scope": "Planning allowance from approximately30GiB FP32 weights plus activations/KV/router; not measured peak or full-split guarantee",
+  "smoke_total_forward_upper_bound": 3104,
+  "full_total_forward_upper_bound": 695000,
+  "calibration_limitation": "Published synthetic source100 context_1 rows versus paper random200; other sources first200 requests with official filtering",
+  "all_inference_and_independent_evaluation_pending": true
+}

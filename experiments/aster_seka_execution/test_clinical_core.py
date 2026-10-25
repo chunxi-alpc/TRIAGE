@@ -85,8 +85,47 @@ class CoreTests(unittest.TestCase):
         self.assertEqual([entry["status"] for entry in audit], ["rejected", "rejected"])
 
     def test_partial_validator_does_not_guess_truncated_json(self):
-        with self.assertRaises(json.JSONDecodeError):
-            parse_quoted_rules_individually(self.raw[:-3], self.guideline)
+        rules, audit = parse_quoted_rules_individually(self.raw[:-3], self.guideline)
+        self.assertEqual([rule.rule_id for rule in rules], ["R0001"])
+        self.assertEqual(audit[1]["status"], "rejected")
+        self.assertTrue(audit[1]["truncated"])
+        self.assertEqual(audit[1]["error_type"], "TruncatedArrayItem")
+
+    def test_invalid_latex_escape_and_truncated_tail_preserve_completed_quote(self):
+        guideline = r"If value \geq 5, give rest."
+        item = {"condition_quote": r"If value \geq 5", "action_quote": "give rest",
+                "exception_quotes": [], "rule_quote": guideline}
+        bad_json = json.dumps(item).replace(r"\\geq", r"\geq")
+        raw = "[" + bad_json + ', {"condition_quote": "unfinished'
+        rules, audit = parse_quoted_rules_individually(raw, guideline)
+        self.assertEqual([rule.rule_id for rule in rules], ["R0001"])
+        self.assertEqual(rules[0].rule_quote, guideline)
+        self.assertEqual(len(audit[0]["invalid_escape_repairs"]), 2)
+        self.assertEqual(audit[0]["raw_item_json"].strip(), bad_json)
+        self.assertEqual(audit[1]["original_array_index"], 2)
+        self.assertTrue(audit[1]["truncated"])
+        self.assertEqual(audit[1]["status"], "rejected")
+
+    def test_valid_escaped_quotes_unicode_and_braces_are_unchanged(self):
+        guideline = 'If label "{α}", give rest.'
+        item = {"condition_quote": 'If label "{α}"', "action_quote": "give rest",
+                "exception_quotes": [], "rule_quote": guideline}
+        raw = json.dumps([item], ensure_ascii=True)
+        self.assertIn(r"\u03b1", raw)
+        self.assertIn(r'\"', raw)
+        rules, audit = parse_quoted_rules_individually(raw, guideline)
+        self.assertEqual(rules[0].rule_quote, guideline)
+        self.assertEqual(audit[0]["invalid_escape_repairs"], [])
+        self.assertTrue(audit[0]["array_closed"])
+
+    def test_completed_invalid_object_does_not_renumber_later_rules(self):
+        items = json.loads(self.raw)
+        raw = "[" + json.dumps(items[0]) + ', {"condition_quote": 1,}, ' + json.dumps(items[1]) + "]"
+        rules, audit = parse_quoted_rules_individually(raw, self.guideline)
+        self.assertEqual([rule.rule_id for rule in rules], ["R0001", "R0003"])
+        self.assertEqual(audit[1]["error_type"], "JSONDecodeError")
+        self.assertEqual(audit[1]["status"], "rejected")
+        self.assertFalse(audit[1]["truncated"])
 
     def test_condition_action_overlap_rejected(self):
         data = json.loads(self.raw)

@@ -15,6 +15,7 @@ from aster_seka_adapter import PreparedPrompt, PredictedSpans, Span
 
 
 SELECTOR_VERSION = "aster.lexical_quotes.v1"
+EXTRACTION_PARSER_VERSION = "complete_array_items_literal_invalid_escapes_v2"
 EXTRACTION_INSTRUCTION = """Extract conditional clinical rules from the supplied guideline only.
 Return only a JSON array. Each item has exactly these keys:
 condition_quote: a verbatim condition, without its proposed action;
@@ -78,27 +79,104 @@ def parse_quoted_rules(raw: str, guideline: str) -> tuple[QuotedRule, ...]:
     return tuple(rules)
 
 
-def parse_quoted_rules_individually(raw: str, guideline: str):
-    """Retain every valid quotation item; log invalid items without dropping cases.
-
-    Whole-document malformed JSON remains a parse failure. Rule IDs retain the
-    original array index, including gaps, so a rejected item cannot renumber later
-    valid evidence. The existing strict validator supplies all per-item checks.
-    """
+def _extraction_array_items(raw: str):
+    """Split array elements without interpreting their clinical text or guessing tails."""
     cleaned = raw.strip()
-    if cleaned.startswith("```json") and cleaned.endswith("```"):
-        cleaned = cleaned[7:-3].strip()
-    elif cleaned.startswith("```") and cleaned.endswith("```"):
-        cleaned = cleaned[3:-3].strip()
-    items = json.loads(cleaned)
-    if not isinstance(items, list) or not items:
+    if cleaned.startswith("```json"):
+        cleaned = cleaned[7:].strip()
+    elif cleaned.startswith("```"):
+        cleaned = cleaned[3:].strip()
+    if cleaned.endswith("```"):
+        cleaned = cleaned[:-3].strip()
+    if not cleaned.startswith("["):
         raise ValueError("Extraction must be a nonempty JSON array")
+    items, start, depth, in_string, escaped, closed = [], 1, 0, False, False, False
+    for index in range(1, len(cleaned)):
+        char = cleaned[index]
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+        if char == '"':
+            in_string = True
+        elif char in "[{":
+            depth += 1
+        elif char == "]" and depth == 0:
+            if cleaned[start:index].strip():
+                items.append((start, index, cleaned[start:index], True))
+            closed = True
+            break
+        elif char in "}]":
+            depth -= 1
+        elif char == "," and depth == 0:
+            items.append((start, index, cleaned[start:index], True))
+            start = index + 1
+    if not closed and cleaned[start:].strip():
+        items.append((start, len(cleaned), cleaned[start:], depth == 0 and not in_string))
+    if not items:
+        raise ValueError("Extraction must contain at least one complete or truncated array item")
+    return items, closed
+
+
+def _literal_invalid_json_escapes(raw: str):
+    """Escape only invalid JSON backslashes; valid short/Unicode escapes survive."""
+    output, repairs, index, in_string = [], [], 0, False
+    while index < len(raw):
+        char = raw[index]
+        if char == '"':
+            in_string = not in_string
+            output.append(char)
+            index += 1
+        elif char == "\\" and in_string:
+            following = raw[index + 1:index + 2]
+            if following and following in '"\\/bfnrt':
+                output.append(raw[index:index + 2])
+                index += 2
+            elif following == "u" and len(raw[index + 2:index + 6]) == 4 and all(
+                    digit in "0123456789abcdefABCDEF" for digit in raw[index + 2:index + 6]):
+                output.append(raw[index:index + 6])
+                index += 6
+            else:
+                output.append("\\\\")
+                repairs.append({"item_character_offset": index, "original_escape_prefix": raw[index:index + 2],
+                                "repair": "literal_backslash_only"})
+                index += 1
+        else:
+            output.append(char)
+            index += 1
+    return "".join(output), repairs
+
+
+def parse_quoted_rules_individually(raw: str, guideline: str):
+    """Validate completed items independently; preserve indices and reject tails.
+
+    Invalid JSON backslashes become literal backslashes, never guessed clinical
+    content. Every recovered quotation still passes the unchanged exact-source
+    validator. Raw text, repairs, malformed items and truncation are all audited.
+    """
+    items, closed = _extraction_array_items(raw)
     valid, audits, seen = [], [], {}
-    for index, item in enumerate(items, 1):
-        serialized = json.dumps(item, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    for index, (start, end, raw_item, complete) in enumerate(items, 1):
         entry = {"original_array_index": index, "rule_id": f"R{index:04d}",
-                 "item_sha256": sha(serialized), "raw_item": item}
+                 "parser_version": EXTRACTION_PARSER_VERSION, "array_closed": closed,
+                 "cleaned_array_character_range": [start, end], "raw_item_json": raw_item,
+                 "raw_item_json_sha256": sha(raw_item), "item_sha256": sha(raw_item),
+                 "truncated": not complete, "invalid_escape_repairs": []}
+        if not complete:
+            entry.update(status="rejected", error_type="TruncatedArrayItem",
+                         error="Incomplete trailing array item; no missing content was reconstructed")
+            audits.append(entry)
+            continue
         try:
+            repaired, repairs = _literal_invalid_json_escapes(raw_item)
+            entry.update(invalid_escape_repairs=repairs, repaired_item_json_sha256=sha(repaired))
+            item = json.loads(repaired)
+            serialized = json.dumps(item, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+            entry.update(raw_item=item, item_sha256=sha(serialized))
             rule = parse_quoted_rules(json.dumps([item], ensure_ascii=False), guideline)[0]
             rule = replace(rule, rule_id=f"R{index:04d}")
             key = (rule.condition_quote, rule.action_quote, rule.exception_quotes, rule.rule_quote)

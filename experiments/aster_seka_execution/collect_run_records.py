@@ -52,7 +52,7 @@ def main():
         with (public / 'costs.csv').open('w', newline='') as handle:
             writer = csv.DictWriter(handle, fieldnames=list(records[0]), lineterminator='\n')
             writer.writeheader()
-            writer.writerows(records)
+            writer.writerows({key: value.rstrip() if isinstance(value, str) else value for key, value in row.items()} for row in records)
     print(json.dumps({'runs': len(records), 'completed_forwards_in_exited_runs': summary['completed_forwards_in_exited_runs']}))
 
 

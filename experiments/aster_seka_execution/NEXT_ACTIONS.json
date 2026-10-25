@@ -1,30 +1,28 @@
 {
   "goal_status": "active",
-  "first": "Collect exited standard jobs once needed; do not continuously monitor stable jobs",
-  "pending_standard_jobs": [
-    "runtime/adaseka_cf_full_paper3_job",
-    "runtime/adaseka_cf_full_adaptive_job",
-    "runtime/adaseka_cf_full_matched_zero_job",
-    "runtime/spotlight_full5000_v3_job",
-    "runtime/cad_full5000_v2_job"
+  "updated_at_utc": "2026-10-25T19:32:24.751571+00:00",
+  "first": "Do not repeat existing launches or continuously monitor stable jobs. Use actual completion/failure when needed.",
+  "active_queues": [
+    "runtime/standard_to_clinical_parser_v2.json",
+    "runtime/primary_parser_v2_to_attention.json",
+    "runtime/primary_parser_v2_to_additional.json",
+    "runtime/primary_parser_v2_to_evaluation.json",
+    "runtime/base_completion_queue.json",
+    "runtime/base_adaseka_after_dependencies_queue.json"
+  ],
+  "preserved_superseded_run": "runtime/mega_dev16_seed0_job; interrupted for parser failure, no outcome-based change",
+  "completed_standard_evidence": [
+    "adaseka_full_paired_comparison_v2/comparison.json",
+    "spotlight_full5000_v3_entity_ci_v2/entity_ci.json",
+    "cad_full5000_v2_entity_ci/entity_ci.json",
+    "biasbios_full_paired_comparison/comparison.json"
   ],
   "next": [
-    "Do not repeat launched dependency plans. Required artifacts and clinical baselines will run after actual process exit. Check a failed state only when actionable.",
-    "After actual clinical evaluation, run summarize_mega.py with explicit A0/A1 comparisons and real calibration/shared-cost references; do not label fake tests as clinical outputs.",
-    "Independently export and compare final standards, preserve failures and all negative controls",
-    "Finish missing Base/BiasBios and Ada paper-checkpoint validation or explicitly qualify unresolved paper reproduction",
-    "Inspect transition only when needed; clinical starts automatically after verified standards, no repeated launch",
-    "Run same-input additional baselines and native MEGA evaluator; development seed0 only",
-    "Freeze all method and seed domains0/1/2 before independent MEGA/MedPIC tests"
+    "Base BiasBios/PASTA exports and paired audit complete; Base Ada16 smoke will run after audited experts and parser-v2 clinical attention. Use measured smoke cost before full Base Ada launch.",
+    "Use all actual clinical prediction arms and native evaluations, then grouped summaries including failures and unique costs",
+    "Choose method using train_val only, freeze code/config and seeds0/1/2 before external MEGA and MedPIC evaluation",
+    "Run MedGUIDE exposed regression plus MedCalc/FaithEval extensions with documented provenance limits"
   ],
-  "clinical_status": "Queued dependency process: runtime/standard_to_clinical_transition_state.json; never restart an existing state",
-  "session_note": "115 server gcx; isolated worktree; runtime private; no main/history writes",
-  "active_queues": [
-    "runtime/standard_to_clinical_transition.json",
-    "runtime/clinical_calibration_queue.json",
-    "runtime/base_completion_queue.json",
-    "runtime/primary_to_attention_baselines.json",
-    "runtime/primary_to_additional_baselines.json",
-    "runtime/primary_to_native_evaluation.json"
-  ]
+  "authorization": "MEGA research use confirmed by user; no reapproval needed",
+  "session_note": "115 server gcx; isolated worktree; runtime private; no main/history writes"
 }

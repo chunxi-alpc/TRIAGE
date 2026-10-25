@@ -1,0 +1,165 @@
+{
+  "status": "complete_verified",
+  "created_at_utc": "2026-10-25T19:31:21.100923+00:00",
+  "scope": "BiasBios standard implementation validation; not independent clinical confirmation",
+  "new_gpu_forwards": 0,
+  "split": "train[5000:10000]",
+  "names_used_as_patient_ids": false,
+  "all_negative_results_retained": true,
+  "deduplicated": false,
+  "exports": {
+    "seka": {
+      "audit_sha256": "2195565555c4ed08bb701f4b21208583d0a2e9d14680ff87b1cb680424520735",
+      "predictions_sha256": "5a17011d6bf43d257f7c207127c934c6a94257fc58065b396efb5ec1d38595a2",
+      "processed_data_sha256": "59adf7290a76dcffb2619c100b7f66e50124ef4e4f44725604af7ba0916ace86",
+      "raw_file_sha256": "23832af9f1aaaac5613d6ee5815f5e02bb55962a9c6ec6948bf682d616480dc0",
+      "costs": {
+        "forward_attempts": 20032,
+        "forward_completed": 20032,
+        "elapsed_seconds": 886.4719324560137,
+        "gpu_lock_wall_seconds": 886.4714240609901,
+        "peak_allocated_gib": 18.020304203033447,
+        "peak_reserved_gib": 19.34375
+      }
+    },
+    "matched_zero": {
+      "audit_sha256": "1d721aa93bb96dc8e7b496205f479154e525742e157bd9060d82158b78eb325e",
+      "predictions_sha256": "080aee6243edae80e6a6851841619cb3d561714d7c93bc91ab2610754389e436",
+      "processed_data_sha256": "59adf7290a76dcffb2619c100b7f66e50124ef4e4f44725604af7ba0916ace86",
+      "raw_file_sha256": "c812ef48687e76a4ffa42e55eec7568fc334449f323a43d40391771de3a3980c",
+      "costs": {
+        "forward_attempts": 20032,
+        "forward_completed": 20032,
+        "elapsed_seconds": 872.5151774580008,
+        "gpu_lock_wall_seconds": 872.5146806229604,
+        "peak_allocated_gib": 18.02722406387329,
+        "peak_reserved_gib": 19.26953125
+      }
+    }
+  },
+  "metrics": {
+    "top1": {
+      "seka_accuracy": 0.8932,
+      "matched_zero_accuracy": 0.7614,
+      "difference": 0.1318,
+      "difference_percentage_points": 13.18,
+      "corrected": 685,
+      "regressed": 26,
+      "correction_rate": 0.137,
+      "regression_rate": 0.0052,
+      "unchanged": 4289,
+      "denominator_all_cases": 5000,
+      "ci95_seka_accuracy": [
+        0.8844231153769246,
+        0.9016398357706688
+      ],
+      "ci95_matched_zero_accuracy": [
+        0.7494,
+        0.773
+      ],
+      "ci95_difference": [
+        0.122,
+        0.1418
+      ],
+      "ci95_correction_rate": [
+        0.12754898040783685,
+        0.14662932586517302
+      ],
+      "ci95_regression_rate": [
+        0.003398640543782487,
+        0.00739704118352659
+      ],
+      "ci95_difference_percentage_points": [
+        12.2,
+        14.180000000000001
+      ]
+    },
+    "top3": {
+      "seka_accuracy": 0.9778,
+      "matched_zero_accuracy": 0.937,
+      "difference": 0.0408,
+      "difference_percentage_points": 4.08,
+      "corrected": 206,
+      "regressed": 2,
+      "correction_rate": 0.0412,
+      "regression_rate": 0.0004,
+      "unchanged": 4792,
+      "denominator_all_cases": 5000,
+      "ci95_seka_accuracy": [
+        0.9736,
+        0.9817963592718544
+      ],
+      "ci95_matched_zero_accuracy": [
+        0.9301856879979438,
+        0.9437887577515504
+      ],
+      "ci95_difference": [
+        0.03537152595605833,
+        0.04640023204640928
+      ],
+      "ci95_correction_rate": [
+        0.03579284143171366,
+        0.04680936187237447
+      ],
+      "ci95_regression_rate": [
+        0.0,
+        0.0010002000400080016
+      ],
+      "ci95_difference_percentage_points": [
+        3.537152595605833,
+        4.6400232046409275
+      ]
+    }
+  },
+  "n_cases": 5000,
+  "prompt_hashes_identical": true,
+  "prompt_hash_mismatches": 0,
+  "bootstrap": {
+    "status": "complete_verified",
+    "unit": "exact processed context text SHA256; not verified person identity",
+    "n_clusters": 4998,
+    "repeated_text_clusters": 2,
+    "largest_text_cluster": 2,
+    "replicates": 10000,
+    "seed": 0,
+    "weighting": "native case-weighted statistic: sampled cluster sum / sampled case count",
+    "interpretation": "Marginal 95% intervals conditional on these runs; assumes distinct biography texts are independent. Different texts may still share a person/source, so these are not patient-cluster CIs."
+  },
+  "name_id_metadata": {
+    "repeated_name_groups": 2,
+    "extra_rows_with_repeated_names": 2,
+    "used_for_clustering": false
+  },
+  "prefill_matching": {
+    "status": "complete_verified",
+    "prefill_batches": 313,
+    "cases_covered": 5000,
+    "matched_prefill_batches": 313,
+    "seka_total_forward_calls": 20032,
+    "matched_zero_total_forward_calls": 20032,
+    "decode_suffix_equality_required": false,
+    "note": "Prefills are paired by batch order, not global call number; decode tokens and early stopping may differ",
+    "seka_trace": {
+      "status": "complete_verified",
+      "manifest_sha256": "b1c676321d6015416306399f7650161574dda38a9063d643ef478c4c1d9805e4",
+      "trace_sha256": "0a7cb35d1bfcd55d7bad29dc03f2d25bc6fe56dcb25b74c6e37f6a090c37584c",
+      "rows": 20032
+    },
+    "matched_zero_trace": {
+      "status": "complete_verified",
+      "manifest_sha256": "bf1a9ad051762841982404a5a768723929d958e25c37aeb22f25ba5bca4fac07",
+      "trace_sha256": "3b2291df1adb6144dded7e6d00f8fb25972862b0995785d5337e18f4d08585d9",
+      "rows": 20032
+    }
+  },
+  "matched_input_status": "complete_verified",
+  "paired_cases.jsonl_sha256": "6a89bdd79511a30463f2ed429d2792608276aaf52f242e64a30f7e1143efe58e",
+  "prefill_comparison.jsonl_sha256": "693311597b9abc2a1b7c2f19b8b3bad1a701151521c236b3c328901424873924",
+  "status_scope": "paired descriptive/statistical calculation; input-matching and cluster evidence have separate statuses",
+  "elapsed_seconds": 1.8419456870178692,
+  "checker_sha256": "0a7ff160fafbe629684c9a064f049107324d897ab93725962213f571c5a04a37",
+  "supporting_source_sha256": {
+    "counterfact_entity_ci.py": "567514750ebe2c5ff267e28fd1cd24c53447c01bbc26d45739bc19b7a14cf870",
+    "export_biasbios.py": "ae922c8b48e91b8d4900239c5429730d19cccc47cdc648c983312c25a46a3677"
+  }
+}

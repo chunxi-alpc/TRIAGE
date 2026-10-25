@@ -4,11 +4,12 @@
   "decision_owner": "coordinator",
   "dataset": "MEGA-CDP",
   "dataset_revision": "8f058c88ce1ed43693785b435ad0ff99907a2890",
-  "decision": "proceed_with_internal_train_val_research_preparation",
+  "decision": "proceed_with_user_confirmed_authorized_research",
   "basis": [
     "The user explicitly requested research reproduction and experiments.",
     "The authors identify the dataset for academic and research use.",
-    "The authors publish download and benchmark execution instructions."
+    "The authors publish download and benchmark execution instructions.",
+    "The user explicitly confirmed existing research-use authorization on 2026-10-26 Asia/Shanghai."
   ],
   "sources": [
     "https://huggingface.co/datasets/nchennnn/MEGA-CDP/blob/8f058c88ce1ed43693785b435ad0ff99907a2890/README.md",
@@ -20,10 +21,31 @@
   "redistribute_patient_or_guideline_text": false,
   "author_contact": "optional_background_followup_not_a_prerequisite_for_this_internal_research_decision",
   "author_contact_sent": false,
-  "method_input": ["guideline", "vignette", "language"],
-  "reference_only_fields": ["decision_trees", "gt_paths", "gold_path", "gold_answer", "ground_truth_rule_selection"],
+  "method_input": [
+    "guideline",
+    "vignette",
+    "language"
+  ],
+  "reference_only_fields": [
+    "decision_trees",
+    "gt_paths",
+    "gold_path",
+    "gold_answer",
+    "ground_truth_rule_selection"
+  ],
   "development_split": "train_val_only",
   "test_policy": "sealed_for_method_development; previous structural validation exposure remains disclosed",
   "inference_started_by_this_decision": false,
-  "scope_note": "A documented project usage decision, not a legal opinion or a claim of a published license."
+  "scope_note": "A documented project usage decision, not a legal opinion or a claim of a published license.",
+  "prior_decision": "proceed_with_internal_train_val_research_preparation",
+  "research_use_authorization": {
+    "status": "confirmed_by_user",
+    "confirmed_at_utc": "2026-10-25T19:04:02.209609+00:00",
+    "user_statement": "已有研究使用授权，我补充说明",
+    "scope": "MEGA-CDP research use",
+    "additional_details": "User plans to supplement details; not a prerequisite to continue the already authorized research",
+    "published_license_status_unchanged": "dataset card remains TBD",
+    "redistribution_scope_expanded": false
+  },
+  "experiment_state_at_confirmation": "MEGA train_val development already running; formal test has not started"
 }

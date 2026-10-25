@@ -1,0 +1,195 @@
+{
+  "schema_version": "aster.guideline_source_overlap.v1",
+  "execution_status": "complete_verified",
+  "execution_scope": "metadata audit only; no inference, new restriction or source-independence claim",
+  "registered_revisions": {
+    "MEGA-CDP": "8f058c88ce1ed43693785b435ad0ff99907a2890",
+    "MedGUIDE": "1460ec478280a7295040b92f7eb985327f77dcbe"
+  },
+  "expected_revisions": {
+    "MEGA-CDP": "8f058c88ce1ed43693785b435ad0ff99907a2890",
+    "MedGUIDE": "1460ec478280a7295040b92f7eb985327f77dcbe"
+  },
+  "registered_revision_matches_expected": {
+    "MEGA-CDP": true,
+    "MedGUIDE": true
+  },
+  "files": {
+    "MEGA-CDP": [
+      {
+        "relative_path": "train_val/case_paths.jsonl",
+        "sha256": "dff9e21155e8f0e85d81fef1474b11398522152d7c4a0ece4024b7b32a148568",
+        "rows": 1834,
+        "projected_fields": [
+          "filename",
+          "guideline_id"
+        ]
+      },
+      {
+        "relative_path": "test/case_paths.jsonl",
+        "sha256": "6c37afcc3fa5644d6ace11060dd7a5192cef0a9a4e95450a67332ab6417dbac3",
+        "rows": 440,
+        "projected_fields": [
+          "filename",
+          "guideline_id"
+        ]
+      }
+    ],
+    "MedGUIDE": [
+      {
+        "relative_path": "data/train-00000-of-00001.parquet",
+        "sha256": "306c90e4899f8bd32c5c9911813b561aea3f2e2cb1251319a576a30b1180d943",
+        "rows": 7747,
+        "all_field_names": [
+          "generation_model",
+          "disease",
+          "path",
+          "profile",
+          "options",
+          "option_count",
+          "answer_text",
+          "prompt",
+          "answer",
+          "general-criterion0-raw",
+          "general-criterion0",
+          "general-criterion1-raw",
+          "general-criterion1",
+          "general-criterion2-raw",
+          "general-criterion2",
+          "general-criterion3-raw",
+          "general-criterion3",
+          "general-criterion4-raw",
+          "general-criterion4",
+          "clinical-criterion0",
+          "clinical-criterion1",
+          "clinical-criterion2",
+          "clinical-criterion3",
+          "clinical-criterion4"
+        ],
+        "projected_fields": [
+          "path"
+        ],
+        "path_arrow_type": "list<element: string>"
+      }
+    ]
+  },
+  "datasets": {
+    "MEGA-CDP": {
+      "train_val": {
+        "rows": 1834,
+        "rows_with_declared_source_identity": 0,
+        "rows_without_declared_source_identity": 1834,
+        "field_type_counts": {
+          "filename": {
+            "string": 1834
+          },
+          "guideline_id": {
+            "number": 1834
+          },
+          "language": {
+            "string": 1834
+          },
+          "paths": {
+            "array": 1834
+          },
+          "primary_clinical_focus": {
+            "string": 1834
+          }
+        },
+        "path_kind_counts": {
+          "missing": 1834
+        },
+        "path_nested_value_type_counts": {},
+        "path_recognized_source_key_counts": {},
+        "dataset_local_id_unique_counts": {
+          "guideline_id": 1834
+        },
+        "declared_identity_unique_counts": {},
+        "unverified_url_candidate_unique_counts": {}
+      },
+      "test": {
+        "rows": 440,
+        "rows_with_declared_source_identity": 0,
+        "rows_without_declared_source_identity": 440,
+        "field_type_counts": {
+          "filename": {
+            "string": 440
+          },
+          "guideline_id": {
+            "number": 440
+          },
+          "language": {
+            "string": 440
+          },
+          "paths": {
+            "array": 440
+          },
+          "primary_clinical_focus": {
+            "string": 440
+          }
+        },
+        "path_kind_counts": {
+          "missing": 440
+        },
+        "path_nested_value_type_counts": {},
+        "path_recognized_source_key_counts": {},
+        "dataset_local_id_unique_counts": {
+          "guideline_id": 440
+        },
+        "declared_identity_unique_counts": {},
+        "unverified_url_candidate_unique_counts": {}
+      }
+    },
+    "MedGUIDE": {
+      "all": {
+        "rows": 7747,
+        "rows_with_declared_source_identity": 0,
+        "rows_without_declared_source_identity": 7747,
+        "field_type_counts": {
+          "path": {
+            "array": 7747
+          }
+        },
+        "path_kind_counts": {
+          "array": 7747
+        },
+        "path_nested_value_type_counts": {
+          "string": 39922
+        },
+        "path_recognized_source_key_counts": {},
+        "dataset_local_id_unique_counts": {},
+        "declared_identity_unique_counts": {},
+        "unverified_url_candidate_unique_counts": {}
+      }
+    }
+  },
+  "comparisons": {
+    "train_val": {
+      "declared_identity_matches": {},
+      "unverified_url_candidate_matches": [],
+      "source_independence": "unknown",
+      "identical_guideline_version_verified": false,
+      "interpretation": "Matching declared IDs/URLs is source-identity/location evidence only. Generic path/filename URL matches require provenance semantics. Missing or zero matches never establish independence; no inferred IDs, titles or disease matching.",
+      "all_records_retained": true,
+      "test_sample_exclusions": 0
+    },
+    "test": {
+      "declared_identity_matches": {
+        "declared_url": {
+          "shared_identity_count": 0,
+          "identities": []
+        }
+      },
+      "unverified_url_candidate_matches": [],
+      "source_independence": "unknown",
+      "identical_guideline_version_verified": false,
+      "interpretation": "Matching declared IDs/URLs is source-identity/location evidence only. Generic path/filename URL matches require provenance semantics. Missing or zero matches never establish independence; no inferred IDs, titles or disease matching.",
+      "all_records_retained": true,
+      "test_sample_exclusions": 0
+    }
+  },
+  "read_scope": {
+    "MedGUIDE": "Parquet footer + explicitly projected path/provenance columns; no prompt/profile/options/answer",
+    "MEGA-CDP": "case_paths.jsonl bytes streamed; nested reference values skipped, only provenance/filename/guideline identifiers decoded; no vignette/gt_paths/guideline text"
+  }
+}

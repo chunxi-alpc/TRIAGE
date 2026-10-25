@@ -1,0 +1,114 @@
+{
+  "status": "planned",
+  "execution": "Live dependency process; GPU experiments have not started",
+  "pid": 428771,
+  "outer_queue": {
+    "gpu": 1,
+    "wait_for_pids": [
+      425321,
+      427918
+    ],
+    "scope": "Base AdaSEKA16 validation cost/execution; not clinical or full benchmark results",
+    "resource_announcement": {
+      "memory_gib": [
+        40,
+        60
+      ],
+      "examples": 16,
+      "arms": 3,
+      "estimated_minutes": [
+        5,
+        15
+      ],
+      "max_forward_calls": 3104
+    },
+    "jobs": [
+      {
+        "name": "verify_base_four_experts",
+        "command": [
+          "/home/gcx/venvs/aster-seka-20261025/bin/python",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/verify_adaptive_experts.py",
+          "--model",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/models/Qwen3-8B-Base",
+          "--source",
+          "/home/gcx/TRIAGE/third_party/SEKA",
+          "--output-dir",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/adaseka_base_audit",
+          "--storage-build-report",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/hotpot_base_build200.json",
+          "--storage-validation-report",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/hotpot_base_validation.json",
+          "--storage-wrapper",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/adaptive_storage.py",
+          "--expert",
+          "synthetic=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_synthetic100/Qwen3-8B-Base_0.1mindiff_pos_svd.pt",
+          "--manifest",
+          "synthetic=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_synthetic100_job/run_manifest.json",
+          "--log",
+          "synthetic=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_synthetic100.log",
+          "--expert",
+          "counterfact=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_counterfact200/Qwen3-8B-Base_0.1mindiff_pos_svd.pt",
+          "--manifest",
+          "counterfact=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_counterfact200_job/run_manifest.json",
+          "--log",
+          "counterfact=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_counterfact200.log",
+          "--expert",
+          "biasbios=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_biasbios200/Qwen3-8B-Base_0.1mindiff_pos_svd.pt",
+          "--manifest",
+          "biasbios=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_biasbios200_job/run_manifest.json",
+          "--log",
+          "biasbios=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_biasbios200.log",
+          "--expert",
+          "hotpotqa=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_hotpot200/Qwen3-8B-Base_0.1mindiff_pos_svd.pt",
+          "--manifest",
+          "hotpotqa=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_hotpot200_job/run_manifest.json",
+          "--log",
+          "hotpotqa=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/adaseka_base_hotpot200.log"
+        ],
+        "log": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/base_four_experts_pre_smoke.log"
+      },
+      {
+        "name": "prepare_and_execute_base_ada_smoke",
+        "command": [
+          "/home/gcx/venvs/aster-seka-20261025/bin/python",
+          "-c",
+          "import subprocess; subprocess.run(['/home/gcx/venvs/aster-seka-20261025/bin/python', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/prepare_base_adaseka_queue.py', '--phase', 'smoke', '--python', '/home/gcx/venvs/aster-seka-20261025/bin/python', '--runtime', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime', '--runner', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_official_job.py', '--source', '/home/gcx/TRIAGE/third_party/SEKA', '--model', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/models/Qwen3-8B-Base', '--counterfact-dir', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/seka_data/hf_official/pasta_bench', '--biasbios', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/seka_data/hf_official/pasta_bench/biasbios.json', '--expert-config', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/adaseka_base_audit/expert_config.json', '--expert-audit', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/adaseka_base_audit/audit.json', '--output-root', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/base_adaseka_standard', '--plan', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/base_adaseka_smoke_prepared_queue.json', '--gpu', '1', '--wait-for-pids', '425321', '427918'],check=True); subprocess.run(['/home/gcx/venvs/aster-seka-20261025/bin/python', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_baseline_queue.py', '/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/base_adaseka_smoke_prepared_queue.json'],check=True)"
+        ],
+        "log": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/prepare_and_execute_base_ada_smoke.log"
+      }
+    ]
+  },
+  "generator_command": [
+    "/home/gcx/venvs/aster-seka-20261025/bin/python",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/prepare_base_adaseka_queue.py",
+    "--phase",
+    "smoke",
+    "--python",
+    "/home/gcx/venvs/aster-seka-20261025/bin/python",
+    "--runtime",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime",
+    "--runner",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_official_job.py",
+    "--source",
+    "/home/gcx/TRIAGE/third_party/SEKA",
+    "--model",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/models/Qwen3-8B-Base",
+    "--counterfact-dir",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/seka_data/hf_official/pasta_bench",
+    "--biasbios",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/seka_data/hf_official/pasta_bench/biasbios.json",
+    "--expert-config",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/adaseka_base_audit/expert_config.json",
+    "--expert-audit",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/adaseka_base_audit/audit.json",
+    "--output-root",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/base_adaseka_standard",
+    "--plan",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/base_adaseka_smoke_prepared_queue.json",
+    "--gpu",
+    "1",
+    "--wait-for-pids",
+    "425321",
+    "427918"
+  ]
+}

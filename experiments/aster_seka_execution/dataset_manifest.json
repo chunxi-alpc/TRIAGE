@@ -5,8 +5,19 @@
   "actor": "data_audit_agent",
   "source_repository_commit": "f37c5f8b6339216439e5fc257419ebe78ddf5763",
   "server_files_verified_by_this_agent": false,
-  "server_metadata_execution": {"executor":"coordinator", "host":"115", "status":"complete_verified", "evidence":"coordinator returned actual server audit summary; full artifact retained by coordinator", "scope":"metadata only, not license clearance or source independence"},
-  "evaluation_contract_tests": {"executor":"coordinator", "host":"115", "passed":6, "scope":"synthetic CPU contract tests; no external model evaluation"},
+  "server_metadata_execution": {
+    "executor": "coordinator",
+    "host": "115",
+    "status": "complete_verified",
+    "evidence": "coordinator returned actual server audit summary; full artifact retained by coordinator",
+    "scope": "metadata only, not license clearance or source independence"
+  },
+  "evaluation_contract_tests": {
+    "executor": "coordinator",
+    "host": "115",
+    "passed": 6,
+    "scope": "synthetic CPU contract tests; no external model evaluation"
+  },
   "new_inference_executed": false,
   "datasets": [
     {
@@ -14,10 +25,25 @@
       "source": "https://huggingface.co/datasets/waylonli/SEKA-datasets",
       "revision": "91bf3f67fb2044c7e81514e103a962d6ef76c230",
       "top_level_card_license": "mit",
-      "subset_license_claims": {"CounterFact":"MIT", "BiasBios":"CC BY 4.0", "synthetic_QA":"CC BY 4.0"},
-      "actual_paths": ["pasta_bench/BIOS.pkl", "pasta_bench/counterfact.json", "pasta_bench/counterfact.jsonl", "pasta_bench/attribute_snippets.json", "pasta_bench/idf.npy", "pasta_bench/tfidf_vocab.json", "synthetic/"],
-      "status": "planned",
-      "remaining": ["server file and digest verification", "official split/filter verification", "keep code and source-text licensing distinct"]
+      "subset_license_claims": {
+        "CounterFact": "MIT",
+        "BiasBios": "CC BY 4.0",
+        "synthetic_QA": "CC BY 4.0"
+      },
+      "actual_paths": [
+        "pasta_bench/BIOS.pkl",
+        "pasta_bench/counterfact.json",
+        "pasta_bench/counterfact.jsonl",
+        "pasta_bench/attribute_snippets.json",
+        "pasta_bench/idf.npy",
+        "pasta_bench/tfidf_vocab.json",
+        "synthetic/"
+      ],
+      "status": "complete_verified",
+      "remaining": [
+        "Exact paper calibration file equivalence not established; released synthetic has100 paired rows"
+      ],
+      "file_evidence": "run_records/summary.json"
     },
     {
       "name": "MEGA-CDP",
@@ -25,12 +51,17 @@
       "revision": "8f058c88ce1ed43693785b435ad0ff99907a2890",
       "license_statement": "TBD. Intended for academic and research use.",
       "formal_license_verified": false,
-      "research_use_evidence": "Author dataset card states academic/research purpose and official README provides data download and benchmark execution instructions; no explicit rights grant located.",
-      "internal_research_usage_decision": "proceed_train_val_preparation_by_coordinator_2026-10-26",
+      "research_use_evidence": "User confirmed existing research-use authorization; see usage_decision.json",
+      "internal_research_usage_decision": "proceed_with_user_confirmed_authorized_research",
       "usage_decision_record": "usage_decision.json",
       "source_text_redistribution_authorization_verified": false,
       "official_code_license_file_found": false,
-      "repository_registered_counts": {"train_val_guidelines":1834,"train_val_cases":34895,"test_guidelines":440,"test_cases":7458},
+      "repository_registered_counts": {
+        "train_val_guidelines": 1834,
+        "train_val_cases": 34895,
+        "test_guidelines": 440,
+        "test_cases": 7458
+      },
       "official_evaluation_repository": "https://github.com/nchennnn/MEGA-CDP",
       "official_evaluation_commit": "15a3a12e73a9169a870bff2ac431ec2e9968b8c7",
       "native_output": "decision_path_and_final_outcome",
@@ -38,36 +69,59 @@
       "primary_metric": "DTW_PCC",
       "primary_judge_in_paper": "GPT-5.4 Mini",
       "local_official_judge_track": "Qwen3-8B",
-      "status": "planned",
+      "status": "running",
       "metadata_audit_status": "complete_verified",
-      "remaining": ["formal license remains TBD; no source-text redistribution", "prior test exposure", "source guideline overlap", "source-grouped train_val split"]
+      "remaining": [
+        "source guideline overlap audit",
+        "formal external evaluation after method freeze"
+      ],
+      "research_usage_authorization": "confirmed_by_user",
+      "research_usage_authorization_evidence": "usage_decision.json",
+      "authorization_blocking_research": false
     },
     {
       "name": "MedPIC-Bench",
       "source": "https://huggingface.co/datasets/TIM0927/MedPIC-Bench",
       "revision": "9ef6db4f13865b14fc2e6be3f94dcfaf3a0cf983",
       "license": "CC BY 4.0",
-      "public_card_counts": {"test":467,"guideline_following":284,"counterfactual":183},
+      "public_card_counts": {
+        "test": 467,
+        "guideline_following": 284,
+        "counterfactual": 183
+      },
       "native_output": "option_set",
       "primary_metric": "exact_option_set_accuracy",
       "pair_count_in_paper": 89,
       "explicit_pair_mapping_verified": false,
-      "server_verified_counts": {"test":467,"guideline_following":284,"counterfactual":183},
-      "server_pair_metadata": {"evidence_fields":[],"pair_count":0},
+      "server_verified_counts": {
+        "test": 467,
+        "guideline_following": 284,
+        "counterfactual": 183
+      },
+      "server_pair_metadata": {
+        "evidence_fields": [],
+        "pair_count": 0
+      },
       "pair_metric_status": "blocked",
       "pair_metric_blocker": "Public file tree and schema do not expose explicit pair links; never infer links from IDs or labels.",
       "native_inference_permission_for_research": true,
       "contains_guideline_text_as_input": false,
       "status": "planned",
       "metadata_audit_status": "complete_verified",
-      "remaining": ["official 89-pair mapping", "historical exposure review", "freeze before full external evaluation"]
+      "remaining": [
+        "official 89-pair mapping",
+        "historical exposure review",
+        "freeze before full external evaluation"
+      ]
     },
     {
       "name": "MedGUIDE-MCQA-8K",
       "source": "https://huggingface.co/datasets/MedGUIDE/MedGUIDE-MCQA-8K",
       "revision": "1460ec478280a7295040b92f7eb985327f77dcbe",
       "license_statement": "TBD. Intended for academic and research use.",
-      "public_card_counts": {"train":7747},
+      "public_card_counts": {
+        "train": 7747
+      },
       "native_output": "single_option",
       "source_guidelines": "NCCN",
       "role": "exposed_regression_only_for_legacy_derived_variants",
@@ -75,7 +129,27 @@
       "metadata_audit_status": "complete_verified",
       "server_source_fields": [],
       "MEGA_source_overlap": "unknown",
-      "remaining": ["formal usage-license review per GOAL", "document-level overlap with MEGA"]
+      "remaining": [
+        "formal usage-license review per GOAL",
+        "document-level overlap with MEGA"
+      ]
+    },
+    {
+      "name": "FaithEval",
+      "status": "planned",
+      "model_inference_executed": false,
+      "metadata_audit_status": "complete_verified",
+      "server_verified_counts": {
+        "counterfactual": 1000,
+        "inconsistent": 1500,
+        "unanswerable": 2492
+      },
+      "file_audit": "faitheval_independent_file_audit.json",
+      "fixed_revision_manifest": "faitheval_source_manifest.json",
+      "source_overlap_audit": "faitheval_overlap_audit/summary.json",
+      "overlap_result": "No exact ID/question hash overlap with requested Hotpot calibration prefix200; independence unknown",
+      "test_rows_excluded": 0,
+      "license_note": "Author data cards state research purpose; code Apache2 is not automatically a dataset license"
     }
   ]
 }

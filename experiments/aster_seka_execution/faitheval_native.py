@@ -30,13 +30,27 @@ def digest(value):
 class FaithEvalInput:
     context: str
     question: str
+    choices: tuple[tuple[str, str], ...] = ()
 
 
-def method_input(row):
+def method_input(row, kind=None):
     context, question = row["context"], row["question"]
     if not isinstance(context, str) or not isinstance(question, str):
         raise ValueError("The published native input fields must be strings")
-    return FaithEvalInput(context, question)
+    choices = ()
+    if kind == "counterfactual":
+        # Native public options are distinct from answer/answerKey. Keep their
+        # published order and labels, including numeric labels if supplied.
+        raw = row["choices"]
+        if not isinstance(raw, dict) or set(raw) != {"label", "text"}:
+            raise ValueError("Counterfactual input requires the published choices struct")
+        labels, texts = raw["label"], raw["text"]
+        if (not isinstance(labels, (list, tuple)) or not isinstance(texts, (list, tuple)) or
+                not labels or len(labels) != len(texts) or len(set(labels)) != len(labels) or
+                any(not isinstance(x, str) or not x for x in (*labels, *texts))):
+            raise ValueError("Counterfactual choices must contain aligned unique string labels/texts")
+        choices = tuple(zip(labels, texts))
+    return FaithEvalInput(context, question, choices)
 
 
 def messages(task: FaithEvalInput, kind):
@@ -44,8 +58,22 @@ def messages(task: FaithEvalInput, kind):
         raise ValueError("Unknown FaithEval task")
     text = ("You are an expert in retrieval question answering. \n"
             "Please respond with the exact answer only. Do not be verbose or provide extra information.\n" +
-            TASK_PROMPTS[kind] + "\nContext: " + task.context + "\nQuestion: " + task.question + "\nAnswer:")
+            TASK_PROMPTS[kind] + "\nContext: " + task.context + "\nQuestion: " + task.question)
+    if kind == "counterfactual":
+        if not task.choices:
+            raise ValueError("Counterfactual choices cannot be silently omitted")
+        text += "\nOptions:\n" + "\n".join(f"{label}. {value}" for label, value in task.choices)
+        text += "\nUse only the supplied context."
+    text += "\nAnswer:"
     return [{"role": "user", "content": text}]
+
+
+def prompt_provenance(kind):
+    return {"source_commit": OFFICIAL_COMMIT,
+            "scope": "README QA prompt" if kind != "counterfactual" else "project adaptation with all native public choices",
+            "full_official_script_reproduced": False,
+            "counterfactual_option_layout_verified_from_author_code": False,
+            "choices_order": "published order; never answer-key sorted"}
 
 
 def normalize_answer(value):

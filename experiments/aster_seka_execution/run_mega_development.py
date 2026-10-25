@@ -64,7 +64,7 @@ def main(args):
     from aster_seka_adapter import Control, PhasePolicy, PreparedPrompt, PredictedSpans, StageSEKAAdapter
     from mega_trainval_reader import (OFFICIAL_COMMIT, TEMPLATES, iter_method_tasks,
                                       render_official_prompt, value_digest)
-    from clinical_core import (EXTRACTION_INSTRUCTION, SELECTOR_VERSION, attach_controls, chat_prompt,
+    from clinical_core import (EXTRACTION_INSTRUCTION, EXTRACTION_PARSER_VERSION, SELECTOR_VERSION, attach_controls, chat_prompt,
                                condition_prompt, empty_evidence, official_prompt, parse_quoted_rules_individually,
                                sha, support_spans, verify_tfu_tokens)
     from src.model import SEKALLM
@@ -111,7 +111,8 @@ def main(args):
         "layers": "last10", "amplify_pos": 2.4, "amplify_neg": 0.,
         "projection_note": "Existing SEKA CounterFact-derived fixed setting; not clinically optimized or verified",
         "selector_version": SELECTOR_VERSION, "extraction_prompt_sha256": sha(EXTRACTION_INSTRUCTION),
-        "quotation_validation": "per item, retain valid quotes and original item IDs; all rejected items logged before outcome inspection",
+        "extraction_parser_version": EXTRACTION_PARSER_VERSION,
+        "quotation_validation": "Complete array items only; invalid JSON escapes become literal backslashes; unchanged verbatim-quote checks, original item IDs, repair/rejection/truncation audit",
         "arms": arms, "expected_cases": len(tasks), "expected_native_predictions": len(tasks) * len(arms),
         "versions": {p: importlib.metadata.version(p) for p in ["torch", "transformers", "tokenizers"]},
         "reference_files_read": False, "test_files_read": False,
@@ -177,7 +178,7 @@ def main(args):
     def extraction(task):
         key = value_digest([sha(task.guideline), args.model_fingerprint, sha(EXTRACTION_INSTRUCTION),
                             args.extraction_max_new_tokens, 0, False, protocol["runtime_model_config_sha256"],
-                            "per_item_quote_validation_v1"])
+                            EXTRACTION_PARSER_VERSION])
         if key in extraction_cache:
             return (*extraction_cache[key], True)
         prompt = PreparedPrompt(EXTRACTION_INSTRUCTION + task.guideline, {}, empty_evidence(), "execution", "rules")
@@ -192,10 +193,15 @@ def main(args):
         else:
             validation_error = result.get("error", "Generation failed")
         rejected = sum(item["status"] == "rejected" for item in item_audit)
-        validation_status = ("quotes_partially_validated" if rejected else "quotes_validated") if rules else "failed"
+        array_incomplete = any(not item["array_closed"] for item in item_audit)
+        validation_status = ("quotes_partially_validated" if rejected or array_incomplete else "quotes_validated") if rules else "failed"
         record = {"cache_key": key, "guideline_sha256": sha(task.guideline), "generation": result,
+                  "extraction_parser_version": EXTRACTION_PARSER_VERSION,
                   "validation_status": validation_status, "item_audit": item_audit,
                   "rejected_rule_count": rejected,
+                  "truncated_item_count": sum(item["truncated"] for item in item_audit),
+                  "invalid_json_escape_repair_count": sum(len(item["invalid_escape_repairs"]) for item in item_audit),
+                  "array_closed": not array_incomplete if item_audit else None,
                   "validation_error": validation_error, "rules": [asdict(r) for r in rules],
                   "semantic_correctness": "not_verified", "coverage": "not_verified"}
         write_json(cache_dir / f"{key}.json", record)

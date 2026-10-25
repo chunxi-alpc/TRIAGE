@@ -16,7 +16,7 @@
     {
       "id": "G2",
       "owner": "method",
-      "status": "planned"
+      "status": "running"
     },
     {
       "id": "G3",
@@ -35,13 +35,13 @@
     6
   ],
   "gpu_assignment": {
-    "0": "Ada paper3; then Base BiasBios/PASTA standards and four expert construction",
-    "1": "Spotlight fixed full standard; then clinical YaRN PASTA heads and Ada experts",
-    "6": "Ada default1/zero standards; then verified dependency launches MEGA train_val dev16"
+    "0": "Base completion then A0/A1 additional clinical baselines",
+    "1": "Clinical calibration completed; parser-v2 attention baselines next; Base Ada smoke after these",
+    "6": "MEGA train_val16 parser-v2 main; native development evaluator queued"
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-25T18:51:22.893212+00:00",
+  "updated_at_utc": "2026-10-25T19:35:57.431364+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -96,8 +96,9 @@
     },
     {
       "id": "PASTA_Qwen_port_standard",
-      "status": "running",
-      "evidence": "counterfact_full_pasta_verified/efficacy/audit.json"
+      "status": "complete_verified",
+      "evidence": "counterfact_full_pasta_verified/efficacy/audit.json",
+      "scope": "Author Qwen port with correlated head selection; not original exhaustive PASTA search"
     },
     {
       "id": "CAD_Spotlight_adaptations",
@@ -118,9 +119,9 @@
     },
     {
       "id": "clinical_2x2_and_controls",
-      "status": "planned",
-      "evidence": "clinical_dev16_launch_plan.json",
-      "execution": "queued after real standard completion and independent export"
+      "status": "running",
+      "evidence": "runtime/mega_dev16_seed0_parser_v2_job/run_manifest.json",
+      "execution": "Actual GPU6 PID427921; parser-only repair, unchanged prompt/budget/model/seed0; v1 interrupted and preserved"
     },
     {
       "id": "strong_output_fusion",
@@ -150,8 +151,9 @@
     },
     {
       "id": "AdaSEKA_default_vs_paper_strength",
-      "status": "running",
-      "evidence": "adaseka_config_lock_addendum.json"
+      "status": "complete_verified",
+      "evidence": "adaseka_full_paired_comparison_v2/comparison.json",
+      "scope": "Full5000 original posttrained Qwen FP32; Base still pending"
     },
     {
       "id": "MedPIC_native_interface",
@@ -166,8 +168,8 @@
     {
       "id": "CAD_empty_attribute_fix",
       "status": "complete_verified",
-      "scope": "17 server tests; full rerun executed, export pending",
-      "evidence": "EMPTY_ATTRIBUTE_FIX.zh.md"
+      "scope": "17 server tests and full5000 rerun independently exported",
+      "evidence": "cad_full5000_v2_verified/audit.json"
     },
     {
       "id": "AdaSEKA_FP32_same_input_control",
@@ -176,15 +178,15 @@
     },
     {
       "id": "clinical_YaRN_PASTA_Ada_calibration",
-      "status": "planned",
-      "execution": "queued",
-      "evidence": "clinical_calibration_launch_plan.json"
+      "status": "running",
+      "execution": "All build jobs exited; independent artifact binding queued before clinical inference",
+      "evidence": "hotpot_clinical_yarn_build200.json"
     },
     {
       "id": "Base_remaining_standards",
-      "status": "planned",
-      "execution": "queued",
-      "evidence": "base_completion_launch_plan.json"
+      "status": "running",
+      "execution": "BiasBios/PASTA inference exited, CPU exports underway; Base Hotpot expert continues",
+      "evidence": "base_completed_exports_plan.json"
     },
     {
       "id": "clinical_attention_operator_adaptation",
@@ -195,8 +197,8 @@
     {
       "id": "clinical_same_condition_fusion",
       "status": "planned",
-      "execution": "live dependency queue, A0/A1 synthetic binding test passed",
-      "evidence": "clinical_baselines_launch_plan.json"
+      "execution": "Fresh parser-v2 dependency queue, A0/A1 fixed parameters",
+      "evidence": "clinical_parser_v2_launch_plan.json"
     },
     {
       "id": "MedPIC_transfer_runtime",
@@ -207,14 +209,61 @@
     {
       "id": "extension_source_access",
       "status": "complete_verified",
-      "scope": "MedCalc repository/data metadata and FaithEval source only; FaithEval dataset access unverified",
-      "evidence": "extension_source_access.json"
+      "scope": "MedCalc metadata and FaithEval4992 file fingerprints/schema/rows, no model evaluation",
+      "evidence": "faitheval_independent_file_audit.json"
     },
     {
       "id": "extension_native_interfaces",
       "status": "complete_verified",
       "scope": "8 server synthetic tests plus 2 fake MedCalc cases only; no model evaluation",
       "evidence": "EXTENSIONS.zh.md"
+    },
+    {
+      "id": "MEGA_research_use_authorization",
+      "status": "complete_verified",
+      "scope": "User confirmation of existing research-use authorization; public dataset license metadata remains TBD",
+      "evidence": "usage_decision.json"
+    },
+    {
+      "id": "FaithEval_calibration_overlap",
+      "status": "complete_verified",
+      "scope": "Hash/ID audit only; 0 observed exact matches, independence remains unknown, all4992 retained",
+      "evidence": "faitheval_overlap_audit/summary.json"
+    },
+    {
+      "id": "clinical_parser_repair_v2",
+      "status": "complete_verified",
+      "scope": "Server tests and cached-output CPU reparse only; no claim of clinical gain",
+      "evidence": "clinical_parser_v2_cached_output_check.json"
+    },
+    {
+      "id": "Base_BiasBios_SEKA",
+      "status": "complete_verified",
+      "evidence": "biasbios_base_paired_comparison/comparison.json"
+    },
+    {
+      "id": "Base_PASTA_CF",
+      "status": "complete_verified",
+      "scope": "SEKA author Qwen port and correlated heads; not original exhaustive search",
+      "evidence": "counterfact_base_pasta_verified/efficacy/audit.json"
+    },
+    {
+      "id": "MEGA_MedGUIDE_source_metadata",
+      "status": "complete_verified",
+      "scope": "Metadata audit only; document-level source independence unknown",
+      "evidence": "guideline_source_overlap_audit.json"
+    },
+    {
+      "id": "Base_Ada_validation16",
+      "status": "planned",
+      "execution": "Live dependency queue on GPU1 after Base construction and clinical attention",
+      "evidence": "base_adaseka_smoke_launch_plan.json"
+    },
+    {
+      "id": "all_clinical_statistics_interface",
+      "status": "complete_verified",
+      "scope": "5 synthetic server tests across native summaries and full43-arm entrypoint; no real clinical statistics yet",
+      "evidence": "statistics_and_source_validation.json"
     }
   ]
 }

@@ -145,7 +145,7 @@ class CostLedger:
                 key, cost = event(self.stage_path, index, row.get('generation', row))
                 self.actual[key] = cost
                 if label in {'A0', 'A1'}:
-                    rule_id = row.get('rule_id', row.get('prediction', {}).get('rule_id'))
+                    rule_id = row.get('rule_id', (row.get('prediction') or {}).get('rule_id'))
                     require(rule_id not in self.condition_rules[(row['sample_id'], label)], 'Duplicate measured condition rule')
                     self.condition_rules[(row['sample_id'], label)].add(rule_id)
                     self.conditions[(row['sample_id'], label)][key] = cost
@@ -239,6 +239,19 @@ def condition_for(name, protocol, primary):
     return protocol.get('condition_variant', 'A0')
 
 
+def calibration_families(name, condition, primary):
+    dependencies = set()
+    if condition == 'A1' or (primary and name == 'A0B1') or name == 'seka_execution_reuse':
+        dependencies.add('seka')
+    if name.startswith('pasta') and name != 'pasta_no_hook':
+        dependencies.add('pasta')
+    if name.startswith('adaseka') and name != 'adaseka_no_hook':
+        dependencies.add('adaseka')
+    if name.startswith('fusion'):
+        dependencies.add('fusion')
+    return sorted(dependencies)
+
+
 def summarize(spec, spec_dir, bootstrap_samples=10000):
     require(bootstrap_samples >= 100, 'Use at least 100 bootstrap resamples')
     frozen_path = resolve(spec_dir, spec['freeze_manifest'])
@@ -298,7 +311,7 @@ def summarize(spec, spec_dir, bootstrap_samples=10000):
         for metric in ('acc_normalized', 'pcc_dtw_cost'):
             metric_summary[metric] = cluster_mean({r['sample_id']: r[metric] for r in current}, clusters, bootstrap_samples)
             metric_summary[metric]['higher_is_better'] = metric == 'acc_normalized'
-        new_events = dict(event(path, index, row['generation']) for index, row in raw_lookup.values() if 'generation' in row)
+        new_events = dict(event(path, index, row.get('generation', {})) for index, row in raw_lookup.values())
         methods[name] = {'condition_outputs': condition, 'generation_method': internal,
             'n_fixed_cases': len(clusters), 'prediction_rows_present': len(raw), 'prediction_rows_missing': len(clusters) - len(raw),
             'generation_status_counts': dict(Counter(r.get('status', 'unrecorded') for r in raw)),
@@ -309,16 +322,7 @@ def summarize(spec, spec_dir, bootstrap_samples=10000):
             'new_execution_in_this_file': total(new_events), 'numerical_control': numerical(raw),
             'evaluation_directory': str(evaluation_dir), 'calibration_jobs': item['calibration_jobs'],
             'prediction_sha256': sha(path), 'protocol_sha256': sha(protocol_path)}
-        dependencies = set()
-        if condition == 'A1' or (path.parent == primary and internal in {'A0B1'} or internal == 'seka_execution_reuse'):
-            dependencies.add('seka')
-        if internal.startswith('pasta') and internal != 'pasta_no_hook':
-            dependencies.add('pasta')
-        if internal.startswith('adaseka') and internal != 'adaseka_no_hook':
-            dependencies.add('adaseka')
-        if internal.startswith('fusion'):
-            dependencies.add('fusion')
-        methods[name]['calibration_families_to_account_for'] = sorted(dependencies)
+        methods[name]['calibration_families_to_account_for'] = calibration_families(internal, condition, path.parent == primary)
         for file in (path, protocol_path, metric_path, evaluation_dir / 'evaluation_config.json', evaluation_dir / 'evaluation_report.json'):
             fingerprints[str(file)] = sha(file)
     # Actual observed inference ledger includes controls and extra probes, not just
