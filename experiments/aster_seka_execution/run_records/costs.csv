@@ -1,11 +1,16 @@
 run,process_state,exit_code,verification_status,gpu_physical,forward_attempts,forward_completed,elapsed_seconds,peak_allocated_gib,peak_reserved_gib,python_hash_seed,manifest_sha256,error
 adaseka_biasbios_full_job,exited,0,pending,1,392,392,92.43809880095068,32.307373046875,32.9765625,0,5ea8c36ba40360d3fed5a37205a27a171edf824a23f2a9374560e2629dd1811e,
-adaseka_cf_full_adaptive_job,running,,pending,6,0,0,,,,0,7afffa2cba5fe7b9718748d6160e05e7d813dcae09d74d6b03aae27cfba1dd0f,
+adaseka_cf_full_adaptive_job,exited,0,pending,6,30000,30000,3821.491941191023,30.777743339538574,31.033203125,0,efeb9b5dc10044408e51bb90f6d3aec2501f54eb212ee7f795718a753e534e79,
+adaseka_cf_full_matched_zero_job,running,,pending,6,0,0,,,,0,7794b88a89360242060f5cce227a75c340d0f370f7790d5c1d163cb9ea375986,
 adaseka_cf_full_paper3_job,running,,pending,0,0,0,,,,0,86c78beb75f1187c99c84443faa1eec26e7f424a1376dc9895875b7c85a074df,
 adaseka_cf_smoke16_adaptive_job,exited,0,pending,6,32,32,34.31511035497533,30.601441383361816,30.658203125,0,d7abf61be1a77a36a4380711c208ef9b3140e8c9e85ab5354ffb0ba08a47099e,
 adaseka_cf_smoke16_matched_zero_job,exited,0,pending,6,32,32,34.03732649597805,30.601441383361816,30.658203125,0,928886f757b353a31e766487e476a888f2e4cc4cd442472e1ac37ae991a34bbe,
 adaseka_cf_smoke16_unsteered_fp32_job,exited,0,pending,6,16,16,25.91205765400082,31.672046661376953,32.861328125,0,350d9eebe2d194a861d53829a76415d1a14958cb92b6fef80255b75f8fe07d96,
 adaseka_cf_smoke16_unsteered_job,exited,0,pending,6,16,16,25.494791007018648,15.279399394989014,15.294921875,0,a3833ee9a68bef46e3606c176b79a9fcbe36266189c0589c504570bb961ae5b6,
+adaseka_clinical_yarn_biasbios200_job,exited,0,pending,1,392,392,125.56493469502311,32.300790309906006,32.955078125,0,433796a06f1e721e5cf9457f01d07eb2ca77c31837c21aa02c8431dacca6c2e4,
+adaseka_clinical_yarn_counterfact200_job,exited,0,pending,1,400,400,63.91733755898895,30.785122871398926,30.91015625,0,1db38e5c31399a4376abbabd65a70fdd2e7c13cf343b314d7ad5396fca102080,
+adaseka_clinical_yarn_hotpot200_job,running,,pending,1,0,0,,,,0,bcd9dafa2a4c307debc406d0fc57b1e05b4f4174615a2a6faf0ba5f5a7070499,
+adaseka_clinical_yarn_synthetic100_job,exited,0,pending,1,200,200,43.47955563699361,30.68950843811035,30.744140625,0,acf9260e0f0eac0cff5dd506502842655d8ccc53efb414127b65bfed7f45006c,
 adaseka_counterfact_full_job,exited,1,pending,1,0,0,21.27787177497521,,,0,6b7c74e0bc37be9f4e16a4604515f703717f2607d66cff84acea88ffc26d92f8,JSONDecodeError: Extra data: line 2 column 1 (char 1759)
 adaseka_counterfact_full_v2_job,exited,0,pending,1,400,400,60.68584465997992,30.785122871398926,30.908203125,0,ee25ac941225a9d9fd485071750698a11bd3f4d0cbff5e4f87322c116c6ce60e,
 adaseka_hotpotqa_full_job,exited,1,pending,6,6,5,66.875495978049,77.6539454460144,78.517578125,0,e849448ef135584d74993b5670429f4b2b6faaa140f14ce6a347215e634e8cd0,"OutOfMemoryError: CUDA out of memory. Tried to allocate 546.00 MiB. GPU 0 has a total capacity of 79.28 GiB of which 327.19 MiB is free. Including non-PyTorch memory, this process has 78.95 GiB memory in use. Of the allocated memory 77.65 GiB is allocated by PyTorch, and 826.36 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
@@ -58,10 +63,12 @@ counterfact_paraphrase_v2_pasta_job,exited,0,pending,0,625,625,182.9564488549949
 counterfact_paraphrase_v2_seka_job,exited,0,pending,0,625,625,112.1777915279963,16.154263496398926,16.474609375,0,8fffafee94aaba3e3022162f393926dd8fdf4dccc18c8bae11572ee52a3c0eb5,
 counterfact_paraphrase_v2_unsteered_job,exited,0,pending,0,625,625,118.6827505849651,16.13530921936035,16.375,0,18141515e148461bd66747ca417a9058c10c92f85fc4cf678aa9ef5b84b2c98d,
 counterfact_smoke16_job,exited,0,pending,0,16,16,25.746730508981273,15.291118621826172,15.435546875,,adb68ae20a235b2dc0bf475495d7a28b9fa1fd46f8f3cf0c30f8c99bcd26cf55,
+hotpot_clinical_yarn_validation_job,exited,0,pending,1,4,4,51.97532204899471,47.01464796066284,47.505859375,0,54726ee341565999971fdf0c6a4fa42bd373924f70eeff5e3699f0c0a3160061,
 hotpot_storage_validation_job,exited,0,pending,6,4,4,54.06660906196339,47.01464796066284,47.505859375,0,6dfbe67b16d66b4bb68c6aafb5ed2487d7456c5187ab6e1f008c0e87807ba5dd,
+pasta_heads_clinical_yarn100_job,exited,0,pending,1,552,552,87.34579522203421,31.344075202941895,31.484375,0,011872e7fa9089aa7e329df5128805a65f17f80a06bea621eeec068fa5cc9b9f,
 pasta_heads_full100_job,exited,0,pending,1,552,552,96.86920010001631,31.344075202941895,31.484375,,96cd67e976b454fd20369fef493fcee4ee99b8af38933a4674b99d84aaa873ea,
 pasta_heads_smoke16_job,exited,0,pending,1,93,93,54.65403278096346,30.669642448425293,30.74609375,,381870d617f0867f9f5a982683660f2975937d7ffc0a292b0f9dec70bb8efc57,
 seka_biasbios_projection100_job,exited,0,pending,0,600,600,63.6779751740396,30.612329483032227,30.701171875,0,98e50fa402e80c45fd194585f49789301bcc98d3b155cc9334bab99def9a87c8,
 spotlight_full5000_v2_job,exited,1,pending,1,0,0,0.02977437397930771,,,0,e8ee0f520174e6d3e418e72bd584710b9cfb7b8fbaf346b7d2017469003d5665,RuntimeError: GPU 1 already uses 20327 MiB; no job started
-spotlight_full5000_v3_job,running,,pending,1,0,0,,,,0,dbf1e2e88fc637a1a2de5373c5842dd3be051c7bba666386cd9db4e56c8c3989,
+spotlight_full5000_v3_job,exited,0,pending,1,25000,25000,1157.8945867500152,15.272547245025635,15.43359375,0,a9940670342d56fddbcfc9c995beb97f37d06436ec51227f12628a6beae61a03,
 spotlight_smoke16_job,exited,0,pending,0,80,80,29.532874911034014,15.272307872772217,15.4296875,0,47c919e2d1d22572cb0a8a4288ec31008466c3fe7a01ee01ae70132b898932ea,

@@ -8,8 +8,8 @@ PR33 的静态公式是 `(1-beta) * P0 + beta * S`，并分别对 P0、S 作温�
 
 这里明确标记为**完整词表双路生成扩展**：
 
-- 基础路：完整原指南、原病史、原任务问题和 A0 预测 TFU。
-- 支持路：完全相同的信息，另重复 A0 预测为真的规则原文段。没有新答案、参考路径或额外指南；无预测支持时原样使用基础路。
+- 基础路：完整原指南、原病史、原任务问题和所选 A0/A1 的真实预测 TFU。
+- 支持路：完全相同的信息，另重复相同 A0/A1 预测为真的规则原文段。没有新答案、参考路径或额外指南；无预测支持时原样使用基础路。
 - 每个输出 token 分别计算两路完整词表分布。静态/动态用上述混合公式，动态 margin 改为支持路完整词表最高两个 token 的原始概率差。支持温度不参与 margin 定义。
 - 两路拥有独立 KV cache，每步把**同一个混合后选出的 token**送入两路。生成正常的完整路径文本，不把动作选项概率硬映射为路径。
 - 默认参数是历史参数迁移，**不是已经完成 MEGA 温度校准**。若将来提供校准配置，必须同时提供独立的 train_val calibration manifest；入口核对哈希和指南组不重合。这里不拟合配置，也不读裁判参考或测试结果。
@@ -18,9 +18,9 @@ PR33 的静态公式是 `(1-beta) * P0 + beta * S`，并分别对 P0、S 作温�
 
 | 方法名 | 实际行为 |
 |---|---|
-| `text_two_stage` | 复用主运行 A0B0 的真实路径输出，注明来源和哈希，新生成成本为 0，原运行成本仍计入方法比较。 |
+| `text_two_stage` | 按 condition-variant 复用主运行 A0B0 或 A1B0 的真实路径输出，注明来源和哈希，新生成成本为 0，原运行成本仍计入方法比较。 |
 | `text_emphasis` | 同信息完整指南+TFU，再强调预测支持原文，一路生成。 |
-| `top1_crop` / `top2_crop` | 仅按已保存 A0 的每规则 P(T) 排序，保留前 1/2 个完整规则段；不看正确答案。 |
+| `top1_crop` / `top2_crop` | 仅按所选 A0/A1 已保存的每规则 P(T) 排序，保留前 1/2 个完整规则段；不看正确答案。 |
 | `applicable_crop` | 所有条件已确定时保留预测 T 的规则段；有 U 或没有支持时保留原完整指南。 |
 | `fusion_static` / `fusion_dynamic` | 完整词表、两路 cache、每 token 两次真实模型前向。 |
 | `fusion_static_zero` / `fusion_dynamic_zero` | 仍运行两路和同一公式，但混合权重为 0；与相同基础温度的原分布比较。 |
@@ -40,13 +40,17 @@ PR33 的静态公式是 `(1-beta) * P0 + beta * S`，并分别对 P0、S 作温�
 
 主运行的 YaRN 配置自动继承，当前为 factor=2.0、original_max_position_embeddings=32768、rope_type=yarn，总上下文 65,536；输出上限 1,024。所有方法、负对照、两条解码路径使用相同运行时位置编码配置，并另写实际模型配置与指纹。标准 CounterFact 程序不受影响。
 
+模型目录必须是主运行同一临床 YaRN 配置视图，权重保持原 Qwen3-8B，配置及整体模型清单使用新的实际指纹。主 SEKA 投影由协调器在该配置下单独重建；这里的无 SEKA 附加基线不加载投影，但仍核对同一模型指纹，不能把原配置模型输出与 YaRN 模型输出混作同信息注意力比较。
+
 ## 数值、失败与成本
 
 双路生成保留 Hugging Face 主路径生成循环和停止条件。临时 forward hook 在任何 logits processor 之前复制原始分数，逐步核对与默认 generation scores 一致；若模型存在非恒等 processor，明确报错，不能默默改 CAD 公式。输出后核对实际生成 token 与混合决策完全一致、实际前向次数为 token 数的两倍。两路都计算完整词表，没有只算候选动作。
 
 零融合使用 log 概率分数，no-fusion 原分数可能相差任意常量，因此数值控制比较**归一化后的完整词表 log 概率**和 argmax，不把常量平移当作漂移。每个含零融合/CAD 控制的病例另运行一次单 token 基础参考，成本写入 `numeric_probes.private.jsonl`。Spotlight 控制若未显式列入无偏置臂，入口自动运行一条相同预算的分块无偏置参考，并完整记录其额外成本。
 
-每例记录完整生成文本、全部输出 token、每步融合权重/差距/选定 token/两路 argmax、首步数值控制、实际前向数、耗时、显存和所有来源指纹。模型异常的已发生前向和部分双路生成记录也保留。主运行抽取、A0 条件判别成本通过文件哈希和缓存键关联，不能只报告附加生成耗时。所有失败行保留固定分母；程序不计算临床准确率，也不自行标 `complete_verified`。
+每例记录完整生成文本、全部输出 token、每步融合权重/差距/选定 token/两路 argmax、首步数值控制、实际前向数、耗时、显存和所有来源指纹。模型异常的已发生前向和部分双路生成记录也保留。主运行抽取、所选 A0/A1 条件判别成本通过文件哈希和缓存键关联，不能只报告附加生成耗时。所有失败行保留固定分母；程序不计算临床准确率，也不自行标 `complete_verified`。
+
+`--condition-variant A0/A1` 显式选择主运行的真实条件输出，默认 A0 保留原协议。A0 对照核对 A0B0 完整提示；A1 对照核对 A1B0 完整提示，并共享 A1B1 的条件信息和预测证据。A1 的静态/动态融合沿用完全相同的 beta/温度，不新增调参。A0/A1 使用不同新输出目录，protocol、逐例记录与成本引用都标明所用条件版本。判断 A1B1 是否有独立注意力增益时，必须纳入同 A1 条件信息的强融合结果。
 
 ## 服务器入口
 
@@ -59,6 +63,7 @@ PYTHONPATH="$METHOD_AGENT:$BASELINE_ADAPTERS:$PYTHONPATH" python -m unittest -v 
 CUDA_VISIBLE_DEVICES=0 python run_mega_additional_baselines.py \
   --dataset-root "$MEGA_DATA" --input-manifest "$RUN/trainval_manifest.json" \
   --official-root "$MEGA_CODE" --primary-run "$PRIMARY_RUN" \
+  --condition-variant A0 \
   --model "$MODEL" --model-fingerprint "$MODEL_FINGERPRINT" \
   --adapter-dir "$METHOD_AGENT" --reader-dir "$DATA_AUDIT" --baseline-dir "$BASELINE_ADAPTERS" \
   --methods text_two_stage text_emphasis top1_crop top2_crop applicable_crop \
@@ -66,5 +71,7 @@ CUDA_VISIBLE_DEVICES=0 python run_mega_additional_baselines.py \
     spotlight_no_hook spotlight spotlight_zero spotlight_wrong spotlight_reverse direct_action_mapping \
   --output-dir "$RUN/clinical_extra_seed0"
 ```
+
+同信息 A1 融合对照另用 `--condition-variant A1 --methods text_two_stage fusion_static fusion_dynamic fusion_static_zero fusion_dynamic_zero` 和新的输出目录，其他参数及预算不变。
 
 独立评价仍使用已核对的官方单轮 parser 和路径/结论裁判；每行包含其必需的 language 与身份字段。私有输出和指南引用不提交 PR。只有实际生成、解析和评价完成后，才能给出哪个方法最优以及是否有独立注意力增益。

@@ -9,6 +9,8 @@
     "runtime/cad_full5000_v2_job"
   ],
   "next": [
+    "Do not repeat launched dependency plans. Required artifacts and clinical baselines will run after actual process exit. Check a failed state only when actionable.",
+    "After actual clinical evaluation, run summarize_mega.py with explicit A0/A1 comparisons and real calibration/shared-cost references; do not label fake tests as clinical outputs.",
     "Independently export and compare final standards, preserve failures and all negative controls",
     "Finish missing Base/BiasBios and Ada paper-checkpoint validation or explicitly qualify unresolved paper reproduction",
     "Inspect transition only when needed; clinical starts automatically after verified standards, no repeated launch",
@@ -20,6 +22,9 @@
   "active_queues": [
     "runtime/standard_to_clinical_transition.json",
     "runtime/clinical_calibration_queue.json",
-    "runtime/base_completion_queue.json"
+    "runtime/base_completion_queue.json",
+    "runtime/primary_to_attention_baselines.json",
+    "runtime/primary_to_additional_baselines.json",
+    "runtime/primary_to_native_evaluation.json"
   ]
 }

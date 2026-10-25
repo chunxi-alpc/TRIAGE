@@ -41,7 +41,7 @@
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-25T18:20:31.526844+00:00",
+  "updated_at_utc": "2026-10-25T18:41:13.613085+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -184,6 +184,30 @@
       "status": "planned",
       "execution": "queued",
       "evidence": "base_completion_launch_plan.json"
+    },
+    {
+      "id": "clinical_attention_operator_adaptation",
+      "status": "complete_verified",
+      "scope": "4 tiny real-Qwen server contract tests only; 55k clinical run remains planned",
+      "evidence": "validation_records/test_author_attention_v2.log"
+    },
+    {
+      "id": "clinical_same_condition_fusion",
+      "status": "planned",
+      "execution": "live dependency queue, A0/A1 synthetic binding test passed",
+      "evidence": "clinical_baselines_launch_plan.json"
+    },
+    {
+      "id": "MedPIC_transfer_runtime",
+      "status": "complete_verified",
+      "scope": "15 synthetic CPU tests plus 2 fake-engine cases; no test inference",
+      "evidence": "MEDPIC_TRANSFER.zh.md"
+    },
+    {
+      "id": "extension_source_access",
+      "status": "complete_verified",
+      "scope": "MedCalc repository/data metadata and FaithEval source only; FaithEval dataset access unverified",
+      "evidence": "extension_source_access.json"
     }
   ]
 }

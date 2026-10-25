@@ -38,6 +38,8 @@ def cli():
     parser.add_argument("--input-manifest", required=True, type=Path)
     parser.add_argument("--official-root", required=True, type=Path)
     parser.add_argument("--primary-run", required=True, type=Path)
+    parser.add_argument("--condition-variant", choices=["A0", "A1"], default="A0",
+                        help="Reuse this actual primary condition output; A1 matches A1B1 information")
     parser.add_argument("--model", required=True)
     parser.add_argument("--model-fingerprint", required=True)
     parser.add_argument("--output-dir", required=True, type=Path)
@@ -53,13 +55,56 @@ def cli():
     return parser.parse_args()
 
 
+def load_selected_primary(primary_run, condition_variant="A0"):
+    """Select real predictions, measured condition costs and the matching B0 file."""
+    case_artifacts = {}
+    with (primary_run / "stage_predictions.private.jsonl").open() as handle:
+        for line in handle:
+            row = json.loads(line)
+            case = case_artifacts.setdefault(row["sample_id"], {condition_variant: {}, "condition_stage_costs": {}})
+            if row["stage_configuration"] == "guideline_extraction":
+                case["cache_key"] = row["cache_key"]
+            if row["stage_configuration"] == condition_variant and row.get("prediction"):
+                prediction = row["prediction"]
+                rule_id = prediction["rule_id"]
+                if rule_id in case[condition_variant]:
+                    raise ValueError("Duplicate primary condition prediction")
+                case[condition_variant][rule_id] = prediction
+                measured = row.get("generation", {})
+                case["condition_stage_costs"][rule_id] = {
+                    key: measured[key] for key in ("actual_forward_calls", "wall_seconds", "peak_allocated_gib", "peak_reserved_gib")
+                    if key in measured}
+    original_path = primary_run / f"{condition_variant}B0.predictions.private.jsonl"
+    cached = {row["sample_id"]: row for row in map(json.loads, original_path.read_text().splitlines())}
+    return case_artifacts, original_path, cached
+
+
+def prepare_condition_inputs(task, rules, artifact, template, tokenizer, reference_row, condition_variant="A0"):
+    """Shared production path for TFU, evidence, both prompts and cost references."""
+    from aster_seka_adapter import PredictedSpans
+    from clinical_core import SELECTOR_VERSION, chat_prompt, official_prompt, sha, support_spans
+    tfu = [artifact[condition_variant][rule.rule_id] for rule in rules]
+    selected = support_spans(rules, tfu)
+    evidence = PredictedSpans(sha(SELECTOR_VERSION), selected)
+    plain = official_prompt(template, task.guideline, task.vignette, evidence, tfu)
+    base = chat_prompt(plain, tokenizer)
+    if reference_row.get("generation", {}).get("prompt_sha256") != sha(base.text):
+        raise ValueError("Reconstructed full-information prompt differs from primary " + condition_variant + "B0")
+    passages = [task.guideline[span.start:span.end] for span in selected]
+    support_plain = replace(plain, text=plain.text + "\nAttend to these predicted relevant quotations (unverified):\n" + "\n\n".join(passages)) if passages else plain
+    support = chat_prompt(support_plain, tokenizer)
+    prior = chat_prompt(official_prompt(template, "", task.vignette, tfu=tfu), tokenizer)
+    cost = {"condition_configuration": condition_variant,
+            "condition_stage_costs": artifact["condition_stage_costs"],
+            "cost_note": "Selected primary condition measurements; references, not additional repeated work"}
+    return tfu, selected, base, support, prior, cost
+
+
 def main(args):
     for path in (args.adapter_dir, args.reader_dir, args.baseline_dir):
         sys.path.insert(0, str(path.resolve()))
-    from aster_seka_adapter import PredictedSpans
     from chunked_spotlight import generate_chunked_spotlight
-    from clinical_core import (SELECTOR_VERSION, chat_prompt, official_prompt, parse_quoted_rules_individually,
-                               sha, support_spans)
+    from clinical_core import chat_prompt, official_prompt, parse_quoted_rules_individually, sha
     from mega_trainval_reader import OFFICIAL_COMMIT, TEMPLATES, iter_method_tasks, render_official_prompt
 
     if len(set(args.methods)) != len(args.methods):
@@ -96,29 +141,20 @@ def main(args):
         if {r["source_cluster"] for r in calibration["selected"]} & {r["source_cluster"] for r in manifest["selected"]}:
             raise ValueError("Fusion calibration and this evaluation batch share guideline groups")
     config.validate()
+    condition_variant = args.condition_variant
+    reference_arm = condition_variant + "B0"
     stage_path = args.primary_run / "stage_predictions.private.jsonl"
-    case_artifacts = {}
-    with stage_path.open() as handle:
-        for line in handle:
-            row = json.loads(line)
-            case = case_artifacts.setdefault(row["sample_id"], {"A0": {}})
-            if row["stage_configuration"] == "guideline_extraction":
-                case["cache_key"] = row["cache_key"]
-            if row["stage_configuration"] == "A0" and row.get("prediction"):
-                prediction = row["prediction"]
-                if prediction["rule_id"] in case["A0"]:
-                    raise ValueError("Duplicate primary condition prediction")
-                case["A0"][prediction["rule_id"]] = prediction
-    original_path = args.primary_run / "A0B0.predictions.private.jsonl"
-    cached_two_stage = {row["sample_id"]: row for row in map(json.loads, original_path.read_text().splitlines())}
+    case_artifacts, original_path, cached_two_stage = load_selected_primary(args.primary_run, condition_variant)
     os.umask(0o077)
     args.output_dir.mkdir(parents=True, exist_ok=False)
     args._created_run = True
     protocol = {"task_state": "running", "execution_status": "started", "seed": 0,
                 "scope": "train_val native-path development only", "methods": args.methods,
+                "condition_variant": condition_variant, "primary_reference_arm": reference_arm,
                 "model_fingerprint": args.model_fingerprint, "input_manifest_sha256": file_sha(args.input_manifest),
                 "primary_protocol_sha256": file_sha(args.primary_run / "protocol.json"),
-                "primary_stages_sha256": file_sha(stage_path), "primary_A0B0_sha256": file_sha(original_path),
+                "primary_stages_sha256": file_sha(stage_path), f"primary_{reference_arm}_sha256": file_sha(original_path),
+                "primary_reference_predictions_sha256": file_sha(original_path),
                 "max_new_tokens": max_new, "max_context_tokens": context_limit,
                 "fusion_parameters": asdict(config), "fusion_provenance": origin,
                 "CAD_alpha": 1., "Spotlight_target": .1, "Spotlight_backend": "query_chunked_eager",
@@ -186,20 +222,11 @@ def main(args):
                 if extraction["guideline_sha256"] != sha(task.guideline):
                     raise ValueError("Cached extraction belongs to a different guideline")
                 rules = parse_quoted_rules_individually(extraction["generation"]["text"], task.guideline)[0] if extraction["validation_status"] in {"quotes_validated", "quotes_partially_validated"} else ()
-                tfu = [artifact["A0"][rule.rule_id] for rule in rules]
                 template = (args.official_root / TEMPLATES["zh" if task.language == "zh" else "en"]).read_text()
                 if official_prompt(template, task.guideline, task.vignette).text != render_official_prompt(task, args.official_root, manifest):
                     raise ValueError("Official native question/template mismatch")
-                selected = support_spans(rules, tfu)
-                evidence = PredictedSpans(sha(SELECTOR_VERSION), selected)
-                base_plain = official_prompt(template, task.guideline, task.vignette, evidence, tfu)
-                base = chat_prompt(base_plain, tokenizer)
-                if cached_two_stage[identity.sample_id].get("generation", {}).get("prompt_sha256") != sha(base.text):
-                    raise ValueError("Reconstructed full-information prompt differs from primary A0B0")
-                passages = [task.guideline[span.start:span.end] for span in selected]
-                support_plain = replace(base_plain, text=base_plain.text + "\nAttend to these predicted relevant quotations (unverified):\n" + "\n\n".join(passages)) if passages else base_plain
-                support = chat_prompt(support_plain, tokenizer)
-                prior = chat_prompt(official_prompt(template, "", task.vignette, tfu=tfu), tokenizer)
+                tfu, selected, base, support, prior, condition_cost = prepare_condition_inputs(
+                    task, rules, artifact, template, tokenizer, cached_two_stage[identity.sample_id], condition_variant)
                 reference_log_probs, reference_raw = None, None
                 if any(method.endswith("_zero") and not method.startswith("spotlight") for method in args.methods):
                     try:
@@ -295,12 +322,13 @@ def main(args):
                         continue
                     row = {**asdict(identity), "language": task.language, "sample_id": identity.sample_id,
                            "method": method, "model": args.model, "llm_output": result.get("text", ""),
+                           "condition_variant": condition_variant, "primary_reference_arm": reference_arm,
                            "status": result["status"], "generation": result, "seed": 0,
                            "input_manifest_sha256": protocol["input_manifest_sha256"],
                            "extraction_cache_sha256": file_sha(cache_path), "extraction_status": extraction["validation_status"],
                            "predicted_support_span_count": len(selected), "no_predicted_support": not bool(selected),
                            "cost_references": {"primary_stage_file_sha256": protocol["primary_stages_sha256"],
-                                               "extraction_cache_key": artifact["cache_key"], "condition_configuration": "A0",
+                                               "extraction_cache_key": artifact["cache_key"], **condition_cost,
                                                "include_shared_extraction_and_condition_cost": True},
                            "native_output_parse": "not_run", "judge_evaluation": "not_run"}
                     output_files[method].write(json.dumps(row, ensure_ascii=False) + "\n")
@@ -313,6 +341,7 @@ def main(args):
                         continue
                     row = {**asdict(identity), "language": task.language, "sample_id": identity.sample_id,
                            "method": method, "model": args.model, "llm_output": "", "status": "error",
+                           "condition_variant": condition_variant, "primary_reference_arm": reference_arm,
                            "error_type": type(error).__name__, "error": str(error), "preparation_failed": True}
                     output_files[method].write(json.dumps(row, ensure_ascii=False) + "\n")
                     output_files[method].flush()

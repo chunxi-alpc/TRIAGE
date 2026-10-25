@@ -283,6 +283,8 @@ def seka_infer(adapter, config=TransferConfig(), *, control_builder=None):
     config.validate()
     tokenizer = adapter.operator.tok
     labels = verify_tfu_tokens(tokenizer)
+    class UnavailableControl(Exception):
+        pass
     def infer(prompt, policy, control, budget, seed):
         calls, handle = [0], None
         device = adapter.operator.device
@@ -297,6 +299,13 @@ def seka_infer(adapter, config=TransferConfig(), *, control_builder=None):
                 # Build token-count-matched controls after the final chat
                 # template; this avoids matching a different tokenization.
                 prepared = control_builder(prepared)
+            if control not in {Control.NORMAL, Control.NO_HOOK}:
+                if not prepared.evidence.spans:
+                    raise UnavailableControl("No original patient evidence was selected")
+                if control == Control.WRONG_SPAN and not prepared.evidence.wrong_spans:
+                    raise UnavailableControl("No changed, disjoint, equal-token-count patient control exists")
+                if control == Control.MISALIGNED_RULE and not prepared.evidence.misaligned_rule_spans:
+                    raise UnavailableControl("No changed, equal-token-count option/evidence permutation exists")
             ids, _, _ = adapter._encode(prepared, prepared.evidence.spans)
             model_limit = int(getattr(adapter.operator.model.config, "max_position_embeddings", config.context_limit))
             if ids.numel() + budget > min(config.context_limit, model_limit):
@@ -315,6 +324,11 @@ def seka_infer(adapter, config=TransferConfig(), *, control_builder=None):
             # The caller may persist this tensor separately for zero/no-hook
             # numerical drift. Never serialize it as a vocabulary-size JSON list.
             result["_first_token_scores_tensor"] = scores
+            result["control_executed"] = bool(result.get("steer"))
+        except UnavailableControl as error:
+            result.update(status="control_unavailable", text="", requested_control=control.value,
+                          control_executed=False, control_unavailable_reason=str(error),
+                          input_tokens=0, output_tokens=0)
         except Exception as error:
             result.update(status="error", text="", error_type=type(error).__name__, error=str(error))
         finally:
