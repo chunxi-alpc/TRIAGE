@@ -1,0 +1,920 @@
+{
+  "qwen": {
+    "rows": 800,
+    "cases": 200,
+    "verified": true,
+    "methods": {
+      "original": {
+        "metrics": {
+          "correct": 375,
+          "accuracy": 0.46875,
+          "harm_rate": 0.0,
+          "correction_rate": 0.0,
+          "by_variant": {
+            "NC": 0.715,
+            "AC": 0.275,
+            "IC": 0.695,
+            "SW": 0.19
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 143,
+            "regressed": 0,
+            "corrected": 0
+          },
+          "IC": {
+            "n": 200,
+            "correct": 139,
+            "regressed": 0,
+            "corrected": 0
+          },
+          "AC": {
+            "n": 200,
+            "correct": 55,
+            "regressed": 0,
+            "corrected": 0
+          },
+          "SW": {
+            "n": 200,
+            "correct": 38,
+            "regressed": 0,
+            "corrected": 0
+          }
+        }
+      },
+      "static": {
+        "metrics": {
+          "correct": 500,
+          "accuracy": 0.625,
+          "harm_rate": 0.03375,
+          "correction_rate": 0.19,
+          "by_variant": {
+            "NC": 0.755,
+            "AC": 0.66,
+            "IC": 0.725,
+            "SW": 0.36
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 151,
+            "regressed": 5,
+            "corrected": 13
+          },
+          "IC": {
+            "n": 200,
+            "correct": 145,
+            "regressed": 9,
+            "corrected": 15
+          },
+          "AC": {
+            "n": 200,
+            "correct": 132,
+            "regressed": 7,
+            "corrected": 84
+          },
+          "SW": {
+            "n": 200,
+            "correct": 72,
+            "regressed": 6,
+            "corrected": 40
+          }
+        }
+      },
+      "dynamic": {
+        "metrics": {
+          "correct": 504,
+          "accuracy": 0.63,
+          "harm_rate": 0.0325,
+          "correction_rate": 0.19375,
+          "by_variant": {
+            "NC": 0.755,
+            "AC": 0.665,
+            "IC": 0.725,
+            "SW": 0.375
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 151,
+            "regressed": 5,
+            "corrected": 13
+          },
+          "IC": {
+            "n": 200,
+            "correct": 145,
+            "regressed": 9,
+            "corrected": 15
+          },
+          "AC": {
+            "n": 200,
+            "correct": 133,
+            "regressed": 7,
+            "corrected": 85
+          },
+          "SW": {
+            "n": 200,
+            "correct": 75,
+            "regressed": 5,
+            "corrected": 42
+          }
+        }
+      },
+      "residual": {
+        "metrics": {
+          "correct": 506,
+          "accuracy": 0.6325,
+          "harm_rate": 0.04125,
+          "correction_rate": 0.205,
+          "by_variant": {
+            "NC": 0.755,
+            "AC": 0.66,
+            "IC": 0.75,
+            "SW": 0.365
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 151,
+            "regressed": 11,
+            "corrected": 19
+          },
+          "IC": {
+            "n": 200,
+            "correct": 150,
+            "regressed": 9,
+            "corrected": 20
+          },
+          "AC": {
+            "n": 200,
+            "correct": 132,
+            "regressed": 6,
+            "corrected": 83
+          },
+          "SW": {
+            "n": 200,
+            "correct": 73,
+            "regressed": 7,
+            "corrected": 42
+          }
+        }
+      },
+      "no_delta": {
+        "metrics": {
+          "correct": 505,
+          "accuracy": 0.63125,
+          "harm_rate": 0.0275,
+          "correction_rate": 0.19,
+          "by_variant": {
+            "NC": 0.765,
+            "AC": 0.665,
+            "IC": 0.73,
+            "SW": 0.365
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 153,
+            "regressed": 4,
+            "corrected": 14
+          },
+          "IC": {
+            "n": 200,
+            "correct": 146,
+            "regressed": 8,
+            "corrected": 15
+          },
+          "AC": {
+            "n": 200,
+            "correct": 133,
+            "regressed": 5,
+            "corrected": 83
+          },
+          "SW": {
+            "n": 200,
+            "correct": 73,
+            "regressed": 5,
+            "corrected": 40
+          }
+        }
+      },
+      "numeric_null": {
+        "metrics": {
+          "correct": 504,
+          "accuracy": 0.63,
+          "harm_rate": 0.03,
+          "correction_rate": 0.19125,
+          "by_variant": {
+            "NC": 0.77,
+            "AC": 0.655,
+            "IC": 0.73,
+            "SW": 0.365
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 154,
+            "regressed": 4,
+            "corrected": 15
+          },
+          "IC": {
+            "n": 200,
+            "correct": 146,
+            "regressed": 9,
+            "corrected": 16
+          },
+          "AC": {
+            "n": 200,
+            "correct": 131,
+            "regressed": 6,
+            "corrected": 82
+          },
+          "SW": {
+            "n": 200,
+            "correct": 73,
+            "regressed": 5,
+            "corrected": 40
+          }
+        }
+      },
+      "option_rotation": {
+        "metrics": {
+          "correct": 499,
+          "accuracy": 0.62375,
+          "harm_rate": 0.045,
+          "correction_rate": 0.2,
+          "by_variant": {
+            "NC": 0.715,
+            "AC": 0.67,
+            "IC": 0.72,
+            "SW": 0.39
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 143,
+            "regressed": 16,
+            "corrected": 16
+          },
+          "IC": {
+            "n": 200,
+            "correct": 144,
+            "regressed": 11,
+            "corrected": 16
+          },
+          "AC": {
+            "n": 200,
+            "correct": 134,
+            "regressed": 4,
+            "corrected": 83
+          },
+          "SW": {
+            "n": 200,
+            "correct": 78,
+            "regressed": 5,
+            "corrected": 45
+          }
+        }
+      },
+      "sign_flip": {
+        "metrics": {
+          "correct": 503,
+          "accuracy": 0.62875,
+          "harm_rate": 0.0375,
+          "correction_rate": 0.1975,
+          "by_variant": {
+            "NC": 0.74,
+            "AC": 0.68,
+            "IC": 0.74,
+            "SW": 0.355
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 148,
+            "regressed": 10,
+            "corrected": 15
+          },
+          "IC": {
+            "n": 200,
+            "correct": 148,
+            "regressed": 10,
+            "corrected": 19
+          },
+          "AC": {
+            "n": 200,
+            "correct": 136,
+            "regressed": 2,
+            "corrected": 83
+          },
+          "SW": {
+            "n": 200,
+            "correct": 71,
+            "regressed": 8,
+            "corrected": 41
+          }
+        }
+      },
+      "reverse": {
+        "metrics": {
+          "correct": 497,
+          "accuracy": 0.62125,
+          "harm_rate": 0.035,
+          "correction_rate": 0.1875,
+          "by_variant": {
+            "NC": 0.715,
+            "AC": 0.665,
+            "IC": 0.74,
+            "SW": 0.365
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 143,
+            "regressed": 10,
+            "corrected": 10
+          },
+          "IC": {
+            "n": 200,
+            "correct": 148,
+            "regressed": 9,
+            "corrected": 18
+          },
+          "AC": {
+            "n": 200,
+            "correct": 133,
+            "regressed": 3,
+            "corrected": 81
+          },
+          "SW": {
+            "n": 200,
+            "correct": 73,
+            "regressed": 6,
+            "corrected": 41
+          }
+        }
+      }
+    },
+    "residual_vs_no_delta": {
+      "accuracy_delta": 0.0012499999999999734,
+      "corrected_vs_comparator": 16,
+      "regressed_vs_comparator": 15,
+      "by_tree": {
+        "aml_7": {
+          "n": 200,
+          "corrected_vs_comparator": 2,
+          "regressed_vs_comparator": 3,
+          "accuracy_delta": -0.005,
+          "original_answer_regression_delta": 0.005
+        },
+        "bre_1": {
+          "n": 200,
+          "corrected_vs_comparator": 2,
+          "regressed_vs_comparator": 2,
+          "accuracy_delta": 0.0,
+          "original_answer_regression_delta": 0.005
+        },
+        "pancreatic_11": {
+          "n": 200,
+          "corrected_vs_comparator": 3,
+          "regressed_vs_comparator": 4,
+          "accuracy_delta": -0.005,
+          "original_answer_regression_delta": 0.02
+        },
+        "vulvar_3": {
+          "n": 200,
+          "corrected_vs_comparator": 9,
+          "regressed_vs_comparator": 6,
+          "accuracy_delta": 0.015,
+          "original_answer_regression_delta": 0.025
+        }
+      },
+      "tree_cluster_percentile_ci95": {
+        "accuracy_delta": [
+          -0.005,
+          0.01
+        ],
+        "original_answer_regression_delta": [
+          0.005,
+          0.0225
+        ]
+      },
+      "uncertainty": "Descriptive only: four development clusters; includes all variants per tree; does not account for method-design selection."
+    },
+    "residual_vs_dynamic": {
+      "accuracy_delta": 0.0024999999999999467,
+      "corrected_vs_comparator": 17,
+      "regressed_vs_comparator": 15,
+      "by_tree": {
+        "aml_7": {
+          "n": 200,
+          "corrected_vs_comparator": 1,
+          "regressed_vs_comparator": 7,
+          "accuracy_delta": -0.03,
+          "original_answer_regression_delta": 0.0
+        },
+        "bre_1": {
+          "n": 200,
+          "corrected_vs_comparator": 4,
+          "regressed_vs_comparator": 1,
+          "accuracy_delta": 0.015,
+          "original_answer_regression_delta": 0.005
+        },
+        "pancreatic_11": {
+          "n": 200,
+          "corrected_vs_comparator": 3,
+          "regressed_vs_comparator": 1,
+          "accuracy_delta": 0.01,
+          "original_answer_regression_delta": 0.005
+        },
+        "vulvar_3": {
+          "n": 200,
+          "corrected_vs_comparator": 9,
+          "regressed_vs_comparator": 6,
+          "accuracy_delta": 0.015,
+          "original_answer_regression_delta": 0.025
+        }
+      },
+      "tree_cluster_percentile_ci95": {
+        "accuracy_delta": [
+          -0.01875,
+          0.015
+        ],
+        "original_answer_regression_delta": [
+          0.00125,
+          0.02
+        ]
+      },
+      "uncertainty": "Descriptive only: four development clusters; includes all variants per tree; does not account for method-design selection."
+    }
+  },
+  "llama": {
+    "rows": 800,
+    "cases": 200,
+    "verified": true,
+    "methods": {
+      "original": {
+        "metrics": {
+          "correct": 374,
+          "accuracy": 0.4675,
+          "harm_rate": 0.0,
+          "correction_rate": 0.0,
+          "by_variant": {
+            "NC": 0.68,
+            "AC": 0.31,
+            "IC": 0.68,
+            "SW": 0.2
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 136,
+            "regressed": 0,
+            "corrected": 0
+          },
+          "IC": {
+            "n": 200,
+            "correct": 136,
+            "regressed": 0,
+            "corrected": 0
+          },
+          "AC": {
+            "n": 200,
+            "correct": 62,
+            "regressed": 0,
+            "corrected": 0
+          },
+          "SW": {
+            "n": 200,
+            "correct": 40,
+            "regressed": 0,
+            "corrected": 0
+          }
+        }
+      },
+      "static": {
+        "metrics": {
+          "correct": 488,
+          "accuracy": 0.61,
+          "harm_rate": 0.0625,
+          "correction_rate": 0.205,
+          "by_variant": {
+            "NC": 0.72,
+            "AC": 0.77,
+            "IC": 0.6,
+            "SW": 0.35
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 144,
+            "regressed": 12,
+            "corrected": 20
+          },
+          "IC": {
+            "n": 200,
+            "correct": 120,
+            "regressed": 24,
+            "corrected": 8
+          },
+          "AC": {
+            "n": 200,
+            "correct": 154,
+            "regressed": 1,
+            "corrected": 93
+          },
+          "SW": {
+            "n": 200,
+            "correct": 70,
+            "regressed": 13,
+            "corrected": 43
+          }
+        }
+      },
+      "dynamic": {
+        "metrics": {
+          "correct": 503,
+          "accuracy": 0.62875,
+          "harm_rate": 0.05125,
+          "correction_rate": 0.2125,
+          "by_variant": {
+            "NC": 0.735,
+            "AC": 0.78,
+            "IC": 0.625,
+            "SW": 0.375
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 147,
+            "regressed": 9,
+            "corrected": 20
+          },
+          "IC": {
+            "n": 200,
+            "correct": 125,
+            "regressed": 20,
+            "corrected": 9
+          },
+          "AC": {
+            "n": 200,
+            "correct": 156,
+            "regressed": 1,
+            "corrected": 95
+          },
+          "SW": {
+            "n": 200,
+            "correct": 75,
+            "regressed": 11,
+            "corrected": 46
+          }
+        }
+      },
+      "residual": {
+        "metrics": {
+          "correct": 506,
+          "accuracy": 0.6325,
+          "harm_rate": 0.0575,
+          "correction_rate": 0.2225,
+          "by_variant": {
+            "NC": 0.745,
+            "AC": 0.77,
+            "IC": 0.64,
+            "SW": 0.375
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 149,
+            "regressed": 12,
+            "corrected": 25
+          },
+          "IC": {
+            "n": 200,
+            "correct": 128,
+            "regressed": 20,
+            "corrected": 12
+          },
+          "AC": {
+            "n": 200,
+            "correct": 154,
+            "regressed": 1,
+            "corrected": 93
+          },
+          "SW": {
+            "n": 200,
+            "correct": 75,
+            "regressed": 13,
+            "corrected": 48
+          }
+        }
+      },
+      "no_delta": {
+        "metrics": {
+          "correct": 503,
+          "accuracy": 0.62875,
+          "harm_rate": 0.05,
+          "correction_rate": 0.21125,
+          "by_variant": {
+            "NC": 0.735,
+            "AC": 0.77,
+            "IC": 0.625,
+            "SW": 0.385
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 147,
+            "regressed": 9,
+            "corrected": 20
+          },
+          "IC": {
+            "n": 200,
+            "correct": 125,
+            "regressed": 19,
+            "corrected": 8
+          },
+          "AC": {
+            "n": 200,
+            "correct": 154,
+            "regressed": 1,
+            "corrected": 93
+          },
+          "SW": {
+            "n": 200,
+            "correct": 77,
+            "regressed": 11,
+            "corrected": 48
+          }
+        }
+      },
+      "numeric_null": {
+        "metrics": {
+          "correct": 504,
+          "accuracy": 0.63,
+          "harm_rate": 0.05,
+          "correction_rate": 0.2125,
+          "by_variant": {
+            "NC": 0.735,
+            "AC": 0.77,
+            "IC": 0.635,
+            "SW": 0.38
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 147,
+            "regressed": 9,
+            "corrected": 20
+          },
+          "IC": {
+            "n": 200,
+            "correct": 127,
+            "regressed": 19,
+            "corrected": 10
+          },
+          "AC": {
+            "n": 200,
+            "correct": 154,
+            "regressed": 1,
+            "corrected": 93
+          },
+          "SW": {
+            "n": 200,
+            "correct": 76,
+            "regressed": 11,
+            "corrected": 47
+          }
+        }
+      },
+      "option_rotation": {
+        "metrics": {
+          "correct": 498,
+          "accuracy": 0.6225,
+          "harm_rate": 0.055,
+          "correction_rate": 0.21,
+          "by_variant": {
+            "NC": 0.735,
+            "AC": 0.775,
+            "IC": 0.625,
+            "SW": 0.355
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 147,
+            "regressed": 12,
+            "corrected": 23
+          },
+          "IC": {
+            "n": 200,
+            "correct": 125,
+            "regressed": 20,
+            "corrected": 9
+          },
+          "AC": {
+            "n": 200,
+            "correct": 155,
+            "regressed": 2,
+            "corrected": 95
+          },
+          "SW": {
+            "n": 200,
+            "correct": 71,
+            "regressed": 10,
+            "corrected": 41
+          }
+        }
+      },
+      "sign_flip": {
+        "metrics": {
+          "correct": 507,
+          "accuracy": 0.63375,
+          "harm_rate": 0.055,
+          "correction_rate": 0.22125,
+          "by_variant": {
+            "NC": 0.745,
+            "AC": 0.78,
+            "IC": 0.63,
+            "SW": 0.38
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 149,
+            "regressed": 10,
+            "corrected": 23
+          },
+          "IC": {
+            "n": 200,
+            "correct": 126,
+            "regressed": 20,
+            "corrected": 10
+          },
+          "AC": {
+            "n": 200,
+            "correct": 156,
+            "regressed": 1,
+            "corrected": 95
+          },
+          "SW": {
+            "n": 200,
+            "correct": 76,
+            "regressed": 13,
+            "corrected": 49
+          }
+        }
+      },
+      "reverse": {
+        "metrics": {
+          "correct": 498,
+          "accuracy": 0.6225,
+          "harm_rate": 0.05,
+          "correction_rate": 0.205,
+          "by_variant": {
+            "NC": 0.74,
+            "AC": 0.765,
+            "IC": 0.635,
+            "SW": 0.35
+          }
+        },
+        "by_variant_counts": {
+          "NC": {
+            "n": 200,
+            "correct": 148,
+            "regressed": 8,
+            "corrected": 20
+          },
+          "IC": {
+            "n": 200,
+            "correct": 127,
+            "regressed": 19,
+            "corrected": 10
+          },
+          "AC": {
+            "n": 200,
+            "correct": 153,
+            "regressed": 2,
+            "corrected": 93
+          },
+          "SW": {
+            "n": 200,
+            "correct": 70,
+            "regressed": 11,
+            "corrected": 41
+          }
+        }
+      }
+    },
+    "residual_vs_no_delta": {
+      "accuracy_delta": 0.00374999999999992,
+      "corrected_vs_comparator": 16,
+      "regressed_vs_comparator": 13,
+      "by_tree": {
+        "aml_7": {
+          "n": 200,
+          "corrected_vs_comparator": 3,
+          "regressed_vs_comparator": 1,
+          "accuracy_delta": 0.01,
+          "original_answer_regression_delta": 0.0
+        },
+        "bre_1": {
+          "n": 200,
+          "corrected_vs_comparator": 2,
+          "regressed_vs_comparator": 4,
+          "accuracy_delta": -0.01,
+          "original_answer_regression_delta": 0.0
+        },
+        "pancreatic_11": {
+          "n": 200,
+          "corrected_vs_comparator": 3,
+          "regressed_vs_comparator": 3,
+          "accuracy_delta": 0.0,
+          "original_answer_regression_delta": 0.01
+        },
+        "vulvar_3": {
+          "n": 200,
+          "corrected_vs_comparator": 8,
+          "regressed_vs_comparator": 5,
+          "accuracy_delta": 0.015,
+          "original_answer_regression_delta": 0.02
+        }
+      },
+      "tree_cluster_percentile_ci95": {
+        "accuracy_delta": [
+          -0.005,
+          0.0125
+        ],
+        "original_answer_regression_delta": [
+          0.0,
+          0.015
+        ]
+      },
+      "uncertainty": "Descriptive only: four development clusters; includes all variants per tree; does not account for method-design selection."
+    },
+    "residual_vs_dynamic": {
+      "accuracy_delta": 0.00374999999999992,
+      "corrected_vs_comparator": 16,
+      "regressed_vs_comparator": 13,
+      "by_tree": {
+        "aml_7": {
+          "n": 200,
+          "corrected_vs_comparator": 1,
+          "regressed_vs_comparator": 2,
+          "accuracy_delta": -0.005,
+          "original_answer_regression_delta": 0.0
+        },
+        "bre_1": {
+          "n": 200,
+          "corrected_vs_comparator": 2,
+          "regressed_vs_comparator": 4,
+          "accuracy_delta": -0.01,
+          "original_answer_regression_delta": 0.0
+        },
+        "pancreatic_11": {
+          "n": 200,
+          "corrected_vs_comparator": 3,
+          "regressed_vs_comparator": 3,
+          "accuracy_delta": 0.0,
+          "original_answer_regression_delta": 0.01
+        },
+        "vulvar_3": {
+          "n": 200,
+          "corrected_vs_comparator": 10,
+          "regressed_vs_comparator": 4,
+          "accuracy_delta": 0.03,
+          "original_answer_regression_delta": 0.015
+        }
+      },
+      "tree_cluster_percentile_ci95": {
+        "accuracy_delta": [
+          -0.0075,
+          0.02125
+        ],
+        "original_answer_regression_delta": [
+          0.0,
+          0.0125
+        ]
+      },
+      "uncertainty": "Descriptive only: four development clusters; includes all variants per tree; does not account for method-design selection."
+    }
+  }
+}

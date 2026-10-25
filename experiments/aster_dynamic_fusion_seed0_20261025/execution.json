@@ -1,0 +1,345 @@
+{
+  "state": "complete_verified",
+  "models": {
+    "qwen": {
+      "completed": 800,
+      "total": 800,
+      "complete": true,
+      "elapsed_seconds": 3609.886826992035,
+      "peak_GiB": 15.767204284667969,
+      "max_tokens": 1978,
+      "forward_call_units": 9950,
+      "gpu_hours": 1.0027463850047853,
+      "manifest": {
+        "name": "qwen",
+        "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+        "model_config_sha256": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+        "data_sha256": "6d1ebff7b71b451a213868a0b436d27309152920d7ab475c2150fc3c9e2a8bdd",
+        "seed": 0,
+        "rows": 800,
+        "cases": 200,
+        "gpu": "0",
+        "configs": [
+          [
+            "original",
+            {}
+          ],
+          [
+            "zero_all",
+            {
+              "mode": "action_bias",
+              "lam": 0.0,
+              "layers": "all"
+            }
+          ],
+          [
+            "zero_last_half",
+            {
+              "mode": "action_bias",
+              "lam": 0.0,
+              "layers": "last_half"
+            }
+          ],
+          [
+            "mass_zero_control",
+            {
+              "mode": "mass",
+              "lam": 0.0,
+              "layers": "all"
+            }
+          ],
+          [
+            "action_bias_1.0_all",
+            {
+              "mode": "action_bias",
+              "lam": 1.0,
+              "layers": "all"
+            }
+          ],
+          [
+            "action_bias_2.0_all",
+            {
+              "mode": "action_bias",
+              "lam": 2.0,
+              "layers": "all"
+            }
+          ],
+          [
+            "action_bias_2.0_last_half",
+            {
+              "mode": "action_bias",
+              "lam": 2.0,
+              "layers": "last_half"
+            }
+          ],
+          [
+            "mass_0.5_all",
+            {
+              "mode": "mass",
+              "lam": 0.5,
+              "layers": "all"
+            }
+          ],
+          [
+            "mass_0.5_last_half",
+            {
+              "mode": "mass",
+              "lam": 0.5,
+              "layers": "last_half"
+            }
+          ],
+          [
+            "mass_1.0_last_half",
+            {
+              "mode": "mass",
+              "lam": 1.0,
+              "layers": "last_half"
+            }
+          ]
+        ],
+        "code_sha256": {
+          "verify.py": "489828415bd8de4863daeacf6b64758dca6efe11e0795f7abd8532e7004ae663",
+          "test_report.py": "930412e6e78f0a3bbe42b173710b40be33a3e0f820bd8f1f55c81a16ad3c919d",
+          "test_mass.py": "ac5b29f91bf49488070c8b084ae115e4a84d1bf07de93191bd32b41ce72484d0",
+          "run.py": "20e16b06e0e670c3a07b7725041e1c5751c879d86582ba79af3845dae0cae3ad",
+          "run_dual.py": "2ffeefe8a52e8d05f3ccb9dc38efd550a7bcc08b2f51cc7d383c4574743c01aa",
+          "report.py": "91fa77efe5d5f4f942c318b21092a3a4ff93549fbcced6d3dd046cb603f2f376",
+          "action_engine.py": "70a2e993f754c62f6966c076717253a97b50f684339fbbaf17cd9f18704e01be",
+          "mass_operator.py": "50a117b08d087c2ee915ae5aae3a498a8fbd12ed654666e8edebe36278ed7b2c",
+          "merge_qwen.py": "1c77f88421d07336b4dc801a348b25c89949a6fff713a101cd0b5b5be3666abf"
+        },
+        "legacy_code_sha256": {
+          "engine.py": "7177c4a6a2f6f077c4200a4ae0c97ca74c03e53732fb68bbc6a1d73c1f14ed60",
+          "improve_branch.py": "0975edebf3d484fc15d4dce6663997de3b79d67328348689b17c0887f15d5da8"
+        },
+        "baseline_pr31": "cf3298d",
+        "baseline_pr30": "1dae58a14a8242c620e8c5810be432ae198949cf",
+        "estimate_GiB_per_gpu": [
+          20,
+          35
+        ],
+        "estimate_wall_hours": [
+          2,
+          6
+        ],
+        "provenance": "fresh GPU; exact-payload condition reuse within this run only",
+        "torch": "2.8.0+cu128"
+      },
+      "prediction_sha256": "6b301617e1853043126bc6aed85e2405f4b5344ad38a67e4310a36944b85fc25",
+      "gpu_tests": {
+        "bf16_gqa_max_abs_error": 0.015625,
+        "blind_nonaction_K_error_each_layer": {
+          "0": 0.0,
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0,
+          "7": 0.0,
+          "8": 0.0,
+          "9": 0.0,
+          "10": 0.0,
+          "11": 0.0,
+          "12": 0.0,
+          "13": 0.0,
+          "14": 0.0,
+          "15": 0.0,
+          "16": 0.0,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0,
+          "20": 0.0,
+          "21": 0.0,
+          "22": 0.0,
+          "23": 0.0,
+          "24": 0.0,
+          "25": 0.0,
+          "26": 0.0,
+          "27": 0.0,
+          "28": 0.0,
+          "29": 0.0,
+          "30": 0.0,
+          "31": 0.0,
+          "32": 0.0,
+          "33": 0.0,
+          "34": 0.0,
+          "35": 0.0
+        },
+        "unmasked_positive_control_max_error": 49.78125,
+        "tokens": 1875,
+        "synthetic_long_context_tokens": 4097,
+        "passed": true
+      }
+    },
+    "llama": {
+      "completed": 800,
+      "total": 800,
+      "complete": true,
+      "elapsed_seconds": 4838.211832523346,
+      "peak_GiB": 15.467693328857422,
+      "max_tokens": 1987,
+      "forward_call_units": 9950,
+      "gpu_hours": 1.3439477701319589,
+      "manifest": {
+        "name": "llama",
+        "model": "/home/gcx/TRIAGE/models/modelscope/Meta-Llama-3.1-8B-Instruct",
+        "model_config_sha256": "29e4c210b0d6ac178b16b2a255a568bdb23b581e50ca1ef6a6d071dd85704e6e",
+        "data_sha256": "6d1ebff7b71b451a213868a0b436d27309152920d7ab475c2150fc3c9e2a8bdd",
+        "seed": 0,
+        "rows": 800,
+        "cases": 200,
+        "gpu": "1",
+        "configs": [
+          [
+            "original",
+            {}
+          ],
+          [
+            "zero_all",
+            {
+              "mode": "action_bias",
+              "lam": 0.0,
+              "layers": "all"
+            }
+          ],
+          [
+            "zero_last_half",
+            {
+              "mode": "action_bias",
+              "lam": 0.0,
+              "layers": "last_half"
+            }
+          ],
+          [
+            "mass_zero_control",
+            {
+              "mode": "mass",
+              "lam": 0.0,
+              "layers": "all"
+            }
+          ],
+          [
+            "action_bias_1.0_all",
+            {
+              "mode": "action_bias",
+              "lam": 1.0,
+              "layers": "all"
+            }
+          ],
+          [
+            "action_bias_2.0_all",
+            {
+              "mode": "action_bias",
+              "lam": 2.0,
+              "layers": "all"
+            }
+          ],
+          [
+            "action_bias_2.0_last_half",
+            {
+              "mode": "action_bias",
+              "lam": 2.0,
+              "layers": "last_half"
+            }
+          ],
+          [
+            "mass_0.5_all",
+            {
+              "mode": "mass",
+              "lam": 0.5,
+              "layers": "all"
+            }
+          ],
+          [
+            "mass_0.5_last_half",
+            {
+              "mode": "mass",
+              "lam": 0.5,
+              "layers": "last_half"
+            }
+          ],
+          [
+            "mass_1.0_last_half",
+            {
+              "mode": "mass",
+              "lam": 1.0,
+              "layers": "last_half"
+            }
+          ]
+        ],
+        "code_sha256": {
+          "verify.py": "489828415bd8de4863daeacf6b64758dca6efe11e0795f7abd8532e7004ae663",
+          "test_report.py": "930412e6e78f0a3bbe42b173710b40be33a3e0f820bd8f1f55c81a16ad3c919d",
+          "test_mass.py": "ac5b29f91bf49488070c8b084ae115e4a84d1bf07de93191bd32b41ce72484d0",
+          "run.py": "20e16b06e0e670c3a07b7725041e1c5751c879d86582ba79af3845dae0cae3ad",
+          "run_dual.py": "2ffeefe8a52e8d05f3ccb9dc38efd550a7bcc08b2f51cc7d383c4574743c01aa",
+          "report.py": "91fa77efe5d5f4f942c318b21092a3a4ff93549fbcced6d3dd046cb603f2f376",
+          "action_engine.py": "70a2e993f754c62f6966c076717253a97b50f684339fbbaf17cd9f18704e01be",
+          "mass_operator.py": "50a117b08d087c2ee915ae5aae3a498a8fbd12ed654666e8edebe36278ed7b2c",
+          "merge_qwen.py": "1c77f88421d07336b4dc801a348b25c89949a6fff713a101cd0b5b5be3666abf"
+        },
+        "legacy_code_sha256": {
+          "engine.py": "7177c4a6a2f6f077c4200a4ae0c97ca74c03e53732fb68bbc6a1d73c1f14ed60",
+          "improve_branch.py": "0975edebf3d484fc15d4dce6663997de3b79d67328348689b17c0887f15d5da8"
+        },
+        "baseline_pr31": "cf3298d",
+        "baseline_pr30": "1dae58a14a8242c620e8c5810be432ae198949cf",
+        "estimate_GiB_per_gpu": [
+          20,
+          35
+        ],
+        "estimate_wall_hours": [
+          2,
+          6
+        ],
+        "provenance": "fresh GPU; exact-payload condition reuse within this run only",
+        "torch": "2.8.0+cu128"
+      },
+      "prediction_sha256": "c936eb23619e054f18e5992996aef1bb3e8f35ae7d32d98e5ccdebb8ef4e3eda",
+      "gpu_tests": {
+        "bf16_gqa_max_abs_error": 0.015625,
+        "blind_nonaction_K_error_each_layer": {
+          "0": 0.0,
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0,
+          "5": 0.0,
+          "6": 0.0,
+          "7": 0.0,
+          "8": 0.0,
+          "9": 0.0,
+          "10": 0.0,
+          "11": 0.0,
+          "12": 0.0,
+          "13": 0.0,
+          "14": 0.0,
+          "15": 0.0,
+          "16": 0.0,
+          "17": 0.0,
+          "18": 0.0,
+          "19": 0.0,
+          "20": 0.0,
+          "21": 0.0,
+          "22": 0.0,
+          "23": 0.0,
+          "24": 0.0,
+          "25": 0.0,
+          "26": 0.0,
+          "27": 0.0,
+          "28": 0.0,
+          "29": 0.0,
+          "30": 0.0,
+          "31": 0.0
+        },
+        "unmasked_positive_control_max_error": 14.96875,
+        "tokens": 1891,
+        "synthetic_long_context_tokens": 4097,
+        "passed": true
+      }
+    }
+  },
+  "scope": "development only; no independent new-tree evaluation",
+  "runner_sha256": "553309f0587cd1405012e7021bef6002cf5cf18e3f4275cf8458afeb203e21cb"
+}
