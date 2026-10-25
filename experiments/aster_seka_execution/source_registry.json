@@ -1,0 +1,24 @@
+{
+  "schema_version": "aster.source_registry.v1",
+  "audited_date": "2026-10-25",
+  "source_class": "primary_sources_only",
+  "entries": [
+    {"id":"mega_dataset","url":"https://huggingface.co/datasets/nchennnn/MEGA-CDP","revision":"8f058c88ce1ed43693785b435ad0ff99907a2890","supports":["research-use intention and TBD license","native single-turn task","PCC/Acc definitions"],"read_status":"read_current_card_and_file_tree"},
+    {"id":"mega_code","url":"https://github.com/nchennnn/MEGA-CDP","revision":"15a3a12e73a9169a870bff2ac431ec2e9968b8c7","readme_blob":"eb6c7b73230479eeb00dfa1edd3ab92a06162fc4","metrics_blob":"735728cf96ad94b78a01d53adbf9a72611a43447","supports":["single-turn gt_paths reference","local Qwen judge commands","prediction parser and metrics availability"],"read_status":"read_only_not_executed"},
+    {"id":"mega_paper","url":"https://arxiv.org/html/2608.26592v1","version":"v1","published":"2026-08-27","supports":["main GPT-5.4 Mini judge and alternative Qwen judge are distinct","single-turn Qwen3-8B reported PCC 47.88 and Acc 60.94 under main judge"]},
+    {"id":"medpic_dataset","url":"https://huggingface.co/datasets/TIM0927/MedPIC-Bench","revision":"9ef6db4f13865b14fc2e6be3f94dcfaf3a0cf983","supports":["CC BY 4.0","467 question test","284 GF and 183 CF","answer list field","no explicit pair field in published schema"]},
+    {"id":"medpic_file_tree","url":"https://huggingface.co/datasets/TIM0927/MedPIC-Bench/tree/main","revision":"9ef6db4f13865b14fc2e6be3f94dcfaf3a0cf983","supports":["questions.json plus README and .gitattributes; no separately published pair file visible"]},
+    {"id":"medpic_paper","url":"https://arxiv.org/html/2608.03028v1","version":"v1","published":"2026-08-04","supports":["exact-set scoring","89 pairs scored jointly","independent zero-shot question presentation","GF CF and Pair separation"]},
+    {"id":"medguide_dataset","url":"https://huggingface.co/datasets/MedGUIDE/MedGUIDE-MCQA-8K","revision":"1460ec478280a7295040b92f7eb985327f77dcbe","supports":["7747 rows","single train split","NCCN origin","TBD license"]},
+    {"id":"seka_datasets","url":"https://huggingface.co/datasets/waylonli/SEKA-datasets","revision":"91bf3f67fb2044c7e81514e103a962d6ef76c230","supports":["author dataset package","subset-specific licensing claims","actual pasta_bench layout differs from README example"]},
+    {"id":"biasbios_original_readme","url":"https://github.com/microsoft/biosbias/blob/master/README.md","blob_sha":"dc6963417935a3443c8ef98fa2bebb279f467830","supports":["original recreation code uses Common Crawl biographies"]},
+    {"id":"biasbios_code_license","url":"https://github.com/microsoft/biosbias/blob/master/LICENSE","blob_sha":"21071075c24599ee98254f702bcfc504cdc275a6","supports":["MIT software license; does not by itself settle all source webpage text rights"]},
+    {"id":"counterfact_upstream_license","url":"https://github.com/kmeng01/rome/blob/main/LICENSE","blob_sha":"cd11d6c92607103ee77a8151e98ff0492c03eb1c","supports":["MIT upstream repository license"]},
+    {"id":"legacy_validation_script","url":"https://github.com/chunxi-alpc/TRIAGE/blob/f37c5f8b6339216439e5fc257419ebe78ddf5763/scripts/validate_requested_text_datasets.py","blob_sha":"46e26181014fe1e13534f92173dcc41d51fc3c46","supports":["past programmatic access to MEGA train_val and test records for structure checks"]},
+    {"id":"legacy_validation_report","url":"https://github.com/chunxi-alpc/TRIAGE/blob/f37c5f8b6339216439e5fc257419ebe78ddf5763/results/text_datasets_validation.json","supports":["historical registered successful digest and row checks; not current server verification"]}
+  ],
+  "lookup_failures": [
+    {"kind":"web_open_frozen_hf_raw_or_blob","outcome":"tool_inaccessible","fallback":"current dataset card plus current file-tree revision"},
+    {"kind":"github_repository_name_search_MedPIC-Bench","outcome":"no_results","meaning":"not proof that no supplementary code exists"}
+  ]
+}

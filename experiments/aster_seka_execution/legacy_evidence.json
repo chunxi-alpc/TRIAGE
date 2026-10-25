@@ -1,0 +1,573 @@
+{
+  "schema_version": "aster.independent_legacy_audit.v1",
+  "audit_date": "2026-10-25",
+  "status": "complete_verified",
+  "status_scope": "Read-only repository audit completed; coordinator executed independent checker v2 on server, and this agent reviewed its complete returned JSON",
+  "new_gpu_forwards": 0,
+  "read_new_external_test_labels": false,
+  "independent_cpu_replay": "complete_verified_server_only",
+  "server_audit": {
+    "output": "legacy_independent_audit_v2.json",
+    "output_sha256": "8cc8fde35858b2d185abceea911ca3c3b7b4cd09a0b00667e6eb052bd8ad9dfa",
+    "checker_sha256": "0b836bc5bcc28b911e91b811feab2d5c958b4565bddf3bc4d7e8dd3f871f97ab",
+    "status": "complete_verified",
+    "new_gpu_forwards": 0,
+    "pr33_scope": "1600-row CSV counts and paired statistics; not full logits replay",
+    "pr35_scope": "351 candidate predictions, 52 fold selections, matched controls and 3 artifact hashes",
+    "first_audit_failure": "Python sum versus original NumPy mean led to differing choices at mathematical floating-point ties; v1 and failed output retained",
+    "historical_floating_tie_cases": [
+      {"method": "static_sparse", "tree": "pancreatic_11", "stored_numpy_index": 16, "exact_tie_first": 15},
+      {"method": "misaligned", "tree": "bre_1", "stored_numpy_index": 15, "exact_tie_first": 9}
+    ],
+    "primary_conclusion_changed": false
+  },
+  "frozen_repository_commit": "cbb4d613a59618a7f98efccea60a9a469037f0ad",
+  "goal_commit": "f37c5f8b6339216439e5fc257419ebe78ddf5763",
+  "prs": [
+    {
+      "number": 30,
+      "url": "https://github.com/chunxi-alpc/TRIAGE/pull/30",
+      "head": "codex/aster-e0-e8-20261024",
+      "head_sha": "1dae58a14a8242c620e8c5810be432ae198949cf",
+      "base": "main",
+      "base_sha": "0a831d1127c338119bc11712677170486d40aabb",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 31,
+      "url": "https://github.com/chunxi-alpc/TRIAGE/pull/31",
+      "head": "codex/aster-p0-p3-20261025",
+      "head_sha": "cf3298d054d2681911c4c4925eee0bd922c17036",
+      "base": "codex/aster-e0-e8-20261024",
+      "base_sha": "2a4054015b2fff80242ab3a8c23d1c94a2bc75bd",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 32,
+      "url": "https://github.com/chunxi-alpc/TRIAGE/pull/32",
+      "head": "codex/aster-action-mass-seed0-20261025",
+      "head_sha": "f84b579ff6ff073063b6cf0f063e035ddddeb3e0",
+      "base": "codex/aster-p0-p3-20261025",
+      "base_sha": "cf3298d054d2681911c4c4925eee0bd922c17036",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 33,
+      "url": "https://github.com/chunxi-alpc/TRIAGE/pull/33",
+      "head": "codex/aster_dynamic_fusion_seed0_20261025",
+      "head_sha": "a8c1e49c0fbda941282daf25908004407eb0b1bf",
+      "base": "codex/aster-action-mass-seed0-20261025",
+      "base_sha": "f84b579ff6ff073063b6cf0f063e035ddddeb3e0",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 34,
+      "url": "https://github.com/chunxi-alpc/TRIAGE/pull/34",
+      "head": "codex/aster-qwen-seed0-gating-audit-20261025",
+      "head_sha": "72acfa00ad1f4a4041e8cf6eeaa5341f6184522d",
+      "base": "codex/aster_dynamic_fusion_seed0_20261025",
+      "base_sha": "a8c1e49c0fbda941282daf25908004407eb0b1bf",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 35,
+      "url": "https://github.com/chunxi-alpc/TRIAGE/pull/35",
+      "head": "codex/aster-sparse-dynamic-qwen-seed0-20261025",
+      "head_sha": "cbb4d613a59618a7f98efccea60a9a469037f0ad",
+      "base": "codex/aster-qwen-seed0-gating-audit-20261025",
+      "base_sha": "72acfa00ad1f4a4041e8cf6eeaa5341f6184522d",
+      "state": "open",
+      "draft": false
+    },
+    {
+      "number": 36,
+      "url": "https://github.com/chunxi-alpc/TRIAGE/pull/36",
+      "head": "codex/aster-seka-goal-20261025",
+      "head_sha": "f37c5f8b6339216439e5fc257419ebe78ddf5763",
+      "base": "codex/aster-sparse-dynamic-qwen-seed0-20261025",
+      "base_sha": "cbb4d613a59618a7f98efccea60a9a469037f0ad",
+      "state": "open",
+      "draft": true
+    }
+  ],
+  "sources": [
+    {
+      "key": "goal",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/f37c5f8b6339216439e5fc257419ebe78ddf5763/docs/ASTER_SOTA_GOAL/GOAL.zh.md",
+      "git_blob_sha": "0a3848a0ca66859538b0ce6f05fc9b5986eeddec",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "work",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/f37c5f8b6339216439e5fc257419ebe78ddf5763/docs/ASTER_SOTA_GOAL/WORK_ORDER.zh.md",
+      "git_blob_sha": "084be7dcfe77d21b67aa3523d9ff01752a710348",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "r35",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_sparse_dynamic_qwen_seed0/REPORT.zh.md",
+      "git_blob_sha": "49bb601a5f66b0584058286ec1ebc8454252cc73",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "a35",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_sparse_dynamic_qwen_seed0/audit.json",
+      "git_blob_sha": "c36c38c1829c19eb1bae5036017583a3c088a908",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "read35",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_sparse_dynamic_qwen_seed0/README.zh.md",
+      "git_blob_sha": "952298a0ec6188bfa5bff039d04aa46f480b5667",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "r33",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/a8c1e49c0fbda941282daf25908004407eb0b1bf/experiments/aster_dynamic_fusion_seed0_20261025/COMPLETED.zh.md",
+      "git_blob_sha": "73308570325a7c5ab1a35141fbdb40f1a2099c86",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "exec33",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/a8c1e49c0fbda941282daf25908004407eb0b1bf/experiments/aster_dynamic_fusion_seed0_20261025/execution.json",
+      "git_blob_sha": "7c4dff268bee6c8ee705e1358cf0c0bba67cf96d",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "read33",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/a8c1e49c0fbda941282daf25908004407eb0b1bf/experiments/aster_dynamic_fusion_seed0_20261025/README.md",
+      "git_blob_sha": "005bc620b1617f7557569214b43fecf03a821d86",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "p3",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_p0_p3_20261025/results/verification_20261025/P3%E6%A0%B8%E5%AF%B9.zh.md",
+      "git_blob_sha": "ab7619fa527817de85df99f92189e4cee82b20fd",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "p3verified",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_p0_p3_20261025/results/verification_20261025/verified.json",
+      "git_blob_sha": "e74521fc70c63c068211926b304b84e972ef4fa5",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "human",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_p0_p3_20261025/results/human_audit_status.json",
+      "git_blob_sha": "6ddc2860c0d9b48c3813511bc192e97566a6f048",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "legacy",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_p0_p3_20261025/results/legacy_audit.json",
+      "git_blob_sha": "4b0aab49101df987ef1580cfdcb9b56013cd8604",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "r30",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_e0_e8_20261024/results/continuation_v2/%E6%8A%A5%E5%91%8A.zh.md",
+      "git_blob_sha": "d7ff80ca8223da54ffeaa5871b67bf139f5b08e1",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "inventory35",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_sparse_dynamic_qwen_seed0/model_inventory.json",
+      "git_blob_sha": "8199c1bb29335d41196c62d71042f890b84e6f23",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "runtime35",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_sparse_dynamic_qwen_seed0/runtime_validation.json",
+      "git_blob_sha": "b7e7d624971f8567cbfa46ffc41adcb5860d648a",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "frozen31",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_p0_p3_20261025/results/frozen.json",
+      "git_blob_sha": "e62b35aac43cae1a32dd96674c618e0cfaa05e5d",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "frozen33",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_dynamic_fusion_seed0_20261025/frozen_candidate.json",
+      "git_blob_sha": "b62c91decdc16d65d66ae992824b67db72387a12",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "resource33",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_dynamic_fusion_seed0_20261025/resource_inventory.json",
+      "git_blob_sha": "17bc12a8b109b64389467bb5d10a6c31a20e3155",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "completed33",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_dynamic_fusion_seed0_20261025/completed_audit.json",
+      "git_blob_sha": "1581ed90c6c31ffe6a799770d46756742e28a426",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "analysis35",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_sparse_dynamic_qwen_seed0/analyze.py",
+      "git_blob_sha": "31577427f5cb0448f814d41f1e845da6d64abf71",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "auditcode35",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_sparse_dynamic_qwen_seed0/audit_results.py",
+      "git_blob_sha": "51fd9d4432add9fe63d4cde5d6113c8fcf6a6afc",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "run35",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_sparse_dynamic_qwen_seed0/run_gpu.py",
+      "git_blob_sha": "e8029be053bc52094221359bf677da6acd959964",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "audit33",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_dynamic_fusion_seed0_20261025/audit_completed.py",
+      "git_blob_sha": "0af3d572d9103b60ef0b165a86cc68f23e9bcd15",
+      "read_method": "connected GitHub fetch_file"
+    },
+    {
+      "key": "r30initial",
+      "url": "https://github.com/chunxi-alpc/TRIAGE/blob/cbb4d613a59618a7f98efccea60a9a469037f0ad/experiments/aster_e0_e8_20261024/results/%E6%8A%A5%E5%91%8A.zh.md",
+      "git_blob_sha": "dc21e612a3a6ac98ace2ebb83365c8e8dcc8408b",
+      "read_method": "connected GitHub fetch_file"
+    }
+  ],
+  "fingerprints": {
+    "pr33_data_sha256": "6d1ebff7b71b451a213868a0b436d27309152920d7ab475c2150fc3c9e2a8bdd",
+    "pr33_qwen_config_sha256": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+    "pr33_qwen_prediction_sha256": "6b301617e1853043126bc6aed85e2405f4b5344ad38a67e4310a36944b85fc25",
+    "pr35_artifacts": {
+      "results.json": "0376c5115b995130e4ab591efe8ddb477fe97b3e352ea53898ede2f781014ee4",
+      "numeric/predictions.jsonl": "4740fd5e81fc28df3f310dd865c5513cd7596cbe1bfdbcbf308a4996220ada69",
+      "predictions.csv": "7f9f0416d158c6a9a282de39c013df9c1da4d4983fb1bf70820c5acf846e1f2c"
+    },
+    "pr35_model_inventory": {
+      "path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "files": [
+        {
+          "file": "model-00001-of-00005.safetensors",
+          "size": 3996250744,
+          "mtime_utc": "2026-10-14T12:51:36.724433+00:00",
+          "sha256": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f"
+        },
+        {
+          "file": "model-00002-of-00005.safetensors",
+          "size": 3993160032,
+          "mtime_utc": "2026-10-14T12:51:30.020355+00:00",
+          "sha256": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282"
+        },
+        {
+          "file": "model-00003-of-00005.safetensors",
+          "size": 3959604768,
+          "mtime_utc": "2026-10-14T13:00:21.917011+00:00",
+          "sha256": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836"
+        },
+        {
+          "file": "model-00004-of-00005.safetensors",
+          "size": 3187841392,
+          "mtime_utc": "2026-10-14T12:59:38.751854+00:00",
+          "sha256": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a"
+        },
+        {
+          "file": "model-00005-of-00005.safetensors",
+          "size": 1244659840,
+          "mtime_utc": "2026-10-14T13:02:34.470395+00:00",
+          "sha256": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff"
+        }
+      ],
+      "historical_weight_hash_available": false
+    },
+    "pr31_frozen_sha256": "069515fc451a69350eb604925beb7a5010b80d6ae9b9c03d82a43c38215f3b11"
+  },
+  "known_exposure": {
+    "search_roots": [
+      "aster_medguide_20261022",
+      "qwen800_methods_20261023",
+      "medguide_expand_cs_20261023",
+      "aster_e0_e8_20261024",
+      "aster_p0_p3_20261025"
+    ],
+    "prior_resources": {
+      "aster_medguide_20261022": {
+        "trees": [
+          "aml_15",
+          "aml_7",
+          "bre_1",
+          "bre_10",
+          "bre_18",
+          "bre_2",
+          "cns_24",
+          "eso18",
+          "pancreatic_11",
+          "pancreatic_5",
+          "thyroid_2",
+          "thyroid_23",
+          "vulvar_3"
+        ],
+        "file_count": 4
+      },
+      "qwen800_methods_20261023": {
+        "trees": [
+          "aml_12",
+          "aml_14",
+          "aml_15",
+          "aml_7",
+          "bla_10",
+          "bon_6",
+          "bon_8",
+          "bon_9",
+          "bre_1",
+          "bre_10",
+          "bre_11",
+          "bre_18",
+          "bre_2",
+          "bre_20",
+          "cer_6",
+          "cml_3",
+          "cns28",
+          "cns30",
+          "cns31",
+          "cns34",
+          "cns_17",
+          "cns_19",
+          "cns_24",
+          "cns_6",
+          "col6",
+          "eso16",
+          "eso17",
+          "eso18",
+          "eso7",
+          "gas9",
+          "hcc1",
+          "nscl_2",
+          "nscl_3",
+          "pancreatic_10",
+          "pancreatic_11",
+          "pancreatic_5",
+          "prostate_14",
+          "sclc_7",
+          "thyroid_10",
+          "thyroid_11",
+          "thyroid_2",
+          "thyroid_23",
+          "thyroid_26",
+          "thyroid_27",
+          "thyroid_31",
+          "thyroid_32",
+          "thyroid_33",
+          "thyroid_4",
+          "thyroid_40",
+          "vulvar_10",
+          "vulvar_12",
+          "vulvar_3",
+          "vulvar_4"
+        ],
+        "file_count": 8
+      },
+      "medguide_expand_cs_20261023": {
+        "trees": [
+          "aml_12",
+          "aml_14",
+          "aml_15",
+          "aml_7",
+          "bla_10",
+          "bon_6",
+          "bon_8",
+          "bon_9",
+          "bre_1",
+          "bre_10",
+          "bre_11",
+          "bre_18",
+          "bre_2",
+          "bre_20",
+          "cer_6",
+          "cml_3",
+          "cns28",
+          "cns30",
+          "cns31",
+          "cns34",
+          "cns_17",
+          "cns_19",
+          "cns_24",
+          "cns_6",
+          "col6",
+          "eso16",
+          "eso17",
+          "eso18",
+          "eso7",
+          "gas9",
+          "hcc1",
+          "nscl_2",
+          "nscl_3",
+          "pancreatic_10",
+          "pancreatic_11",
+          "pancreatic_5",
+          "prostate_14",
+          "sclc_7",
+          "thyroid_10",
+          "thyroid_11",
+          "thyroid_2",
+          "thyroid_23",
+          "thyroid_26",
+          "thyroid_27",
+          "thyroid_31",
+          "thyroid_32",
+          "thyroid_33",
+          "thyroid_4",
+          "thyroid_40",
+          "vulvar_10",
+          "vulvar_12",
+          "vulvar_3",
+          "vulvar_4"
+        ],
+        "file_count": 1
+      },
+      "aster_e0_e8_20261024": {
+        "trees": [
+          "aml_14",
+          "aml_15",
+          "aml_7",
+          "bon_8",
+          "bon_9",
+          "bre_1",
+          "bre_10",
+          "bre_18",
+          "bre_20",
+          "cns28",
+          "cns_19",
+          "cns_24",
+          "col6",
+          "eso18",
+          "gas9",
+          "nscl_2",
+          "nscl_3",
+          "pancreatic_11",
+          "pancreatic_5",
+          "prostate_14",
+          "sclc_7",
+          "thyroid_2",
+          "thyroid_23",
+          "thyroid_4",
+          "vulvar_3",
+          "vulvar_4"
+        ],
+        "file_count": 1
+      },
+      "aster_p0_p3_20261025": {
+        "trees": [
+          "aml_14",
+          "aml_15",
+          "aml_7",
+          "bon_8",
+          "bon_9",
+          "bre_1",
+          "bre_10",
+          "bre_18",
+          "bre_20",
+          "cns28",
+          "cns_19",
+          "cns_24",
+          "col6",
+          "eso18",
+          "gas9",
+          "nscl_2",
+          "nscl_3",
+          "pancreatic_11",
+          "pancreatic_5",
+          "prostate_14",
+          "sclc_7",
+          "thyroid_2",
+          "thyroid_23",
+          "thyroid_4",
+          "vulvar_3",
+          "vulvar_4"
+        ],
+        "file_count": 4
+      }
+    },
+    "source_tree_count": 55,
+    "trees_absent_from_scanned_prior_records": [
+      "bre_19",
+      "cns_23"
+    ],
+    "conclusion": "No separately annotated independent guideline-tree case set located in scanned ASTER/MedGUIDE resources. Absence from a subset of prediction files alone does not establish independence.",
+    "unseen_tree_source_case_counts": {
+      "bre_19": 0,
+      "cns_23": 0
+    }
+  },
+  "human_review": {
+    "requested_rows_per_reviewer": 150,
+    "sample_design": "25 per variant; seed0 only; round-robin trees; deterministic hash within tree; descriptive audit, not prevalence estimate",
+    "completed": {
+      "A": 0,
+      "B": 0
+    },
+    "agreement": null,
+    "status": "pending"
+  },
+  "claims": {
+    "stable_independent_attention_gain": false,
+    "basis": "PR33 Qwen matched residual +1/800 with CI crossing zero; PR35 matched residual +0/800; external confirmation absent",
+    "legacy_qwen_main_method_correct": {
+      "static_fusion": 500,
+      "dynamic_fusion": 504,
+      "legacy_full_attention_residual": 506,
+      "sparse_dynamic_primary": 501,
+      "sparse_matched_no_residual": 501
+    },
+    "highest_exploratory_negative_control": {
+      "method": "PR35 reverse independently tuned",
+      "correct": 510,
+      "total": 800,
+      "not_a_confirmed_winner": true
+    },
+    "pr33_frozen_candidate": {
+      "status": "frozen_for_future_independent_trees_not_yet_evaluated",
+      "utc": "2026-10-25T12:14:29.614505+00:00",
+      "selection": "simple static output fusion; macro accuracy over four development trees; first grid entry breaks ties",
+      "parameters": {
+        "qwen": {
+          "kind": "static",
+          "beta": 0.75,
+          "t0": 1,
+          "ts": 0.25
+        },
+        "llama": {
+          "kind": "static",
+          "beta": 0.75,
+          "t0": 1,
+          "ts": 0.25
+        }
+      },
+      "reason": "No robust attention advantage established; retain simple strong baseline.",
+      "source_inputs": {
+        "qwen": {
+          "sha256": "8119c2dc21b23eef7337dc975cc105454f338d0eb7f5fbbbeb100b0be825fa87",
+          "rows": 800
+        },
+        "llama": {
+          "sha256": "be11fe4666eefc41ff74c1175d5bd4b321e0ac55a11fdc54505039dab0df4859",
+          "rows": 800
+        }
+      }
+    }
+  },
+  "not_verified_in_this_audit": [
+    "server private patient source and original GPU logs still present",
+    "current model weight hashes against official release and historical runs",
+    "model checkpoint identity against official Qwen release",
+    "all prior human/system reads of MEGA/MedPIC tests",
+    "new official SEKA/AdaSEKA performance",
+    "new independent external accuracy/PCC"
+  ]
+}

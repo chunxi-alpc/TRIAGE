@@ -1,0 +1,75 @@
+{
+  "schema_version": "aster.baseline_source_audit.v1",
+  "date": "2026-10-25",
+  "scope": "source inspection only; experiment execution belongs to coordinator run ledger",
+  "local_experiments_run": false,
+  "baseline_runs_completed_by_this_agent": 0,
+  "methods": [
+    {
+      "id": "SEKA",
+      "repository": "https://github.com/waylonli/SEKA",
+      "commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+      "license": "Apache-2.0",
+      "status": "planned",
+      "source_available": true,
+      "builder": "src.custom_builders.synthetic_qa_builder",
+      "evaluation": "benchmarks.eval_fact_gen",
+      "projection_download_available": false,
+      "projection_regeneration_available": true,
+      "git_synthetic_rows_verified_by_coordinator": 100,
+      "git_synthetic_triplets": 200,
+      "full_source_projection_forward_upper_bound": 600,
+      "actual_checkpoint_classification": "adapted_Qwen3-8B_not_paper_Qwen3-8B-Base",
+      "counterfact_parameters_from_paper": {"top_pct": 0.85, "min_diff": 0.12, "amplify_pos": 2.4, "amplify_neg": 0.0, "negative_projection_present": true},
+      "biasbios_parameters_from_paper": {"top_pct": 0.998, "min_diff": 0.12, "amplify_pos": 0.6, "amplify_neg": 0.3},
+      "source_findings": ["file_layers ignored when mapping projection stack", "negative projection presence halves positive contribution even with zero negative gain", "builder dtype not set", "visible multi-GPU auto-sharding"]
+    },
+    {
+      "id": "AdaSEKA",
+      "repository": "https://github.com/waylonli/SEKA",
+      "commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+      "license": "Apache-2.0",
+      "status": "planned",
+      "source_available": true,
+      "config_schema": "flat expert-name to SVD-path mapping",
+      "svd_schema_keys": ["layers", "U_matrices", "singular_values"],
+      "official_expert_sources": ["synthetic", "counterfact", "biasbios", "hotpotqa"],
+      "full_four_expert_bank_available": false,
+      "git_synthetic_adaptive_pairs": 100,
+      "filtered_head_encoding": "complete NaN U matrix and singular-value vector per skipped head",
+      "source_findings": ["batch routing uses first example", "routing preforward omits attention_mask", "routing uses layer output with current layer query projection", "README template directory absent", "builder SVD error can fall back to identity"]
+    },
+    {
+      "id": "PASTA",
+      "repository": "https://github.com/QingruZhang/PASTA",
+      "commit": "56a9138d2d071c9ab2860c72be596da9723ca793",
+      "license": "MIT",
+      "status": "planned",
+      "qwen_path": "SEKA author-vendored Qwen adaptation",
+      "qwen_adapter_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+      "new_checkpoint_head_selection_required": true
+    },
+    {
+      "id": "CAD",
+      "repository": "https://github.com/xhan77/context-aware-decoding",
+      "commit": "1281d7fcd0e7e49d786c78d3170a3048dd9f6dc2",
+      "license": "no LICENSE file in inspected tree",
+      "status": "planned",
+      "source_available": true,
+      "entrypoint": "group_decode_fileio.py",
+      "default_filter_top_p": 1.0,
+      "default_filter_top_p_prior": 1.0,
+      "qwen_compatibility": "requires integration verification",
+      "source_findings": ["demo.ipynb incorrectly uses len(context_ids) for context token length"]
+    },
+    {
+      "id": "Spotlight",
+      "paper": "https://aclanthology.org/2026.eacl-long.174/",
+      "status": "planned",
+      "official_code_verified": false,
+      "implementation_classification": "paper_reimplementation_if_implemented",
+      "attention_scope": "all layers, all heads, each query",
+      "bias": "log(target_mass/current_mass) only below target"
+    }
+  ]
+}

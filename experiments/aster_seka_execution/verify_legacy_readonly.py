@@ -9,9 +9,13 @@ import hashlib
 import itertools
 import json
 import math
+import platform
 import time
 from collections import Counter
+from fractions import Fraction
 from pathlib import Path
+
+import numpy as np
 
 
 def require(condition, message):
@@ -108,7 +112,7 @@ def audit33(root):
                 prediction_sha256=digest(path), models=output)
 
 
-def audit35(root):
+def audit35(root, diagnostics):
     folder = root/'experiments/aster_sparse_dynamic_qwen_seed0'
     rows = [json.loads(line) for line in (folder/'numeric/predictions.jsonl').read_text().splitlines()]
     saved = json.loads((folder/'results.json').read_text())
@@ -134,11 +138,39 @@ def audit35(root):
             replay.append(preds)
             checked += 1
         oof = [None] * len(rows)
-        for tree in trees:
+        # Preserve the historical numerical reduction order. Python sum can
+        # resolve mathematical ties differently from the original NumPy mean.
+        matrix = np.asarray(replay, dtype=int)
+        gold = np.asarray([r['gold_option'] for r in rows], dtype=int)
+        tree_array = np.asarray([r['tree'] for r in rows])
+        tree_scores = np.asarray([[(pred[tree_array==t] == gold[tree_array==t]).mean()
+                                  for t in trees] for pred in matrix])
+        for tree_index,tree in enumerate(trees):
             training = [t for t in trees if t != tree]
-            scores = [sum(sum(p==r['gold_option'] for p,r in zip(preds,rows) if r['tree']==t)/sum(r['tree']==t for r in rows) for t in training)/len(training) for preds in replay]
-            best = max(range(len(scores)),key=scores.__getitem__)
-            require(best == method['folds'][tree]['config_index'], 'PR35 held-out fold choice mismatch')
+            # This is the documented legacy implementation, not an epsilon tie
+            # policy silently substituted after observing a discrepancy.
+            scores = np.delete(tree_scores, tree_index, axis=1).mean(axis=1)
+            best = int(np.argmax(scores))
+            previous_scores = [sum(sum(p==r['gold_option'] for p,r in zip(preds,rows) if r['tree']==t)/sum(r['tree']==t for r in rows) for t in training)/len(training) for preds in replay]
+            previous_best = max(range(len(previous_scores)),key=previous_scores.__getitem__)
+            exact_scores = [sum((Fraction(sum(p==r['gold_option'] for p,r in zip(preds,rows) if r['tree']==t),sum(r['tree']==t for r in rows)) for t in training),Fraction(0))/len(training) for preds in replay]
+            exact_best = max(exact_scores)
+            exact_ties = [i for i,s in enumerate(exact_scores) if s == exact_best]
+            stored_best = method['folds'][tree]['config_index']
+            detail = dict(method=kind, held_out_tree=tree, training_trees=training,
+                          stored_index=stored_best, numpy_index=best, previous_python_index=previous_best,
+                          exact_best_indices=exact_ties, exact_first_index=exact_ties[0],
+                          stored_macro_score=method['folds'][tree]['training_macro_accuracy'],
+                          numpy_macro_score=float(scores[best]),
+                          exact_mathematical_tie_sensitive=best != exact_ties[0],
+                          audit_v1_difference=previous_best != best)
+            if stored_best != best or previous_best != best or best != exact_ties[0]:
+                detail['candidate_scores'] = [dict(index=i, config=method['all_candidates'][i]['config'],
+                    tree_accuracies=tree_scores[i].tolist(), numpy_score=float(s), numpy_hex=float(s).hex(),
+                    previous_python_score=previous_scores[i], previous_python_hex=previous_scores[i].hex(),
+                    exact_score=str(exact_scores[i])) for i,s in enumerate(scores)]
+            diagnostics.append(detail)
+            require(best == stored_best, 'PR35 historical NumPy fold replay differs: '+json.dumps(detail))
             for i,row in enumerate(rows):
                 if row['tree'] == tree:
                     oof[i] = replay[best][i]
@@ -154,7 +186,7 @@ def audit35(root):
     for name,sha in recorded.items():
         require(digest(folder/name) == sha, 'PR35 artifact hash mismatch '+name)
     require(sum(v['status']['forward_calls'] for v in saved['resources'].values()) == 8800, 'PR35 recorded GPU count')
-    return dict(scope='Independent stdlib replay of all 351 configurations, fold choices, matched controls, and saved hashes',
+    return dict(scope='Independent stdlib replay of all 351 candidate predictions and controls; historical NumPy reduction for fold selection; exact-rational tie diagnostics; saved hashes',
                 checked_candidates=checked, counts=counts, matched_controls=controls, artifacts_sha256=recorded,
                 gpu_forward_count_scope='Historical manifest count checked; no GPU forward performed by this audit')
 
@@ -166,10 +198,14 @@ def main():
     args = parser.parse_args()
     require(not args.output.exists(), 'Output exists; use a new audit path')
     started = time.time()
-    report = dict(status='running', independent_implementation=True, new_gpu_forwards=0)
+    report = dict(status='running', independent_implementation=True, new_gpu_forwards=0,
+                  checker_version=2, python=platform.python_version(), numpy=np.__version__,
+                  pr35_fold_diagnostics=[],
+                  prior_failed_audit_retained=True,
+                  numerical_selection_policy='Replay historical NumPy mean/argmax; report exact rational ties separately')
     try:
         report['pr33'] = audit33(args.repo)
-        report['pr35'] = audit35(args.repo)
+        report['pr35'] = audit35(args.repo, report['pr35_fold_diagnostics'])
         report['status'] = 'complete_verified'
     except Exception as error:
         report['status'] = 'failed'

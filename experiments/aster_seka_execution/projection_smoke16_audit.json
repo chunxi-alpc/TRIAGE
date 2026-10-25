@@ -1,0 +1,1748 @@
+{
+  "status": "complete_verified",
+  "scope": "Official traditional projection artifact and run provenance verification only",
+  "standard_benchmark_reproduction_complete": false,
+  "new_gpu_forwards": 0,
+  "verified_at_utc": "2026-10-25T16:06:29.663229+00:00",
+  "algebra_absolute_tolerance": 0.0001,
+  "zero_heads_permitted": true,
+  "negative_projection_semantics": "Un[:, kn:] @ Un[:, kn:].T; independent negative-covariance complement, not I minus the positive projector",
+  "checkpoint_claim": "Matches the recorded run checkpoint; this does not establish equivalence to the paper Qwen3-8B-Base checkpoint",
+  "torch": "2.8.0+cu128",
+  "run_manifest_sha256": "9513359c76de5c6a1320a2a1fbe9423d3165a1333f7ac3c3246feecb66232051",
+  "run_manifest_path": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/build_smoke16/run_manifest.json",
+  "checkpoint_files_sha256": {
+    "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+    "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+    "model-00001-of-00005.safetensors": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f",
+    "model-00002-of-00005.safetensors": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282",
+    "model-00003-of-00005.safetensors": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836",
+    "model-00004-of-00005.safetensors": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a",
+    "model-00005-of-00005.safetensors": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff",
+    "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  "checkpoint_weight_shards_checked": [
+    "model-00001-of-00005.safetensors",
+    "model-00002-of-00005.safetensors",
+    "model-00003-of-00005.safetensors",
+    "model-00004-of-00005.safetensors",
+    "model-00005-of-00005.safetensors"
+  ],
+  "source_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+  "source_files_checked": 37,
+  "source_dirty_at_run": "",
+  "input_files_sha256": {
+    "/home/gcx/TRIAGE/third_party/SEKA/data/synthetic/pair_qa_new.jsonl": "cb7876001e21319106b1a19916937e92aab1844929e325e41488524e2b127228"
+  },
+  "builder_cost": {
+    "forward_attempts": 96,
+    "forward_completed": 96,
+    "elapsed_seconds": 38.06438822398195,
+    "gpu_lock_wall_seconds": 38.063903158996254,
+    "peak_allocated_gib": 30.560468673706055,
+    "peak_reserved_gib": 30.626953125,
+    "first_forward_parameter_dtype": "torch.float32",
+    "completed_input_batch_rows": 96,
+    "completed_input_positions": 1922,
+    "gpu_physical": 0
+  },
+  "max_calibration_rows_requested": 16,
+  "completed_triplets": 32,
+  "calibration_row_count_caveat": "Up to two triplets per row; a skipped span can remove a triplet. Forward count does not identify which rows survived.",
+  "expected_layers": [
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35
+  ],
+  "expected_shape": [
+    10,
+    8,
+    128,
+    128
+  ],
+  "builder_parameters": {
+    "layers": "last10",
+    "top_pct": "0.85",
+    "min_diff": "0.12",
+    "max_samples": "16",
+    "feature": null
+  },
+  "positive": {
+    "path": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_smoke16/Qwen3-8B_pos_proj.pt",
+    "sha256": "49b6eb4f189cc8d745c69d548404428f78352f0e98c88b3c7708d3a2856e354d",
+    "layers": [
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "shape": [
+      10,
+      8,
+      128,
+      128
+    ],
+    "dtype": "torch.float32",
+    "finite": true,
+    "total_heads": 80,
+    "nonzero_heads": 80,
+    "zero_heads": 0,
+    "max_symmetry_error": 0.0,
+    "max_idempotency_error": 4.656140590753033e-05,
+    "heads": [
+      {
+        "layer": 26,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.6921632085286085e-06,
+        "idempotency_relative_frobenius": 1.1503224843843434e-05,
+        "trace": 1.9999801847840868,
+        "approximate_rank": 2
+      },
+      {
+        "layer": 26,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 5.126426460722033e-06,
+        "idempotency_relative_frobenius": 1.3698241704526321e-05,
+        "trace": 8.999889331678872,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 26,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.313629935556504e-05,
+        "idempotency_relative_frobenius": 2.674569419713476e-05,
+        "trace": 3.999907170458953,
+        "approximate_rank": 4
+      },
+      {
+        "layer": 26,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 6.3936098320116486e-06,
+        "idempotency_relative_frobenius": 8.077135699773884e-06,
+        "trace": 8.99993428023677,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 26,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 8.686052864081972e-06,
+        "idempotency_relative_frobenius": 2.4612302467059517e-05,
+        "trace": 7.999846212498955,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 26,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.0350006946657775e-05,
+        "idempotency_relative_frobenius": 1.8378006403945668e-05,
+        "trace": 7.999864074384858,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 26,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 9.643134319947677e-06,
+        "idempotency_relative_frobenius": 1.4854503459198133e-05,
+        "trace": 7.999889886327203,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 26,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 9.55699799670695e-06,
+        "idempotency_relative_frobenius": 1.7594130940215435e-05,
+        "trace": 8.999857640327466,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 27,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.6886941719529425e-05,
+        "idempotency_relative_frobenius": 4.625918446916819e-05,
+        "trace": 1.9999121820241952,
+        "approximate_rank": 2
+      },
+      {
+        "layer": 27,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.4365170379060377e-05,
+        "idempotency_relative_frobenius": 2.322711145483951e-05,
+        "trace": 9.99981264360746,
+        "approximate_rank": 10
+      },
+      {
+        "layer": 27,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.3423952601870903e-05,
+        "idempotency_relative_frobenius": 3.4757944397672436e-05,
+        "trace": 5.999834746669215,
+        "approximate_rank": 6
+      },
+      {
+        "layer": 27,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 9.670671773265305e-06,
+        "idempotency_relative_frobenius": 2.0385095838125002e-05,
+        "trace": 5.999913462588818,
+        "approximate_rank": 6
+      },
+      {
+        "layer": 27,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.0901572728316822e-05,
+        "idempotency_relative_frobenius": 1.7493525776250442e-05,
+        "trace": 10.999822172859513,
+        "approximate_rank": 11
+      },
+      {
+        "layer": 27,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 6.537882515089688e-06,
+        "idempotency_relative_frobenius": 1.9321717462507106e-05,
+        "trace": 5.99990810446734,
+        "approximate_rank": 6
+      },
+      {
+        "layer": 27,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 5.558561597507339e-06,
+        "idempotency_relative_frobenius": 1.4039159834648726e-05,
+        "trace": 8.999896054092526,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 27,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 8.59468201008795e-06,
+        "idempotency_relative_frobenius": 1.68923896331812e-05,
+        "trace": 8.999868982962422,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 28,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 6.669385363422542e-06,
+        "idempotency_relative_frobenius": 1.379334670036277e-05,
+        "trace": 7.999907002339546,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 28,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 5.651746010804093e-06,
+        "idempotency_relative_frobenius": 1.6888422058290398e-05,
+        "trace": 6.999894940549154,
+        "approximate_rank": 7
+      },
+      {
+        "layer": 28,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.141580044849988e-05,
+        "idempotency_relative_frobenius": 1.5500976799087464e-05,
+        "trace": 10.999861812292785,
+        "approximate_rank": 11
+      },
+      {
+        "layer": 28,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 6.432779596277083e-06,
+        "idempotency_relative_frobenius": 1.56414637943192e-05,
+        "trace": 7.999898739626726,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 28,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.1016919992501428e-05,
+        "idempotency_relative_frobenius": 1.73951140167288e-05,
+        "trace": 7.9998766935803545,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 28,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 5.966389734379796e-06,
+        "idempotency_relative_frobenius": 1.2965717483746754e-05,
+        "trace": 6.999935986260349,
+        "approximate_rank": 7
+      },
+      {
+        "layer": 28,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 7.883687359738767e-06,
+        "idempotency_relative_frobenius": 2.72775987471092e-05,
+        "trace": 2.999922329982091,
+        "approximate_rank": 3
+      },
+      {
+        "layer": 28,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.935045383927303e-06,
+        "idempotency_relative_frobenius": 7.18837253639779e-06,
+        "trace": 0.9999928117727888,
+        "approximate_rank": 1
+      },
+      {
+        "layer": 29,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 7.985698794787943e-06,
+        "idempotency_relative_frobenius": 1.3441901125865622e-05,
+        "trace": 7.999898514032928,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 29,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.0418848568116701e-05,
+        "idempotency_relative_frobenius": 1.706952488497376e-05,
+        "trace": 5.999912047575428,
+        "approximate_rank": 6
+      },
+      {
+        "layer": 29,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 9.302230622343366e-06,
+        "idempotency_relative_frobenius": 1.6016947940572352e-05,
+        "trace": 8.999878463667102,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 29,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 8.225602307287971e-06,
+        "idempotency_relative_frobenius": 1.2695844931290423e-05,
+        "trace": 8.999915955031227,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 29,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.2267976785662604e-05,
+        "idempotency_relative_frobenius": 1.7102210345872156e-05,
+        "trace": 8.999880800662098,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 29,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 7.537947911251397e-06,
+        "idempotency_relative_frobenius": 2.2142511756131015e-05,
+        "trace": 8.999855974432734,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 29,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.06710564740753e-05,
+        "idempotency_relative_frobenius": 3.3096795583339106e-05,
+        "trace": 8.99984823435831,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 29,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 9.178161189504763e-06,
+        "idempotency_relative_frobenius": 1.8705160935240098e-05,
+        "trace": 7.999859987542777,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 30,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 4.656140590753033e-05,
+        "idempotency_relative_frobenius": 7.212773464865876e-05,
+        "trace": 1.9998870071208712,
+        "approximate_rank": 2
+      },
+      {
+        "layer": 30,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 7.8025338826615e-06,
+        "idempotency_relative_frobenius": 2.03423984595986e-05,
+        "trace": 5.999904235444855,
+        "approximate_rank": 6
+      },
+      {
+        "layer": 30,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 5.382193710268268e-06,
+        "idempotency_relative_frobenius": 8.01579533751213e-06,
+        "trace": 7.99994557297606,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 30,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.986218413807528e-05,
+        "idempotency_relative_frobenius": 3.5027299519743455e-05,
+        "trace": 2.999923397348182,
+        "approximate_rank": 3
+      },
+      {
+        "layer": 30,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 8.166109999707682e-06,
+        "idempotency_relative_frobenius": 3.68947836413608e-05,
+        "trace": 2.999913994141992,
+        "approximate_rank": 3
+      },
+      {
+        "layer": 30,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 8.413635548903953e-06,
+        "idempotency_relative_frobenius": 4.365965460993404e-05,
+        "trace": 0.999956342899144,
+        "approximate_rank": 1
+      },
+      {
+        "layer": 30,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 5.717818287065413e-06,
+        "idempotency_relative_frobenius": 1.2348142083725157e-05,
+        "trace": 8.999902725731928,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 30,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 3.747812686510921e-05,
+        "idempotency_relative_frobenius": 0.00010324337370561799,
+        "trace": 0.9998967728871561,
+        "approximate_rank": 1
+      },
+      {
+        "layer": 31,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 8.502357457640386e-06,
+        "idempotency_relative_frobenius": 1.4650621505738472e-05,
+        "trace": 7.999900344425512,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 31,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.0242676922844751e-05,
+        "idempotency_relative_frobenius": 1.5133097041129583e-05,
+        "trace": 7.999907086368086,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 31,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.1266898911843626e-05,
+        "idempotency_relative_frobenius": 2.1517739951633963e-05,
+        "trace": 4.999905048694698,
+        "approximate_rank": 5
+      },
+      {
+        "layer": 31,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.4694510908519476e-05,
+        "idempotency_relative_frobenius": 1.676376285699973e-05,
+        "trace": 7.999883814590389,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 31,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.0959166868718118e-05,
+        "idempotency_relative_frobenius": 2.7980398417204864e-05,
+        "trace": 2.9999203055657087,
+        "approximate_rank": 3
+      },
+      {
+        "layer": 31,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.1167764021102755e-05,
+        "idempotency_relative_frobenius": 1.5163599408041299e-05,
+        "trace": 7.999906614949764,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 31,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 8.743400912725185e-06,
+        "idempotency_relative_frobenius": 1.7720575140681655e-05,
+        "trace": 4.999919934783315,
+        "approximate_rank": 5
+      },
+      {
+        "layer": 31,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.0747433873414813e-05,
+        "idempotency_relative_frobenius": 1.464717376194331e-05,
+        "trace": 6.999903701609972,
+        "approximate_rank": 7
+      },
+      {
+        "layer": 32,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.4184068660494376e-05,
+        "idempotency_relative_frobenius": 1.4748150656038866e-05,
+        "trace": 7.999901684107172,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 32,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 8.193301683778742e-06,
+        "idempotency_relative_frobenius": 1.6355324828459017e-05,
+        "trace": 8.999867311630226,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 32,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.2466931750942933e-05,
+        "idempotency_relative_frobenius": 1.8127998100661058e-05,
+        "trace": 8.999863849843237,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 32,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 3.7599476208349802e-06,
+        "idempotency_relative_frobenius": 2.0678345575328235e-05,
+        "trace": 1.999962187618,
+        "approximate_rank": 2
+      },
+      {
+        "layer": 32,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.612058163320441e-06,
+        "idempotency_relative_frobenius": 1.0014261573534967e-05,
+        "trace": 4.9999518630121145,
+        "approximate_rank": 5
+      },
+      {
+        "layer": 32,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 3.1330395304229874e-06,
+        "idempotency_relative_frobenius": 1.6523310044867886e-05,
+        "trace": 4.999935042817436,
+        "approximate_rank": 5
+      },
+      {
+        "layer": 32,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 4.761388166518721e-07,
+        "idempotency_relative_frobenius": 1.5698338727740916e-06,
+        "trace": 0.999998429601741,
+        "approximate_rank": 1
+      },
+      {
+        "layer": 32,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.1385679466124898e-05,
+        "idempotency_relative_frobenius": 3.9550679382551104e-05,
+        "trace": 0.9999604423641664,
+        "approximate_rank": 1
+      },
+      {
+        "layer": 33,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.1165650833588892e-05,
+        "idempotency_relative_frobenius": 1.62851283553275e-05,
+        "trace": 11.999833055249349,
+        "approximate_rank": 12
+      },
+      {
+        "layer": 33,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 5.596882619585131e-06,
+        "idempotency_relative_frobenius": 1.387352377760824e-05,
+        "trace": 8.999893062017518,
+        "approximate_rank": 9
+      },
+      {
+        "layer": 33,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 9.390148905996654e-06,
+        "idempotency_relative_frobenius": 1.3923797918903604e-05,
+        "trace": 7.999898334690573,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 33,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.0092607546141608e-05,
+        "idempotency_relative_frobenius": 1.7331208734062828e-05,
+        "trace": 7.999871529778309,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 33,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 6.337178815485345e-06,
+        "idempotency_relative_frobenius": 9.887775766764377e-06,
+        "trace": 6.999940979841158,
+        "approximate_rank": 7
+      },
+      {
+        "layer": 33,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.4045987610344923e-05,
+        "idempotency_relative_frobenius": 1.4780842669979897e-05,
+        "trace": 9.999869708211794,
+        "approximate_rank": 10
+      },
+      {
+        "layer": 33,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 6.056709114521386e-06,
+        "idempotency_relative_frobenius": 1.2565986341004114e-05,
+        "trace": 9.999896255405787,
+        "approximate_rank": 10
+      },
+      {
+        "layer": 33,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 6.67397469211739e-06,
+        "idempotency_relative_frobenius": 8.357271405768947e-06,
+        "trace": 7.999944392371546,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 34,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 9.15177270599532e-06,
+        "idempotency_relative_frobenius": 1.3482627291769529e-05,
+        "trace": 7.999899325694823,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 34,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 7.75400143732119e-06,
+        "idempotency_relative_frobenius": 2.4677168867767633e-05,
+        "trace": 4.9999052169946,
+        "approximate_rank": 5
+      },
+      {
+        "layer": 34,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 9.77100092441896e-06,
+        "idempotency_relative_frobenius": 1.8683378521548517e-05,
+        "trace": 2.999949519661408,
+        "approximate_rank": 3
+      },
+      {
+        "layer": 34,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.95655203027445e-05,
+        "idempotency_relative_frobenius": 5.707320218428574e-05,
+        "trace": 0.9999429324546432,
+        "approximate_rank": 1
+      },
+      {
+        "layer": 34,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.0968870020500177e-05,
+        "idempotency_relative_frobenius": 2.4374446827363227e-05,
+        "trace": 4.9999020592160806,
+        "approximate_rank": 5
+      },
+      {
+        "layer": 34,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.2835009601697145e-05,
+        "idempotency_relative_frobenius": 2.9683050357284088e-05,
+        "trace": 2.999935339123951,
+        "approximate_rank": 3
+      },
+      {
+        "layer": 34,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.5747336307603277e-05,
+        "idempotency_relative_frobenius": 1.829921502420433e-05,
+        "trace": 7.999879266837636,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 34,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 9.916415355082364e-06,
+        "idempotency_relative_frobenius": 1.713968195255182e-05,
+        "trace": 7.999879790895287,
+        "approximate_rank": 8
+      },
+      {
+        "layer": 35,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.3659728896442402e-05,
+        "idempotency_relative_frobenius": 2.2990031477912496e-05,
+        "trace": 0.9999770033129309,
+        "approximate_rank": 1
+      },
+      {
+        "layer": 35,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 4.459604052697852e-05,
+        "idempotency_relative_frobenius": 7.90639338768005e-05,
+        "trace": 0.9999209333565293,
+        "approximate_rank": 1
+      },
+      {
+        "layer": 35,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.5790536057380677e-05,
+        "idempotency_relative_frobenius": 4.6754576724742866e-05,
+        "trace": 0.9999532455625584,
+        "approximate_rank": 1
+      },
+      {
+        "layer": 35,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.6717396097876147e-05,
+        "idempotency_relative_frobenius": 2.702479436971549e-05,
+        "trace": 1.999949837223994,
+        "approximate_rank": 2
+      },
+      {
+        "layer": 35,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.15667605383174e-05,
+        "idempotency_relative_frobenius": 3.0043525898280937e-05,
+        "trace": 0.9999699580138497,
+        "approximate_rank": 1
+      },
+      {
+        "layer": 35,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.3732595402892187e-05,
+        "idempotency_relative_frobenius": 3.203200887931384e-05,
+        "trace": 1.9999364501908303,
+        "approximate_rank": 2
+      },
+      {
+        "layer": 35,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.312759024530875e-05,
+        "idempotency_relative_frobenius": 3.7716450316647154e-05,
+        "trace": 2.9999068969470954,
+        "approximate_rank": 3
+      },
+      {
+        "layer": 35,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.7828317502077695e-05,
+        "idempotency_relative_frobenius": 2.455494963481983e-05,
+        "trace": 2.9999389943443475,
+        "approximate_rank": 3
+      }
+    ]
+  },
+  "negative": {
+    "path": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_smoke16/Qwen3-8B_neg_proj.pt",
+    "sha256": "6d911e40735f500c54050d509e73da9b78c2123e4eb8336e2a003d42f021fc2a",
+    "layers": [
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ],
+    "shape": [
+      10,
+      8,
+      128,
+      128
+    ],
+    "dtype": "torch.float32",
+    "finite": true,
+    "total_heads": 80,
+    "nonzero_heads": 80,
+    "zero_heads": 0,
+    "max_symmetry_error": 0.0,
+    "max_idempotency_error": 3.148928422547215e-05,
+    "heads": [
+      {
+        "layer": 26,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.045451029275558e-05,
+        "idempotency_relative_frobenius": 1.898106039308806e-05,
+        "trace": 125.99821078777313,
+        "approximate_rank": 126
+      },
+      {
+        "layer": 26,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.955340973258668e-05,
+        "idempotency_relative_frobenius": 1.833080570363275e-05,
+        "trace": 118.99836987257004,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 26,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.0604590783457333e-05,
+        "idempotency_relative_frobenius": 2.0261765202166338e-05,
+        "trace": 123.99816566705704,
+        "approximate_rank": 124
+      },
+      {
+        "layer": 26,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.2183049036117453e-05,
+        "idempotency_relative_frobenius": 2.112326366698817e-05,
+        "trace": 118.99811190366745,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 26,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.033014372004871e-05,
+        "idempotency_relative_frobenius": 1.959445605294661e-05,
+        "trace": 118.99828279018402,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 26,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.840620731752285e-05,
+        "idempotency_relative_frobenius": 1.819561338928897e-05,
+        "trace": 119.99842828512192,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 26,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9668037068543143e-05,
+        "idempotency_relative_frobenius": 1.9302191075304392e-05,
+        "trace": 118.99829724431038,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 26,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.040385385337906e-05,
+        "idempotency_relative_frobenius": 1.8444784068225258e-05,
+        "trace": 117.99836277961731,
+        "approximate_rank": 118
+      },
+      {
+        "layer": 27,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.0106081269455345e-05,
+        "idempotency_relative_frobenius": 1.9115814086211416e-05,
+        "trace": 125.99822628498077,
+        "approximate_rank": 126
+      },
+      {
+        "layer": 27,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.8551807146272026e-05,
+        "idempotency_relative_frobenius": 1.8735707089277557e-05,
+        "trace": 116.99838680028915,
+        "approximate_rank": 117
+      },
+      {
+        "layer": 27,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.010321858447739e-05,
+        "idempotency_relative_frobenius": 1.9201679272014106e-05,
+        "trace": 121.99826788902283,
+        "approximate_rank": 122
+      },
+      {
+        "layer": 27,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.104375909306455e-05,
+        "idempotency_relative_frobenius": 2.013156812812022e-05,
+        "trace": 121.99818348884583,
+        "approximate_rank": 122
+      },
+      {
+        "layer": 27,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.121649804109893e-05,
+        "idempotency_relative_frobenius": 1.936835632461319e-05,
+        "trace": 116.9983032643795,
+        "approximate_rank": 117
+      },
+      {
+        "layer": 27,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.3014095882123442e-05,
+        "idempotency_relative_frobenius": 2.0578722864946942e-05,
+        "trace": 121.99807929992676,
+        "approximate_rank": 122
+      },
+      {
+        "layer": 27,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.2152226858973556e-05,
+        "idempotency_relative_frobenius": 1.9997383177683243e-05,
+        "trace": 118.99829071760178,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 27,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.497328808770405e-05,
+        "idempotency_relative_frobenius": 1.893190566641602e-05,
+        "trace": 117.99841353297234,
+        "approximate_rank": 118
+      },
+      {
+        "layer": 28,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.341238643266408e-05,
+        "idempotency_relative_frobenius": 1.961283570986289e-05,
+        "trace": 119.99825876951218,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 28,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.234938416012522e-05,
+        "idempotency_relative_frobenius": 1.9704423470228887e-05,
+        "trace": 121.99817597866058,
+        "approximate_rank": 122
+      },
+      {
+        "layer": 28,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9347378305445417e-05,
+        "idempotency_relative_frobenius": 2.114605672845436e-05,
+        "trace": 116.99826815724373,
+        "approximate_rank": 117
+      },
+      {
+        "layer": 28,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.0401238349343487e-05,
+        "idempotency_relative_frobenius": 1.942800905453889e-05,
+        "trace": 118.99829894304276,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 28,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.992245830340078e-05,
+        "idempotency_relative_frobenius": 1.9027794528621307e-05,
+        "trace": 119.99831533432007,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 28,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.348337163171621e-05,
+        "idempotency_relative_frobenius": 1.9545680758664836e-05,
+        "trace": 120.99826708436012,
+        "approximate_rank": 121
+      },
+      {
+        "layer": 28,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.8268358152995212e-05,
+        "idempotency_relative_frobenius": 1.9005324251027367e-05,
+        "trace": 124.99824047088623,
+        "approximate_rank": 125
+      },
+      {
+        "layer": 28,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.1050857363813513e-05,
+        "idempotency_relative_frobenius": 1.891113378732864e-05,
+        "trace": 126.99825221300125,
+        "approximate_rank": 127
+      },
+      {
+        "layer": 29,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.220904468153151e-05,
+        "idempotency_relative_frobenius": 1.8347745443337848e-05,
+        "trace": 118.99836549162865,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 29,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.3709540031169318e-05,
+        "idempotency_relative_frobenius": 1.913990885444579e-05,
+        "trace": 121.99818134307861,
+        "approximate_rank": 122
+      },
+      {
+        "layer": 29,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.0555249376164042e-05,
+        "idempotency_relative_frobenius": 1.7184495645078603e-05,
+        "trace": 118.99844969809055,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 29,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.486529343492805e-05,
+        "idempotency_relative_frobenius": 2.09596614566911e-05,
+        "trace": 118.99823614954948,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 29,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.2787903485088634e-05,
+        "idempotency_relative_frobenius": 1.9573805177568185e-05,
+        "trace": 118.99821889400482,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 29,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.8466399404171163e-05,
+        "idempotency_relative_frobenius": 1.8732571949542665e-05,
+        "trace": 118.99847650527954,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 29,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.386967800993567e-05,
+        "idempotency_relative_frobenius": 2.0820681256147205e-05,
+        "trace": 118.9980901479721,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 29,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.0840392808141317e-05,
+        "idempotency_relative_frobenius": 1.8957863117284497e-05,
+        "trace": 119.99831038713455,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 30,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.8862353151849476e-05,
+        "idempotency_relative_frobenius": 1.9822916153055686e-05,
+        "trace": 125.99818742275238,
+        "approximate_rank": 126
+      },
+      {
+        "layer": 30,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9494623810456524e-05,
+        "idempotency_relative_frobenius": 1.8798577314804264e-05,
+        "trace": 121.99834856390953,
+        "approximate_rank": 122
+      },
+      {
+        "layer": 30,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.8736771111527162e-05,
+        "idempotency_relative_frobenius": 1.8325212435281807e-05,
+        "trace": 118.99838384985924,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 30,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.0931737111262727e-05,
+        "idempotency_relative_frobenius": 1.903336185921143e-05,
+        "trace": 124.99820917844772,
+        "approximate_rank": 125
+      },
+      {
+        "layer": 30,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.376922160407524e-05,
+        "idempotency_relative_frobenius": 1.9907949411287134e-05,
+        "trace": 123.99819278717041,
+        "approximate_rank": 124
+      },
+      {
+        "layer": 30,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.8218986021389938e-05,
+        "idempotency_relative_frobenius": 1.8273776933697874e-05,
+        "trace": 126.99840396642685,
+        "approximate_rank": 127
+      },
+      {
+        "layer": 30,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9609006856491362e-05,
+        "idempotency_relative_frobenius": 1.9062189179268474e-05,
+        "trace": 118.99828913807869,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 30,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9748571690625383e-05,
+        "idempotency_relative_frobenius": 1.8808657971358482e-05,
+        "trace": 126.99828922748566,
+        "approximate_rank": 127
+      },
+      {
+        "layer": 31,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.8761705021130837e-05,
+        "idempotency_relative_frobenius": 1.8505240413543202e-05,
+        "trace": 118.9983726143837,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 31,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.3594864480225297e-05,
+        "idempotency_relative_frobenius": 2.0791007409376445e-05,
+        "trace": 118.9980770945549,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 31,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.1286245711182872e-05,
+        "idempotency_relative_frobenius": 2.027760448067869e-05,
+        "trace": 122.99815028905869,
+        "approximate_rank": 123
+      },
+      {
+        "layer": 31,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.2068995655155632e-05,
+        "idempotency_relative_frobenius": 2.047130035282712e-05,
+        "trace": 119.99820548295975,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 31,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.018353156441055e-05,
+        "idempotency_relative_frobenius": 2.0248592193048044e-05,
+        "trace": 124.9980360865593,
+        "approximate_rank": 125
+      },
+      {
+        "layer": 31,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.8345370141559236e-05,
+        "idempotency_relative_frobenius": 1.822159764263452e-05,
+        "trace": 119.99841180443764,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 31,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.0610033588219778e-05,
+        "idempotency_relative_frobenius": 1.962657231051643e-05,
+        "trace": 122.99820786714554,
+        "approximate_rank": 123
+      },
+      {
+        "layer": 31,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.078313826059386e-05,
+        "idempotency_relative_frobenius": 1.8790480778207096e-05,
+        "trace": 120.99825447797775,
+        "approximate_rank": 121
+      },
+      {
+        "layer": 32,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.4850849876023595e-05,
+        "idempotency_relative_frobenius": 2.1486071708993453e-05,
+        "trace": 119.99821688234806,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 32,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.2722473040470703e-05,
+        "idempotency_relative_frobenius": 2.062122693136342e-05,
+        "trace": 117.99819856882095,
+        "approximate_rank": 118
+      },
+      {
+        "layer": 32,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.168509371225369e-05,
+        "idempotency_relative_frobenius": 2.0026813175807992e-05,
+        "trace": 118.9982540011406,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 32,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9265393118694796e-05,
+        "idempotency_relative_frobenius": 1.9301689207679124e-05,
+        "trace": 125.99820482730865,
+        "approximate_rank": 126
+      },
+      {
+        "layer": 32,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.135800230362861e-05,
+        "idempotency_relative_frobenius": 2.066821610985912e-05,
+        "trace": 121.99805283546448,
+        "approximate_rank": 122
+      },
+      {
+        "layer": 32,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.7686428289032108e-05,
+        "idempotency_relative_frobenius": 1.7872934235993678e-05,
+        "trace": 121.99841767549515,
+        "approximate_rank": 122
+      },
+      {
+        "layer": 32,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.827274857946204e-05,
+        "idempotency_relative_frobenius": 1.833635313302505e-05,
+        "trace": 126.998341858387,
+        "approximate_rank": 127
+      },
+      {
+        "layer": 32,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9650872620236015e-05,
+        "idempotency_relative_frobenius": 1.9572715166003862e-05,
+        "trace": 125.9982321858406,
+        "approximate_rank": 126
+      },
+      {
+        "layer": 33,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.1153798860362727e-05,
+        "idempotency_relative_frobenius": 2.0229883247392538e-05,
+        "trace": 115.99821481108665,
+        "approximate_rank": 116
+      },
+      {
+        "layer": 33,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.4680731619985963e-05,
+        "idempotency_relative_frobenius": 2.1669812735392775e-05,
+        "trace": 118.99802148342133,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 33,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.6076493526483446e-05,
+        "idempotency_relative_frobenius": 2.1592581283874045e-05,
+        "trace": 118.99805122613907,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 33,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.3294011915586665e-05,
+        "idempotency_relative_frobenius": 2.0598080821358525e-05,
+        "trace": 119.99816563725471,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 33,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.409422891913593e-05,
+        "idempotency_relative_frobenius": 1.94842597071962e-05,
+        "trace": 119.99819877743721,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 33,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.346836549493858e-05,
+        "idempotency_relative_frobenius": 1.8892773689239307e-05,
+        "trace": 117.99831610918045,
+        "approximate_rank": 118
+      },
+      {
+        "layer": 33,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.0726496390288673e-05,
+        "idempotency_relative_frobenius": 1.977994243372624e-05,
+        "trace": 117.99830144643784,
+        "approximate_rank": 118
+      },
+      {
+        "layer": 33,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.506709333849333e-05,
+        "idempotency_relative_frobenius": 2.1156737749280122e-05,
+        "trace": 119.9981786608696,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 34,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9415572667158543e-05,
+        "idempotency_relative_frobenius": 1.8349058777772725e-05,
+        "trace": 118.99834856390953,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 34,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.0402733894031577e-05,
+        "idempotency_relative_frobenius": 1.8827994889492127e-05,
+        "trace": 122.99822753667831,
+        "approximate_rank": 123
+      },
+      {
+        "layer": 34,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.221313650607737e-05,
+        "idempotency_relative_frobenius": 1.952153007992086e-05,
+        "trace": 124.99815607070923,
+        "approximate_rank": 125
+      },
+      {
+        "layer": 34,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9674926965862483e-05,
+        "idempotency_relative_frobenius": 1.9651005491418124e-05,
+        "trace": 126.99815011024475,
+        "approximate_rank": 127
+      },
+      {
+        "layer": 34,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.0606786556354173e-05,
+        "idempotency_relative_frobenius": 1.9400845552127434e-05,
+        "trace": 122.99825417995453,
+        "approximate_rank": 123
+      },
+      {
+        "layer": 34,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.895962761810921e-05,
+        "idempotency_relative_frobenius": 1.80860641045818e-05,
+        "trace": 124.99842196702957,
+        "approximate_rank": 125
+      },
+      {
+        "layer": 34,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.8626066971449973e-05,
+        "idempotency_relative_frobenius": 1.7360116063577416e-05,
+        "trace": 119.99866825342178,
+        "approximate_rank": 120
+      },
+      {
+        "layer": 34,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.281394726932895e-05,
+        "idempotency_relative_frobenius": 2.1361034952743232e-05,
+        "trace": 118.99806183576584,
+        "approximate_rank": 119
+      },
+      {
+        "layer": 35,
+        "kv_head": 0,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 3.148928422547215e-05,
+        "idempotency_relative_frobenius": 1.7831535920153123e-05,
+        "trace": 126.99839118123055,
+        "approximate_rank": 127
+      },
+      {
+        "layer": 35,
+        "kv_head": 1,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.130110117293249e-05,
+        "idempotency_relative_frobenius": 1.8932151572262538e-05,
+        "trace": 126.998410820961,
+        "approximate_rank": 127
+      },
+      {
+        "layer": 35,
+        "kv_head": 2,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.7741835943052564e-05,
+        "idempotency_relative_frobenius": 1.7398794660550096e-05,
+        "trace": 125.99842822551727,
+        "approximate_rank": 126
+      },
+      {
+        "layer": 35,
+        "kv_head": 3,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.939711792076082e-05,
+        "idempotency_relative_frobenius": 1.8946025612415944e-05,
+        "trace": 125.99834752082825,
+        "approximate_rank": 126
+      },
+      {
+        "layer": 35,
+        "kv_head": 4,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.7501636681016564e-05,
+        "idempotency_relative_frobenius": 1.7611902030026222e-05,
+        "trace": 126.99841064214706,
+        "approximate_rank": 127
+      },
+      {
+        "layer": 35,
+        "kv_head": 5,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9266956995500628e-05,
+        "idempotency_relative_frobenius": 1.8523983415637466e-05,
+        "trace": 125.99831503629684,
+        "approximate_rank": 126
+      },
+      {
+        "layer": 35,
+        "kv_head": 6,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 1.9454633464865978e-05,
+        "idempotency_relative_frobenius": 1.9443517009349114e-05,
+        "trace": 125.99816107749939,
+        "approximate_rank": 126
+      },
+      {
+        "layer": 35,
+        "kv_head": 7,
+        "nonzero": true,
+        "symmetry_max_abs": 0.0,
+        "idempotency_max_abs": 2.157790452661512e-05,
+        "idempotency_relative_frobenius": 2.035117027931023e-05,
+        "trace": 124.99808841943741,
+        "approximate_rank": 125
+      }
+    ]
+  },
+  "positive_has_nonzero_signal": true,
+  "negative_has_nonzero_signal": true,
+  "elapsed_seconds": 16.722039802989457,
+  "checker_sha256": "5cee57849156d8b1c6a066a03fc5026b818a31a13141b95c51c162fe32b78ec9"
+}
