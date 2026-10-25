@@ -1,0 +1,112 @@
+{
+  "status": "failed",
+  "independent_implementation": true,
+  "new_gpu_forwards": 0,
+  "pr33": {
+    "scope": "Independent CSV counts and paired statistics; not fresh GPU or full logits replay",
+    "prediction_sha256": "0c39c5c14189f311986a658f33656896f5df44da9bf20317e144b2bcb6e75053",
+    "models": {
+      "qwen": {
+        "counts": {
+          "original": 375,
+          "static": 500,
+          "dynamic": 504,
+          "residual": 506,
+          "no_delta": 505,
+          "numeric_null": 504,
+          "option_rotation": 499,
+          "sign_flip": 503,
+          "reverse": 497
+        },
+        "residual_vs_no_delta": {
+          "corrected": 16,
+          "regressed": 15,
+          "accuracy_delta": 0.00125,
+          "by_tree": {
+            "aml_7": {
+              "n": 200,
+              "corrected": 2,
+              "regressed": 3,
+              "net": -1
+            },
+            "bre_1": {
+              "n": 200,
+              "corrected": 2,
+              "regressed": 2,
+              "net": 0
+            },
+            "pancreatic_11": {
+              "n": 200,
+              "corrected": 3,
+              "regressed": 4,
+              "net": -1
+            },
+            "vulvar_3": {
+              "n": 200,
+              "corrected": 9,
+              "regressed": 6,
+              "net": 3
+            }
+          },
+          "exact_tree_bootstrap_ci95": [
+            -0.005,
+            0.01
+          ],
+          "interpretation": "Descriptive development interval; does not account for method-design selection"
+        }
+      },
+      "llama": {
+        "counts": {
+          "original": 374,
+          "static": 488,
+          "dynamic": 503,
+          "residual": 506,
+          "no_delta": 503,
+          "numeric_null": 504,
+          "option_rotation": 498,
+          "sign_flip": 507,
+          "reverse": 498
+        },
+        "residual_vs_no_delta": {
+          "corrected": 16,
+          "regressed": 13,
+          "accuracy_delta": 0.00375,
+          "by_tree": {
+            "aml_7": {
+              "n": 200,
+              "corrected": 3,
+              "regressed": 1,
+              "net": 2
+            },
+            "bre_1": {
+              "n": 200,
+              "corrected": 2,
+              "regressed": 4,
+              "net": -2
+            },
+            "pancreatic_11": {
+              "n": 200,
+              "corrected": 3,
+              "regressed": 3,
+              "net": 0
+            },
+            "vulvar_3": {
+              "n": 200,
+              "corrected": 8,
+              "regressed": 5,
+              "net": 3
+            }
+          },
+          "exact_tree_bootstrap_ci95": [
+            -0.005,
+            0.0125
+          ],
+          "interpretation": "Descriptive development interval; does not account for method-design selection"
+        }
+      }
+    }
+  },
+  "error": "ValueError: PR35 held-out fold choice mismatch",
+  "elapsed_seconds": 1.8254196643829346,
+  "checker_sha256": "dddfbf7e2d50b88a43d132b06ced930089f872cd4c0c32c964dadbcc78f33cd0"
+}
