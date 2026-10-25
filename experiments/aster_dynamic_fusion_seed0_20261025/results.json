@@ -1,0 +1,101 @@
+{
+  "status": "completed_offline_dev_seed0_only",
+  "models": [
+    "qwen",
+    "llama"
+  ],
+  "patients_per_model": 200,
+  "records_per_model": 800,
+  "trees": [
+    "aml_7",
+    "bre_1",
+    "pancreatic_11",
+    "vulvar_3"
+  ],
+  "provenance": {
+    "qwen_blob": "27e6880334a27be0962d2e2594ff08d39b52a24f",
+    "llama_blob": "6f7c855dca45011299b03618eb70cfe952377f15"
+  },
+  "qwen": {
+    "original": 0.46875,
+    "direct": 0.54125,
+    "fusion075": 0.565,
+    "static_oof": {
+      "n": 800,
+      "correct": 500,
+      "accuracy": 0.625,
+      "harm": 0.0325,
+      "variants": {
+        "NC": 0.755,
+        "IC": 0.725,
+        "AC": 0.66,
+        "SW": 0.36
+      }
+    },
+    "dynamic_gate_oof": {
+      "accuracy": 0.62,
+      "harm": 0.0325
+    },
+    "dynamic_linear_oof": {
+      "accuracy": 0.605,
+      "harm": 0.0475
+    },
+    "attention_residual_oof": {
+      "n": 800,
+      "correct": 511,
+      "accuracy": 0.63875,
+      "harm": 0.05875,
+      "variants": {
+        "NC": 0.745,
+        "IC": 0.745,
+        "AC": 0.655,
+        "SW": 0.41
+      }
+    },
+    "numeric_null_oof": 0.61875,
+    "rotated_options_oof": 0.60625,
+    "signflip_oof": 0.61375,
+    "matched_no_delta": 0.63,
+    "matched_attention": 0.63875,
+    "matched_zero_numeric": 0.63125,
+    "matched_rotated": 0.61125,
+    "matched_reverse": 0.595,
+    "attention_minus_static_acc": 0.01375,
+    "attention_minus_static_bootstrap_descriptive_ci": [
+      0,
+      0.0275
+    ],
+    "attention_minus_matched_null_acc": 0.00875,
+    "attention_minus_matched_null_ci": [
+      -0.0075,
+      0.025
+    ],
+    "published_zero_strength_changes": 13
+  },
+  "llama": {
+    "original": 0.4675,
+    "direct": 0.5475,
+    "fusion075": 0.555,
+    "static_oof": {
+      "n": 800,
+      "correct": 511,
+      "accuracy": 0.63875,
+      "harm": 0.0525,
+      "variants": {
+        "NC": 0.74,
+        "IC": 0.625,
+        "AC": 0.79,
+        "SW": 0.4
+      }
+    },
+    "dynamic_gate_oof": {
+      "accuracy": 0.63625,
+      "harm": 0.05375
+    },
+    "dynamic_linear_oof": {
+      "accuracy": 0.6025,
+      "harm": 0.04625
+    },
+    "attention_residual": "not_available"
+  }
+}
