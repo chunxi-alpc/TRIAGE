@@ -1,0 +1,171 @@
+{
+  "protocol": {
+    "status": "exploratory_post_hoc",
+    "source": "experiments/aster_p0_p3_20261025/results/p3_direct.jsonl.gz",
+    "source_blob_sha": "2ef3d176b831bcb0fbf9c19202018b24e8dbdb70",
+    "records": 24000,
+    "models": [
+      "qwen",
+      "llama"
+    ],
+    "core_variants": [
+      "NC",
+      "AC",
+      "IC",
+      "SW"
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "trees_per_model": 22,
+    "beta": 0.8,
+    "support_temperature": 0.25,
+    "formula": "argmax(0.2*onehot(original_answer)+0.8*normalize(q**4))",
+    "coverage": 1,
+    "checks": {
+      "direct_q_argmax_mismatches": 0,
+      "q_normalization_failures": 0
+    },
+    "warning": "The hard-anchor variant was devised after prior P3 results had been inspected. Parameters were fixed from development data and not tuned on P3, but this is still exploratory post-hoc analysis, not a pristine confirmatory test. No new GPU inference was performed."
+  },
+  "models": {
+    "qwen": {
+      "n": 12000,
+      "accuracy": {
+        "original": 0.4680833333,
+        "direct": 0.73675,
+        "hard_anchor": 0.73375
+      },
+      "harm_rate": {
+        "direct": 0.10575,
+        "hard_anchor": 0.0484166667
+      },
+      "correction_rate": {
+        "direct": 0.3744166667,
+        "hard_anchor": 0.3140833333
+      },
+      "delta_vs_direct": {
+        "accuracy": -0.003,
+        "accuracy_ci95_tree_bootstrap": [
+          -0.0395256917,
+          0.0310137457
+        ],
+        "harm": -0.0573333333,
+        "harm_ci95_tree_bootstrap": [
+          -0.088531821,
+          -0.0295193312
+        ],
+        "correction": -0.0603333333,
+        "correction_ci95_tree_bootstrap": [
+          -0.1082934609,
+          -0.0210048011
+        ]
+      },
+      "by_variant": {
+        "NC": {
+          "original": 0.6596666667,
+          "direct": 0.6893333333,
+          "hard_anchor": 0.753,
+          "harm_direct": 0.1636666667,
+          "harm_fusion": 0.0596666667
+        },
+        "AC": {
+          "original": 0.295,
+          "direct": 0.871,
+          "hard_anchor": 0.8066666667,
+          "harm_direct": 0.0206666667,
+          "harm_fusion": 0.0133333333
+        },
+        "IC": {
+          "original": 0.646,
+          "direct": 0.6576666667,
+          "hard_anchor": 0.7096666667,
+          "harm_direct": 0.194,
+          "harm_fusion": 0.091
+        },
+        "SW": {
+          "original": 0.2716666667,
+          "direct": 0.729,
+          "hard_anchor": 0.6656666667,
+          "harm_direct": 0.0446666667,
+          "harm_fusion": 0.0296666667
+        }
+      },
+      "by_seed": {
+        "0": 0.73025,
+        "1": 0.735,
+        "2": 0.736
+      }
+    },
+    "llama": {
+      "n": 12000,
+      "accuracy": {
+        "original": 0.5224166667,
+        "direct": 0.573,
+        "hard_anchor": 0.6043333333
+      },
+      "harm_rate": {
+        "direct": 0.2015833333,
+        "hard_anchor": 0.1096666667
+      },
+      "correction_rate": {
+        "direct": 0.2521666667,
+        "hard_anchor": 0.1915833333
+      },
+      "delta_vs_direct": {
+        "accuracy": 0.0313333333,
+        "accuracy_ci95_tree_bootstrap": [
+          -0.0033018868,
+          0.0657051282
+        ],
+        "harm": -0.0919166667,
+        "harm_ci95_tree_bootstrap": [
+          -0.126076555,
+          -0.0607509741
+        ],
+        "correction": -0.0605833333,
+        "correction_ci95_tree_bootstrap": [
+          -0.1016299137,
+          -0.0323024055
+        ]
+      },
+      "by_variant": {
+        "NC": {
+          "original": 0.73,
+          "direct": 0.5476666667,
+          "hard_anchor": 0.6893333333,
+          "harm_direct": 0.29,
+          "harm_fusion": 0.1236666667
+        },
+        "AC": {
+          "original": 0.3406666667,
+          "direct": 0.831,
+          "hard_anchor": 0.7576666667,
+          "harm_direct": 0.0243333333,
+          "harm_fusion": 0.018
+        },
+        "IC": {
+          "original": 0.7046666667,
+          "direct": 0.3993333333,
+          "hard_anchor": 0.5253333333,
+          "harm_direct": 0.3906666667,
+          "harm_fusion": 0.244
+        },
+        "SW": {
+          "original": 0.3143333333,
+          "direct": 0.514,
+          "hard_anchor": 0.445,
+          "harm_direct": 0.1013333333,
+          "harm_fusion": 0.053
+        }
+      },
+      "by_seed": {
+        "0": 0.6025,
+        "1": 0.60475,
+        "2": 0.60575
+      }
+    }
+  }
+}
