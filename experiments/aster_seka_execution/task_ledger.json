@@ -35,13 +35,13 @@
     6
   ],
   "gpu_assignment": {
-    "0": "standard benchmarks / compatibility / paraphrase matched reruns",
-    "1": "paper Base checkpoint projections and standard benchmarks",
-    "6": "AdaSEKA Hotpot expert calibration"
+    "0": "CAD then Spotlight 5000 standard cases with controls",
+    "1": "BiasBios SEKA then matched-zero 5000 cases",
+    "6": "AdaSEKA default1 5000 efficacy + 5000 paraphrase cases, then 5000 zero efficacy"
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-25T17:10:48.893870+00:00",
+  "updated_at_utc": "2026-10-25T17:38:55.814171+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -81,17 +81,17 @@
     },
     {
       "id": "CounterFact_Qwen_paraphrase_matched",
-      "status": "running",
+      "status": "complete_verified",
       "evidence": "runtime/paraphrase_v3_queue.json"
     },
     {
       "id": "CounterFact_Base",
-      "status": "running",
+      "status": "complete_verified",
       "evidence": "runtime/base_counterfact_queue.json"
     },
     {
       "id": "AdaSEKA_four_experts",
-      "status": "running",
+      "status": "complete_verified",
       "evidence": "hotpot_storage_validation.json"
     },
     {
@@ -139,6 +139,21 @@
     {
       "id": "MedGUIDE_MedCalc_FaithEval",
       "status": "planned"
+    },
+    {
+      "id": "clinical_YaRN_projection",
+      "status": "complete_verified",
+      "evidence": "projection_clinical_yarn100_audit.json"
+    },
+    {
+      "id": "AdaSEKA_default_vs_paper_strength",
+      "status": "running",
+      "evidence": "adaseka_config_lock_addendum.json"
+    },
+    {
+      "id": "MedPIC_native_interface",
+      "status": "complete_verified",
+      "scope": "synthetic interface tests only; no test inference"
     }
   ]
 }

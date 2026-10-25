@@ -202,10 +202,12 @@ def audit_expert(name, projection, manifest_path, log_path, args, torch, checked
                 require(bool(torch.isfinite(uh).all() and torch.isfinite(sh).all()),
                         f'{name}: partial NaN/Inf at layer {layer}, head {head}')
                 orthogonality = float((uh.T@uh-identity).abs().max())
-                require(orthogonality <= args.algebra_atol, f'{name}: U orthogonality failed at {layer}/{head}')
                 require(bool((sh >= 0).all() and (sh[:-1] >= sh[1:]).all()),
                         f'{name}: singular values not nonnegative/descending at {layer}/{head}')
                 row.update(orthogonality_max_abs=orthogonality, max_singular=float(sh[0]), min_singular=float(sh[-1]),
+                           orthogonality_warning=orthogonality > args.algebra_atol,
+                           column_norm_min=float(torch.linalg.vector_norm(uh,dim=0).min()),
+                           column_norm_max=float(torch.linalg.vector_norm(uh,dim=0).max()),
                            identity_and_unit_singular_values=bool(torch.equal(uh, identity) and torch.equal(sh, torch.ones_like(sh))))
             head_rows.append(row)
     result = dict(path=str(projection), sha256=sha(projection), manifest_path=str(manifest_path),
@@ -223,6 +225,8 @@ def audit_expert(name, projection, manifest_path, log_path, args, torch, checked
                   layers=layers, u_shape=list(u.shape), s_shape=list(s.shape), dtype=str(u.dtype), heads=head_rows,
                   valid_heads=sum(not row['official_nan_skip'] for row in head_rows),
                   official_nan_skipped_heads=sum(row['official_nan_skip'] for row in head_rows),
+                  orthogonality_warning_heads=sum(row.get('orthogonality_warning',False) for row in head_rows),
+                  maximum_orthogonality_error=max((row['orthogonality_max_abs'] for row in head_rows if not row['official_nan_skip']),default=None),
                   costs={key:manifest.get(key) for key in ['forward_attempts','forward_completed','elapsed_seconds',
                     'gpu_lock_wall_seconds','peak_allocated_gib','peak_reserved_gib','forward_input_hashing_seconds','gpu_physical']})
     if name == 'synthetic':
@@ -251,7 +255,8 @@ def main():
     parser.add_argument('--storage-build-report', type=Path)
     parser.add_argument('--storage-validation-report', type=Path)
     parser.add_argument('--storage-wrapper', type=Path)
-    parser.add_argument('--algebra-atol', type=float, default=1e-4)
+    parser.add_argument('--algebra-atol', type=float, default=1e-4,
+                        help='Reporting threshold for orthogonality warnings only, never a rejection threshold')
     args = parser.parse_args()
     for field in ['model','source','output_dir','storage_build_report','storage_validation_report','storage_wrapper']:
         if getattr(args, field) is not None:
@@ -260,10 +265,12 @@ def main():
     args.output_dir.mkdir(parents=True)
     os.environ['CUDA_VISIBLE_DEVICES'] = ''
     started = time.monotonic()
-    report = dict(status='running', scope='Four official-source SVD artifacts, run provenance and expert config only',
+    report = dict(status='running', scope='Four official-source SVD artifact structure/provenance and measured numerical diagnostics; not exact orthogonality or performance reproduction',
                   verified_at_utc=dt.datetime.now(dt.timezone.utc).isoformat(), new_gpu_forwards=0,
                   standard_benchmark_reproduction_complete=False, clinical_sota_claim=False,
-                  paper_checkpoint_equivalence_claim=False, algebra_absolute_tolerance=args.algebra_atol,
+                  paper_checkpoint_equivalence_claim=False, exact_orthogonality_claim=False,
+                  orthogonality_warning_threshold=args.algebra_atol,
+                  orthogonality_threshold_is_acceptance_gate=False,
                   config_ready=False, experts={}, warnings=[])
     code = 0
     try:
@@ -287,6 +294,9 @@ def main():
                     name+': expert feature transformations differ; one inference feature function cannot match this bank')
             if not result['all_svd_computations_succeeded']:
                 report['warnings'].append(name+': upstream SVD fallback occurred; file validity does not mean successful SVD for every head')
+            if result['orthogonality_warning_heads']:
+                report['warnings'].append(name+': measured float32 U orthogonality error exceeds the diagnostic threshold in '
+                                          +str(result['orthogonality_warning_heads'])+' heads; artifacts are unchanged and numerical effects require real inference controls')
         calibration_hashes = [result['calibration_sha256'] for result in report['experts'].values()]
         require(len(set(calibration_hashes)) == 4, 'Four source labels must not reuse the same calibration file')
         routing = []

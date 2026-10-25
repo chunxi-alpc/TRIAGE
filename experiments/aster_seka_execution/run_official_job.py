@@ -86,7 +86,32 @@ def input_fingerprints(args, source, output, model, state):
         if flag in output_flags or flag in {'model', 'model_path', 'model_name_or_path'}:
             continue
         path = (source / value).resolve()
-        if path.is_dir() and flag in {'data','data_path','data_dir'}:
+        if path.is_dir() and flag in {'adapter_dir','reader_dir','baseline_dir','adapter_root','seka_root','official_root'}:
+            # Source directories can be this experiment root, which also owns
+            # runtime outputs, models and datasets. Fingerprint code/templates
+            # without treating those unrelated trees as method inputs.
+            for child in sorted(path.rglob('*')):
+                relative = child.relative_to(path)
+                if any(part in {'runtime','.git','__pycache__','.venv','venv'} for part in relative.parts):
+                    continue
+                if child.is_symlink():
+                    resolved = child.resolve()
+                    if not resolved.is_relative_to(path):
+                        raise ValueError('Source/template symlink escapes declared source directory: '+str(child))
+                    if any(part in {'runtime','.git','__pycache__','.venv','venv'} for part in resolved.relative_to(path).parts):
+                        raise ValueError('Source/template symlink targets an excluded directory: '+str(child))
+                if child.is_file() and child.suffix in {'.py','.txt','.jinja','.jinja2'}:
+                    include(child, '--'+flag+' source/template')
+        elif flag == 'dataset_root':
+            # Development methods read vignette inputs and original guidelines,
+            # never train_val reference paths/answers or the test split.
+            # A missing/incomplete snapshot must not fall through to recursive
+            # hashing of the entire dataset, including withheld references.
+            if not (path/'train_val'/'vignette_cases.jsonl').is_file() or not (path/'train_val'/'guideline_md').is_dir():
+                raise FileNotFoundError('MEGA dataset root requires train_val/vignette_cases.jsonl and train_val/guideline_md: '+str(path))
+            include(path/'train_val'/'vignette_cases.jsonl','--dataset-root train_val method inputs')
+            include(path/'train_val'/'guideline_md','--dataset-root train_val guidelines')
+        elif path.is_dir() and flag in {'data','data_path','data_dir'}:
             if (path/'counterfact.jsonl').is_file():
                 include(path/'counterfact.jsonl','--'+flag+' (CounterFact input only)')
             elif (path/'biasbios.json').is_file():

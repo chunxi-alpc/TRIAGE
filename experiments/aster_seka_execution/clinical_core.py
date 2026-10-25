@@ -78,6 +78,42 @@ def parse_quoted_rules(raw: str, guideline: str) -> tuple[QuotedRule, ...]:
     return tuple(rules)
 
 
+def parse_quoted_rules_individually(raw: str, guideline: str):
+    """Retain every valid quotation item; log invalid items without dropping cases.
+
+    Whole-document malformed JSON remains a parse failure. Rule IDs retain the
+    original array index, including gaps, so a rejected item cannot renumber later
+    valid evidence. The existing strict validator supplies all per-item checks.
+    """
+    cleaned = raw.strip()
+    if cleaned.startswith("```json") and cleaned.endswith("```"):
+        cleaned = cleaned[7:-3].strip()
+    elif cleaned.startswith("```") and cleaned.endswith("```"):
+        cleaned = cleaned[3:-3].strip()
+    items = json.loads(cleaned)
+    if not isinstance(items, list) or not items:
+        raise ValueError("Extraction must be a nonempty JSON array")
+    valid, audits, seen = [], [], {}
+    for index, item in enumerate(items, 1):
+        serialized = json.dumps(item, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        entry = {"original_array_index": index, "rule_id": f"R{index:04d}",
+                 "item_sha256": sha(serialized), "raw_item": item}
+        try:
+            rule = parse_quoted_rules(json.dumps([item], ensure_ascii=False), guideline)[0]
+            rule = replace(rule, rule_id=f"R{index:04d}")
+            key = (rule.condition_quote, rule.action_quote, rule.exception_quotes, rule.rule_quote)
+            if key in seen:
+                entry.update(status="duplicate", duplicate_of=seen[key])
+            else:
+                seen[key] = rule.rule_id
+                valid.append(rule)
+                entry["status"] = "quotes_validated"
+        except Exception as error:
+            entry.update(status="rejected", error_type=type(error).__name__, error=str(error))
+        audits.append(entry)
+    return tuple(valid), audits
+
+
 def terms(text: str) -> set[str]:
     return {w.lower() for w in re.findall(r"[A-Za-z][A-Za-z0-9_-]*|[\u4e00-\u9fff]", text)
             if w.lower() not in STOP}

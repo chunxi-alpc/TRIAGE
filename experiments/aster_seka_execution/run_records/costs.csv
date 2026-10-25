@@ -1,11 +1,18 @@
 run,process_state,exit_code,verification_status,gpu_physical,forward_attempts,forward_completed,elapsed_seconds,peak_allocated_gib,peak_reserved_gib,python_hash_seed,manifest_sha256,error
 adaseka_biasbios_full_job,exited,0,pending,1,392,392,92.43809880095068,32.307373046875,32.9765625,0,5ea8c36ba40360d3fed5a37205a27a171edf824a23f2a9374560e2629dd1811e,
+adaseka_cf_full_adaptive_job,running,,pending,6,0,0,,,,0,7afffa2cba5fe7b9718748d6160e05e7d813dcae09d74d6b03aae27cfba1dd0f,
+adaseka_cf_smoke16_adaptive_job,exited,0,pending,6,32,32,34.31511035497533,30.601441383361816,30.658203125,0,d7abf61be1a77a36a4380711c208ef9b3140e8c9e85ab5354ffb0ba08a47099e,
+adaseka_cf_smoke16_matched_zero_job,exited,0,pending,6,32,32,34.03732649597805,30.601441383361816,30.658203125,0,928886f757b353a31e766487e476a888f2e4cc4cd442472e1ac37ae991a34bbe,
+adaseka_cf_smoke16_unsteered_fp32_job,exited,0,pending,6,16,16,25.91205765400082,31.672046661376953,32.861328125,0,350d9eebe2d194a861d53829a76415d1a14958cb92b6fef80255b75f8fe07d96,
+adaseka_cf_smoke16_unsteered_job,exited,0,pending,6,16,16,25.494791007018648,15.279399394989014,15.294921875,0,a3833ee9a68bef46e3606c176b79a9fcbe36266189c0589c504570bb961ae5b6,
 adaseka_counterfact_full_job,exited,1,pending,1,0,0,21.27787177497521,,,0,6b7c74e0bc37be9f4e16a4604515f703717f2607d66cff84acea88ffc26d92f8,JSONDecodeError: Extra data: line 2 column 1 (char 1759)
 adaseka_counterfact_full_v2_job,exited,0,pending,1,400,400,60.68584465997992,30.785122871398926,30.908203125,0,ee25ac941225a9d9fd485071750698a11bd3f4d0cbff5e4f87322c116c6ce60e,
 adaseka_hotpotqa_full_job,exited,1,pending,6,6,5,66.875495978049,77.6539454460144,78.517578125,0,e849448ef135584d74993b5670429f4b2b6faaa140f14ce6a347215e634e8cd0,"OutOfMemoryError: CUDA out of memory. Tried to allocate 546.00 MiB. GPU 0 has a total capacity of 79.28 GiB of which 327.19 MiB is free. Including non-PyTorch memory, this process has 78.95 GiB memory in use. Of the allocated memory 77.65 GiB is allocated by PyTorch, and 826.36 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)"
-adaseka_hotpotqa_storage200_job,running,,pending,6,0,0,,,,0,7060743e67a81db58d8bc65f11ebb490791e54cd5226bc9e67267e64192e7745,
+adaseka_hotpotqa_storage200_job,exited,0,pending,6,400,400,805.9147861060337,44.81811857223511,56.400390625,0,d96a48ad6ab9d5525b5ac420b12d0d705da147947ce538751191b195dc367d50,
 adaseka_synthetic_full_job,exited,0,pending,0,200,200,42.192536615999416,30.68950843811035,30.744140625,0,7b8b8e5f7c764c3a2802691ffa6383be1ef042cdf8bb29b0b6d81a007b485a82,
 adaseka_synthetic_smoke16_job,exited,0,pending,0,32,32,34.56271037500119,30.650296688079834,30.685546875,,a2da7c3189c1f0fb8ef3138ffced2a235122fc7893b52ea34be2ee4dfedf8cf3,
+biasbios_full_matched_zero_job,running,,pending,1,0,0,,,,0,9ae904cb1123f9d7ade87668b379d9f041959ba404a65bb67520105d510dbcd9,
+biasbios_full_seka_job,exited,0,pending,1,20032,20032,1141.5792370219715,18.014109134674072,19.34375,0,b51fec02c600ab87cc2183b5455c682437bda8b1acd1bb6873a7142f95e28770,
 biasbios_smoke16_job,exited,1,pending,0,64,64,29.563464495993685,15.335418701171875,15.4921875,0,2eb4dcaf409733446cc1818b691f65e3a6afa76ceb38dcfa2920e4c649a7d1cb,"LookupError: 
 **********************************************************************
   Resource 'punkt_tab' not found.
@@ -32,16 +39,22 @@ biasbios_smoke16_job,exited,1,pending,0,64,64,29.563464495993685,15.335418701171
 biasbios_smoke16_v2_job,exited,1,pending,0,64,64,29.116561677015852,15.335418701171875,15.4921875,0,c11abaee846daa550eb9a3230a3373c7fe7e88751b47d7003c1fd33906554873,AttributeError: 'csr_matrix' object has no attribute 'A'
 biasbios_smoke16_v3_job,exited,0,pending,0,1024,1024,55.36330879695015,15.402043342590332,15.58984375,0,9e20a2f9fb9bdb9af8cea0611becdf86def934fae2760078968a48fe44a5e0de,
 build_base_full100_job,exited,0,pending,1,600,600,63.42904461896978,30.612329483032227,30.701171875,0,f426e556858b6d496342316033f2e9ab1e0ead234d0fab5867920e85ff6feb08,
+build_clinical_yarn100_job,exited,0,pending,6,600,600,61.93907153396867,30.612329483032227,30.701171875,0,ae2fd8f9882151486b5d7e32bca5ef62521e7e7e9497d61dde6603a1c7f5a141,
 build_full200,exited,0,pending,0,600,600,62.6685963490163,30.612329483032227,30.701171875,,68dc56fea4edd4ee14473596b60374aad9def7183d2858fdb012518c428046f3,
 build_smoke16,exited,0,pending,0,96,96,38.06438822398195,30.560468673706055,30.626953125,,9513359c76de5c6a1320a2a1fbe9423d3165a1333f7ac3c3246feecb66232051,
+cad_full5000_job,exited,1,pending,0,14651,14651,481.22054457699414,15.273702144622803,15.43359375,0,fe54c7c05c73c22953f470c64b607341776b39930dbbf94380aef3cf4800ba97,ValueError: Empty attribute or prior question
 cad_smoke16_job,exited,0,pending,0,112,112,29.491363994020503,15.273702144622803,15.4296875,0,7bd25c5327e5a18dd53fa5e6320a0b12d007ce75b203a2432e8bdb7b312de47b,
-counterfact_base_matched_zero_job,running,,pending,1,0,0,,,,0,7362bc1da9e8ba7f94b7c247e169ec1d6ca081f12dc5b051bfcf39f9e514408e,
+counterfact_base_matched_zero_job,exited,0,pending,1,938,938,207.95925910701044,16.155110359191895,16.50390625,0,473ae64fe3f0f0383eba9d3ca25b34d60a0f7b6c6cc1f99e373039dba2786e64,
 counterfact_base_seka_job,exited,0,pending,1,938,938,160.2181676690234,16.155110359191895,16.50390625,0,7b02bd74582fbd05628c9e112ea02589a762f8ffb4b7ac9a16f502b8fe87cc6b,
+counterfact_base_unsteered_job,exited,0,pending,1,938,938,209.9015813700389,16.13572883605957,16.529296875,0,bcbc36ea54b583d46edde1b7ba3f79133ad1a899d4571b2ef29ff48a3c4a1a0f,
 counterfact_full_matched_zero_job,exited,0,pending,6,938,938,146.1178617250407,16.155110359191895,16.50390625,,8d02064ba45a05b40c348b87327c0720e5344a6cacae0585a71e7472cd053115,
 counterfact_full_pasta_job,exited,0,pending,1,938,938,249.8825785050285,17.518405437469482,18.095703125,,81a45c48f1a5da721f8bc44ebe93477fcff3ed4c3afe28941350d76f278d5dfb,
 counterfact_full_seka_job,exited,0,pending,0,938,938,148.19886691996362,16.155110359191895,16.50390625,,0cd48812345b6f78c9e270d07d0b04cb17d2b506f0bcd2e21af55ad9ec80ef31,
 counterfact_full_unsteered_job,exited,0,pending,6,938,938,135.9734622979886,16.13572883605957,16.529296875,,38c30bfbb4ce70f2af174b6e9e813fa22023806aacf5a23d307c7a61a815d67c,
-counterfact_paraphrase_v2_seka_job,running,,pending,0,0,0,,,,0,997cbe7d0a43b69a11718f79fbfd02e8ca312bdea305a5f69abd42b51131644c,
+counterfact_paraphrase_v2_matched_zero_job,exited,0,pending,0,625,625,123.7589075450087,16.150029182434082,16.404296875,0,4f87858c7cc1fd450e92595723889e49b7dacd58d1fc493be9a07fb1f3661699,
+counterfact_paraphrase_v2_pasta_job,exited,0,pending,0,625,625,182.95644885499496,17.52549409866333,17.94921875,0,df1c6c89826fe7fc844bbd03de7c603602c8a0045af605fa61ed668447c73726,
+counterfact_paraphrase_v2_seka_job,exited,0,pending,0,625,625,112.1777915279963,16.154263496398926,16.474609375,0,8fffafee94aaba3e3022162f393926dd8fdf4dccc18c8bae11572ee52a3c0eb5,
+counterfact_paraphrase_v2_unsteered_job,exited,0,pending,0,625,625,118.6827505849651,16.13530921936035,16.375,0,18141515e148461bd66747ca417a9058c10c92f85fc4cf678aa9ef5b84b2c98d,
 counterfact_smoke16_job,exited,0,pending,0,16,16,25.746730508981273,15.291118621826172,15.435546875,,adb68ae20a235b2dc0bf475495d7a28b9fa1fd46f8f3cf0c30f8c99bcd26cf55,
 hotpot_storage_validation_job,exited,0,pending,6,4,4,54.06660906196339,47.01464796066284,47.505859375,0,6dfbe67b16d66b4bb68c6aafb5ed2487d7456c5187ab6e1f008c0e87807ba5dd,
 pasta_heads_full100_job,exited,0,pending,1,552,552,96.86920010001631,31.344075202941895,31.484375,,96cd67e976b454fd20369fef493fcee4ee99b8af38933a4674b99d84aaa873ea,

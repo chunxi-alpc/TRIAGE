@@ -51,6 +51,8 @@ def cli():
     parser.add_argument("--max-new-tokens", type=int, required=True)
     parser.add_argument("--extraction-max-new-tokens", type=int, required=True)
     parser.add_argument("--max-context-tokens", type=int, required=True)
+    parser.add_argument("--rope-scaling-json", type=Path,
+                        help="Optional explicit runtime RoPE configuration; default preserves checkpoint configuration")
     parser.add_argument("--seed", type=int, choices=[0], default=0)
     parser.add_argument("--include-text-controls", action="store_true")
     return parser.parse_args()
@@ -63,12 +65,15 @@ def main(args):
     from mega_trainval_reader import (OFFICIAL_COMMIT, TEMPLATES, iter_method_tasks,
                                       render_official_prompt, value_digest)
     from clinical_core import (EXTRACTION_INSTRUCTION, SELECTOR_VERSION, attach_controls, chat_prompt,
-                               condition_prompt, empty_evidence, official_prompt, parse_quoted_rules,
+                               condition_prompt, empty_evidence, official_prompt, parse_quoted_rules_individually,
                                sha, support_spans, verify_tfu_tokens)
     from src.model import SEKALLM
 
     if min(args.max_new_tokens, args.extraction_max_new_tokens, args.max_context_tokens) <= 0:
         raise ValueError("All budgets must be positive")
+    rope_scaling = json.loads(args.rope_scaling_json.read_text()) if args.rope_scaling_json else None
+    if rope_scaling is not None and not isinstance(rope_scaling, dict):
+        raise ValueError("Runtime rope_scaling must be a JSON object")
     actual_seka = subprocess.check_output(["git", "-C", str(args.seka_root), "rev-parse", "HEAD"], text=True).strip()
     actual_mega = subprocess.check_output(["git", "-C", str(args.official_root), "rev-parse", "HEAD"], text=True).strip()
     if actual_seka != PIN or actual_mega != OFFICIAL_COMMIT:
@@ -101,9 +106,12 @@ def main(args):
         "chat_role": "system", "attention_backend": "sdpa", "batch_size": 1,
         "max_new_tokens": args.max_new_tokens, "extraction_max_new_tokens": args.extraction_max_new_tokens,
         "max_context_tokens": args.max_context_tokens, "truncation": False,
+        "runtime_rope_scaling": rope_scaling,
+        "runtime_rope_scaling_file_sha256": file_sha(args.rope_scaling_json) if args.rope_scaling_json else None,
         "layers": "last10", "amplify_pos": 2.4, "amplify_neg": 0.,
         "projection_note": "Existing SEKA CounterFact-derived fixed setting; not clinically optimized or verified",
         "selector_version": SELECTOR_VERSION, "extraction_prompt_sha256": sha(EXTRACTION_INSTRUCTION),
+        "quotation_validation": "per item, retain valid quotes and original item IDs; all rejected items logged before outcome inspection",
         "arms": arms, "expected_cases": len(tasks), "expected_native_predictions": len(tasks) * len(arms),
         "versions": {p: importlib.metadata.version(p) for p in ["torch", "transformers", "tokenizers"]},
         "reference_files_read": False, "test_files_read": False,
@@ -113,14 +121,17 @@ def main(args):
     write_json(args.output_dir / "protocol.json", protocol)
     if torch.cuda.device_count() != 1:
         raise ValueError("Expose exactly the coordinator-assigned single GPU; upstream SEKA otherwise shards automatically")
+    runtime_config = {"rope_scaling": rope_scaling} if rope_scaling is not None else {}
     operator = SEKALLM(args.model, device="cuda", pos_pt=args.pos, neg_pt=args.neg, layers="last10",
-                       amplify_pos=2.4, amplify_neg=0., torch_dtype="auto", attn_implementation="sdpa")
+                       amplify_pos=2.4, amplify_neg=0., torch_dtype="auto", attn_implementation="sdpa", **runtime_config)
     adapter = StageSEKAAdapter(operator, kind="seka", source_commit=actual_seka,
                                projection_paths=[args.pos, args.neg])
     label_ids = verify_tfu_tokens(operator.tok)
     protocol.update(tfu_label_token_ids=label_ids, model_dtype=str(next(operator.model.parameters()).dtype),
                     projection_manifest=adapter.projections, generation_config=operator.model.generation_config.to_dict(),
                     chat_template_sha256=sha(operator.tok.chat_template))
+    write_json(args.output_dir / "runtime_model_config.json", operator.model.config.to_dict())
+    protocol["runtime_model_config_sha256"] = file_sha(args.output_dir / "runtime_model_config.json")
     write_json(args.output_dir / "protocol.json", protocol)
     stage_file = (args.output_dir / "stage_predictions.private.jsonl").open("x")
     native_files = {arm: (args.output_dir / f"{arm}.predictions.private.jsonl").open("x") for arm in arms}
@@ -165,22 +176,26 @@ def main(args):
 
     def extraction(task):
         key = value_digest([sha(task.guideline), args.model_fingerprint, sha(EXTRACTION_INSTRUCTION),
-                            args.extraction_max_new_tokens, 0, False])
+                            args.extraction_max_new_tokens, 0, False, protocol["runtime_model_config_sha256"],
+                            "per_item_quote_validation_v1"])
         if key in extraction_cache:
             return (*extraction_cache[key], True)
         prompt = PreparedPrompt(EXTRACTION_INSTRUCTION + task.guideline, {}, empty_evidence(), "execution", "rules")
         result, _ = infer(chat_prompt(prompt, operator.tok), PhasePolicy(False, False),
                           Control.NO_HOOK, args.extraction_max_new_tokens, capture=False)
-        rules, validation_error = (), None
+        rules, item_audit, validation_error = (), [], None
         if result["status"] == "ok":
             try:
-                rules = parse_quoted_rules(result["text"], task.guideline)
+                rules, item_audit = parse_quoted_rules_individually(result["text"], task.guideline)
             except Exception as error:
                 validation_error = f"{type(error).__name__}: {error}"
         else:
             validation_error = result.get("error", "Generation failed")
+        rejected = sum(item["status"] == "rejected" for item in item_audit)
+        validation_status = ("quotes_partially_validated" if rejected else "quotes_validated") if rules else "failed"
         record = {"cache_key": key, "guideline_sha256": sha(task.guideline), "generation": result,
-                  "validation_status": "quotes_validated" if rules else "failed",
+                  "validation_status": validation_status, "item_audit": item_audit,
+                  "rejected_rule_count": rejected,
                   "validation_error": validation_error, "rules": [asdict(r) for r in rules],
                   "semantic_correctness": "not_verified", "coverage": "not_verified"}
         write_json(cache_dir / f"{key}.json", record)

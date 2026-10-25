@@ -1,0 +1,73 @@
+{
+  "updated_at_utc": "2026-10-25T17:38:55.814171+00:00",
+  "overall_status": "running",
+  "standards_are_not_clinical_effects": true,
+  "methods": [
+    {
+      "name": "SEKA Qwen3-8B CounterFact",
+      "status": "complete_verified",
+      "implementation": "official author source",
+      "checkpoint": "adapted posttrained",
+      "evidence": "counterfact_entity_ci_v2/entity_ci.json"
+    },
+    {
+      "name": "SEKA Qwen3-8B-Base CounterFact",
+      "status": "complete_verified",
+      "implementation": "official author source",
+      "checkpoint": "paper model family, pinned official weights",
+      "evidence": "counterfact_base_comparison/comparison.json",
+      "paper_exact_reproduction": false
+    },
+    {
+      "name": "PASTA Qwen port",
+      "status": "complete_verified",
+      "scope": "CounterFact official split",
+      "implementation": "SEKA author port; hybrid correlated-head selection",
+      "evidence": "counterfact_full_pasta_verified/efficacy/audit.json"
+    },
+    {
+      "name": "AdaSEKA four experts",
+      "status": "complete_verified",
+      "scope": "projection provenance and artifacts only",
+      "evidence": "adaseka_four_experts_audit_v2/audit.json"
+    },
+    {
+      "name": "AdaSEKA default1",
+      "status": "running",
+      "scope": "full adapted CounterFact, not paper strength3",
+      "evidence": "adaseka_config_lock_addendum.json"
+    },
+    {
+      "name": "AdaSEKA paper3",
+      "status": "planned",
+      "scope": "paper amplification; adapted posttrained checkpoint",
+      "evidence": "adaseka_paper3_launch_plan.json"
+    },
+    {
+      "name": "AdaSEKA paper Base checkpoint",
+      "status": "planned"
+    },
+    {
+      "name": "CAD",
+      "status": "running",
+      "implementation": "formula/implementation adaptation",
+      "smoke_evidence": "cad_smoke16_verified_v2/audit.json"
+    },
+    {
+      "name": "Spotlight",
+      "status": "running",
+      "implementation": "paper reimplementation, not claimed official author release",
+      "smoke_evidence": "spotlight_smoke16_verified_v2/audit.json"
+    },
+    {
+      "name": "BiasBios SEKA and matched zero",
+      "status": "running",
+      "smoke_evidence": "biasbios_smoke16_v3_verified/audit.json"
+    },
+    {
+      "name": "clinical 2x2 and strong probability fusion",
+      "status": "planned",
+      "code_tests": "passed on server; no clinical outcomes yet"
+    }
+  ]
+}

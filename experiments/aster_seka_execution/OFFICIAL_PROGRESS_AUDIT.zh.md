@@ -20,6 +20,68 @@
 
 ## 同输入与成本证据
 
-后续run_official_job.py在完成forward的hook中逐调用保存input_ids和attention_mask的dtype、shape及SHA256到forward_inputs.jsonl，不保存token IDs或文本。缺失张量明确记null，不能把两份null当作已证实同输入。该证据可核对no-hook与matched-zero的实际模型输入；不同GPU设备号不参与输入hash。
+后续run_official_job.py在完成forward的hook中逐调用保存input_ids和attention_mask的dtype、shape及SHA256到forward_inputs.jsonl，不保存token IDs或文本。未提供的attention_mask明确记null；字段缺失或input_ids无指纹不能作为同输入证据，具体区分见下。该证据可核对no-hook与matched-zero的实际模型输入；不同GPU设备号不参与输入hash。
+
+后续Ada审计澄清：官方路由调用明确不传attention_mask，runner记录的attention_mask:null是实际参数None，而不是记录丢失。compare_standard.py已区分三种情况：显式None可与None匹配；字段缺失或张量指纹不完整仍为证据不足；None与tensor不相同。input_ids仍须有完整指纹，不能以其缺失/null证明输入一致。先前Ada因此被标blocked的输出保留，新审计另存路径。
 
 记录forward_input_hashing_seconds，并包含于总墙钟。该时间包括GPU到CPU拷贝、同步等待、hash和JSONL写出，不能简单从总时间扣掉后声称获得纯模型计算时间。原先未启用逐调用记录的运行不得追溯宣称已核对token级完全相同输入。
+
+## 标准集比较与Python哈希种子
+
+协调器后续报告SEKA及matched-zero已完成CounterFact标准5000病例的efficacy/paraphrase，各任务938次forward（313个efficacy批次加625个paraphrase批次），不是938病例。官方efficacy wrapper强制max_new_tokens=1，paraphrase也调用同一wrapper；不能按命令中较大的生成预算虚报实际生成token数。
+
+compare_standard.py对匿名导出的全部case ID、文件hash、每病例指标和纠正/退化进行独立只读比较。paraphrase主指标是每病例各提示胜率的均值，病例层报告改善/下降；仅在case+prompt hash完整对应时报告提示层纠正/退化，不能用单字母准确率替代。
+
+forward输入匹配按实际分段分别报告：前313次efficacy、后625次paraphrase。后段不一致不会否定前段已核实的匹配。相同输入集合但顺序不同不等于逐调用数值路径匹配；trace路径未知、文件不可读或张量信息缺失均明确标blocked，不伪称通过。
+
+官方paraphrase源码通过list(set(prompts))去重，可能受进程启动时PYTHONHASHSEED影响；它独立于数据构造、投影和生成种子。运行器只记录启动环境python_hash_seed，不在进程内设置后假装已经生效。若需固定，必须在启动Python之前设置；已有结果及负对照保留，必要重跑仅用于预先说明的同输入核对，不能依据结果挑选种子或输出。
+
+协调器已报告实际比较：efficacy前313次的input_ids及attention_mask哈希完全一致；paraphrase后625次多数批顺序不同。前者的匹配证据继续成立，后者须另列原结果及在进程启动前固定PYTHONHASHSEED=0后的必要匹配重跑。不能用后来的重跑替换或删除原负结果。
+
+## 失败记录与存储适配
+
+CounterFact专家构建曾在模型前向之前失败：运行器将--data目录中的JSONL格式biasbios.json误按单个JSON解析，产生JSONDecodeError；该任务GPU前向为0。运行器已修正为只解析显式expert配置的JSON引用，普通数据仅计算字节哈希；CounterFact目录仅登记实际counterfact.jsonl。原失败manifest保留。
+
+Hotpot官方AdaSEKA构建器曾在第三例的第二次前向发生显存不足：协调器记录5次完成、6次尝试，峰值77.65 GiB。原因是原实现保留各层完整attention矩阵；这是真实运行失败，不改写为成功，也不因它删除长样本或改用BF16。
+
+adaptive_storage.py是存储适配：保持官方FP32模型、两次完整前向、原始样本、attention kernel、索引、GPU求和、层顺序及1.2阈值逻辑；在各层attention output hook读取指定层last-query到answer span的同一sum后，返回原attn_output与None权重，使完整权重不进入后续输出存储。hidden_states和logits保留。正负提示的选择结果及逐层attention标量逐例记录，不另加筛选。
+
+validate模式必须先在同一校准源首个span有效triplet运行原路径与优化路径各两次，核对included、各选中层attention sum、所有提取key及完整logits逐位相同。build模式要求该验证通过，并核对源码、模型配置、输入数据、库版本、层与阈值；随后执行原官方run。
+
+协调器随后报告115服务器validate退出0，4次完成前向、54.07秒、峰值47.015 GiB，逐位等价检查通过。本代理已对照固定上游源码复审优化路径，未发现上述运算发生改变；完整validate JSON尚待交付后独立核对。该单例验证不意味着所有长样本已经运行，也不意味着Hotpot200已经完成。模型权重指纹由外层runner记录；wrapper自身的build门槛只核对模型路径和config，四专家审计仍须同时核对外层manifest中的权重。本地没有运行实验。该适配必须在来源标签中披露，不能暗称未修改的原路径。
+
+完整hotpot_storage_validation.json交付后，本代理已读取并核对全部记录：两条提示长度分别1223/1237，层26–35；两份完整logits及各80份key均逐位相同、最大误差0、原/优化SHA一致，10层attention标量一致，included均true。文件SHA256为ba110cd6928325aa456c21d608b4255a916afdcecb6f12d33b876d32915912e2；wrapper SHA256为4b1c4834d5addf6b8ffb1e7b95918226a6f50662aaee916b0ca9b42ad231491e，与当前源码匹配。报告内部wrapper耗时33.183718秒；外层进程54.07秒包含其他步骤，两者不能混称同一计时口径。这里独立核对的是服务器验证记录及其内部一致性，没有在本地重做模型前向；权重和远端selection文件的实际字节核验仍由服务器四专家审计执行。
+
+## AdaSEKA专家文件与路由的审计口径
+
+固定上游的adaptive SVD文件使用layers、U_matrices和singular_values；有效头核对U的实际正交误差、S有限非负且降序，整头U/S均NaN是官方min_diff跳过标记，不能误判为文件损坏。部分NaN、Inf或形状不匹配属于实际异常。原构建器在SVD异常时会用单位U和全1的S回退，必须结合真实运行日志报告；仅凭矩阵形状和正交性不能排除回退。
+
+另一个上游实际行为需与注释区分：compute_dynamic_coefficients遇到无效专家头先赋-inf，随后除以系数绝对最大值，出现非有限值则把所有专家系数改成1/专家数；get_dynamic_projection再跳过NaN专家。因而只要某层某头存在一个NaN专家，该头就会走均匀回退；这不是注释所说的softmax筛去无效专家。所有专家有效的头则使用有符号的最大绝对值归一化，也不使用softmax。独立审计应逐头标出这两个分支，保持官方代码，不据此擅自修正或抬高结果。
+
+verify_adaptive_experts.py只在服务器CPU执行，验证四个真实来源的SVD、运行日志、模型/数据/源码指纹后写入绝对路径expert配置。它不运行模型，也不能证明标准指标已复现。Ada路由读取batch第一条的最后token，后续评测使用batch_size=1，并单列额外预计算forward成本。
+
+协调器后续报告Ada的16例接口运行成功：32次forward、34.3秒、峰值30.60 GiB，实际为FP32；此前普通无干预16例为BF16、峰值15.28 GiB，两者不能用于同精度数值漂移判断。固定上游[eval_fact_gen.py](https://github.com/waylonli/SEKA/blob/aab9cfed80dc012fb9e83f8bdefb8675c33f40e7/benchmarks/eval_fact_gen.py)的普通分支明确传torch_dtype="auto"，Ada分支把该参数注释掉；[AdaptiveSEKALLM](https://github.com/waylonli/SEKA/blob/aab9cfed80dc012fb9e83f8bdefb8675c33f40e7/src/model/adaptive_seka_llm.py)直接沿用传入kwargs加载，当前环境遂默认FP32。该普通分支直接使用AutoModelForCausalLM，没有额外BaseLLM类。
+
+dtype_load_compat.py准备作为同精度对照的最小加载包装：只替换AutoModelForCausalLM.from_pretrained的torch_dtype参数，记录原参数、实际所有浮点参数dtype、loader与上游源码hash、原配置文件hash及加载后完整模型/生成配置，finally恢复原方法。它不编辑权重或官方源码，不增加forward；仍须由外层runner记录完整权重指纹和实际成本。FP32 nohook实际运行及输入/配置核验前，不把Ada zero与旧BF16基线的差异称为零强度漂移。旧BF16结果保留；这里代码已准备，本地未运行。
+
+compare_adaptive_counterfact.py单独核对Ada正强度、Ada零强度与FP32无干预的efficacy结果。每例Ada第1次为路由、第2次为生成：正/零两种Ada比较全部调用；与nohook比较时只对齐第2、4、6……次生成调用，路由前向仍单列成本。要求完整病例覆盖、FP32、batch=1、相同模型/源码指纹和真实数据hash，并核对路由与生成的token输入结构。逐例保存target/comparator log概率差、纠正退化和实际输入指纹；完整词表logits未保存，不宣称独立重算全词表漂移或argmax。原始prompt的标记差异与实际token输入相等分别报告。
+
+四专家首轮审计因额外设置的1e-4正交误差门槛失败：协调器报告synthetic第35层第2头误差0.000111790067，列范数范围[0.9999441034,1.0000074606]。这是原torch.linalg.svd(Omega_p.float())的真实FP32产物，不改算法、不替换投影。首次失败保留；修订审计把该门槛改成逐头数值告警并记录实际范围，不再将任意门槛当官方程序准入条件。complete_verified只指文件结构、来源及诊断值已核实，不表示数值精确正交；效应须后续真实推理对照。
+
+## CAD / Spotlight适配器结果审计
+
+协调器报告两种适配器的16病例接口评测已在服务器完成：CAD为112次forward，Spotlight为80次，外层耗时各约29.5秒，峰值摘要约15.27 GiB；CAD零强度记录的完整词表首步分数漂移为0。上述摘要尚不能替代匿名逐例独立复算。
+
+audit_counterfact_adapters.py读取原predictions.jsonl、内层manifest.json和外层run_manifest.json，重新计算各控制的标准efficacy均值、总体标准差、概率差，以及normal相对全部其他控制的逐例纠正/退化。原始预测、错误对齐、反向结果与失败清单均保留；匿名导出不含prompt或生成原文，也不导出可解码的token IDs。模型身份核对包括实际权重/config/tokenizer文件SHA映射，以及该映射用json.dumps(sort_keys=True)生成的内层摘要，不以检查点名字推定身份。
+
+完整词表logits未保存，故其最大漂移只能核对两份原诊断记录及可得证据，不能宣称独立重新计算全词表。目标/比较词log概率漂移和生成token变化可从逐例记录独立复算。wrong_span同token数、不同mask hash可核对，完整mask未保存时，其不相交性只来自已读源码，不能冒充逐例独立证明。
+
+内层适配器逐病例、逐control重置显存峰值，外层最终peak可能只反映末次调用。审计取所有已保存调用的最大peak；模型加载阶段在第一次reset前的峰值无法恢复，不能声称这个数就是整个进程完整峰值。外层总耗时、内层评价耗时和逐调用耗时分别保留，不相加、不扣hash时间后伪称纯模型时间。CAD normal/zero/reverse均两路forward，no_hook一路；Spotlight各控制一路，输出预算均一token，相同输出预算不等于相同总计算量。
+
+CAD和Spotlight首轮独立审计曾在版本字符串核对处停止：内层importlib.metadata.version读取2.8.0，外层torch.__version__记录2.8.0+cu128。保留该失败，以新输出目录运行修订版；修订版按PEP 440核对public版本，任一方缺失local构建后缀时不凭空补全，双方都有后缀时必须相同，并记录原值及其来源。这是版本记录口径差异，不能称为算法失败或已发现指标错误。
+
+## 输入范围与BiasBios兼容修复
+
+run_official_job.py的source目录只登记代码/模板并排除runtime、.git等；源码文件或目录链接若解析后逃出声明源码根，或进入被排除目录，即停止。显式MEGA dataset_root只登记train_val/vignette_cases.jsonl和train_val/guideline_md，缺失这两项时停止，不回退到全snapshot遍历。真实HF数据文件链接仍可解析至blobs。test_runner_fingerprints.py包含三个仅使用伪文件的服务器隔离测试：源码范围与链接拒绝、HF snapshot仅取开发输入/指南、缺失train_val组件不读取隐藏参考。尚未在本地执行。
+
+biasbios_compat.py只在csr_matrix缺少A时临时设置property(lambda self: self.toarray())，finally恢复原类定义，不编辑官方源码或已安装包。该别名与[SciPy 1.13.1官方迁移说明](https://docs.scipy.org/doc/scipy-1.13.1/reference/generated/scipy.sparse.csr_matrix.A.html)推荐的toarray()一致；不改稠密化结果、TF-IDF公式、排名或生成。协调器报告16例真实执行1024次forward、55.36秒；独立指标导出尚待结果。兼容wrapper的执行成功不替代指标独立验证，导出仍须记录wrapper来源。

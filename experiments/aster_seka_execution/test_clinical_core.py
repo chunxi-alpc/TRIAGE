@@ -12,6 +12,7 @@ import torch
 from aster_seka_adapter import PredictedSpans, PreparedPrompt, Span
 from clinical_core import (attach_controls, chat_prompt, condition_prompt, empty_evidence,
                            lexical_patient_spans, official_prompt, parse_quoted_rules,
+                           parse_quoted_rules_individually,
                            support_spans, verify_tfu_tokens)
 
 
@@ -67,6 +68,25 @@ class CoreTests(unittest.TestCase):
         data[0]["gold_rule"] = True
         with self.assertRaisesRegex(ValueError, "schema"):
             parse_quoted_rules(json.dumps(data), self.guideline)
+
+    def test_partial_quotes_keep_valid_items_and_original_ids(self):
+        items = json.loads(self.raw)
+        items.insert(1, {**items[0], "condition_quote": "invented condition"})
+        rules, audit = parse_quoted_rules_individually(json.dumps(items), self.guideline)
+        self.assertEqual([rule.rule_id for rule in rules], ["R0001", "R0003"])
+        self.assertEqual(audit[1]["status"], "rejected")
+        self.assertEqual(audit[1]["raw_item"]["condition_quote"], "invented condition")
+        self.assertEqual(len(audit[1]["item_sha256"]), 64)
+
+    def test_partial_validator_keeps_all_rejected_items(self):
+        items = [{"not_a_rule": 1}, {"not_a_rule": 2}]
+        rules, audit = parse_quoted_rules_individually(json.dumps(items), self.guideline)
+        self.assertEqual(rules, ())
+        self.assertEqual([entry["status"] for entry in audit], ["rejected", "rejected"])
+
+    def test_partial_validator_does_not_guess_truncated_json(self):
+        with self.assertRaises(json.JSONDecodeError):
+            parse_quoted_rules_individually(self.raw[:-3], self.guideline)
 
     def test_condition_action_overlap_rejected(self):
         data = json.loads(self.raw)

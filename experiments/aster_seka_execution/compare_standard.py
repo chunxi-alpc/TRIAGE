@@ -157,7 +157,15 @@ def read_trace(manifest_path,override):
 def tensor_key(row):
     result=[]
     for name in ('input_ids','attention_mask'):
-        value=row.get(name)
+        if name not in row:
+            return None
+        value=row[name]
+        # The runner explicitly records None for an omitted/default-None
+        # attention mask. This is a known argument value, not an unavailable
+        # tensor. Keep it distinct from both a missing field and a real tensor.
+        if name=='attention_mask' and value is None:
+            result.append((name,'explicit_none'))
+            continue
         if not isinstance(value,dict) or not value.get('sha256') or 'dtype' not in value or 'shape' not in value:
             return None
         result.append((name,value['sha256'],value['dtype'],tuple(value['shape'])))
@@ -179,7 +187,7 @@ def segment_match(first,second,label,start,end):
                 ordered_input_ids_and_attention_masks_identical=exact,
                 multiset_identical=(Counter(lkeys)==Counter(rkeys)) if not missing else None,
                 mismatch_call_indices=mismatch,
-                interpretation='Only ordered complete hash equality verifies identical forward inputs; a matching multiset alone is not a matched numerical path')
+                interpretation='Only ordered complete input equality verifies a matched path; explicit attention_mask=None matches None, never a tensor or missing field. A matching multiset alone is insufficient.')
 
 
 def main():

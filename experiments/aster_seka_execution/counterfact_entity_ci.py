@@ -25,6 +25,18 @@ def require(condition, message):
         raise ValueError(message)
 
 
+def selected_methods(requested, locations):
+    """Default remains four methods; an explicit list never invents missing runs."""
+    names = tuple(METHODS if requested is None else requested)
+    require(len(names) >= 2 and len(set(names)) == len(names) and "seka" in names,
+            "Select SEKA and at least one distinct baseline")
+    require(set(names) <= set(METHODS), "Unknown selected method")
+    require(all(locations.get(name) is not None for name in names), "A selected method has no actual export directory")
+    require(not any(locations.get(name) is not None for name in METHODS if name not in names),
+            "An export was supplied for an unselected method; do not silently exclude existing results")
+    return tuple(name for name in METHODS if name in names)
+
+
 def digest(path):
     h = hashlib.sha256()
     with Path(path).open("rb") as handle:
@@ -145,8 +157,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", type=Path, required=True, help="Official counterfact.jsonl")
     for name in METHODS:
-        parser.add_argument("--" + name.replace("_", "-"), type=Path, required=True,
+        parser.add_argument("--" + name.replace("_", "-"), type=Path,
                             help="Verified anonymous efficacy export directory")
+    parser.add_argument("--methods", nargs="+", choices=METHODS,
+                        help="Optional explicit actual method list; omission retains the original four-method default")
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--bootstrap-samples", type=int, default=10000)
     parser.add_argument("--bootstrap-seed", type=int, default=0)
@@ -164,17 +178,25 @@ def main():
               "method_parameters_changed": False}
     code = 0
     try:
+        chosen = selected_methods(args.methods, {name: getattr(args, name) for name in METHODS})
+        references = [name for name in chosen if name != "seka"]
+        report["selected_methods"] = list(chosen)
+        report["planned_methods_without_results"] = [name for name in METHODS if name not in chosen] + ["CAD", "Spotlight"]
         mapping, source_sha = source_clusters(args.data)
         methods, evidence = {}, {}
-        for name in METHODS:
+        for name in chosen:
             methods[name], evidence[name] = load_export(getattr(args, name))
             require(set(methods[name]) == set(mapping), "Method/source standard ID coverage differs")
             require(source_sha in evidence[name]["input_files_sha256"].values(),
                     "Entity source file hash is absent from an inference run's input manifest")
+        checkpoint = evidence["seka"]["model_files_sha256"]
+        require(checkpoint and all(evidence[name]["model_files_sha256"] == checkpoint for name in chosen),
+                "Compared methods do not have identical recorded checkpoint fingerprints")
+        report["checkpoint_fingerprints_identical"] = True
         ordered = sorted(mapping, key=lambda sid: mapping[sid]["absolute_processed_row_index"])
         entities = [mapping[sid]["entity_cluster"] for sid in ordered]
         columns, comparisons = [], {}
-        for reference in METHODS[1:]:
+        for reference in references:
             delta = np.asarray([methods["seka"][sid] - methods[reference][sid] for sid in ordered])
             corrected, regressed = (delta > 0).astype(float), (delta < 0).astype(float)
             columns.extend([delta, corrected, regressed])
@@ -185,7 +207,7 @@ def main():
                 "correction_rate": float(corrected.mean()), "regression_rate": float(regressed.mean())}
         intervals = bootstrap_effects(np.asarray(columns).T, entities,
                                       args.bootstrap_samples, args.bootstrap_seed)
-        for position, reference in enumerate(METHODS[1:]):
+        for position, reference in enumerate(references):
             item = comparisons[reference]
             item.update(ci95_difference=intervals[3 * position],
                         ci95_difference_percentage_points=[100 * x for x in intervals[3 * position]],
@@ -194,7 +216,7 @@ def main():
         output = args.output_dir / "paired_cases.jsonl"
         with output.open("x", encoding="utf-8") as handle:
             for sid in ordered:
-                row = {**mapping[sid], "efficacy": {name: methods[name][sid] for name in METHODS}}
+                row = {**mapping[sid], "efficacy": {name: methods[name][sid] for name in chosen}}
                 handle.write(json.dumps(row, sort_keys=True) + "\n")
         sizes = Counter(entities)
         report.update(status="complete_verified", source_sha256=source_sha, methods=evidence,
