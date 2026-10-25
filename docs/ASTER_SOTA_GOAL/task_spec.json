@@ -1,0 +1,87 @@
+{
+  "schema_version": "aster.research_goal.v1",
+  "created_date": "2026-10-25",
+  "status": "planned_not_launched",
+  "repository": "chunxi-alpc/TRIAGE",
+  "source_commit": "cbb4d613a59618a7f98efccea60a9a469037f0ad",
+  "source_pr": 35,
+  "goal": "Reproduce official SEKA/AdaSEKA and develop applicability-conditioned evidence and phase attention with independent gains over the strongest matched Qwen baselines.",
+  "work_entrypoint": "docs/ASTER_SOTA_GOAL/WORK_ORDER.zh.md",
+  "scientific_protocol": "docs/ASTER_SOTA_GOAL/GOAL.zh.md",
+  "first_model": "existing Qwen3-8B checkpoint; exact config, tokenizer and weight hashes must be captured",
+  "primary_operator": "official SEKA",
+  "operator_source": "https://github.com/waylonli/SEKA",
+  "repo_manifest_operator_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+  "operator_readiness": "registered_deployment_but_full_method_not_verified",
+  "development_seed": 0,
+  "confirmation_seeds": [0, 1, 2],
+  "seed_policy": "Freeze data construction, projection, head-selection, option-order and generation seeds separately. Report all predefined seeds; do not select best test seed. Greedy duplicates are not independent replications.",
+  "allowed_resources": {
+    "server": "existing research server 115; access must be verified",
+    "gpu_allowlist_initial": [0, 1, 6],
+    "resource_owner": "coordinator_only",
+    "purchase_cloud_compute": false,
+    "unapproved_paid_api": false,
+    "main_writes": false,
+    "overwrite_historical_results": false,
+    "maximum_development_configurations_per_method": 27,
+    "maximum_candidate_redesign_rounds_before_new_review": 2,
+    "smoke_examples_maximum": 16
+  },
+  "baseline_order": [
+    "full_guideline_no_intervention",
+    "text_action_blind_two_stage",
+    "predicted_rule_crop_top1_top2_or_set",
+    "rule_executor_or_action_map",
+    "calibrated_static_and_dynamic_probability_fusion",
+    "official_CAD",
+    "official_PASTA_with_verified_Qwen_adapter",
+    "Spotlight_paper_reimplementation_if_no_official_code",
+    "official_SEKA",
+    "official_AdaSEKA",
+    "PR35_sparse_dynamic_reference"
+  ],
+  "baseline_repositories": {
+    "SEKA": "https://github.com/waylonli/SEKA",
+    "PASTA": "https://github.com/QingruZhang/PASTA",
+    "CAD": "https://github.com/xhan77/context-aware-decoding",
+    "ProbeRAG_optional": "https://github.com/XMUDeepLIT/ProbeRAG",
+    "JUICE_optional": "https://github.com/GaotangLi/JUICE",
+    "TrialGPT_matching_optional": "https://github.com/ncbi-nlp/TrialGPT",
+    "MaR_optional_training_track": "https://github.com/OpenCausaLab/MaR"
+  },
+  "datasets": [
+    {"name":"CounterFact_and_BiasBios","purpose":"official_implementation_validation","split_policy":"official_protocol_and_licenses","priority":0},
+    {"name":"MedGUIDE_and_existing_AST​ER_variants","purpose":"legacy_regression_and_mechanistic_development_not_new_confirmation","revision":"1460ec478280a7295040b92f7eb985327f77dcbe","priority":1},
+    {"name":"MEGA-CDP","purpose":"primary_external_native_path_generation","revision":"8f058c88ce1ed43693785b435ad0ff99907a2890","registered_train_val_cases":34895,"registered_test_cases":7458,"registered_test_guidelines":440,"primary_metric":"DTW_PCC_lower_is_better","secondary_metric":"outcome_accuracy","license_state":"TBD_requires_usage_and_redistribution_review","test_state":"must_audit_prior_exposure_before_freeze","priority":1},
+    {"name":"MedPIC-Bench","purpose":"external_patient_condition_counterfactual_transfer","revision":"9ef6db4f13865b14fc2e6be3f94dcfaf3a0cf983","registered_test_rows":467,"primary_metric":"exact_option_set_accuracy","secondary_metrics":["GF_accuracy","CF_accuracy","linked_pair_accuracy"],"multi_label":true,"condition":"native_and_augmented_open_book_tracks_separate","priority":1},
+    {"name":"MedCalc-Bench","purpose":"condition_threshold_and_coefficient_diagnostic","required_version":"official_v1.2_or_newer_version_frozen_before_evaluation","tool_track_separate":true,"priority":2},
+    {"name":"FaithEval","purpose":"generic_context_faithfulness_transfer","subtasks":["counterfactual","inconsistent","unanswerable"],"priority":2}
+  ],
+  "core_factorial": {
+    "factor_A":"condition_stage_SEKA_off_on",
+    "factor_B":"execution_stage_SEKA_off_on",
+    "matched_information":"identical automatic evidence spans, conditions, tools and base model",
+    "negative_controls":["matched_zero_strength","wrong_span","misaligned_rule","attention_off_same_evidence","random_projection_if_applicable"]
+  },
+  "phases": [
+    {"id":"G0","state":"planned","owner":"data_and_coordinator","deliverables":["source_registry.json","dataset_manifest.json","split_manifest.json","LICENSE_AND_EXPOSURE.zh.md"]},
+    {"id":"G1","state":"planned","owner":"baseline_agent","depends_on":["G0"],"deliverables":["OFFICIAL_REPRODUCTION.zh.md","projection_manifest.json","baseline_registry.json"]},
+    {"id":"G2","state":"planned","owner":"method_agent","depends_on":["G1"],"deliverables":["core_2x2_ablation","all_configs.csv","gold_access_tests","same_path_numerics"]},
+    {"id":"G3","state":"planned","owner":"evaluation_agent","depends_on":["G2","config_lock"],"deliverables":["external_predictions","paired_source_cluster_intervals","all_seed_metrics"]},
+    {"id":"G4","state":"planned","owner":"audit_agent","depends_on":["G3"],"deliverables":["AUDIT.zh.md","REPORT.zh.md","costs.json","complete_or_blocked_status"]}
+  ],
+  "aspirational_effect_thresholds_not_promises": {
+    "MEGA_PCC_absolute_reduction_percentage_points": 2.0,
+    "MEGA_outcome_accuracy_noninferiority_margin_percentage_points": 2.0,
+    "MedPIC_exact_set_accuracy_gain_percentage_points": 2.0,
+    "attention_ablation_increment_required": true,
+    "new_test_tuning_permitted": false,
+    "primary_interval_level": 0.95,
+    "cluster_unit":"source_guideline_or_rule_family_with_all_patient_versions_and_seeds_kept_together",
+    "multiple_comparisons":"preregistered_primary_family_Holm"
+  },
+  "completion_states": ["planned","running","complete_verified","blocked","failed"],
+  "current_claims": {"new_gpu_inference_completed":false,"work_mode_switched":false,"subagents_started":false,"sota_achieved":false},
+  "required_result_semantics": "Separate native/adapted datasets, oracle/predicted evidence, published/reproduced numbers, offline reuse/new GPU forwards, development/independent confirmation, answer regression/clinical harm."
+}
