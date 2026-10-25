@@ -31,17 +31,15 @@
   ],
   "gpu_allowlist": [
     0,
-    1,
-    6
+    1
   ],
   "gpu_assignment": {
-    "0": "Base completion then A0/A1 additional clinical baselines",
-    "1": "Clinical calibration completed; parser-v2 attention baselines next; Base Ada smoke after these",
-    "6": "MEGA train_val16 parser-v2 main; native development evaluator queued"
+    "0": "Existing Base construction, then A0/A1 clinical additional baselines, then native primary evaluation",
+    "1": "Main clinical GPU01 run, then attention baselines, then Base Ada16 validation"
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-25T19:35:57.431364+00:00",
+  "updated_at_utc": "2026-10-25T19:40:27.288862+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -120,8 +118,8 @@
     {
       "id": "clinical_2x2_and_controls",
       "status": "running",
-      "evidence": "runtime/mega_dev16_seed0_parser_v2_job/run_manifest.json",
-      "execution": "Actual GPU6 PID427921; parser-only repair, unchanged prompt/budget/model/seed0; v1 interrupted and preserved"
+      "evidence": "runtime/mega_dev16_seed0_gpu01_job/run_manifest.json",
+      "execution": "Moved actual runtime to GPU1 to obey latest user resource restriction; parser, prompts and parameters unchanged; previous GPU6 outputs/costs retained"
     },
     {
       "id": "strong_output_fusion",
@@ -197,8 +195,8 @@
     {
       "id": "clinical_same_condition_fusion",
       "status": "planned",
-      "execution": "Fresh parser-v2 dependency queue, A0/A1 fixed parameters",
-      "evidence": "clinical_parser_v2_launch_plan.json"
+      "execution": "Live GPU0/1 dependency queue; earlier GPU6-related waiting queues interrupted and superseded",
+      "evidence": "gpu01_clinical_launch_plan.json"
     },
     {
       "id": "MedPIC_transfer_runtime",
@@ -256,8 +254,8 @@
     {
       "id": "Base_Ada_validation16",
       "status": "planned",
-      "execution": "Live dependency queue on GPU1 after Base construction and clinical attention",
-      "evidence": "base_adaseka_smoke_launch_plan.json"
+      "execution": "Live GPU0/1 dependency queue; earlier GPU6-related waiting queues interrupted and superseded",
+      "evidence": "gpu01_clinical_launch_plan.json"
     },
     {
       "id": "all_clinical_statistics_interface",

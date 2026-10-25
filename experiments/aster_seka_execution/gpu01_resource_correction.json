@@ -1,0 +1,33 @@
+{
+  "reason": "Most recent user AGENTS instruction restricts experiments to GPU0/1; correct existing GPU6 clinical scheduling",
+  "time_utc": "2026-10-25T19:39:11.499841+00:00",
+  "model_prompt_parameters_changed": false,
+  "raw_outputs_deleted": false,
+  "stopped": [
+    {
+      "pid": 427918,
+      "signal": "SIGINT",
+      "command": "/home/gcx/venvs/aster-seka-20261025/bin/python /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_stage_transition.py /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/primary_parser_v2_to_attention.json "
+    },
+    {
+      "pid": 427919,
+      "signal": "SIGINT",
+      "command": "/home/gcx/venvs/aster-seka-20261025/bin/python /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_stage_transition.py /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/primary_parser_v2_to_additional.json "
+    },
+    {
+      "pid": 427920,
+      "signal": "SIGINT",
+      "command": "/home/gcx/venvs/aster-seka-20261025/bin/python /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_stage_transition.py /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/primary_parser_v2_to_evaluation.json "
+    },
+    {
+      "pid": 428771,
+      "signal": "SIGINT",
+      "command": "/home/gcx/venvs/aster-seka-20261025/bin/python /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_baseline_queue.py /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/base_adaseka_after_dependencies_queue.json "
+    },
+    {
+      "pid": 427921,
+      "signal": "SIGINT",
+      "command": "/home/gcx/venvs/aster-seka-20261025/bin/python -u /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_official_job.py --gpu 6 --source /home/gcx/TRIAGE/third_party/SEKA --model /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/models/Qwen3-8B-yarn65536 --output /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/mega_dev16_seed0_parser_v2_job --module run_mega_development -- --dataset-root /home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890 --input-manifest /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/mega_dev16_input_lock.json --official-root /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/vendors/MEGA-CDP-ssh --seka-root /home/gcx/TRIAGE/third_party/SEKA --adapter-dir /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution --reader-dir /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution --model /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/models/Qwen3-8B-yarn65536 --model-fingerprint f6a9f8c62bda7ea4c333f4930115623c650582bed77870c754d1520aaf1a356a --pos /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_clinical_yarn100/Qwen3-8B-yarn65536_pos_proj.pt --neg /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_clinical_yarn100/Qwen3-8B-yarn65536_neg_proj.pt --max-new-tokens 1024 --extraction-max-new-tokens 4096 --max-context-tokens 65536 --rope-scaling-json /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/rope_scaling_yarn_65536.json --output-dir /home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/mega_dev16_seed0_parser_v2 --seed 0 --include-text-controls "
+    }
+  ]
+}

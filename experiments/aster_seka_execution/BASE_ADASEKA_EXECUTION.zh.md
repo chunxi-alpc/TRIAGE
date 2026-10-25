@@ -38,7 +38,7 @@ CounterFact `efficacy` 官方 wrapper 强制只生成1token，对目标事实和
 
 ## 资源和调度依据
 
-新队列拟用 GPU1 单张80GB A100，必须同时等待已有 Base 队列425321及 parser-v2 临床注意力父队列427918退出。已停止的v1父队列不能作为新任务的完成依赖；其余临床融合和判分仍按协调器既有安排，不抢占。生成器只写JSON，不启动任务；协调器在正式启动前继续向用户报告资源和预计时长。
+新队列拟用 GPU1 单张80GB A100，必须同时等待已有 Base 队列425321及 parser-v2 临床注意力父队列428866退出。已停止的v1父队列不能作为新任务的完成依赖；其余临床融合和判分仍按协调器既有安排，不抢占。生成器只写JSON，不启动任务；协调器在正式启动前继续向用户报告资源和预计时长。
 
 实际执行器位于实验根目录 `p/run_official_job.py`，不在产物目录 `p/runtime/`。生成器显式接受并检查 `--runner`，`--runtime` 继续指数据/产物目录；所有JSON命令保存实际解释器、执行器、source、model、GPU、输出目录和全部官方参数，不依赖混淆的目录约定。
 
@@ -73,7 +73,7 @@ Bio完整任务把slice换为5000:10000，其他预算/参数不变；零强度�
   --source "$SEKA_ROOT" --model "$BASE_MODEL" \
   --counterfact-dir "$CF_DIR" --biasbios "$BIOS_JSON" \
   --expert-config "$RUNTIME/adaseka_base_audit/expert_config.json" --expert-audit "$BASE_EXPERT_AUDIT" \
-  --output-root "$RUNTIME" --gpu 1 --wait-for-pids 425321 427918 --plan "$NEW_SMOKE_QUEUE_JSON"
+  --output-root "$RUNTIME" --gpu 1 --wait-for-pids 425321 428866 --plan "$NEW_SMOKE_QUEUE_JSON"
 ```
 
 完成小试后改 `--phase full`，新plan文件，并可传入 `--smoke-positive-manifest`、`--smoke-zero-manifest` 做资源估计。新的实际后继PID由协调器提供；生成器不自行启动full，也不通过小试结果挑强度。队列使用现有互斥GPU锁、逐任务新日志、失败继续保留下一个独立任务。

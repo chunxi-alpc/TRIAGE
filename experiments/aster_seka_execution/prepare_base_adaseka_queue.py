@@ -65,7 +65,7 @@ def main():
         parser.add_argument("--" + name, type=Path, required=True)
     parser.add_argument("--runner", type=Path, required=True,
                         help="Actual experiment-root run_official_job.py; --runtime remains the data/artifact directory")
-    parser.add_argument("--gpu", type=int, choices=[0, 1, 6], default=1)
+    parser.add_argument("--gpu", type=int, choices=[0, 1], default=1)
     parser.add_argument("--wait-for-pids", nargs="+", type=int, required=True,
                         help="Current Base and parser-v2 attention parents:425321 427918; explicitly pass both current PIDs")
     parser.add_argument("--smoke-positive-manifest", type=Path)
