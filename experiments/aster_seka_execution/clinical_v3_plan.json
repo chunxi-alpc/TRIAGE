@@ -1,0 +1,91 @@
+{
+  "version": 3,
+  "scope": "fixed 16-case seed-0 development; not independent confirmation",
+  "seed": 0,
+  "condition_variant": "A0",
+  "methods": [
+    "no_hook",
+    "gain_0",
+    "gain_0_2",
+    "gain_0_6",
+    "text_emphasis",
+    "fusion_static",
+    "fusion_dynamic"
+  ],
+  "gains": [
+    0,
+    0.2,
+    0.6
+  ],
+  "layers": "last10",
+  "amplify_neg": 0,
+  "dataset_root": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890",
+  "input_manifest": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/mega_dev16_input_lock.json",
+  "official_root": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/vendors/MEGA-CDP-ssh",
+  "seka_root": "/home/gcx/TRIAGE/third_party/SEKA",
+  "seka_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+  "primary_run": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/mega_dev16_seed0_gpu01",
+  "model": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/models/Qwen3-8B-yarn65536",
+  "model_fingerprint": "f6a9f8c62bda7ea4c333f4930115623c650582bed77870c754d1520aaf1a356a",
+  "pos": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_clinical_yarn100/Qwen3-8B-yarn65536_pos_proj.pt",
+  "neg": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_clinical_yarn100/Qwen3-8B-yarn65536_neg_proj.pt",
+  "rope_scaling": {
+    "factor": 2.0,
+    "original_max_position_embeddings": 32768,
+    "rope_type": "yarn"
+  },
+  "max_new_tokens": 1024,
+  "max_context_tokens": 65536,
+  "primary_stage_sha256": "e9440122d8bfb1f12136a65c4913b036eaf33a5aaa50048ceea6b188548e804a",
+  "fusion_parameters": {
+    "beta": 0.75,
+    "temperature_base": 1.0,
+    "temperature_support": 0.25,
+    "dynamic_amplitude": 0.25
+  },
+  "fusion_provenance": "PR33 parameters transferred to full-vocabulary native generation; no fresh calibration, no claim of optimized native SOTA",
+  "frozen_files": {
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_clinical_strength_v3.py": "79856f3af6d120164f596ba1b0192d0df37c4f9fa7d92d231db883f31b3f0e50",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/grounded_clinical_prompt.py": "ebf067aa8eb36148e88130bfccf6eea0dd9ef6a939d722fc2762381a63449dbc",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/request_keyed_judge.py": "81b8b22fb3126988d1cad04e58a6012b1b02cd53d989048ca49f1e1968855edc",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/mega_evaluation_v3.py": "d1733e0f26af3c41761e364cf35180cb9a6ac293d8bfb8423073d18b0263c158",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/aster_seka_adapter.py": "11d9fdd9bd2d902f78a57c3b7201b4963efd4da3a83133fd023626cae4d2d825",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/clinical_core.py": "636026a47fdbc7f7525800166d86865c48ff2f710af2b0853c014b979d890a47",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/native_generation_baselines.py": "bb4053ea91ff55fed71e0ebe3684ca727b8172e6ca08028334ac2f05e61529c7",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_mega_additional_baselines.py": "230f214cdce2b2d2be9f221a260c148eca4d014c5dea36888d3fb5ab7b918163",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/mega_trainval_reader.py": "a3e47914f04c720fe7a12b86a0242b154abbafad385c2f550fcdd94994c9ea96",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_mega_development.py": "198eec49e840b1781d6d95ccf2f8453352bfb62609ffad4ed3e6703932d5c7f7",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/mega_local_qwen_client.py": "18b2956f4514b1bdfe9c9cc03d15eaac5cad01a90c80feb81dc23b33d583ab78",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/mega_development_evaluation.py": "883a6d46f17094a2dfec06c4198a7a8f3736a69459da31a05d9243201b53f664",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/mega_dev16_input_lock.json": "bd507e9c746e702a919f2e3371d682fc4b2cd4f818ce0325c7e633af24efb06b",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/mega_dev16_seed0_gpu01/stage_predictions.private.jsonl": "e9440122d8bfb1f12136a65c4913b036eaf33a5aaa50048ceea6b188548e804a",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_clinical_yarn100/Qwen3-8B-yarn65536_pos_proj.pt": "3cbfa1c0420c58b058d52bb5c40f433a9165bb6f5ce08257a0e945765e936c20",
+    "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_clinical_yarn100/Qwen3-8B-yarn65536_neg_proj.pt": "039d9cf11c7878e38ccaeaa972b909016cb1f748dbb19625330a27c2d0638a63"
+  },
+  "extraction_sha256": {
+    "70bdc2e0725672b8accc9bb6a0cfa99155deabbd5c9806b62e8cb5d27c8749b5": "e657edea4e2c2be6d3d0dd67fab381b5f42d9845571f862424c0dbd9f86703e0",
+    "7425512399865d156614fed217aba408d0c7b65195ac92a1ed3b677d24ff5191": "fa183960aeb29547945acbc8808fbd29ae2ed7a8c4191743e717f21a08ac1046",
+    "cce3a84dcf3c1c3d275fcaf3fe2173647eb6ff8b450c60e23ba6d7cddfdaea14": "66f1d4fb777dcb53111622ebcd8b4843efe677592a4dcf21516e09a329249434",
+    "9e2c6114211eff73779475ba28996b7bb265031a6521c148fa82de2d2efa07a8": "80405377496f4821b819648f9147cd94b9faa34e6a63ef73401ffea41123fd85",
+    "8aee5260bb69d7d1f00698d7d7a3975d13c023aab06d993d34387f7fbbf71d35": "741330feebcb4fe47fa102680f948580edab37686be348ad3867c197f94f1029",
+    "8e4c7da23802d2413caaf292e432b283b37e5c614e29a0524b2d3d11c1f628f8": "d086f51e2690358f71d4e9045a1958623852b0ebfe77333829cc118e662635a6",
+    "81215d1fc5bee643fe887a830ffa078a0fd91741d809de64b1dec8c245bf16f4": "8251e0a0f903091206e3480973acdb43f729a361f4ef0b6457b21c363314fa5e",
+    "90cffaf0ce06a3acbbb8329ed2763bd9503b4c2a57d69cc566d26b6061be4bc5": "772b1a1fc2b2029a2261d72fb8f1b5a2b8b35f05e144799fcfddfaf7aabc534c",
+    "f589d62c03d6fef5ba92870f425e1d46c2cff8bc13a280013fa1e0e82d02f5d0": "fb8ce58f3a1762f5bfbd3deef7f8eb96c47791cd1b86a87b62d68d28c319f9a3",
+    "7316b931e8c6db51340ceff0bd6332c5c689a4aadb83d009319c4c5de5dbe9dc": "cbda373ca0a0958f2f99bdeff8255b84af2ab7249aca5ab2ad65989bcf66fdfb",
+    "2cbe78820fbce5b5c915cb9ede76a394f0be72a637e16ca52ebf054d9337c7e9": "bda5d8c2974459f78691c82b904661d5fcd129f8a5b480adc4d853b5f373319f",
+    "0b23acad69130b414b52f8f2020ba32c415541bf585a65963dcd324c1442b9e2": "167e869587cae3849f5022e8cee14ed027c8de7d8204d1bf88a671cd8250691f",
+    "86f0bf41ae01cf0f64ba2b2fe7aadd98f1d436ee8525b60ed0d9066d4bc5e97c": "1ec43ff667f74d1eaae3d31172392ca009fbdef4716b558841235dc7ffcd8705",
+    "68abf75f003c140c59db7d7ec589b07b66dc52ef44cdc6fa1584d8891038f6a6": "b597e220ca1622477719f8e1fe44bc8fcb3efdf5256474964dbba89cc4f7417c",
+    "44258440caa90d29b5618da1841f82c9bd5ace2a5e2b35cbac19da03649a6045": "b0b7477d85c7c8e77b7f2118bd64bfba0e888cc973c482c4e5359ebc450bd57c",
+    "8afa49648439f8f41009496a54facce07220adef3df93e0c2233ee2352e661e7": "054a4d3ca544fd5cc359b4faafab70f14372cadb21b401c3d3c24c1ca64b6397"
+  },
+  "gpu_allowlist": [
+    0,
+    1,
+    6
+  ],
+  "gpu_assigned": 1,
+  "test_files_read": false,
+  "independent_model_claim": false
+}

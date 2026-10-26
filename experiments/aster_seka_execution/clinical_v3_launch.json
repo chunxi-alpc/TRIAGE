@@ -1,0 +1,110 @@
+{
+  "repository": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025",
+  "python": "/home/gcx/venvs/aster-seka-20261025/bin/python",
+  "gpu": 1,
+  "gpu_allowlist": [
+    0,
+    1,
+    6
+  ],
+  "wait_for_pids": [
+    438343
+  ],
+  "jobs": [
+    {
+      "name": "generation_v3",
+      "command": [
+        "/home/gcx/venvs/aster-seka-20261025/bin/python",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_official_job.py",
+        "--gpu",
+        "1",
+        "--source",
+        "/home/gcx/TRIAGE/third_party/SEKA",
+        "--model",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/models/Qwen3-8B-yarn65536",
+        "--output",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_generation_job",
+        "--module",
+        "run_clinical_strength_v3",
+        "--",
+        "--plan",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/clinical_v3_plan.json",
+        "--output-dir",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_generation"
+      ],
+      "log": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_generation.log"
+    },
+    {
+      "name": "evaluation_v3",
+      "command": [
+        "/home/gcx/venvs/aster-seka-20261025/bin/python",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_official_job.py",
+        "--gpu",
+        "1",
+        "--source",
+        "/home/gcx/TRIAGE/third_party/SEKA",
+        "--model",
+        "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+        "--output",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_evaluation_job",
+        "--module",
+        "mega_evaluation_v3",
+        "--",
+        "--train-val-root",
+        "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890/train_val",
+        "--freeze-manifest",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/mega_dev16_input_lock.json",
+        "--official-parser",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/vendors/MEGA-CDP-ssh/mega_cdp/scripts/evaluate/parse_prediction_output_singleturn.py",
+        "--reference",
+        "gain_0",
+        "--output-dir",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_evaluation",
+        "--backend",
+        "local",
+        "--model",
+        "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+        "--judge-max-tokens",
+        "4096",
+        "--judge-context-length",
+        "32768",
+        "--judge-seed",
+        "0",
+        "--bootstrap-samples",
+        "10000",
+        "--prediction",
+        "no_hook=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_generation/no_hook.predictions.private.jsonl",
+        "--prediction",
+        "gain_0=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_generation/gain_0.predictions.private.jsonl",
+        "--prediction",
+        "gain_0_2=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_generation/gain_0_2.predictions.private.jsonl",
+        "--prediction",
+        "gain_0_6=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_generation/gain_0_6.predictions.private.jsonl",
+        "--prediction",
+        "text_emphasis=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_generation/text_emphasis.predictions.private.jsonl",
+        "--prediction",
+        "fusion_static=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_generation/fusion_static.predictions.private.jsonl",
+        "--prediction",
+        "fusion_dynamic=/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_generation/fusion_dynamic.predictions.private.jsonl"
+      ],
+      "log": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/clinical_v3_evaluation.log"
+    }
+  ],
+  "after_jobs": "CPU recompute, export and push only v3 results on codex/aster-seka-execution-20261025",
+  "resource_estimate": {
+    "generation_peak_gib": [
+      50,
+      70
+    ],
+    "judge_peak_gib": [
+      16,
+      20
+    ],
+    "hours_after_gpu_available": [
+      3,
+      5
+    ]
+  },
+  "no_new_rule_extraction": true,
+  "no_continuous_monitoring": true
+}
