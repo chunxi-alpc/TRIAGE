@@ -10,7 +10,7 @@ BASE=Path(__file__).resolve().parent
 def main():
  p=argparse.ArgumentParser();p.add_argument('--name',required=True);p.add_argument('--model',required=True);a=p.parse_args();out=BASE/'private'/('u2_diagnosis_'+a.name);out.mkdir(exist_ok=False)
  torch.set_num_threads(4);torch.manual_seed(20261027);torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
- old=[json.loads(s) for s in (BASE/'results/p4'/(a.name+'_records.jsonl')).read_text().splitlines()]
+ old=[json.loads(s) for s in (BASE/'results/p4_before_u2_precision_fix'/(a.name+'_records.jsonl')).read_text().splitlines()]
  bad={r['id'] for r in old if not r['U2_all_four_agree']};controls=[]
  for tree in sorted({r['tree'] for r in old}):controls.append(next(r['id'] for r in old if r['tree']==tree and r['id'] not in bad))
  selected=sorted(bad|set(controls));data=collections.defaultdict(dict)

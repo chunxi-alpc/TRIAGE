@@ -17,9 +17,9 @@
       "SW"
     ],
     "unit": "all four argmax agree per base",
-    "minimum_agreement": 0.99,
     "also_save": "full probabilities",
-    "position_handling": "blind non-action positions fixed by role cumsum; segment tokenization prevents boundary drift"
+    "position_handling": "blind non-action positions fixed by role cumsum; segment tokenization prevents boundary drift",
+    "acceptance": "no argmax-rate cutoff; identical visible token sequence and fixed-shape hidden-content counterfactual invariance; retain residual numerical differences"
   },
   "U3": {
     "cases": 200,
@@ -42,12 +42,16 @@
       0,
       1
     ],
-    "peak_GiB_each": 20,
+    "peak_GiB_each": 35,
     "estimated_minutes": [
       5,
       15
     ]
   },
   "mask_implementation_fix_before_valid_run": "2026-10-26T17:45:29.447018+00:00",
-  "mask_dtype_handling": "convert boolean True=allowed mask to additive floating 0/-inf before editing"
+  "mask_dtype_handling": "convert boolean True=allowed mask to additive floating 0/-inf before editing",
+  "revision_at": "2026-10-26T22:48:29.043690+00:00",
+  "user_amendment": "继续定位并修复 U2，不再限制99的通过率",
+  "dtype": "float32",
+  "TF32": false
 }
