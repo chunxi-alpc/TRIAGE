@@ -1,0 +1,22 @@
+{
+  "stage": "P3",
+  "name": "qwen",
+  "status": "completed",
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "gpu": "0",
+  "layers": 36,
+  "cases": 200,
+  "batch": 4,
+  "script_sha256": "ce1f29cda707c218af963fa0ae5a234cf36e1b7f0b4698ee43dcefcb27a09bfc",
+  "protocol_sha256": "799400f5c77095e45d364ec4ba091a2e8119a463112ac168caccb410c2e2d5c7",
+  "readout": "normalized next-token probabilities of 1/2, not full free generation",
+  "knockout": "last input query -> both terminal action spans; other queries and options remain visible",
+  "patch": "neutral to familiar, k_proj/v_proj output before Qwen k_norm and RoPE; decoy tokens only; all layers",
+  "probe": "last input position after every block; leave one dev tree out; separate blind/visible linear classifiers",
+  "test_data_used": false,
+  "wall_seconds": 1514.7504544258118,
+  "peak_allocated_GiB": 17.439462184906006,
+  "rows": 8000,
+  "knockout_mask_verified": true,
+  "knockout_hook_calls": 8400
+}

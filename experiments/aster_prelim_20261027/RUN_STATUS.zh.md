@@ -6,18 +6,22 @@
 |---|---|---|
 | P1 | PASS_SW_GATE | [P1 记录](REPORT.zh.md) |
 | P2 | PASS_NEUTRAL_GATE | [P2 记录](P2_REPORT.zh.md) |
-| P3 | RUNNING | 尚无完成报告 |
-| P4 | NOT_RUN | 尚无完成报告 |
-| P5 | NOT_RUN | 尚无完成报告 |
-| P6 | NOT_RUN | [P6 记录](results/p6_readiness.json) |
+| P3 | COMPLETED | [P3 记录](P3_REPORT.zh.md) |
+| P4 | FAIL_STOP | [P4 记录](P4_REPORT.zh.md) |
+| P5 | NOT_RUN_PREDECESSOR_STOP | 尚无完成报告 |
+| P6 | NOT_RUN_PREDECESSOR_STOP | [P6 记录](results/p6_readiness.json) |
 
 已确认的观测：
 
 - P1 SW：Qwen 盲判 80.5%、明判 69.5%，差距 11.0 个百分点；Llama 66.0% 与 50.5%，差距 15.5。事前固定的模型等权平均差距 13.25，超过 3 的继续门槛。
 - P2 中性代号：Qwen 明判比盲判高 13.0 个百分点，Llama 低 1.5；未触发本轮中性代号止损。去选项与顺序对效应影响明显，闭卷置信度没有稳定单调关系，不能宣称全部替代解释已被排除。
 - P1/P2 熟悉标准条件同提示的 400 条对应记录／模型，预测 100% 一致。
+- P3 qwen：最佳四层窗口 knock_2_5，恢复比例 0.0；后续层选择 all。这是开发选择，不是独立测试。
+- P3 llama：最佳四层窗口 knock_2_5，恢复比例 0.041666666666666664；后续层选择 all。这是开发选择，不是独立测试。
+- P4 qwen：U1 最大键差 0，U2 一致率 98.50%，U3 差 1.00 分，U4 差 0.00 分；通过情况 {'U1': True, 'U2': False, 'U3': True, 'U4': True}。
+- P4 llama：U1 最大键差 0，U2 一致率 96.50%，U3 差 1.00 分，U4 差 1.00 分；通过情况 {'U1': True, 'U2': False, 'U3': True, 'U4': True}。
 
-仍有实验运行中，不能把计划启动、脚本已写或进程稳定当作实验完成。后续必须读取对应完成标记与门槛结果。
+**在 P4 停止，后续关口未运行。未用未完成项目或预期值补齐结果。**
 
 范围与未完成事项：
 
@@ -29,4 +33,4 @@
 
 服务器工作目录：`/home/gcx/TRIAGE-worktrees/aster-prelim-20261027/experiments/aster_prelim_20261027`。
 
-状态更新时间（UTC）：2026-10-26T17:49:25.810324+00:00。
+状态更新时间（UTC）：2026-10-26T18:20:31.517831+00:00。
