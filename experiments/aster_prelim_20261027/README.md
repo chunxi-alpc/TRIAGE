@@ -1,8 +1,8 @@
 # ASTER P1–P6 顺序预实验
 
-基于 main `781ee863784c60f1f6710ba5eede22bc8ee6b93c`，独立分支 `exp/aster-p1-p6-20261027`。所有运行在 115 服务器、`/home/gcx/gcx261014` 环境，使用 GPU 0、1。当前实现 P1；后续阶段只在前一门槛满足后实现和运行，不能据本目录名称宣称六项完成。
+基于 main `781ee863784c60f1f6710ba5eede22bc8ee6b93c`，独立分支 `exp/aster-p1-p6-20261027`。所有运行在 115 服务器、`/home/gcx/gcx261014` 环境，使用 GPU 0、1。已实现 P1–P5 的顺序执行入口。实际完成状态以 [总览](RUN_STATUS.zh.md) 和每阶段完成标记为准，不能据目录或脚本名称宣称六项完成。
 
-阅读 [实际报告](REPORT.zh.md)、[事先固定协议](protocol.json)、[门槛状态](results/gate_status.json)。
+阅读 [最新执行状态](RUN_STATUS.zh.md)、[P1 报告](REPORT.zh.md)、[事先固定协议](protocol.json)、[门槛状态](results/gate_status.json)。
 
 ## 数据
 

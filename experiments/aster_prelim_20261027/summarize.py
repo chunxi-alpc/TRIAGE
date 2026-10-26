@@ -38,7 +38,7 @@ def main():
  p1='STOP' if complete and drop<3 else 'PASS_SW_GATE' if complete else 'INCOMPLETE'
  status={'P1':p1,'models':states,'SW_model_macro_blind_minus_visible_pp':drop,'threshold_pp':3,'P1_scope':'two-model paired sibling-branch diagnostic; CS below requested size','CS_actual':audit['CS_actual'],'CS_requested':200,'P2':'NOT_RUN_P1_STOP' if p1=='STOP' else 'NOT_RUN','P3':'NOT_RUN','P4':'NOT_RUN','P5':'NOT_RUN','P6':'NOT_RUN','test_inference_count':0,'later_stages_automatically_launched':False}
  dump(res/'gate_status.json',status)
- lines=['# ASTER P1–P6 预实验执行记录（2026-10-27）','','基线 main：`781ee863784c60f1f6710ba5eede22bc8ee6b93c`。全部推理在 115 服务器执行；本轮测试集推理数为 0。','',f'P1 状态：**{p1}**。P2–P6 均未运行。','', '| 模型 | 卷 | 例数 | 盲判 % | 明判 % | 明判−盲判（百分点） |','|---|---|---:|---:|---:|---:|']
+ lines=['# ASTER P1–P6 预实验执行记录（2026-10-27）','','基线 main：`781ee863784c60f1f6710ba5eede22bc8ee6b93c`。全部推理在 115 服务器执行；本轮测试集推理数为 0。','',f'P1 状态：**{p1}**。这是 P1 完成时的记录；后续状态见 [最新执行状态](RUN_STATUS.zh.md)。','', '| 模型 | 卷 | 例数 | 盲判 % | 明判 % | 明判−盲判（百分点） |','|---|---|---:|---:|---:|---:|']
  for r in summary:lines.append(f"| {r['model']} | {r['volume']} | {r['n']} | {r['blind_accuracy_pct']:.2f} | {r['visible_accuracy_pct']:.2f} | {r['visible_minus_blind_pp']:+.2f} |")
  lines+=['',f'预先固定的 P1 判断：两个模型 SW 的“盲判−明判”百分点差取等权平均，达到 3 才继续。本轮为 {drop if drop is not None else "待完成"}。']
  if p1=='STOP':lines+=['','**按 P1 止损，不进入 P2。当前开发集实现未达到现象门槛；不能把这次结果写成 TLBS 或 ASTER 有效的证据。**']
