@@ -33,3 +33,5 @@
 流水线状态保存于服务器 runtime/clinical_v3_pipeline_state.json。单次启动，不重复执行该命令。完成后自动生成 CLINICAL_V3_RESULTS.zh.md 与 clinical_v3_results_verified/，在当前实验分支提交并推送；失败会保留日志并停止，不冒充已完成。
 
 结果尚未产生时，只能将本轮标为 planned/running。main 和历史实验不变。
+
+启动记录：有限后台流水线 PID 464365，当前状态 waiting_for_predecessor。在等待 GPU1 前置任务结束，尚未宣称 v3 推理已开始。
