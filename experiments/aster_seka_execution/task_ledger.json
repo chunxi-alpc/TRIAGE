@@ -41,7 +41,7 @@
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-26T02:17:09.021053+00:00",
+  "updated_at_utc": "2026-10-26T04:26:24.412443+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -119,9 +119,9 @@
     },
     {
       "id": "clinical_2x2_and_controls",
-      "status": "running",
-      "evidence": "mega_dev16_primary_generation_verified/audit.json",
-      "execution": "176 real generation rows complete; independent clinical scores pending"
+      "status": "complete_verified",
+      "evidence": "mega_dev16_primary_scores_verified/audit.json",
+      "execution": "11 methods x 16 development cases scored and recomputed; negative attention result. Does not complete all clinical controls or independent evaluation."
     },
     {
       "id": "strong_output_fusion",
@@ -288,7 +288,14 @@
       "status": "complete_verified",
       "scope": "Base model artifact provenance and shape/numerics; not full task inference",
       "evidence": "adaseka_base_audit/audit.json"
+    },
+    {
+      "id": "primary_clinical_scores_cpu_reverification",
+      "status": "complete_verified",
+      "evidence": "mega_dev16_primary_scores_verified/audit.json",
+      "scope": "All 176 original prediction parses and native metric recomputations; no GPU forwards"
     }
   ],
-  "coordination_status": "User requested stop after scheduling; background tasks continue, active coordination will pause"
+  "coordination_status": "User requested stop after scheduling; background tasks continue, active coordination will pause",
+  "coordinator_status": "paused_by_user"
 }
