@@ -30,8 +30,14 @@ def main():
     mask=torch.zeros((b,1,l,l),device=h.device,dtype=h.dtype)
     mask.masked_fill_(torch.ones((l,l),device=h.device,dtype=torch.bool).triu(1),torch.finfo(h.dtype).min)
     mask.masked_fill_(~state['attention'].bool()[:,None,None,:],torch.finfo(h.dtype).min)
+   elif mask.dtype==torch.bool:mask=torch.zeros_like(mask,dtype=h.dtype).masked_fill_(~mask,torch.finfo(h.dtype).min)
    else:mask=mask.clone()
    for i,positions in enumerate(state['spans']):mask[i,:,-1,positions]=torch.finfo(h.dtype).min
+   assert mask.dtype.is_floating_point
+   state['knockout_hook_calls']=state.get('knockout_hook_calls',0)+1
+   if not state.get('knockout_mask_verified'):
+    assert all(bool((mask[i,0,-1,pos]<-1e4).all()) for i,pos in enumerate(state['spans']))
+    state['knockout_mask_verified']=True
    kw['attention_mask']=mask;return args,kw
   return hook
  def projection(layer,kind):
@@ -113,5 +119,5 @@ def main():
     train=trees!=tree;valid=~train
     clf=make_pipeline(StandardScaler(),LogisticRegression(C=1.0,solver='liblinear',max_iter=1000,random_state=20261027));clf.fit(xx[train,layer],labels[train]);pred[valid]=clf.predict(xx[valid,layer])
    probe.append({'model':a.name,'condition':condition,'layer':layer+1,'correct':int((pred==labels).sum()),'n':len(rows),'accuracy_pct':float((pred==labels).mean()*100),'predictions':pred.tolist()})
- dump(out/'probes.json',probe);manifest.update(status='completed',wall_seconds=time.time()-start,peak_allocated_GiB=torch.cuda.max_memory_allocated()/2**30,rows=len(predictions));dump(out/'manifest.json',manifest);dump(out/'DONE.json',{'status':'completed'})
+ dump(out/'probes.json',probe);manifest.update(status='completed',wall_seconds=time.time()-start,peak_allocated_GiB=torch.cuda.max_memory_allocated()/2**30,rows=len(predictions),knockout_mask_verified=state.get('knockout_mask_verified',False),knockout_hook_calls=state.get('knockout_hook_calls',0));dump(out/'manifest.json',manifest);dump(out/'DONE.json',{'status':'completed'})
 if __name__=='__main__':main()

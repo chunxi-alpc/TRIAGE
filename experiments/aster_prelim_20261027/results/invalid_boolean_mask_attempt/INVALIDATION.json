@@ -1,0 +1,14 @@
+{
+  "invalidated_at": "2026-10-26T17:45:29.447018+00:00",
+  "bug": "Hugging Face SDPA mask was boolean True=allowed. Assigning floating minimum into bool converted to True; targeted attention remained allowed.",
+  "affected": [
+    "P3 knockout",
+    "P4 mask/gate checks"
+  ],
+  "unaffected_complete_stages": [
+    "P1",
+    "P2"
+  ],
+  "action": "Preserve invalid attempt separately; convert bool mask to additive float mask preserving False as forbidden; rerun P3 then gate P4/P5.",
+  "P5_started": false
+}

@@ -1,3 +1,5 @@
+> INVALID: boolean attention masks were not converted to additive masks. These results must not be cited as successful interventions.
+
 # P3 分层干预实测
 
 状态：**COMPLETED**。只用 200 个 SW 开发病例。

@@ -44,6 +44,7 @@ class Engine:
   if mask is None:
    mask=torch.zeros((1,1,l,l),device=h.device,dtype=h.dtype)
    mask.masked_fill_(torch.ones((l,l),device=h.device,dtype=torch.bool).triu(1),torch.finfo(h.dtype).min)
+  elif mask.dtype==torch.bool:mask=torch.zeros_like(mask,dtype=h.dtype).masked_fill_(~mask,torch.finfo(h.dtype).min)
   else:mask=mask.clone()
   act=st['roles'];branch=st['branches'];segment=st['segments'];minimum=torch.finfo(h.dtype).min
   # Before the answer query, non-action tokens cannot read any action tokens.

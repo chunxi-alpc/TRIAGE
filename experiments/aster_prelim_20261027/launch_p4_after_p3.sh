@@ -4,6 +4,8 @@ cd "$(dirname "$0")/../.."
 source /home/gcx/gcx261014/bin/activate
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 TOKENIZERS_PARALLELISM=false OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4
 D=experiments/aster_prelim_20261027
+P3_LAUNCHER_PID=${1:?pass the verified P3 launcher PID}
+if kill -0 "$P3_LAUNCHER_PID" 2>/dev/null; then tail --pid="$P3_LAUNCHER_PID" -f /dev/null; fi
 for EXP_PID in $(python -c "import json;print(*json.load(open('$D/private/p3_pids.json')).values())"); do
  if kill -0 "$EXP_PID" 2>/dev/null; then tail --pid="$EXP_PID" -f /dev/null; fi
 done

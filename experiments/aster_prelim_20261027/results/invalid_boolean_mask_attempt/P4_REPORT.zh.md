@@ -1,3 +1,5 @@
+> INVALID: boolean attention masks were not converted to additive masks. These results must not be cited as successful interventions.
+
 # P4 实现与泄漏检查
 
 状态：**FAIL_STOP**。P5/P6 尚未运行。

@@ -11,7 +11,7 @@ def main():
    fn=BASE/'private'/('p3_'+name+('_' if suffix[0]!='.' else '')+suffix)
    if fn.exists():shutil.copyfile(fn,res/fn.name)
   if not (src/'DONE.json').exists():states[name]='not_completed';continue
-  states[name]='completed';rs=[json.loads(s) for s in (src/'predictions.jsonl').read_text().splitlines()];raw+=rs
+  assert json.loads((src/'manifest.json').read_text())['knockout_mask_verified'];states[name]='completed';rs=[json.loads(s) for s in (src/'predictions.jsonl').read_text().splitlines()];raw+=rs
   bymethod=collections.defaultdict(list)
   for r in rs:bymethod[r['method']].append(r)
   acc={k:100*sum(r['correct'] for r in v)/len(v) for k,v in bymethod.items()};gap=acc['blind']-acc['visible']

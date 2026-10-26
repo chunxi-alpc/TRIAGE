@@ -14,7 +14,7 @@ def main():
    names=[BASE/'private'/(stage.lower()+'_'+n)/'manifest.json' for n in ['qwen','llama']]
    states[stage]='RUNNING' if any(x.exists() for x in names) else 'NOT_RUN'
  states['P6']='NOT_RUN'
- first_stop=next((s for s in ['P1','P2','P3','P4','P5'] if any(k in states[s] for k in ['STOP','FAIL','INCOMPLETE'])),None)
+ first_stop=next((s for s in ['P1','P2','P3','P4','P5'] if any(k in states[s] for k in ['STOP','FAIL','INCOMPLETE','INVALID'])),None)
  for s in ['P2','P3','P4','P5','P6']:
   if first_stop and int(s[1:])>int(first_stop[1:]) and states[s]=='NOT_RUN':states[s]='NOT_RUN_PREDECESSOR_STOP'
  diagnostics=[]
@@ -33,7 +33,7 @@ def main():
   for z in records['P4'].get('summary',[]):lines.append(f"- P4 {z['model']}：U1 最大键差 {z['U1_max_abs_difference']:.9g}，U2 一致率 {100*z['U2_all_four_argmax_agreement']:.2f}%，U3 差 {z['U3_gap_pp']:.2f} 分，U4 差 {z['U4_gap_pp']:.2f} 分；通过情况 {z['passes']}。")
  if first_stop:lines+=['',f'**在 {first_stop} 停止，后续关口未运行。未用未完成项目或预期值补齐结果。**']
  elif any(v=='RUNNING' for v in states.values()):lines+=['','仍有实验运行中，不能把计划启动、脚本已写或进程稳定当作实验完成。后续必须读取对应完成标记与门槛结果。']
- lines+=['','范围与未完成事项：','','- 四卷各 200 例，来自 4 个已划入开发集的树条目；CS 仅 17 例，未达到约 200 例目标。当前为同父兄弟两分支诊断，不等于完整树或路径生成验证。','- 处置来源和“陌生处置”只是本轮操作性定义，未证明模型参数记忆中的熟悉度。所有模型差异与负结果保留。','- P3 首次启动的词元对齐断言失败已保留；修正后重新开始，失败启动未计为有效实验。','- P6 找到的既有材料仅 16 例，相关报告明确注明 AI 审阅、尚无临床专家人工审核。不能算作当前要求的 ≥120 配对、≥20 指南且 ≥40 多节点／跨片段病例。','- 完整病例、提示与内部激活仅保存在服务器 private/；公开目录保存可复现脚本、协议、模型／数据指纹、逐例输出、汇总、运行日志和审计。','', '服务器工作目录：`/home/gcx/TRIAGE-worktrees/aster-prelim-20261027/experiments/aster_prelim_20261027`。','',f'状态更新时间（UTC）：{result["updated_at"]}。']
+ lines+=['','范围与未完成事项：','','- 四卷各 200 例，来自 4 个已划入开发集的树条目；CS 仅 17 例，未达到约 200 例目标。当前为同父兄弟两分支诊断，不等于完整树或路径生成验证。','- 处置来源和“陌生处置”只是本轮操作性定义，未证明模型参数记忆中的熟悉度。所有模型差异与负结果保留。','- P3 词元对齐失败与布尔遮罩错误均已保留；受影响的 P3/P4 产物位于 invalid_boolean_mask_attempt，全部作废，修复后重跑。','- P6 找到的既有材料仅 16 例，相关报告明确注明 AI 审阅、尚无临床专家人工审核。不能算作当前要求的 ≥120 配对、≥20 指南且 ≥40 多节点／跨片段病例。','- 完整病例、提示与内部激活仅保存在服务器 private/；公开目录保存可复现脚本、协议、模型／数据指纹、逐例输出、汇总、运行日志和审计。','', '服务器工作目录：`/home/gcx/TRIAGE-worktrees/aster-prelim-20261027/experiments/aster_prelim_20261027`。','',f'状态更新时间（UTC）：{result["updated_at"]}。']
  (BASE/'RUN_STATUS.zh.md').write_text('\n'.join(lines)+'\n')
  # File inventory excludes itself and source text. Hashes bind published artifacts.
  inventory={str(f.relative_to(BASE)):hashlib.sha256(f.read_bytes()).hexdigest() for f in BASE.rglob('*') if f.is_file() and not any(x in f.relative_to(BASE).parts for x in ['private','__pycache__']) and f.name!='artifact_sha256.json'}
