@@ -1,13 +1,116 @@
 {
+  "revision": 2,
   "kind": "scientific_schematic_and_analytic_illustration",
   "empirical_results": false,
-  "input": "user manuscript supplied on 2026-10-26",
+  "input": "ASTER manuscript method specification; no experiment metrics",
   "figures": [
-    "fig01_tlbs",
-    "fig02_aster",
-    "fig03_protocol",
-    "fig04_gate"
+    {
+      "stem": "fig01_tlbs",
+      "size_inches": [
+        7.0,
+        2.55
+      ],
+      "content": "fictional task and hypothesized failure path"
+    },
+    {
+      "stem": "fig02_aster",
+      "size_inches": [
+        7.0,
+        4.3
+      ],
+      "content": "attention mask and symbolic bias operators"
+    },
+    {
+      "stem": "fig03_protocol",
+      "size_inches": [
+        7.0,
+        2.25
+      ],
+      "content": "five paired counterfactual guideline variants"
+    },
+    {
+      "stem": "fig04_gate",
+      "size_inches": [
+        7.0,
+        2.25
+      ],
+      "content": "analytic relative weight multipliers"
+    }
   ],
+  "typography": {
+    "font": "DejaVu Sans",
+    "minimum_label_pt": 7.2,
+    "body_label_pt": 8.0,
+    "panel_heading_pt": 9.1,
+    "pdf_font_type": "embedded TrueType",
+    "svg_editable_text": true
+  },
+  "formats": [
+    "svg",
+    "pdf",
+    "png"
+  ],
+  "png_dpi": 450,
+  "proof": {
+    "file": "figures_review.pdf",
+    "pages": 4,
+    "figure_width_inches": 7.0,
+    "captions": "captions.en.md"
+  },
+  "figure2_scope": {
+    "matrix": "representative role tokens; exact categorical mask, not attention values",
+    "blind_readout": "fixed non-action B before branch ID is written",
+    "clerk_paths": [
+      "post-prefix condition/evidence union highlighting",
+      "soft veto"
+    ],
+    "reveal_example": "p1 > max(p2, pNONE); emphasis additionally requires p1 >= tau",
+    "persistent_constraints": [
+      "causal mask",
+      "cross-action-fragment isolation"
+    ],
+    "cache": "fixed patient-independent guideline prefix only"
+  },
+  "figure3_example": {
+    "patient": {
+      "relapse_months": 4,
+      "prior_H": false
+    },
+    "figure1_volume": "SW",
+    "prior_favored_action": "Y",
+    "volumes": {
+      "NC": {
+        "R1": "Y",
+        "R2": "X",
+        "gold": "R1->Y",
+        "threshold": 6
+      },
+      "AC": {
+        "R1": "Z",
+        "R2": "X",
+        "gold": "R1->Z",
+        "threshold": 6
+      },
+      "IC": {
+        "R1": "Y",
+        "R2": "Z",
+        "gold": "R1->Y",
+        "threshold": 6
+      },
+      "SW": {
+        "R1": "X",
+        "R2": "Y",
+        "gold": "R1->X",
+        "threshold": 6
+      },
+      "CS": {
+        "R1": "Y",
+        "R2": "X",
+        "gold": "R2->X",
+        "threshold": 3
+      }
+    }
+  },
   "figure4_assumptions": {
     "p_pairs": [
       [
@@ -19,54 +122,17 @@
         0.45
       ]
     ],
+    "none_probability": 0,
     "quantity": "(p_comp/p_top)^lambda",
     "adaptive_lambda": "lambda0*(p_top-p_comp)",
-    "fixed_probability_query_key": true
+    "fixed_probability_and_pre_gate_scores_and_other_biases": true,
+    "not_an_attention_share_or_performance_measure": true
   },
-  "font": "Noto Sans CJK SC",
-  "formats": [
-    "svg",
-    "pdf",
-    "png"
-  ],
-  "figure3_example": {
-    "shared_with_figure1": true,
-    "figure1_volume": "SW",
-    "native_treatment": "Y",
-    "replacement_treatment": "Z",
-    "volumes": {
-      "NC": {
-        "R1": "Y",
-        "R2": "X",
-        "gold": "R1->Y"
-      },
-      "AC": {
-        "R1": "Z",
-        "R2": "X",
-        "gold": "R1->Z"
-      },
-      "IC": {
-        "R1": "Y",
-        "R2": "Z",
-        "gold": "R1->Y"
-      },
-      "SW": {
-        "R1": "X",
-        "R2": "Y",
-        "gold": "R1->X"
-      },
-      "CS": {
-        "R1": "Y",
-        "R2": "X",
-        "gold": "R2->X",
-        "threshold_change": "6->3"
-      }
-    },
-    "score_cache_scope": [
-      "task_case",
-      "guideline",
-      "judge_configuration",
-      "output"
-    ]
+  "renderer_versions": {
+    "matplotlib": "3.10.8",
+    "numpy": "2.3.5",
+    "Pillow": "12.3.0",
+    "reportlab": "4.4.9",
+    "pypdf": "6.10.0"
   }
 }

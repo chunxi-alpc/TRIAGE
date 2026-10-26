@@ -1,54 +1,88 @@
-# ASTER 论文图稿
+# ASTER paper figures
 
-[主线索引](../README.md) · [论文工作稿](../manuscript.zh.md)
+[Mainline index](../README.md) · [Working manuscript](../manuscript.zh.md) · [English captions](captions.en.md) · [LaTeX inclusion](figures.tex)
 
-四幅图均为研究设计或明确假定下的解析示意，不含占位实验成绩。
+The four figures cover the proposed failure mode, ASTER's computational operators, the paired counterfactual protocol, and an analytic gate relationship. Figures 1-3 are design schematics; Figure 4 evaluates declared mathematical inputs. They contain no measured ASTER outcomes.
 
-| 图 | 内容 | 预览 | 矢量文件 |
-| --- | --- | --- | --- |
-| 01 | 处置先行分支选择的虚构示例 | [PNG](fig01_tlbs.png) | [SVG](fig01_tlbs.svg) · [PDF](fig01_tlbs.pdf) |
-| 02 | ASTER 方法与阶段信息流 | [PNG](fig02_aster.png) | [SVG](fig02_aster.svg) · [PDF](fig02_aster.pdf) |
-| 03 | 五卷配对与同信息评测 | [PNG](fig03_protocol.png) | [SVG](fig03_protocol.svg) · [PDF](fig03_protocol.pdf) |
-| 04 | 对数门控的解析行为 | [PNG](fig04_gate.png) | [SVG](fig04_gate.svg) · [PDF](fig04_gate.pdf) |
+## Files and publication dimensions
 
-![ASTER 方法设计](fig02_aster.svg)
+All figure text is English. Each source figure is 7.0 inches wide.
 
+| Figure | Content | Width × height | Preview | Vector files |
+|---|---|---|---|---|
+| 1 | Treatment-led branch selection, fictional SW case | 7.0 × 2.55 in | [PNG](fig01_tlbs.png) | [PDF](fig01_tlbs.pdf) · [SVG](fig01_tlbs.svg) |
+| 2 | BLIND mask, applicability readout, and REVEAL controls | 7.0 × 4.30 in | [PNG](fig02_aster.png) | [PDF](fig02_aster.pdf) · [SVG](fig02_aster.svg) |
+| 3 | NC / AC / IC / SW / CS with aligned sibling trees | 7.0 × 2.25 in | [PNG](fig03_protocol.png) | [PDF](fig03_protocol.pdf) · [SVG](fig03_protocol.svg) |
+| 4 | Fixed and confidence-adaptive logarithmic gate multipliers | 7.0 × 2.25 in | [PNG](fig04_gate.png) | [PDF](fig04_gate.pdf) · [SVG](fig04_gate.svg) |
 
-这组图用于研究方案与工作稿。图 1–3 是概念、方法和实验设计示意。图 4 是明确假设下的解析曲线。图中不包含预填实验结果，也不构成临床结论。
+[**Four-page figure-and-caption proof: figures_review.pdf**](figures_review.pdf) places one figure and its English caption on each page, retaining the figure's actual 7.0-inch width. It is the fifth PDF produced alongside the four individual figures. Inspect it at 100% scale when assessing type size and spacing.
 
-## 图 1：先判断适用分支，再读取处置
+![ASTER operators](fig02_aster.svg)
 
-**建议图注。** 处置先行的分支选择（TLBS）的研究假设与 ASTER 的设计目标。本图对应图 3 的 SW 卷：熟悉处置 Y 被交换到不适用的 R2，虚构病例的条件支持 R1→X；若模型先被 Y 吸引，则可能错误选择 R2。虚线表示待检验的信息影响路径。ASTER 拟在盲判阶段隔离处置信息，再按分支判断控制执行阶段的读取权重。图中路径用于解释假设，不代表一次真实模型运行。虚构规则不构成医疗建议。
+## Reading the diagrams
 
-## 图 2：ASTER 按阶段控制可见性与处置权重
+**Figure 1.** The action-visible and ASTER routes share the patient facts, conditions, and action tokens. The selection-stage mask changes. The example is the SW variant of Figure 3: $t=4$ months with no prior H supports $r_1\to X$, while familiar Y is attached to the inapplicable sibling $r_2$. The displayed error and intended ASTER route are hypothetical.
 
-**建议图注。** 先对指南、病历和问题作角色标注。盲判阶段屏蔽非处置位置对处置键的访问，同时隔离不同归属的处置段。完整方法的可选证据员仅读取条件和病历，返回原子状态、置信度与证据位置；自判方法不使用该模块。条件与病历证据在原位联合高亮，逐组读出盲判分布，此时先不写入分支编号。对违反条件的分支施加可选软否决，完成概率校正后，才写入校正后的分支编号，避免已写编号与随后门控目标不一致。揭示阶段以同一校正分布计算对数门控，基础强度满足 \(\lambda_0\ge 0\)；最高分支为 NONE 或最高概率并列时，本组不做门控。选定窗口内可对规则及证据进行有界强调。所有允许访问仍受因果掩码限制。概率输出不自动等于校准置信度。缓存需要固定、与患者无关的指南前缀编码；是否满足该条件须由实现检验。
+**Figure 2.** The matrix is a representative-token view of the operator, not a complete list of prompt positions. Its row is the query and its column is the key. The specification covers all non-action queries in BLIND, including neutral N, question Q, rule-ID, and other positions omitted from the matrix. Any action mention in a question, option, or footnote is tagged as an action. The outlined A-to-A cell marks isolation across distinct action fragments; this isolation persists in both phases together with the causal mask.
 
-## 图 3：五卷配对评测与同信息比较
+The highlighted B row is a fixed non-action readout position before writing the branch ID. Purple components belong to ASTER-full: the clerk sees only conditions and patient text, provides atomic states/confidence/evidence, supports joint in-place highlighting of condition and evidence spans for post-prefix queries, and supplies the violations used by the soft veto. Joint highlighting does not specify one-to-one condition-evidence attention edges. ASTER-self omits these components. The adjusted distribution determines the written branch ID and branches to both Gate and Emph. The shown case assumes $p_1>\max(p_2,p_{\mathrm{NONE}})$; ties or a top NONE disable both controls, and emphasis additionally requires $p_{\max}\ge\tau$.
 
-**建议图注。** 五卷评测分别保留原规则（NC）、替换适用处置（AC）、替换不适用处置（IC）、交换兄弟处置（SW）和改变条件阈值（CS）。图 1 与本图使用同一虚构病例；图 1 对应 SW 卷。NC 中 R1→Y、R2→X，其中 Y 为原规则下先验认可的处置，Z 为替换处置。SW 交换后 R1→X、R2→Y，Y 因此成为不适用兄弟分支的诱饵。CS 将阈值从 6 改为 3，患者转而适用 R2→X。患者既往未用 H 的事实以及未展示的其他条件保持不变。前四卷共享患者、问题和条件；CS 须程序验证适用分支翻转。诊断采用盲判/明判、诱饵熟悉度、词元长度和顺序控制。方法比较必须匹配可用信息、调参预算、成本和原生性能。测试集按树或指南锁定，派生卷保持配对。评分缓存仅在任务或病例、指南、评审配置与输出均一致时复用；相同字符串在不同评审上下文中不共用评分。
+The gate targets rule-action keys across all layers and heads. Emphasis is bounded and restricted to the selected layer window; $I,C,A,E$ denote the selected rule ID, conditions, action, and supporting evidence. Default ASTER does not automatically gate action mentions in question/option spans during REVEAL. Cache reuse applies only to a causal guideline prefix with fixed content, token positions, role annotations, and patient-independent computation. Patient-dependent highlighting and probabilities must not modify that prefix.
 
-## 图 4：对数门控的解析行为
+**Figure 3.** Only the specified action or threshold changes between aligned trees. The shared no-H condition is suppressed in the miniature trees. The five gold routes are $r_1\to Y$, $r_1\to Z$, $r_1\to Y$, $r_1\to X$, and $r_2\to X$. Y is a stipulated prior-favored action for this illustration; model-specific preference still requires measurement in the evaluation protocol.
 
-**建议图注。** 固定概率、查询与键时，竞争处置相对于最可能处置的未归一化权重乘子为 \((p_{\mathrm{comp}}/p_{\mathrm{top}})^\lambda\)。左图按有效强度 \(\lambda\) 作图。右图采用 \(\lambda=\lambda_0(p_{(1)}-p_{(2)})\)，比较假定分布 \((0.90,0.10)\) 和 \((0.55,0.45)\)。右图圆点为 \(\lambda_0=2\) 时的公式计算值，约为 0.030 和 0.961；不是测量值。自适应强度在概率接近时降低压制幅度。该解析关系不能推出完整模型的注意力总量、答案分布或准确率随强度单调变化，也不能证明其优于硬裁剪。
+**Figure 4.** The y-axis is the multiplicative change to the competing-to-top unnormalized action-weight ratio. The two input distributions are declared analytic examples, with zero NONE mass. The curves do not measure task performance, empirical robustness, or the branch's share of all context attention.
 
-## 格式与复现
+The complete captions are in [captions.en.md](captions.en.md) and are mirrored in [figures.tex](figures.tex). Each caption is under 200 words.
 
-- `fig01_tlbs`、`fig02_aster`、`fig03_protocol`、`fig04_gate` 均提供 SVG、PDF 与 PNG。
-- SVG 使用矢量轮廓，避免接收者缺少中文字体。文本、布局与配色可通过生成脚本修改。
-- PDF 嵌入字体；PNG 分辨率为 220 dpi，用于仓库预览。
-- [生成脚本](../../../scripts/generate_aster_figures.py) 不读取任何实验指标文件。解析图的参数写在脚本中，并在 `figure_metadata.json` 中记录。
-- 依赖：Python 3.10 以上、Matplotlib、NumPy、Pillow；中文字体可使用 Noto Sans CJK SC。通过环境变量 `ASTER_CJK_FONT` 指定字体文件。
+## Format and reproduction
+
+| Output | Specification |
+|---|---|
+| PDF | Vector artwork with embedded TrueType fonts |
+| SVG | Vector shapes and editable text |
+| PNG | 450 dpi raster export |
+| Language and fonts | English labels; no Chinese font dependency |
+| Source layout | 7.0-inch width; figure-specific heights listed above |
+
+From the repository root, install the figure dependencies and regenerate:
 
 ```bash
-ASTER_CJK_FONT=/absolute/path/NotoSansCJKsc-Regular.otf \
-  python scripts/generate_aster_figures.py --output-dir docs/ASTER/figures
+python -m pip install -r requirements-figures.txt
+python scripts/generate_aster_figures.py
 ```
 
-字体获取地址：[Noto Sans CJK 简体中文字体](https://github.com/notofonts/noto-cjk/tree/main/Sans/OTF/SimplifiedChinese)。字体为渲染依赖，未要求纳入仓库。
+The [generator](../../../scripts/generate_aster_figures.py) writes the four figure sets and the four-page review PDF to this directory. It does not consume experiment result tables. The analytic parameters and export settings are recorded in [figure_metadata.json](figure_metadata.json). Dependency declarations are in [requirements-figures.txt](../../../requirements-figures.txt).
 
-本次生成环境为 Matplotlib 3.10.8、NumPy 2.3.5、Pillow 12.3.0，依赖版本见 [requirements-figures.txt](../../../requirements-figures.txt)。安装后从仓库根目录运行上面的命令；中文字体需本地提供，脚本不会自动联网下载。SVG 已转为字形轮廓，查看现成文件不需要安装字体。
+For a two-column LaTeX manuscript compiled from the repository root, add to the preamble:
 
-## 后续结果图
+```latex
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\graphicspath{{docs/ASTER/figures/}}
+```
 
-帕累托曲线、盲判／明判效果、噪声鲁棒性、证据员覆盖率、层窗口和成本曲线须等实际运行产物齐备后生成，不能从原稿预填表绘制为发现。
+Then include the four `figure*` environments:
+
+```latex
+\input{docs/ASTER/figures/figures.tex}
+```
+
+Each uses `\includegraphics[width=\textwidth]{...pdf}`. Paths are relative to the compilation directory; a manuscript compiled from `paper/` needs `../docs/ASTER/figures/` instead. The source width is 7.0 inches, while the conference template controls the final `\textwidth`; inspect the rendered manuscript at its actual scale.
+
+## Verified design references
+
+These original papers informed operator placement, matched-case comparison, and aligned pathway layouts. They are design references, not evidence for ASTER's unmeasured claims. Page numbers are 1-based PDF page numbers in the linked versions. Main-conference publications are distinguished from workshop records and preprints.
+
+| Original paper and status | Inspected figure | Design element used here |
+|---|---|---|
+| **Tell Your Model Where to Attend: Post-hoc Attention Steering for LLMs (PASTA)**, Zhang et al. **ICLR 2024 main conference, poster.** [Official record](https://openreview.net/forum?id=xZDWO0oejD) · [author PDF, arXiv v2](https://arxiv.org/pdf/2311.02262v2) | **Figure 1, p. 2** | Show the attention intervention at concrete token positions. ASTER Figure 2 locates its masks and biases at query-key entries rather than leaving them inside a generic model box. |
+| **Spectral Attention Steering for Prompt Highlighting (SEKA)**, Li et al. **ICLR 2026 main conference.** [Official proceedings](https://proceedings.iclr.cc/paper_files/paper/2026/hash/32ddf8ee55540539eb46083cd72361e8-Abstract-Conference.html) · [official PDF](https://proceedings.iclr.cc/paper_files/paper/2026/file/32ddf8ee55540539eb46083cd72361e8-Paper-Conference.pdf) | **Figure 2, p. 4** | Separate the operator's inputs, modified tensor, and attention computation. ASTER Figure 2 distinguishes key-specific gating from bounded emphasis; it does not depict SEKA's key-editing operator as its own. |
+| **Taming Knowledge Conflicts in Language Models (JuICE)**, Li, Chen, and Tong. **ICML 2025 main conference.** [Official proceedings](https://proceedings.mlr.press/v267/li25c.html) · [official PDF](https://raw.githubusercontent.com/mlresearch/v267/main/assets/li25c/li25c.pdf) | **Figure 4, p. 5** | Use aligned computation stages and explicit transfer arrows to show what is carried between operations. ASTER Figure 2 carries a branch distribution into REVEAL and distinguishes that transfer from the reusable guideline prefix. |
+| **MedGUIDE: Benchmarking Clinical Decision-Making in Large Language Models**, Li et al. **Inspected arXiv v1 (2025), with a NeurIPS 2025 GenAI4Health workshop poster record.** [Original PDF](https://arxiv.org/pdf/2505.11613v1) · [official workshop record](https://openreview.net/forum?id=Si6BICL2J9) | **Figure 2, p. 5**; **Figure 1, p. 3** | Couple a patient case to a visible guideline path and action. ASTER Figures 1 and 3 retain sibling-branch topology and mark the gold path. The workshop record is not a NeurIPS main-track designation. |
+| **Evaluating Counterfactual Sensitivity to Patient Information in Medication-Safety Reasoning (MedPIC-Bench)**, Hou et al. **Inspected arXiv v1 preprint (2026).** [Original PDF](https://arxiv.org/pdf/2608.03028v1) · [original HTML](https://arxiv.org/html/2608.03028v1) | **Figure 1, p. 1**; **Figure 2, p. 3** | Preserve common case structure and localize the changed component. ASTER Figure 3 shares a patient and tree layout while marking only the action or threshold edit. Its template does not establish conference acceptance. |
+| **Benchmarking Clinical Decision Pathway Adherence in Large Language Models (MEGA-CDP)**, Chen et al. **Inspected arXiv v1 preprint (2026).** [Original PDF](https://arxiv.org/pdf/2608.26592v1) · [original HTML](https://arxiv.org/html/2608.26592v1) | **Figure 3, p. 6**; **Figure 2, p. 3** | Align alternative pathways under a shared case so the differing branch is visible. ASTER Figure 1 separates selecting a branch from executing its action. |
+
+## Figures that await empirical results
+
+Blind/visible comparisons, action-familiarity effects, causal interventions, noise robustness, clerk coverage, ablations, and latency/cost plots require actual run artifacts and a locked test set. They are not generated from the manuscript's former placeholder values. If the measurements contradict a claim, revise the claim and its figure rather than preserving the expected conclusion.
