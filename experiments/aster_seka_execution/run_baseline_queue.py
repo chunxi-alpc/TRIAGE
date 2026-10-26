@@ -22,7 +22,7 @@ def main():
     path = Path(sys.argv[1]).resolve()
     queue = json.loads(path.read_text())
     gpu = int(queue['gpu'])
-    if gpu not in (0, 1, 2, 3):
+    if gpu not in (0, 1, 6):
         raise ValueError('GPU outside the user-authorized set')
     lock_path = LOCK_ROOT / f'gpu{gpu}.lock'
     state_path = path.with_name(path.stem + '_state.json')

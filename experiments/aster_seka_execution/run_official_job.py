@@ -129,7 +129,7 @@ def input_fingerprints(args, source, output, model, state):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--gpu', type=int, choices=[0, 1, 2, 3], required=True)
+    parser.add_argument('--gpu', type=int, choices=[0, 1, 6], required=True)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--model', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)

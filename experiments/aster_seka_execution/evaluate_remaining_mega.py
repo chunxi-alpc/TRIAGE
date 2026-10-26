@@ -19,9 +19,9 @@ from summarize_mega import read, require, sha
 
 RUN_DIRS = {'primary_run': 'mega_dev16_seed0_gpu01',
             'additional_a0_run': 'mega_dev16_additional_gpu01_A0',
-            'additional_a1_run': 'mega_dev16_additional_gpu01_A1',
+            'additional_a1_run': 'mega_dev16_additional_gpu016_A1',
             'attention_run': 'mega_dev16_attention_gpu01'}
-PRIMARY_EVALUATION = 'mega_dev16_primary_gpu01_evaluation'
+PRIMARY_EVALUATION = 'mega_dev16_primary_gpu016_evaluation'
 
 
 def write(path, value):

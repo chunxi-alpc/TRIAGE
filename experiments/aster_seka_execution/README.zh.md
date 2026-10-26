@@ -35,3 +35,5 @@ task_ledger.json逐项记录planned/running/complete_verified/blocked；NEXT_ACT
 所有当前实验仅用GPU0–3，由协调器以独占锁和依赖队列管理，稳定后不持续轮询。正式方法和种子0/1/2冻结、MEGA/MedPIC独立测试、MedGUIDE回归及MedCalc/FaithEval模型扩展仍待完成。新增结果与限制见REPORT.zh.md；实际执行参数见各launch_plan及run_manifest。
 
 最新主实验：固定16例×11组共176条真实生成已完成，101857次前向、17757.65秒（约4小时56分钟）。匿名逐例记录见mega_dev16_primary_generation_verified，评分尚未完成，不能解读为准确率或方法胜出。原始完整输出保留在服务器；GPU2现运行首批评分，GPU3运行A1六组对照，GPU0/1的既有模型任务继续。
+
+最新用户安排：仅GPU0、1、6；GPU2/3已释放。以FINAL_BACKGROUND_SCHEDULE.json为唯一当前调度依据，较早GPU0–3/GPU0–1描述保留为历史。用户要求安排后停止主动推进，后台当前阶段任务继续；最终方法选择、完整外部测试仍待后续处理。

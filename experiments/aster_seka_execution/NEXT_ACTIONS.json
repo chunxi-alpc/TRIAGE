@@ -1,41 +1,18 @@
 {
-  "goal_status": "active",
-  "updated_at_utc": "2026-10-25T19:32:24.751571+00:00",
-  "first": "Do not repeat existing launches or continuously monitor stable jobs. Use actual completion/failure when needed.",
-  "active_queues": [
-    "runtime/remaining_native_gpu03_queue.json",
-    "runtime/base_adaseka_gpu03_smoke_queue.json",
-    "runtime/source_rule_extraction_v2_queue.json"
-  ],
-  "preserved_superseded_run": "runtime/mega_dev16_seed0_job; interrupted for parser failure, no outcome-based change",
-  "completed_standard_evidence": [
-    "adaseka_full_paired_comparison_v2/comparison.json",
-    "spotlight_full5000_v3_entity_ci_v2/entity_ci.json",
-    "cad_full5000_v2_entity_ci/entity_ci.json",
-    "biasbios_full_paired_comparison/comparison.json",
-    "biasbios_base_paired_comparison/comparison.json",
-    "counterfact_base_pasta_verified/efficacy/audit.json"
-  ],
-  "next": [
-    "After actual GPU2 Base Ada16 smoke completes, independently verify and estimate full5000 costs, then launch complete Base Ada standards",
-    "Inspect actual source_rule_extraction_v2 outputs once finished; decide development revision from source/condition validity, retaining original43-arm scores; do not treat CPU replay as clinical gain",
-    "After actual remaining native evaluator exits, execute its summary_invocation.json with clinical_all43_cost_spec.json",
-    "Select on development only; freeze method/code/config/seeds0/1/2 before full independent MEGA/MedPIC evaluation",
-    "Run remaining MedGUIDE regression/MedCalc/FaithEval extensions; keep all negative results"
-  ],
-  "authorization": "MEGA research use confirmed by user; no reapproval needed",
-  "session_note": "115 server gcx; isolated worktree; runtime private; no main/history writes",
+  "goal_status": "user_requested_pause_after_scheduling",
   "gpu_allowlist": [
     0,
     1,
-    2,
-    3
+    6
   ],
-  "resource_correction": "Newest user authorizes GPU0-3. gpu03_parallel_launch_plan.json and remaining_native_gpu03_launch_plan.json are authoritative; no GPU6.",
-  "active_model_pids": {
-    "A0": 430515,
-    "attention": 430608,
-    "primary_evaluation": 435951,
-    "A1": 435950
-  }
+  "authoritative_schedule": "FINAL_BACKGROUND_SCHEDULE.json",
+  "background_jobs_continue": true,
+  "continuous_monitoring": false,
+  "upon_user_resume": [
+    "Read actual finished manifests once; preserve partial failures",
+    "Complete remaining native summary invocation and source-rule review",
+    "Measure Base Ada16 then schedule full standards",
+    "Finalize method and freeze0/1/2 before full independent evaluation"
+  ],
+  "not_automatically_finished": "Final method choice, external full tests and extensions remain incomplete"
 }

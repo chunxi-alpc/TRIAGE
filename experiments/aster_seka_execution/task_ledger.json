@@ -32,18 +32,16 @@
   "gpu_allowlist": [
     0,
     1,
-    2,
-    3
+    6
   ],
   "gpu_assignment": {
-    "0": "A0 additional baselines; then remaining native evaluation",
-    "1": "PASTA/Ada clinical attention baselines",
-    "2": "Primary11 native evaluation",
-    "3": "A1 six same-information controls"
+    "0": "Existing A0 then remaining native evaluation",
+    "1": "Existing attention then source-rule extraction validation",
+    "6": "Primary native evaluation, A1 controls, Base Ada16 validation"
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-26T01:58:23.099516+00:00",
+  "updated_at_utc": "2026-10-26T02:17:09.021053+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -200,7 +198,7 @@
       "id": "clinical_same_condition_fusion",
       "status": "running",
       "execution": "A0 on GPU0 and A1 on GPU3 are real running model processes",
-      "evidence": "gpu03_parallel_launch_plan.json"
+      "evidence": "FINAL_BACKGROUND_SCHEDULE.json"
     },
     {
       "id": "MedPIC_transfer_runtime",
@@ -259,7 +257,7 @@
       "id": "Base_Ada_validation16",
       "status": "planned",
       "execution": "Actual GPU2 dependency queue after primary judge; four experts independently verified",
-      "evidence": "base_adaseka_gpu03_smoke_launch_plan.json"
+      "evidence": "FINAL_BACKGROUND_SCHEDULE.json"
     },
     {
       "id": "all_clinical_statistics_interface",
@@ -291,5 +289,6 @@
       "scope": "Base model artifact provenance and shape/numerics; not full task inference",
       "evidence": "adaseka_base_audit/audit.json"
     }
-  ]
+  ],
+  "coordination_status": "User requested stop after scheduling; background tasks continue, active coordination will pause"
 }
