@@ -1,5 +1,6 @@
 """CPU recomputation and public export of the completed v3 clinical comparison."""
 from collections import Counter
+from clinical_v3_identity import index_predictions
 import gzip
 import json
 import math
@@ -22,7 +23,8 @@ def main():
     assert protocol['status'] == 'finished_pending_evaluation'
     assert report['status'] == 'complete_verified'
     assert protocol['completed_rows'] == 112
-    expected = {row['sample_id'] for row in json.loads(Path(plan['input_manifest']).read_text())['selected']}
+    frozen = json.loads(Path(plan['input_manifest']).read_text())
+    expected = {row['sample_id'] for row in frozen['selected']}
     official, hashes = load_official(Path(plan['official_root']) / 'mega_cdp/scripts/evaluate/parse_prediction_output_singleturn.py')
     assert hashes == cfg['official_source_files_sha256']
     scores = read_jsonl(evaluation / 'case_metrics.jsonl')
@@ -32,7 +34,7 @@ def main():
     for method in plan['methods']:
         path = gen / (method + '.predictions.private.jsonl')
         assert digest(path) == cfg['prediction_sha256'][method]
-        rows = {row['sample_id']: row for row in read_jsonl(path)}
+        rows = index_predictions(read_jsonl(path), frozen)
         raw = read_jsonl(evaluation / 'private' / (method + '_official.jsonl'))
         assert set(rows) == expected and {row['sample_id'] for row in raw} == expected and len(raw) == 16
         for item in raw:
@@ -89,6 +91,7 @@ def main():
              'cases': 16, 'new_gpu_forwards': 0, 'zero_control_passed': zero_pass,
              'generation_summary': generation_summary, 'trace_archives': records,
              'plan_sha256': digest(P / 'clinical_v3_plan.json'), 'exporter_sha256': digest(Path(__file__)),
+             'identity_resolver_sha256': digest(P / 'clinical_v3_identity.py'),
              'shared_preparation_cost_note': 'Include prior A0 extraction/condition costs referenced in each private prediction',
              'independent_confirmation': False, 'raw_text_published': False}
     (out / 'audit.json').write_text(json.dumps(audit, indent=2) + '\n')
@@ -107,6 +110,8 @@ def main():
     for task in data['subtasks']:
         if task['id'] == 'clinical_strength_v3':
             task.update(status='complete_verified', evidence='clinical_v3_results_verified/audit.json',
+                        execution_state='completed', completed_predictions=112, expected_predictions=112,
+                        native_evaluation_status='complete_verified',
                         scope='112 fixed development predictions and scores; not independent test')
     ledger.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
 
