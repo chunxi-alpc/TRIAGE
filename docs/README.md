@@ -1,29 +1,13 @@
 # 文档导航
 
-[返回项目首页](../README.md)
+[项目首页](../README.md) · [旧支线索引](BRANCHES.md)
 
-## 当前实现
+## 当前主线：ASTER
 
-| 文档 | 内容 |
-| --- | --- |
-| [模块一](../src/module1/README.md) | CARE V6 默认入口、结构化规则、模型配置、历史接口及已知限制 |
-| [模块二](../src/module2/README.md) | 查询头消融定位、历史校准组件与 CARE 独立研究 |
-| [模块三](../src/module3/README.md) | 门控键向量干预、投影来源与零门控检查 |
-| [统一流水线](../src/pipeline/README.md) | V6 图接口、最终推理、命令行配置与产物兼容性 |
-| [运行说明](RUNNING.md) | 环境、结构化输入示例、服务器运行约定与复现边界 |
-| [版本与整理记录](REPOSITORY_STATUS.md) | 各分支的来源提交、纳入范围和当前版本关系 |
+以 [ASTER 文档索引](ASTER/README.md) 为唯一研究入口。主线包含论文工作稿、六项主张与证伪条件、实验计划、证据状态、审计、引用核验清单和四幅图。所有经验性结果仍须核验或实测。
 
-## 实验与结果
+## 历史支线
 
-| 入口 | 内容 |
-| --- | --- |
-| [实验总索引](../experiments/README.md) | 模块一 V4–V6、CARE 三项观察与模块二后续实验 |
-| [结果总索引](../results/README.md) | 历史流水线诊断、组件、投影与 ACRE 归档 |
-| [脚本索引](../scripts/README.md) | 当前入口、独立实验和历史脚本的适用版本 |
-| [ACRE 文档索引](ACRE/README.md) | 设计、先导结果、停止结论与未执行提案 |
+整理前的完整版本位于 [`archive/pre-aster-main-20261026`](https://github.com/chunxi-alpc/TRIAGE/tree/archive/pre-aster-main-20261026)。各支线及固定提交见 [支线索引](BRANCHES.md)。旧 [ACRE](ACRE/README.md)、[三模块最小实现](../TRIAGE_MVP.md)、[版本记录](REPOSITORY_STATUS.md) 和 [运行说明](RUNNING.md) 保留跳转入口。
 
-## 阅读约定
-
-当前接口以 `src/` 下的模块说明和代码为准。实验目录中的协议、报告、指标、预测与校验清单保留各轮运行时的状态。历史报告中的“当前”“下一步”“默认入口”均指对应实验阶段。
-
-不同模型、数据划分、筛选子集和运行阶段的指标不能直接拼成一张整体性能表。新增入口会明确标注这些差异，并链接到原始依据。
+`src/` 下的模块说明对应既有实现；`experiments/` 与 `results/` 保存原实验状态。它们不代表本次 ASTER 工作稿已经实现或验证。版本对应关系见 [实现状态](ASTER/implementation-status.zh.md)。

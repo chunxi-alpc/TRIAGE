@@ -1,4 +1,13 @@
-# 脚本索引
+# 脚本与历史入口
+
+> **2026-10-26 主线说明：** 当前研究主线为 [ASTER](../docs/ASTER/README.md)。下列既有内容保留原实验阶段含义，其中“当前”“默认”不定义新版 ASTER。实验数字和实现不得未经核验迁入新论文。完整旧主线见[归档分支](https://github.com/chunxi-alpc/TRIAGE/tree/archive/pre-aster-main-20261026)。
+
+## ASTER 文档工具
+
+- [生成论文图稿](generate_aster_figures.py)：使用方式见[图稿说明](../docs/ASTER/figures/README.md)。
+- [核对原稿占位表](audit_aster_placeholders.py)：只检查已显示数字的一致性，不执行模型评测。
+
+## 历史脚本索引原文
 
 [项目首页](../README.md) · [运行说明](../docs/RUNNING.md) · [实验索引](../experiments/README.md)
 

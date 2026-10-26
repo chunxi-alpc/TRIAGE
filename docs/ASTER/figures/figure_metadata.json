@@ -1,0 +1,72 @@
+{
+  "kind": "scientific_schematic_and_analytic_illustration",
+  "empirical_results": false,
+  "input": "user manuscript supplied on 2026-10-26",
+  "figures": [
+    "fig01_tlbs",
+    "fig02_aster",
+    "fig03_protocol",
+    "fig04_gate"
+  ],
+  "figure4_assumptions": {
+    "p_pairs": [
+      [
+        0.9,
+        0.1
+      ],
+      [
+        0.55,
+        0.45
+      ]
+    ],
+    "quantity": "(p_comp/p_top)^lambda",
+    "adaptive_lambda": "lambda0*(p_top-p_comp)",
+    "fixed_probability_query_key": true
+  },
+  "font": "Noto Sans CJK SC",
+  "formats": [
+    "svg",
+    "pdf",
+    "png"
+  ],
+  "figure3_example": {
+    "shared_with_figure1": true,
+    "figure1_volume": "SW",
+    "native_treatment": "Y",
+    "replacement_treatment": "Z",
+    "volumes": {
+      "NC": {
+        "R1": "Y",
+        "R2": "X",
+        "gold": "R1->Y"
+      },
+      "AC": {
+        "R1": "Z",
+        "R2": "X",
+        "gold": "R1->Z"
+      },
+      "IC": {
+        "R1": "Y",
+        "R2": "Z",
+        "gold": "R1->Y"
+      },
+      "SW": {
+        "R1": "X",
+        "R2": "Y",
+        "gold": "R1->X"
+      },
+      "CS": {
+        "R1": "Y",
+        "R2": "X",
+        "gold": "R2->X",
+        "threshold_change": "6->3"
+      }
+    },
+    "score_cache_scope": [
+      "task_case",
+      "guideline",
+      "judge_configuration",
+      "output"
+    ]
+  }
+}

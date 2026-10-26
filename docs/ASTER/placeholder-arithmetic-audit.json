@@ -1,0 +1,1676 @@
+{
+  "schema_version": 1,
+  "source": "docs/ASTER/sources/manuscript-20261026.txt",
+  "source_sha256": "7ebe23aeb250e8690ae777d84bf7067e4b47fa4e206e6d4f4af1f5450e0e060b",
+  "evidence_status": "hypothetical_placeholder_manuscript",
+  "experiments_run": false,
+  "notes": [
+    "仅审计原稿中显示的占位数值；不验证实测结果、统计显著性或数据真实性。",
+    "Decimal 从字符串读取，最终显示按 ROUND_HALF_UP 保留一位小数。",
+    "表 9 用已显示的分卷准确率重算 NCA、CA、H，不先舍入中间指标；表 13 用已显示的 NCA、CA 重算 H。",
+    "输入已舍入，检查一致不等于未舍入原始计数一致；最终结果仍须从锁定测试集原始计数计算。",
+    "分母可实现性检查假定单次二元逐例准确率及指定固定分母；若采用宏平均、多次平均或不同分母，需另行说明。",
+    "盲判与 TS-Map 相等仅在同一病例、同一盲判及确定性无损分支到选项映射的条件下应成立。",
+    "表 12 的比较固定为 ASTER-full 减 Clerk-Prune；正文若采用其他比较集合，应另行核对。"
+  ],
+  "summary": {
+    "table9_row_count": 22,
+    "table9_expected_row_count": 22,
+    "table9_row_count_matches": true,
+    "table9_rows_arithmetically_consistent": 22,
+    "table13_row_count": 14,
+    "table13_expected_row_count": 14,
+    "table13_row_count_matches": true,
+    "table13_rows_arithmetically_consistent": 14,
+    "table12_stated_range_matches_full_minus_clerk_prune": false,
+    "blind_vs_map_unequal_conditions": 5,
+    "denominator": 400,
+    "denominator_accuracy_cells_checked": 110,
+    "denominator_infeasible_cells": 40
+  },
+  "table9_derived_metrics": [
+    {
+      "method": "Vanilla",
+      "metrics": {
+        "NCA": {
+          "displayed": "77.3",
+          "recomputed_from_displayed_inputs": "77.25",
+          "recomputed_rounded": "77.3",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "32.7",
+          "recomputed_from_displayed_inputs": "32.66666666666666666666666666666666666667",
+          "recomputed_rounded": "32.7",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "45.9",
+          "recomputed_from_displayed_inputs": "45.91660348749052312357846853677028051554",
+          "recomputed_rounded": "45.9",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "Reorder",
+      "metrics": {
+        "NCA": {
+          "displayed": "78.2",
+          "recomputed_from_displayed_inputs": "78.15",
+          "recomputed_rounded": "78.2",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "34.4",
+          "recomputed_from_displayed_inputs": "34.43333333333333333333333333333333333333",
+          "recomputed_rounded": "34.4",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "47.8",
+          "recomputed_from_displayed_inputs": "47.80396743153219837157660991857883049593",
+          "recomputed_rounded": "47.8",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "PromptRep",
+      "metrics": {
+        "NCA": {
+          "displayed": "78.6",
+          "recomputed_from_displayed_inputs": "78.55",
+          "recomputed_rounded": "78.6",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "35.3",
+          "recomputed_from_displayed_inputs": "35.26666666666666666666666666666666666667",
+          "recomputed_rounded": "35.3",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "48.7",
+          "recomputed_from_displayed_inputs": "48.67822521599062820325084199736418216429",
+          "recomputed_rounded": "48.7",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "CoT",
+      "metrics": {
+        "NCA": {
+          "displayed": "77.5",
+          "recomputed_from_displayed_inputs": "77.5",
+          "recomputed_rounded": "77.5",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "36.1",
+          "recomputed_from_displayed_inputs": "36.1",
+          "recomputed_rounded": "36.1",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "49.3",
+          "recomputed_from_displayed_inputs": "49.25616197183098591549295774647887323944",
+          "recomputed_rounded": "49.3",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "CAD",
+      "metrics": {
+        "NCA": {
+          "displayed": "69.9",
+          "recomputed_from_displayed_inputs": "69.9",
+          "recomputed_rounded": "69.9",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "44.1",
+          "recomputed_from_displayed_inputs": "44.1",
+          "recomputed_rounded": "44.1",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "54.1",
+          "recomputed_from_displayed_inputs": "54.08052631578947368421052631578947368421",
+          "recomputed_rounded": "54.1",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "JuICE",
+      "metrics": {
+        "NCA": {
+          "displayed": "71.2",
+          "recomputed_from_displayed_inputs": "71.15",
+          "recomputed_rounded": "71.2",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "42.8",
+          "recomputed_from_displayed_inputs": "42.76666666666666666666666666666666666667",
+          "recomputed_rounded": "42.8",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "53.4",
+          "recomputed_from_displayed_inputs": "53.42235552304316020482809070958302852961",
+          "recomputed_rounded": "53.4",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "PASTA",
+      "metrics": {
+        "NCA": {
+          "displayed": "77.7",
+          "recomputed_from_displayed_inputs": "77.7",
+          "recomputed_rounded": "77.7",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "33.5",
+          "recomputed_from_displayed_inputs": "33.5",
+          "recomputed_rounded": "33.5",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "46.8",
+          "recomputed_from_displayed_inputs": "46.81564748201438848920863309352517985612",
+          "recomputed_rounded": "46.8",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "SEKA",
+      "metrics": {
+        "NCA": {
+          "displayed": "78.0",
+          "recomputed_from_displayed_inputs": "77.95",
+          "recomputed_rounded": "78.0",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "34.1",
+          "recomputed_from_displayed_inputs": "34.1",
+          "recomputed_rounded": "34.1",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "47.4",
+          "recomputed_from_displayed_inputs": "47.44480142793395805443998215082552431950",
+          "recomputed_rounded": "47.4",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "AutoPASTA",
+      "metrics": {
+        "NCA": {
+          "displayed": "78.9",
+          "recomputed_from_displayed_inputs": "78.9",
+          "recomputed_rounded": "78.9",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "32.1",
+          "recomputed_from_displayed_inputs": "32.1",
+          "recomputed_rounded": "32.1",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "45.6",
+          "recomputed_from_displayed_inputs": "45.63405405405405405405405405405405405405",
+          "recomputed_rounded": "45.6",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "TS-Note",
+      "metrics": {
+        "NCA": {
+          "displayed": "78.9",
+          "recomputed_from_displayed_inputs": "78.9",
+          "recomputed_rounded": "78.9",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "43.8",
+          "recomputed_from_displayed_inputs": "43.83333333333333333333333333333333333333",
+          "recomputed_rounded": "43.8",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "56.4",
+          "recomputed_from_displayed_inputs": "56.35714285714285714285714285714285714286",
+          "recomputed_rounded": "56.4",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "TS-Prune",
+      "metrics": {
+        "NCA": {
+          "displayed": "77.6",
+          "recomputed_from_displayed_inputs": "77.55",
+          "recomputed_rounded": "77.6",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "56.3",
+          "recomputed_from_displayed_inputs": "56.3",
+          "recomputed_rounded": "56.3",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "65.2",
+          "recomputed_from_displayed_inputs": "65.23817706387747478520732162868883078072",
+          "recomputed_rounded": "65.2",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "TS-SEKA",
+      "metrics": {
+        "NCA": {
+          "displayed": "79.8",
+          "recomputed_from_displayed_inputs": "79.75",
+          "recomputed_rounded": "79.8",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "49.9",
+          "recomputed_from_displayed_inputs": "49.93333333333333333333333333333333333333",
+          "recomputed_rounded": "49.9",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "61.4",
+          "recomputed_from_displayed_inputs": "61.41395707492610204343914663924945379772",
+          "recomputed_rounded": "61.4",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "TS-Map",
+      "metrics": {
+        "NCA": {
+          "displayed": "74.7",
+          "recomputed_from_displayed_inputs": "74.7",
+          "recomputed_rounded": "74.7",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "67.0",
+          "recomputed_from_displayed_inputs": "66.96666666666666666666666666666666666667",
+          "recomputed_rounded": "67.0",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "70.6",
+          "recomputed_from_displayed_inputs": "70.62225882352941176470588235294117647057",
+          "recomputed_rounded": "70.6",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "TS-Fuse",
+      "metrics": {
+        "NCA": {
+          "displayed": "81.2",
+          "recomputed_from_displayed_inputs": "81.2",
+          "recomputed_rounded": "81.2",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "65.5",
+          "recomputed_from_displayed_inputs": "65.5",
+          "recomputed_rounded": "65.5",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "72.5",
+          "recomputed_from_displayed_inputs": "72.50988411724608043626448534423994546694",
+          "recomputed_rounded": "72.5",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "ASTER-self",
+      "metrics": {
+        "NCA": {
+          "displayed": "82.6",
+          "recomputed_from_displayed_inputs": "82.6",
+          "recomputed_rounded": "82.6",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "66.8",
+          "recomputed_from_displayed_inputs": "66.8",
+          "recomputed_rounded": "66.8",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "73.9",
+          "recomputed_from_displayed_inputs": "73.86452476572958500669344042838018741633",
+          "recomputed_rounded": "73.9",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "Clerk-Note",
+      "metrics": {
+        "NCA": {
+          "displayed": "79.9",
+          "recomputed_from_displayed_inputs": "79.9",
+          "recomputed_rounded": "79.9",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "57.2",
+          "recomputed_from_displayed_inputs": "57.16666666666666666666666666666666666667",
+          "recomputed_rounded": "57.2",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "66.6",
+          "recomputed_from_displayed_inputs": "66.64810311284046692607003891050583657586",
+          "recomputed_rounded": "66.6",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "Clerk-Prune",
+      "metrics": {
+        "NCA": {
+          "displayed": "83.0",
+          "recomputed_from_displayed_inputs": "83.0",
+          "recomputed_rounded": "83.0",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "74.3",
+          "recomputed_from_displayed_inputs": "74.33333333333333333333333333333333333333",
+          "recomputed_rounded": "74.3",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "78.4",
+          "recomputed_from_displayed_inputs": "78.42796610169491525423728813559322033898",
+          "recomputed_rounded": "78.4",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "Clerk-Map",
+      "metrics": {
+        "NCA": {
+          "displayed": "82.2",
+          "recomputed_from_displayed_inputs": "82.2",
+          "recomputed_rounded": "82.2",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "83.3",
+          "recomputed_from_displayed_inputs": "83.33333333333333333333333333333333333333",
+          "recomputed_rounded": "83.3",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "82.8",
+          "recomputed_from_displayed_inputs": "82.76278695126862666129681836488119210634",
+          "recomputed_rounded": "82.8",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "Clerk-Fuse",
+      "metrics": {
+        "NCA": {
+          "displayed": "87.0",
+          "recomputed_from_displayed_inputs": "87.0",
+          "recomputed_rounded": "87.0",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "79.4",
+          "recomputed_from_displayed_inputs": "79.4",
+          "recomputed_rounded": "79.4",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "83.0",
+          "recomputed_from_displayed_inputs": "83.02644230769230769230769230769230769231",
+          "recomputed_rounded": "83.0",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "ASTER-full",
+      "metrics": {
+        "NCA": {
+          "displayed": "88.0",
+          "recomputed_from_displayed_inputs": "88.0",
+          "recomputed_rounded": "88.0",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "80.4",
+          "recomputed_from_displayed_inputs": "80.4",
+          "recomputed_rounded": "80.4",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "84.0",
+          "recomputed_from_displayed_inputs": "84.02850356294536817102137767220902612827",
+          "recomputed_rounded": "84.0",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "Gold-Prune",
+      "metrics": {
+        "NCA": {
+          "displayed": "96.8",
+          "recomputed_from_displayed_inputs": "96.8",
+          "recomputed_rounded": "96.8",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "87.8",
+          "recomputed_from_displayed_inputs": "87.8",
+          "recomputed_rounded": "87.8",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "92.1",
+          "recomputed_from_displayed_inputs": "92.08060671722643553629469122426868905742",
+          "recomputed_rounded": "92.1",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    },
+    {
+      "method": "Gold-ASTER",
+      "metrics": {
+        "NCA": {
+          "displayed": "97.8",
+          "recomputed_from_displayed_inputs": "97.8",
+          "recomputed_rounded": "97.8",
+          "consistent_at_display_precision": true
+        },
+        "CA": {
+          "displayed": "92.3",
+          "recomputed_from_displayed_inputs": "92.33333333333333333333333333333333333333",
+          "recomputed_rounded": "92.3",
+          "consistent_at_display_precision": true
+        },
+        "H": {
+          "displayed": "95.0",
+          "recomputed_from_displayed_inputs": "94.98807854137447405329593267882187938291",
+          "recomputed_rounded": "95.0",
+          "consistent_at_display_precision": true
+        }
+      },
+      "all_consistent": true
+    }
+  ],
+  "table13_harmonic_mean": [
+    {
+      "ablation": "A1",
+      "H": {
+        "displayed": "84.0",
+        "recomputed_from_displayed_inputs": "84.02850356294536817102137767220902612827",
+        "recomputed_rounded": "84.0",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A2",
+      "H": {
+        "displayed": "77.8",
+        "recomputed_from_displayed_inputs": "77.77048765041165294490183660544648511716",
+        "recomputed_rounded": "77.8",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A3",
+      "H": {
+        "displayed": "84.2",
+        "recomputed_from_displayed_inputs": "84.18328393598103141671606401896858328394",
+        "recomputed_rounded": "84.2",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A4",
+      "H": {
+        "displayed": "82.1",
+        "recomputed_from_displayed_inputs": "82.14069132807762280169799878714372346877",
+        "recomputed_rounded": "82.1",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A5",
+      "H": {
+        "displayed": "80.4",
+        "recomputed_from_displayed_inputs": "80.44004944375772558714462299134734239802",
+        "recomputed_rounded": "80.4",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A6",
+      "H": {
+        "displayed": "67.9",
+        "recomputed_from_displayed_inputs": "67.86800573888091822094691535150645624103",
+        "recomputed_rounded": "67.9",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A7",
+      "H": {
+        "displayed": "82.5",
+        "recomputed_from_displayed_inputs": "82.48870090634441087613293051359516616314",
+        "recomputed_rounded": "82.5",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A8",
+      "H": {
+        "displayed": "82.7",
+        "recomputed_from_displayed_inputs": "82.65184290030211480362537764350453172205",
+        "recomputed_rounded": "82.7",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A9",
+      "H": {
+        "displayed": "81.0",
+        "recomputed_from_displayed_inputs": "81.04343558282208588957055214723926380368",
+        "recomputed_rounded": "81.0",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A10",
+      "H": {
+        "displayed": "83.5",
+        "recomputed_from_displayed_inputs": "83.49934249850567842199641362821279139271",
+        "recomputed_rounded": "83.5",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A11",
+      "H": {
+        "displayed": "82.9",
+        "recomputed_from_displayed_inputs": "82.90102224894768490679494888755261575466",
+        "recomputed_rounded": "82.9",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A12",
+      "H": {
+        "displayed": "82.5",
+        "recomputed_from_displayed_inputs": "82.54218467109233554616777308388654194327",
+        "recomputed_rounded": "82.5",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A13",
+      "H": {
+        "displayed": "47.8",
+        "recomputed_from_displayed_inputs": "47.76449598572702943800178412132024977698",
+        "recomputed_rounded": "47.8",
+        "consistent_at_display_precision": true
+      }
+    },
+    {
+      "ablation": "A14",
+      "H": {
+        "displayed": "85.2",
+        "recomputed_from_displayed_inputs": "85.19449003516998827667057444314185228605",
+        "recomputed_rounded": "85.2",
+        "consistent_at_display_precision": true
+      }
+    }
+  ],
+  "table12_generation_full_minus_clerk_prune": {
+    "per_model": [
+      {
+        "model": "Qwen3-8B",
+        "difference_percentage_points": "3.0"
+      },
+      {
+        "model": "Qwen3-8B（思考）",
+        "difference_percentage_points": "3.0"
+      },
+      {
+        "model": "Llama-3.1-8B",
+        "difference_percentage_points": "3.0"
+      },
+      {
+        "model": "Mistral-7B",
+        "difference_percentage_points": "3.0"
+      },
+      {
+        "model": "Qwen3-32B",
+        "difference_percentage_points": "3.5"
+      }
+    ],
+    "computed_range_percentage_points": [
+      "3.0",
+      "3.5"
+    ],
+    "stated_range_percentage_points": [
+      "3.0",
+      "4.5"
+    ],
+    "stated_range_consistent": false
+  },
+  "table3_blind_vs_table9_TS_Map": [
+    {
+      "condition": "NC",
+      "blind_branch_accuracy": "75.5",
+      "TS_Map_answer_accuracy": "74.7",
+      "TS_Map_minus_blind_percentage_points": "-0.8",
+      "equal_displayed_values": false
+    },
+    {
+      "condition": "IC",
+      "blind_branch_accuracy": "75.5",
+      "TS_Map_answer_accuracy": "74.7",
+      "TS_Map_minus_blind_percentage_points": "-0.8",
+      "equal_displayed_values": false
+    },
+    {
+      "condition": "AC",
+      "blind_branch_accuracy": "75.5",
+      "TS_Map_answer_accuracy": "74.7",
+      "TS_Map_minus_blind_percentage_points": "-0.8",
+      "equal_displayed_values": false
+    },
+    {
+      "condition": "SW",
+      "blind_branch_accuracy": "75.5",
+      "TS_Map_answer_accuracy": "74.7",
+      "TS_Map_minus_blind_percentage_points": "-0.8",
+      "equal_displayed_values": false
+    },
+    {
+      "condition": "CS",
+      "blind_branch_accuracy": "52.0",
+      "TS_Map_answer_accuracy": "51.5",
+      "TS_Map_minus_blind_percentage_points": "-0.5",
+      "equal_displayed_values": false
+    }
+  ],
+  "table9_denominator_feasibility": {
+    "denominator": 400,
+    "rounding": "ROUND_HALF_UP",
+    "unit": "single_run_micro_accuracy_percent",
+    "cells": [
+      {
+        "method": "Vanilla",
+        "condition": "NC",
+        "displayed_accuracy_percent": "76.1",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Vanilla",
+        "condition": "IC",
+        "displayed_accuracy_percent": "78.4",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Vanilla",
+        "condition": "AC",
+        "displayed_accuracy_percent": "41.3",
+        "feasible_correct_counts": [
+          165
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Vanilla",
+        "condition": "SW",
+        "displayed_accuracy_percent": "35.3",
+        "feasible_correct_counts": [
+          141
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Vanilla",
+        "condition": "CS",
+        "displayed_accuracy_percent": "21.4",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Reorder",
+        "condition": "NC",
+        "displayed_accuracy_percent": "77.3",
+        "feasible_correct_counts": [
+          309
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Reorder",
+        "condition": "IC",
+        "displayed_accuracy_percent": "79.0",
+        "feasible_correct_counts": [
+          316
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Reorder",
+        "condition": "AC",
+        "displayed_accuracy_percent": "42.5",
+        "feasible_correct_counts": [
+          170
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Reorder",
+        "condition": "SW",
+        "displayed_accuracy_percent": "36.8",
+        "feasible_correct_counts": [
+          147
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Reorder",
+        "condition": "CS",
+        "displayed_accuracy_percent": "24.0",
+        "feasible_correct_counts": [
+          96
+        ],
+        "feasible": true
+      },
+      {
+        "method": "PromptRep",
+        "condition": "NC",
+        "displayed_accuracy_percent": "77.8",
+        "feasible_correct_counts": [
+          311
+        ],
+        "feasible": true
+      },
+      {
+        "method": "PromptRep",
+        "condition": "IC",
+        "displayed_accuracy_percent": "79.3",
+        "feasible_correct_counts": [
+          317
+        ],
+        "feasible": true
+      },
+      {
+        "method": "PromptRep",
+        "condition": "AC",
+        "displayed_accuracy_percent": "43.0",
+        "feasible_correct_counts": [
+          172
+        ],
+        "feasible": true
+      },
+      {
+        "method": "PromptRep",
+        "condition": "SW",
+        "displayed_accuracy_percent": "37.5",
+        "feasible_correct_counts": [
+          150
+        ],
+        "feasible": true
+      },
+      {
+        "method": "PromptRep",
+        "condition": "CS",
+        "displayed_accuracy_percent": "25.3",
+        "feasible_correct_counts": [
+          101
+        ],
+        "feasible": true
+      },
+      {
+        "method": "CoT",
+        "condition": "NC",
+        "displayed_accuracy_percent": "77.0",
+        "feasible_correct_counts": [
+          308
+        ],
+        "feasible": true
+      },
+      {
+        "method": "CoT",
+        "condition": "IC",
+        "displayed_accuracy_percent": "78.0",
+        "feasible_correct_counts": [
+          312
+        ],
+        "feasible": true
+      },
+      {
+        "method": "CoT",
+        "condition": "AC",
+        "displayed_accuracy_percent": "44.8",
+        "feasible_correct_counts": [
+          179
+        ],
+        "feasible": true
+      },
+      {
+        "method": "CoT",
+        "condition": "SW",
+        "displayed_accuracy_percent": "36.0",
+        "feasible_correct_counts": [
+          144
+        ],
+        "feasible": true
+      },
+      {
+        "method": "CoT",
+        "condition": "CS",
+        "displayed_accuracy_percent": "27.5",
+        "feasible_correct_counts": [
+          110
+        ],
+        "feasible": true
+      },
+      {
+        "method": "CAD",
+        "condition": "NC",
+        "displayed_accuracy_percent": "69.5",
+        "feasible_correct_counts": [
+          278
+        ],
+        "feasible": true
+      },
+      {
+        "method": "CAD",
+        "condition": "IC",
+        "displayed_accuracy_percent": "70.3",
+        "feasible_correct_counts": [
+          281
+        ],
+        "feasible": true
+      },
+      {
+        "method": "CAD",
+        "condition": "AC",
+        "displayed_accuracy_percent": "55.8",
+        "feasible_correct_counts": [
+          223
+        ],
+        "feasible": true
+      },
+      {
+        "method": "CAD",
+        "condition": "SW",
+        "displayed_accuracy_percent": "46.0",
+        "feasible_correct_counts": [
+          184
+        ],
+        "feasible": true
+      },
+      {
+        "method": "CAD",
+        "condition": "CS",
+        "displayed_accuracy_percent": "30.5",
+        "feasible_correct_counts": [
+          122
+        ],
+        "feasible": true
+      },
+      {
+        "method": "JuICE",
+        "condition": "NC",
+        "displayed_accuracy_percent": "70.8",
+        "feasible_correct_counts": [
+          283
+        ],
+        "feasible": true
+      },
+      {
+        "method": "JuICE",
+        "condition": "IC",
+        "displayed_accuracy_percent": "71.5",
+        "feasible_correct_counts": [
+          286
+        ],
+        "feasible": true
+      },
+      {
+        "method": "JuICE",
+        "condition": "AC",
+        "displayed_accuracy_percent": "54.0",
+        "feasible_correct_counts": [
+          216
+        ],
+        "feasible": true
+      },
+      {
+        "method": "JuICE",
+        "condition": "SW",
+        "displayed_accuracy_percent": "44.5",
+        "feasible_correct_counts": [
+          178
+        ],
+        "feasible": true
+      },
+      {
+        "method": "JuICE",
+        "condition": "CS",
+        "displayed_accuracy_percent": "29.8",
+        "feasible_correct_counts": [
+          119
+        ],
+        "feasible": true
+      },
+      {
+        "method": "PASTA",
+        "condition": "NC",
+        "displayed_accuracy_percent": "76.8",
+        "feasible_correct_counts": [
+          307
+        ],
+        "feasible": true
+      },
+      {
+        "method": "PASTA",
+        "condition": "IC",
+        "displayed_accuracy_percent": "78.6",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "PASTA",
+        "condition": "AC",
+        "displayed_accuracy_percent": "43.0",
+        "feasible_correct_counts": [
+          172
+        ],
+        "feasible": true
+      },
+      {
+        "method": "PASTA",
+        "condition": "SW",
+        "displayed_accuracy_percent": "35.0",
+        "feasible_correct_counts": [
+          140
+        ],
+        "feasible": true
+      },
+      {
+        "method": "PASTA",
+        "condition": "CS",
+        "displayed_accuracy_percent": "22.5",
+        "feasible_correct_counts": [
+          90
+        ],
+        "feasible": true
+      },
+      {
+        "method": "SEKA",
+        "condition": "NC",
+        "displayed_accuracy_percent": "77.0",
+        "feasible_correct_counts": [
+          308
+        ],
+        "feasible": true
+      },
+      {
+        "method": "SEKA",
+        "condition": "IC",
+        "displayed_accuracy_percent": "78.9",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "SEKA",
+        "condition": "AC",
+        "displayed_accuracy_percent": "43.8",
+        "feasible_correct_counts": [
+          175
+        ],
+        "feasible": true
+      },
+      {
+        "method": "SEKA",
+        "condition": "SW",
+        "displayed_accuracy_percent": "35.5",
+        "feasible_correct_counts": [
+          142
+        ],
+        "feasible": true
+      },
+      {
+        "method": "SEKA",
+        "condition": "CS",
+        "displayed_accuracy_percent": "23.0",
+        "feasible_correct_counts": [
+          92
+        ],
+        "feasible": true
+      },
+      {
+        "method": "AutoPASTA",
+        "condition": "NC",
+        "displayed_accuracy_percent": "78.3",
+        "feasible_correct_counts": [
+          313
+        ],
+        "feasible": true
+      },
+      {
+        "method": "AutoPASTA",
+        "condition": "IC",
+        "displayed_accuracy_percent": "79.5",
+        "feasible_correct_counts": [
+          318
+        ],
+        "feasible": true
+      },
+      {
+        "method": "AutoPASTA",
+        "condition": "AC",
+        "displayed_accuracy_percent": "44.0",
+        "feasible_correct_counts": [
+          176
+        ],
+        "feasible": true
+      },
+      {
+        "method": "AutoPASTA",
+        "condition": "SW",
+        "displayed_accuracy_percent": "31.8",
+        "feasible_correct_counts": [
+          127
+        ],
+        "feasible": true
+      },
+      {
+        "method": "AutoPASTA",
+        "condition": "CS",
+        "displayed_accuracy_percent": "20.5",
+        "feasible_correct_counts": [
+          82
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Note",
+        "condition": "NC",
+        "displayed_accuracy_percent": "78.0",
+        "feasible_correct_counts": [
+          312
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Note",
+        "condition": "IC",
+        "displayed_accuracy_percent": "79.8",
+        "feasible_correct_counts": [
+          319
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Note",
+        "condition": "AC",
+        "displayed_accuracy_percent": "50.5",
+        "feasible_correct_counts": [
+          202
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Note",
+        "condition": "SW",
+        "displayed_accuracy_percent": "48.0",
+        "feasible_correct_counts": [
+          192
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Note",
+        "condition": "CS",
+        "displayed_accuracy_percent": "33.0",
+        "feasible_correct_counts": [
+          132
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Prune",
+        "condition": "NC",
+        "displayed_accuracy_percent": "76.8",
+        "feasible_correct_counts": [
+          307
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Prune",
+        "condition": "IC",
+        "displayed_accuracy_percent": "78.3",
+        "feasible_correct_counts": [
+          313
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Prune",
+        "condition": "AC",
+        "displayed_accuracy_percent": "59.9",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "TS-Prune",
+        "condition": "SW",
+        "displayed_accuracy_percent": "60.2",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "TS-Prune",
+        "condition": "CS",
+        "displayed_accuracy_percent": "48.8",
+        "feasible_correct_counts": [
+          195
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-SEKA",
+        "condition": "NC",
+        "displayed_accuracy_percent": "79.0",
+        "feasible_correct_counts": [
+          316
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-SEKA",
+        "condition": "IC",
+        "displayed_accuracy_percent": "80.5",
+        "feasible_correct_counts": [
+          322
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-SEKA",
+        "condition": "AC",
+        "displayed_accuracy_percent": "55.0",
+        "feasible_correct_counts": [
+          220
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-SEKA",
+        "condition": "SW",
+        "displayed_accuracy_percent": "54.3",
+        "feasible_correct_counts": [
+          217
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-SEKA",
+        "condition": "CS",
+        "displayed_accuracy_percent": "40.5",
+        "feasible_correct_counts": [
+          162
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Map",
+        "condition": "NC",
+        "displayed_accuracy_percent": "74.7",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "TS-Map",
+        "condition": "IC",
+        "displayed_accuracy_percent": "74.7",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "TS-Map",
+        "condition": "AC",
+        "displayed_accuracy_percent": "74.7",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "TS-Map",
+        "condition": "SW",
+        "displayed_accuracy_percent": "74.7",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "TS-Map",
+        "condition": "CS",
+        "displayed_accuracy_percent": "51.5",
+        "feasible_correct_counts": [
+          206
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Fuse",
+        "condition": "NC",
+        "displayed_accuracy_percent": "80.3",
+        "feasible_correct_counts": [
+          321
+        ],
+        "feasible": true
+      },
+      {
+        "method": "TS-Fuse",
+        "condition": "IC",
+        "displayed_accuracy_percent": "82.1",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "TS-Fuse",
+        "condition": "AC",
+        "displayed_accuracy_percent": "70.4",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "TS-Fuse",
+        "condition": "SW",
+        "displayed_accuracy_percent": "70.9",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "TS-Fuse",
+        "condition": "CS",
+        "displayed_accuracy_percent": "55.2",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "ASTER-self",
+        "condition": "NC",
+        "displayed_accuracy_percent": "81.7",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "ASTER-self",
+        "condition": "IC",
+        "displayed_accuracy_percent": "83.5",
+        "feasible_correct_counts": [
+          334
+        ],
+        "feasible": true
+      },
+      {
+        "method": "ASTER-self",
+        "condition": "AC",
+        "displayed_accuracy_percent": "71.2",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "ASTER-self",
+        "condition": "SW",
+        "displayed_accuracy_percent": "72.6",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "ASTER-self",
+        "condition": "CS",
+        "displayed_accuracy_percent": "56.6",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Note",
+        "condition": "NC",
+        "displayed_accuracy_percent": "79.2",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Note",
+        "condition": "IC",
+        "displayed_accuracy_percent": "80.6",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Note",
+        "condition": "AC",
+        "displayed_accuracy_percent": "56.0",
+        "feasible_correct_counts": [
+          224
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Clerk-Note",
+        "condition": "SW",
+        "displayed_accuracy_percent": "53.5",
+        "feasible_correct_counts": [
+          214
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Clerk-Note",
+        "condition": "CS",
+        "displayed_accuracy_percent": "62.0",
+        "feasible_correct_counts": [
+          248
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Clerk-Prune",
+        "condition": "NC",
+        "displayed_accuracy_percent": "82.9",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Prune",
+        "condition": "IC",
+        "displayed_accuracy_percent": "83.1",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Prune",
+        "condition": "AC",
+        "displayed_accuracy_percent": "67.4",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Prune",
+        "condition": "SW",
+        "displayed_accuracy_percent": "71.5",
+        "feasible_correct_counts": [
+          286
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Clerk-Prune",
+        "condition": "CS",
+        "displayed_accuracy_percent": "84.1",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Map",
+        "condition": "NC",
+        "displayed_accuracy_percent": "82.2",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Map",
+        "condition": "IC",
+        "displayed_accuracy_percent": "82.2",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Map",
+        "condition": "AC",
+        "displayed_accuracy_percent": "82.2",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Map",
+        "condition": "SW",
+        "displayed_accuracy_percent": "82.2",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Map",
+        "condition": "CS",
+        "displayed_accuracy_percent": "85.6",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Fuse",
+        "condition": "NC",
+        "displayed_accuracy_percent": "86.8",
+        "feasible_correct_counts": [
+          347
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Clerk-Fuse",
+        "condition": "IC",
+        "displayed_accuracy_percent": "87.2",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Fuse",
+        "condition": "AC",
+        "displayed_accuracy_percent": "75.9",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Fuse",
+        "condition": "SW",
+        "displayed_accuracy_percent": "77.4",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Clerk-Fuse",
+        "condition": "CS",
+        "displayed_accuracy_percent": "84.9",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "ASTER-full",
+        "condition": "NC",
+        "displayed_accuracy_percent": "87.9",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "ASTER-full",
+        "condition": "IC",
+        "displayed_accuracy_percent": "88.1",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "ASTER-full",
+        "condition": "AC",
+        "displayed_accuracy_percent": "76.8",
+        "feasible_correct_counts": [
+          307
+        ],
+        "feasible": true
+      },
+      {
+        "method": "ASTER-full",
+        "condition": "SW",
+        "displayed_accuracy_percent": "78.7",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "ASTER-full",
+        "condition": "CS",
+        "displayed_accuracy_percent": "85.7",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Gold-Prune",
+        "condition": "NC",
+        "displayed_accuracy_percent": "96.8",
+        "feasible_correct_counts": [
+          387
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Gold-Prune",
+        "condition": "IC",
+        "displayed_accuracy_percent": "96.8",
+        "feasible_correct_counts": [
+          387
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Gold-Prune",
+        "condition": "AC",
+        "displayed_accuracy_percent": "80.8",
+        "feasible_correct_counts": [
+          323
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Gold-Prune",
+        "condition": "SW",
+        "displayed_accuracy_percent": "86.2",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Gold-Prune",
+        "condition": "CS",
+        "displayed_accuracy_percent": "96.4",
+        "feasible_correct_counts": [],
+        "feasible": false
+      },
+      {
+        "method": "Gold-ASTER",
+        "condition": "NC",
+        "displayed_accuracy_percent": "97.8",
+        "feasible_correct_counts": [
+          391
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Gold-ASTER",
+        "condition": "IC",
+        "displayed_accuracy_percent": "97.8",
+        "feasible_correct_counts": [
+          391
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Gold-ASTER",
+        "condition": "AC",
+        "displayed_accuracy_percent": "88.5",
+        "feasible_correct_counts": [
+          354
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Gold-ASTER",
+        "condition": "SW",
+        "displayed_accuracy_percent": "91.5",
+        "feasible_correct_counts": [
+          366
+        ],
+        "feasible": true
+      },
+      {
+        "method": "Gold-ASTER",
+        "condition": "CS",
+        "displayed_accuracy_percent": "97.0",
+        "feasible_correct_counts": [
+          388
+        ],
+        "feasible": true
+      }
+    ]
+  }
+}

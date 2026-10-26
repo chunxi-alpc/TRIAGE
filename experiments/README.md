@@ -1,4 +1,6 @@
-# 实验索引
+# 历史实验索引
+
+> **2026-10-26 主线说明：** 当前研究主线为 [ASTER](../docs/ASTER/README.md)。下列既有内容保留原实验阶段含义，其中“当前”“默认”不定义新版 ASTER。实验数字和实现不得未经核验迁入新论文。完整旧主线见[归档分支](https://github.com/chunxi-alpc/TRIAGE/tree/archive/pre-aster-main-20261026)。
 
 [项目首页](../README.md) · [模块一](../src/module1/README.md) · [模块二](../src/module2/README.md) · [模块三](../src/module3/README.md)
 
