@@ -1,0 +1,47 @@
+{
+  "status": "frozen_before_standard_results",
+  "protocol": "official_SEKA_CounterFact_adapted_Qwen3_8B",
+  "calibration_pair_rows": 100,
+  "calibration_context_triplets": 200,
+  "checkpoint_name": "Qwen3-8B (not Qwen3-8B-Base)",
+  "standard_split": "train[5000:10000]",
+  "methods": [
+    "seka",
+    "matched_zero",
+    "unsteered",
+    "PASTA_SEKA_head_selection"
+  ],
+  "benchmarks": [
+    "efficacy",
+    "paraphrase"
+  ],
+  "SEKA": {
+    "min_diff": 0.12,
+    "top_pct": 0.85,
+    "amplify_pos": 2.4,
+    "amplify_neg": 0.0,
+    "layers": "last10",
+    "negative_projection_present": true
+  },
+  "batch_size": 16,
+  "max_new_tokens_parameter": 64,
+  "head_selection": "official_SEKA_author_Qwen_adaptation; not original PASTA exhaustive head search",
+  "method_optimization_after_test": false,
+  "frozen_at_utc": "2026-10-25T16:16:29.714581+00:00",
+  "PASTA": {
+    "alpha": 0.01,
+    "scale_position": "exclude",
+    "heads_file_sha256": "b1d8a588c574060c596160292d0af2ddb7745b17633d9156049709c7e2242a67",
+    "source": "QingruZhang/PASTA README and SEKA profiling scripts"
+  },
+  "CAD": {
+    "alpha": 1.0,
+    "candidate_filtering": false
+  },
+  "Spotlight": {
+    "target_mass": 0.1,
+    "implementation": "paper_reimplementation"
+  },
+  "additional_baseline_parameters_frozen_at_utc": "2026-10-25T16:21:04.999823+00:00",
+  "note": "PASTA/CAD/Spotlight constants fixed from upstream/paper defaults before those methods run; no standard test metrics inspected to select these constants"
+}

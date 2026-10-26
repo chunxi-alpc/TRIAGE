@@ -1,0 +1,329 @@
+{
+  "status": "complete_verified",
+  "scope": "CPU replay of all 16 actual extraction outputs, exact source anchors and provenance; semantic suitability remains incomplete",
+  "audited_at_utc": "2026-10-26T16:19:34.270681+00:00",
+  "new_gpu_forwards": 0,
+  "test_or_reference_labels_read": false,
+  "source_text_published": false,
+  "guidelines": 16,
+  "cases_with_rules": 11,
+  "total_rules": 126,
+  "cases_at_output_budget": 12,
+  "replayed_rule_sets_exactly_equal": 16,
+  "all_retained_anchors_exact": true,
+  "span_characters": {
+    "minimum": 17,
+    "median": 92.5,
+    "maximum": 8875,
+    "above_1000": 11,
+    "above_4096": 8
+  },
+  "rules_with_exceptions": 5,
+  "rules_with_nonunique_anchors": 63,
+  "rules_with_repeated_passage": 7,
+  "audit_status_counts": {
+    "rejected": 847,
+    "original_source_span_reconstructed": 126,
+    "duplicate": 325
+  },
+  "rejection_reasons": {
+    "Quotation is absent from original source": 618,
+    "Incomplete trailing array item; no missing content was reconstructed": 12,
+    "Condition still contains the complete proposed action": 217
+  },
+  "flag_counts": {
+    "training_or_exam_keywords_present_not_automatic_exclusion": 6,
+    "manual_review:training_or_examination_requirement_instead_of_current_case_imaging_quality_rule": 5,
+    "nonunique_anchor_occurrence": 63,
+    "manual_review:condition_is_document_taxonomy_heading_not_patient_predicate": 6,
+    "source_span_over_4096_characters": 8,
+    "action_is_evidence_grade": 12,
+    "manual_review:action_is_evidence_grade_not_patient_action": 12
+  },
+  "manual_review_scope": "AI-assisted targeted review; internal manual_review tags do not represent human expert annotation",
+  "clinical_suitability": "not_verified; observed semantic counterexamples prevent direct adoption",
+  "recommendation": "Keep originals. Bind condition/action/exception inside the same source paragraph/table row, explicitly reject evidence-grade-only actions and document headings, and validate extraction on development before attention. Do not treat longer recovered spans as evidence of higher quality or create gold test rules.",
+  "original_coverage_note": "Old actual extraction covered 6/16. Prior CPU replay of OLD generated outputs covered 12/16. This NEW model-generated extraction covers 11/16; these are different artifacts.",
+  "run_manifest_sha256": "217b9df31661c74a2d25622bf10b51a7790345204158af962d508d92e69c578a",
+  "input_manifest_sha256": "bd507e9c746e702a919f2e3371d682fc4b2cd4f818ce0325c7e633af24efb06b",
+  "protocol_sha256": "eefbe039f7ea25e808f1b8fce66b0f74222e13297f2e53aa9942345c5489ec61",
+  "auditor_sha256": "c4b270d630caee73a99240f552583408993950bf3379a8353eb8b505447cc1bb",
+  "current_source_sha256": {
+    "run_source_rule_extraction.py": "ae32043cb8d33f51f42b50439869af76f3bb039ce376e32c79e7e2c4f4237e81",
+    "source_anchored_rules.py": "9f59cdba4319fba9b32fcb3acfefa4e0fef3b924e59efb5c4e76047a8d01d389",
+    "source_rule_prompt.py": "c58607c6e7e98f9710a25d5689b8452f7f6f7ced5754ec9e4a74a5f898712a34",
+    "clinical_core.py": "636026a47fdbc7f7525800166d86865c48ff2f710af2b0853c014b979d890a47",
+    "mega_trainval_reader.py": "a3e47914f04c720fe7a12b86a0242b154abbafad385c2f550fcdd94994c9ea96"
+  },
+  "source_binding_limit": "Current prompt hash equals run protocol; retained parsed rules/items exactly replay. Custom runner source hashes are recorded here at audit time, not newly asserted to have been captured at inference start.",
+  "run_costs": {
+    "forward_completed": 55684,
+    "elapsed_seconds": 10256.604365067964,
+    "peak_allocated_gib": 28.294726371765137,
+    "peak_reserved_gib": 36.12109375,
+    "gpu_physical": 1
+  },
+  "cases": [
+    {
+      "sample_id": "70bdc2e0725672b8accc9bb6a0cfa99155deabbd5c9806b62e8cb5d27c8749b5",
+      "guideline_sha256": "7216849c8c2f85378ff59450263b3a5650a951466331507a357feda49d29be03",
+      "saved_file_sha256": "163e9775a31eccd96fc020efdb205c72f7c9c2132ec27ef3e9fc9206ec7f74d0",
+      "rule_count": 3,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 58,
+      "array_closed": false,
+      "audit_status_counts": {
+        "rejected": 67,
+        "original_source_span_reconstructed": 3,
+        "duplicate": 11
+      },
+      "elapsed_seconds": 960.607992440986,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "7425512399865d156614fed217aba408d0c7b65195ac92a1ed3b677d24ff5191",
+      "guideline_sha256": "8bc4180f7b80022f94f44eafe2e0a1c1256176defa2dcda915076e25137fd8ad",
+      "saved_file_sha256": "f53927f7c4691fa26e9ae9a7158f7412cf96fdd638c6c703a24b97a5a07bfff5",
+      "rule_count": 0,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 0,
+      "array_closed": false,
+      "audit_status_counts": {
+        "rejected": 95
+      },
+      "elapsed_seconds": 1075.9756820930052,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "cce3a84dcf3c1c3d275fcaf3fe2173647eb6ff8b450c60e23ba6d7cddfdaea14",
+      "guideline_sha256": "686a2e8353e75f366aa1aa6ac3f7fdcba66e138a511b09baf94dd69c8d825c69",
+      "saved_file_sha256": "ea65b65fde9636c1df90935e6f1c40f20ef62703180849e83c00cf4f47b78c94",
+      "rule_count": 20,
+      "output_tokens": 2298,
+      "output_at_budget": false,
+      "max_span_characters": 1139,
+      "array_closed": true,
+      "audit_status_counts": {
+        "original_source_span_reconstructed": 20,
+        "rejected": 17,
+        "duplicate": 2
+      },
+      "elapsed_seconds": 203.40415948798181,
+      "forward_calls": 2298
+    },
+    {
+      "sample_id": "9e2c6114211eff73779475ba28996b7bb265031a6521c148fa82de2d2efa07a8",
+      "guideline_sha256": "60c55e7efa4872dda2430f737aae512972de9e3a2e0e57562a4b78373efb8442",
+      "saved_file_sha256": "1bd3373ccb6d1107671af9ae01addcdf1fa58eafb4e3c8f0aeb4c43333bededa",
+      "rule_count": 4,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 581,
+      "array_closed": false,
+      "audit_status_counts": {
+        "original_source_span_reconstructed": 4,
+        "rejected": 4,
+        "duplicate": 132
+      },
+      "elapsed_seconds": 1170.1971403769567,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "8aee5260bb69d7d1f00698d7d7a3975d13c023aab06d993d34387f7fbbf71d35",
+      "guideline_sha256": "c0aeb9b5153bdf168389216799a881b5dda10dcbea185048603f7b51046795bb",
+      "saved_file_sha256": "4fbf299d4c9e866c4d737dd4b34d08b336319b392566e90f80f8dbbb3ca0457c",
+      "rule_count": 0,
+      "output_tokens": 1123,
+      "output_at_budget": false,
+      "max_span_characters": 0,
+      "array_closed": true,
+      "audit_status_counts": {
+        "rejected": 23
+      },
+      "elapsed_seconds": 168.48329810396535,
+      "forward_calls": 1123
+    },
+    {
+      "sample_id": "8e4c7da23802d2413caaf292e432b283b37e5c614e29a0524b2d3d11c1f628f8",
+      "guideline_sha256": "a1dbe0252830b9c4d89162e9d9c0c390c00ccf6f3ca2829bd21fee4fbe035e77",
+      "saved_file_sha256": "c4a9c508366e66f55ca20e62c1b89dd1b996ae2bc0ce0aab76ebab39d5b2ace6",
+      "rule_count": 15,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 8653,
+      "array_closed": false,
+      "audit_status_counts": {
+        "rejected": 10,
+        "original_source_span_reconstructed": 15,
+        "duplicate": 61
+      },
+      "elapsed_seconds": 411.75702274002833,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "81215d1fc5bee643fe887a830ffa078a0fd91741d809de64b1dec8c245bf16f4",
+      "guideline_sha256": "2d6ad5b0ffbc3e9b9a8a38a54896ab9cf1af90433b777da96cef9f0ca8400cae",
+      "saved_file_sha256": "c7af9011c9d4e36b46ac56d1b8f5b380cec73df9fbfd8c74f964a4b2affe3d87",
+      "rule_count": 6,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 422,
+      "array_closed": false,
+      "audit_status_counts": {
+        "original_source_span_reconstructed": 6,
+        "rejected": 88,
+        "duplicate": 4
+      },
+      "elapsed_seconds": 472.40886695100926,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "90cffaf0ce06a3acbbb8329ed2763bd9503b4c2a57d69cc566d26b6061be4bc5",
+      "guideline_sha256": "a826ef1c2bb9270f78ffacd86b637f298f40c6cd0c91821c4ffbf082e58b7e83",
+      "saved_file_sha256": "31303cafa4b9cac2da0fbff99f5ead8e8c9b7a7b8a7db08dfe5604aa3e49d680",
+      "rule_count": 24,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 8875,
+      "array_closed": false,
+      "audit_status_counts": {
+        "rejected": 2,
+        "original_source_span_reconstructed": 24,
+        "duplicate": 66
+      },
+      "elapsed_seconds": 738.6250611190335,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "f589d62c03d6fef5ba92870f425e1d46c2cff8bc13a280013fa1e0e82d02f5d0",
+      "guideline_sha256": "12e46469c9b7cdec0a44ffc1715d5e861c06788472ae4d1d3446203c7fc00d96",
+      "saved_file_sha256": "9c84277d80b4ce638a5e6d7df433694b67a6dcf018331daeae35befd2409a792",
+      "rule_count": 0,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 0,
+      "array_closed": false,
+      "audit_status_counts": {
+        "rejected": 114
+      },
+      "elapsed_seconds": 595.4824078420061,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "7316b931e8c6db51340ceff0bd6332c5c689a4aadb83d009319c4c5de5dbe9dc",
+      "guideline_sha256": "eae6de62d378cdf7f5e63ec509aad65c657af3b8b0b8176e03d35efdb9b018ab",
+      "saved_file_sha256": "b65c7a90623eff66a3f566335c3a1a31668bf6e53d3a37bb9d2db71b33d4bc2f",
+      "rule_count": 0,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 0,
+      "array_closed": false,
+      "audit_status_counts": {
+        "rejected": 104
+      },
+      "elapsed_seconds": 1336.8998532089754,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "2cbe78820fbce5b5c915cb9ede76a394f0be72a637e16ca52ebf054d9337c7e9",
+      "guideline_sha256": "990b99a9f4dee897cb13db4517f0076e9bede0bed5e0f3d9a09e9f07e3ed591b",
+      "saved_file_sha256": "b3855db837282ddd5174222c990e43265dc40a28f23ba6106c0f4f0208d55bf5",
+      "rule_count": 0,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 0,
+      "array_closed": false,
+      "audit_status_counts": {
+        "rejected": 47
+      },
+      "elapsed_seconds": 815.711555945978,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "0b23acad69130b414b52f8f2020ba32c415541bf585a65963dcd324c1442b9e2",
+      "guideline_sha256": "c3c70edfe616b2dd6f33a0466f70e1e3f9a81e2f8095e27f6ac53ad0eeba645f",
+      "saved_file_sha256": "982a7ddff387196da8598246aa6dba9bfbe1025c42942749067a8234d05a654a",
+      "rule_count": 24,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 814,
+      "array_closed": false,
+      "audit_status_counts": {
+        "original_source_span_reconstructed": 24,
+        "rejected": 6,
+        "duplicate": 46
+      },
+      "elapsed_seconds": 951.7107133480022,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "86f0bf41ae01cf0f64ba2b2fe7aadd98f1d436ee8525b60ed0d9066d4bc5e97c",
+      "guideline_sha256": "66aaa91b5e008d45fd5098d906d06b31dcc9a60d6597d317bc75ae0575f71041",
+      "saved_file_sha256": "61b47d5114c94bda46a85e821a24ef39e934f4957525bd12aea08c0e74ff436e",
+      "rule_count": 12,
+      "output_tokens": 1020,
+      "output_at_budget": false,
+      "max_span_characters": 1806,
+      "array_closed": true,
+      "audit_status_counts": {
+        "original_source_span_reconstructed": 12,
+        "rejected": 9
+      },
+      "elapsed_seconds": 95.64372145698871,
+      "forward_calls": 1020
+    },
+    {
+      "sample_id": "68abf75f003c140c59db7d7ec589b07b66dc52ef44cdc6fa1584d8891038f6a6",
+      "guideline_sha256": "44aab501b39499b023156f70f14073fb1b25abd62fd35cd78a6a419aae74a84e",
+      "saved_file_sha256": "267a5748cc3dc20a214232b74575526ce0773c8203440a4dfe4fdc4ed3e6f104",
+      "rule_count": 13,
+      "output_tokens": 2091,
+      "output_at_budget": false,
+      "max_span_characters": 200,
+      "array_closed": true,
+      "audit_status_counts": {
+        "original_source_span_reconstructed": 13,
+        "rejected": 21
+      },
+      "elapsed_seconds": 156.62837534898426,
+      "forward_calls": 2091
+    },
+    {
+      "sample_id": "44258440caa90d29b5618da1841f82c9bd5ace2a5e2b35cbac19da03649a6045",
+      "guideline_sha256": "0d23e8768fe3dbf85d8de94bd46dcbad81579328ba1cfeb03e586e96a0b83189",
+      "saved_file_sha256": "66c02e1112ac3d1723bdc64ad911a1c6c79c460a35483f51222945b25fcd5a85",
+      "rule_count": 2,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 39,
+      "array_closed": false,
+      "audit_status_counts": {
+        "rejected": 76,
+        "original_source_span_reconstructed": 2
+      },
+      "elapsed_seconds": 684.8114218490082,
+      "forward_calls": 4096
+    },
+    {
+      "sample_id": "8afa49648439f8f41009496a54facce07220adef3df93e0c2233ee2352e661e7",
+      "guideline_sha256": "327a942fa376040cef9d4300c50468b6584fe825b224dd0c1e8387df67da6452",
+      "saved_file_sha256": "3a4bb826e43c94845d052fe41555203e29f236912dea5b8b629da8f9b0e84f8f",
+      "rule_count": 3,
+      "output_tokens": 4096,
+      "output_at_budget": true,
+      "max_span_characters": 8776,
+      "array_closed": false,
+      "audit_status_counts": {
+        "original_source_span_reconstructed": 3,
+        "duplicate": 3,
+        "rejected": 164
+      },
+      "elapsed_seconds": 392.0079663710203,
+      "forward_calls": 4096
+    }
+  ],
+  "reviewer_type": "AI assistant; not a human clinical expert",
+  "human_expert_review_completed": false
+}

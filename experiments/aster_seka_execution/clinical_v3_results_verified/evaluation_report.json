@@ -1,0 +1,457 @@
+{
+  "status": "complete_verified",
+  "scope": "train_val development only; not independent clinical confirmation",
+  "test_files_read": false,
+  "independent_model_claim": false,
+  "judge_track": "official local Qwen alternative; differs from paper's GPT-5.4 Mini judge",
+  "judge_weight_relationship": "same Qwen checkpoint may serve generation and evaluation in separate roles/stages",
+  "raw_text_published": false,
+  "all_failures_in_denominator": true,
+  "binary_accuracy_claim": false,
+  "method_parameters_changed": false,
+  "status_scope": "evaluation completed, including failures assigned native worst scores",
+  "methods": {
+    "no_hook": {
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "PCC_DTW_cost_lower_better": 0.2819481646825397,
+      "Acc_normalized_1_to_5_higher_better": 0.4625,
+      "parse_failures": 2,
+      "pathway_failures_scored_one": 2,
+      "accuracy_failures_scored_zero": 2
+    },
+    "gain_0": {
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "PCC_DTW_cost_lower_better": 0.2819481646825397,
+      "Acc_normalized_1_to_5_higher_better": 0.4625,
+      "parse_failures": 2,
+      "pathway_failures_scored_one": 2,
+      "accuracy_failures_scored_zero": 2
+    },
+    "gain_0_2": {
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "PCC_DTW_cost_lower_better": 0.2978769841269841,
+      "Acc_normalized_1_to_5_higher_better": 0.478125,
+      "parse_failures": 2,
+      "pathway_failures_scored_one": 2,
+      "accuracy_failures_scored_zero": 2
+    },
+    "gain_0_6": {
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "PCC_DTW_cost_lower_better": 0.2602095734126984,
+      "Acc_normalized_1_to_5_higher_better": 0.48125,
+      "parse_failures": 1,
+      "pathway_failures_scored_one": 1,
+      "accuracy_failures_scored_zero": 1
+    },
+    "text_emphasis": {
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "PCC_DTW_cost_lower_better": 0.24143550128384686,
+      "Acc_normalized_1_to_5_higher_better": 0.603125,
+      "parse_failures": 0,
+      "pathway_failures_scored_one": 0,
+      "accuracy_failures_scored_zero": 0
+    },
+    "fusion_static": {
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "PCC_DTW_cost_lower_better": 0.27039558531746033,
+      "Acc_normalized_1_to_5_higher_better": 0.58125,
+      "parse_failures": 1,
+      "pathway_failures_scored_one": 1,
+      "accuracy_failures_scored_zero": 1
+    },
+    "fusion_dynamic": {
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "PCC_DTW_cost_lower_better": 0.2751277281746032,
+      "Acc_normalized_1_to_5_higher_better": 0.58125,
+      "parse_failures": 1,
+      "pathway_failures_scored_one": 1,
+      "accuracy_failures_scored_zero": 1
+    }
+  },
+  "comparisons": [
+    {
+      "method": "no_hook",
+      "reference": "gain_0",
+      "metric": "acc_normalized",
+      "difference_method_minus_reference": 0.0,
+      "higher_is_better": true,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 0,
+      "score_degraded": 0,
+      "score_unchanged": 16,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "no_hook",
+      "reference": "gain_0",
+      "metric": "pcc_dtw_cost",
+      "difference_method_minus_reference": 0.0,
+      "higher_is_better": false,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 0,
+      "score_degraded": 0,
+      "score_unchanged": 16,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "gain_0_2",
+      "reference": "gain_0",
+      "metric": "acc_normalized",
+      "difference_method_minus_reference": 0.015625,
+      "higher_is_better": true,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 1,
+      "score_degraded": 0,
+      "score_unchanged": 15,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        0.0,
+        0.046875
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "gain_0_2",
+      "reference": "gain_0",
+      "metric": "pcc_dtw_cost",
+      "difference_method_minus_reference": 0.015928819444444443,
+      "higher_is_better": false,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 1,
+      "score_degraded": 1,
+      "score_unchanged": 14,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        -0.001171875000000001,
+        0.04895833333333334
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "gain_0_6",
+      "reference": "gain_0",
+      "metric": "acc_normalized",
+      "difference_method_minus_reference": 0.01875,
+      "higher_is_better": true,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 1,
+      "score_degraded": 0,
+      "score_unchanged": 15,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        0.0,
+        0.056249999999999994
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "gain_0_6",
+      "reference": "gain_0",
+      "metric": "pcc_dtw_cost",
+      "difference_method_minus_reference": -0.021738591269841276,
+      "higher_is_better": false,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 1,
+      "score_degraded": 2,
+      "score_unchanged": 13,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        -0.13671875000000003,
+        0.060565476190476183
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "text_emphasis",
+      "reference": "gain_0",
+      "metric": "acc_normalized",
+      "difference_method_minus_reference": 0.140625,
+      "higher_is_better": true,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 4,
+      "score_degraded": 0,
+      "score_unchanged": 12,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        0.015625,
+        0.296875
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "text_emphasis",
+      "reference": "gain_0",
+      "metric": "pcc_dtw_cost",
+      "difference_method_minus_reference": -0.040512663398692805,
+      "higher_is_better": false,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 2,
+      "score_degraded": 2,
+      "score_unchanged": 12,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        -0.15441176470588236,
+        0.05972222222222223
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "fusion_static",
+      "reference": "gain_0",
+      "metric": "acc_normalized",
+      "difference_method_minus_reference": 0.11875,
+      "higher_is_better": true,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 3,
+      "score_degraded": 0,
+      "score_unchanged": 13,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        0.0,
+        0.28125
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "fusion_static",
+      "reference": "gain_0",
+      "metric": "pcc_dtw_cost",
+      "difference_method_minus_reference": -0.011552579365079373,
+      "higher_is_better": false,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 1,
+      "score_degraded": 2,
+      "score_unchanged": 13,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        -0.10561507936507938,
+        0.06093749999999999
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "fusion_dynamic",
+      "reference": "gain_0",
+      "metric": "acc_normalized",
+      "difference_method_minus_reference": 0.11875,
+      "higher_is_better": true,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 3,
+      "score_degraded": 0,
+      "score_unchanged": 13,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        0.0,
+        0.28125
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    },
+    {
+      "method": "fusion_dynamic",
+      "reference": "gain_0",
+      "metric": "pcc_dtw_cost",
+      "difference_method_minus_reference": -0.006820436507936508,
+      "higher_is_better": false,
+      "n_cases": 16,
+      "n_tree_clusters": 16,
+      "score_improved": 1,
+      "score_degraded": 2,
+      "score_unchanged": 13,
+      "binary_corrected": null,
+      "binary_regressed": null,
+      "correction_note": "Native scores are continuous; only score improvement/degradation is defined",
+      "ci95": [
+        -0.1007936507936508,
+        0.0703125
+      ],
+      "bootstrap_samples": 10000,
+      "bootstrap_seed": 0,
+      "status": "complete_verified"
+    }
+  ],
+  "denominator_per_method": 16,
+  "confidence_scope": "Development sample and fixed method seed only; source-group independence assumed; five judge samples are not five patients",
+  "official_metric_scope": "Native Acc normalization and DTW PCC; ancillary OT metrics are not calculated",
+  "judge_request_costs": {
+    "by_method": {
+      "no_hook": {
+        "attempts": 140,
+        "successful_responses": 140,
+        "failed_attempts": 0,
+        "elapsed_request_seconds": 785.9995892429724,
+        "prompt_tokens_known": 119380,
+        "completion_tokens_known": 21080,
+        "requests_without_usage": 0,
+        "local_forward_attempts_known": 21080,
+        "local_forward_completed_known": 21080
+      },
+      "gain_0_2": {
+        "attempts": 15,
+        "successful_responses": 15,
+        "failed_attempts": 0,
+        "elapsed_request_seconds": 103.15083595010219,
+        "prompt_tokens_known": 15580,
+        "completion_tokens_known": 2730,
+        "requests_without_usage": 0,
+        "local_forward_attempts_known": 2730,
+        "local_forward_completed_known": 2730
+      },
+      "gain_0_6": {
+        "attempts": 25,
+        "successful_responses": 25,
+        "failed_attempts": 0,
+        "elapsed_request_seconds": 164.27506448799977,
+        "prompt_tokens_known": 24570,
+        "completion_tokens_known": 4360,
+        "requests_without_usage": 0,
+        "local_forward_attempts_known": 4360,
+        "local_forward_completed_known": 4360
+      },
+      "text_emphasis": {
+        "attempts": 40,
+        "successful_responses": 40,
+        "failed_attempts": 0,
+        "elapsed_request_seconds": 398.14927177794743,
+        "prompt_tokens_known": 39165,
+        "completion_tokens_known": 9655,
+        "requests_without_usage": 0,
+        "local_forward_attempts_known": 9655,
+        "local_forward_completed_known": 9655
+      },
+      "fusion_static": {
+        "attempts": 25,
+        "successful_responses": 25,
+        "failed_attempts": 0,
+        "elapsed_request_seconds": 283.3668392688851,
+        "prompt_tokens_known": 26575,
+        "completion_tokens_known": 6965,
+        "requests_without_usage": 0,
+        "local_forward_attempts_known": 6965,
+        "local_forward_completed_known": 6965
+      },
+      "fusion_dynamic": {
+        "attempts": 15,
+        "successful_responses": 15,
+        "failed_attempts": 0,
+        "elapsed_request_seconds": 267.75531143910484,
+        "prompt_tokens_known": 18590,
+        "completion_tokens_known": 6555,
+        "requests_without_usage": 0,
+        "local_forward_attempts_known": 6555,
+        "local_forward_completed_known": 6555
+      }
+    },
+    "all_attempts": 260,
+    "scope": "all create attempts including official retry attempts; failed requests may have unknown token use",
+    "raw_request_response_artifact": "private/raw_judge_requests.jsonl; server-only",
+    "exact_request_cache": {
+      "hits": 770,
+      "misses": 260,
+      "hit_forward_cost": 0,
+      "policy": "method-independent keyed ordinal draws"
+    }
+  },
+  "judge_process_costs": {
+    "backend": "same_process_local_hf",
+    "versions": {
+      "torch": "2.8.0+cu128",
+      "transformers": "4.51.3"
+    },
+    "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+    "visible_gpu": "1",
+    "loaded_model_num_parameters": 8190735360,
+    "load_elapsed_seconds": 3.1109867559862323,
+    "forward_attempts": 51345,
+    "forward_completed": 51345,
+    "successful_prompt_tokens": 243860,
+    "successful_completion_tokens": 51345,
+    "peak_allocated_gib": 15.771089553833008,
+    "peak_reserved_gib": 16.162109375,
+    "memory_scope": "process allocator high-water marks; includes model loading, never reset per request",
+    "judge_rng_seed": 0,
+    "rng_policy": "per-request hash and draw ordinal; method order independent",
+    "context_length": 32768,
+    "enable_thinking": false,
+    "independent_model_claim": false
+  },
+  "elapsed_seconds": 2022.6055581649998,
+  "checker_sha256": "d1733e0f26af3c41761e364cf35180cb9a6ac293d8bfb8423073d18b0263c158",
+  "local_client_sha256": "18b2956f4514b1bdfe9c9cc03d15eaac5cad01a90c80feb81dc23b33d583ab78",
+  "supporting_source_sha256": {
+    "mega_trainval_reader.py": "a3e47914f04c720fe7a12b86a0242b154abbafad385c2f550fcdd94994c9ea96",
+    "counterfact_entity_ci.py": "567514750ebe2c5ff267e28fd1cd24c53447c01bbc26d45739bc19b7a14cf870",
+    "request_keyed_judge.py": "81b8b22fb3126988d1cad04e58a6012b1b02cd53d989048ca49f1e1968855edc"
+  }
+}

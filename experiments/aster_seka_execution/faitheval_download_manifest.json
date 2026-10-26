@@ -1,0 +1,84 @@
+{
+  "status": "complete_verified",
+  "verified_at_utc": "2026-10-25T19:01:06.419436+00:00",
+  "scope": "Fixed official parquet bytes, schema and counts; no test inference or question inspection",
+  "datasets": [
+    {
+      "dataset": "Salesforce/FaithEval-counterfactual-v1.0",
+      "revision": "e655f7c8750aabe431eeeda63fa5c019a2567b18",
+      "source_path": "data/test-00000-of-00001.parquet",
+      "official_sha256": "325723f478d62b1d107d1d90fb6587f0ed0f2f42d08fea13569a53b45402ef18",
+      "expected_bytes": 1637656,
+      "expected_rows": 1000,
+      "transport": "https://hf-mirror.com",
+      "local_path": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/faitheval/counterfactual/e655f7c8750aabe431eeeda63fa5c019a2567b18/test.parquet",
+      "test_question_text_printed": false,
+      "model_inference": false,
+      "status": "complete_verified",
+      "sha256": "325723f478d62b1d107d1d90fb6587f0ed0f2f42d08fea13569a53b45402ef18",
+      "bytes": 1637656,
+      "rows": 1000,
+      "columns": [
+        "id",
+        "question",
+        "answer",
+        "answerKey",
+        "choices",
+        "context",
+        "justification",
+        "num of options"
+      ],
+      "schema": "id: string\nquestion: string\nanswer: string\nanswerKey: string\nchoices: struct<label: list<element: string>, text: list<element: string>>\n  child 0, label: list<element: string>\n      child 0, element: string\n  child 1, text: list<element: string>\n      child 0, element: string\ncontext: string\njustification: string\nnum of options: int64\n-- schema metadata --\nhuggingface: '{\"info\": {\"features\": {\"id\": {\"dtype\": \"string\", \"_type\": \"' + 500"
+    },
+    {
+      "dataset": "Salesforce/FaithEval-inconsistent-v1.0",
+      "revision": "e29508db3955db2c82a80a1f3c3aadc11f93fc3f",
+      "source_path": "data/test-00000-of-00001.parquet",
+      "official_sha256": "a4fd32a58c28267bc3b217a6006af68d95f354568f42702ba18d9b8c76fffa15",
+      "expected_bytes": 2650076,
+      "expected_rows": 1500,
+      "transport": "https://hf-mirror.com",
+      "local_path": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/faitheval/inconsistent/e29508db3955db2c82a80a1f3c3aadc11f93fc3f/test.parquet",
+      "test_question_text_printed": false,
+      "model_inference": false,
+      "status": "complete_verified",
+      "sha256": "a4fd32a58c28267bc3b217a6006af68d95f354568f42702ba18d9b8c76fffa15",
+      "bytes": 2650076,
+      "rows": 1500,
+      "columns": [
+        "qid",
+        "question",
+        "context",
+        "answers",
+        "subset",
+        "justification"
+      ],
+      "schema": "qid: string\nquestion: string\ncontext: string\nanswers: list<element: string>\n  child 0, element: string\nsubset: string\njustification: string\n-- schema metadata --\nhuggingface: '{\"info\": {\"features\": {\"qid\": {\"dtype\": \"string\", \"_type\": ' + 301"
+    },
+    {
+      "dataset": "Salesforce/FaithEval-unanswerable-v1.0",
+      "revision": "4a14e0e9860e270a8c9ff57c511821f4f50dce57",
+      "source_path": "data/test-00000-of-00001.parquet",
+      "official_sha256": "b6f22ea87c49dad2a8f7d001a9f71e3b59c7747fcbffdd1078fc5a22ac8e7f86",
+      "expected_bytes": 3178294,
+      "expected_rows": 2492,
+      "transport": "https://hf-mirror.com",
+      "local_path": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/faitheval/unanswerable/4a14e0e9860e270a8c9ff57c511821f4f50dce57/test.parquet",
+      "test_question_text_printed": false,
+      "model_inference": false,
+      "status": "complete_verified",
+      "sha256": "b6f22ea87c49dad2a8f7d001a9f71e3b59c7747fcbffdd1078fc5a22ac8e7f86",
+      "bytes": 3178294,
+      "rows": 2492,
+      "columns": [
+        "qid",
+        "question",
+        "context",
+        "answers",
+        "subset",
+        "justification"
+      ],
+      "schema": "qid: string\nquestion: string\ncontext: string\nanswers: list<element: string>\n  child 0, element: string\nsubset: string\njustification: string\n-- schema metadata --\nhuggingface: '{\"info\": {\"features\": {\"qid\": {\"dtype\": \"string\", \"_type\": ' + 301"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "status": "complete_verified",
+  "benchmark": "BiasBios",
+  "new_gpu_forwards": 0,
+  "verified_at_utc": "2026-10-25T17:43:48.287803+00:00",
+  "raw_text_published": false,
+  "scope": "standard implementation validation; not clinical independent confirmation",
+  "independent_recalculation": "Native top1/topk from saved occupational predictions and targets, aligned to original ordered data rows",
+  "limits": "Does not reconstruct full-vocabulary logits, regenerate outputs, or recompute textual fluency/TF-IDF consistency; those saved values are explicitly labeled",
+  "generation_token_count_policy": "null without original token IDs; decoded text is not retokenized",
+  "deduplicated": false,
+  "source_name_id_is_patient_identity": false,
+  "native_definition_source": "https://github.com/waylonli/SEKA/blob/aab9cfed80dc012fb9e83f8bdefb8675c33f40e7/benchmarks/biasbios/evaluate.py#L365",
+  "source_rows": 5000,
+  "unique_original_name_ids": 4998,
+  "repeated_name_id_groups": 2,
+  "duplicate_name_id_extra_rows": 2,
+  "unique_anonymous_sample_ids": 5000,
+  "candidate_occupation_count": 28,
+  "recomputed_metrics": {
+    "top1_accuracy": 0.9118,
+    "topk_accuracy": 0.9748,
+    "k": 3
+  },
+  "nonfinite_saved_fluency_rows": 0,
+  "nonfinite_saved_consistency_rows": 0,
+  "raw_file_sha256": "4205017a7915ebd208cc920282c4fef6d4f00c34714db3aa358b929a94b59de9",
+  "processed_data_sha256": "59adf7290a76dcffb2619c100b7f66e50124ef4e4f44725604af7ba0916ace86",
+  "run_manifest_sha256": "b51fec02c600ab87cc2183b5455c682437bda8b1acd1bb6873a7142f95e28770",
+  "predictions_sha256": "f16fb3625d485ac078f1b91bb2af97d7998be612f2e5bcee232b84089cd4fdf9",
+  "split": "train[5000:10000]",
+  "saved_metrics": {
+    "top1_accuracy": 0.9118,
+    "topk_accuracy": 0.9748,
+    "k": 3
+  },
+  "source_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+  "model_files_sha256": {
+    "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+    "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+    "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+    "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+    "model-00001-of-00005.safetensors": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f",
+    "model-00002-of-00005.safetensors": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282",
+    "model-00003-of-00005.safetensors": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836",
+    "model-00004-of-00005.safetensors": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a",
+    "model-00005-of-00005.safetensors": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff",
+    "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+    "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+    "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+    "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  "costs": {
+    "forward_attempts": 20032,
+    "forward_completed": 20032,
+    "elapsed_seconds": 1141.5792370219715,
+    "gpu_lock_wall_seconds": 1141.578787900973,
+    "peak_allocated_gib": 18.014109134674072,
+    "peak_reserved_gib": 19.34375
+  },
+  "elapsed_seconds": 0.31447600200772285,
+  "checker_sha256": "ae922c8b48e91b8d4900239c5429730d19cccc47cdc648c983312c25a46a3677"
+}

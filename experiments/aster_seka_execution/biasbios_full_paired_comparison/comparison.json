@@ -1,0 +1,165 @@
+{
+  "status": "complete_verified",
+  "created_at_utc": "2026-10-25T18:06:36.378421+00:00",
+  "scope": "BiasBios standard implementation validation; not independent clinical confirmation",
+  "new_gpu_forwards": 0,
+  "split": "train[5000:10000]",
+  "names_used_as_patient_ids": false,
+  "all_negative_results_retained": true,
+  "deduplicated": false,
+  "exports": {
+    "seka": {
+      "audit_sha256": "257ef58cb382e0a7662a0cc0feead02b516d620af7b2e22ead210a33ce91bb35",
+      "predictions_sha256": "f16fb3625d485ac078f1b91bb2af97d7998be612f2e5bcee232b84089cd4fdf9",
+      "processed_data_sha256": "59adf7290a76dcffb2619c100b7f66e50124ef4e4f44725604af7ba0916ace86",
+      "raw_file_sha256": "4205017a7915ebd208cc920282c4fef6d4f00c34714db3aa358b929a94b59de9",
+      "costs": {
+        "forward_attempts": 20032,
+        "forward_completed": 20032,
+        "elapsed_seconds": 1141.5792370219715,
+        "gpu_lock_wall_seconds": 1141.578787900973,
+        "peak_allocated_gib": 18.014109134674072,
+        "peak_reserved_gib": 19.34375
+      }
+    },
+    "matched_zero": {
+      "audit_sha256": "fc801041d2e51aec5fb87fda1b12488e5a9584f771fb49f1a23071ad763afbfa",
+      "predictions_sha256": "8538badf64801265d17f1a1ce7837caf20f134180cf976bafee5cb3a8ae9148b",
+      "processed_data_sha256": "59adf7290a76dcffb2619c100b7f66e50124ef4e4f44725604af7ba0916ace86",
+      "raw_file_sha256": "e9bb6e18c31f8b240acc045d5883ed959ebc09565310d3284e237f0dd85966f5",
+      "costs": {
+        "forward_attempts": 20032,
+        "forward_completed": 20032,
+        "elapsed_seconds": 1194.3976380289532,
+        "gpu_lock_wall_seconds": 1194.3970557700377,
+        "peak_allocated_gib": 18.020304203033447,
+        "peak_reserved_gib": 19.34375
+      }
+    }
+  },
+  "metrics": {
+    "top1": {
+      "seka_accuracy": 0.9118,
+      "matched_zero_accuracy": 0.8428,
+      "difference": 0.069,
+      "difference_percentage_points": 6.9,
+      "corrected": 403,
+      "regressed": 58,
+      "correction_rate": 0.0806,
+      "regression_rate": 0.0116,
+      "unchanged": 4539,
+      "denominator_all_cases": 5000,
+      "ci95_seka_accuracy": [
+        0.9038,
+        0.9193842798559712
+      ],
+      "ci95_matched_zero_accuracy": [
+        0.8326,
+        0.8528294341131774
+      ],
+      "ci95_difference": [
+        0.0608,
+        0.07721544308861772
+      ],
+      "ci95_correction_rate": [
+        0.07317073170731707,
+        0.0882
+      ],
+      "ci95_regression_rate": [
+        0.008798240351929614,
+        0.01479408236705318
+      ],
+      "ci95_difference_percentage_points": [
+        6.08,
+        7.7215443088617715
+      ]
+    },
+    "top3": {
+      "seka_accuracy": 0.9748,
+      "matched_zero_accuracy": 0.9416,
+      "difference": 0.0332,
+      "difference_percentage_points": 3.32,
+      "corrected": 173,
+      "regressed": 7,
+      "correction_rate": 0.0346,
+      "regression_rate": 0.0014,
+      "unchanged": 4820,
+      "denominator_all_cases": 5000,
+      "ci95_seka_accuracy": [
+        0.9702,
+        0.979004199160168
+      ],
+      "ci95_matched_zero_accuracy": [
+        0.9347869573914783,
+        0.9481792717086834
+      ],
+      "ci95_difference": [
+        0.0282,
+        0.03840768153630726
+      ],
+      "ci95_correction_rate": [
+        0.0296116966490537,
+        0.0398
+      ],
+      "ci95_regression_rate": [
+        0.00040008001600320064,
+        0.0025989604158336665
+      ],
+      "ci95_difference_percentage_points": [
+        2.82,
+        3.840768153630726
+      ]
+    }
+  },
+  "n_cases": 5000,
+  "prompt_hashes_identical": true,
+  "prompt_hash_mismatches": 0,
+  "bootstrap": {
+    "status": "complete_verified",
+    "unit": "exact processed context text SHA256; not verified person identity",
+    "n_clusters": 4998,
+    "repeated_text_clusters": 2,
+    "largest_text_cluster": 2,
+    "replicates": 10000,
+    "seed": 0,
+    "weighting": "native case-weighted statistic: sampled cluster sum / sampled case count",
+    "interpretation": "Marginal 95% intervals conditional on these runs; assumes distinct biography texts are independent. Different texts may still share a person/source, so these are not patient-cluster CIs."
+  },
+  "name_id_metadata": {
+    "repeated_name_groups": 2,
+    "extra_rows_with_repeated_names": 2,
+    "used_for_clustering": false
+  },
+  "prefill_matching": {
+    "status": "complete_verified",
+    "prefill_batches": 313,
+    "cases_covered": 5000,
+    "matched_prefill_batches": 313,
+    "seka_total_forward_calls": 20032,
+    "matched_zero_total_forward_calls": 20032,
+    "decode_suffix_equality_required": false,
+    "note": "Prefills are paired by batch order, not global call number; decode tokens and early stopping may differ",
+    "seka_trace": {
+      "status": "complete_verified",
+      "manifest_sha256": "b51fec02c600ab87cc2183b5455c682437bda8b1acd1bb6873a7142f95e28770",
+      "trace_sha256": "0270b1aec33456d4a9e6ca06ec6be9e3c634d7551396b0e7c07d792264a10659",
+      "rows": 20032
+    },
+    "matched_zero_trace": {
+      "status": "complete_verified",
+      "manifest_sha256": "412350c071fb21e0bfe007ac74252d401e55a212a39fe35c50ff8ae21e8269f0",
+      "trace_sha256": "27319fd1345709ccbf0b613c4f3f44e37d679b8b4c526e1b6127f74a37b14cc1",
+      "rows": 20032
+    }
+  },
+  "matched_input_status": "complete_verified",
+  "paired_cases.jsonl_sha256": "fcac0410486c590348eb32b8bd2bfe248b7fbf37ced60a5706755a1682ca56a3",
+  "prefill_comparison.jsonl_sha256": "693311597b9abc2a1b7c2f19b8b3bad1a701151521c236b3c328901424873924",
+  "status_scope": "paired descriptive/statistical calculation; input-matching and cluster evidence have separate statuses",
+  "elapsed_seconds": 1.8607934170286171,
+  "checker_sha256": "0a7ff160fafbe629684c9a064f049107324d897ab93725962213f571c5a04a37",
+  "supporting_source_sha256": {
+    "counterfact_entity_ci.py": "567514750ebe2c5ff267e28fd1cd24c53447c01bbc26d45739bc19b7a14cf870",
+    "export_biasbios.py": "ae922c8b48e91b8d4900239c5429730d19cccc47cdc648c983312c25a46a3677"
+  }
+}

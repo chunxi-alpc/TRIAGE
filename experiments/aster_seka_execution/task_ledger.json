@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "goal_source": "f37c5f8b6339216439e5fc257419ebe78ddf5763",
+  "status": "running",
+  "tasks": [
+    {
+      "id": "G0",
+      "owner": "data_and_coordinator",
+      "status": "running"
+    },
+    {
+      "id": "G1",
+      "owner": "baseline",
+      "status": "running"
+    },
+    {
+      "id": "G2",
+      "owner": "method",
+      "status": "running"
+    },
+    {
+      "id": "G3",
+      "owner": "evaluation",
+      "status": "planned"
+    },
+    {
+      "id": "G4",
+      "owner": "independent_audit",
+      "status": "running"
+    }
+  ],
+  "gpu_allowlist": [
+    0,
+    1,
+    6
+  ],
+  "gpu_assignment": {
+    "0": "Existing A0 then remaining native evaluation",
+    "1": "Existing attention then source-rule extraction validation",
+    "6": "Primary native evaluation, A1 controls, Base Ada16 validation"
+  },
+  "main_writes": false,
+  "legacy_overwrites": false,
+  "updated_at_utc": "2026-10-26T04:26:24.412443+00:00",
+  "cost_evidence": "run_records/summary.json",
+  "subtasks": [
+    {
+      "id": "legacy_PR33_PR35",
+      "status": "complete_verified",
+      "evidence": "legacy_independent_audit_v2.json"
+    },
+    {
+      "id": "server_and_real_data",
+      "status": "complete_verified",
+      "evidence": "server_data_audit.json"
+    },
+    {
+      "id": "licenses_and_overlap",
+      "status": "running",
+      "evidence": "usage_decision.json"
+    },
+    {
+      "id": "SEKA_Qwen_projection",
+      "status": "complete_verified",
+      "evidence": "projection_full200_audit_v2.json"
+    },
+    {
+      "id": "SEKA_Base_weights",
+      "status": "complete_verified",
+      "evidence": "qwen_base_download_manifest_v2.json"
+    },
+    {
+      "id": "SEKA_Base_projection",
+      "status": "complete_verified",
+      "evidence": "projection_base_full100_audit.json"
+    },
+    {
+      "id": "CounterFact_Qwen_efficacy",
+      "status": "complete_verified",
+      "evidence": "counterfact_entity_ci_v2/entity_ci.json"
+    },
+    {
+      "id": "CounterFact_Qwen_paraphrase_matched",
+      "status": "complete_verified",
+      "evidence": "counterfact_paraphrase_v2_comparison/comparison.json"
+    },
+    {
+      "id": "CounterFact_Base",
+      "status": "complete_verified",
+      "evidence": "counterfact_base_comparison/comparison.json"
+    },
+    {
+      "id": "AdaSEKA_four_experts",
+      "status": "complete_verified",
+      "evidence": "hotpot_storage_validation.json"
+    },
+    {
+      "id": "PASTA_Qwen_port_standard",
+      "status": "complete_verified",
+      "evidence": "counterfact_full_pasta_verified/efficacy/audit.json",
+      "scope": "Author Qwen port with correlated head selection; not original exhaustive PASTA search"
+    },
+    {
+      "id": "CAD_Spotlight_adaptations",
+      "status": "complete_verified",
+      "evidence": "spotlight_full5000_v3_verified/audit.json",
+      "scope": "Fixed CounterFact 5000 first-token standards only; clinical remains queued"
+    },
+    {
+      "id": "BiasBios_standard",
+      "status": "complete_verified",
+      "evidence": "biasbios_full_paired_comparison/comparison.json",
+      "scope": "Existing post-trained Qwen3-8B; Base remains planned"
+    },
+    {
+      "id": "MEGA_dev16_input_freeze",
+      "status": "complete_verified",
+      "evidence": "mega_dev16_input_lock.json"
+    },
+    {
+      "id": "clinical_2x2_and_controls",
+      "status": "complete_verified",
+      "evidence": "mega_dev16_primary_scores_verified/audit.json",
+      "execution": "11 methods x 16 development cases scored and recomputed; negative attention result. Does not complete all clinical controls or independent evaluation."
+    },
+    {
+      "id": "strong_output_fusion",
+      "status": "planned"
+    },
+    {
+      "id": "MedPIC_pair_mapping",
+      "status": "blocked",
+      "reason": "Official 89-pair identifier map not available in released 467-question snapshot"
+    },
+    {
+      "id": "freeze_method_seeds_0_1_2",
+      "status": "planned"
+    },
+    {
+      "id": "independent_MEGA_MedPIC_evaluation",
+      "status": "planned"
+    },
+    {
+      "id": "MedGUIDE_MedCalc_FaithEval",
+      "status": "planned"
+    },
+    {
+      "id": "clinical_YaRN_projection",
+      "status": "complete_verified",
+      "evidence": "projection_clinical_yarn100_audit.json"
+    },
+    {
+      "id": "AdaSEKA_default_vs_paper_strength",
+      "status": "complete_verified",
+      "evidence": "adaseka_full_paired_comparison_v2/comparison.json",
+      "scope": "Full5000 original posttrained Qwen FP32; Base still pending"
+    },
+    {
+      "id": "MedPIC_native_interface",
+      "status": "complete_verified",
+      "scope": "synthetic interface tests only; no test inference"
+    },
+    {
+      "id": "BiasBios_SEKA_5000",
+      "status": "complete_verified",
+      "evidence": "biasbios_full_seka_verified/audit.json"
+    },
+    {
+      "id": "CAD_empty_attribute_fix",
+      "status": "complete_verified",
+      "scope": "17 server tests and full5000 rerun independently exported",
+      "evidence": "cad_full5000_v2_verified/audit.json"
+    },
+    {
+      "id": "AdaSEKA_FP32_same_input_control",
+      "status": "complete_verified",
+      "evidence": "adaseka_fp32_matched_audit/comparison.json"
+    },
+    {
+      "id": "clinical_YaRN_PASTA_Ada_calibration",
+      "status": "running",
+      "execution": "All build jobs exited; independent artifact binding queued before clinical inference",
+      "evidence": "hotpot_clinical_yarn_build200.json"
+    },
+    {
+      "id": "Base_remaining_standards",
+      "status": "planned",
+      "execution": "BiasBios/PASTA inference exited, CPU exports underway; Base Hotpot expert continues",
+      "evidence": "base_completed_exports_plan.json",
+      "execution_state": "awaiting_recovered_validation"
+    },
+    {
+      "id": "clinical_attention_operator_adaptation",
+      "status": "complete_verified",
+      "scope": "4 tiny real-Qwen server contract tests only; 55k clinical run remains planned",
+      "evidence": "validation_records/test_author_attention_v2.log"
+    },
+    {
+      "id": "clinical_same_condition_fusion",
+      "status": "running",
+      "execution": "A0 on GPU0 and A1 on GPU3 are real running model processes",
+      "evidence": "FINAL_BACKGROUND_SCHEDULE.json"
+    },
+    {
+      "id": "MedPIC_transfer_runtime",
+      "status": "complete_verified",
+      "scope": "15 synthetic CPU tests plus 2 fake-engine cases; no test inference",
+      "evidence": "MEDPIC_TRANSFER.zh.md"
+    },
+    {
+      "id": "extension_source_access",
+      "status": "complete_verified",
+      "scope": "MedCalc metadata and FaithEval4992 file fingerprints/schema/rows, no model evaluation",
+      "evidence": "faitheval_independent_file_audit.json"
+    },
+    {
+      "id": "extension_native_interfaces",
+      "status": "complete_verified",
+      "scope": "8 server synthetic tests plus 2 fake MedCalc cases only; no model evaluation",
+      "evidence": "EXTENSIONS.zh.md"
+    },
+    {
+      "id": "MEGA_research_use_authorization",
+      "status": "complete_verified",
+      "scope": "User confirmation of existing research-use authorization; public dataset license metadata remains TBD",
+      "evidence": "usage_decision.json"
+    },
+    {
+      "id": "FaithEval_calibration_overlap",
+      "status": "complete_verified",
+      "scope": "Hash/ID audit only; 0 observed exact matches, independence remains unknown, all4992 retained",
+      "evidence": "faitheval_overlap_audit/summary.json"
+    },
+    {
+      "id": "clinical_parser_repair_v2",
+      "status": "complete_verified",
+      "scope": "Server tests and cached-output CPU reparse only; no claim of clinical gain",
+      "evidence": "clinical_parser_v2_cached_output_check.json"
+    },
+    {
+      "id": "Base_BiasBios_SEKA",
+      "status": "complete_verified",
+      "evidence": "biasbios_base_paired_comparison/comparison.json"
+    },
+    {
+      "id": "Base_PASTA_CF",
+      "status": "complete_verified",
+      "scope": "SEKA author Qwen port and correlated heads; not original exhaustive search",
+      "evidence": "counterfact_base_pasta_verified/efficacy/audit.json"
+    },
+    {
+      "id": "MEGA_MedGUIDE_source_metadata",
+      "status": "complete_verified",
+      "scope": "Metadata audit only; document-level source independence unknown",
+      "evidence": "guideline_source_overlap_audit.json"
+    },
+    {
+      "id": "Base_Ada_validation16",
+      "status": "planned",
+      "execution": "Actual GPU2 dependency queue after primary judge; four experts independently verified",
+      "evidence": "FINAL_BACKGROUND_SCHEDULE.json",
+      "execution_state": "previous_start_failed_fixed_not_rerun",
+      "reason": "Interpreter symlink resolution selected system Python; torch missing"
+    },
+    {
+      "id": "all_clinical_statistics_interface",
+      "status": "complete_verified",
+      "scope": "5 synthetic server tests across native summaries and full43-arm entrypoint; no real clinical statistics yet",
+      "evidence": "statistics_and_source_validation.json"
+    },
+    {
+      "id": "rule_extraction_failure_diagnosis",
+      "status": "complete_verified",
+      "scope": "CPU frozen development metadata only, no new clinical scores",
+      "evidence": "rule_extraction_failure_audit.json"
+    },
+    {
+      "id": "source_span_replay",
+      "status": "complete_verified",
+      "scope": "CPU replay coverage6/16 to12/16; not clinical improvement",
+      "evidence": "source_span_replay_audit.json"
+    },
+    {
+      "id": "source_rule_extraction_v2",
+      "status": "complete_verified",
+      "execution": "Actual GPU1 dependency queue;16 frozen development guides, seed0, unchanged token cap",
+      "evidence": "source_rule_extraction_v2_verified/audit.json",
+      "scope": "16 real extraction outputs and CPU replay verified; clinical suitability not verified, semantic counterexamples retained"
+    },
+    {
+      "id": "Base_Ada_four_experts",
+      "status": "complete_verified",
+      "scope": "Base model artifact provenance and shape/numerics; not full task inference",
+      "evidence": "adaseka_base_audit/audit.json"
+    },
+    {
+      "id": "primary_clinical_scores_cpu_reverification",
+      "status": "complete_verified",
+      "evidence": "mega_dev16_primary_scores_verified/audit.json",
+      "scope": "All 176 original prediction parses and native metric recomputations; no GPU forwards"
+    },
+    {
+      "id": "primary_failure_diagnosis",
+      "status": "complete_verified",
+      "evidence": "primary_failure_diagnosis.json",
+      "scope": "Saved development outputs and code; CPU only; no new inference. Fixes remain planned."
+    },
+    {
+      "id": "clinical_strength_v3",
+      "status": "complete_verified",
+      "evidence": "clinical_v3_results_verified/audit.json",
+      "scope": "112 fixed development predictions and scores; not independent test",
+      "execution_state": "completed",
+      "pipeline_pid": 464365,
+      "completed_predictions": 112,
+      "expected_predictions": 112,
+      "native_evaluation_status": "complete_verified"
+    },
+    {
+      "id": "all43_generation_export",
+      "status": "complete_verified",
+      "evidence": "review_20261027/all43_generation_inventory.json",
+      "scope": "688 generation records including fallbacks and failures; full clinical scoring unfinished"
+    },
+    {
+      "id": "clinical_v3_direct_strong_baseline_statistics",
+      "status": "complete_verified",
+      "evidence": "clinical_v3_results_verified/direct_strong_baseline_comparisons.json",
+      "scope": "Post-hoc CPU comparisons only; no independent confirmation"
+    }
+  ],
+  "coordination_status": "User requested stop after scheduling; background tasks continue, active coordination will pause",
+  "coordinator_status": "bounded_result_review_no_new_GPU_launch"
+}

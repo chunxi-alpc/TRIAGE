@@ -1,0 +1,96 @@
+{
+  "schema_version": "aster.faitheval_official_access.v1",
+  "audit_date": "2026-10-26",
+  "status": "complete_verified",
+  "status_scope": "public official revision, LFS pointer and dataset-card metadata only; downloaded bytes not verified by this agent",
+  "latest_version_claimed": false,
+  "test_examples_or_gold_values_read": false,
+  "local_dataset_downloads": false,
+  "datasets": [
+    {
+      "task": "counterfactual",
+      "repository": "Salesforce/FaithEval-counterfactual-v1.0",
+      "revision": "e655f7c8750aabe431eeeda63fa5c019a2567b18",
+      "revision_note": "Previously registered official revision, independently reconfirmed; not claimed latest",
+      "path": "data/test-00000-of-00001.parquet",
+      "sha256": "325723f478d62b1d107d1d90fb6587f0ed0f2f42d08fea13569a53b45402ef18",
+      "bytes": 1637656,
+      "rows_card": 1000,
+      "xet_hash_not_file_sha256": "7a55414b470fb007d613257ff89844bff42d4c4ca0f8765e6ccb94535e2aaf0f",
+      "schema_card": {
+        "id": "string", "question": "string", "answer": "string", "answerKey": "string",
+        "choices": {"label": {"sequence": "string"}, "text": {"sequence": "string"}},
+        "context": "string", "justification": "string", "num of options": "int64"
+      },
+      "card": "https://huggingface.co/datasets/Salesforce/FaithEval-counterfactual-v1.0/blob/e655f7c8750aabe431eeeda63fa5c019a2567b18/README.md",
+      "tree": "https://huggingface.co/datasets/Salesforce/FaithEval-counterfactual-v1.0/tree/e655f7c8750aabe431eeeda63fa5c019a2567b18/data",
+      "raw_lfs_pointer": "https://huggingface.co/datasets/Salesforce/FaithEval-counterfactual-v1.0/raw/e655f7c8750aabe431eeeda63fa5c019a2567b18/data/test-00000-of-00001.parquet",
+      "official_download": "https://huggingface.co/datasets/Salesforce/FaithEval-counterfactual-v1.0/resolve/e655f7c8750aabe431eeeda63fa5c019a2567b18/data/test-00000-of-00001.parquet",
+      "hf_mirror_download_candidate": "https://hf-mirror.com/datasets/Salesforce/FaithEval-counterfactual-v1.0/resolve/e655f7c8750aabe431eeeda63fa5c019a2567b18/data/test-00000-of-00001.parquet",
+      "mirror_status": "coordinator verified hf-mirror dataset API HTTP 200 and matching revision using Session.trust_env=False; binary download/hash pending report",
+      "modelscope_public_page": "https://www.modelscope.cn/datasets/Salesforce/FaithEval-counterfactual-v1.0/summary",
+      "modelscope_status": "public same-name namespace page found; exact bytes/revision not verified by this agent",
+      "schema_interpretation": "choices is a public input candidate, answer/answerKey/justification are evaluator-only; exact author counterfactual option rendering and reference selection still require verification"
+    },
+    {
+      "task": "inconsistent",
+      "repository": "Salesforce/FaithEval-inconsistent-v1.0",
+      "revision": "e29508db3955db2c82a80a1f3c3aadc11f93fc3f",
+      "revision_note": "Full revision obtained from official commit link and then pinned tree/card/pointer; not claimed latest",
+      "path": "data/test-00000-of-00001.parquet",
+      "sha256": "a4fd32a58c28267bc3b217a6006af68d95f354568f42702ba18d9b8c76fffa15",
+      "bytes": 2650076,
+      "rows_card": 1500,
+      "xet_hash_not_file_sha256": "8ff7844131d30b5306d2a2445a0c31c3a3108de63e884ae83904fd57579b5109",
+      "schema_card": {
+        "qid": "string", "question": "string", "context": "string",
+        "answers": {"sequence": "string"}, "subset": "string", "justification": "string"
+      },
+      "card": "https://huggingface.co/datasets/Salesforce/FaithEval-inconsistent-v1.0/blob/e29508db3955db2c82a80a1f3c3aadc11f93fc3f/README.md",
+      "tree": "https://huggingface.co/datasets/Salesforce/FaithEval-inconsistent-v1.0/tree/e29508db3955db2c82a80a1f3c3aadc11f93fc3f/data",
+      "raw_lfs_pointer": "https://huggingface.co/datasets/Salesforce/FaithEval-inconsistent-v1.0/raw/e29508db3955db2c82a80a1f3c3aadc11f93fc3f/data/test-00000-of-00001.parquet",
+      "official_download": "https://huggingface.co/datasets/Salesforce/FaithEval-inconsistent-v1.0/resolve/e29508db3955db2c82a80a1f3c3aadc11f93fc3f/data/test-00000-of-00001.parquet",
+      "hf_mirror_download_candidate": "https://hf-mirror.com/datasets/Salesforce/FaithEval-inconsistent-v1.0/resolve/e29508db3955db2c82a80a1f3c3aadc11f93fc3f/data/test-00000-of-00001.parquet",
+      "mirror_status": "fixed-revision path supplied for server attempt; file bytes must match official SHA and size",
+      "modelscope_status": "no independently verified exact-copy metadata in this web audit",
+      "schema_interpretation": "question/context method input; answers/justification evaluator-only; qid/subset provenance outside model"
+    },
+    {
+      "task": "unanswerable",
+      "repository": "Salesforce/FaithEval-unanswerable-v1.0",
+      "revision": "4a14e0e9860e270a8c9ff57c511821f4f50dce57",
+      "revision_note": "Full revision obtained from official commit link and then pinned tree/card/pointer; not claimed latest",
+      "path": "data/test-00000-of-00001.parquet",
+      "sha256": "b6f22ea87c49dad2a8f7d001a9f71e3b59c7747fcbffdd1078fc5a22ac8e7f86",
+      "bytes": 3178294,
+      "rows_card": 2492,
+      "xet_hash_not_file_sha256": "43f0e6340948bf3a2a22668caaea9e802c9a526503ce7987f81ffff00230603b",
+      "schema_card": {
+        "qid": "string", "question": "string", "context": "string",
+        "answers": {"sequence": "string"}, "subset": "string", "justification": "string"
+      },
+      "card": "https://huggingface.co/datasets/Salesforce/FaithEval-unanswerable-v1.0/blob/4a14e0e9860e270a8c9ff57c511821f4f50dce57/README.md",
+      "tree": "https://huggingface.co/datasets/Salesforce/FaithEval-unanswerable-v1.0/tree/4a14e0e9860e270a8c9ff57c511821f4f50dce57/data",
+      "raw_lfs_pointer": "https://huggingface.co/datasets/Salesforce/FaithEval-unanswerable-v1.0/raw/4a14e0e9860e270a8c9ff57c511821f4f50dce57/data/test-00000-of-00001.parquet",
+      "official_download": "https://huggingface.co/datasets/Salesforce/FaithEval-unanswerable-v1.0/resolve/4a14e0e9860e270a8c9ff57c511821f4f50dce57/data/test-00000-of-00001.parquet",
+      "hf_mirror_download_candidate": "https://hf-mirror.com/datasets/Salesforce/FaithEval-unanswerable-v1.0/resolve/4a14e0e9860e270a8c9ff57c511821f4f50dce57/data/test-00000-of-00001.parquet",
+      "mirror_status": "fixed-revision path supplied for server attempt; file bytes must match official SHA and size",
+      "modelscope_status": "no independently verified exact-copy metadata in this web audit",
+      "schema_interpretation": "question/context method input; answers/justification evaluator-only; qid/subset provenance outside model"
+    }
+  ],
+  "license_audit": {
+    "official_hf_cards_standard_license_field": "absent in all three pinned cards",
+    "official_hf_cards_usage_statement": "research purposes only in support of an academic paper",
+    "code_license": "GitHub code Apache-2.0 is a separate fact; not automatically the dataset license",
+    "modelscope_CF_page_label": "Apache License 2.0 shown by mirror page, but official pinned HF cards lack this field; no override inferred",
+    "no_new_usage_decision_created": true
+  },
+  "access_audit": {
+    "official_hf_direct_server": "ConnectionError preserved from coordinator report",
+    "web_official_hf_api": "API URLs inaccessible, but pinned tree/card/blob/raw-LFS HTML/text pages accessible",
+    "web_parquet_previews": "No populated rows returned; preview/data-studio not opened; raw pointer is metadata, not parquet content",
+    "server_hf_mirror": "CF API HTTP 200 with matching revision reported by coordinator; binary verification remains separate",
+    "no_translation_or_reformatted_dataset_accepted": true
+  }
+}

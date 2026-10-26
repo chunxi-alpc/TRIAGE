@@ -1,0 +1,109 @@
+{
+  "status": "complete_verified",
+  "new_gpu_forwards": 0,
+  "scope": "Within-adapter standard efficacy paired statistics, not clinical evidence or cross-implementation ranking",
+  "created_at_utc": "2026-10-25T18:49:33.211049+00:00",
+  "method": "spotlight",
+  "source_sha256": "3f6432fc0d987fc59addc5037b4250dd658cb840aada78a4294abb095d0d6f84",
+  "audit_sha256": "4f657cc485c184d71b5deb4193e050b7f97014e8ffd3ce374c714e5cb469e9c8",
+  "predictions_sha256": "38025a7cb7b816dc5fe92ec75078090a0c89f5290afc29409609ed53d73f8871",
+  "checker_sha256": "72868a08e8153d74daf103a78b6e2e3a7076857b6b237b2bf5566c66e18b8e37",
+  "bootstrap_source_sha256": "567514750ebe2c5ff267e28fd1cd24c53447c01bbc26d45739bc19b7a14cf870",
+  "group": "exact CounterFact entity; not patient",
+  "n_groups": 4885,
+  "bootstrap_replicates": 10000,
+  "bootstrap_seed": 0,
+  "all_fixed_cases_retained": true,
+  "verified_measured_fallbacks_per_control": {
+    "no_hook": 0,
+    "matched_zero": 2,
+    "normal": 2,
+    "reverse": 2,
+    "wrong_span": 2
+  },
+  "fallback_scope": "Retain actual no-hook predictions for empty evidence; these are not implemented interventions",
+  "greedy_single_run": true,
+  "comparisons": {
+    "no_hook": {
+      "difference_percentage_points": 7.720000000000001,
+      "corrected": 430,
+      "regressed": 44,
+      "n_cases": 5000,
+      "ci95_difference_percentage_points": [
+        6.904142485491295,
+        8.546854518881092
+      ],
+      "ci95_correction_rate": [
+        0.07841549006318677,
+        0.09391302749139675
+      ],
+      "ci95_regression_rate": [
+        0.006216130865671758,
+        0.011413696435722867
+      ]
+    },
+    "matched_zero": {
+      "difference_percentage_points": 7.720000000000001,
+      "corrected": 430,
+      "regressed": 44,
+      "n_cases": 5000,
+      "ci95_difference_percentage_points": [
+        6.904142485491295,
+        8.546854518881092
+      ],
+      "ci95_correction_rate": [
+        0.07841549006318677,
+        0.09391302749139675
+      ],
+      "ci95_regression_rate": [
+        0.006216130865671758,
+        0.011413696435722867
+      ]
+    },
+    "reverse": {
+      "difference_percentage_points": 9.16,
+      "corrected": 509,
+      "regressed": 51,
+      "n_cases": 5000,
+      "ci95_difference_percentage_points": [
+        8.273054565548394,
+        10.06984442356384
+      ],
+      "ci95_correction_rate": [
+        0.09355522000993341,
+        0.11035504895154498
+      ],
+      "ci95_regression_rate": [
+        0.00755756434212892,
+        0.013036567584824266
+      ]
+    },
+    "wrong_span": {
+      "difference_percentage_points": 8.08,
+      "corrected": 451,
+      "regressed": 47,
+      "n_cases": 5000,
+      "ci95_difference_percentage_points": [
+        7.2515737974492875,
+        8.928230261228451
+      ],
+      "ci95_correction_rate": [
+        0.08227975115392334,
+        0.09826243259436789
+      ],
+      "ci95_regression_rate": [
+        0.0068,
+        0.012158660554116005
+      ]
+    }
+  },
+  "numerical_drift_evidence": {
+    "records_checked": 5000,
+    "reported_full_vocabulary_max_abs": 0.0,
+    "argmax_changes_recomputed": 0,
+    "target_logp_max_abs_recomputed": 0.0,
+    "comparator_logp_max_abs_recomputed": 0.0,
+    "full_vocabulary_scope": "Recorded max drift checked against both saved diagnostic files; full logits unavailable for independent recomputation",
+    "wrong_span_scope": "Equal positive token count and differing mask hashes checked for implemented controls only. Explicit empty-evidence no-hook controls are counted separately and remain in all denominators. Disjointness follows inspected source; full masks were not saved."
+  }
+}

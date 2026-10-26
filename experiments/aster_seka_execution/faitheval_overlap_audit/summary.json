@@ -1,0 +1,104 @@
+{
+  "status": "complete_verified",
+  "scope": "source hashes/overlap audit only; not an independence certificate",
+  "calibration_file_sha256": "26650cf50234ef5fb2e664ed70bbecdfd87815e6bffc257e068efea5cf7cd316",
+  "requested_source_prefix": 200,
+  "builder_source_hashes": {
+    "src/custom_builders/adaptive/hotpot_qa_builder.py": "a161c7f1fa09351e4f96d047d50b92820297cad5a7a0d923e65bb6cb167bbe90",
+    "src/model/projection_builder_base_adapsvd.py": "cd0b525c8bb6e8763d080e21d7fca4ffe8b61958454597ce9504a4f2c468b960"
+  },
+  "builds": [
+    {
+      "name": "instruct",
+      "build_report_sha256": "dc8675c2dd81a9db37f036701421bc909657e98f4bc66914abdf6b82b7570388",
+      "status": "complete_verified",
+      "max_samples": 200,
+      "original_array_prefix": true,
+      "selection_trace_sha256": "86ec6bcf4e5dc2630f25dafa89270df408906b915011d2bba1cdaaf52c8e9518",
+      "chat": false,
+      "trace_rows": 200,
+      "uniquely_mapped_trace_rows": 200,
+      "ambiguous_trace_rows": [],
+      "unmapped_trace_indices": [],
+      "membership_counts": {
+        "included": 127,
+        "rejected": 73
+      }
+    },
+    {
+      "name": "clinical_yarn",
+      "build_report_sha256": "2dd91c3d8033c0d1e93ddc21d0e5e895f89cceb4ca4fc6afb6cac3053a1f47c4",
+      "status": "complete_verified",
+      "max_samples": 200,
+      "original_array_prefix": true,
+      "selection_trace_sha256": "5d62d34e57b8dfe79630e77e63bffef5bc334f27ef238e0d137bfc4521d2710b",
+      "chat": false,
+      "trace_rows": 200,
+      "uniquely_mapped_trace_rows": 200,
+      "ambiguous_trace_rows": [],
+      "unmapped_trace_indices": [],
+      "membership_counts": {
+        "included": 127,
+        "rejected": 73
+      }
+    }
+  ],
+  "datasets": [
+    {
+      "task": "counterfactual",
+      "revision": "e655f7c8750aabe431eeeda63fa5c019a2567b18",
+      "sha256": "325723f478d62b1d107d1d90fb6587f0ed0f2f42d08fea13569a53b45402ef18",
+      "columns_read": [
+        "id",
+        "question"
+      ],
+      "all_test_rows_retained": true,
+      "all_rows": 1000,
+      "explicit_hotpot_subset_rows": 0,
+      "confirmed_source_id_overlap_rows": 0,
+      "exact_question_overlap_rows": 0,
+      "normalized_question_overlap_rows": 0,
+      "unknown_no_observed_match_rows": 1000
+    },
+    {
+      "task": "inconsistent",
+      "revision": "e29508db3955db2c82a80a1f3c3aadc11f93fc3f",
+      "sha256": "a4fd32a58c28267bc3b217a6006af68d95f354568f42702ba18d9b8c76fffa15",
+      "columns_read": [
+        "subset",
+        "qid",
+        "question"
+      ],
+      "all_test_rows_retained": true,
+      "all_rows": 1500,
+      "explicit_hotpot_subset_rows": 150,
+      "confirmed_source_id_overlap_rows": 0,
+      "exact_question_overlap_rows": 0,
+      "normalized_question_overlap_rows": 0,
+      "unknown_no_observed_match_rows": 1500
+    },
+    {
+      "task": "unanswerable",
+      "revision": "4a14e0e9860e270a8c9ff57c511821f4f50dce57",
+      "sha256": "b6f22ea87c49dad2a8f7d001a9f71e3b59c7747fcbffdd1078fc5a22ac8e7f86",
+      "columns_read": [
+        "subset",
+        "qid",
+        "question"
+      ],
+      "all_test_rows_retained": true,
+      "all_rows": 2492,
+      "explicit_hotpot_subset_rows": 250,
+      "confirmed_source_id_overlap_rows": 0,
+      "exact_question_overlap_rows": 0,
+      "normalized_question_overlap_rows": 0,
+      "unknown_no_observed_match_rows": 2492
+    }
+  ],
+  "actual_calibration_membership_status": "complete_verified",
+  "source_independence": "unknown; zero matches do not establish independence",
+  "test_context_or_gold_columns_read": false,
+  "test_question_text_exported": false,
+  "test_rows_excluded": 0,
+  "question_normalization": "Unicode NFKC, casefold, whitespace collapse; punctuation/negation/numbers retained"
+}

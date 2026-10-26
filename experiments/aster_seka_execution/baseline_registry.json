@@ -1,0 +1,84 @@
+{
+  "updated_at_utc": "2026-10-25T19:32:24.751571+00:00",
+  "overall_status": "running",
+  "standards_are_not_clinical_effects": true,
+  "methods": [
+    {
+      "name": "SEKA Qwen3-8B CounterFact",
+      "status": "complete_verified",
+      "implementation": "official author source",
+      "checkpoint": "adapted posttrained",
+      "evidence": "counterfact_entity_ci_v2/entity_ci.json"
+    },
+    {
+      "name": "SEKA Qwen3-8B-Base CounterFact",
+      "status": "complete_verified",
+      "implementation": "official author source",
+      "checkpoint": "paper model family, pinned official weights",
+      "evidence": "counterfact_base_comparison/comparison.json",
+      "paper_exact_reproduction": false
+    },
+    {
+      "name": "PASTA Qwen port",
+      "status": "complete_verified",
+      "scope": "CounterFact official split",
+      "implementation": "SEKA author port; hybrid correlated-head selection",
+      "evidence": "counterfact_full_pasta_verified/efficacy/audit.json"
+    },
+    {
+      "name": "AdaSEKA four experts",
+      "status": "complete_verified",
+      "scope": "projection provenance and artifacts only",
+      "evidence": "adaseka_four_experts_audit_v2/audit.json"
+    },
+    {
+      "name": "AdaSEKA default1",
+      "status": "complete_verified",
+      "scope": "Posttrained Qwen FP32 full5000 efficacy/paraphrase, matched zero and paper3 paired comparison verified",
+      "evidence": "adaseka_cf_full_adaptive_verified/efficacy/audit.json"
+    },
+    {
+      "name": "AdaSEKA paper3",
+      "status": "complete_verified",
+      "scope": "Posttrained Qwen FP32 full5000 efficacy98.54/paraphrase98.59, matched zero efficacy52.00; paper Base pending",
+      "evidence": "adaseka_full_paired_comparison_v2/comparison.json"
+    },
+    {
+      "name": "AdaSEKA paper Base checkpoint",
+      "status": "planned"
+    },
+    {
+      "name": "CAD",
+      "status": "complete_verified",
+      "implementation": "formula/implementation adaptation",
+      "smoke_evidence": "cad_smoke16_verified_v2/audit.json",
+      "previous_full_attempt": "failed with 8372 retained predictions; empty attribute fix tested; new full run queued",
+      "scope": "CounterFact 5000 efficacy implementation adaptation; clinical run remains planned",
+      "evidence": "cad_full5000_v2_verified/audit.json",
+      "paired_interval": "cad_full5000_v2_entity_ci/entity_ci.json"
+    },
+    {
+      "name": "Spotlight",
+      "status": "complete_verified",
+      "implementation": "paper reimplementation, not claimed official author release",
+      "smoke_evidence": "spotlight_smoke16_verified_v2/audit.json",
+      "full_run_state": "Retry v3 uses actual preceding process exit; v2 resource preflight zero-forward failure preserved",
+      "scope": "5000 CounterFact first-token efficacy, paper reimplementation; clinical pending",
+      "evidence": "spotlight_full5000_v3_verified/audit.json",
+      "paired_interval": "spotlight_full5000_v3_entity_ci_v2/entity_ci.json"
+    },
+    {
+      "name": "BiasBios SEKA and matched zero",
+      "status": "complete_verified",
+      "smoke_evidence": "biasbios_smoke16_v3_verified/audit.json",
+      "scope": "Qwen3-8B posttrained; 5000 fixed cases",
+      "evidence": "biasbios_full_paired_comparison/comparison.json"
+    },
+    {
+      "name": "clinical 2x2 and strong probability fusion",
+      "status": "running",
+      "code_tests": "passed on server; no clinical outcomes yet",
+      "scope": "Main parser-v2 running, matched fusion queued; no clinical outcomes yet"
+    }
+  ]
+}

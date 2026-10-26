@@ -1,0 +1,38 @@
+{
+  "schema_version": "aster.split_audit.v1",
+  "status": "planned",
+  "frozen": false,
+  "reason": "Coordinator executed metadata audit on server 115. Metadata checks passed; source independence, explicit pair links and final development/confirmation split remain unresolved.",
+  "metadata_audit_status": "complete_verified",
+  "metadata_execution_reported_by": "coordinator",
+  "metadata_status_updated": "2026-10-26",
+  "MEGA-CDP": {
+    "development_source": "train_val_only",
+    "group_unit": "original_source_guideline",
+    "development_reader": "mega_trainval_reader.py",
+    "reader_status": "planned_server_validation; no local execution",
+    "reader_group_implementation": "released guideline document SHA256, identical files merged; not a proof of canonical-source independence",
+    "reader_contract_tests": {"file":"test_mega_reader.py","count":4,"status":"planned"},
+    "calibration_ids": null,
+    "development_ids": null,
+    "test_source": "official_test_after_config_freeze",
+    "source_overlap_with_MedGUIDE": "unknown",
+    "prior_programmatic_test_access": "recorded_structure_and_digest_validation",
+    "prior_test_tuning": "not_verified"
+  },
+  "MedPIC-Bench": {
+    "test_source": "entire_467_question_official_test",
+    "development_use": false,
+    "pair_mapping": null,
+    "actual_server_pair_count": 0,
+    "actual_server_pair_evidence_fields": [],
+    "pair_metric_status": "blocked",
+    "current_audit_exposure": "HF dataset page automatically rendered example texts/labels to data auditor; coordinator also saw one README example answer during metadata audit. No label-derived method decisions or answer forwarding."
+  },
+  "MedGUIDE": {
+    "actual_server_source_fields": [],
+    "legacy_800_four_tree_variants": "exploratory_regression",
+    "previously_viewed_P3": "not_independent_confirmation"
+  },
+  "no_patient_or_guideline_text_in_this_artifact": true
+}

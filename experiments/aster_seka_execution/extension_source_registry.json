@@ -1,0 +1,30 @@
+{
+  "status": "source_audited_execution_pending",
+  "test_body_access_in_this_preparation": false,
+  "MedCalc": {
+    "commit": "801592132bfd833f049b517a4e013e00a5fc40fa",
+    "readme": "https://github.com/nikhilk7153/MedCalc-Bench-Verified/blob/801592132bfd833f049b517a4e013e00a5fc40fa/README.md",
+    "prompt_and_parser": "https://github.com/nikhilk7153/MedCalc-Bench-Verified/blob/801592132bfd833f049b517a4e013e00a5fc40fa/evaluation/run.py",
+    "correctness": "https://github.com/nikhilk7153/MedCalc-Bench-Verified/blob/801592132bfd833f049b517a4e013e00a5fc40fa/evaluation/evaluate.py",
+    "aggregation": "https://github.com/nikhilk7153/MedCalc-Bench-Verified/blob/801592132bfd833f049b517a4e013e00a5fc40fa/evaluation/table_stats.py",
+    "source_blob_ids": {
+      "evaluation/run.py": "8eaefa6dcfa281f0d073a230785dc3674bc5733e",
+      "evaluation/evaluate.py": "41d17934c00ce187b1dccc125856529e797fd43b"
+    },
+    "dataset_license_readme": "CC-BY-SA-4.0",
+    "known_implementation_caveats": ["integer correctness rounds parsed numbers", "decimal limits inclusive", "date parser expects four-digit year", "legacy aggregate standard error hardcodes 1047", "upstream malformed weeks parser can throw; retained as incorrect"]
+  },
+  "FaithEval": {
+    "commit": "58d35840e3fbc7bf4b7672582a417b3b3a327dec",
+    "readme": "https://github.com/SalesforceAIResearch/FaithEval/blob/58d35840e3fbc7bf4b7672582a417b3b3a327dec/README.md",
+    "tree": "https://api.github.com/repos/SalesforceAIResearch/FaithEval/git/trees/58d35840e3fbc7bf4b7672582a417b3b3a327dec?recursive=1",
+    "paper_evaluation": "https://arxiv.org/html/2410.03727v2#S3.SS3",
+    "published_method_input_fields": ["context", "question"],
+    "full_official_script": "not present in the pinned repo; README says future release",
+    "data_download": "coordinator observed APIConnectionError; this agent metadata endpoint also inaccessible; no claim of real-file validation",
+    "gold_schema": "not independently verified",
+    "code_license": "Apache-2.0 per coordinator audit",
+    "release_scope": "README says research purposes only",
+    "HotpotQA_calibration_overlap": "unknown; shared upstream dataset with AdaSEKA calibration requires public source-ID or text-hash audit"
+  }
+}

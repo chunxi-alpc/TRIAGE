@@ -1,0 +1,229 @@
+{
+  "status": "complete_verified",
+  "new_gpu_forwards": 0,
+  "scope": "standard implementation validation; not independent clinical confirmation",
+  "date_utc": "2026-10-25T17:06:48.686219+00:00",
+  "split": "train[5000:10000]",
+  "all_negative_results_retained": true,
+  "source_format": "ordered JSON objects; supports JSONL and adjacent objects without source rewriting",
+  "model_seed_inference": "One existing greedy run per method; no multi-seed result claimed",
+  "planned_methods_without_results": [
+    "CAD",
+    "Spotlight"
+  ],
+  "paraphrase": "not analyzed by this binary efficacy script",
+  "method_parameters_changed": false,
+  "source_sha256": "3f6432fc0d987fc59addc5037b4250dd658cb840aada78a4294abb095d0d6f84",
+  "methods": {
+    "seka": {
+      "audit_sha256": "4dfa19146e3f21ef964e3b8f134d20a16526dc6489aba22de32239c03ad99a52",
+      "case_metrics_sha256": "8fdcbe8424f7b740c6ee207d0bca8a351879ca3c2d12b100e80339c4da80872d",
+      "predictions_sha256": "adb33bd8634011ed685cefdf5748197e14c1ba5dd0d962aa133a552d9da86ec7",
+      "efficacy": 0.9802,
+      "raw_file_sha256": "223266e96d4ad530adc0f8876736ee6984511d44b6d4b284c9e1481f0e8f51c3",
+      "source_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+      "input_files_sha256": {
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/seka_data/hf_official/pasta_bench/counterfact.jsonl": "3f6432fc0d987fc59addc5037b4250dd658cb840aada78a4294abb095d0d6f84",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_full200/Qwen3-8B_pos_proj.pt": "344888b1c44e1cc371b47900eaaaa6b519f88be0606b30d94ecb2dc32d3a88b4",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_full200/Qwen3-8B_neg_proj.pt": "ffe0b4ecdfc14a44eacc06fc7a941414c52b9f7f2905afc30e2cd136baf38749"
+      },
+      "model_files_sha256": {
+        "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+        "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00005.safetensors": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f",
+        "model-00002-of-00005.safetensors": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282",
+        "model-00003-of-00005.safetensors": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836",
+        "model-00004-of-00005.safetensors": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a",
+        "model-00005-of-00005.safetensors": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff",
+        "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      }
+    },
+    "matched_zero": {
+      "audit_sha256": "a999eee14659e9e68d302de0c91d77209eff25ffaa8b2587c8e705d43039ded4",
+      "case_metrics_sha256": "5f72eac3ce8936941dcf656491591d8d1ab9b99c515fbe1688473f04cda3f160",
+      "predictions_sha256": "c4caa423091b18158c7901c7558cd98846d62f84c49377bf6ab13add7be40cf3",
+      "efficacy": 0.515,
+      "raw_file_sha256": "2c99eddc93c8bb4df5f52ea311de2032520c6c49c5a6475fd7b16c0b1736bf84",
+      "source_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+      "input_files_sha256": {
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/seka_data/hf_official/pasta_bench/counterfact.jsonl": "3f6432fc0d987fc59addc5037b4250dd658cb840aada78a4294abb095d0d6f84",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_full200/Qwen3-8B_pos_proj.pt": "344888b1c44e1cc371b47900eaaaa6b519f88be0606b30d94ecb2dc32d3a88b4",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_full200/Qwen3-8B_neg_proj.pt": "ffe0b4ecdfc14a44eacc06fc7a941414c52b9f7f2905afc30e2cd136baf38749"
+      },
+      "model_files_sha256": {
+        "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+        "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00005.safetensors": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f",
+        "model-00002-of-00005.safetensors": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282",
+        "model-00003-of-00005.safetensors": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836",
+        "model-00004-of-00005.safetensors": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a",
+        "model-00005-of-00005.safetensors": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff",
+        "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      }
+    },
+    "unsteered": {
+      "audit_sha256": "445df7541026c914a7b037134283d88b3b0203e0ccf5b6049636cef013db8702",
+      "case_metrics_sha256": "5f72eac3ce8936941dcf656491591d8d1ab9b99c515fbe1688473f04cda3f160",
+      "predictions_sha256": "bd000244c1f621ca71e77f24119cd6a0b349509439420fdf6fe16e9cd265a39e",
+      "efficacy": 0.515,
+      "raw_file_sha256": "6d703ff6328a8b4973ff27cb8c7eb17c9e9be76699718ddd4d9a53abe38bc470",
+      "source_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+      "input_files_sha256": {
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/seka_data/hf_official/pasta_bench/counterfact.jsonl": "3f6432fc0d987fc59addc5037b4250dd658cb840aada78a4294abb095d0d6f84"
+      },
+      "model_files_sha256": {
+        "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+        "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00005.safetensors": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f",
+        "model-00002-of-00005.safetensors": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282",
+        "model-00003-of-00005.safetensors": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836",
+        "model-00004-of-00005.safetensors": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a",
+        "model-00005-of-00005.safetensors": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff",
+        "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      }
+    },
+    "pasta": {
+      "audit_sha256": "3ced71f080675807a5c1f7f988a4b677276af5e8e06af453c55dea2564209737",
+      "case_metrics_sha256": "f6aa5f5128af8bde56b84403c114e0df8ade6a5b94fc431d97b0603a1af0f8fa",
+      "predictions_sha256": "7c5df2c7728eba632fd0b9745e5fc48243af2d71898f2a2cc615edba31fe355f",
+      "efficacy": 0.822,
+      "raw_file_sha256": "edd968507b1993c0d3e90e7a6a92fe009682baa7861a257d2bb9e5e2156c4f8b",
+      "source_commit": "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7",
+      "input_files_sha256": {
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/seka_data/hf_official/pasta_bench/counterfact.jsonl": "3f6432fc0d987fc59addc5037b4250dd658cb840aada78a4294abb095d0d6f84",
+        "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/pasta_heads_full100/Qwen3-8B_head_config.json": "b1d8a588c574060c596160292d0af2ddb7745b17633d9156049709c7e2242a67"
+      },
+      "model_files_sha256": {
+        "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+        "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "merges.txt": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+        "model-00001-of-00005.safetensors": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f",
+        "model-00002-of-00005.safetensors": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282",
+        "model-00003-of-00005.safetensors": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836",
+        "model-00004-of-00005.safetensors": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a",
+        "model-00005-of-00005.safetensors": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff",
+        "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      }
+    }
+  },
+  "paired_comparisons": {
+    "matched_zero": {
+      "candidate": "seka",
+      "reference": "matched_zero",
+      "difference": 0.4652,
+      "difference_percentage_points": 46.52,
+      "corrected": 2332,
+      "regressed": 6,
+      "unchanged": 2662,
+      "denominator_all_cases": 5000,
+      "correction_rate": 0.4664,
+      "regression_rate": 0.0012,
+      "ci95_difference": [
+        0.4515026883132137,
+        0.4793091671628257
+      ],
+      "ci95_difference_percentage_points": [
+        45.15026883132137,
+        47.93091671628257
+      ],
+      "ci95_correction_rate": [
+        0.45272398645270945,
+        0.4803451189362531
+      ],
+      "ci95_regression_rate": [
+        0.0003992812936713915,
+        0.002206177296430004
+      ]
+    },
+    "unsteered": {
+      "candidate": "seka",
+      "reference": "unsteered",
+      "difference": 0.4652,
+      "difference_percentage_points": 46.52,
+      "corrected": 2332,
+      "regressed": 6,
+      "unchanged": 2662,
+      "denominator_all_cases": 5000,
+      "correction_rate": 0.4664,
+      "regression_rate": 0.0012,
+      "ci95_difference": [
+        0.4515026883132137,
+        0.4793091671628257
+      ],
+      "ci95_difference_percentage_points": [
+        45.15026883132137,
+        47.93091671628257
+      ],
+      "ci95_correction_rate": [
+        0.45272398645270945,
+        0.4803451189362531
+      ],
+      "ci95_regression_rate": [
+        0.0003992812936713915,
+        0.002206177296430004
+      ]
+    },
+    "pasta": {
+      "candidate": "seka",
+      "reference": "pasta",
+      "difference": 0.1582,
+      "difference_percentage_points": 15.82,
+      "corrected": 839,
+      "regressed": 48,
+      "unchanged": 4113,
+      "denominator_all_cases": 5000,
+      "correction_rate": 0.1678,
+      "regression_rate": 0.0096,
+      "ci95_difference": [
+        0.14743963323984244,
+        0.1691447829357391
+      ],
+      "ci95_difference_percentage_points": [
+        14.743963323984243,
+        16.914478293573907
+      ],
+      "ci95_correction_rate": [
+        0.15751786402613718,
+        0.1782574377699748
+      ],
+      "ci95_regression_rate": [
+        0.007009813739234929,
+        0.012367843606622781
+      ]
+    }
+  },
+  "n_cases": 5000,
+  "n_entity_clusters": 4885,
+  "repeated_entity_clusters": 88,
+  "largest_entity_cluster": 7,
+  "paired_cases_sha256": "57e36dcefd38783af1da5f76f7a1813dacea3c7411ff59a96a639dcbb4652cee",
+  "bootstrap_samples": 10000,
+  "bootstrap_seed": 0,
+  "numpy_version": "2.5.4",
+  "interval": "two-sided marginal 95% percentile",
+  "bootstrap_unit": "exact public entity field; all facts of an entity resampled together",
+  "weighting": "case-weighted native efficacy: cluster sum / resampled case count",
+  "ci_scope": "Conditional on this fixed checkpoint, protocol and existing runs; entity independence assumed. Marginal CIs are not multiplicity-adjusted or a clinical confirmation.",
+  "input_equivalence": "Existing forward-trace comparison provides matched-input evidence; this script verifies IDs, export hashes and scores only",
+  "elapsed_seconds": 1.2538533000042662,
+  "checker_sha256": "d48841a675fe7608493c1d77710b5164ec7042d1392b79ce6460227dfe1ddde8"
+}
