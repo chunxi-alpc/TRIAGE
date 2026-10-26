@@ -31,15 +31,19 @@
   ],
   "gpu_allowlist": [
     0,
-    1
+    1,
+    2,
+    3
   ],
   "gpu_assignment": {
-    "0": "Existing Base construction, then A0/A1 clinical additional baselines, then native primary evaluation",
-    "1": "Main clinical GPU01 run, then attention baselines, then Base Ada16 validation"
+    "0": "A0 additional baselines; then remaining native evaluation",
+    "1": "PASTA/Ada clinical attention baselines",
+    "2": "Primary11 native evaluation",
+    "3": "A1 six same-information controls"
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-25T19:40:27.288862+00:00",
+  "updated_at_utc": "2026-10-26T01:39:28.380678+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -118,8 +122,8 @@
     {
       "id": "clinical_2x2_and_controls",
       "status": "running",
-      "evidence": "runtime/mega_dev16_seed0_gpu01_job/run_manifest.json",
-      "execution": "Moved actual runtime to GPU1 to obey latest user resource restriction; parser, prompts and parameters unchanged; previous GPU6 outputs/costs retained"
+      "evidence": "mega_dev16_primary_generation_verified/audit.json",
+      "execution": "176 real generation rows complete; independent clinical scores pending"
     },
     {
       "id": "strong_output_fusion",
@@ -194,9 +198,9 @@
     },
     {
       "id": "clinical_same_condition_fusion",
-      "status": "planned",
-      "execution": "Live GPU0/1 dependency queue; earlier GPU6-related waiting queues interrupted and superseded",
-      "evidence": "gpu01_clinical_launch_plan.json"
+      "status": "running",
+      "execution": "A0 on GPU0 and A1 on GPU3 are real running model processes",
+      "evidence": "gpu03_parallel_launch_plan.json"
     },
     {
       "id": "MedPIC_transfer_runtime",
@@ -254,7 +258,7 @@
     {
       "id": "Base_Ada_validation16",
       "status": "planned",
-      "execution": "Live GPU0/1 dependency queue; earlier GPU6-related waiting queues interrupted and superseded",
+      "execution": "Old waiting supervisor cancelled for GPU0-3 scheduling; requeue after expert audit on next free GPU",
       "evidence": "gpu01_clinical_launch_plan.json"
     },
     {

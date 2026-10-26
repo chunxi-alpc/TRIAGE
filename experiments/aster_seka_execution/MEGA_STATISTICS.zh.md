@@ -3,11 +3,11 @@
 本目录不调用模型、不发送裁判请求、不读取数据集问题或参考答案。只对已完成裁判评估的逐例原生分数、冻结病例/指南分组、生成及构建记录进行汇总。本地没有运行测试。协调器已报告三个合成测试在 115 服务器通过，日志为 `runtime/test_summarize_mega.log`；尚无真实临床汇总。以下为服务器命令。
 
 ```bash
-python experiments/aster_seka_execution/clinical_statistics/test_summarize_mega.py -v
-python experiments/aster_seka_execution/clinical_statistics/summarize_mega.py --spec /absolute/path/summary_spec.json --output-dir /absolute/path/new_summary
+PYTHONPATH="$EXPERIMENT_ROOT" python "$EXPERIMENT_ROOT/test_summarize_mega.py" -v
+python "$EXPERIMENT_ROOT/summarize_mega.py" --statistics-dir "$EXPERIMENT_ROOT" --spec /absolute/path/summary_spec.json --output-dir /absolute/path/new_summary
 ```
 
-需要同级 `data_audit/paired_statistics.py`；其他布局可用 `--statistics-dir` 指定。输出目录必须新建，失败也保存 `summary.json`，不会覆盖先前失败。这里没有预填的实际结果。
+服务器实际采用扁平 p 目录，本文 `$EXPERIMENT_ROOT` 指该目录，内含全部脚本及 `paired_statistics.py`；实际入口使用 `--statistics-dir "$EXPERIMENT_ROOT"`。输出目录必须新建，失败也保存 `summary.json`，不会覆盖先前失败。这里没有预填的实际结果。
 
 spec 路径可为绝对路径，或相对 spec 文件。每个方法显式列出评估名称、原生成名称和条件分支，避免 A0/A1 的同名融合方法被合并。例子是输入格式，不代表实际任务已完成：
 
@@ -63,18 +63,18 @@ spec 路径可为绝对路径，或相对 spec 文件。每个方法显式列出
 
 ## 全部临床队列的统一入口
 
-原生裁判程序实际位于 `data_audit/mega_development_evaluation.py`，没有另建临床裁判实现。新增 `summarize_all_mega.py` 直接兼容它的 `evaluation_config.json`、`evaluation_report.json` 和 `case_metrics.jsonl`，并读取三种生成器的四份实际 protocol：primary 11 臂、extra A0 18 臂、extra A1 6 臂、attention A0 8 臂。共 43 方法，每方法固定 16 例，共 688 方法×病例记录。代码准备完成，本地未运行；新增两个服务器合成接口测试尚待协调器执行。
+原生裁判程序源码位于 `work/data_audit/mega_development_evaluation.py`，服务器发布为 `$EXPERIMENT_ROOT/mega_development_evaluation.py`，没有另建评分实现。新增 `summarize_all_mega.py` 直接兼容它的 `evaluation_config.json`、`evaluation_report.json` 和 `case_metrics.jsonl`，并读取三种生成器的四份实际 protocol：primary 11 臂、extra A0 18 臂、extra A1 6 臂、attention A0 8 臂。共 43 方法，每方法固定 16 例，共 688 方法×病例记录。协调器已在 115 服务器执行原 3 项及新增 2 项测试，全部通过，后两项耗时 0.370 秒。本地没有运行测试，尚无真实临床评分。
 
 在全部生成和原生裁判结束后，只需一个 CPU 命令：
 
 ```bash
-python clinical_statistics/summarize_all_mega.py \
+python "$EXPERIMENT_ROOT/summarize_all_mega.py" --statistics-dir "$EXPERIMENT_ROOT" \
   --freeze-manifest "$FROZEN16" --primary-run "$PRIMARY" \
   --additional-a0-run "$EXTRA_A0" --additional-a1-run "$EXTRA_A1" \
   --attention-run "$ATTENTION_A0" \
   --evaluation-dir "$EVAL_PRIMARY" --evaluation-dir "$EVAL_EXTRA_A0" \
   --evaluation-dir "$EVAL_EXTRA_A1" --evaluation-dir "$EVAL_ATTENTION" \
-  --cost-spec "$ACTUAL_COSTS_JSON" --output-dir "$NEW_ALL43_SUMMARY"
+  --cost-spec "$EXPERIMENT_ROOT/clinical_all43_cost_spec.json" --output-dir "$NEW_ALL43_SUMMARY"
 ```
 
 裁判可合在一个目录或分成更多目录，重复提供 `--evaluation-dir` 即可；程序按实际预测文件 SHA 找到已评估别名，不要求改写旧裁判文件。统一名称使用 `primary__`、`extra_A0__`、`extra_A1__`、`attention_A0__` 前缀，避免两个条件分支的 fusion 等名称冲突。若同一文件被重复评估且存在多个候选，会优先匹配同一统一别名；仍有歧义则要求显式 `--evaluation-map`，不会按分数选择。有必要时该文件格式为 `{统一名称: {"evaluation_dir": "实际目录", "evaluation_method": "已有别名"}}`，相对路径以该文件为基准。
@@ -88,8 +88,55 @@ cost-spec 继续使用 `calibration_jobs` 和 `generation_processes`；可加 `f
 新增服务器测试命令：
 
 ```bash
-python clinical_statistics/test_summarize_mega.py -v
-python clinical_statistics/test_summarize_all_mega.py -v
+PYTHONPATH="$EXPERIMENT_ROOT" python "$EXPERIMENT_ROOT/test_summarize_mega.py" -v
+PYTHONPATH="$EXPERIMENT_ROOT" python "$EXPERIMENT_ROOT/test_summarize_all_mega.py" -v
 ```
 
-第二项通过真实统一 CLI 构造全部 43×16 个合成记录，覆盖三种生成 schema、A0/A1 区分、失败/不可用控制、复用成本及总账唯一计数；另验证缺少一个裁判臂明确失败、准备映射模式不启动裁判。扁平 p 布局可用 `PYTHONPATH=p python p/test_summarize_all_mega.py -v`，实际入口加 `--statistics-dir p`。不会运行本地测试或读取实际临床分数来调整方法。
+第二项通过真实统一 CLI 构造全部 43×16 个合成记录，覆盖三种生成 schema、A0/A1 区分、失败/不可用控制、复用成本及总账唯一计数；另验证缺少一个裁判臂明确失败、准备映射模式不启动裁判。不会运行本地测试或读取实际临床分数来调整方法。
+
+## 补齐剩余原生裁判结果的 GPU0 队列
+
+`evaluate_remaining_mega.py` 的 prepare 模式只写队列。实际 execute 由协调器通过原 GPU 锁运行器启动，等待 primary 评价 parent 428868 和 attention parent 428866 退出后，才读取完成的 43 方法映射。运行目录固定为：
+
+- `$RUNTIME/mega_dev16_seed0_gpu01`
+- `$RUNTIME/mega_dev16_additional_gpu01_A0` 和 `..._A1`
+- `$RUNTIME/mega_dev16_attention_gpu01`
+- 原 primary 评价：`$RUNTIME/mega_dev16_primary_gpu01_evaluation`
+
+准备命令（不启动实验）：
+
+```bash
+PYTHONPATH="$EXPERIMENT_ROOT" "$PYTHON" "$EXPERIMENT_ROOT/evaluate_remaining_mega.py" prepare \
+  --experiment-root "$EXPERIMENT_ROOT" --runtime-root "$RUNTIME" \
+  --python "$PYTHON" --source "$SEKA_ROOT" --model "$JUDGE_MODEL" \
+  --freeze-manifest "$FROZEN16" --train-val-root "$MEGA_SNAPSHOT/train_val" \
+  --official-parser "$MEGA_ROOT/mega_cdp/scripts/evaluate/parse_prediction_output_singleturn.py" \
+  --primary-evaluation-manifest "$PRIMARY_JUDGE_RUN_MANIFEST" \
+  --gpu 0 --wait-for-pids 428868 428866 \
+  --output-dir "$RUNTIME/mega_dev16_remaining_native_gpu0_job" \
+  --plan "$EXPERIMENT_ROOT/mega_dev16_remaining_native_gpu0_queue.json"
+```
+
+生成的 JSON 已含实际 GPU0 job 命令与以下队列启动参数；本代理没有执行它：
+
+```bash
+"$PYTHON" "$EXPERIMENT_ROOT/run_baseline_queue.py" "$EXPERIMENT_ROOT/mega_dev16_remaining_native_gpu0_queue.json"
+```
+
+执行时核对 primary 已完成、同冻结输入及外层完整裁判模型文件指纹。原 11 臂按预测文件 SHA 复用；其余最多 32 个文件仅在整份文件字节完全相同时复用旧结果或新的唯一代表。所有 43 方法仍保留 16 例，`reuse_manifest.json` 和 `evaluation_map.json` 逐方法记录来源。没有按得分、相似文本或近似输出复用。原预测和裁判文件均不改写。
+
+唯一新文件传给原 `mega_development_evaluation.py` 和现有 `mega_local_qwen_client.py`；实际 judge 参数逐项沿用 primary config，包括 5 次 PCC/5 次 Acc、temperature .7、top_p .8、top_k 20、非思考、输出/context预算、种子与 bootstrap 次数。不会更换评分法。失败和缺失预测仍交原生 evaluator 按固定 16 分母处理。
+
+预算上限为 32×16=512 方法病例、5120 次正常裁判请求；原最多 3 次传输尝试对应 15360 次请求上界。若每次输出上限为4096，理论上界为 20,971,520 个生成 token（不计重试）或 62,914,560（含最多重试）；这是预算上限，不是预测实耗。prepare 能读取已有 primary 配置时采用实际 token 上限，否则暂列原生默认4096；execute 再按实际唯一文件数和 primary 参数更新预算。
+
+资源只用 GPU0 一张80GiB A100，规划显存20–40GiB；它是8B BF16裁判的预留范围，不能冒充实测最高峰。primary 完成后保存其真实显存及 `primary_elapsed×new_unique_methods/11` 粗略时间外推，未完成时预计秒数保留 null，不虚造耗时。长路径、失败比例、重试与模型加载会影响外推。当前不使用 GPU6。
+
+execute 不在工作结束后偷偷重复裁判。它会生成 `summary_invocation.json`，指向统一 CPU 汇总入口、原 primary 与新 native_remaining 两个目录、精确复用映射及 `$EXPERIMENT_ROOT/clinical_all43_cost_spec.json`；协调器可直接执行其中 `python_argv`。旧 primary 裁判成本只计一次，唯一新文件成本由原 evaluator 记录，复用方法新增判分成本为0。结果仍属于本地 Qwen 开发裁判，不能称独立模型确认。
+
+新增准备/复用合同测试（服务器执行，本地未运行）：
+
+```bash
+PYTHONPATH="$EXPERIMENT_ROOT" "$PYTHON" "$EXPERIMENT_ROOT/test_evaluate_remaining_mega.py" -v
+```
+
+测试仅用伪文件，核对43方法保留、精确SHA复用、原裁判参数接线、GPU0依赖队列及请求预算，不会调用模型、裁判或子进程。实际 worker 参数只传四个指定生成目录和源码 `--reader-dir`，不把整个 runtime 根目录交给运行器递归登记。
