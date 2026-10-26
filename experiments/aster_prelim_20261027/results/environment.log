@@ -1,0 +1,20 @@
+$ git rev-parse HEAD
+781ee863784c60f1f6710ba5eede22bc8ee6b93c
+
+$ git status --short
+?? experiments/aster_prelim_20261027/
+
+$ nvidia-smi --query-gpu=index,name,memory.total,memory.used,utilization.gpu --format=csv
+index, name, memory.total [MiB], memory.used [MiB], utilization.gpu [%]
+0, NVIDIA A100-SXM4-80GB, 81920 MiB, 0 MiB, 0 %
+1, NVIDIA A100-SXM4-80GB, 81920 MiB, 0 MiB, 0 %
+2, NVIDIA A100-SXM4-80GB, 81920 MiB, 7833 MiB, 64 %
+3, NVIDIA A100-SXM4-80GB, 81920 MiB, 8037 MiB, 54 %
+4, NVIDIA A100-SXM4-80GB, 81920 MiB, 0 MiB, 0 %
+5, NVIDIA A100-SXM4-80GB, 81920 MiB, 0 MiB, 0 %
+6, NVIDIA A100-SXM4-80GB, 81920 MiB, 0 MiB, 0 %
+
+$ df -h .
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        15T  6.4T  7.8T  46% /home
+

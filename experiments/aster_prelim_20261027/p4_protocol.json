@@ -1,0 +1,51 @@
+{
+  "frozen_at": "2026-10-26T17:19:52.419637+00:00",
+  "order": "must wait for P3 completed; use all-layer phase/isolation masks independent of highlight window",
+  "U1": {
+    "cases": 20,
+    "sampling": "five per dev tree, sorted case id",
+    "perturbation": "additional recorded age 50 vs 60; equal token length",
+    "capture": "actual post-RoPE guideline K each layer",
+    "threshold_max_abs_difference": 0
+  },
+  "U2": {
+    "cases": 200,
+    "volumes": [
+      "NC",
+      "IC",
+      "AC",
+      "SW"
+    ],
+    "unit": "all four argmax agree per base",
+    "minimum_agreement": 0.99,
+    "also_save": "full probabilities",
+    "position_handling": "blind non-action positions fixed by role cumsum; segment tokenization prevents boundary drift"
+  },
+  "U3": {
+    "cases": 200,
+    "comparison": "mask vs physically delete all action chunks under same serialized branch prompt",
+    "accuracy_gap_max_pp": 2
+  },
+  "U4": {
+    "cases": 200,
+    "volume": "SW",
+    "gold_signal": "select applicable branch for hard gate or deletion",
+    "task": "treatment option next-token probabilities",
+    "primary": "ordinary deletion of competitor rule action chunks; reindex position ids; preserve options",
+    "accuracy_gap_max_pp": 1,
+    "secondary": "same deletion preserving original positions, diagnostic only"
+  },
+  "failure": "any test failure in either model blocks P5/P6; diagnose before any continuation",
+  "default_ASTER": "no option-rule mapping used for gate; action fragments isolated individually",
+  "resources": {
+    "GPUs": [
+      0,
+      1
+    ],
+    "peak_GiB_each": 20,
+    "estimated_minutes": [
+      5,
+      15
+    ]
+  }
+}
