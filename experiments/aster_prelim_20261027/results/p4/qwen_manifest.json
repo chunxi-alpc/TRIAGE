@@ -1,0 +1,21 @@
+{
+  "stage": "P4",
+  "name": "qwen",
+  "status": "completed",
+  "gpu": "0",
+  "cases": 200,
+  "U1_cases": 20,
+  "dtype": "float32",
+  "TF32": false,
+  "U2_rate_threshold_removed_by_user": true,
+  "engine_sha256": "5cf46a43a9f17fe3e4e66a2d8ad97eb18ff31b13609469d740b1d985227cd70e",
+  "script_sha256": "4a8ec64e912e210747792361590a8a5a038178b572ac705a585cb50ddc3c2244",
+  "protocol_sha256": "b743e4c558bfc959ebe8779e90c52e717662bf4e9954b3692db6eccd0c9dc727",
+  "serialization": "tokenize typed condition/action chunks separately; fixed boundary tokens across variants",
+  "blind_positions": "non-action cumsum position IDs; actions invisible at every layer/query",
+  "U3_reference": "delete all action chunks from identical typed serialization",
+  "U4_primary_reference": "delete competitor rule action tokens; options retained and reindex positions normally",
+  "U4_secondary_reference": "same deletion preserving original positions; diagnostic only",
+  "wall_seconds": 1337.9815773963928,
+  "peak_allocated_GiB": 31.673023223876953
+}

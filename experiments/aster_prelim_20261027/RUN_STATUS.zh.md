@@ -7,7 +7,7 @@
 | P1 | PASS_SW_GATE | [P1 记录](REPORT.zh.md) |
 | P2 | PASS_NEUTRAL_GATE | [P2 记录](P2_REPORT.zh.md) |
 | P3 | COMPLETED | [P3 记录](P3_REPORT.zh.md) |
-| P4 | RUNNING | 尚无完成报告 |
+| P4 | PASS | [P4 记录](P4_REPORT.zh.md) |
 | P5 | NOT_RUN | 尚无完成报告 |
 | P6 | NOT_RUN | [P6 记录](results/p6_readiness.json) |
 
@@ -18,8 +18,8 @@
 - P1/P2 熟悉标准条件同提示的 400 条对应记录／模型，预测 100% 一致。
 - P3 qwen：最佳四层窗口 knock_2_5，恢复比例 0.0；后续层选择 all。这是开发选择，不是独立测试。
 - P3 llama：最佳四层窗口 knock_2_5，恢复比例 0.041666666666666664；后续层选择 all。这是开发选择，不是独立测试。
-
-仍有实验运行中，不能把计划启动、脚本已写或进程稳定当作实验完成。后续必须读取对应完成标记与门槛结果。
+- P4 qwen：U1 最大键差 0，U2 一致率 100.00%，U3 差 0.00 分，U4 差 0.00 分；通过情况 {'U1': True, 'U2': True, 'U3': True, 'U4': True}。
+- P4 llama：U1 最大键差 0，U2 一致率 100.00%，U3 差 0.00 分，U4 差 1.00 分；通过情况 {'U1': True, 'U2': True, 'U3': True, 'U4': True}。
 
 范围与未完成事项：
 
@@ -31,4 +31,4 @@
 
 服务器工作目录：`/home/gcx/TRIAGE-worktrees/aster-prelim-20261027/experiments/aster_prelim_20261027`。
 
-状态更新时间（UTC）：2026-10-26T22:51:12.078138+00:00。
+状态更新时间（UTC）：2026-10-26T23:21:27.771049+00:00。
