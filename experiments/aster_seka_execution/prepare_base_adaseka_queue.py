@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+from runtime_paths import interpreter_path
 
 
 PIN = "aab9cfed80dc012fb9e83f8bdefb8675c33f40e7"
@@ -72,7 +73,8 @@ def main():
     parser.add_argument("--smoke-zero-manifest", type=Path)
     args = parser.parse_args()
     for name in ("python", "runtime", "runner", "source", "model", "counterfact_dir", "biasbios", "expert_config", "expert_audit", "output_root", "plan"):
-        setattr(args, name, getattr(args, name).expanduser().resolve())
+        setattr(args, name, interpreter_path(getattr(args, name)) if name == 'python'
+                else getattr(args, name).expanduser().resolve())
     if not args.runner.is_file():
         raise FileNotFoundError("Actual official-job runner is missing: " + str(args.runner))
     audit = json.loads(args.expert_audit.read_text())

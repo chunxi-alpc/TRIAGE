@@ -9,6 +9,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+from runtime_paths import interpreter_path
 import runpy
 import sys
 import time
@@ -198,7 +199,7 @@ def prepare(args):
     for attribute, folder in RUN_DIRS.items():
         worker_args += ['--' + attribute.replace('_', '-'), str(runtime / folder)]
     python_path = str(root) + (os.pathsep + os.environ['PYTHONPATH'] if os.environ.get('PYTHONPATH') else '')
-    command = ['env', 'PYTHONPATH=' + python_path, str(args.python.resolve()), str(root / 'run_official_job.py'),
+    command = ['env', 'PYTHONPATH=' + python_path, str(interpreter_path(args.python)), str(root / 'run_official_job.py'),
         '--gpu', '0', '--source', str(args.source.resolve()), '--model', str(args.model.resolve()),
         '--output', str(output), '--seed', '0', '--module', 'evaluate_remaining_mega', '--', *worker_args]
     primary_config_path = runtime / PRIMARY_EVALUATION / 'evaluation_config.json'
@@ -217,7 +218,7 @@ def prepare(args):
         'parameter_policy': 'At execution, copy actual primary native judge parameters exactly; no requested setting is independently changed',
         'jobs': [{'name': 'mega_dev16_remaining_native_evaluation_gpu0', 'command': command,
                   'log': str(output.with_name(output.name + '.log')), 'status': 'planned'}],
-        'launch_command': [str(args.python.resolve()), str(root / 'run_baseline_queue.py'), str(args.plan.resolve())],
+        'launch_command': [str(interpreter_path(args.python)), str(root / 'run_baseline_queue.py'), str(args.plan.resolve())],
         'no_process_started': True, 'checker_sha256': sha(Path(__file__))}
     args.plan.parent.mkdir(parents=True, exist_ok=True)
     write(args.plan, plan)

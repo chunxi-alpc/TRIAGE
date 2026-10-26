@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import tempfile
+import sys
 from types import SimpleNamespace
 import unittest
 
@@ -41,16 +42,22 @@ class RemainingEvaluationTests(unittest.TestCase):
     def test_prepare_writes_only_gpu0_dependency_queue_and_budget(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
+            alias = root / "env/bin/python"
+            alias.parent.mkdir(parents=True)
+            alias.symlink_to(Path(sys.executable).resolve())
             args = SimpleNamespace(experiment_root=root / 'p', runtime_root=root / 'runtime', output_dir=root / 'remaining_job',
                 gpu=0, freeze_manifest=root / 'frozen', train_val_root=root / 'train_val', official_parser=root / 'parser',
                 model=root / 'model', primary_evaluation_manifest=root / 'primary_job/run_manifest.json',
-                python=Path('/synthetic/python'), source=root / 'SEKA', plan=root / 'queue.json', wait_for_pids=[428868, 428866])
+                python=alias, source=root / 'SEKA', plan=root / 'queue.json', wait_for_pids=[428868, 428866])
             self.assertEqual(prepare(args), 0)
             queue = json.loads(args.plan.read_text())
             self.assertEqual(queue['gpu'], 0)
             self.assertEqual(queue['wait_for_pids'], [428868, 428866])
             self.assertTrue(queue['no_process_started'])
             command = queue['jobs'][0]['command']
+            self.assertEqual(command[2], str(alias))
+            self.assertEqual(queue['launch_command'][0], str(alias))
+            self.assertNotEqual(command[2], str(alias.resolve()))
             self.assertEqual(command[command.index('--gpu') + 1], '0')
             self.assertIn('--reader-dir', command)
             self.assertNotIn('--runtime-root', command)  # Avoid recursively fingerprinting unrelated runtime outputs.

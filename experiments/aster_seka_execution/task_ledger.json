@@ -184,9 +184,10 @@
     },
     {
       "id": "Base_remaining_standards",
-      "status": "running",
+      "status": "planned",
       "execution": "BiasBios/PASTA inference exited, CPU exports underway; Base Hotpot expert continues",
-      "evidence": "base_completed_exports_plan.json"
+      "evidence": "base_completed_exports_plan.json",
+      "execution_state": "awaiting_recovered_validation"
     },
     {
       "id": "clinical_attention_operator_adaptation",
@@ -257,7 +258,9 @@
       "id": "Base_Ada_validation16",
       "status": "planned",
       "execution": "Actual GPU2 dependency queue after primary judge; four experts independently verified",
-      "evidence": "FINAL_BACKGROUND_SCHEDULE.json"
+      "evidence": "FINAL_BACKGROUND_SCHEDULE.json",
+      "execution_state": "previous_start_failed_fixed_not_rerun",
+      "reason": "Interpreter symlink resolution selected system Python; torch missing"
     },
     {
       "id": "all_clinical_statistics_interface",
@@ -279,9 +282,10 @@
     },
     {
       "id": "source_rule_extraction_v2",
-      "status": "planned",
+      "status": "complete_verified",
       "execution": "Actual GPU1 dependency queue;16 frozen development guides, seed0, unchanged token cap",
-      "evidence": "source_rule_extraction_v2_launch_plan.json"
+      "evidence": "source_rule_extraction_v2_verified/audit.json",
+      "scope": "16 real extraction outputs and CPU replay verified; clinical suitability not verified, semantic counterexamples retained"
     },
     {
       "id": "Base_Ada_four_experts",
@@ -311,8 +315,20 @@
       "completed_predictions": 112,
       "expected_predictions": 112,
       "native_evaluation_status": "complete_verified"
+    },
+    {
+      "id": "all43_generation_export",
+      "status": "complete_verified",
+      "evidence": "review_20261027/all43_generation_inventory.json",
+      "scope": "688 generation records including fallbacks and failures; full clinical scoring unfinished"
+    },
+    {
+      "id": "clinical_v3_direct_strong_baseline_statistics",
+      "status": "complete_verified",
+      "evidence": "clinical_v3_results_verified/direct_strong_baseline_comparisons.json",
+      "scope": "Post-hoc CPU comparisons only; no independent confirmation"
     }
   ],
   "coordination_status": "User requested stop after scheduling; background tasks continue, active coordination will pause",
-  "coordinator_status": "paused_by_user"
+  "coordinator_status": "bounded_result_review_no_new_GPU_launch"
 }
