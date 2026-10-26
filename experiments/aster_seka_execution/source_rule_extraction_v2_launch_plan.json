@@ -1,0 +1,75 @@
+{
+  "status": "planned",
+  "execution": "Actual dependency process",
+  "pid": 438343,
+  "queue": {
+    "gpu": 1,
+    "wait_for_pids": [
+      430608
+    ],
+    "jobs": [
+      {
+        "name": "source_rule_extraction_v2",
+        "command": [
+          "/home/gcx/venvs/aster-seka-20261025/bin/python",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/run_official_job.py",
+          "--gpu",
+          "1",
+          "--source",
+          "/home/gcx/TRIAGE/third_party/SEKA",
+          "--model",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/models/Qwen3-8B-yarn65536",
+          "--output",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/source_rule_extraction_v2_job",
+          "--seed",
+          "0",
+          "--module",
+          "run_source_rule_extraction",
+          "--",
+          "--dataset-root",
+          "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890",
+          "--input-manifest",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/mega_dev16_input_lock.json",
+          "--seka-root",
+          "/home/gcx/TRIAGE/third_party/SEKA",
+          "--model",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/models/Qwen3-8B-yarn65536",
+          "--pos",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_clinical_yarn100/Qwen3-8B-yarn65536_pos_proj.pt",
+          "--neg",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/projection_clinical_yarn100/Qwen3-8B-yarn65536_neg_proj.pt",
+          "--output-dir",
+          "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/source_rule_extraction_v2",
+          "--max-new-tokens",
+          "4096",
+          "--max-context-tokens",
+          "65536"
+        ],
+        "log": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/source_rule_extraction_v2.log"
+      }
+    ],
+    "scope": "All16 frozen development guidelines, extraction only, unchanged token budget; no clinical test or scores"
+  },
+  "resource_plan": {
+    "gpu": 1,
+    "memory_gib": [
+      35,
+      65
+    ],
+    "estimated_hours": [
+      1,
+      3
+    ],
+    "guidelines": 16,
+    "generation_token_cap_per_guideline": 4096
+  },
+  "method_revision": 2,
+  "frozen_at_utc": "2026-10-26T01:57:05.937831+00:00",
+  "selection_basis": "Development extraction failure metadata, not clinical scores",
+  "formal_external_method_freeze": false,
+  "source_sha256": {
+    "source_anchored_rules.py": "9f59cdba4319fba9b32fcb3acfefa4e0fef3b924e59efb5c4e76047a8d01d389",
+    "source_rule_prompt.py": "c58607c6e7e98f9710a25d5689b8452f7f6f7ced5754ec9e4a74a5f898712a34",
+    "run_source_rule_extraction.py": "ae32043cb8d33f51f42b50439869af76f3bb039ce376e32c79e7e2c4f4237e81"
+  }
+}

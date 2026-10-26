@@ -43,7 +43,7 @@
   },
   "main_writes": false,
   "legacy_overwrites": false,
-  "updated_at_utc": "2026-10-26T01:39:28.380678+00:00",
+  "updated_at_utc": "2026-10-26T01:58:23.099516+00:00",
   "cost_evidence": "run_records/summary.json",
   "subtasks": [
     {
@@ -258,14 +258,38 @@
     {
       "id": "Base_Ada_validation16",
       "status": "planned",
-      "execution": "Old waiting supervisor cancelled for GPU0-3 scheduling; requeue after expert audit on next free GPU",
-      "evidence": "gpu01_clinical_launch_plan.json"
+      "execution": "Actual GPU2 dependency queue after primary judge; four experts independently verified",
+      "evidence": "base_adaseka_gpu03_smoke_launch_plan.json"
     },
     {
       "id": "all_clinical_statistics_interface",
       "status": "complete_verified",
       "scope": "5 synthetic server tests across native summaries and full43-arm entrypoint; no real clinical statistics yet",
       "evidence": "statistics_and_source_validation.json"
+    },
+    {
+      "id": "rule_extraction_failure_diagnosis",
+      "status": "complete_verified",
+      "scope": "CPU frozen development metadata only, no new clinical scores",
+      "evidence": "rule_extraction_failure_audit.json"
+    },
+    {
+      "id": "source_span_replay",
+      "status": "complete_verified",
+      "scope": "CPU replay coverage6/16 to12/16; not clinical improvement",
+      "evidence": "source_span_replay_audit.json"
+    },
+    {
+      "id": "source_rule_extraction_v2",
+      "status": "planned",
+      "execution": "Actual GPU1 dependency queue;16 frozen development guides, seed0, unchanged token cap",
+      "evidence": "source_rule_extraction_v2_launch_plan.json"
+    },
+    {
+      "id": "Base_Ada_four_experts",
+      "status": "complete_verified",
+      "scope": "Base model artifact provenance and shape/numerics; not full task inference",
+      "evidence": "adaseka_base_audit/audit.json"
     }
   ]
 }
