@@ -75,7 +75,7 @@ def main():
      if name=='gold_rule':extra=f"\nApplicable rule: IF {rule['condition']} THEN {rule['action']}."
      packed=eng.pack(r,task='action',extra_patient=extra);eng.green=config.get('green',0);eng.projection_alpha=config.get('projection_alpha',0);eng.set_highlight(packed,r,selected);eng.collect=r['id'] in mass_ids and r['variant']=='SW' and name not in ['gold_prompt','gold_rule','gold_prune','gold_prune_isolated'];eng.masses=[]
      torch.cuda.synchronize();t=time.time()
-     logits=eng.score(packed,'execute',selected=selected,prune=name in ['gold_prune','gold_prune_isolated'],hard=config.get('hard',False),lam=config.get('lam',0),plain=name in ['gold_prompt','gold_rule','gold_prune'])
+     logits=eng.score(packed,'execute',selected=selected,prune=name in ['gold_prune','gold_prune_isolated'],hard=config.get('hard',False),lam=config.get('lam',0),plain=name in ['gold_prompt','gold_rule','gold_prune'],isolated=name=='gold_prune_isolated')
      torch.cuda.synchronize();elapsed=time.time()-t;pred,prob=eng.choose(logits,labels)
      z={'model':a.name,'id':r['id'],'tree':r['tree'],'variant':r['variant'],'method':name,'gold_option':gold,'prediction':pred,'correct':pred==gold,'option_probabilities':prob,'seconds':elapsed,'attention_mass':eng.masses};f.write(json.dumps(z)+'\n')
     if (index+1)%20==0:dump(out/'status.json',{'cases_completed':index+1,'cases_total':len(rows),'seconds':time.time()-start,'peak_GiB':torch.cuda.max_memory_allocated()/2**30});print(json.dumps({'completed':index+1,'total':len(rows)}),flush=True)

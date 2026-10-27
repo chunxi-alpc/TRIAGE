@@ -47,18 +47,19 @@ class Engine:
   elif mask.dtype==torch.bool:mask=torch.zeros_like(mask,dtype=h.dtype).masked_fill_(~mask,torch.finfo(h.dtype).min)
   else:mask=mask.clone()
   act=st['roles'];branch=st['branches'];segment=st['segments'];minimum=torch.finfo(h.dtype).min
-  # Before the answer query, non-action tokens cannot read any action tokens.
-  blocked=(~act)[:,None]&act[None,:]
-  # Each action segment reads only action tokens inside its own fragment.
-  blocked|=act[:,None]&act[None,:]&(segment[:,None]!=segment[None,:])
-  if st['phase']!='blind':
-   blocked[-1,:]=False
-   if st.get('selected') is not None:
-    competitor=act&(branch>=0)&(branch!=st['selected'])
-    if st.get('hard'):blocked[-1,:]|=competitor
-    else:mask[0,0,-1,competitor]+=st.get('lam',0)*math.log(st.get('floor',1e-4))
+  # Blind judgment isolates actions. Execution is a fresh causal pass:
+  # gate competitor action keys at every query to prevent indirect rereading.
+  if st['phase']=='blind' or st.get('isolated'):
+   blocked=(~act)[:,None]&act[None,:]
+   blocked|=act[:,None]&act[None,:]&(segment[:,None]!=segment[None,:])
+   if st['phase']!='blind':blocked[-1,:]=False
+  else:blocked=torch.zeros((l,l),device=h.device,dtype=torch.bool)
+  if st['phase']!='blind' and st.get('selected') is not None:
+   competitor=act&(branch>=0)&(branch!=st['selected'])
+   if st.get('hard'):blocked[:,competitor]=True
+   else:mask[0,0,:,competitor]+=st.get('lam',0)*math.log(st.get('floor',1e-4))
   mask[0,0].masked_fill_(blocked,minimum);kw['attention_mask']=mask;return args,kw
- def score(self,packed,phase='blind',selected=None,hard=False,prune=False,preserve_positions=False,lam=0,plain=False):
+ def score(self,packed,phase='blind',selected=None,hard=False,prune=False,preserve_positions=False,lam=0,plain=False,isolated=False):
   ids=packed['ids'];roles=packed['roles'];branches=packed['branches'];positions=packed['positions'];keep=list(range(len(ids)))
   if prune:
    keep=[i for i in keep if not (roles[i] and (phase=='blind' or branches[i]>=0 and branches[i]!=selected))]
@@ -66,7 +67,7 @@ class Engine:
   if phase=='blind':pos=(~ar).long().cumsum(0).sub(1).clamp_min(0)[None,:]
   elif preserve_positions:pos=torch.tensor([[positions[i] for i in keep]],device='cuda')
   else:pos=torch.arange(len(keep),device='cuda')[None,:]
-  self.state={'roles':ar,'branches':br,'segments':torch.tensor([packed['segments'][i] for i in keep],device='cuda'),'phase':phase,'selected':selected,'hard':hard,'lam':lam,'plain':plain}
+  self.state={'roles':ar,'branches':br,'segments':torch.tensor([packed['segments'][i] for i in keep],device='cuda'),'phase':phase,'selected':selected,'hard':hard,'lam':lam,'plain':plain,'isolated':isolated}
   with torch.inference_mode():out=self.model(input_ids=x,attention_mask=torch.ones_like(x),position_ids=pos,use_cache=False,logits_to_keep=1)
   return out.logits[0,-1].float().detach().cpu()
  def choose(self,logits,labels):
