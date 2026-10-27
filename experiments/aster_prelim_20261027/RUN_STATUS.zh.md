@@ -1,5 +1,7 @@
 # ASTER P1–P6 实际执行状态
 
+**数据有效性复核未通过：已发现 31 个条件重叠病例，盲判还删除了部分问题内事实。P1–P3 原值保留为历史描述，不作为已验证主张；暂停进入 P5/P6，见 [专项审计](P1_SOURCE_AUDIT.zh.md)。**
+
 基于 main `781ee863784c60f1f6710ba5eede22bc8ee6b93c`，在 115 服务器 GPU 0、1 执行。仅使用已冻结开发树。本轮测试集推理为 **0**。
 
 | 阶段 | 实际状态 | 记录 |
@@ -8,8 +10,8 @@
 | P2 | PASS_NEUTRAL_GATE | [P2 记录](P2_REPORT.zh.md) |
 | P3 | COMPLETED | [P3 记录](P3_REPORT.zh.md) |
 | P4 | RUNNING | 尚无完成报告 |
-| P5 | NOT_RUN | 尚无完成报告 |
-| P6 | NOT_RUN | [P6 记录](results/p6_readiness.json) |
+| P5 | NOT_RUN_DATA_VALIDITY_HOLD | 尚无完成报告 |
+| P6 | NOT_RUN_DATA_VALIDITY_HOLD | [P6 记录](results/p6_readiness.json) |
 
 已确认的观测：
 
@@ -32,4 +34,4 @@
 
 服务器工作目录：`/home/gcx/TRIAGE-worktrees/aster-prelim-20261027/experiments/aster_prelim_20261027`。
 
-状态更新时间（UTC）：2026-10-27T02:34:02.403052+00:00。
+状态更新时间（UTC）：2026-10-27T03:01:40.577771+00:00。

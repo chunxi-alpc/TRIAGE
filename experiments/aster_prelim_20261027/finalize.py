@@ -14,6 +14,9 @@ def main():
    names=[BASE/'private'/(stage.lower()+'_'+n)/'manifest.json' for n in ['qwen','llama']]
    states[stage]='RUNNING' if any(x.exists() for x in names) else 'NOT_RUN'
  states['P6']='NOT_RUN'
+ hold_path=BASE/'results/data_validity_hold.json';hold=json.loads(hold_path.read_text()) if hold_path.exists() else {'active':False}
+ if hold.get('active'):
+  states['P5']='NOT_RUN_DATA_VALIDITY_HOLD';states['P6']='NOT_RUN_DATA_VALIDITY_HOLD'
  first_stop=next((s for s in ['P1','P2','P3','P4','P5'] if any(k in states[s] for k in ['STOP','FAIL','INCOMPLETE','INVALID'])),None)
  for s in ['P2','P3','P4','P5','P6']:
   if first_stop and int(s[1:])>int(first_stop[1:]) and states[s]=='NOT_RUN':states[s]='NOT_RUN_PREDECESSOR_STOP'
@@ -21,10 +24,11 @@ def main():
  for s in records.get('P4',{}).get('summary',[]):
   if not s['passes']['U4']:
    diagnostics.append({'model':s['model'],'failed':'U4','ordinary_prune_gap_pp':s['U4_gap_pp'],'position_preserved_prediction_agreement':s['U4_position_preserved_prediction_agreement'],'inference':'If position-preserved comparison matches while ordinary pruning differs, encoding-position changes are a supported explanation; this does not waive the user text-pruning threshold.'})
- result={'updated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'base_commit':'781ee863784c60f1f6710ba5eede22bc8ee6b93c','branch':'exp/aster-p1-p6-20261027','stages':states,'first_stop':first_stop,'test_inference_count':0,'CS_actual':17,'CS_requested':200,'P4_failure_diagnostics':diagnostics,'P6_manual_verified_set_available':False}
+ result={'updated_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'base_commit':'781ee863784c60f1f6710ba5eede22bc8ee6b93c','branch':'exp/aster-p1-p6-20261027','data_validity_hold':hold,'stages':states,'first_stop':first_stop,'test_inference_count':0,'CS_actual':17,'CS_requested':200,'P4_failure_diagnostics':diagnostics,'P6_manual_verified_set_available':False}
  (BASE/'results/overall_status.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
  lines=['# ASTER P1–P6 实际执行状态','','基于 main `781ee863784c60f1f6710ba5eede22bc8ee6b93c`，在 115 服务器 GPU 0、1 执行。仅使用已冻结开发树。本轮测试集推理为 **0**。','', '| 阶段 | 实际状态 | 记录 |','|---|---|---|']
  links={'P1':'REPORT.zh.md','P2':'P2_REPORT.zh.md','P3':'P3_REPORT.zh.md','P4':'P4_REPORT.zh.md','P5':'P5_REPORT.zh.md','P6':'results/p6_readiness.json'}
+ if hold.get('active'):lines[2:2]=['**数据有效性复核未通过：已发现 31 个条件重叠病例，盲判还删除了部分问题内事实。P1–P3 原值保留为历史描述，不作为已验证主张；暂停进入 P5/P6，见 [专项审计](P1_SOURCE_AUDIT.zh.md)。**','']
  for s,status in states.items():lines.append(f"| {s} | {status} | [{s} 记录]({links[s]}) |" if (BASE/links[s]).exists() else f'| {s} | {status} | 尚无完成报告 |')
  lines+=['','已确认的观测：','','- P1 SW：Qwen 盲判 80.5%、明判 69.5%，差距 11.0 个百分点；Llama 66.0% 与 50.5%，差距 15.5。事前固定的模型等权平均差距 13.25，超过 3 的继续门槛。','- P2 中性代号：Qwen 明判比盲判高 13.0 个百分点，Llama 低 1.5；未触发本轮中性代号止损。去选项与顺序对效应影响明显，闭卷置信度没有稳定单调关系，不能宣称全部替代解释已被排除。','- P1/P2 熟悉标准条件同提示的 400 条对应记录／模型，预测 100% 一致。']
  if 'P3' in records:

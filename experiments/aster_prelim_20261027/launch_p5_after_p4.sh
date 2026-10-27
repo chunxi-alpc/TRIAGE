@@ -10,6 +10,10 @@ if ! python -c "import json;assert json.load(open('$D/results/p4/gate_status.jso
  python "$D/finalize.py" --publish
  exit 0
 fi
+if ! python -c "import json,pathlib;p=pathlib.Path('$D/results/data_validity_hold.json');assert not p.exists() or not json.load(p.open()).get('active')"; then
+ python "$D/finalize.py" --publish
+ exit 0
+fi
 CUDA_VISIBLE_DEVICES=0 python -u "$D/run_p5.py" --name qwen --model /home/gcx/TRIAGE/models/modelscope/Qwen3-8B > "$D/private/p5_qwen.log" 2>&1 &
 QWEN_PID=$!
 CUDA_VISIBLE_DEVICES=1 python -u "$D/run_p5.py" --name llama --model /home/gcx/TRIAGE/models/modelscope/Meta-Llama-3.1-8B-Instruct > "$D/private/p5_llama.log" 2>&1 &

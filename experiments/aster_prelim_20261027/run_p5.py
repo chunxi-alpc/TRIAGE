@@ -38,6 +38,8 @@ class P5Engine(Engine):
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('--name',required=True);p.add_argument('--model',required=True);a=p.parse_args()
+ hold=BASE/'results/data_validity_hold.json'
+ assert not hold.exists() or not json.loads(hold.read_text()).get('active'), 'P1 data validity requires repair before P5'
  assert json.loads((BASE/'results/p4/gate_status.json').read_text())['P4']=='PASS','P4 has not passed; P5 prohibited'
  out=BASE/'private'/('p5_'+a.name);out.mkdir(exist_ok=False);start=time.time();torch.set_num_threads(4);torch.manual_seed(20261027);torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
  tok=AutoTokenizer.from_pretrained(a.model,local_files_only=True);model=AutoModelForCausalLM.from_pretrained(a.model,local_files_only=True,torch_dtype=torch.float32,attn_implementation='sdpa',device_map={'':'cuda:0'}).eval()
