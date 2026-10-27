@@ -1,0 +1,44 @@
+{
+  "frozen_at": "2026-10-26T17:03:17.003068+00:00",
+  "P2_gate": "passed neutral standard mean threshold; options/order and confidence results are mixed",
+  "data": "same 200 SW development cases",
+  "models": [
+    "qwen",
+    "llama"
+  ],
+  "knockout": "four-layer sliding windows, stride 1; last input token queries cannot attend to either terminal action; options unchanged",
+  "patch": "neutral->familiar, same decoy token positions verified; K-only, V-only, both; all layers",
+  "baseline_readout": "next-token 1/2 likelihood normalized across the two choices; record differences from P1 full generation",
+  "probe": "separate blind/visible logistic probes, C=1, train 3 development trees and evaluate fourth; no test set",
+  "window_selection": "report all windows; choose max accuracy recovery on dev. A concentrated window requires >=50% recovery and >0 restored accuracy, otherwise use all layers as user fallback",
+  "recovery": "(intervened_acc-visible_acc)/(blind_acc-visible_acc); report raw values, undefined if denominator <=0",
+  "probe_interpretation": "decodability alone is not causal evidence",
+  "resources": {
+    "GPUs": [
+      0,
+      1
+    ],
+    "peak_GiB_each": [
+      20,
+      35
+    ],
+    "estimated_minutes": [
+      10,
+      30
+    ]
+  },
+  "revised_before_successful_run": "2026-10-26T17:07:31.495946+00:00",
+  "patch_alignment": "union of action character-overlap tokens and differing token IDs in the equal-length minimal pair, including tokenizer boundary tokens; outside this span all input IDs must be identical",
+  "mask_implementation_fix_before_valid_run": "2026-10-26T17:45:29.447018+00:00",
+  "mask_dtype_handling": "convert boolean True=allowed mask to additive floating 0/-inf before editing",
+  "revision": "repaired_v2",
+  "data_manifest": "results/data_audit.json",
+  "case_count": 169,
+  "dtype": "float32",
+  "TF32": false,
+  "patient_facts": "complete original source text; only named target treatments in question clause hidden in blind",
+  "execution_qualifications": "separate role, visible in both, fixed across variants; entry branch labels unchanged",
+  "tokenization_revision": "v3_single_BOS_after_chat_template",
+  "add_special_tokens_after_template": false,
+  "Qwen_reuse": "Only after exact token-ID equivalence across all source prompts and matching model weight SHA256; import P2 only after new P1 passes."
+}

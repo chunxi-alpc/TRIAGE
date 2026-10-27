@@ -1,0 +1,164 @@
+{
+  "frozen_at": "2026-10-26T16:47:49.470175+00:00",
+  "stage_order": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "test_data_allowed": false,
+  "models": [
+    "Qwen3-8B",
+    "Meta-Llama-3.1-8B-Instruct"
+  ],
+  "GPUs": [
+    0,
+    1
+  ],
+  "planned_peak_GiB_each": [
+    20,
+    35
+  ],
+  "estimated_P1_minutes": [
+    15,
+    40
+  ],
+  "P1": {
+    "volumes": [
+      "NC",
+      "IC",
+      "AC",
+      "SW",
+      "CS"
+    ],
+    "blind": "hide pure terminal actions, options, and target treatment mentions in interrogative clause; keep all other source text and all execution qualifications",
+    "visible": "retain terminal actions, options and embedded question",
+    "output": "free greedy branch ID 1 or 2; parse failures count incorrect",
+    "n_each_four_volumes": 169,
+    "n_CS": 17,
+    "CS_shortfall": "only explicit verified intervals in frozen dev cohort; do not fabricate or duplicate",
+    "gate": "model-macro mean SW blind accuracy minus visible accuracy >= 3 percentage points; otherwise STOP",
+    "aggregation_fixed_before_inference": true,
+    "paired_tree_bootstrap": 5000,
+    "seed": 20261027,
+    "same_parent_distinct_condition_sibling_scope": true
+  },
+  "P2": {
+    "status": "not_run",
+    "conditions": [
+      "familiar",
+      "unfamiliar",
+      "equal_length_neutral_code"
+    ],
+    "controls": [
+      "remove_options",
+      "swap_branch_order",
+      "closed_book_confidence_strata"
+    ],
+    "stop": "large neutral-code effect: revise to visibility narrative"
+  },
+  "P3": {
+    "status": "not_run",
+    "interventions": [
+      "4-layer attention knockout",
+      "K-only patch",
+      "V-only patch",
+      "KV patch",
+      "linear probes"
+    ],
+    "fallback": "no concentrated window -> all layers; retain behavioral evidence"
+  },
+  "P4": {
+    "status": "not_run",
+    "U1_max_key_difference": 0,
+    "U3_accuracy_gap_max_pp": 2,
+    "U4_accuracy_gap_max_pp": 1,
+    "stop": "repair any failed unit before P5",
+    "U2_rate_threshold_removed_by_user": true
+  },
+  "P5": {
+    "status": "not_run",
+    "comparisons": [
+      "gold prompt",
+      "gold rule note",
+      "gold prune",
+      "lambda scan log gate",
+      "bounded projection suppression",
+      "green highlight ablation"
+    ],
+    "stop": "gate must match gold prune within 2pp; otherwise repair before P6"
+  },
+  "P6": {
+    "status": "not_run",
+    "source": "MEGA-CDP single turn, development guidelines only",
+    "target_pairs": 160,
+    "minimum_pairs": 120,
+    "minimum_guidelines": 20,
+    "minimum_multinode_pairs": 40,
+    "manual_pair_verification_required": true,
+    "smoke_pairs": 20,
+    "core_methods": [
+      "Vanilla",
+      "patient_first",
+      "prompt_repeat",
+      "full_guideline_SEKA_or_PASTA",
+      "ASTER-self",
+      "TS-Note",
+      "TS-Prune",
+      "TS-SEKA"
+    ],
+    "same_cached_blind_distribution": true,
+    "lambda_scan": [
+      0.5,
+      1,
+      2
+    ],
+    "stage_ablation": "judgment x execution 2x2; fixed judgment and evidence in execution comparisons",
+    "metrics": [
+      "PathCost",
+      "BFR",
+      "DA",
+      "native_harm_and_correction",
+      "repetition",
+      "length_cap",
+      "parse_failure",
+      "semantic_span_accuracy",
+      "rule_coverage",
+      "actual_intervention_coverage",
+      "latency",
+      "input_output_tokens"
+    ],
+    "gates": {
+      "intervention_coverage_min": 0.85,
+      "manual_span_accuracy_min": 0.9,
+      "repetition_max": 0.03,
+      "length_cap_max": 0.02,
+      "parse_failure_increase_max_pp": 1,
+      "native_PathCost_worsening_max": 0.01,
+      "native_BFR_drop_max_pp": 2,
+      "decoy_DA_reduction_min_pp": 8,
+      "decoy_BFR_gain_min_pp": 5,
+      "BFR_gain_over_best_same_information_TS_min_pp": 3,
+      "latency_ratio_max": 1.5
+    },
+    "optional": [
+      "TS-Rerank k=8 full cost",
+      "Gold-Prune/Gold-ASTER diagnostic only",
+      "ASTER-full with shared Clerk-Note/Clerk-Prune information"
+    ],
+    "scoring": "freeze before inference; cache by case/output/reference/config; guideline-clustered paired bootstrap",
+    "stop": "if any substantive gate fails, do not claim all gates passed; revise claims per user protocol"
+  },
+  "revision": "repaired_v2",
+  "data_manifest": "results/data_audit.json",
+  "case_count": 169,
+  "dtype": "float32",
+  "TF32": false,
+  "patient_facts": "complete original source text; only named target treatments in question clause hidden in blind",
+  "execution_qualifications": "separate role, visible in both, fixed across variants; entry branch labels unchanged",
+  "tokenization_revision": "v3_single_BOS_after_chat_template",
+  "add_special_tokens_after_template": false,
+  "Qwen_reuse": "Only after exact token-ID equivalence across all source prompts and matching model weight SHA256; import P2 only after new P1 passes."
+}

@@ -1,0 +1,1 @@
+复核发现本目录 Llama P1/P2 编码重复添加 BOS。原数值、STOP 状态及日志原样保留，其解释须结合 [编码修复与重验](../aster_prelim_tokenfix_20261027/TOKENIZATION_FIX.zh.md)。最新进度见 [重验目录](../aster_prelim_tokenfix_20261027/RUN_STATUS.zh.md)。Qwen 仅经全量 token ID 与权重核验后复用，Llama 重新推理。

@@ -1,0 +1,44 @@
+{
+  "frozen_at": "2026-10-26T16:54:27.340876+00:00",
+  "P1_gate_observed": 13.25,
+  "cases": "same 200 development SW bases; no filtering by output",
+  "models": [
+    "qwen",
+    "llama"
+  ],
+  "familiar": "original source action placed on sibling by SW",
+  "unfamiliar": "action from another development tree, absent from original options; nearest isolated token length; deterministic hash tie breaking; proxy only",
+  "neutral": "nonclinical letter code; exact full prompt token count matched to familiar per model",
+  "only_changed_field": "sibling disposition",
+  "controls": [
+    "standard",
+    "no_options",
+    "reversed branch display order retaining branch IDs"
+  ],
+  "closed_book": "one prefill per case, normalized probability across all single-token option letters; tertiles of original-action probability fixed within model, no case selection",
+  "primary_gap": "blind accuracy minus visible accuracy; model macro mean",
+  "large_neutral_threshold_pp": 3,
+  "stop": "standard neutral mean gap >= 3pp -> stop familiarity-specific sequence and revise visibility narrative; also report each model and neutral vs familiar contrasts",
+  "significance": "exploratory guideline/tree clustered paired bootstrap, 5000 samples; four clusters only",
+  "resource_plan": {
+    "gpus": [
+      0,
+      1
+    ],
+    "peak_GiB_each": 20,
+    "estimated_minutes": [
+      5,
+      15
+    ]
+  },
+  "revision": "repaired_v2",
+  "data_manifest": "results/data_audit.json",
+  "case_count": 169,
+  "dtype": "float32",
+  "TF32": false,
+  "patient_facts": "complete original source text; only named target treatments in question clause hidden in blind",
+  "execution_qualifications": "separate role, visible in both, fixed across variants; entry branch labels unchanged",
+  "tokenization_revision": "v3_single_BOS_after_chat_template",
+  "add_special_tokens_after_template": false,
+  "Qwen_reuse": "Only after exact token-ID equivalence across all source prompts and matching model weight SHA256; import P2 only after new P1 passes."
+}
