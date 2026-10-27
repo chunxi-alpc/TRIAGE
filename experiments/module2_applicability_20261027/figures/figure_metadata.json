@@ -40,7 +40,7 @@
       "sha256": "f79627a84a3d4a1d9a0e0b400b3cf67293154e527c93cd378f749fa409a022a3"
     }
   },
-  "plot_script_sha256": "a35dd2302589179c4111ec02ea8f0e4fbdd00970df40e56de16866ce40dadb09",
+  "plot_script_sha256": "d1503e5bf4400d514f95aee07c89408dd1023a939c6977c4de899fc4686220b7",
   "generated_files": [
     "head_diagnostics.pdf",
     "head_diagnostics.svg",
@@ -51,7 +51,10 @@
     "paired_difference_vectors.pdf",
     "paired_difference_vectors.svg",
     "paired_difference_vectors.png",
-    "paired_difference_vectors.csv"
+    "paired_difference_vectors.csv",
+    "causal_dose_response.pdf",
+    "causal_dose_response.svg",
+    "causal_dose_response.png"
   ],
   "rendering_versions": {
     "matplotlib": "3.10.8",
@@ -443,9 +446,331 @@
     "projection_csv_sha256": "bfbcc98d2458a1016c0a0e3a710265c6482a0b5a9aa9d5609b1e8604d64b7ae9"
   },
   "evidence_scope": "development-only exploratory representation pilot",
-  "attention_mask": "ordinary causal; no ASTER BLIND/REVEAL masks",
+  "attention_mask": "ordinary causal; no legacy ASTER (2026-10-26) BLIND/REVEAL masks; no module-one predictions",
   "pair_axes": "fitting-set uncentered paired-difference eigenspace; no confirmation fitting",
   "distance_unit": "mean L2 distance between action-span-mean pre-RoPE keys, not per-token L2",
   "no_model_or_subspace_refitting": true,
-  "causal_figure": "not generated; causal measurements are handled only when explicitly available"
+  "causal_figure": {
+    "status": "generated",
+    "run_status": "completed",
+    "missing_metric_cells": [],
+    "coverage": {
+      "totals": {
+        "expected_observations": 1152,
+        "observed": 1152,
+        "completed": 1152,
+        "blocked": 0,
+        "missing": 0
+      },
+      "method_dose_cells": 24,
+      "completed_method_dose_cells": 24,
+      "gold_attention_scope": {
+        "layer": 17,
+        "kv_head": 5,
+        "query_heads": [
+          10,
+          11
+        ],
+        "aggregation": "mean over shared query heads; not whole-model attention"
+      },
+      "incomplete_by_method": {
+        "projected_mean": 0,
+        "raw_mean": 0,
+        "random_direction": 0,
+        "reversed_direction": 0,
+        "label_shuffled": 0,
+        "direct_score_bias": 0
+      },
+      "cells": [
+        {
+          "method": "direct_score_bias",
+          "tau": 0.0,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "direct_score_bias",
+          "tau": 0.01,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "direct_score_bias",
+          "tau": 0.05,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "direct_score_bias",
+          "tau": 0.1,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "label_shuffled",
+          "tau": 0.0,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "label_shuffled",
+          "tau": 0.01,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "label_shuffled",
+          "tau": 0.05,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "label_shuffled",
+          "tau": 0.1,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "projected_mean",
+          "tau": 0.0,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "projected_mean",
+          "tau": 0.01,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "projected_mean",
+          "tau": 0.05,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "projected_mean",
+          "tau": 0.1,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "random_direction",
+          "tau": 0.0,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "random_direction",
+          "tau": 0.01,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "random_direction",
+          "tau": 0.05,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "random_direction",
+          "tau": 0.1,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "raw_mean",
+          "tau": 0.0,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "raw_mean",
+          "tau": 0.01,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "raw_mean",
+          "tau": 0.05,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "raw_mean",
+          "tau": 0.1,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "reversed_direction",
+          "tau": 0.0,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "reversed_direction",
+          "tau": 0.01,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "reversed_direction",
+          "tau": 0.05,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        },
+        {
+          "method": "reversed_direction",
+          "tau": 0.1,
+          "expected_observations": 48,
+          "observed": 48,
+          "completed": 48,
+          "blocked": 0,
+          "missing": 0,
+          "status": "completed",
+          "reasons": {}
+        }
+      ]
+    },
+    "attention_mask": "ordinary causal; no legacy ASTER (2026-10-26) BLIND/REVEAL masks; no module-one predictions",
+    "head_accepted_by_offline_screen": true,
+    "source_inputs": {
+      "causal_metrics.csv": {
+        "file": "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/causal/causal_metrics.csv",
+        "sha256": "599673e0b1b1dcd427445f7ac7463fa5791701c238e20b043e5fba11a609b1dc"
+      },
+      "causal_coverage.csv": {
+        "file": "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/causal/causal_coverage.csv",
+        "sha256": "08ec0a0551195cf0debe6e05e966c2c3291c505779d3e6e6ff6bc4d22209babc"
+      },
+      "plan.json": {
+        "file": "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/causal/plan.json",
+        "sha256": "af6013ea648f72d628efd7535e27a082f2b6b54269f8beddce315e9c00201476"
+      },
+      "status.json": {
+        "file": "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/causal/status.json",
+        "sha256": "79740c5559e6633c0f4fe9904dea9278cc73647a4ff8df5226407ea73a21e53a"
+      },
+      "extraction_geometry": {
+        "file": "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/extraction_metadata.json",
+        "sha256": "113a1bf30c9b1d9ad45e191cb6de4869eefb62e0be261738fa37b3cb8f66d81c"
+      }
+    }
+  }
 }

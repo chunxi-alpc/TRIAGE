@@ -257,7 +257,7 @@ def paired_shifts(rows, selection, audit, model_name, output, eigenvalues):
     return save_figure(fig, output, "paired_shifts"), summaries
 
 
-def causal_dose_response(rows, plan, model_name, output, coverage):
+def causal_dose_response(rows, plan, model_name, output, coverage, geometry):
     """Show all saved doses; absent/blocked doses become gaps, not invented points."""
     styles = {
         "projected_mean": ("Projected mean", POSITIVE, "o", "-"),
@@ -267,9 +267,10 @@ def causal_dose_response(rows, plan, model_name, output, coverage):
         "label_shuffled": ("Shuffled signs", "#8B70A8", "D", ":"),
         "direct_score_bias": ("Direct score bias", MEAN, "P", "-"),
     }
-    metrics = (("gold_attention_mass", "Gold-rule attention mass", 100., "% of attention"),
+    metrics = (("gold_attention_mass", "Gold-rule attention mass", 100., "Mean attention (%)"),
                ("gold_logit_margin", "Gold logit margin", 1., "Gold minus other-rule logit"),
-               ("pair_accuracy", "Paired branch accuracy", 100., "% of complete pairs correct"))
+               ("pair_accuracy", "Paired branch accuracy", 100., "% of complete pairs correct"),
+               ("harm_rate", "Correct-to-wrong rate", 100., "% of all conditions"))
     by_cell = {}
     for row in rows:
         key = (row["method"], number(row["tau"]), row["metric"])
@@ -308,19 +309,25 @@ def causal_dose_response(rows, plan, model_name, output, coverage):
     totals = {field: sum(row[field] for row in coverage_by_cell.values())
               for field in ("expected_observations", "observed", "completed", "blocked", "missing")}
     completed_cells = sum(row["status"] == "completed" for row in coverage_by_cell.values())
-    fig, axes = plt.subplots(1, 3, figsize=(9.1, 4.9))
-    fig.subplots_adjust(left=.075, right=.975, bottom=.39, top=.76, wspace=.41)
+    fig, axes = plt.subplots(2, 2, figsize=(8.8, 8.5))
+    fig.subplots_adjust(left=.09, right=.96, bottom=.295, top=.82, hspace=.55, wspace=.34)
     fig.suptitle(f"{model_name} | Oracle routing dose response", x=.075, ha="left", y=.975,
                  fontsize=12.5, weight="medium")
     head = plan["head"]
+    query_count, kv_count = int(geometry["query_heads"]), int(geometry["kv_heads"])
+    if query_count % kv_count or not 0 <= int(head["kv_head"]) < kv_count:
+        raise ValueError("Invalid saved GQA geometry")
+    shared_queries = list(range(head["kv_head"] * (query_count // kv_count),
+                                (head["kv_head"] + 1) * (query_count // kv_count)))
+    query_label = "Q" + "/".join(map(str, shared_queries)) if len(shared_queries) <= 2 else f"Q{shared_queries[0]}–{shared_queries[-1]}"
     head_status = "accepted head" if plan["head_accepted_by_offline_screen"] else "diagnostic candidate; not accepted"
     n_groups = len(plan["confirmation_groups"])
-    fig.text(.075, .925, f"Layer {head['layer']} / KV head {head['kv_head']} ({head_status}); "
+    fig.text(.075, .925, f"Layer {head['layer']} / KV head {head['kv_head']} ({query_label}; {head_status}); "
              f"{n_groups} confirmation guidelines", fontsize=9.2, color="#485261")
-    fig.text(.075, .876, "Direction magnitudes are matched by the actual fixed-query attention-score perturbation RMS.",
+    fig.text(.075, .876, "Directions are calibrated per input to the target fixed-query attention-score perturbation RMS.",
              fontsize=8.1, color="#485261")
     missing = []
-    for panel, (ax, (metric, title, multiplier, label)) in enumerate(zip(axes, metrics)):
+    for panel, (ax, (metric, title, multiplier, label)) in enumerate(zip(axes.flat, metrics)):
         zero_means = [by_cell[(method, 0., metric)][0] for method in methods if (method, 0., metric) in by_cell]
         if not zero_means or np.ptp(zero_means) > 1e-8:
             raise ValueError("Causal methods must share the same observed zero-dose baseline")
@@ -348,26 +355,30 @@ def causal_dose_response(rows, plan, model_name, output, coverage):
                     markeredgewidth=.85, linestyle=linestyle,
                     linewidth=1.9 if method in {"projected_mean", "direct_score_bias"} else 1.2,
                     label=title_method, zorder=4 if method == "projected_mean" else 3)
-        ax.set_title(f"{'ABC'[panel]}   {title}", loc="left", pad=9, fontsize=9.2)
-        ax.set_xlabel(r"Score-perturbation RMS, $\tau$", labelpad=5)
+        ax.set_title(f"{'ABCD'[panel]}   {title}", loc="left", pad=9, fontsize=9.2)
+        ax.set_xlabel(r"Target score RMS, $\tau$", labelpad=5)
         ax.set_ylabel(label, labelpad=4)
         ax.set_xticks(doses, [f"{dose:g}" for dose in doses])
         ax.grid(axis="y", color="#E4E8EC", lw=.6)
         ax.margins(x=.07)
         if metric == "pair_accuracy":
             ax.set_ylim(0, 103)
-        elif metric == "gold_attention_mass":
-            ax.set_ylim(0, min(103, max(maxima, default=1.) * 1.08))
-    handles, labels = axes[0].get_legend_handles_labels()
-    fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(.54, .19), ncol=3, frameon=False,
+        elif metric in {"gold_attention_mass", "harm_rate"}:
+            ax.set_ylim(0, min(103, max(1., max(maxima, default=0.) * 1.08)))
+    handles, labels = axes.flat[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(.54, .17), ncol=3, frameon=False,
                fontsize=8.1, handlelength=2.4, columnspacing=2.4, labelspacing=.7)
-    fig.text(.075, .155, f"Coverage: {completed_cells}/{len(coverage)} complete method-dose cells; "
+    fig.text(.075, .145, f"Coverage: {completed_cells}/{len(coverage)} complete method-dose cells; "
              f"{totals['blocked']}/{totals['expected_observations']} blocked evaluations; {totals['missing']} missing. Evaluations reuse conditions.", fontsize=7.3)
-    fig.text(.075, .123, "Shading: 95% source-guideline bootstrap intervals, conditional on the frozen operator; unadjusted exploratory intervals.", fontsize=7.3)
-    fig.text(.075, .091, "Ordinary causal mask, without ASTER BLIND/REVEAL masks. Oracle routing; single-token A/B branch choice only.", fontsize=7.3)
-    fig.text(.075, .059, "All complete method-dose estimates are shown. Incomplete cells remain gaps and are counted in the legend.", fontsize=7.3)
-    fig.text(.075, .027, f"Only {n_groups} independent guidelines. This diagnostic cannot establish efficacy or population-level equivalence.", fontsize=7.3, color="#485261")
+    fig.text(.075, .125, f"Panel A averages only {query_label} at layer {head['layer']}. In negative cases, the unedited gold sibling changes through softmax renormalization.", fontsize=7.3)
+    fig.text(.075, .105, "Panel D: baseline-correct to intervention-wrong transitions / all conditions, not only baseline-correct conditions or clinical outcomes.", fontsize=7.3)
+    fig.text(.075, .085, "Shading: 95% source-guideline bootstrap intervals, conditional on the frozen operator; unadjusted exploratory intervals.", fontsize=7.3)
+    fig.text(.075, .065, "Ordinary causal mask and oracle signs; no module-one evaluation or legacy ASTER (2026-10-26) BLIND/REVEAL masks.", fontsize=7.3)
+    fig.text(.075, .045, "Dashed gray: zero-dose baseline. All complete estimates are shown; incomplete cells remain gaps and are counted in the legend.", fontsize=7.3)
+    fig.text(.075, .025, f"Only {n_groups} independent guidelines. This diagnostic cannot establish efficacy or population-level equivalence.", fontsize=7.3, color="#485261")
     coverage_summary = {"totals": totals, "method_dose_cells": len(coverage), "completed_method_dose_cells": completed_cells,
+                        "gold_attention_scope": {"layer": head["layer"], "kv_head": head["kv_head"],
+                            "query_heads": shared_queries, "aggregation": "mean over shared query heads; not whole-model attention"},
                         "incomplete_by_method": incomplete_counts,
                         "cells": [{"method": key[0], "tau": key[1], **value} for key, value in coverage_by_cell.items()]}
     return save_figure(fig, output, "causal_dose_response"), missing, coverage_summary
@@ -552,7 +563,7 @@ def main():
         "head_metrics": metrics, "projection_heads": pairs,
         "difference_vectors": differences,
         "evidence_scope": "development-only exploratory representation pilot",
-        "attention_mask": "ordinary causal; no ASTER BLIND/REVEAL masks",
+        "attention_mask": "ordinary causal; no legacy ASTER (2026-10-26) BLIND/REVEAL masks; no module-one predictions",
         "pair_axes": "fitting-set uncentered paired-difference eigenspace; no confirmation fitting",
         "distance_unit": "mean L2 distance between action-span-mean pre-RoPE keys, not per-token L2",
         "no_model_or_subspace_refitting": True,
@@ -574,12 +585,15 @@ def main():
             raise ValueError("Representation and causal model provenance differ")
         if plan["selection_sha256"] != sha256(inputs["selection.json"]):
             raise ValueError("Causal head selection differs from the plotted selection record")
+        geometry_path = args.results / "extraction_metadata.json"
+        geometry = json.loads(geometry_path.read_text())["geometry"]
+        causal_inputs["extraction_geometry"] = geometry_path
         files3, missing, coverage_summary = causal_dose_response(read_csv(causal_csv), plan, model_name,
-            args.output, read_csv(causal_inputs["causal_coverage.csv"]))
+            args.output, read_csv(causal_inputs["causal_coverage.csv"]), geometry)
         metadata["generated_files"].extend(files3)
         metadata["causal_figure"] = {"status": "generated", "run_status": causal_status["status"],
             "missing_metric_cells": missing, "coverage": coverage_summary,
-            "attention_mask": "ordinary causal; no ASTER BLIND/REVEAL masks",
+            "attention_mask": "ordinary causal; no legacy ASTER (2026-10-26) BLIND/REVEAL masks; no module-one predictions",
             "head_accepted_by_offline_screen": plan["head_accepted_by_offline_screen"],
             "source_inputs": {name: {"file": str(path), "sha256": sha256(path)} for name, path in causal_inputs.items()}}
     (args.output / "figure_metadata.json").write_text(json.dumps(metadata, indent=2, ensure_ascii=False, allow_nan=False) + "\n")

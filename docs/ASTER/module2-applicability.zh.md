@@ -256,11 +256,11 @@ $$\operatorname{Overlap}(a,b)=\frac{\|U_a^\top U_b\|_F^2}{\min(r_a,r_b)}.$$
 
 [最小对构造](../../src/module2/minimal_pairs.py)与[统计估计](../../src/module2/applicability.py)提供独立接口。它们不意味着 ASTER 端到端系统已接入新算子。真实运行范围、完成状态、模型指纹及缺少的对照以[本轮协议](../../experiments/module2_applicability_20261027/PROTOCOL.zh.md)和对应运行产物为准。
 
-本轮抽取使用普通因果注意力，没有施加 ASTER 的阶段隔离掩码。学习方向迁移到 BLIND／REVEAL 系统时，表示分布可能改变。应在最终掩码与提示协议下重新估计或独立验证，不把本轮结果直接视为 ASTER 阶段化算子的证据。
+本轮抽取使用普通因果注意力。2026-10-27 主线通过模块一的独立条件视图实现处置盲判，不再默认采用阶段隔离掩码。本轮仍未连接该模块一及其最终执行提示。若另行恢复 2026-10-26 的 BLIND／REVEAL 掩码作为历史方法消融，须在相同提示与掩码下重新估计或验证迁移，不能沿用本轮证据自动验收。
 
 ## 10. 一手来源
 
-1. [Hugging Face Transformers：Qwen3 官方实现](https://github.com/huggingface/transformers/blob/main/src/transformers/models/qwen3/modeling_qwen3.py)。本文件用于说明归一化、旋转和 GQA 的计算顺序。实际运行须记录安装版本与源文件哈希。
+1. [Hugging Face Transformers 4.57.6：Qwen3 官方实现](https://github.com/huggingface/transformers/blob/v4.57.6/src/transformers/models/qwen3/modeling_qwen3.py)。本文件用于说明归一化、旋转和 GQA 的计算顺序，版本与本轮安装一致。实际运行还须记录模型修订与源文件哈希。
 2. [Su 等：RoFormer: Enhanced Transformer with Rotary Position Embedding](https://arxiv.org/abs/2104.09864)。旋转位置编码的原始论文。
 3. [Ainslie 等：GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints](https://aclanthology.org/2023.emnlp-main.298/)。分组查询注意力的原始论文。
 4. [Zhang 与 Nanda：Towards Best Practices of Activation Patching in Language Models: Metrics and Methods](https://arxiv.org/abs/2309.16042)。干预构造与评价指标的机制研究。

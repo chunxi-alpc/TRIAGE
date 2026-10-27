@@ -6,11 +6,15 @@
 
 表示阶段已完成 144 次真实预训练模型前向。冻结筛选保留零起始的 `(17,5)`、`(17,1)`、`(17,4)`、`(17,7)` 四个层—KV 头。确认分区的平均读取仍为正，配对同向比例为 66.7%–87.5%。基线受约束 A/B 选择为 24/48 正确、0/24 对全对。它们是表示与读取诊断，不能当作干预收益。
 
-详细数值与限制见[结果报告](RESULTS.zh.md)。因果对照仍在执行，以 [canonical 因果运行状态](results/qwen3_0_6b_cpu/causal/status.json)为准。此前因多线程开销中断的尝试单独保留，不混入最终结果。
+因果对照已完整完成：[运行状态](results/qwen3_0_6b_cpu/causal/status.json)记录 24 个唯一提示、6 种方法、4 个固定剂量，共 1,152 条有效观测，24 个方法—剂量组合均完整，零阻断、零缺失。全部方法与剂量的受约束 A/B 准确率仍为 24/48（50%），目标配对全对率仍为 0/24；纠正与由对变错均为零。这是本轮未观察到分支选择改善，不是有效性、安全性或总体等效结论。
+
+在预设最高剂量 0.1，投影均值使正确规则的局部注意力从 3.8560% 升至 4.0569%，但正确编号的分数间隔反而略降 0.0002087。直接分数偏置的局部注意力为 4.0517%，同样没有答案改善。详细全部剂量、配对差、分层及限制见[结果报告](RESULTS.zh.md)。最终统计只使用完整运行；两次因效率问题中断的尝试单独保留。
 
 ![层与键值头诊断](figures/head_diagnostics.svg)
 
 ![冻结子空间中的确认差分](figures/paired_difference_vectors.svg)
+
+![固定剂量下的局部读取与决策结果](figures/causal_dose_response.svg)
 
 [绝对键的配对投影](figures/paired_shifts.svg)用于补充描述。所有图均附 PDF、SVG、PNG 与来源摘要。差分向量还保存为可直接复绘的 CSV。
 
@@ -43,11 +47,11 @@
 
 ## 模型与算子
 
-本轮显式选择 **Qwen/Qwen3-0.6B-Base**，修订版本 `da87bfb608c14b7cf20ba1ce41287e8de496c0cd`，CPU、单精度、4 个 PyTorch 线程、`eager` 注意力。它有 28 层、16 个查询头、8 个 KV 头。不是历史 4B 实验的替代结果。权重和分词器的实际文件摘要写入运行指纹。
+本轮显式选择 **Qwen/Qwen3-0.6B-Base**，修订版本 `da87bfb608c14b7cf20ba1ce41287e8de496c0cd`，CPU、单精度、`eager` 注意力。表示提取及因果预填充使用 4 个 PyTorch 线程，因果单词元决策使用 1 个线程。它有 28 层、16 个查询头、8 个 KV 头。不是历史 4B 实验的替代结果。权重和分词器的实际文件摘要写入运行指纹。
 
 表示抽取使用处置片段内词元的均值。目标词元编号、绝对位置和总长度要求在正、负、中性版本完全一致，不截断，不填充。键在 `k_norm` 之后、旋转位置编码之前读取。有效查询按每个目标词元的实际位置旋转，并汇总共享 KV 头的全部查询头。
 
-当前模型使用普通因果掩码，未施加 ASTER 的 BLIND／REVEAL 隔离掩码。若将方向接入阶段化系统，须在最终相同提示与掩码条件下重新估计或独立验证迁移；本轮不能自动充当阶段化算子的验收。
+当前模型使用普通因果掩码。2026-10-27 主线以模块一独立条件视图实现处置盲判；本轮尚未连接该模块一及其最终执行提示。2026-10-26 的 BLIND／REVEAL 隔离掩码仅属于历史／可选消融，若恢复则须重新估计或验证迁移。
 
 本轮预设秩 2，最多保留 4 个合格头。子空间只在拟合指南学习；读取与分离度在选择指南计算。读取的正、负分支均需通过预定符号门槛，还需方向一致性、拟合均值一致性及重采样稳定性。无合格头时输出空集合。冻结选择后再打开确认统计。
 
@@ -63,7 +67,7 @@
 
 ## 运行
 
-环境依赖见仓库固定版本；本轮需要 `torch==2.8.0`、`transformers==4.57.6`、NumPy、Matplotlib。数据审计与统计可独立于模型运行。所有命令从仓库根目录执行。
+本轮精确版本见[运行环境](results/environment.json)，包括 `torch==2.8.0+cpu`、`transformers==4.57.6`、`numpy==2.3.5`、`matplotlib==3.10.8`。数据审计与统计可独立于模型运行。所有命令从仓库根目录执行。
 
 ```bash
 python scripts/prepare_module2_pairs.py \
@@ -90,6 +94,11 @@ python scripts/run_module2_causal_tail_pilot.py \
 python scripts/plot_module2_preexperiment.py \
   --results /path/to/new_run/representation \
   --output /path/to/new_run/figures
+
+python scripts/summarize_module2_causal_strata.py \
+  --causal /path/to/new_run/representation/causal \
+  --triplets /path/to/new_run/data/triplets.jsonl \
+  --output /path/to/new_run/representation/causal/strata
 ```
 
 运行输出目录必须独立，不能覆盖历史实验。模型路径、版本或硬件不满足要求时应记录失败；不自动替换模型。大模型后续实验须另建协议和结果目录。
