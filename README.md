@@ -2,7 +2,7 @@
 
 **当前主线：处置盲分支分类 → 离线适用性子空间 → 在线规则键平移。** ASTER 的展开更新为 *Action-blind Selection, Then Eigen-subspace Re-routing*。模块一于 **2026-10-27** 固定为最新简化版本：同一骨干模型、条件视图、组内受限分类、单温度校准和概率／间隔弃权。
 
-> **状态：研究工作稿与模块一参考实现。** 已提供新版模块一、温度拟合及模块一到模块三的规则增益接口。模块二方向学习、实际注意力编辑与完整流水线仍待实现。没有新增预训练模型实验或性能结论；历史 CARE／ACRE／V6 代码与既有结果不自动成为新版 ASTER 的实现或证据。
+> **状态：研究工作稿、模块一参考实现与模块二独立预实验。** 已提供新版模块一、温度拟合及规则增益接口，并新增金标最小对、离线方向估计、留出选头及首答案前的规则缓存键平移。Qwen3-0.6B-Base 的实际结果见[模块二报告](experiments/module2_applicability_20261027/RESULTS.zh.md)。本轮使用金标适用性隔离算子效应，尚未连接新版模块一、联合多规则编辑或完整生成流水线；不能作为端到端性能或临床有效性结论。
 
 [主线文档](docs/ASTER/README.md) · [论文工作稿](docs/ASTER/manuscript.zh.md) · [模块一确定版](docs/ASTER/module1-spec.zh.md) · [新版代码](src/aster/README.md) · [实验计划](docs/ASTER/experiment-plan.zh.md) · [实现状态](docs/ASTER/implementation-status.zh.md)
 
@@ -61,6 +61,7 @@ python -m scripts.run_aster_module1 --help
 |---|---|
 | 完整方法、公式和边界 | [论文工作稿](docs/ASTER/manuscript.zh.md) |
 | 模块一输入、概率、弃权与代码契约 | [模块一确定版](docs/ASTER/module1-spec.zh.md) |
+| 模块二实现、科学边界与真实诊断 | [方法说明](docs/ASTER/module2-applicability.zh.md) · [预实验与图表](experiments/module2_applicability_20261027/README.md) |
 | 为什么改版、哪些主张需要收窄 | [2026-10-27 设计决策](docs/ASTER/design-update-20261027.zh.md) |
 | 六项可证伪主张 | [主张与证伪](docs/ASTER/claims-and-falsification.zh.md) |
 | 同信息基线、指标和冻结流程 | [实验计划](docs/ASTER/experiment-plan.zh.md) |
@@ -71,6 +72,6 @@ python -m scripts.run_aster_module1 --help
 
 2026-10-26 的两阶段注意力掩码、证据员、软否决及对数门控方案保存在[改版前固定提交](https://github.com/chunxi-alpc/TRIAGE/tree/781ee863784c60f1f6710ba5eede22bc8ee6b93c)。[旧图稿](docs/ASTER/figures/README.md)中的图 2、图 4 对应该版本，不再定义当前方法。图 1 和图 3 仍可作为任务与五卷协议示意，不能作为实验结果。
 
-更早的 CARE、ACRE 与原三模块实现仍按原接口保存。`src/module1`、`src/module2`、`src/module3`、`src/pipeline` 及其默认命令均为历史接口；当前模块一入口是 `src/aster`，不把新版结果强行转换为 V6 图结构。既有实验、预测和负结果保留原版本含义。
+更早的 CARE、ACRE 与原三模块实现仍按原接口保存。当前模块一入口是 `src/aster`；`src/module2` 和 `src/module3` 内新增的 `applicability` 接口另行标识，旧定位、投影及 `src/pipeline` 默认命令保持历史接口，不把新版概率输出强行转换为 V6 图结构。既有实验、预测和负结果保留原版本含义。
 
 [历史支线索引](docs/BRANCHES.md) · [旧实验索引](experiments/README.md) · [旧结果索引](results/README.md) · [版本记录](docs/REPOSITORY_STATUS.md)。整理前的更早完整快照仍在 [archive/pre-aster-main-20261026](https://github.com/chunxi-alpc/TRIAGE/tree/archive/pre-aster-main-20261026)。

@@ -1,0 +1,67 @@
+{
+  "schema_version": "module2.runtime_adjustments.v1",
+  "initial_thread_adjustment": {
+    "kind": "runtime_only_microbenchmark_not_model_results",
+    "concurrent_load": "Original eight-thread causal process was running",
+    "measurements": [
+      {
+        "threads": 1,
+        "seconds_per_linear_plus_copy": 0.004105089624999891
+      },
+      {
+        "threads": 4,
+        "seconds_per_linear_plus_copy": 0.01931478537494513
+      },
+      {
+        "threads": 8,
+        "seconds_per_linear_plus_copy": 0.04872697437497209
+      }
+    ],
+    "change": "Causal run restarted in a fresh directory with one CPU thread; full original journal retained",
+    "scientific_configuration_changed": false,
+    "source_implementation_changed": false,
+    "original_attempt": {
+      "status": "interrupted_for_runtime_configuration",
+      "recorded_at_utc": "2026-10-27T13:02:01Z",
+      "threads": 8,
+      "journal_records_preserved": 24,
+      "completed_method_observation_records": 24,
+      "reason": "High multithread overhead in repeated single-token/cache-copy calculations; representative linear/cache-copy timing favors one thread. No head, dose, direction, data or validation threshold changed.",
+      "used_in_final_summary": false,
+      "replacement_directory": "causal",
+      "replacement_threads": 1,
+      "prior_checks_preserved": true
+    }
+  },
+  "suffix_execution_adjustment": {
+    "status": "interrupted_for_equivalent_execution_optimization",
+    "recorded_at_utc": "2026-10-27T13:23:08Z",
+    "threads": 1,
+    "journal_records_preserved": 240,
+    "unique_prompts_in_journal": 5,
+    "zero_validation_records_preserved": 5,
+    "reason": "Original full-depth execution was slow. Seven architecture tests establish exact single-condition suffix equivalence; optimized real run repeats strict zero and nonzero full-depth checks. Old process stopped to release duplicate model memory.",
+    "used_in_final_summary": false,
+    "replacement_directory": "causal_tail",
+    "scientific_configuration_changed": false
+  },
+  "new_execution_manifest": "causal/execution_optimization.json",
+  "new_execution_source_files": [
+    "src/module3/applicability_tail.py",
+    "scripts/run_module2_causal_tail_pilot.py"
+  ],
+  "scientific_configuration_changed": false,
+  "note": "All partial attempts are retained; final summary uses one complete run only. Execution implementations differ and are separately fingerprinted.",
+  "final_canonical_run": {
+    "status": "completed",
+    "execution_directory": "causal_tail",
+    "canonical_directory": "causal",
+    "relocation_recorded_at_utc": "2026-10-27T14:04:35.863115+00:00",
+    "relocation_after_successful_process_exit": true,
+    "journal_records": 1152,
+    "unique_prompts": 24,
+    "strict_full_depth_comparisons": 120,
+    "scientific_configuration_changed": false,
+    "archived_partial_runs_used": false
+  }
+}

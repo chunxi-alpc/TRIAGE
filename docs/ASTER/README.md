@@ -9,6 +9,7 @@
 1. [设计决策与版本比较](design-update-20261027.zh.md)：哪些修改更合理、哪些保证必须撤下。
 2. [论文工作稿](manuscript.zh.md)：保留 TLBS 与五卷评测，重写三模块方法及理论边界。
 3. [模块一确定版](module1-spec.zh.md)：作为当前模块一的规范，不再采用原子抽取或证据员链条。
+   [模块二实施说明](module2-applicability.zh.md)与[独立预实验](../../experiments/module2_applicability_20261027/README.md)给出实际坐标、分组估计、真实模型测量及限制。
 4. [六项主张与证伪](claims-and-falsification.zh.md)：将表征假设与执行器贡献分开验证。
 5. [实验计划](experiment-plan.zh.md)：M1-only 强基线、同信息比较、校准与选择性干预。
 6. [新版代码](../../src/aster/README.md)、[实现状态](implementation-status.zh.md)与[证据状态](evidence-status.zh.md)：明确已经实现与仍待验证的范围。
@@ -23,3 +24,5 @@
 [旧图](figures/README.md)、[原稿审计](audit.zh.md)及[旧编辑记录](editorial-notes.zh.md)保留历史语境。2026-10-26 的完整主线可通过[固定提交](https://github.com/chunxi-alpc/TRIAGE/tree/781ee863784c60f1f6710ba5eede22bc8ee6b93c)查看。当前方法图使用主稿和首页中的三模块流程图，旧图 2／图 4 不再代表当前算法。
 
 所有经验性结果仍须以真实模型运行、锁定数据和逐例产物支持。源码契约测试不能替代性能、校准或临床有效性评价。
+
+2026-10-27 模块二预实验使用 Qwen3-0.6B-Base、开发树衍生的局部兄弟规则与金标适用性。它独立于本版模块一的分类器验证；结果、图表及未完成范围以[结果报告](../../experiments/module2_applicability_20261027/RESULTS.zh.md)为准。直接分数偏置保留为同目标、同强度的必要算子对照。

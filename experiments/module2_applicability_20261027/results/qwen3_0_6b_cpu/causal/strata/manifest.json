@@ -1,0 +1,72 @@
+{
+  "schema_version": "module2.causal_strata.v1",
+  "status": "completed",
+  "source_run_status": "completed",
+  "model_run": "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/causal",
+  "methods": [
+    "projected_mean",
+    "raw_mean",
+    "random_direction",
+    "reversed_direction",
+    "label_shuffled",
+    "direct_score_bias"
+  ],
+  "taus": [
+    0.0,
+    0.01,
+    0.05,
+    0.1
+  ],
+  "seed": 261027,
+  "bootstrap_draws": 2000,
+  "pairing": "triplet_id+variant; pair accuracy by triplet_id",
+  "weighting": "equal source-guideline means within stratum",
+  "single_guideline_intervals": "omitted; descriptive only",
+  "routing_diagnostic": "oracle_sign * (target attention mass minus matched zero-dose target mass); also positive/negative strata",
+  "calibration_diagnostic": "oracle_sign * fixed-query score mean / actual score RMS; cosine to the signed constant score pattern",
+  "calibration_pooling": "all frozen nonzero doses only when all complete; repeated doses do not add independent inputs",
+  "incomplete_policy": "any incomplete global method/dose suppresses every corresponding stratum estimand",
+  "head_or_dose_reselection": false,
+  "canonical_overall_recomputation": "matched within 1e-12",
+  "strata": [
+    {
+      "stratum": "all",
+      "label": "全部确认观测",
+      "triplets": 24
+    },
+    {
+      "stratum": "action_original",
+      "label": "原始动作映射",
+      "triplets": 12
+    },
+    {
+      "stratum": "action_swapped",
+      "label": "置换动作映射",
+      "triplets": 12
+    },
+    {
+      "stratum": "guideline:1517",
+      "label": "guideline:1517",
+      "triplets": 8
+    },
+    {
+      "stratum": "guideline:2141",
+      "label": "guideline:2141",
+      "triplets": 8
+    },
+    {
+      "stratum": "guideline:636",
+      "label": "guideline:636",
+      "triplets": 8
+    }
+  ],
+  "source_sha256": {
+    "experiments/module2_applicability_20261027/results/data/triplets.jsonl": "22e9fe7c7bdd287fdf6061f99798105baeca8f9851c45b793e0ecbf0bc293ac3",
+    "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/causal/status.json": "79740c5559e6633c0f4fe9904dea9278cc73647a4ff8df5226407ea73a21e53a",
+    "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/causal/plan.json": "af6013ea648f72d628efd7535e27a082f2b6b54269f8beddce315e9c00201476",
+    "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/causal/predictions.jsonl": "9afa772f421cd3d54dc96a5fd620daf08e12b22c934ea7fbc30156d399ee6557",
+    "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/causal/causal_metrics.csv": "599673e0b1b1dcd427445f7ac7463fa5791701c238e20b043e5fba11a609b1dc",
+    "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/causal/paired_comparisons.csv": "6fd4713fca337db44ec767371cc72ab1a341008f73d8332fe8811fdf81671b0d",
+    "/workspace/scratch/40761f294dc9/TRIAGE/scripts/summarize_module2_causal_strata.py": "fb5e5269e64b557ca36fb588b599f01bc85bd77b5bf9d6df808aa89d860d57f0"
+  }
+}
