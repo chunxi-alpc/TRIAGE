@@ -12,3 +12,10 @@
 原稿 SHA-256：`7ebe23aeb250e8690ae777d84bf7067e4b47fa4e206e6d4f4af1f5450e0e060b`。
 
 来源快照用于追溯，不作为正式实验结果发布。正文应使用[论文工作稿](../manuscript.zh.md)，并遵循[证据状态](../evidence-status.zh.md)。
+
+
+## 2026-10-27 三模块讨论来源
+
+[three-module-proposal-20261027.txt](three-module-proposal-20261027.txt)为本次上传附件的逐字节副本。它是中间讨论方案，仍包含原子抽取、医学推断、保形集合及 LTT。用户随后明确将模块一简化，当前确定版见[模块一规格](../module1-spec.zh.md)和[本次设计决策](../design-update-20261027.zh.md)。
+
+该来源稿中的性能数字、内部引用标记、数据规模及强理论表述没有因此获得验证，也不自动进入当前主线。2026-10-26 工作稿的完整状态保存在[固定提交](https://github.com/chunxi-alpc/TRIAGE/tree/781ee863784c60f1f6710ba5eede22bc8ee6b93c)。

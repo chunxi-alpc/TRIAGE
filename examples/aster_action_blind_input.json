@@ -1,0 +1,18 @@
+{
+  "patient": "患者在缓解后约4个月复发，既往未使用H。",
+  "question": "根据指南，应选择方案X还是方案Y？",
+  "options": {"A": "方案X", "B": "方案Y"},
+  "guideline": {
+    "groups": [
+      {
+        "group_id": "G1",
+        "mutually_exclusive": true,
+        "ancestor_conditions": ["患者已复发。"],
+        "rules": [
+          {"rule_id": "R1", "condition": "复发距缓解少于6个月，且既往未使用H。", "action": "方案X"},
+          {"rule_id": "R2", "condition": "复发距缓解至少6个月。", "action": "方案Y"}
+        ]
+      }
+    ]
+  }
+}

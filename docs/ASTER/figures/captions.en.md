@@ -1,5 +1,7 @@
 # English figure captions
 
+> **Historical figure set, 2026-10-26.** Figures 2 and 4 describe the superseded mask/clerk and log-gating method. The current 2026-10-27 method uses action-blind branch classification, offline applicability directions, and signed key translation. See the [current manuscript](../manuscript.zh.md). Figures 1 and 3 remain task/protocol illustrations, not empirical results.
+
 [Figure files and reproduction](README.md) · [LaTeX inclusion](figures.tex) · [Four-page figure-and-caption proof](figures_review.pdf)
 
 These captions accompany the English figures. Figures 1-3 describe a fictional task, proposed operators, and a paired evaluation protocol. Figure 4 evaluates the stated gate formula. No caption reports measured ASTER performance.
@@ -19,4 +21,5 @@ These captions accompany the English figures. Figures 1-3 describe a fictional t
 ## Figure 4
 
 **Analytic effect of the logarithmic action gate.** For fixed branch probabilities, pre-gate attention scores, and other biases, the gate multiplies the competing-to-top action-weight ratio by $m=(p_{\mathrm{comp}}/p_{\mathrm{top}})^\lambda$. (a) The effective strength $\lambda$ is varied directly. (b) The base strength $\lambda_0$ is varied with $\lambda=\lambda_0(p_{\mathrm{top}}-p_{\mathrm{comp}})$. Curves use the declared two-rule distributions $(0.90,0.10)$ and $(0.55,0.45)$, with zero NONE mass. They are exact formula evaluations, not measured attention probabilities, accuracy, or robustness. The plotted quantity is a relative multiplier on unnormalized attention weight, rather than the selected branch's share of total attention.
+
 
