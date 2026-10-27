@@ -1,0 +1,192 @@
+{
+  "version": "p6_user_protocol_v1",
+  "state": "PREPARATION_ONLY_NOT_FROZEN",
+  "source": "User-supplied complete P6 protocol in this conversation",
+  "inference_run": false,
+  "prerequisite": {
+    "P5": "PASS_PRUNE_GATE",
+    "evidence_commit": "b5ce541c17cf5ceb52a77d3179a8e7c7e9222c1f",
+    "evidence_path": "../results/p5/gate_status.json"
+  },
+  "data": {
+    "source": "MEGA-CDP single-turn",
+    "split_unit": "guideline",
+    "allowed_split": "development only",
+    "test_data_allowed": false,
+    "target_pairs": 160,
+    "target_inputs": 320,
+    "min_human_verified_pairs": 120,
+    "min_guidelines": 20,
+    "min_multinode_or_cross_fragment_pairs": 40,
+    "pair_invariants": [
+      "patient facts",
+      "question",
+      "rule conditions"
+    ],
+    "editable_fields": [
+      "target-node actions",
+      "corresponding reference path"
+    ],
+    "reference_requirement": "unique correct path or explicit acceptable answer set",
+    "record_all_exclusions": true,
+    "ai_review_counts_as_human_review": false,
+    "below_minimum_use": "engineering_debug_only",
+    "independent_paper_test_use": false
+  },
+  "freeze_before_methods": [
+    "case pairs",
+    "full guidelines",
+    "rule spans",
+    "reference paths",
+    "scorer implementation and config",
+    "decoding and output format",
+    "sampling and split manifest"
+  ],
+  "methods": {
+    "no_external_applicability": [
+      "Vanilla",
+      "Patient-First",
+      "Prompt-Repeat",
+      "Full-Guide SEKA or PASTA",
+      "ASTER-self"
+    ],
+    "shared_blind_result": [
+      "TS-Note",
+      "TS-Prune",
+      "TS-SEKA",
+      "ASTER-self"
+    ],
+    "optional": [
+      "TS-Rerank-k8",
+      "Gold-Prune",
+      "Gold-ASTER"
+    ],
+    "external_clerk_optional": [
+      "ASTER-full",
+      "Clerk-Note",
+      "Clerk-Prune"
+    ],
+    "clerk_information_must_match": [
+      "atomic states",
+      "confidence",
+      "evidence locations"
+    ],
+    "gold_controls_in_predictive_ranking": false,
+    "same_source_guide_patient_question": true,
+    "prune_exception": "TS-Prune receives the same source guideline then applies its specified pruning transform",
+    "generation_budget_decode_format_equal": true
+  },
+  "shared_cache": {
+    "blind_runs_per_unique_input": 1,
+    "consumers": [
+      "TS-Note",
+      "TS-Prune",
+      "TS-SEKA",
+      "ASTER-self"
+    ],
+    "required_payload": [
+      "branch probabilities",
+      "branch IDs",
+      "evidence locations",
+      "model/tokenizer identifiers",
+      "input and decoding hashes"
+    ],
+    "judgment_stage_comparison": "same judgment and evidence reused across execution variants within each judgment condition",
+    "score_key": [
+      "case",
+      "output",
+      "reference path",
+      "scorer configuration"
+    ],
+    "score_once_per_unique_key": true
+  },
+  "sequence": [
+    "prepare and freeze data/scorer",
+    "20-pair engineering smoke",
+    "fixed blind/evidence: no execution guidance, matched zero intensity, mild gating, no-green",
+    "select stable configuration",
+    "complete information-matched baselines",
+    "judgment stage x execution stage 2x2 ablation"
+  ],
+  "smoke_pairs": 20,
+  "lambda_candidates": [
+    0.5,
+    1,
+    2
+  ],
+  "simultaneous_search_layers_clerk_segmenter_intensity": false,
+  "metrics": {
+    "separate_native_decoy": [
+      "PathCost",
+      "BFR",
+      "DA"
+    ],
+    "paired_native_vs_vanilla": [
+      "correct_to_incorrect",
+      "incorrect_to_correct"
+    ],
+    "quality": [
+      "repetition_loop_rate",
+      "output_cap_rate",
+      "parse_failure_rate",
+      "rule_span_semantic_accuracy",
+      "usable_rule_coverage",
+      "actual_correct_span_intervention_coverage"
+    ],
+    "cost": [
+      "end_to_end_latency",
+      "prefill_tokens",
+      "generated_tokens",
+      "clerk_cost_if_used"
+    ],
+    "parse_failures_count_as_failures": true,
+    "statistics": "paired bootstrap clustered by guideline; 160 pairs, not 320 independent patients"
+  },
+  "gates": {
+    "valid_pairs_min": 120,
+    "guidelines_min": 20,
+    "complex_pairs_min": 40,
+    "actual_intervention_coverage_min": 0.85,
+    "human_target_span_accuracy_min": 0.9,
+    "repetition_loop_rate_max": 0.03,
+    "output_cap_rate_max": 0.02,
+    "parse_failure_rate_excess_over_vanilla_max": 0.01,
+    "native_pathcost_increase_max": 0.01,
+    "native_bfr_decrease_max": 0.02,
+    "decoy_da_decrease_min": 0.08,
+    "decoy_bfr_increase_min": 0.05,
+    "aster_decoy_bfr_over_best_ts_min": 0.03,
+    "latency_ratio_max_for_low_cost_claim": 1.5
+  },
+  "decisions": {
+    "data_or_mapping_failure": "repair data or mapping; no method validation claim",
+    "generation_failure": "disable green, narrow layers, lower intensity in the prescribed diagnostic sequence; stop execution-guidance route if persistent",
+    "native_harm": "do not trade native harm for decoy gain",
+    "same_information_tie": "no attention-superiority claim; retain diagnostic/mechanistic scope",
+    "cost_failure": "remove low-cost claim and reassess application value",
+    "all_gates_pass": "proceed to separately held-out guidelines only under the formal-experiment protocol"
+  },
+  "runtime": {
+    "host": "115",
+    "environment": "gcx261014",
+    "allowed_gpus": [
+      0,
+      1
+    ],
+    "run_locally": false,
+    "report_before_launch": [
+      "GPU allocation",
+      "estimated VRAM",
+      "scale",
+      "estimated runtime"
+    ],
+    "long_context_vram_and_time": "profile on server before full launch; P5 resource use is not a P6 estimate"
+  },
+  "pending": [
+    "server execution access",
+    "candidate extraction and exclusion ledger",
+    "human review",
+    "scorer inspection/freeze",
+    "multi-step generation and cache/stage-switch validation"
+  ]
+}
