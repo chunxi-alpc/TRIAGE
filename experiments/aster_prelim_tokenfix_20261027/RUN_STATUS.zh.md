@@ -8,8 +8,8 @@
 | P2 | PASS_NEUTRAL_GATE |
 | P3 | COMPLETED |
 | P4 | PASS |
-| P5 | RUNNING |
-| P6 | NOT_RUN |
+| P5 | PASS_PRUNE_GATE |
+| P6 | READY_FOR_DATA_PREPARATION |
 
 NC/IC/AC/SW 各 169 例，CS 17 例；4 个开发树。两模型均使用 FP32。测试集推理为 0。
 
@@ -17,4 +17,4 @@ NC/IC/AC/SW 各 169 例，CS 17 例；4 个开发树。两模型均使用 FP32�
 
 P6 不自动跳过用户要求的人工核验和数据规模门槛；前置通过后由定时任务继续准备。
 
-更新时间（UTC）：2026-10-27T11:50:40.917019+00:00
+更新时间（UTC）：2026-10-27T13:00:26.725823+00:00

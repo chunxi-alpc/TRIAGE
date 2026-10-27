@@ -1,0 +1,53 @@
+{
+  "P5": "PASS_PRUNE_GATE",
+  "models": {
+    "qwen": "completed",
+    "llama": "completed"
+  },
+  "gold_gate_comparison": {
+    "qwen": {
+      "best_development_gate": "gate_1",
+      "prune_minus_best_gate_pp": {
+        "SW": -1.7751479289940875,
+        "AC": 0.0
+      },
+      "prune_minus_hard_gate_pp": {
+        "SW": 0.0,
+        "AC": 0.0
+      },
+      "gate_matches_prune_within_2pp": true,
+      "finite_gate_matches_prune_within_2pp": true,
+      "hard_gate_includes_position_compaction": true,
+      "selection_is_development_only": true
+    },
+    "llama": {
+      "best_development_gate": "gate_0.5",
+      "prune_minus_best_gate_pp": {
+        "SW": 1.1834319526627297,
+        "AC": -0.5917159763313578
+      },
+      "prune_minus_hard_gate_pp": {
+        "SW": 0.0,
+        "AC": 0.0
+      },
+      "gate_matches_prune_within_2pp": true,
+      "finite_gate_matches_prune_within_2pp": true,
+      "hard_gate_includes_position_compaction": true,
+      "selection_is_development_only": true
+    }
+  },
+  "green_AC": [
+    {
+      "model": "qwen",
+      "AC_gate_8_accuracy_pct": 81.65680473372781,
+      "AC_gate_8_green_accuracy_pct": 81.65680473372781
+    },
+    {
+      "model": "llama",
+      "AC_gate_8_accuracy_pct": 72.18934911242603,
+      "AC_gate_8_green_accuracy_pct": 70.41420118343196
+    }
+  ],
+  "P6": "NOT_RUN",
+  "test_inference_count": 0
+}
