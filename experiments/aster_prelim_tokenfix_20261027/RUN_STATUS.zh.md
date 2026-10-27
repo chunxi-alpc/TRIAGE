@@ -9,7 +9,7 @@
 | P3 | COMPLETED |
 | P4 | PASS |
 | P5 | PASS_PRUNE_GATE |
-| P6 | DATA_DRAFTING_NOT_P6_METHOD_RUN |
+| P6 | DATA_DRAFTING_V3_NOT_P6_METHOD_RUN |
 
 P1–P5：NC/IC/AC/SW 各 169 例，CS 17 例；4 个开发树。两模型均使用 FP32。测试集推理为 0。P6 的数据准备和资源另见 p6/README.zh.md。
 
@@ -17,4 +17,4 @@ P1–P5：NC/IC/AC/SW 各 169 例，CS 17 例；4 个开发树。两模型均使
 
 P6 不自动跳过用户要求的人工核验和数据规模门槛；前置通过后由定时任务继续准备。
 
-更新时间（UTC）：2026-10-27T15:09:24.062355+00:00
+更新时间（UTC）：2026-10-27T16:03:06.358400+00:00
