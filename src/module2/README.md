@@ -1,8 +1,22 @@
-# 模块二：注意力头定位与适用性干预研究
+# 模块二：离线适用性子空间学习
 
-模块二包含主流程的候选查询头定位，以及 CARE 的独立子空间实验。**最新研究结果是 2026-10-19 的有符号适用性诊断；主流程仍使用既有的查询头定位实现与校准组件。**
+**2026-10-27 新接口：开发树最小对 → 配对差分子空间 → 留出选头 → 冻结键位移。** 新接口不接收模块一的预测、匹配度或置信度。模块一仅在在线调用模块三时确定规则与系数。完整公式及限制见[方法说明](../../docs/ASTER/module2-applicability.zh.md)，实际实验见[独立报告](../../experiments/module2_applicability_20261027/README.md)。
 
-## 当前实现
+| 新接口 | 职责 |
+|---|---|
+| [minimal_pairs.py](minimal_pairs.py) | 官方开发树的同父叶兄弟、正负中性三元组、处置与顺序平衡、按原指南划分与独立逻辑审计 |
+| [extraction.py](extraction.py) | Qwen3 归一化后、旋转前的处置键；实际位置下的有效查询；GQA 汇总与严格词元对齐 |
+| [applicability.py](applicability.py) | 按指南等权的非中心二阶矩、投影均值位移、留出读取与空集合选头；仅依赖 NumPy |
+| [在线缓存位移](../module3/applicability_shift.py) | 在首答案查询前修改指定规则缓存键；支持直接分数偏置与实际注意力质量诊断 |
+| [表示预实验](../../scripts/run_module2_preexperiment.py) · [因果预实验](../../scripts/run_module2_causal_pilot.py) | 分别保存模型指纹、划分、冻结选择、原始表示或预测和同强度对照 |
+
+输出的位移是自然的投影后正负锚点差，不是单位范数向量，也不保证每个查询都同向读取。第二矩阵的谱识别变化子空间；适用性符号来自均值和独立验证。新的 `module2.applicability.v2` 不能传入旧 `module2.v1` 流水线；历史接口通过延迟导入保留，复现入口不变。
+
+## 历史实现与结果
+
+以下查询头定位及 CARE 结果保留原实验语境。它们不构成新接口的已完成验证。
+
+### 旧查询头定位实现
 
 | 入口 | 职责 |
 |---|---|
@@ -18,7 +32,7 @@
 
 历史校准依据保存在 [calibration_pairs.json](../../results/module2/calibration_pairs.json) 和 [report.json](../../results/module2/report.json)。主流程模型配置见 [models.json](../../configs/models.json)。这些小规模适用性探针的定位分数不代表完整动作质量或临床效果。
 
-## 最新研究结论
+### 2026-10-19 历史研究结论
 
 [2026-10-19 有符号诊断](../../experiments/care_module2_signed_20261019/README.md) 使用固定 Qwen3-4B-Base，在 384 个模拟病例、192 对、12 个留出规则家族上比较干预方法。无干预、原始 B4、有符号 B4、有符号均值位移、直接分数偏置的成对准确率依次为 **37.50%、38.54%、39.06%、39.06%、40.10%**。成对准确率要求适用与不适用两例均答对，完整区间见[保存的指标表](../../experiments/care_module2_signed_20261019/results/analysis/metrics_ci.csv)。
 

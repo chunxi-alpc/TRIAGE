@@ -7,6 +7,10 @@
 - [生成论文图稿](generate_aster_figures.py)：使用方式见[图稿说明](../docs/ASTER/figures/README.md)。
 - [核对原稿占位表](audit_aster_placeholders.py)：只检查已显示数字的一致性，不执行模型评测。
 
+## 离线模块二预实验（2026-10-27）
+
+[构造最小对](prepare_module2_pairs.py) → [真实模型表示抽取与选头](run_module2_preexperiment.py) → [冻结头的因果剂量对照](run_module2_causal_pilot.py) → [实测绘图](plot_module2_preexperiment.py)。输入为显式指定的官方开发树和本地 Qwen3 权重，不调用模块一。运行参数、状态和局限见[独立实验](../experiments/module2_applicability_20261027/README.md)。这组脚本与下面的历史 V6／A1 流水线分开；新模块二离线学习不再以 A1 预测作为标签。
+
 ## 历史脚本索引原文
 
 [项目首页](../README.md) · [运行说明](../docs/RUNNING.md) · [实验索引](../experiments/README.md)

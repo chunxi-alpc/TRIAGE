@@ -2,10 +2,12 @@
 
 [主线索引](README.md) · [历史支线](../BRANCHES.md)
 
-本次任务整理文档和图稿，不实现或运行新的 ASTER 推理系统。方法已在论文工作稿中给出设计；不能据此宣称仓库的旧三模块已等价实现新方法。
+2026-10-26 的主线整理仅涉及文档与图稿。2026-10-27 新增独立的离线模块二和 Qwen3 缓存位移适配器，见[方法说明](module2-applicability.zh.md)与[预实验记录](../../experiments/module2_applicability_20261027/README.md)。这仍不是完整 ASTER 阶段掩码、证据员和端到端系统的验收；旧三模块也未被自动转换为新方法。
 
 | 部分 | 仓库已有入口 | 与本稿的关系 |
 | --- | --- | --- |
+| 离线适用性子空间 | [模块二](../../src/module2/README.md) · [预实验](../../experiments/module2_applicability_20261027/README.md) | 新增开发树最小对、旋转前键差分、留出选头和空集合拒绝；不使用模块一伪标签 |
+| 新缓存位移适配器 | [applicability_shift.py](../../src/module3/applicability_shift.py) | 首答案查询前编辑指定规则键；与直接分数偏置对照；Qwen3 架构验证，不等于完整 ASTER 实现 |
 | TRIAGE／CARE 模块一、二、三 | [模块一](../../src/module1/README.md)、[模块二](../../src/module2/README.md)、[模块三](../../src/module3/README.md) | 历史适用性、定位与投影干预实现；保留原接口和复现用途 |
 | 旧统一流水线 | [流水线说明](../../src/pipeline/README.md) | 原版本契约不因文档主线调整而自动变成 ASTER 两阶段协议 |
 | ASTER 早期反事实实验 | [2026-10-22 目录](../../experiments/aster_medguide_20261022/README.md) | 既有 A/B/C 构造与实验入口；不是本稿五卷、证据员与阶段控制的完整验收 |

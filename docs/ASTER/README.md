@@ -6,6 +6,7 @@
 
 ## 阅读顺序
 
+0. [模块二候选扩展（2026-10-27）](module2-applicability.zh.md)：离线适用性子空间、科学限制及与直接门控的比较；[独立预实验](../../experiments/module2_applicability_20261027/README.md)记录实际完成范围。
 1. [论文工作稿](manuscript.zh.md)：现象 → 机制假设 → 方法 → 评测。
 2. [六项主张与证伪条件](claims-and-falsification.zh.md)：每项主张都必须允许被否定。
 3. [实验计划与指标](experiment-plan.zh.md)：五卷配对、同信息与匹配成本对照、统计和归档。

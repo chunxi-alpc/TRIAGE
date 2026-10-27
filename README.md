@@ -6,6 +6,12 @@
 
 [主线文档](docs/ASTER/README.md) · [论文工作稿](docs/ASTER/manuscript.zh.md) · [主张与证伪](docs/ASTER/claims-and-falsification.zh.md) · [实验计划](docs/ASTER/experiment-plan.zh.md) · [图稿](docs/ASTER/figures/README.md) · [旧支线索引](docs/BRANCHES.md)
 
+## 模块二更新：离线适用性子空间（2026-10-27）
+
+新增[离线适用性子空间学习与可控规则读取](docs/ASTER/module2-applicability.zh.md)及[独立预实验](experiments/module2_applicability_20261027/README.md)。模块二只读取开发树衍生、代码验证的适用性最小对；模块一的当前病例分布只在模块三决定编辑对象和强度。学习坐标固定为键归一化之后、旋转位置编码之前，选头同时检查留出指南的可分性、读取符号和子空间稳定性，允许没有合格头。
+
+这是 ASTER 的候选执行算子。直接对数门控继续作为主线与必要对照。正的键位移系数并不保证所有查询的注意力分数增加；是否值得替换或补充直接门控，须由同提示、同位置、匹配分数扰动的因果比较决定。新实验的实际状态、模型与证据范围见独立报告，不能沿用历史 4B 数字作为新结果。
+
 ## 研究问题与方法
 
 条件化指南要求模型先判断“哪条分支适用”，再执行该分支的处置。本文拟检验：不适用兄弟分支上的熟悉处置是否会反过来影响分支判断。这一待验证现象称为处置先行的分支选择（TLBS）。
