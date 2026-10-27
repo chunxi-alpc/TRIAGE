@@ -97,7 +97,7 @@ def heatmaps(rows, selection, audit, model_name, output):
         ("D", "fit_coherence", "select", "Fitting: mean-shift coherence", "Coherence", "YlGnBu"),
     ]
     fig, axes = plt.subplots(2, 2, figsize=(8.5, 5.85))
-    fig.subplots_adjust(left=.075, right=.96, bottom=.205, top=.81, hspace=.65, wspace=.40)
+    fig.subplots_adjust(left=.075, right=.90, bottom=.205, top=.81, hspace=.65, wspace=.40)
     fig.suptitle(f"{model_name} | Applicability key diagnostics", x=.075, ha="left", y=.975, fontsize=12.5, weight="medium")
     counts = audit["partitions"]
     subtitle = (f"{audit['source_guidelines']} development guidelines: "
@@ -204,10 +204,16 @@ def paired_shifts(rows, selection, audit, model_name, output, eigenvalues):
         ax.scatter(negatives[:, 0], negatives[:, 1], c=NEGATIVE, s=15, edgecolors="white", linewidths=.25, alpha=.85, zorder=3)
         ax.scatter(positives[:, 0], positives[:, 1], c=POSITIVE, s=15, edgecolors="white", linewidths=.25, alpha=.85, zorder=4)
         mean_negative, mean_positive = group_mean(negatives, groups), group_mean(positives, groups)
-        ax.annotate("", xy=mean_positive, xytext=mean_negative,
-                    arrowprops={"arrowstyle": "-|>", "lw": 2.3, "color": MEAN,
-                                "shrinkA": 0., "shrinkB": 0., "mutation_scale": 12}, zorder=6)
-        ax.scatter(*mean_negative, c=MEAN, marker="s", s=12, zorder=5)
+        mean_shift = mean_positive - mean_negative
+        # Data-coordinate arrows preserve tiny measured means. A point-sized
+        # annotation arrowhead would visually inflate these short displacements.
+        ax.quiver([mean_negative[0]], [mean_negative[1]], [mean_shift[0]], [mean_shift[1]],
+                  angles="xy", scale_units="xy", scale=1, pivot="tail", color=MEAN,
+                  width=.006, headwidth=3., headlength=4., headaxislength=3.5,
+                  minshaft=1., minlength=0., zorder=6)
+        ax.text(.98, .97, f"Mean shift: ({mean_shift[0]:.3f}, {mean_shift[1]:.3f})",
+                transform=ax.transAxes, ha="right", va="top", fontsize=6.9, color=MEAN,
+                bbox={"facecolor": "white", "edgecolor": "none", "alpha": .85, "pad": 1.5})
         status = "accepted" if head in accepted else "candidate"
         ax.set_title(f"{'ABCD'[panel]}   Layer {head[0]} / KV head {head[1]} ({status})", loc="left", fontsize=9.4, pad=8)
         spectrum = np.asarray(eigenvalues[head], dtype=float)
@@ -367,12 +373,152 @@ def causal_dose_response(rows, plan, model_name, output, coverage):
     return save_figure(fig, output, "causal_dose_response"), missing, coverage_summary
 
 
+def difference_vectors(results, selection, audit, model_name, output, operators, *, vector_csv=None):
+    """Subtract paired keys in the frozen fit basis, without fitting new axes."""
+    heads = [(int(row["layer"]), int(row["kv_head"])) for row in selection["selected_heads"]]
+    if not heads:
+        return [], {"status": "not_generated", "reason": "no accepted heads"}, {}
+    if len(heads) > 4:
+        raise ValueError("Difference-vector figure supports all accepted heads only when K <= 4")
+    metadata_path = results / "extraction_metadata.json"
+    metadata = json.loads(metadata_path.read_text())["metadata"]
+    confirm = [(index, row) for index, row in enumerate(metadata) if row["split"] == "confirm"]
+    confirm_by_id = {row["id"]: row for _, row in confirm}
+    if not confirm or len(confirm_by_id) != len(confirm):
+        raise ValueError("Expected distinct confirmation triplet identifiers")
+    sources = {"difference_extraction_metadata": metadata_path}
+    operator_hash = sha256(results / "operators.npz")
+    fingerprint_hash = sha256(results / "extraction_fingerprint.json")
+    if vector_csv is None:
+        path = results / "extraction.npz"
+        sources["difference_extraction_arrays"] = path
+        with np.load(path, allow_pickle=False) as extraction:
+            positive, negative = extraction["keys_positive"], extraction["keys_negative"]
+        if positive.shape != negative.shape or len(positive) != len(metadata):
+            raise ValueError("Paired extraction arrays and metadata do not align")
+        rows = []
+        for layer, head in heads:
+            basis = operators["basis"][layer, head]
+            delta = operators["delta"][layer, head]
+            for index, identity in confirm:
+                difference = positive[index, layer, head].astype(float) - negative[index, layer, head].astype(float)
+                projected = difference @ basis[:, :2]
+                rows.append({"id": identity["id"], "group_id": identity["group_id"],
+                    "layer": layer, "kv_head": head, "x": float(projected[0]),
+                    "y": float(projected[1]) if len(projected) > 1 else 0.,
+                    "full_space_alignment": float(difference @ delta),
+                    "operator_sha256": operator_hash, "extraction_fingerprint_sha256": fingerprint_hash})
+    else:
+        rows = read_csv(vector_csv)
+        sources["difference_projection_csv"] = vector_csv
+    by_head = defaultdict(list)
+    identities = set()
+    for row in rows:
+        head = (int(row["layer"]), int(row["kv_head"]))
+        key = (head, row["id"])
+        if key in identities or head not in heads or row["id"] not in confirm_by_id:
+            raise ValueError("Unexpected or duplicate saved difference vector")
+        identities.add(key)
+        if row["group_id"] != confirm_by_id[row["id"]]["group_id"]:
+            raise ValueError("Difference vector source group differs from extraction metadata")
+        if row["operator_sha256"] != operator_hash or row["extraction_fingerprint_sha256"] != fingerprint_hash:
+            raise ValueError("Difference vector coordinates do not match the frozen source artifacts")
+        by_head[head].append({**row, "layer": head[0], "kv_head": head[1],
+                              **{name: number(row[name]) for name in ("x", "y", "full_space_alignment")}})
+    if identities != {(head, identifier) for head in heads for identifier in confirm_by_id}:
+        raise ValueError("Difference-vector figure must include every accepted head and confirmation pair")
+    # A small numeric export lets this exact figure be replayed without the
+    # much larger activation archive. Hashes retain its original coordinates.
+    csv_path = output / "paired_difference_vectors.csv"
+    with csv_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
+        writer.writeheader()
+        writer.writerows(rows)
+    groups = sorted({row["group_id"] for _, row in confirm})
+    colors = ["#5B8DB8", "#D6A15F", "#62A69B", "#A184B5", "#BA8588"]
+    if len(groups) > len(colors):
+        raise ValueError("This small-pilot figure needs at most five identifiable source groups")
+    group_colors = dict(zip(groups, colors))
+    vectors, summaries = {}, []
+    absolute_extent = 0.
+    for layer, head in heads:
+        head_rows = by_head[layer, head]
+        values = np.array([[row["x"], row["y"]] for row in head_rows])
+        group_ids = [row["group_id"] for row in head_rows]
+        fit_vector = operators["basis"][layer, head, :, :2].T @ operators["delta"][layer, head]
+        if len(fit_vector) < 2:
+            fit_vector = np.pad(fit_vector, (0, 2 - len(fit_vector)))
+        confirm_mean = group_mean(values, group_ids)
+        same_direction = float(group_mean(np.array([row["full_space_alignment"] > 0 for row in head_rows], float), group_ids))
+        absolute_extent = max(absolute_extent, float(np.abs(values).max()),
+                              float(np.abs(fit_vector).max()), float(np.abs(confirm_mean).max()))
+        vectors[layer, head] = (values, group_ids, fit_vector, confirm_mean, same_direction)
+        summaries.append({"layer": layer, "kv_head": head, "confirmation_triplets": len(head_rows),
+                          "confirmation_guidelines": len(set(group_ids)), "same_direction_fraction": same_direction,
+                          "fit_delta_components": fit_vector.tolist(), "confirmation_mean_components": confirm_mean.tolist()})
+    if absolute_extent <= 0:
+        raise ValueError("Accepted operators unexpectedly have zero projected magnitude")
+    limit = absolute_extent * 1.15
+    fit_color, confirm_color = "#202832", "#AA3377"
+    fig, axes = plt.subplots(2, 2, figsize=(7.6, 8.2))
+    fig.subplots_adjust(left=.12, right=.96, bottom=.22, top=.80, hspace=.60, wspace=.38)
+    fig.suptitle(f"{model_name} | Paired difference vectors", x=.12, ha="left", y=.975,
+                 fontsize=12, weight="medium")
+    fig.text(.12, .932, "All screen-accepted heads in frozen training-difference coordinates", fontsize=9.2, color="#485261")
+    fig.text(.12, .89, f"{len(confirm)} paired comparisons / {len(groups)} confirmation guidelines; "
+             "complete counterbalancing retained", fontsize=8.1, color="#485261")
+    for panel, (ax, head) in enumerate(zip(axes.flat, heads)):
+        values, group_ids, fit_vector, confirm_mean, same_direction = vectors[head]
+        group_ids = np.asarray(group_ids)
+        ax.axhline(0, color="#AEB6BF", lw=.7, zorder=1)
+        ax.axvline(0, color="#AEB6BF", lw=.7, zorder=1)
+        for group, color in group_colors.items():
+            endpoints = values[group_ids == group]
+            ax.quiver(np.zeros(len(endpoints)), np.zeros(len(endpoints)), endpoints[:, 0], endpoints[:, 1],
+                      angles="xy", scale_units="xy", scale=1, pivot="tail", color=color,
+                      width=.003, headwidth=3., headlength=4., headaxislength=3.5,
+                      minshaft=1., minlength=0., alpha=.72, zorder=2)
+            ax.scatter(endpoints[:, 0], endpoints[:, 1], color=color, s=10, alpha=.85, linewidths=0., zorder=3)
+        for endpoint, color, marker in ((fit_vector, fit_color, "D"), (confirm_mean, confirm_color, "s")):
+            ax.quiver([0.], [0.], [endpoint[0]], [endpoint[1]], angles="xy", scale_units="xy", scale=1,
+                      pivot="tail", color=color, width=.008, headwidth=3.2, headlength=4.5,
+                      headaxislength=4., minshaft=1., minlength=0., zorder=5)
+            ax.scatter(*endpoint, color=color, s=18, marker=marker, edgecolor="white", linewidth=.3, zorder=6)
+        ax.set_xlim(-limit, limit)
+        ax.set_ylim(-limit, limit)
+        ax.set_aspect("equal", adjustable="box")
+        ax.set_title(f"{'ABCD'[panel]}   Layer {head[0]} / KV head {head[1]}\nSame-direction fraction: {100 * same_direction:.1f}%",
+                     loc="left", fontsize=9.1, pad=8)
+        ax.set_xlabel("Difference component 1", fontsize=8.2)
+        ax.set_ylabel("Difference component 2", fontsize=8.2)
+        ax.grid(color="#E8EBEF", lw=.5, zorder=0)
+        ax.tick_params(labelsize=7.2)
+    for ax in list(axes.flat)[len(heads):]:
+        ax.set_visible(False)
+    group_handles = [Line2D([], [], color=color, lw=1.1, marker="o", markersize=3,
+                            label=group.replace("guideline:", "Guideline ")) for group, color in group_colors.items()]
+    mean_handles = [Line2D([], [], color=fit_color, lw=2.1, marker="D", markersize=3.5, label=r"Fitting $\Delta$"),
+                    Line2D([], [], color=confirm_color, lw=2.1, marker="s", markersize=3.5, label="Confirmation mean")]
+    fig.legend(handles=group_handles, loc="lower center", bbox_to_anchor=(.54, .15),
+               ncol=min(3, len(groups)), frameon=False, fontsize=8., handlelength=1.8, columnspacing=1.9)
+    fig.legend(handles=mean_handles, loc="lower center", bbox_to_anchor=(.54, .116),
+               ncol=2, frameon=False, fontsize=8., handlelength=1.8, columnspacing=2.5)
+    fig.text(.12, .09, "Each colored arrow is one confirmation pair, from zero to the projected applicable-minus-inapplicable key difference.", fontsize=7.)
+    fig.text(.12, .063, "Black: fitted shift. Purple: guideline-weighted confirmation mean. Common true scale and equal aspect; no arrow magnification.", fontsize=7.)
+    fig.text(.12, .036, "Axes are head-specific and fitted only on fitting guidelines. Same-direction fractions use the full fitted shift.", fontsize=7., color="#485261")
+    return save_figure(fig, output, "paired_difference_vectors") + [csv_path.name], {
+        "status": "generated", "heads": summaries, "guideline_colors": group_colors,
+        "common_symmetric_axis_limit": limit, "projection_csv_sha256": sha256(csv_path)}, sources
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--results", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--causal-results", type=Path,
                         help="Optional completed causal result directory; otherwise discover RESULTS/causal")
+    parser.add_argument("--difference-vectors", type=Path,
+                        help="Replay the accepted-head difference figure from its previously exported CSV")
     args = parser.parse_args()
     inputs = {name: args.results / name for name in (
         "head_metrics.csv", "paired_projection.csv", "selection.json", "data_audit.json", "extraction_fingerprint.json", "status.json", "operators.npz")}
@@ -394,13 +540,17 @@ def main():
     with np.load(inputs["operators.npz"], allow_pickle=False) as operators:
         files2, pairs = paired_shifts(read_csv(inputs["paired_projection.csv"]), selection, audit, model_name,
                                      args.output, operators["eigenvalues"])
+        files_difference, differences, difference_inputs = difference_vectors(args.results, selection, audit,
+            model_name, args.output, operators, vector_csv=args.difference_vectors)
+    inputs.update(difference_inputs)
     metadata = {
         "schema_version": "module2.figures.v1", "model": fingerprint["model_id"],
         "model_revision": fingerprint["revision"], "source_inputs": {
             name: {"file": str(path), "sha256": sha256(path)} for name, path in inputs.items()},
-        "plot_script_sha256": sha256(__file__), "generated_files": files1 + files2,
+        "plot_script_sha256": sha256(__file__), "generated_files": files1 + files2 + files_difference,
         "rendering_versions": {"matplotlib": matplotlib.__version__, "numpy": np.__version__},
         "head_metrics": metrics, "projection_heads": pairs,
+        "difference_vectors": differences,
         "evidence_scope": "development-only exploratory representation pilot",
         "attention_mask": "ordinary causal; no ASTER BLIND/REVEAL masks",
         "pair_axes": "fitting-set uncentered paired-difference eigenspace; no confirmation fitting",
