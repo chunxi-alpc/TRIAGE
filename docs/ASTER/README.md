@@ -1,22 +1,25 @@
 # ASTER 主线文档
 
-[项目首页](../../README.md) · [全部文档](../README.md) · [旧支线](../BRANCHES.md)
+[项目首页](../../README.md) · [文档导航](../README.md) · [历史支线](../BRANCHES.md)
 
-**主线确立日期：2026-10-26。当前状态：研究方案与论文工作稿。** 本次整理明确研究方向、证伪条件和图稿，并未新增模型实验结果。
+**当前版本：2026-10-27。** ASTER 更新为 *Action-blind Selection, Then Eigen-subspace Re-routing*。模块一确定为同一骨干的处置盲分支分类器；三模块分别判断适用性、离线学习方向和在线编辑规则键。
 
 ## 阅读顺序
 
-1. [论文工作稿](manuscript.zh.md)：现象 → 机制假设 → 方法 → 评测。
-2. [六项主张与证伪条件](claims-and-falsification.zh.md)：每项主张都必须允许被否定。
-3. [实验计划与指标](experiment-plan.zh.md)：五卷配对、同信息与匹配成本对照、统计和归档。
-4. [证据状态与投稿检查](evidence-status.zh.md)：哪些内容尚未得到证据支持。
-5. [原稿审计](audit.zh.md)：算术、分母、理论和措辞问题。
-6. [引用核验清单](references-to-verify.zh.md)：待补全的正式文献条目。
-7. [图稿与图注](figures/README.md)：四幅可编辑矢量图及重绘命令。
-8. [实现状态](implementation-status.zh.md)：论文设计与既有代码的边界。
+1. [设计决策与版本比较](design-update-20261027.zh.md)：哪些修改更合理、哪些保证必须撤下。
+2. [论文工作稿](manuscript.zh.md)：保留 TLBS 与五卷评测，重写三模块方法及理论边界。
+3. [模块一确定版](module1-spec.zh.md)：作为当前模块一的规范，不再采用原子抽取或证据员链条。
+4. [六项主张与证伪](claims-and-falsification.zh.md)：将表征假设与执行器贡献分开验证。
+5. [实验计划](experiment-plan.zh.md)：M1-only 强基线、同信息比较、校准与选择性干预。
+6. [新版代码](../../src/aster/README.md)、[实现状态](implementation-status.zh.md)与[证据状态](evidence-status.zh.md)：明确已经实现与仍待验证的范围。
+7. [引用核验](references-to-verify.zh.md)：已有原始来源与尚未核对的项目。
 
-## 原始输入与编辑原则
+模块一输出只进入模块三；其开发集输出可用于温度及策略选择，不用于拟合模块二子空间。取消保形预测和 LTT 后，主方法没有有限样本覆盖或伤害认证结论。
 
-[原稿](sources/manuscript-20261026.txt)按上传字节完整保留；[六项主张及投稿要求](sources/user-claims-20261026.md)按本次消息整理保存。原稿含占位结果和无法直接解析的引文标记，仅作为来源快照。主线稿将经验性结论改写为待验证假设，将结果表改为待测模板。
+## 来源与历史
 
-图中不绘制占位性能。解析曲线必须明示假定参数、公式及适用范围。后续实测结果的原始预测、分母、划分、模型指纹、配置和统计程序必须一并保存。
+[2026-10-26 原稿](sources/manuscript-20261026.txt)与[六项原始主张](sources/user-claims-20261026.md)继续保存。新增[三模块讨论稿来源](sources/three-module-proposal-20261027.txt)记录本次上传的中间方案；其中的原子抽取、保形预测、认证及部分理论强断言已被本次确定版修改，不能将来源稿当作现行规范。
+
+[旧图](figures/README.md)、[原稿审计](audit.zh.md)及[旧编辑记录](editorial-notes.zh.md)保留历史语境。2026-10-26 的完整主线可通过[固定提交](https://github.com/chunxi-alpc/TRIAGE/tree/781ee863784c60f1f6710ba5eede22bc8ee6b93c)查看。当前方法图使用主稿和首页中的三模块流程图，旧图 2／图 4 不再代表当前算法。
+
+所有经验性结果仍须以真实模型运行、锁定数据和逐例产物支持。源码契约测试不能替代性能、校准或临床有效性评价。

@@ -1,5 +1,7 @@
 # ASTER paper figures
 
+> **版本提示（2026-10-27）：本目录保存 2026-10-26 图稿。** 图 2 的阶段掩码／证据员与图 4 的对数门控曲线已退出当前主方法；不要将其插入新稿作为现行算法图。图 1 与图 3 仍可说明任务与五卷协议。当前三模块流程图见[论文工作稿](../manuscript.zh.md)与[项目首页](../../../README.md)。以下尺寸、公式、图注和复现命令均按旧版解释。
+
 [Mainline index](../README.md) · [Working manuscript](../manuscript.zh.md) · [English captions](captions.en.md) · [LaTeX inclusion](figures.tex)
 
 The four figures cover the proposed failure mode, ASTER's computational operators, the paired counterfactual protocol, and an analytic gate relationship. Figures 1-3 are design schematics; Figure 4 evaluates declared mathematical inputs. They contain no measured ASTER outcomes.
@@ -86,3 +88,4 @@ These original papers informed operator placement, matched-case comparison, and 
 ## Figures that await empirical results
 
 Blind/visible comparisons, action-familiarity effects, causal interventions, noise robustness, clerk coverage, ablations, and latency/cost plots require actual run artifacts and a locked test set. They are not generated from the manuscript's former placeholder values. If the measurements contradict a claim, revise the claim and its figure rather than preserving the expected conclusion.
+
