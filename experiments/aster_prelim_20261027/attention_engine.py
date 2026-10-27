@@ -59,12 +59,15 @@ class Engine:
    if st.get('hard'):blocked[:,competitor]=True
    else:mask[0,0,:,competitor]+=st.get('lam',0)*math.log(st.get('floor',1e-4))
   mask[0,0].masked_fill_(blocked,minimum);kw['attention_mask']=mask;return args,kw
- def score(self,packed,phase='blind',selected=None,hard=False,prune=False,preserve_positions=False,lam=0,plain=False,isolated=False):
+ def score(self,packed,phase='blind',selected=None,hard=False,prune=False,preserve_positions=False,lam=0,plain=False,isolated=False,compact_hard_positions=False):
   ids=packed['ids'];roles=packed['roles'];branches=packed['branches'];positions=packed['positions'];keep=list(range(len(ids)))
   if prune:
    keep=[i for i in keep if not (roles[i] and (phase=='blind' or branches[i]>=0 and branches[i]!=selected))]
   x=torch.tensor([[ids[i] for i in keep]],device='cuda');ar=torch.tensor([bool(roles[i]) for i in keep],device='cuda');br=torch.tensor([branches[i] for i in keep],device='cuda')
   if phase=='blind':pos=(~ar).long().cumsum(0).sub(1).clamp_min(0)[None,:]
+  elif hard and compact_hard_positions and selected is not None:
+   retained=~(ar&(br>=0)&(br!=selected))
+   pos=retained.long().cumsum(0).sub(1).clamp_min(0)[None,:]
   elif preserve_positions:pos=torch.tensor([[positions[i] for i in keep]],device='cuda')
   else:pos=torch.arange(len(keep),device='cuda')[None,:]
   self.state={'roles':ar,'branches':br,'segments':torch.tensor([packed['segments'][i] for i in keep],device='cuda'),'phase':phase,'selected':selected,'hard':hard,'lam':lam,'plain':plain,'isolated':isolated}

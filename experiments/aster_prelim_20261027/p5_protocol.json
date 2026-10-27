@@ -22,13 +22,14 @@
     "gate_lambda_0_0.5_1_2_4_8_16",
     "gate_hard",
     "gate_8_green_1",
-    "projection_gamma_0.5_1"
+    "projection_gamma_0.5_1",
+    "gate_hard_original_positions"
   ],
   "gate_floor": 0.0001,
   "green_layers": "P3 selected window or all-layer fallback",
   "projection": "pre-existing official SEKA synthetic QA projections for each matching model; no fitting on test trees",
   "attention_mass": "five SW cases per each of four dev trees; sorted ids; FP32 last-query reconstruction",
-  "primary_gate": "hard gate SW and AC accuracy each at least gold-prune-native minus 2pp, for each model; otherwise stop and diagnose",
+  "primary_gate": "Both compact-position hard gate and a single finite lambda selected by mean SW/AC accuracy must be at least native-prune minus 2pp in each volume/model; no P6 on failure.",
   "resources": {
     "GPUs": [
       0,
@@ -39,8 +40,8 @@
       45
     ],
     "estimated_minutes": [
-      20,
-      45
+      150,
+      210
     ]
   },
   "P6": "not authorized to bypass user-specified manual data validity threshold; no qualifying 120-pair set currently located",
@@ -49,5 +50,6 @@
   "dtype": "float32",
   "TF32": false,
   "precision_revision": "Carry forward U2 precision fix before first P5 run",
-  "execution_revision": "Fresh causal execution pass; blind isolation only during judgment; competitor action keys gated at every query, all layers. Separate isolated prune diagnostic retained."
+  "execution_revision": "Fresh causal execution pass; blind isolation only during judgment; competitor action keys gated at every query, all layers. Separate isolated prune diagnostic retained.",
+  "position_revision": "Hard gate compacts retained-token position IDs to match ordinary text deletion; original-position hard gate retained as diagnostic. Finite lambda gates retain original positions."
 }
