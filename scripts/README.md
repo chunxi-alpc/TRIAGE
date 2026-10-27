@@ -11,17 +11,19 @@
 
 [构造最小对](prepare_module2_pairs.py) → [真实模型表示抽取与选头](run_module2_preexperiment.py) → [冻结头的因果剂量对照](run_module2_causal_pilot.py) → [实测绘图](plot_module2_preexperiment.py)。输入为显式指定的官方开发树和本地 Qwen3 权重，不调用模块一。运行参数、状态和局限见[独立实验](../experiments/module2_applicability_20261027/README.md)。这组脚本与下面的历史 V6／A1 流水线分开；新模块二离线学习不再以 A1 预测作为标签。
 
+[后段复用执行入口](run_module2_causal_tail_pilot.py)保持同一因果协议，固定单编辑层时复用不受干预影响的计算。它在真实运行中按提示核对全词表分数与注意力逐位等价，并保存独立的执行来源记录。原完整执行器保留作为参考。
+
 ## 历史脚本索引原文
 
 [项目首页](../README.md) · [运行说明](../docs/RUNNING.md) · [实验索引](../experiments/README.md)
 
-脚本按其对应版本使用。新模块二研究以 A1 作为模块一固定信号来源；旧 `python -m src.module1` 和原流水线仍是 V6，以便历史复现。
+以下脚本按其历史版本使用。既有 A1／模块二支线以 A1 作为固定信号来源；2026-10-27 的离线适用性学习不使用该信号。旧 `python -m src.module1` 和原流水线仍是 V6，以便历史复现。
 
 ## 当前入口
 
 | 入口 | 作用 |
 | --- | --- |
-| [run_module1_a1.py](run_module1_a1.py) | **新模块二研究默认**：轻量 A1 规则 T/F/U；输入示例见 [A1](../examples/module1_a1_input.json) |
+| [run_module1_a1.py](run_module1_a1.py) | **历史 A1／模块二支线默认**：轻量 A1 规则 T/F/U；输入示例见 [A1](../examples/module1_a1_input.json) |
 | `python -m src.module1` | 历史 V6 CLI；参数见 [模块一说明](../src/module1/README.md) |
 | [run_pipeline.py](run_pipeline.py) | 结构化输入 → V6 → 原 Qwen3-8B 门控推理；配置见 [流水线说明](../src/pipeline/README.md) |
 

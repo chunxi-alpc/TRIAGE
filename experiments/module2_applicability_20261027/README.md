@@ -80,12 +80,12 @@ python scripts/run_module2_preexperiment.py \
   --dtype float32 --device cpu --threads 4 --max-length 1024 \
   --rank 2 --max-heads 4 --bootstrap 2000 --stability-bootstrap 64
 
-python scripts/run_module2_causal_pilot.py \
+python scripts/run_module2_causal_tail_pilot.py \
   --triplets /path/to/new_run/data/triplets.jsonl \
   --representation-results /path/to/new_run/representation \
   --model /path/to/Qwen3-0.6B-Base \
   --output /path/to/new_run/representation/causal \
-  --taus 0 .01 .05 .1 --threads 4
+  --taus 0 .01 .05 .1 --threads 1
 
 python scripts/plot_module2_preexperiment.py \
   --results /path/to/new_run/representation \
@@ -93,6 +93,8 @@ python scripts/plot_module2_preexperiment.py \
 ```
 
 运行输出目录必须独立，不能覆盖历史实验。模型路径、版本或硬件不满足要求时应记录失败；不自动替换模型。大模型后续实验须另建协议和结果目录。
+
+后段执行入口固定预填充为 4 线程，决策使用 `--threads 1`，实际批量大小为 1，仍计算完整词表。固定单层干预不影响更低层的当前查询表示，因此可复用这些计算。逐提示的完整执行与后段执行比较必须逐位一致；来源及检查写入 `execution_optimization.json`。完整参考入口仍为 `run_module2_causal_pilot.py`。本轮中断的慢速尝试单独归档，最终统计只使用一份完整运行。
 
 ## 对照与指标
 

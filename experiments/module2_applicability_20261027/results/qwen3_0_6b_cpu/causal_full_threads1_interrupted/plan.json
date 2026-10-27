@@ -1,0 +1,72 @@
+{
+  "schema_version": "module2.causal_plan.v2",
+  "model_id": "Qwen/Qwen3-0.6B-Base",
+  "revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+  "selection_sha256": "ad32f241ab394af045134d5274b29419a7690bd28337c803b9c14f75a9c4d637",
+  "operators_sha256": "baae8a8250ba130dbf501d3fa76bf3a31afd4a8f8e54dfa4cacedc4e620c73db",
+  "triplets_sha256": "22e9fe7c7bdd287fdf6061f99798105baeca8f9851c45b793e0ecbf0bc293ac3",
+  "head": {
+    "layer": 17,
+    "kv_head": 5
+  },
+  "head_accepted_by_offline_screen": true,
+  "taus": [
+    0.0,
+    0.01,
+    0.05,
+    0.1
+  ],
+  "methods": [
+    "projected_mean",
+    "raw_mean",
+    "random_direction",
+    "reversed_direction",
+    "label_shuffled",
+    "direct_score_bias"
+  ],
+  "method_descriptions": {
+    "projected_mean": "projected paired mean; fixed-query score RMS matched",
+    "raw_mean": "raw paired mean; fixed-query score RMS matched",
+    "random_direction": "one random direction; score RMS matched, not final key-norm matched",
+    "reversed_direction": "negative projected mean; fixed-query score RMS matched",
+    "label_shuffled": "one source-group sign draw at the true-label-selected fixed head; no reselection",
+    "direct_score_bias": "constant signed bias on identical decision-query/key support"
+  },
+  "routing": "oracle sign of target rule applicability",
+  "query_scope": "first-answer query only; edit prefix cache before final prompt token",
+  "target_scope": "one rule action span; all GQA queries sharing one KV head",
+  "matching": "per-input per-direction fixed-query QK score RMS; zero or excessive-error responses blocked",
+  "calibration_evaluation_order": "unit shifts once; all scaled shifts once in METHODS then supplied taus order; independent per-shift arithmetic",
+  "outcome_evaluation_order": "METHODS then supplied taus order; one unchanged decision forward per completed nonzero condition",
+  "score_rms_relative_error_tolerance": 0.05,
+  "full_prefix_candidate_logit_atol": 0.0001,
+  "cached_zero_logit_and_attention_atol": 0.0,
+  "seed": 261027,
+  "shuffled_group_signs": {
+    "guideline:1306": 1.0,
+    "guideline:1586": 1.0,
+    "guideline:2308": -1.0,
+    "guideline:231": 1.0,
+    "guideline:2597": 1.0,
+    "guideline:71": 1.0
+  },
+  "confirmation_groups": [
+    "guideline:1517",
+    "guideline:2141",
+    "guideline:636"
+  ],
+  "runtime": {
+    "torch": "2.8.0+cpu",
+    "transformers": "4.57.6"
+  },
+  "dtype": "float32",
+  "device": "cpu",
+  "threads": 1,
+  "outcome": "single-token A/B branch choice; not action execution",
+  "summary_policy": "complete method/dose only; all blocked/missing coverage remains visible",
+  "paired_comparisons": "matched triplet_id+variant vs zero baseline and same-dose direct bias",
+  "source_files": {
+    "scripts/run_module2_causal_pilot.py": "7ba44c9f9c07b92ee39a910dd4ec9505e8016be788932084808e17e51ff45295",
+    "src/module3/applicability_shift.py": "62e8e8dcb1e2a6d1d53464b5ef07fcc0356c0c0b645e11e7a7b81ff25a3b9d45"
+  }
+}
