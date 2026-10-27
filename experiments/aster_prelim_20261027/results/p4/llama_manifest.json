@@ -1,0 +1,21 @@
+{
+  "stage": "P4",
+  "name": "llama",
+  "status": "completed",
+  "gpu": "1",
+  "cases": 200,
+  "U1_cases": 20,
+  "dtype": "float32",
+  "TF32": false,
+  "U2_rate_threshold_removed_by_user": true,
+  "engine_sha256": "a9604e1c9d1261d2c506c4e581d26e41dac7bfb65157e0dba66256f05e248048",
+  "script_sha256": "4a8ec64e912e210747792361590a8a5a038178b572ac705a585cb50ddc3c2244",
+  "protocol_sha256": "a4d8a79f72991b4081e88cec98a6a8e8f54dcdaf5d6de3b23bbb815c7162b861",
+  "serialization": "tokenize typed condition/action chunks separately; fixed boundary tokens across variants",
+  "blind_positions": "non-action cumsum position IDs; actions invisible at every layer/query",
+  "U3_reference": "delete all action chunks from identical typed serialization",
+  "U4_primary_reference": "delete competitor rule action tokens; options retained and reindex positions normally",
+  "U4_secondary_reference": "same deletion preserving original positions; diagnostic only",
+  "wall_seconds": 2038.3476655483246,
+  "peak_allocated_GiB": 30.674774169921875
+}
