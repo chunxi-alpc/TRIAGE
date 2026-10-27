@@ -25,11 +25,11 @@ def main():
  if summary:
   with (res/'summary.csv').open('w') as f:w=csv.DictWriter(f,fieldnames=list(summary[0]));w.writeheader();w.writerows(summary)
  (res/'raw_predictions.jsonl').write_text(''.join(json.dumps(r)+'\n' for r in raw));dump(res/'probes.json',probes)
- gate={'P3':'COMPLETED' if all(v=='completed' for v in states.values()) else 'INCOMPLETE','models':states,'window_choices':choices,'P1_free_generation_prediction_agreement':agreement,'P4':'NOT_RUN','P5':'NOT_RUN','P6':'NOT_RUN','test_inference_count':0,'failed_first_attempt':'stopped at token alignment assertion before any forward inference; retained separately'};dump(res/'gate_status.json',gate)
+ gate={'P3':'COMPLETED' if all(v=='completed' for v in states.values()) else 'INCOMPLETE','models':states,'window_choices':choices,'P1_free_generation_prediction_agreement':agreement,'P4':'NOT_RUN','P5':'NOT_RUN','P6':'NOT_RUN','test_inference_count':0,'prior_run_failures':'see ../aster_prelim_20261027; no old results reused'};dump(res/'gate_status.json',gate)
  lines=['# P3 分层干预实测','',f'状态：**{gate["P3"]}**。只用 169 个 SW 开发病例。','', '| 模型 | 方法 | 准确率 % | 相对明判变化（百分点） | 差距恢复比例 |','|---|---|---:|---:|---:|']
  for r in summary:
   ratio='未定义' if r['recovery_fraction'] is None else f"{r['recovery_fraction']:.3f}"
   lines.append(f"| {r['model']} | {r['method']} | {r['accuracy_pct']:.2f} | {r['improvement_over_visible_pp']:+.2f} | {ratio} |")
- lines+=['','窗口选择：`'+json.dumps(choices,ensure_ascii=False)+'`。','', '解释范围：','', '- 敲除仅切断最后一个判断位置对两条终端处置的注意力；选项与其他位置仍可传递信息。它检验直接读取路径，不声称消除所有间接路径。','- K/V 从中性代号运行修补到熟悉处置运行；修补诱饵段及必要的分词边界词元，段外 token ID 完全一致。修补发生在 k_proj/v_proj 输出，Qwen 的 K 归一化与 RoPE 继续正常执行。','- P3 使用 1/2 的下一词元概率读出，另行报告与 P1 自由生成的一致率。恢复比例用 P3 自己的盲判／明判差距作分母，不混用分母。','- 线性探针逐层在 3 个开发树训练、剩余开发树评估；全程未读取测试树。探针可解码不等于因果证据。','- 第一次启动在词元对齐断言处停止，没有形成模型结果；失败日志保留。修正后重新从头运行。','- 不能找到足够恢复的窗口时，按用户规则改用全层；不把预期的第 13–22 层或 K/V 恢复比例填入结果。']
+ lines+=['','窗口选择：`'+json.dumps(choices,ensure_ascii=False)+'`。','', '解释范围：','', '- 敲除仅切断最后一个判断位置对两条终端处置的注意力；选项与其他位置仍可传递信息。它检验直接读取路径，不声称消除所有间接路径。','- K/V 从中性代号运行修补到熟悉处置运行；修补诱饵段及必要的分词边界词元，段外 token ID 完全一致。修补发生在 k_proj/v_proj 输出，Qwen 的 K 归一化与 RoPE 继续正常执行。','- P3 使用 1/2 的下一词元概率读出，另行报告与 P1 自由生成的一致率。恢复比例用 P3 自己的盲判／明判差距作分母，不混用分母。','- 线性探针逐层在 3 个开发树训练、剩余开发树评估；全程未读取测试树。探针可解码不等于因果证据。','- 旧版的词元对齐和布尔掩码失败记录保留于原实验目录；本轮从头运行，不复用旧结果。','- 不能找到足够恢复的窗口时，按用户规则改用全层；不把预期的第 13–22 层或 K/V 恢复比例填入结果。']
  (BASE/'P3_REPORT.zh.md').write_text('\n'.join(lines)+'\n');print(json.dumps(gate))
 if __name__=='__main__':main()

@@ -65,7 +65,7 @@ def main():
    assert tokens;spans+=tokens
    if q['bid']!=r['gold']:decoy=tokens
   return spans,decoy
- manifest={'stage':'P3','name':a.name,'status':'running','model':a.model,'gpu':os.environ['CUDA_VISIBLE_DEVICES'],'layers':nl,'cases':len(rows),'batch':4,'script_sha256':sha(__file__),'protocol_sha256':sha(BASE/'p3_protocol.json'),'readout':'normalized next-token probabilities of 1/2, not full free generation','knockout':'last input query -> both terminal action spans; other queries and options remain visible','patch':'neutral to familiar, k_proj/v_proj output before Qwen k_norm and RoPE; decoy tokens only; all layers','probe':'last input position after every block; leave one dev tree out; separate blind/visible linear classifiers','test_data_used':False}
+ manifest={'stage':'P3','dtype':'float32','TF32':False,'name':a.name,'status':'running','model':a.model,'gpu':os.environ['CUDA_VISIBLE_DEVICES'],'layers':nl,'cases':len(rows),'batch':4,'script_sha256':sha(__file__),'protocol_sha256':sha(BASE/'p3_protocol.json'),'readout':'normalized next-token probabilities of 1/2, not full free generation','knockout':'last input query -> both terminal action spans; other queries and options remain visible','patch':'neutral to familiar, k_proj/v_proj output before Qwen k_norm and RoPE; decoy tokens only; all layers','probe':'last input position after every block; leave one dev tree out; separate blind/visible linear classifiers','test_data_used':False}
  dump(out/'manifest.json',manifest);predictions=[];hidden={'blind':[],'visible':[]}
  def forward(texts,rs,method,capture_hidden=False):
   x=tok(texts,return_tensors='pt',padding=True,add_special_tokens=False).to('cuda');state['attention']=x.attention_mask

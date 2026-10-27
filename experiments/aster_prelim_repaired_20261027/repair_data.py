@@ -31,7 +31,7 @@ def split_action(a):
 
 # Only target-treatment mentions in the interrogative clause are hidden. The entire
 # source patient text is retained, including Given/Considering factual sentences.
-TERMS=[r'whole breast radiotherapy',r'whole breast radiation therapy',r'whole breast radiation',r'breast irradiation',r'comprehensive regional nodal irradiation',r'regional nodal irradiation',r'radiation therapy',r'radiation treatment',r'radiotherapy',r'radiation',r'systemic chemotherapy',r'systemic treatment',r'systemic therapy',r'adjuvant endocrine therapy',r'endocrine therapy',r'hematopoietic (?:cell|stem cell) transplant(?:ation)?',r'bone marrow transplant(?:ation)?',r're-excision',r'chemotherapy',r'\b(?:HCT|APBI|PBI|EBRT|RNI|RT)\b']
+TERMS=[r'boost(?: to (?:the )?tumor bed)?',r'whole breast radiotherapy',r'whole breast radiation therapy',r'whole breast radiation',r'breast irradiation',r'comprehensive regional nodal irradiation',r'regional nodal irradiation',r'radiation therapy',r'radiation treatment',r'radiotherapy',r'radiation',r'systemic chemotherapy',r'systemic treatment',r'systemic therapy',r'adjuvant endocrine therapy',r'endocrine therapy',r'hematopoietic (?:cell|stem cell) transplant(?:ation)?',r'bone marrow transplant(?:ation)?',r're-excision',r'chemotherapy',r'\b(?:HCT|APBI|PBI|EBRT|RNI|RT)\b']
 pattern=re.compile(r'(?<!\w)(?:'+'|'.join(TERMS)+r')(?!\w)',re.I)
 def hide_question_treatments(text):
  shadow=list(text)
