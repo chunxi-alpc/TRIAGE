@@ -1,7 +1,7 @@
 {
-  "version": "p6_user_protocol_v1",
+  "version": "p6_user_protocol_v2_auto_pilot_20261028",
   "state": "PREPARATION_ONLY_NOT_FROZEN",
-  "source": "User-supplied complete P6 protocol in this conversation",
+  "source": "User revision on 2026-10-28 Asia/Shanghai: about 100 MEGA-CDP-CF development cases; automatic construction, program checks and existing path scoring; human spot-check only after stable benefit, before formal experiments.",
   "inference_run": false,
   "prerequisite": {
     "P5": "PASS_PRUNE_GATE",
@@ -9,13 +9,12 @@
     "evidence_path": "../results/p5/gate_status.json"
   },
   "data": {
-    "source": "MEGA-CDP single-turn",
+    "source": "MEGA-CDP-CF constructed from MEGA-CDP single-turn development guidelines",
     "split_unit": "guideline",
     "allowed_split": "development only",
     "test_data_allowed": false,
-    "target_pairs": 160,
-    "target_inputs": 320,
-    "min_human_verified_pairs": 120,
+    "target_pairs": 100,
+    "target_inputs": 200,
     "min_guidelines": 20,
     "min_multinode_or_cross_fragment_pairs": 40,
     "pair_invariants": [
@@ -30,8 +29,21 @@
     "reference_requirement": "unique correct path or explicit acceptable answer set",
     "record_all_exclusions": true,
     "ai_review_counts_as_human_review": false,
-    "below_minimum_use": "engineering_debug_only",
-    "independent_paper_test_use": false
+    "independent_paper_test_use": false,
+    "human_annotation_required_for_p6": false,
+    "validation": "Automatic construction and program checks only; semantic validity remains unverified",
+    "target_size_policy": "Aim for approximately 100 base cases, each with native and counterfactual input; report actual counts, construction failures and coverage without selecting on method outcomes.",
+    "human_spot_check_timing": "After stable P6 benefit, before using selected counterfactual data and scorer in formal experiments",
+    "required_saved_artifacts": [
+      "full original guideline",
+      "full edited guideline",
+      "patient facts and question",
+      "native and edited reference paths",
+      "exact edit spans and hashes",
+      "all construction outputs and failures",
+      "all judgment and generation outputs",
+      "all scoring inputs/outputs/configurations"
+    ]
   },
   "freeze_before_methods": [
     "case pairs",
@@ -129,9 +141,9 @@
       "repetition_loop_rate",
       "output_cap_rate",
       "parse_failure_rate",
-      "rule_span_semantic_accuracy",
+      "automated_rule_span_consistency_unverified_semantics",
       "usable_rule_coverage",
-      "actual_correct_span_intervention_coverage"
+      "actual_program_verified_target_span_intervention_coverage"
     ],
     "cost": [
       "end_to_end_latency",
@@ -140,14 +152,12 @@
       "clerk_cost_if_used"
     ],
     "parse_failures_count_as_failures": true,
-    "statistics": "paired bootstrap clustered by guideline; 160 pairs, not 320 independent patients"
+    "statistics": "paired bootstrap clustered by guideline; approximately 100 pairs / 200 inputs, not 200 independent patients; exploratory development intervals only"
   },
   "gates": {
-    "valid_pairs_min": 120,
     "guidelines_min": 20,
     "complex_pairs_min": 40,
     "actual_intervention_coverage_min": 0.85,
-    "human_target_span_accuracy_min": 0.9,
     "repetition_loop_rate_max": 0.03,
     "output_cap_rate_max": 0.02,
     "parse_failure_rate_excess_over_vanilla_max": 0.01,
@@ -156,15 +166,18 @@
     "decoy_da_decrease_min": 0.08,
     "decoy_bfr_increase_min": 0.05,
     "aster_decoy_bfr_over_best_ts_min": 0.03,
-    "latency_ratio_max_for_low_cost_claim": 1.5
+    "latency_ratio_max_for_low_cost_claim": 1.5,
+    "target_program_validated_pairs": 100,
+    "target_size_is_approximate": true,
+    "intervention_coverage_interpretation": "Program-verified span hit and applied intervention only, not clinically verified correctness"
   },
   "decisions": {
-    "data_or_mapping_failure": "repair data or mapping; no method validation claim",
+    "data_or_mapping_failure": "Repair construction or mapping and retain failures; report automatically checked scope without claiming clinical semantic validity",
     "generation_failure": "disable green, narrow layers, lower intensity in the prescribed diagnostic sequence; stop execution-guidance route if persistent",
     "native_harm": "do not trade native harm for decoy gain",
     "same_information_tie": "no attention-superiority claim; retain diagnostic/mechanistic scope",
     "cost_failure": "remove low-cost claim and reassess application value",
-    "all_gates_pass": "proceed to separately held-out guidelines only under the formal-experiment protocol"
+    "all_gates_pass": "If benefit is stable, prepare human spot-check of counterfactual data entering formal experiments and the scorer; no formal clinical-validity or significant-superiority claim from P6 alone"
   },
   "runtime": {
     "host": "115",
@@ -183,10 +196,16 @@
     "long_context_vram_and_time": "profile on server before full launch; P5 resource use is not a P6 estimate"
   },
   "pending": [
-    "server execution access",
-    "candidate extraction and exclusion ledger",
-    "human review",
-    "scorer inspection/freeze",
+    "server execution access and current v3 completion check",
+    "automatic candidate construction and program validation toward about 100 pairs",
+    "scorer implementation/config freeze",
     "multi-step generation and cache/stage-switch validation"
-  ]
+  ],
+  "evidence_limits": {
+    "purpose": "Decide whether to continue to formal-experiment preparation",
+    "clinical_semantic_validity_supported": false,
+    "standalone_significant_superiority_claim_supported": false,
+    "human_spot_check_required_before_formal_use": true
+  },
+  "revision_note": "Supersedes the earlier P6 requirement for >=120 human-verified pairs and the human span-accuracy gate. Existing 20-guideline/40-complex-case coverage requirements and generation, native-harm, same-information and cost rules otherwise retained. Historical protocols and outputs remain in Git history."
 }
