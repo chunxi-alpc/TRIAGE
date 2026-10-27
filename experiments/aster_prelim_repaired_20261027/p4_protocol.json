@@ -1,0 +1,64 @@
+{
+  "frozen_at": "2026-10-26T17:19:52.419637+00:00",
+  "order": "must wait for P3 completed; use all-layer phase/isolation masks independent of highlight window",
+  "U1": {
+    "cases": 20,
+    "sampling": "five per dev tree, sorted case id",
+    "perturbation": "additional recorded age 50 vs 60; equal token length",
+    "capture": "actual post-RoPE guideline K each layer",
+    "threshold_max_abs_difference": 0
+  },
+  "U2": {
+    "cases": 200,
+    "volumes": [
+      "NC",
+      "IC",
+      "AC",
+      "SW"
+    ],
+    "unit": "all four argmax agree per base",
+    "also_save": "full probabilities",
+    "position_handling": "blind non-action positions fixed by role cumsum; segment tokenization prevents boundary drift",
+    "acceptance": "no argmax-rate cutoff; identical visible token sequence and fixed-shape hidden-content counterfactual invariance; retain residual numerical differences"
+  },
+  "U3": {
+    "cases": 200,
+    "comparison": "mask vs physically delete all action chunks under same serialized branch prompt",
+    "accuracy_gap_max_pp": 2
+  },
+  "U4": {
+    "cases": 200,
+    "volume": "SW",
+    "gold_signal": "select applicable branch for hard gate or deletion",
+    "task": "treatment option next-token probabilities",
+    "primary": "ordinary deletion of competitor rule action chunks; reindex position ids; preserve options",
+    "accuracy_gap_max_pp": 1,
+    "secondary": "same deletion preserving original positions, diagnostic only"
+  },
+  "failure": "any test failure in either model blocks P5/P6; diagnose before any continuation",
+  "default_ASTER": "no option-rule mapping used for gate; action fragments isolated individually",
+  "resources": {
+    "GPUs": [
+      0,
+      1
+    ],
+    "peak_GiB_each": 35,
+    "estimated_minutes": [
+      30,
+      40
+    ]
+  },
+  "mask_implementation_fix_before_valid_run": "2026-10-26T17:45:29.447018+00:00",
+  "mask_dtype_handling": "convert boolean True=allowed mask to additive floating 0/-inf before editing",
+  "revision_at": "2026-10-26T22:48:29.043690+00:00",
+  "user_amendment": "继续定位并修复 U2，不再限制99的通过率",
+  "dtype": "float32",
+  "TF32": false,
+  "execution_revision": "Fresh causal execution pass; blind isolation only during judgment; competitor action keys gated at every query, all layers. Separate isolated prune diagnostic retained.",
+  "position_revision": "Hard gate compacts retained-token position IDs to match ordinary text deletion; original-position hard gate retained as diagnostic. Finite lambda gates retain original positions.",
+  "revision": "repaired_v2",
+  "data_manifest": "results/data_audit.json",
+  "case_count": 169,
+  "patient_facts": "complete original source text; only named target treatments in question clause hidden in blind",
+  "execution_qualifications": "separate role, visible in both, fixed across variants; entry branch labels unchanged"
+}
