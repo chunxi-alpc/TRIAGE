@@ -209,7 +209,7 @@ def extract_triplets(model, tokenizer, triplets: Iterable[dict], max_length=2048
     metadata, audit, cache = [], [], {}
     forward_count = 0
     for row_idx, row in enumerate(rows):
-        if row.get("source_split") not in {"train", "train_val", "development", "validation", "dev", "calibration"}:
+        if row.get("source_split") not in {"train", "train_val", "development", "validation", "dev"}:
             raise ValueError("Extraction requires explicit development-only source provenance")
         if row.get("split") not in {"fit", "select", "confirm"}:
             raise ValueError("Expected fit/select/confirm partitions within development data")

@@ -1,0 +1,12 @@
+{
+  "reconstructed_source": "/workspace/scratch/40761f294dc9/extraction_at_run_start.py",
+  "recorded_fingerprint": "/workspace/scratch/40761f294dc9/TRIAGE/experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu/extraction_fingerprint.json",
+  "recorded_sha256": "de83c757951df08b8f68c7bbce01c610e0a0d4d4e8d23ed5f6c4b1be09782af5",
+  "reconstructed_sha256": "de83c757951df08b8f68c7bbce01c610e0a0d4d4e8d23ed5f6c4b1be09782af5",
+  "current_sha256": "a5d56325ae6017194af5736b2ed7561ca1760e7485700d8393ffba97b9d4918e",
+  "exact_match": true,
+  "difference": "Only adds calibration to accepted source_split set; all 96 run inputs are train_val.",
+  "current_source_overwritten": false,
+  "diff": "--- extraction_at_run_start.py\n+++ src/module2/extraction.py\n@@ -209,7 +209,7 @@\n     metadata, audit, cache = [], [], {}\n     forward_count = 0\n     for row_idx, row in enumerate(rows):\n-        if row.get(\"source_split\") not in {\"train\", \"train_val\", \"development\", \"validation\", \"dev\"}:\n+        if row.get(\"source_split\") not in {\"train\", \"train_val\", \"development\", \"validation\", \"dev\", \"calibration\"}:\n             raise ValueError(\"Extraction requires explicit development-only source provenance\")\n         if row.get(\"split\") not in {\"fit\", \"select\", \"confirm\"}:\n             raise ValueError(\"Expected fit/select/confirm partitions within development data\")\n",
+  "resolution": "Current extraction.py restored byte-for-byte to the actual imported run source. Original fingerprint unchanged."
+}

@@ -92,12 +92,12 @@ def grid(rows, field, split):
 def heatmaps(rows, selection, audit, model_name, output):
     specs = [
         ("A", "fit_mean_paired_l2", "select", "Fitting: mean paired distance", r"$\mathbb{E}\,\|\bar{k}^{+}-\bar{k}^{-}\|_2$", "YlGnBu"),
-        ("B", "paired_sign_consistency", "confirm", "Confirmation: sign consistency", "Fraction aligned with fitted shift", "viridis"),
-        ("C", "read", "confirm", "Confirmation: signed Read", "Standardized score response", "RdBu_r"),
-        ("D", "fit_coherence", "select", "Fitting: mean-shift coherence", "Squared mean / mean squared norm", "YlGnBu"),
+        ("B", "paired_sign_consistency", "confirm", "Confirmation: sign consistency", "Aligned fraction", "viridis"),
+        ("C", "read", "confirm", "Confirmation: signed Read", "Standardized Read", "RdBu_r"),
+        ("D", "fit_coherence", "select", "Fitting: mean-shift coherence", "Coherence", "YlGnBu"),
     ]
     fig, axes = plt.subplots(2, 2, figsize=(8.5, 5.85))
-    fig.subplots_adjust(left=.075, right=.96, bottom=.17, top=.81, hspace=.65, wspace=.40)
+    fig.subplots_adjust(left=.075, right=.96, bottom=.205, top=.81, hspace=.65, wspace=.40)
     fig.suptitle(f"{model_name} | Applicability key diagnostics", x=.075, ha="left", y=.975, fontsize=12.5, weight="medium")
     counts = audit["partitions"]
     subtitle = (f"{audit['source_guidelines']} development guidelines: "
@@ -108,6 +108,18 @@ def heatmaps(rows, selection, audit, model_name, output):
     metrics = {}
     for ax, (letter, field, split, title, color_label, cmap) in zip(axes.flat, specs):
         values, layers, heads = grid(rows, field, split)
+        plotted_values = values
+        masked_cells = []
+        if field == "paired_sign_consistency":
+            shift_norm, norm_layers, norm_heads = grid(rows, "delta_norm", split)
+            if norm_layers != layers or norm_heads != heads:
+                raise ValueError("Shift-norm grid differs from sign-consistency grid")
+            no_direction = shift_norm == 0.
+            plotted_values = np.ma.masked_where(no_direction, values)
+            cmap = plt.get_cmap(cmap).copy()
+            cmap.set_bad("#D7DCE2")
+            masked_cells = [{"layer": layers[column], "kv_head": heads[row_index]}
+                            for row_index, column in np.argwhere(no_direction)]
         if field == "read":
             magnitude = max(float(np.max(np.abs(values))), np.finfo(float).eps)
             kwargs = {"norm": TwoSlopeNorm(vmin=-magnitude, vcenter=0., vmax=magnitude)}
@@ -115,7 +127,11 @@ def heatmaps(rows, selection, audit, model_name, output):
             kwargs = {"vmin": 0., "vmax": 1.}
         else:
             kwargs = {"vmin": 0., "vmax": max(float(values.max()), np.finfo(float).eps)}
-        graphic = ax.imshow(values, aspect="auto", interpolation="nearest", origin="upper", cmap=cmap, **kwargs)
+        graphic = ax.pcolormesh(np.arange(len(layers) + 1) - .5, np.arange(len(heads) + 1) - .5,
+                               plotted_values, shading="flat", cmap=cmap, rasterized=False,
+                               edgecolors="face", linewidth=0., **kwargs)
+        ax.set_xlim(-.5, len(layers) - .5)
+        ax.set_ylim(len(heads) - .5, -.5)
         xloc = sorted(set([*range(0, len(layers), max(1, len(layers) // 7)), len(layers) - 1]))
         ax.set_xticks(xloc, [str(layers[i]) for i in xloc])
         ax.set_yticks(range(len(heads)), heads)
@@ -134,10 +150,12 @@ def heatmaps(rows, selection, audit, model_name, output):
             bar.update_ticks()
         metrics[field] = {"split": "fit" if field.startswith("fit_") else split,
                           "minimum": float(values.min()), "maximum": float(values.max()),
-                          "layers": layers, "kv_heads": heads}
+                          "layers": layers, "kv_heads": heads,
+                          "zero_shift_cells_masked": masked_cells}
     accepted = (f"Black outlines: {len(selected)} heads accepted by selection screens."
                 if selected else "No head passed the prespecified selection screens.")
-    fig.text(.075, .095, "Keys are means over each action span after key normalization and before RoPE; A is not a per-token distance.", fontsize=7.5)
+    fig.text(.075, .126, "Keys are means over each action span after key normalization and before RoPE; A is not a per-token distance.", fontsize=7.5)
+    fig.text(.075, .094, "Gray B cells: zero fitted shift, so the strict-sign fraction has no directional interpretation. Read still shows zero response.", fontsize=7.5)
     fig.text(.075, .062, f"All layer / KV-head cells are shown. {accepted}", fontsize=7.5)
     fig.text(.075, .029, "Exploratory representation measurements; signed Read is a local score response, not decision accuracy.", fontsize=7.5, color="#485261")
     return save_figure(fig, output, "head_diagnostics"), metrics
@@ -196,10 +214,14 @@ def paired_shifts(rows, selection, audit, model_name, output, eigenvalues):
         if not np.isfinite(spectrum).all() or (spectrum < 0).any():
             raise ValueError("Invalid saved fitting-set spectrum")
         total_energy = spectrum.sum()
-        ratios = (spectrum[:2] / total_energy).tolist() if total_energy > 0 else [None, None]
-        component_labels = [f"Training-difference component {i + 1}" +
+        available = min(2, int(selection["rank"]))
+        ratios = (spectrum[:available] / total_energy).tolist() if total_energy > 0 else [None] * available
+        ratios += [None] * (2 - available)
+        component_labels = [f"Difference component {i + 1}" +
                             (f" ({100 * ratio:.1f}%)" if ratio is not None else " (zero energy)")
                             for i, ratio in enumerate(ratios)]
+        if available < 2:
+            component_labels[1] = "Unused axis (rank one)"
         ax.set_xlabel(component_labels[0])
         ax.set_ylabel(component_labels[1])
         ax.tick_params(labelsize=7.5)
@@ -229,7 +251,7 @@ def paired_shifts(rows, selection, audit, model_name, output, eigenvalues):
     return save_figure(fig, output, "paired_shifts"), summaries
 
 
-def causal_dose_response(rows, plan, model_name, output):
+def causal_dose_response(rows, plan, model_name, output, coverage):
     """Show all saved doses; absent/blocked doses become gaps, not invented points."""
     styles = {
         "projected_mean": ("Projected mean", POSITIVE, "o", "-"),
@@ -257,6 +279,29 @@ def causal_dose_response(rows, plan, model_name, output):
     methods = [method for method in styles if method in plan["methods"]]
     if not doses or doses[0] != 0:
         raise ValueError("Causal plots require an observed unedited zero-dose baseline")
+    coverage_by_cell = {}
+    for row in coverage:
+        key = (row["method"], number(row["tau"]))
+        if key in coverage_by_cell:
+            raise ValueError("Duplicate method-dose coverage cell")
+        counts = {name: int(row[name]) for name in ("expected_observations", "observed", "completed", "blocked", "missing")}
+        if (min(counts.values()) < 0 or counts["observed"] + counts["missing"] != counts["expected_observations"] or
+                counts["completed"] + counts["blocked"] != counts["observed"]):
+            raise ValueError("Inconsistent causal coverage counts")
+        valid = counts["blocked"] == counts["missing"] == 0
+        if (row["status"] == "completed") != valid:
+            raise ValueError("Causal coverage status contradicts its counts")
+        coverage_by_cell[key] = {**counts, "status": row["status"], "reasons": json.loads(row["reasons"])}
+    if set(coverage_by_cell) != {(method, dose) for method in methods for dose in doses}:
+        raise ValueError("Causal coverage must enumerate every planned method-dose cell")
+    for method, dose, metric in by_cell:
+        if coverage_by_cell[method, dose]["status"] != "completed":
+            raise ValueError("Incomplete method-dose cells must not have main outcome estimates")
+    incomplete_counts = {method: sum(coverage_by_cell[method, dose]["status"] != "completed" for dose in doses)
+                         for method in methods}
+    totals = {field: sum(row[field] for row in coverage_by_cell.values())
+              for field in ("expected_observations", "observed", "completed", "blocked", "missing")}
+    completed_cells = sum(row["status"] == "completed" for row in coverage_by_cell.values())
     fig, axes = plt.subplots(1, 3, figsize=(9.1, 4.9))
     fig.subplots_adjust(left=.075, right=.975, bottom=.39, top=.76, wspace=.41)
     fig.suptitle(f"{model_name} | Oracle routing dose response", x=.075, ha="left", y=.975,
@@ -277,10 +322,14 @@ def causal_dose_response(rows, plan, model_name, output):
         maxima = []
         for method in methods:
             title_method, color, marker, linestyle = styles[method]
+            if incomplete_counts[method]:
+                title_method += f" [{incomplete_counts[method]} incomplete]"
             values = []
             for dose in doses:
                 entry = by_cell.get((method, dose, metric))
                 if entry is None:
+                    if coverage_by_cell[method, dose]["status"] == "completed":
+                        raise ValueError("A completed method-dose cell lacks a required metric")
                     missing.append({"method": method, "tau": dose, "metric": metric})
                     values.append((np.nan, np.nan, np.nan))
                 else:
@@ -306,12 +355,16 @@ def causal_dose_response(rows, plan, model_name, output):
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(.54, .19), ncol=3, frameon=False,
                fontsize=8.1, handlelength=2.4, columnspacing=2.4, labelspacing=.7)
-    fig.text(.075, .147, f"Shading: 95% source-guideline bootstrap intervals, conditional on the frozen operator. Only {n_groups} independent guidelines.",
-             fontsize=7.5)
-    fig.text(.075, .107, "All measured doses are displayed. Lines connect observed means; missing or blocked method-dose cells are left as gaps.", fontsize=7.5)
-    fig.text(.075, .067, "Signs use oracle applicability. The outcome is single-token A/B branch choice, not treatment execution or module-one accuracy.", fontsize=7.5)
-    fig.text(.075, .027, "This small development diagnostic cannot establish efficacy or population-level equivalence between methods.", fontsize=7.5, color="#485261")
-    return save_figure(fig, output, "causal_dose_response"), missing
+    fig.text(.075, .155, f"Coverage: {completed_cells}/{len(coverage)} complete method-dose cells; "
+             f"{totals['blocked']}/{totals['expected_observations']} blocked evaluations; {totals['missing']} missing. Evaluations reuse conditions.", fontsize=7.3)
+    fig.text(.075, .123, "Shading: 95% source-guideline bootstrap intervals, conditional on the frozen operator; unadjusted exploratory intervals.", fontsize=7.3)
+    fig.text(.075, .091, "Ordinary causal mask, without ASTER BLIND/REVEAL masks. Oracle routing; single-token A/B branch choice only.", fontsize=7.3)
+    fig.text(.075, .059, "All complete method-dose estimates are shown. Incomplete cells remain gaps and are counted in the legend.", fontsize=7.3)
+    fig.text(.075, .027, f"Only {n_groups} independent guidelines. This diagnostic cannot establish efficacy or population-level equivalence.", fontsize=7.3, color="#485261")
+    coverage_summary = {"totals": totals, "method_dose_cells": len(coverage), "completed_method_dose_cells": completed_cells,
+                        "incomplete_by_method": incomplete_counts,
+                        "cells": [{"method": key[0], "tau": key[1], **value} for key, value in coverage_by_cell.items()]}
+    return save_figure(fig, output, "causal_dose_response"), missing, coverage_summary
 
 
 def main():
@@ -346,8 +399,10 @@ def main():
         "model_revision": fingerprint["revision"], "source_inputs": {
             name: {"file": str(path), "sha256": sha256(path)} for name, path in inputs.items()},
         "plot_script_sha256": sha256(__file__), "generated_files": files1 + files2,
+        "rendering_versions": {"matplotlib": matplotlib.__version__, "numpy": np.__version__},
         "head_metrics": metrics, "projection_heads": pairs,
         "evidence_scope": "development-only exploratory representation pilot",
+        "attention_mask": "ordinary causal; no ASTER BLIND/REVEAL masks",
         "pair_axes": "fitting-set uncentered paired-difference eigenspace; no confirmation fitting",
         "distance_unit": "mean L2 distance between action-span-mean pre-RoPE keys, not per-token L2",
         "no_model_or_subspace_refitting": True,
@@ -358,18 +413,23 @@ def main():
     if args.causal_results is not None and not causal_csv.is_file():
         raise FileNotFoundError(f"Requested causal metrics are absent: {causal_csv}")
     if causal_csv.is_file():
-        causal_inputs = {name: causal_dir / name for name in ("causal_metrics.csv", "plan.json", "status.json")}
+        causal_inputs = {name: causal_dir / name for name in ("causal_metrics.csv", "causal_coverage.csv", "plan.json", "status.json")}
         causal_status = json.loads(causal_inputs["status.json"].read_text())
-        if causal_status.get("status") != "completed":
-            raise ValueError("Causal plotting requires a completed causal run")
+        if causal_status.get("status") not in {"completed", "partial"}:
+            raise ValueError("Causal plotting requires a completed or explicitly partial causal run")
+        if not causal_status.get("zero_validation_passed"):
+            raise ValueError("Causal plotting requires recorded zero-intervention validation")
         plan = json.loads(causal_inputs["plan.json"].read_text())
         if plan["model_id"] != fingerprint["model_id"] or plan["revision"] != fingerprint["revision"]:
             raise ValueError("Representation and causal model provenance differ")
         if plan["selection_sha256"] != sha256(inputs["selection.json"]):
             raise ValueError("Causal head selection differs from the plotted selection record")
-        files3, missing = causal_dose_response(read_csv(causal_csv), plan, model_name, args.output)
+        files3, missing, coverage_summary = causal_dose_response(read_csv(causal_csv), plan, model_name,
+            args.output, read_csv(causal_inputs["causal_coverage.csv"]))
         metadata["generated_files"].extend(files3)
-        metadata["causal_figure"] = {"status": "generated", "missing_cells": missing,
+        metadata["causal_figure"] = {"status": "generated", "run_status": causal_status["status"],
+            "missing_metric_cells": missing, "coverage": coverage_summary,
+            "attention_mask": "ordinary causal; no ASTER BLIND/REVEAL masks",
             "head_accepted_by_offline_screen": plan["head_accepted_by_offline_screen"],
             "source_inputs": {name: {"file": str(path), "sha256": sha256(path)} for name, path in causal_inputs.items()}}
     (args.output / "figure_metadata.json").write_text(json.dumps(metadata, indent=2, ensure_ascii=False, allow_nan=False) + "\n")

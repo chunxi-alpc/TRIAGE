@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "scenario": "all_nonzero",
+      "sign": 1.0,
+      "exact_shift_inputs_and_order_equal": true,
+      "scaled_checks": 15,
+      "old_calibration_query_forwards": 15,
+      "new_calibration_query_forwards": 1,
+      "unit_query_forwards_unchanged": 1
+    },
+    {
+      "scenario": "all_nonzero",
+      "sign": -1.0,
+      "exact_shift_inputs_and_order_equal": true,
+      "scaled_checks": 15,
+      "old_calibration_query_forwards": 15,
+      "new_calibration_query_forwards": 1,
+      "unit_query_forwards_unchanged": 1
+    },
+    {
+      "scenario": "zero_and_boundary",
+      "sign": 1.0,
+      "exact_shift_inputs_and_order_equal": true,
+      "scaled_checks": 9,
+      "old_calibration_query_forwards": 9,
+      "new_calibration_query_forwards": 1,
+      "unit_query_forwards_unchanged": 1
+    },
+    {
+      "scenario": "zero_and_boundary",
+      "sign": -1.0,
+      "exact_shift_inputs_and_order_equal": true,
+      "scaled_checks": 9,
+      "old_calibration_query_forwards": 9,
+      "new_calibration_query_forwards": 1,
+      "unit_query_forwards_unchanged": 1
+    }
+  ],
+  "all_zero_case": "no_scaled_measurement_call",
+  "outcome_forwards": "unchanged",
+  "zero_identity": "unchanged_exact_zero_tolerance",
+  "scope": "pure scheduling equivalence; no real model forward launched"
+}

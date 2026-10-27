@@ -1,0 +1,53 @@
+{
+  "recorded_at_utc": "2026-10-27T12:19:34.807961+00:00",
+  "recorded_during_representation_run_before_selection": true,
+  "rank": 2,
+  "max_heads": 4,
+  "bootstrap_draws": 2000,
+  "stability_draws": 64,
+  "seed": 261027,
+  "dtype": "float32",
+  "device": "cpu",
+  "threads": 4,
+  "max_length": 1024,
+  "attention_backend": "eager",
+  "ordinary_causal_mask": true,
+  "aster_blind_reveal_masks": false,
+  "roles": [
+    "action"
+  ],
+  "selection_uses_only": "select partition",
+  "confirmation_not_used_for_tuning": true,
+  "causal_taus": [
+    0.0,
+    0.01,
+    0.05,
+    0.1
+  ],
+  "argv": [
+    "/workspace/scratch/40761f294dc9/m2env/bin/python",
+    "scripts/run_module2_preexperiment.py",
+    "--triplets",
+    "experiments/module2_applicability_20261027/results/data/triplets.jsonl",
+    "--model",
+    "/workspace/scratch/40761f294dc9/models/Qwen3-0.6B-Base",
+    "--model-id",
+    "Qwen/Qwen3-0.6B-Base",
+    "--revision",
+    "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+    "--output",
+    "experiments/module2_applicability_20261027/results/qwen3_0_6b_cpu",
+    "--max-length",
+    "1024",
+    "--threads",
+    "4",
+    "--rank",
+    "2",
+    "--max-heads",
+    "4",
+    "--stability-bootstrap",
+    "64",
+    "--bootstrap",
+    "2000"
+  ]
+}

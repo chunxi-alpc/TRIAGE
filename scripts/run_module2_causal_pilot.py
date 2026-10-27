@@ -260,6 +260,21 @@ def calibration_status(actual_rms, target_rms, tolerance=.05):
     return ('completed' if error <= tolerance + 1e-12 else 'blocked_score_rms_mismatch'), error
 
 
+def scaled_shift_plan(vectors, units, taus, sign, layer, head, target_positions):
+    """Keep the existing method-major/dose-minor order for independent checks."""
+    planned = []
+    for method in METHODS:
+        if method not in vectors or units[method]['rms'] <= 1e-10:
+            continue
+        for tau in taus:
+            if tau == 0:
+                continue
+            planned.append(((method, tau), {
+                'layer': layer, 'kv_head': head, 'positions': target_positions,
+                'delta': vectors[method], 'coefficient': sign * tau / units[method]['rms']}))
+    return planned
+
+
 def run(args, started):
     import torch
     import transformers
@@ -328,6 +343,8 @@ def run(args, started):
         'query_scope': 'first-answer query only; edit prefix cache before final prompt token',
         'target_scope': 'one rule action span; all GQA queries sharing one KV head',
         'matching': 'per-input per-direction fixed-query QK score RMS; zero or excessive-error responses blocked',
+        'calibration_evaluation_order': 'unit shifts once; all scaled shifts once in METHODS then supplied taus order; independent per-shift arithmetic',
+        'outcome_evaluation_order': 'METHODS then supplied taus order; one unchanged decision forward per completed nonzero condition',
         'score_rms_relative_error_tolerance': args.score_rms_tolerance,
         'full_prefix_candidate_logit_atol': args.full_prefix_atol,
         'cached_zero_logit_and_attention_atol': 0.,
@@ -411,6 +428,21 @@ def run(args, started):
                 enforce_zero_identity(0., max_abs_error(baseline['logits'].numpy(),
                     measurements['baseline_logits'].numpy()), full_prefix_atol=args.full_prefix_atol)
                 units = dict(zip(vectors, measurements['shifts']))
+                # Every calibration uses the same immutable prefix and unedited
+                # query. Share its forward, but retain each exact rounded key
+                # addition, score calculation, and subsequent outcome forward.
+                planned_shifts = scaled_shift_plan(vectors, units, args.taus, sign,
+                                                   layer, head, target_positions)
+                scaled_checks = {}
+                if planned_shifts:
+                    checks = measure_fixed_query_shifts(model, state,
+                        [shift for _, shift in planned_shifts])
+                    enforce_zero_identity(0., max_abs_error(baseline['logits'].numpy(),
+                        checks['baseline_logits'].numpy()), full_prefix_atol=args.full_prefix_atol)
+                    if len(checks['shifts']) != len(planned_shifts):
+                        raise RuntimeError('Scaled-shift measurement count does not match its plan')
+                    scaled_checks = {key: (shift, check) for (key, shift), check
+                                     in zip(planned_shifts, checks['shifts'])}
                 for method in METHODS:
                     for tau in args.taus:
                         record = {'id': row['id'], 'group_id': row['group_id'],
@@ -441,10 +473,8 @@ def run(args, started):
                             record.update({'status': 'blocked_zero_fixed_query_response',
                                            'unit_score_rms': units[method]['rms']})
                         else:
-                            coefficient = sign * tau / units[method]['rms']
-                            shift = {'layer': layer, 'kv_head': head, 'positions': target_positions,
-                                     'delta': vectors[method], 'coefficient': coefficient}
-                            check = measure_fixed_query_shifts(model, state, [shift])['shifts'][0]
+                            shift, check = scaled_checks[(method, tau)]
+                            coefficient = shift['coefficient']
                             status, relative_error = calibration_status(check['rms'], tau, args.score_rms_tolerance)
                             calibration_errors.append(relative_error)
                             record.update({'status': status, 'coefficient': coefficient,
