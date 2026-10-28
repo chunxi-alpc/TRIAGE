@@ -1,0 +1,236 @@
+{
+  "schema_version": "module2.mechanism.run_validation.v1",
+  "experiment": "module2_mechanism_20261028",
+  "archival_only_no_inference_or_test_rerun": true,
+  "statuses": {
+    "representation": {
+      "status": "complete",
+      "stage": "representation",
+      "offline_forwards": 144,
+      "online_forwards": 48,
+      "triplets": 96,
+      "selected_heads": [
+        [
+          13,
+          4
+        ],
+        [
+          23,
+          6
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          22,
+          7
+        ]
+      ],
+      "first_layer_offline_difference_max": 0.0,
+      "elapsed_seconds": 705.213785289
+    },
+    "original_causal": {
+      "status": "complete",
+      "prompts_completed": 24,
+      "records": 216,
+      "expected_records": 216,
+      "missing_records": 0,
+      "selected_heads": [
+        [
+          13,
+          4
+        ],
+        [
+          23,
+          6
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          22,
+          7
+        ]
+      ],
+      "validation_checks": 96,
+      "elapsed_seconds": 501.5788328439994
+    },
+    "canonical_boundary_readout_replay": {
+      "status": "complete",
+      "prompts_completed": 24,
+      "records": 216,
+      "expected_records": 216,
+      "missing_records": 0,
+      "boundary_checks": 48,
+      "forward_replay_checks": 216,
+      "max_legacy_logit_error": 0.0,
+      "max_attention_error": 0.0,
+      "all_legacy_rankings_identical": true,
+      "all_saved_values_exactly_reproduced": true,
+      "elapsed_seconds": 348.1211815360002
+    }
+  },
+  "causal_validation": {
+    "total_comparisons": 96,
+    "physical_prompts": 24,
+    "condition_counts": {
+      "zero": 24,
+      "projected": 24,
+      "reversed": 24,
+      "direct_bias": 24
+    },
+    "strict_zero_identity": {
+      "comparisons": 24,
+      "logit_atol": 0.0,
+      "attention_atol": 0.0,
+      "max_errors": {
+        "logit_max_abs_error": 0.0,
+        "attention_max_abs_error": 0.0,
+        "query_max_abs_error": 0.0
+      }
+    },
+    "nonzero_full_vs_tail": {
+      "comparisons": 72,
+      "conditions": [
+        "projected",
+        "reversed",
+        "direct_bias"
+      ],
+      "logit_atol": 1e-05,
+      "attention_and_query_atol": 1e-06,
+      "max_errors": {
+        "logit_max_abs_error": 0.0,
+        "attention_max_abs_error": 0.0,
+        "query_max_abs_error": 0.0
+      }
+    },
+    "all_96_max_errors": {
+      "logit_max_abs_error": 0.0,
+      "attention_max_abs_error": 0.0,
+      "query_max_abs_error": 0.0
+    },
+    "full_prompt_vs_guide_split_baseline": {
+      "comparisons": 24,
+      "logit_atol": 0.0001,
+      "max_full_vocabulary_logit_error": 3.36766242980957e-05
+    },
+    "scope": "complete vocabulary logits, per-head/query/token attention and QK responses for the three representative nonzero controls; exact zero path for every physical prompt"
+  },
+  "canonical_readout_validation": {
+    "replayed_conditions": 216,
+    "candidate_boundary_checks": 48,
+    "physical_prompts": 24,
+    "candidate_continuations": [
+      " A",
+      " B"
+    ],
+    "candidate_token_ids": [
+      362,
+      425
+    ],
+    "legacy_candidate_token_ids": [
+      32,
+      33
+    ],
+    "all_prefix_tokenizations_preserved": true,
+    "all_candidates_append_exactly_one_token": true,
+    "max_legacy_logit_error": 0.0,
+    "max_per_head_query_token_attention_error": 0.0,
+    "all_saved_values_exactly_reproduced": true,
+    "all_legacy_AB_rankings_identical": true,
+    "scope": "secondary constrained A/B readout correction only; unchanged prompts, parameters, directions, heads, cases, gains and forward attention; original readout retained"
+  },
+  "implementation_test_batches": [
+    {
+      "batch": "new_statistics_extraction_prefix_runner_causal",
+      "passed": 31,
+      "command": "python -m pytest -q tests/test_module2_mechanism.py tests/test_module2_mechanism_extraction.py tests/test_module2_mechanism_runner.py tests/test_module2_guideline_prefix.py tests/test_module2_mechanism_causal.py",
+      "evidence": "results/environment.json; completed root execution record"
+    },
+    {
+      "batch": "minimal_pair_validation",
+      "passed": 10,
+      "test_files": [
+        "tests/test_module2_pairs.py"
+      ],
+      "evidence": "results/environment.json; completed root execution record"
+    },
+    {
+      "batch": "boundary_readout",
+      "passed": 7,
+      "command": "python -m pytest -q tests/test_module2_boundary_readout.py",
+      "evidence": "completed prefix_adapter execution; 7 passed in 0.12s"
+    }
+  ],
+  "test_reporting_note": "These are three separately executed batches, not one combined full-suite invocation; tests verify implementation, not model effectiveness.",
+  "record_archives": [
+    {
+      "source": "results/causal/records.jsonl",
+      "archive": "results/causal/records.jsonl.gz",
+      "source_bytes": 11969971,
+      "source_sha256": "6545e833806b9b998e5838990bffcfbe19db2987dbc957d1fd00a03a8de8b4b8",
+      "archive_bytes": 4453206,
+      "archive_sha256": "cdab39a55f4e13e3e73ec442194d9f81fd0b3b0eb266f87f49d573c08dc6bafa",
+      "decompressed_sha256": "6545e833806b9b998e5838990bffcfbe19db2987dbc957d1fd00a03a8de8b4b8",
+      "exact_roundtrip": true,
+      "original_retained_unchanged": true,
+      "compression": "gzip.compress(data, mtime=0)",
+      "mtime": 0,
+      "records": 216
+    },
+    {
+      "source": "results/causal_boundary_readout/records.jsonl",
+      "archive": "results/causal_boundary_readout/records.jsonl.gz",
+      "source_bytes": 12113986,
+      "source_sha256": "b487ad5e874979ca0571845d83723150a40dfd08e60e220c73931439a9614b5a",
+      "archive_bytes": 4512911,
+      "archive_sha256": "7c8a77a0b386f74d2442daefce085453e6e34d5e341b481ae9b654ff93809e77",
+      "decompressed_sha256": "b487ad5e874979ca0571845d83723150a40dfd08e60e220c73931439a9614b5a",
+      "exact_roundtrip": true,
+      "original_retained_unchanged": true,
+      "compression": "gzip.compress(data, mtime=0)",
+      "mtime": 0,
+      "records": 216
+    }
+  ],
+  "source_artifacts": {
+    "results/status.json": {
+      "sha256": "50e03dd75cea75c99c88ff6f8f9b92fafc12abdaf260de63974a2f520da0de02",
+      "bytes": 356
+    },
+    "results/causal/status.json": {
+      "sha256": "2f454e8546fbe78e4eada2a74dd1e6b643846dd5edff9863a93ac07bfd04c02e",
+      "bytes": 339
+    },
+    "results/causal/validation.json": {
+      "sha256": "f08b68074e456d6988031f970cba47c1d5471a9c37c15bebb33c61c58af59cac",
+      "bytes": 28816
+    },
+    "results/causal/fingerprint.json": {
+      "sha256": "2c9cb45ea9d4b64f704a284f5f96464bf22ad5c7288ce5fcfd5cbb4c6215a9fb",
+      "bytes": 2106
+    },
+    "results/causal_boundary_readout/status.json": {
+      "sha256": "642bdfed3514d77032ea6f2cf37c562c9839344727b5c00ca1ffc46c4ac151e1",
+      "bytes": 371
+    },
+    "results/causal_boundary_readout/validation.json": {
+      "sha256": "b7968df0eb5ca363fe0507d1f147ca8138c9ac938923ca92b613ccf12a3a46b8",
+      "bytes": 81147
+    },
+    "results/causal_boundary_readout/token_boundary_audit.json": {
+      "sha256": "1b4d72dbf573e15fef80c033f2a40c4dcc6f049ff3fd812c280e1e45b0da9b5a",
+      "bytes": 11875
+    },
+    "results/causal_boundary_readout/fingerprint.json": {
+      "sha256": "a4b7e7522e74f1dc01084b326533a1bb99461f1fbab924f931f058192c673b98",
+      "bytes": 5566
+    },
+    "results/environment.json": {
+      "sha256": "abf6769a87c5c8a3dd96733b6ba8b63202385ce4fb5e9efd5f37081b24b0f2a4",
+      "bytes": 564
+    }
+  }
+}

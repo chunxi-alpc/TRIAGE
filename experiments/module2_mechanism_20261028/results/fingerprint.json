@@ -1,0 +1,71 @@
+{
+  "model_id": "Qwen/Qwen3-0.6B-Base",
+  "model_revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+  "model_files": {
+    "config.json": {
+      "sha256": "504a6b58c4271583724e66584b6b7698aea18450209df6b2f7582df0e89cee59",
+      "bytes": 727
+    },
+    "generation_config.json": {
+      "sha256": "8c970692323e3ea0e9b8b0a4dca79388d31226e41f83c9fd6014804280ebf6e8",
+      "bytes": 138
+    },
+    "merges.txt": {
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+      "bytes": 1671853
+    },
+    "model.safetensors": {
+      "sha256": "cd2a512003e2f9f3cd3c32a9c3573f820bb28c940f73c57b1ddaa983d9223eba",
+      "bytes": 1192135096
+    },
+    "tokenizer.json": {
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "bytes": 7031645
+    },
+    "tokenizer_config.json": {
+      "sha256": "3c04ed3ca964ea2f6b2b5faf0dc4d31aec1cb1e8b4bcf63f402d295046b422b5",
+      "bytes": 9678
+    },
+    "vocab.json": {
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "bytes": 2776833
+    }
+  },
+  "data_sha256": "22e9fe7c7bdd287fdf6061f99798105baeca8f9851c45b793e0ecbf0bc293ac3",
+  "geometry": {
+    "layers": 28,
+    "query_heads": 16,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "queries_per_kv_head": 2
+  },
+  "source": {
+    "src/module2/mechanism_extraction.py": "ed31646bee1f1f7ea2aff6f5e998b04f372379e67ad16e1808c784281dd5e5e7",
+    "src/module2/extraction.py": "de83c757951df08b8f68c7bbce01c610e0a0d4d4e8d23ed5f6c4b1be09782af5",
+    "src/module2/minimal_pairs.py": "e00b72fcf50943d494a9ea8a7c030b70ab3bf8165fb6c76b321eb6f3d18fb95d",
+    "src/module2/mechanism.py": "630d6699b7507327174f70129a4405bfdaf9a97eadcd6e53ebc6938c60aef056",
+    "scripts/run_module2_mechanism.py": "bb0482d03f46e375f9cd7a6496037c8e6d8553006493e481915deb0fd44caa44"
+  },
+  "torch": "2.8.0+cpu",
+  "transformers": "4.57.6",
+  "numpy": "2.3.5",
+  "threads": 4,
+  "dtype": "float32",
+  "rank": 2,
+  "max_heads": 4,
+  "seed": 261028,
+  "roles": [
+    "id",
+    "action"
+  ],
+  "offline_order": "P-Q-G",
+  "online_order": "G-P-Q",
+  "candidate_labels": [
+    "A",
+    "B"
+  ],
+  "candidate_token_ids": [
+    32,
+    33
+  ]
+}

@@ -1,6 +1,16 @@
-# 模块二：注意力头定位与适用性干预研究
+# 模块二：离线适用性方向与历史定位接口
 
-模块二包含主流程的候选查询头定位，以及 CARE 的独立子空间实验。**最新研究结果是 2026-10-19 的有符号适用性诊断；主流程仍使用既有的查询头定位实现与校准组件。**
+## 当前正文对应的独立实现（2026-10-28）
+
+[mechanism.py](mechanism.py) 实现逐 token 配对二阶矩、单位投影均值、含缺失状态惩罚的 Sep、双状态在线 Read 选头和成组符号诊断。[mechanism_extraction.py](mechanism_extraction.py) 提取归一化后/旋转前键，并分别实现患者前置离线顺序与指南前置在线顺序。数据由 [minimal_pairs.py](minimal_pairs.py) 独立核验，不读取模块一伪标签。
+
+运行入口为 [run_module2_mechanism.py](../../scripts/run_module2_mechanism.py)。[2026-10-28 实验](../../experiments/module2_mechanism_20261028/RESULTS.zh.md)已在 Qwen3-0.6B-Base 上完成，支持共享方向与可控读取；原始均值和直接偏置同样有效。实际执行器为 [guideline_prefix.py](../module3/guideline_prefix.py)，不是下方历史的查询头消融或旧投影算子。
+
+公开新接口是 `fit_operators`、`evaluate_direction`、`select_heads`。原有四个定位接口通过惰性导入保持可用。`extraction.py` 保留复用的架构/位置工具和早期 span-mean 提取函数；当前正文的逐 token 拟合使用 `mechanism_extraction.py`，不能用旧 span-mean 外积替代。
+
+## 历史定位与早期研究（下文按原阶段解释）
+
+历史模块二包含原主流程的候选查询头定位，以及 CARE 的独立子空间实验。下文的“主流程”及“当前实现”保留原版本含义；2026-10-28 新机制实验使用上方独立入口。
 
 ## 当前实现
 

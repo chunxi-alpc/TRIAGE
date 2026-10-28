@@ -7,6 +7,15 @@
 - [生成论文图稿](generate_aster_figures.py)：使用方式见[图稿说明](../docs/ASTER/figures/README.md)。
 - [核对原稿占位表](audit_aster_placeholders.py)：只检查已显示数字的一致性，不执行模型评测。
 
+## 当前模块二机制实验（2026-10-28）
+
+- [真实逐 token 提取与双状态选头](run_module2_mechanism.py)。
+- [指南前缀双向编辑](run_module2_mechanism_causal.py)：固定完整九配置，不按确认效果调节。
+- [附加答案边界修正](replay_module2_boundary_readout.py)：同一前向条件重读规范单 token 标签，保留旧记录。
+- [分析与三张实验图](analyze_module2_mechanism.py)：完整覆盖、所有病例与可复算示范筛选。
+
+固定环境、数据和运行命令见[实验入口](../experiments/module2_mechanism_20261028/README.md)。这些是新的独立研究入口，不改变下方历史脚本的默认协议。
+
 ## 历史脚本索引原文
 
 [项目首页](../README.md) · [运行说明](../docs/RUNNING.md) · [实验索引](../experiments/README.md)

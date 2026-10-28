@@ -1,0 +1,87 @@
+{
+  "schema_version": "module2.mechanism.causal.v1",
+  "operators_sha256": "c1a25cb6dee25620a5f6b330867f1c001703dcbd548f2abc66d62e04cfa3a71c",
+  "selection_sha256": "ba1787ebf484d3078efe8de474313613b798d9ef2a8e1155cafe36d277779c1d",
+  "representation_fingerprint_sha256": "ba21cc61c8b5add5c361a9a72c3e10e1b867f55e7763b7784795d462e76abe10",
+  "source": {
+    "src/module3/guideline_prefix.py": "fd1a898042e44605eaaf4ef7e9a76b006787922cd0f96c977b63054f898c63ee",
+    "src/module2/mechanism_extraction.py": "ed31646bee1f1f7ea2aff6f5e998b04f372379e67ad16e1808c784281dd5e5e7",
+    "src/module2/extraction.py": "de83c757951df08b8f68c7bbce01c610e0a0d4d4e8d23ed5f6c4b1be09782af5",
+    "scripts/run_module2_mechanism_causal.py": "9107c5580565cfed9b7810588662ab271a386f43a77c1baec17ea3f632449581"
+  },
+  "conditions": [
+    {
+      "method": "baseline",
+      "mode": "none",
+      "gain": 0.0
+    },
+    {
+      "method": "projected",
+      "mode": "both",
+      "gain": 1.0
+    },
+    {
+      "method": "projected",
+      "mode": "both",
+      "gain": 4.0
+    },
+    {
+      "method": "projected",
+      "mode": "enhance",
+      "gain": 4.0
+    },
+    {
+      "method": "projected",
+      "mode": "suppress",
+      "gain": 4.0
+    },
+    {
+      "method": "raw_mean",
+      "mode": "both",
+      "gain": 4.0
+    },
+    {
+      "method": "random",
+      "mode": "both",
+      "gain": 4.0
+    },
+    {
+      "method": "reversed",
+      "mode": "both",
+      "gain": 4.0
+    },
+    {
+      "method": "direct_bias",
+      "mode": "both",
+      "gain": 4.0
+    }
+  ],
+  "heads": [
+    [
+      13,
+      4
+    ],
+    [
+      23,
+      6
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      22,
+      7
+    ]
+  ],
+  "unique_prompts": 24,
+  "expected_records": 216,
+  "oracle_gains": true,
+  "actual_m1_used": false,
+  "threads": 4,
+  "tail_validation": "baseline/zero exact; projected4,reverse4,direct4 each physical prompt",
+  "full_prefix_logit_atol": 0.0001,
+  "tail_logit_atol": 1e-05,
+  "tail_attention_atol": 1e-06,
+  "causal_scope": "ID+action guide keys; all patient/question suffix tokens; full selected head set"
+}

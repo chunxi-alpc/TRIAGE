@@ -2,9 +2,11 @@
 
 **当前主线：处置盲适用性评估（ABAA）→ 离线适用性子空间 → 在线规则键平移。** ASTER 的展开更新为 *Action-blind Selection, Then Eigen-subspace Re-routing*。模块一于 **2026-10-27** 固定为最新简化版本：同一骨干模型、处置盲输入、组内受限分类、单温度校准和概率／间隔弃权。
 
-> **状态：研究工作稿与模块一参考实现。** 已提供新版模块一、温度拟合及模块一到模块三的规则增益接口。模块二方向学习、实际注意力编辑与完整流水线仍待实现。没有新增预训练模型实验或性能结论；历史 CARE／ACRE／V6 代码与既有结果不自动成为新版 ASTER 的实现或证据。
+> **状态：研究工作稿、模块一参考接口与模块二机制实验。** 新增逐 token 适用性方向、双状态在线选头和指南前缀键编辑实现。[2026-10-28 真实实验](experiments/module2_mechanism_20261028/RESULTS.zh.md)在固定 Qwen3-0.6B-Base 上验证共享方向及双向规则读取；最高预设增益下，12/12 对相反患者都提高正确/兄弟规则注意力比。该实验使用 oracle 符号，完整模块一到处置生成的流水线仍待验证。历史 CARE／ACRE／V6 结果保留原含义。
 
 [主线文档](docs/ASTER/README.md) · [论文工作稿](docs/ASTER/manuscript.zh.md) · [模块一确定版](docs/ASTER/module1-spec.zh.md) · [新版代码](src/aster/README.md) · [实验计划](docs/ASTER/experiment-plan.zh.md) · [实现状态](docs/ASTER/implementation-status.zh.md)
+
+**模块二新增入口：**[机制实验与三图](experiments/module2_mechanism_20261028/README.md) · [固定协议](experiments/module2_mechanism_20261028/PROTOCOL.zh.md) · [逐 token 统计](src/module2/mechanism.py) · [真实指南缓存编辑](src/module3/guideline_prefix.py)。主文强调可复用方向和可控读取；原始均值、随机、反向与直接偏置对照和全部病例分母同时保留。
 
 ## 研究问题与三模块分工
 
@@ -71,6 +73,6 @@ python -m scripts.run_aster_module1 --help
 
 2026-10-26 的两阶段注意力掩码、证据员、软否决及对数门控方案保存在[改版前固定提交](https://github.com/chunxi-alpc/TRIAGE/tree/781ee863784c60f1f6710ba5eede22bc8ee6b93c)。[旧图稿](docs/ASTER/figures/README.md)中的图 2、图 4 对应该版本，不再定义当前方法。图 1 和图 3 仍可作为任务与五卷协议示意，不能作为实验结果。
 
-更早的 CARE、ACRE 与原三模块实现仍按原接口保存。`src/module1`、`src/module2`、`src/module3`、`src/pipeline` 及其默认命令均为历史接口；当前模块一入口是 `src/aster`，不把新版结果强行转换为 V6 图结构。既有实验、预测和负结果保留原版本含义。
+更早的 CARE、ACRE 与原三模块实现仍按原接口保存。`src/module1`、`src/pipeline` 及旧定位/投影命令均为历史接口；`src/module2/mechanism*` 和 `src/module3/guideline_prefix.py` 是新增的当前协议研究入口。当前模块一入口是 `src/aster`，不把新版结果强行转换为 V6 图结构。既有实验、预测和负结果保留原版本含义。
 
 [历史支线索引](docs/BRANCHES.md) · [旧实验索引](experiments/README.md) · [旧结果索引](results/README.md) · [版本记录](docs/REPOSITORY_STATUS.md)。整理前的更早完整快照仍在 [archive/pre-aster-main-20261026](https://github.com/chunxi-alpc/TRIAGE/tree/archive/pre-aster-main-20261026)。

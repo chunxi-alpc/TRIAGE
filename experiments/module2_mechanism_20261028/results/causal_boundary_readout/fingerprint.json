@@ -1,0 +1,207 @@
+{
+  "schema_version": "module2.mechanism.boundary_replay.v1",
+  "readout_spec": {
+    "schema_version": "module2.boundary_readout.v1",
+    "purpose": "technical correction of the secondary constrained A/B answer readout",
+    "candidate_labels": [
+      "A",
+      "B"
+    ],
+    "candidate_continuations": [
+      " A",
+      " B"
+    ],
+    "candidate_token_ids": [
+      362,
+      425
+    ],
+    "legacy_candidate_token_ids": [
+      32,
+      33
+    ],
+    "boundary_rule": "tokenize(prompt + continuation) == tokenize(prompt) + one candidate token",
+    "prompt_changed": false,
+    "new_fit_or_selection": false
+  },
+  "original_causal_records_sha256": "6545e833806b9b998e5838990bffcfbe19db2987dbc957d1fd00a03a8de8b4b8",
+  "original_causal_fingerprint_sha256": "2c9cb45ea9d4b64f704a284f5f96464bf22ad5c7288ce5fcfd5cbb4c6215a9fb",
+  "original_causal_fingerprint": {
+    "schema_version": "module2.mechanism.causal.v1",
+    "operators_sha256": "c1a25cb6dee25620a5f6b330867f1c001703dcbd548f2abc66d62e04cfa3a71c",
+    "selection_sha256": "ba1787ebf484d3078efe8de474313613b798d9ef2a8e1155cafe36d277779c1d",
+    "representation_fingerprint_sha256": "ba21cc61c8b5add5c361a9a72c3e10e1b867f55e7763b7784795d462e76abe10",
+    "source": {
+      "src/module3/guideline_prefix.py": "fd1a898042e44605eaaf4ef7e9a76b006787922cd0f96c977b63054f898c63ee",
+      "src/module2/mechanism_extraction.py": "ed31646bee1f1f7ea2aff6f5e998b04f372379e67ad16e1808c784281dd5e5e7",
+      "src/module2/extraction.py": "de83c757951df08b8f68c7bbce01c610e0a0d4d4e8d23ed5f6c4b1be09782af5",
+      "scripts/run_module2_mechanism_causal.py": "9107c5580565cfed9b7810588662ab271a386f43a77c1baec17ea3f632449581"
+    },
+    "conditions": [
+      {
+        "method": "baseline",
+        "mode": "none",
+        "gain": 0.0
+      },
+      {
+        "method": "projected",
+        "mode": "both",
+        "gain": 1.0
+      },
+      {
+        "method": "projected",
+        "mode": "both",
+        "gain": 4.0
+      },
+      {
+        "method": "projected",
+        "mode": "enhance",
+        "gain": 4.0
+      },
+      {
+        "method": "projected",
+        "mode": "suppress",
+        "gain": 4.0
+      },
+      {
+        "method": "raw_mean",
+        "mode": "both",
+        "gain": 4.0
+      },
+      {
+        "method": "random",
+        "mode": "both",
+        "gain": 4.0
+      },
+      {
+        "method": "reversed",
+        "mode": "both",
+        "gain": 4.0
+      },
+      {
+        "method": "direct_bias",
+        "mode": "both",
+        "gain": 4.0
+      }
+    ],
+    "heads": [
+      [
+        13,
+        4
+      ],
+      [
+        23,
+        6
+      ],
+      [
+        6,
+        2
+      ],
+      [
+        22,
+        7
+      ]
+    ],
+    "unique_prompts": 24,
+    "expected_records": 216,
+    "oracle_gains": true,
+    "actual_m1_used": false,
+    "threads": 4,
+    "tail_validation": "baseline/zero exact; projected4,reverse4,direct4 each physical prompt",
+    "full_prefix_logit_atol": 0.0001,
+    "tail_logit_atol": 1e-05,
+    "tail_attention_atol": 1e-06,
+    "causal_scope": "ID+action guide keys; all patient/question suffix tokens; full selected head set"
+  },
+  "representation_fingerprint_sha256": "ba21cc61c8b5add5c361a9a72c3e10e1b867f55e7763b7784795d462e76abe10",
+  "operators_sha256": "c1a25cb6dee25620a5f6b330867f1c001703dcbd548f2abc66d62e04cfa3a71c",
+  "selection_sha256": "ba1787ebf484d3078efe8de474313613b798d9ef2a8e1155cafe36d277779c1d",
+  "triplets_sha256": "22e9fe7c7bdd287fdf6061f99798105baeca8f9851c45b793e0ecbf0bc293ac3",
+  "source": {
+    "scripts/replay_module2_boundary_readout.py": "b3dbccf841a450876962c0a1b20eb4e2453e0b65e4eb1a93063d096536f37fde",
+    "scripts/run_module2_mechanism_causal.py": "9107c5580565cfed9b7810588662ab271a386f43a77c1baec17ea3f632449581",
+    "scripts/run_module2_mechanism.py": "bb0482d03f46e375f9cd7a6496037c8e6d8553006493e481915deb0fd44caa44",
+    "src/module3/guideline_prefix.py": "fd1a898042e44605eaaf4ef7e9a76b006787922cd0f96c977b63054f898c63ee",
+    "src/module2/mechanism_extraction.py": "ed31646bee1f1f7ea2aff6f5e998b04f372379e67ad16e1808c784281dd5e5e7",
+    "src/module2/extraction.py": "de83c757951df08b8f68c7bbce01c610e0a0d4d4e8d23ed5f6c4b1be09782af5"
+  },
+  "torch": "2.8.0+cpu",
+  "transformers": "4.57.6",
+  "numpy": "2.3.5",
+  "dtype": "float32",
+  "threads": 4,
+  "conditions": [
+    {
+      "method": "baseline",
+      "mode": "none",
+      "gain": 0.0
+    },
+    {
+      "method": "projected",
+      "mode": "both",
+      "gain": 1.0
+    },
+    {
+      "method": "projected",
+      "mode": "both",
+      "gain": 4.0
+    },
+    {
+      "method": "projected",
+      "mode": "enhance",
+      "gain": 4.0
+    },
+    {
+      "method": "projected",
+      "mode": "suppress",
+      "gain": 4.0
+    },
+    {
+      "method": "raw_mean",
+      "mode": "both",
+      "gain": 4.0
+    },
+    {
+      "method": "random",
+      "mode": "both",
+      "gain": 4.0
+    },
+    {
+      "method": "reversed",
+      "mode": "both",
+      "gain": 4.0
+    },
+    {
+      "method": "direct_bias",
+      "mode": "both",
+      "gain": 4.0
+    }
+  ],
+  "heads": [
+    [
+      13,
+      4
+    ],
+    [
+      23,
+      6
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      22,
+      7
+    ]
+  ],
+  "unique_prompts": 24,
+  "candidate_boundary_checks": 48,
+  "expected_records": 216,
+  "new_model_fit": false,
+  "new_head_selection": false,
+  "new_gain_selection": false,
+  "new_case_selection": false,
+  "validation": "all conditions against original legacy logits and per-query-token attention",
+  "logit_atol": 1e-05,
+  "attention_atol": 1e-06
+}
