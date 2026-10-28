@@ -8,7 +8,7 @@
 
 | 组件 | 新入口 | 状态与边界 |
 |---|---|---|
-| 条件视图与分支分类 | [action_blind.py](../../src/aster/action_blind.py) | 字段白名单、中性代理标签、完整合法 logits、温度缩放、概率／间隔／熵、弃权；真实骨干适配待实测 |
+| ABAA：输入构建与受限分类 | [action_blind.py](../../src/aster/action_blind.py) | 字段白名单、中性代理标签、完整合法 logits、温度缩放、概率／间隔／熵、弃权；真实骨干适配待实测 |
 | 同骨干评分适配 | `HFLabelScorer(model, tokenizer)` | 注入已有模型；实际模板边界单词元验证；拒绝截断与思考接口混用；无模型下载 |
 | 温度校准 | [calibration.py](../../src/aster/calibration.py) | 一个全局温度的开发集 NLL 拟合，记录搜索边界；没有自动阈值选择或风险认证 |
 | 模块一到模块三 | [gains.py](../../src/aster/gains.py) | 对分布及摘要作一致性检查，输出规则正负或零增益；可达性由调用者提供 |

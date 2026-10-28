@@ -2,7 +2,7 @@
 
 [项目首页](../../README.md) · [文档导航](../README.md) · [历史支线](../BRANCHES.md)
 
-**当前版本：2026-10-27。** ASTER 更新为 *Action-blind Selection, Then Eigen-subspace Re-routing*。模块一确定为同一骨干的处置盲分支分类器；三模块分别判断适用性、离线学习方向和在线编辑规则键。
+**当前版本：2026-10-27。** ASTER 更新为 *Action-blind Selection, Then Eigen-subspace Re-routing*。模块一确定为处置盲适用性评估（Action-Blind Applicability Assessment, ABAA）；三模块分别判断适用性、离线学习方向和在线编辑规则键。
 
 ## 阅读顺序
 
