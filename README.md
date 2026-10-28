@@ -10,13 +10,13 @@ ASTER（Action-blind Selection, Then Eigen-subspace Re-routing）研究不适用
 | 二：处置盲适用性评估 | 同一冻结骨干只读患者与条件 | 分支概率、预测与弃权 |
 | 三：适用性门控的规则键编辑 | 按病例分配增益并修改独立缓存 | 正常生成的答案或路径 |
 
-**研究状态：方法与实验方案。** 参考实现覆盖模块二的分类、温度拟合和模块三的规则增益接口；模块一方向学习、实际键编辑及完整流水线仍待实现。没有新增模型性能结果，历史实验不等于新版验证。
+**研究状态：方法、参考实现与独立机制预实验。** 已实现离线方向估计、处置盲分类与温度拟合，以及独立的指南前缀键编辑。[首轮机制预实验](experiments/module2_mechanism_20261028/RESULTS.zh.md)在固定 Qwen3-0.6B-Base 和金标编辑符号下验证共享方向与可控读取，原预设增益未改变编号选择。[后续读出诊断](experiments/rule_readout_diagnostic_20261028/RESULTS.zh.md)完成 192 条固定条件记录：更大编辑能够改变受限 A/B 选择，但连续答案间隔的响应存在异质性，不能将局部 Read 为正等同于答案收益。后续应力点不替代默认增益；完整三模块流水线和正式大模型任务仍待验证。
 
 ## 阅读入口
 
 [**论文主稿**](docs/ASTER/manuscript.zh.md)是唯一方法正文；[方法补充](docs/ASTER/supplementary.zh.md)保存推导与实现约定；[实验协议](docs/ASTER/experiments.zh.md)保存数据、基线、指标与冻结规则；[引用清单](docs/ASTER/references.zh.md)说明来源和支持范围。
 
-可运行接口及实现状态统一见 [src/aster](src/aster/README.md)。旧脚本 `run_aster_module1` 保留兼容名称，现对应论文模块二；类名与输出格式未改。
+可运行接口及实现状态统一见 [src/aster](src/aster/README.md)。旧脚本 `run_aster_module1` 保留兼容名称，现对应论文模块二；`run_module2_mechanism`、`src/module2/mechanism*` 和冻结实验目录保留旧编号，现对应论文模块一。类名、输出格式与已发表实验文件未因重编号而改写。
 
 ```bash
 python scripts/check_aster_markdown_math.py

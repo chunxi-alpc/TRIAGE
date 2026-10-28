@@ -93,6 +93,8 @@ u_{h,i}=\frac1{|J_i|}\sum_{j\in J_i}\Delta_h^{\top}\left(\frac{k_{h,i,j}^++k_{h,
 
 当前公共类名、`aster.action_blind.v1` 字段、脚本名称保持兼容。旧名称中的 module1 指历史编号，现对应论文模块二；不据此更改既有数据格式。调用示例和唯一实现状态表见[代码说明](../../src/aster/README.md)。
 
+独立方向实现 `src/module2/mechanism*` 及 `run_module2_mechanism` 同样保留冻结时的旧编号，现对应论文模块一。`module2_mechanism_20261028` 的协议、指纹和结果不因正文重编号而改写；实际缓存编辑入口为 `src/module3/guideline_prefix.py`。
+
 ## D. 键编辑与缓存边界
 
 生成未编辑指南前缀后，为每例建立独立可编辑缓存。已经旋转的键必须加入 $g_rR_j\Delta_h$，不得直接加入旋转前方向，亦不在编辑后额外归一化。共享原始缓存不变；患者、问题与生成查询读取病例缓存。模块二分类不得读取该编辑缓存。

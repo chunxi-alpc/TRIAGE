@@ -8,11 +8,28 @@
 
 | 论文模块 | 当前范围 |
 |---|---|
-| 一：对比适用性子空间学习 | 方法已定义；方向估计与专家构建尚未实现 |
+| 一：对比适用性子空间学习 | 已有逐 token 配对二阶矩、归一化方向、双状态选头与共享专家的独立实现；固定小模型机制预实验完成 |
 | 二：处置盲适用性评估（ABAA） | 已有输入构建、受限分类和单温度拟合参考实现 |
-| 三：适用性门控的规则键编辑 | 已有 `rule_gains` 映射；实际键编辑、缓存协议和完整树运行器尚未实现 |
+| 三：适用性门控的规则键编辑 | 已有 `rule_gains` 映射及独立 Qwen3 指南前缀缓存键编辑器；完整树运行器及实际模块二到生成的联合验证待完成 |
 
-`run_aster_module1` 的 module1 是历史编号，现执行论文模块二。`aster.action_blind.v1` 格式保持不变。旧 `src/module1`、`src/module2`、`src/module3` 和 `src/pipeline` 属于历史实现，不因文档重排而变成新版系统。没有新增预训练模型运行或性能结果。
+`run_aster_module1` 的 module1 是历史编号，现执行论文模块二。`aster.action_blind.v1` 格式保持不变。新增 `src/module2/mechanism*` 与 `run_module2_mechanism` 保留冻结时的旧编号，现执行论文模块一。`src/module3/guideline_prefix.py` 是当前指南缓存协议的独立执行器；其余旧定位、投影和 `src/pipeline` 保留历史接口，不因文档重排而变成新版联合系统。
+
+## 独立机制实现与已完成运行
+
+| 入口 | 实际范围 |
+|---|---|
+| [mechanism.py](../module2/mechanism.py) | 逐 token 配对二阶矩、方向、分离度、双状态选头和成组符号诊断 |
+| [mechanism_extraction.py](../module2/mechanism_extraction.py) | 患者前置离线键与指南前置在线查询；实际 GQA／RoPE 坐标 |
+| [guideline_prefix.py](../module3/guideline_prefix.py) | 独立指南缓存、多头双规则键平移、整个患者后缀和经过核验的后段优化 |
+| [运行与分析入口](../../experiments/module2_mechanism_20261028/README.md) | 固定模型／数据／算子、完整配置覆盖、三图、所有案例与可复算选例 |
+
+[机制预实验](../../experiments/module2_mechanism_20261028/RESULTS.zh.md)已完成 Qwen3-0.6B-Base 的 144 次离线和 48 次在线表示前向、216 条实际干预以及同条件的 216 条答案边界修正重放。12/12 个配对配置均改善局部读取比，原始均值和直接偏置同样有效；规范 A/B 读出所有配置均为 12/24 正确、1/12 配对全对且无预测翻转。研究证据限于 3 个确认指南、显式 Boolean 患者和金标编辑符号，实际处置盲预测、自由生成与完整系统尚未验证。
+
+统计与执行器、最小对、边界读出的检查分三个实际批次完成，分别为 31、10、7 项。24 个零编辑和 72 个代表非零配置的完整／后段比较，logits、attention、query 最大误差均为 0；24 个完整提示／分段基线的全词表最大误差为 3.37e−5，低于 1e−4。研究运行使用固定预训练权重，微型随机模型仅用于代码检查。详细覆盖与摘要见 [RUN_VALIDATION.json](../../experiments/module2_mechanism_20261028/RUN_VALIDATION.json)。
+
+[后续答案读出诊断](../../experiments/rule_readout_diagnostic_20261028/RESULTS.zh.md)完成相同 24 提示上的八条件、192 条记录。固定键增益 +32 与直接分数偏置 +8 分别为 15/24 和 14/24 正确，但正向减反向的平均正确标签间隔均为负；显式正确／兄弟 ID 注释分别为 24/24 和 0/24。该探索显示标签可以改变，同时限制了从局部读取到答案效用的推断；默认参数、头集及原冻结结果未改。
+
+新增运行器 [run_rule_readout_diagnostic.py](../../scripts/run_rule_readout_diagnostic.py)与[分析脚本](../../scripts/analyze_rule_readout_diagnostic.py)保留完整分母、正反方向、候选概率及实际读取质量。8 项新代码检查通过；48 个首轮条件重放的最大 logit／attention 误差分别为 5.72e−6／1.38e−7，在预设容差内；24 个完整／后段比较误差均为 0。运行状态见[诊断核验记录](../../experiments/rule_readout_diagnostic_20261028/results/status.json)，这些检查不扩充独立指南数。
 
 ## 复用同一骨干
 

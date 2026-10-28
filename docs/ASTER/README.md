@@ -11,4 +11,8 @@
 
 [代码说明](../../src/aster/README.md)单独维护可运行接口和实现状态，不重复论文方法。主稿的结果结构是唯一填写入口；未运行结果不预填。
 
+[独立机制预实验](../../experiments/module2_mechanism_20261028/RESULTS.zh.md)已完成当前模块一的共享方向与模块三的指南前缀读取测量，使用 Qwen3-0.6B-Base 和金标规则符号。它与正式端到端主表分开报告；目录名中的 `module2` 是冻结时的历史编号，不表示当前处置盲模块。
+
+[后续规则读取与答案诊断](../../experiments/rule_readout_diagnostic_20261028/RESULTS.zh.md)沿用相同头、权重与全部确认提示，完成 192 条记录。固定大幅度正反编辑和显式规则 ID 对照检验读取与答案之间的差距；[四面板结果图](../../experiments/rule_readout_diagnostic_20261028/figures/rule_readout_diagnostic.png)同时报告答案变化与连续间隔，新增应力点不用于改选默认增益。
+
 旧模块规格、设计沿革、审计、历史结果和重复实验表统一从[固定版本归档](archive/README.md)追溯。图稿与源材料保留原路径供历史脚本使用，其中旧阶段掩码和对数门控图不代表当前方法。

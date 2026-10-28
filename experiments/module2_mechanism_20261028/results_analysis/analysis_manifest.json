@@ -1,0 +1,55 @@
+{
+  "schema_version": "module2.mechanism.analysis.v1",
+  "inputs": {
+    "experiments/module2_mechanism_20261028/results/measurements.npz": "24e89a7bc35f92850b02c512ad9e04b7704a8d3b7178f14cb91fd1aed601f8b3",
+    "experiments/module2_mechanism_20261028/results/operators.npz": "c1a25cb6dee25620a5f6b330867f1c001703dcbd548f2abc66d62e04cfa3a71c",
+    "experiments/module2_mechanism_20261028/inputs/triplets.jsonl": "22e9fe7c7bdd287fdf6061f99798105baeca8f9851c45b793e0ecbf0bc293ac3",
+    "experiments/module2_mechanism_20261028/results/selection.json": "ba1787ebf484d3078efe8de474313613b798d9ef2a8e1155cafe36d277779c1d",
+    "experiments/module2_mechanism_20261028/results/causal_boundary_readout/records.jsonl": "b487ad5e874979ca0571845d83723150a40dfd08e60e220c73931439a9614b5a",
+    "experiments/module2_mechanism_20261028/results/causal_boundary_readout/status.json": "642bdfed3514d77032ea6f2cf37c562c9839344727b5c00ca1ffc46c4ac151e1",
+    "experiments/module2_mechanism_20261028/results/causal/conditions.json": "1830bc38c60dc1d036ae80241eb12d8a31cb332806b8f49f5cd064eca9c9315c"
+  },
+  "selected_heads": [
+    [
+      13,
+      4
+    ],
+    [
+      23,
+      6
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      22,
+      7
+    ]
+  ],
+  "n_triplets": 96,
+  "random_direction_source": "saved operator",
+  "source_sha256": "c6a1db65dd9db496d8c9cc2c4d870afd0f9c0724813cdce41568c9b7d4f6d409",
+  "direction_sign_rule": "Strict >0; abs(z)<=1e-9 and difference_norm<=1e-12 separately flagged.",
+  "intervals": "5000 guide-cluster percentile bootstrap draws, numpy seed 261028; conditional on frozen operator, only 3 confirmation guides.",
+  "scope": "Descriptive held-out mechanism analysis; no new head, direction, dose, or model selection.",
+  "empty_expert": false,
+  "causal": {
+    "n_pairs": 12,
+    "n_reading_success_pairs": 12,
+    "n_records": 216,
+    "n_selected_examples": 3,
+    "n_unique_prompts": 24,
+    "n_base_patient_states": 6,
+    "readout_schema": [
+      "module2.boundary_readout.v1"
+    ],
+    "candidate_token_ids": [
+      "[362, 425]"
+    ],
+    "candidate_continuations": [
+      "[\" A\", \" B\"]"
+    ],
+    "illustration_selection_is_exploratory": true
+  }
+}

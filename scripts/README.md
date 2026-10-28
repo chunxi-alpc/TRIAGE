@@ -7,6 +7,19 @@
 - [生成论文图稿](generate_aster_figures.py)：使用方式见[图稿说明](../docs/ASTER/figures/README.md)。
 - [核对原稿占位表](audit_aster_placeholders.py)：只检查已显示数字的一致性，不执行模型评测。
 
+## 离线方向与读取机制实验（2026-10-28）
+
+以下脚本保留冻结时的 `module2` 名称，方向学习现对应论文模块一，缓存编辑对应模块三。当前模块二处置盲评估仍由兼容名称 `run_aster_module1` 提供，接口见 [src/aster](../src/aster/README.md)。
+
+- [真实逐 token 提取与双状态选头](run_module2_mechanism.py)。
+- [指南前缀双向编辑](run_module2_mechanism_causal.py)：固定完整九配置，不按确认效果调节。
+- [附加答案边界修正](replay_module2_boundary_readout.py)：同一前向条件重读规范单 token 标签，保留旧记录。
+- [分析与三张实验图](analyze_module2_mechanism.py)：完整覆盖、所有病例与可复算示范筛选。
+
+固定环境、数据和运行命令见[实验入口](../experiments/module2_mechanism_20261028/README.md)。这些是新的独立研究入口，不改变下方历史脚本的默认协议。
+
+后续[规则读取与答案诊断](../experiments/rule_readout_diagnostic_20261028/README.md)使用 [run_rule_readout_diagnostic.py](run_rule_readout_diagnostic.py)运行固定正反大幅度编辑、原条件重放及单 ID 文本对照；[analyze_rule_readout_diagnostic.py](analyze_rule_readout_diagnostic.py)生成全部 192 条记录的汇总和[四面板图](../experiments/rule_readout_diagnostic_20261028/figures/rule_readout_diagnostic.png)。它沿用原模型与头集，不调节默认增益或重选样本，结果见[诊断报告](../experiments/rule_readout_diagnostic_20261028/RESULTS.zh.md)。
+
 ## 历史脚本索引原文
 
 [项目首页](../README.md) · [运行说明](../docs/RUNNING.md) · [实验索引](../experiments/README.md)

@@ -1,0 +1,18 @@
+{
+  "scope": "Clarification of inherited readout metadata; no measurement or frozen source is changed.",
+  "field": "results/fingerprint.json.readout.prompt_changed",
+  "saved_value": false,
+  "origin": "Inherited from the previous answer-token boundary correction, where candidate indices changed but every prompt was unchanged.",
+  "correction": "The candidate continuation convention is reused here; prompt_changed=false does not describe the two note conditions.",
+  "per_condition_prompt_changed": {
+    "baseline": false,
+    "projected4": false,
+    "projected32": false,
+    "projected_minus32": false,
+    "score_plus8": false,
+    "score_minus8": false,
+    "note_gold": true,
+    "note_sibling": true
+  },
+  "evidence": "Every record stores the actual full prompt hash and token count. Notes append the protocol-fixed single-ID text before Answer:, preserving the guideline prefix. TOKENIZATION_PREFLIGHT.json and token_boundary_audit.json verify actual token sequences."
+}
