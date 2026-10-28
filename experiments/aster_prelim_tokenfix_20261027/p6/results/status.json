@@ -1,6 +1,6 @@
 {
-  "status": "AUTO100_SMOKE_GENERATION_AND_SCORING_RUNNING",
-  "updated_at": "2026-10-28T01:31:18.147944+00:00",
+  "status": "AUTO100_FULL_BASELINES_RUNNING",
+  "updated_at": "2026-10-28T02:32:33.669991+00:00",
   "frozen_pairs": 100,
   "guidelines": 45,
   "complex_pairs": 94,
@@ -8,44 +8,46 @@
   "clinical_semantic_validity": "UNVERIFIED",
   "profile_complete": true,
   "smoke": {
-    "outputs_completed": 171,
+    "outputs_completed": 240,
     "outputs_total": 240,
-    "elapsed_seconds": 5558.904464006424,
+    "elapsed_seconds": 7304.471424102783,
     "peak_GiB": 26.178335189819336
   },
-  "scoring": {
-    "scored_outputs": 170,
-    "wall_seconds": 5221.184228658676,
-    "judge": {
-      "backend": "same_process_local_hf",
-      "versions": {
-        "torch": "2.8.0+cu128",
-        "transformers": "4.57.6"
-      },
-      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
-      "visible_gpu": "1",
-      "loaded_model_num_parameters": 8190735360,
-      "load_elapsed_seconds": 3.3138833029661328,
-      "forward_attempts": 76880,
-      "forward_completed": 76880,
-      "successful_prompt_tokens": 368057,
-      "successful_completion_tokens": 76880,
-      "peak_allocated_gib": 15.995702266693115,
-      "peak_reserved_gib": 16.158203125,
-      "memory_scope": "process allocator high-water marks; includes model loading, never reset per request",
-      "judge_rng_seed": 20261028,
-      "rng_policy": "torch CPU/CUDA seeded once after loading; sequential official request order",
-      "context_length": 32768,
-      "enable_thinking": false,
-      "independent_model_claim": false
-    }
-  },
-  "run_dir": "experiments/aster_prelim_tokenfix_20261027/private/p6_smoke_auto100_v1",
-  "coordinator": "private/p6_smoke_auto100_v1.repair_coordinator.json",
+  "run_dir": "experiments/aster_prelim_tokenfix_20261027/private/p6_baselines_auto100_v1",
+  "coordinator": "private/p6_baselines_auto100_v1.coordinator.json",
   "test_files_read": false,
   "scoring_subdir": "scoring_v2",
-  "generation_pid": 618941,
-  "scoring_pid": 619581,
   "old_scoring_failed_records_preserved": 11,
-  "scoring_failures_observed": 0
+  "scoring_failures_observed": 0,
+  "smoke_gate": {
+    "phase": "smoke",
+    "status": "READY_FOR_FULL_BASELINES",
+    "clinical_semantic_validity": "NOT_HUMAN_VERIFIED",
+    "paper_superiority_claim_supported": false,
+    "stability_checks": {
+      "ASTER-1-no-green": {
+        "repetition": true,
+        "cap": true,
+        "parse": true,
+        "intervention": true
+      },
+      "ASTER-0.5-no-green": {
+        "repetition": true,
+        "cap": true,
+        "parse": true,
+        "intervention": true
+      },
+      "ASTER-2-no-green": {
+        "repetition": false,
+        "cap": false,
+        "parse": true,
+        "intervention": true
+      }
+    },
+    "selected_method": "ASTER-1-no-green",
+    "selection_rule": "Prefer lambda1, then0.5, then2 among stable no-green configurations; no efficacy claim from smoke",
+    "matched_zero_output_agreement": 0.125
+  },
+  "generation_pid": 626153,
+  "scoring_pid": 626294
 }

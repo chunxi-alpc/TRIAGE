@@ -1,0 +1,29 @@
+{
+  "phase": "smoke",
+  "status": "READY_FOR_FULL_BASELINES",
+  "clinical_semantic_validity": "NOT_HUMAN_VERIFIED",
+  "paper_superiority_claim_supported": false,
+  "stability_checks": {
+    "ASTER-1-no-green": {
+      "repetition": true,
+      "cap": true,
+      "parse": true,
+      "intervention": true
+    },
+    "ASTER-0.5-no-green": {
+      "repetition": true,
+      "cap": true,
+      "parse": true,
+      "intervention": true
+    },
+    "ASTER-2-no-green": {
+      "repetition": false,
+      "cap": false,
+      "parse": true,
+      "intervention": true
+    }
+  },
+  "selected_method": "ASTER-1-no-green",
+  "selection_rule": "Prefer lambda1, then0.5, then2 among stable no-green configurations; no efficacy claim from smoke",
+  "matched_zero_output_agreement": 0.125
+}
