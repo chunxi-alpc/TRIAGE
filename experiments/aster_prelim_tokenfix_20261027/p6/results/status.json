@@ -1,6 +1,6 @@
 {
   "status": "AUTO100_FULL_BASELINES_RUNNING",
-  "updated_at": "2026-10-28T02:32:33.669991+00:00",
+  "updated_at": "2026-10-28T03:30:55.195252+00:00",
   "frozen_pairs": 100,
   "guidelines": 45,
   "complex_pairs": 94,
@@ -49,5 +49,38 @@
     "matched_zero_output_agreement": 0.125
   },
   "generation_pid": 626153,
-  "scoring_pid": 626294
+  "scoring_pid": 626294,
+  "baselines": {
+    "outputs_completed": 100,
+    "outputs_total": 1600,
+    "elapsed_seconds": 3511.426947593689,
+    "peak_GiB": 26.213364124298096
+  },
+  "scoring": {
+    "scored_outputs": 99,
+    "wall_seconds": 3458.99559879303,
+    "judge": {
+      "backend": "same_process_local_hf",
+      "versions": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.57.6"
+      },
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "visible_gpu": "1",
+      "loaded_model_num_parameters": 8190735360,
+      "load_elapsed_seconds": 3.330848454963416,
+      "forward_attempts": 30620,
+      "forward_completed": 30620,
+      "successful_prompt_tokens": 155638,
+      "successful_completion_tokens": 30620,
+      "peak_allocated_gib": 15.889144897460938,
+      "peak_reserved_gib": 16.2578125,
+      "memory_scope": "process allocator high-water marks; includes model loading, never reset per request",
+      "judge_rng_seed": 20261028,
+      "rng_policy": "torch CPU/CUDA seeded once after loading; sequential official request order",
+      "context_length": 32768,
+      "enable_thinking": false,
+      "independent_model_claim": false
+    }
+  }
 }
