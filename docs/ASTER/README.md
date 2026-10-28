@@ -1,26 +1,14 @@
-# ASTER 主线文档
+# ASTER 文档入口
 
-[项目首页](../../README.md) · [文档导航](../README.md) · [历史支线](../BRANCHES.md)
+当前模块顺序为：**对比适用性子空间学习 → 处置盲适用性评估 → 适用性门控的规则键编辑**。箭头表示写作和准备顺序；数据流是前两个模块分别输入第三个模块。
 
-**模块一规格：2026-10-27；模块二规格与实验协议：2026-10-28。** ASTER 更新为 *Action-blind Selection, Then Eigen-subspace Re-routing*。模块一确定为处置盲适用性评估（Action-Blind Applicability Assessment, ABAA）；三模块分别判断适用性、离线学习方向和在线编辑规则键。
+| 文档 | 唯一职责 |
+|---|---|
+| [论文主稿](manuscript.zh.md) | 问题、诊断、三模块方法、评测与结论边界 |
+| [方法补充](supplementary.zh.md) | 估计推导、完整选头公式、接口与缓存约定 |
+| [实验协议](experiments.zh.md) | 数据隔离、基线适配、指标、统计和成本 |
+| [引用清单](references.zh.md) | 来源及可支持的论断 |
 
-## 阅读顺序
+[代码说明](../../src/aster/README.md)单独维护可运行接口和实现状态，不重复论文方法。主稿的结果结构是唯一填写入口；未运行结果不预填。
 
-1. [设计决策与版本比较](design-update-20261027.zh.md)：哪些修改更合理、哪些保证必须撤下。
-2. [论文工作稿](manuscript.zh.md)：保留 TLBS 与五卷评测，对齐三模块方法、实验章节及理论边界；[模块二补充材料](module2-supplement.zh.md)记录三状态构造、谱估计、双状态选头及验证目标。公式使用 GitHub 兼容的排版，检查脚本见[数学公式检查](../../scripts/check_aster_markdown_math.py)。
-3. [模块一确定版](module1-spec.zh.md)：作为当前模块一的规范，不再采用原子抽取或证据员链条。
-4. [六项主张与证伪](claims-and-falsification.zh.md)：将表征假设与执行器贡献分开验证。
-5. [实验章节与执行计划](experiment-plan.zh.md)：确定正文第 5–7 节、两项主任务、三类基线和主要比较。配套[数据协议](dataset-protocol.zh.md)、[基线协议](baseline-protocol.zh.md)、[指标公式](experiment-metrics.zh.md)、[结果表与代填段落](experiment-tables.zh.md)、[历史实测结果](historical-results.zh.md)。
-6. [新版代码](../../src/aster/README.md)、[实现状态](implementation-status.zh.md)与[证据状态](evidence-status.zh.md)：明确已经实现与仍待验证的范围。
-7. [引用核验](references-to-verify.zh.md)：已有原始来源与尚未核对的项目。
-
-模块一输出只进入模块三；其开发集输出可用于温度及策略选择，不用于拟合模块二子空间。取消保形预测和 LTT 后，主方法没有有限样本覆盖或伤害认证结论。
-
-## 来源与历史
-
-[2026-10-26 原稿](sources/manuscript-20261026.txt)与[六项原始主张](sources/user-claims-20261026.md)继续保存。新增[三模块讨论稿来源](sources/three-module-proposal-20261027.txt)记录本次上传的中间方案；其中的原子抽取、保形预测、认证及部分理论强断言已被本次确定版修改，不能将来源稿当作现行规范。
-
-[旧图](figures/README.md)、[原稿审计](audit.zh.md)及[旧编辑记录](editorial-notes.zh.md)保留历史语境。2026-10-26 的完整主线可通过[固定提交](https://github.com/chunxi-alpc/TRIAGE/tree/781ee863784c60f1f6710ba5eede22bc8ee6b93c)查看。当前方法图使用主稿和首页中的三模块流程图，旧图 2／图 4 不再代表当前算法。
-
-所有经验性结果仍须以真实模型运行、锁定数据和逐例产物支持。源码契约测试不能替代性能、校准或临床有效性评价。
-
+旧模块规格、设计沿革、审计、历史结果和重复实验表统一从[固定版本归档](archive/README.md)追溯。图稿与源材料保留原路径供历史脚本使用，其中旧阶段掩码和对数门控图不代表当前方法。
