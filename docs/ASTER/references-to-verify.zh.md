@@ -17,20 +17,33 @@
 
 模块一提示、模型参数、下游 M3 有效性仍需本任务实测。谱方法的具体代码版本和公平复现配置在实验前另行固定。
 
+## 2026-10-28 已核实的实验来源
+
+本轮核对以下一手论文、作者数据卡及仓库原始结果。已确定来源身份与相关定义；“核实来源”不等于“已完成本任务复现”。正文及配套数据／基线／指标协议保留可点击来源，原论文分数不进入 ASTER 的成绩列。
+
+| 来源 | 已核实内容 | 本研究采用的范围 |
+|---|---|---|
+| [CAD：Trusting Your Evidence，NAACL 2024](https://aclanthology.org/2024.naacl-short.69/) | 有／无上下文的对比分布解码 | 输出分布干预基线；NC 与冲突同报 |
+| [JuICE：Taming Knowledge Conflicts，ICML 2025](https://proceedings.mlr.press/v267/li25c.html) | Just Run Twice；头选择与双次前向 | 头输出干预基线；架构适配仍须验收 |
+| [PASTA：Tell Your Model Where to Attend，ICLR 2024](https://proceedings.iclr.cc/paper_files/paper/2024/file/b99d6cc40b05809c3d84b57a165448cd-Paper-Conference.pdf) | 对指定片段做注意力重加权 | 全指南与共享 M1 目标两轨 |
+| [AutoPASTA](https://arxiv.org/abs/2409.10790) | 自动选择关键上下文后调整注意力 | 与自动选择流程直接相关的扩展 |
+| [SEKA／AdaSEKA，ICLR 2026](https://proceedings.iclr.cc/paper_files/paper/2026/file/32ddf8ee55540539eb46083cd72361e8-Paper-Conference.pdf) | 固定谱投影与查询自适应键编辑 | 推理时基线；计入离线估计与选头 |
+| [DPO，NeurIPS 2023](https://proceedings.neurips.cc/paper_files/paper/2023/hash/a85b405ed65c6477a4fe8302b5e06ce7-Abstract.html) | 相对固定参考策略的偏好目标 | 相同 SFT 初始化后的额外偏好训练 |
+| [继续预训练，ACL 2020](https://aclanthology.org/2020.acl-main.740/) | 领域／任务语料适应 | CPT-only 与 CPT＋相同 SFT 分报 |
+| [MedGUIDE 原文](https://arxiv.org/html/2505.11613v1)与[作者数据卡](https://huggingface.co/datasets/MedGUIDE/MedGUIDE-MCQA-8K) | 来源规模与指南决策选择题 | 完整树匹配后派生五卷；最终分母待清单 |
+| [MEGA-CDP 原文](https://arxiv.org/html/2608.26592v1)与[作者数据卡](https://huggingface.co/datasets/nchennnn/MEGA-CDP) | 官方测试规模、路径任务与 PCC | 单轮 NC／SW，DTW 先求累计最优再归一化 |
+| [MedPIC 原文](https://arxiv.org/html/2608.03028v1)与[作者数据卡](https://huggingface.co/datasets/TIM0927/MedPIC-Bench) | 467 题、多选集合匹配、89 组关联对 | 原生与独立规则增强适配分表 |
+| [历史 H1–H3](historical-results.zh.md) | 原始计数、分母、版本及统计限制 | 仅作历史诊断，保留负结果 |
+
+进一步的数据版本、来源、许可、字段和样本资格见[数据协议](dataset-protocol.zh.md)。训练和推理基线的算法适配见[基线协议](baseline-protocol.zh.md)。目前仍待冻结的是具体模型修订、运行产物、数据构造清单和评审器，不再将上述已核对论文身份写成未知。
+
 ## 原稿中仍待核验的条目
 
 以下是原稿的引文线索，不是已经核验的书目。不生成猜测的作者、年份、论文链接或 BibTeX。核验时优先查原始论文、数据卡和官方实现。
 
 | 主题／方法线索 | 待核验内容 |
 |---|---|
-| MedGUIDE | 论文题名、作者年份、NCCN 来源与许可、决策树／癌种规模、官方任务定义 |
-| MEGA-CDP | 论文版本、指南／病例规模、参考路径构造、PathCost 定义与评审实现 |
-| MedPIC-Bench | 题量、配对方式、撤销警示子集、题目许可与官方设置 |
-| CAD；原稿写 Shi et al., 2024 | 准确论文与算法定义、实现和对照设置 |
-| JuICE | 论文／代码版本、是否患者无关、具体干预头和目标 |
-| PASTA；原稿写 Zhang et al., 2024a | 论文与实现、偏置或缩放算子、目标片段选择 |
-| AutoPASTA；原稿写 Zhang et al., 2024b | 论文与关键句选择流程、对处置可见性的处理 |
-| SEKA／AdaSEKA | 论文已见上表；具体检查点、开源代码版本、公平参数范围及任务迁移仍待核验 |
+| SEKA／AdaSEKA 的运行产物 | 新骨干投影、头筛选及本任务公平复现配置；论文身份与公式已经核实 |
 | Spotlight | 论文、控制接口和适用边界 |
 | Context-DPO、CANOE；原稿另列 Bi et al., 2025、Si et al., 2025 | 名称对应关系、训练目标及不纳入比较的合理范围 |
 | Longpre et al., 2021；Xie et al., 2024；Wu et al., 2024 | 原稿涉及的具体知识冲突论文及与当前任务的差异 |
@@ -47,4 +60,5 @@
 | DeBERTa-v3-large、MNLI、MedNLI | MedNLI 任务定义已见上表；可选 NLI 基线的模型检查点、许可与实际微调／校准仍待核验 |
 
 原稿形如 `[cite:5ea145c5-3]`、`[cite:7330a3b0-1]` 的标记是不可独立解析的会话内部引用。主线正文已移除这些标记，相关来源全部保留为核验任务。
+
 

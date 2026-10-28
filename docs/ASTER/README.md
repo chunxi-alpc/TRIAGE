@@ -2,15 +2,15 @@
 
 [项目首页](../../README.md) · [文档导航](../README.md) · [历史支线](../BRANCHES.md)
 
-**当前版本：2026-10-27。** ASTER 更新为 *Action-blind Selection, Then Eigen-subspace Re-routing*。模块一确定为处置盲适用性评估（Action-Blind Applicability Assessment, ABAA）；三模块分别判断适用性、离线学习方向和在线编辑规则键。
+**模块一规格：2026-10-27；模块二规格与实验协议：2026-10-28。** ASTER 更新为 *Action-blind Selection, Then Eigen-subspace Re-routing*。模块一确定为处置盲适用性评估（Action-Blind Applicability Assessment, ABAA）；三模块分别判断适用性、离线学习方向和在线编辑规则键。
 
 ## 阅读顺序
 
 1. [设计决策与版本比较](design-update-20261027.zh.md)：哪些修改更合理、哪些保证必须撤下。
-2. [论文工作稿](manuscript.zh.md)：保留 TLBS 与五卷评测，重写三模块方法及理论边界。 公式使用 GitHub 兼容的排版，检查脚本见 [数学公式检查](../../scripts/check_aster_markdown_math.py)。
+2. [论文工作稿](manuscript.zh.md)：保留 TLBS 与五卷评测，对齐三模块方法、实验章节及理论边界；[模块二补充材料](module2-supplement.zh.md)记录三状态构造、谱估计、双状态选头及验证目标。公式使用 GitHub 兼容的排版，检查脚本见[数学公式检查](../../scripts/check_aster_markdown_math.py)。
 3. [模块一确定版](module1-spec.zh.md)：作为当前模块一的规范，不再采用原子抽取或证据员链条。
 4. [六项主张与证伪](claims-and-falsification.zh.md)：将表征假设与执行器贡献分开验证。
-5. [实验计划](experiment-plan.zh.md)：M1-only 强基线、同信息比较、校准与选择性干预。
+5. [实验章节与执行计划](experiment-plan.zh.md)：确定正文第 5–7 节、两项主任务、三类基线和主要比较。配套[数据协议](dataset-protocol.zh.md)、[基线协议](baseline-protocol.zh.md)、[指标公式](experiment-metrics.zh.md)、[结果表与代填段落](experiment-tables.zh.md)、[历史实测结果](historical-results.zh.md)。
 6. [新版代码](../../src/aster/README.md)、[实现状态](implementation-status.zh.md)与[证据状态](evidence-status.zh.md)：明确已经实现与仍待验证的范围。
 7. [引用核验](references-to-verify.zh.md)：已有原始来源与尚未核对的项目。
 
@@ -23,3 +23,4 @@
 [旧图](figures/README.md)、[原稿审计](audit.zh.md)及[旧编辑记录](editorial-notes.zh.md)保留历史语境。2026-10-26 的完整主线可通过[固定提交](https://github.com/chunxi-alpc/TRIAGE/tree/781ee863784c60f1f6710ba5eede22bc8ee6b93c)查看。当前方法图使用主稿和首页中的三模块流程图，旧图 2／图 4 不再代表当前算法。
 
 所有经验性结果仍须以真实模型运行、锁定数据和逐例产物支持。源码契约测试不能替代性能、校准或临床有效性评价。
+
