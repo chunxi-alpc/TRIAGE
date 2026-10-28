@@ -1,0 +1,112 @@
+{
+  "status": "COMPLETED",
+  "phase": "profile",
+  "methods": [
+    "Vanilla",
+    "Matched-Zero",
+    "ASTER-1-no-green"
+  ],
+  "pairs": 1,
+  "expected_outputs": 6,
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "gpu": "0",
+  "dtype": "bfloat16",
+  "max_new_tokens": 16,
+  "freeze_sha256": "f1f1274048dfb1cad08b2845cb329b50e6c211c555bf49bb020f7348ec75b65c",
+  "test_files_read": false,
+  "human_annotation_required": false,
+  "outputs_completed": 6,
+  "wall_seconds": 91.00307893753052,
+  "peak_GiB": 29.532148361206055,
+  "matched_zero_exact_short_output": {
+    "native": true,
+    "decoy": true
+  },
+  "per_output": [
+    {
+      "variant": "native",
+      "method": "Vanilla",
+      "input_tokens": 60147,
+      "generated_tokens": 16,
+      "execution_seconds": 10.952999430010095,
+      "target_token_counts": [
+        2,
+        2
+      ],
+      "attention_calls": 0,
+      "nonzero_attention_calls": 0,
+      "peak_GiB": 29.53117799758911
+    },
+    {
+      "variant": "native",
+      "method": "Matched-Zero",
+      "input_tokens": 60147,
+      "generated_tokens": 16,
+      "execution_seconds": 14.564938963972963,
+      "target_token_counts": [
+        2,
+        2
+      ],
+      "attention_calls": 576,
+      "nonzero_attention_calls": 0,
+      "peak_GiB": 29.532148361206055
+    },
+    {
+      "variant": "native",
+      "method": "ASTER-1-no-green",
+      "input_tokens": 60147,
+      "generated_tokens": 16,
+      "execution_seconds": 14.719350628962275,
+      "target_token_counts": [
+        2,
+        2
+      ],
+      "attention_calls": 576,
+      "nonzero_attention_calls": 576,
+      "peak_GiB": 29.532148361206055
+    },
+    {
+      "variant": "decoy",
+      "method": "Vanilla",
+      "input_tokens": 60147,
+      "generated_tokens": 16,
+      "execution_seconds": 11.409450801962521,
+      "target_token_counts": [
+        1,
+        3
+      ],
+      "attention_calls": 0,
+      "nonzero_attention_calls": 0,
+      "peak_GiB": 29.532148361206055
+    },
+    {
+      "variant": "decoy",
+      "method": "Matched-Zero",
+      "input_tokens": 60147,
+      "generated_tokens": 16,
+      "execution_seconds": 16.79587446700316,
+      "target_token_counts": [
+        1,
+        3
+      ],
+      "attention_calls": 576,
+      "nonzero_attention_calls": 0,
+      "peak_GiB": 29.532148361206055
+    },
+    {
+      "variant": "decoy",
+      "method": "ASTER-1-no-green",
+      "input_tokens": 60147,
+      "generated_tokens": 16,
+      "execution_seconds": 21.09455236798385,
+      "target_token_counts": [
+        1,
+        3
+      ],
+      "attention_calls": 576,
+      "nonzero_attention_calls": 576,
+      "peak_GiB": 29.532148361206055
+    }
+  ],
+  "interpretation": "Longest-context short engineering profile only; 16-token caps are intentional and not P6 quality results."
+}

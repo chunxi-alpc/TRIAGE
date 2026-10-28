@@ -1,33 +1,50 @@
 {
-  "status": "DATA_DRAFTING_V3_NOT_P6_METHOD_RUN",
-  "updated_at": "2026-10-27T16:03:06.293065+00:00",
-  "source_candidates": 160,
-  "guidelines": 20,
-  "source_multinode_candidates": 154,
-  "no_localized_source_needs_human": 22,
-  "planned_model_drafts": 138,
-  "human_verified_pairs": 0,
-  "method_generation_inputs": 0,
-  "scorer_frozen": false,
-  "data_frozen": false,
-  "v2_completed": {
-    "DRAFT_PARSE_OR_SPAN_FAILURE": 125,
-    "EXACT_TEXT_DRAFT_PENDING_HUMAN": 26,
-    "MODEL_REQUIRES_MANUAL_EDIT": 9
+  "status": "AUTO100_SMOKE_GENERATION_AND_SCORING_RUNNING",
+  "updated_at": "2026-10-28T00:08:47.733864+00:00",
+  "frozen_pairs": 100,
+  "guidelines": 45,
+  "complex_pairs": 94,
+  "human_annotation_required": false,
+  "clinical_semantic_validity": "UNVERIFIED",
+  "profile_complete": true,
+  "smoke": {
+    "outputs_completed": 16,
+    "outputs_total": 240,
+    "elapsed_seconds": 581.3259770870209,
+    "peak_GiB": 24.077146530151367
   },
-  "v2_review_package": "private/p6_human_review_v2",
-  "drafting": {
-    "completed": 15,
-    "total": 160,
-    "statuses": {
-      "NO_SOURCE_EXCERPT_REQUIRES_MANUAL_EDIT": 8,
-      "DRAFT_PARSE_OR_SPAN_FAILURE": 5,
-      "MODEL_REQUIRES_MANUAL_EDIT": 2
-    },
-    "wall_seconds": 169.48907017707825,
-    "peak_GiB": 15.898981094360352
+  "scoring": {
+    "scored_outputs": 15,
+    "wall_seconds": 205.63504123687744,
+    "judge": {
+      "backend": "same_process_local_hf",
+      "versions": {
+        "torch": "2.8.0+cu128",
+        "transformers": "4.57.6"
+      },
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "visible_gpu": "1",
+      "loaded_model_num_parameters": 8190735360,
+      "load_elapsed_seconds": 3.3138833029661328,
+      "forward_attempts": 3555,
+      "forward_completed": 3555,
+      "successful_prompt_tokens": 25058,
+      "successful_completion_tokens": 3555,
+      "peak_allocated_gib": 15.750346660614014,
+      "peak_reserved_gib": 15.8984375,
+      "memory_scope": "process allocator high-water marks; includes model loading, never reset per request",
+      "judge_rng_seed": 20261028,
+      "rng_policy": "torch CPU/CUDA seeded once after loading; sequential official request order",
+      "context_length": 32768,
+      "enable_thinking": false,
+      "independent_model_claim": false
+    }
   },
-  "draft_pid": 615854,
-  "gpu": "0",
-  "test_files_read": false
+  "run_dir": "experiments/aster_prelim_tokenfix_20261027/private/p6_smoke_auto100_v1",
+  "coordinator": "private/p6_smoke_auto100_v1.repair_coordinator.json",
+  "test_files_read": false,
+  "scoring_subdir": "scoring_v2",
+  "generation_pid": 618941,
+  "scoring_pid": 619581,
+  "old_scoring_failed_records_preserved": 11
 }
