@@ -8,30 +8,27 @@
 
 对训练最小对 $i$ 中的规则词元 $j$，令 $w_{i,j}=1/(N|J_i|)$，则 $\sum_{i,j}w_{i,j}=1$。正文使用最小对等权估计：
 
-$$
+```math
 \bar d_h=\sum_{i,j}w_{i,j}d_{h,i,j},\qquad
 \Omega_h=\sum_{i,j}w_{i,j}d_{h,i,j}d_{h,i,j}^{\top}.
-$$
-
+```
 这里的 $\Omega_h$ 是未中心化二阶矩。定义同权重的经验协方差：
 
-$$
+```math
 C_h=\sum_{i,j}w_{i,j}(d_{h,i,j}-\bar d_h)
 (d_{h,i,j}-\bar d_h)^{\top},
-$$
-
+```
 则 $\Omega_h=C_h+\bar d_h\bar d_h^{\top}$。不进行中心化使平均差分与围绕均值的变化共同参与子空间估计。
 
 对任意向量 $a$，有 $a^{\top}\Omega_h a=\sum_{i,j}w_{i,j}(a^{\top}d_{h,i,j})^2\ge0$，因此 $\Omega_h$ 为对称半正定矩阵。将特征值按降序排列，前 $m$ 个特征向量构成的正交基 $U_h$ 求解：
 
-$$
+```math
 \max_{U^{\top}U=I_m}
 \mathrm{tr}(U^{\top}\Omega_h U)
 =
 \max_{U^{\top}U=I_m}
 \sum_{i,j}w_{i,j}\|U^{\top}d_{h,i,j}\|_2^2.
-$$
-
+```
 最优值为前 $m$ 个特征值之和。等价地，该子空间最小化差分的加权投影重构误差。若矩阵 $D_h$ 的每一行为 $\sqrt{w_{i,j}}d_{h,i,j}^{\top}$，则 $\Omega_h=D_h^{\top}D_h$，可通过 $D_h$ 的前 $m$ 个右奇异向量实现同一估计。
 
 最小对等权避免长规则片段获得更大的样本权重，但不自动使规则或指南等权。复现记录同时保存每条规则的最小对数量、片段长度和指南来源；规则均衡抽样作为独立敏感性分析。
@@ -40,20 +37,18 @@ $$
 
 给定子空间 $\mathcal U_h=\mathrm{span}(U_h)$，拟合一个共享位移：
 
-$$
+```math
 \min_{v\in\mathcal U_h}
 \sum_{i,j}w_{i,j}\|d_{h,i,j}-v\|_2^2.
-$$
-
+```
 展开目标可得：
 
-$$
+```math
 \sum_{i,j}w_{i,j}\|d_{h,i,j}-v\|_2^2
 =
 \sum_{i,j}w_{i,j}\|d_{h,i,j}-\bar d_h\|_2^2
 +\|v-\bar d_h\|_2^2.
-$$
-
+```
 因此，最优位移为 $v_h=U_hU_h^{\top}\bar d_h$。归一化后得到正文使用的 $\Delta_h=v_h/(\|v_h\|_2+\epsilon)$。特征子空间确定保留的差分成分，平均差分确定适用性极性。归一化将幅度控制交给模块三的固定正负增益。
 
 对满足 $\|v_h\|_2>\tau_\Delta$ 的头计算方向，其中 $\tau_\Delta>0$ 在开发阶段固定。低于阈值的头不进入选头；分母中的 $\epsilon$ 仅用于数值稳定。由于加入 $\epsilon$，$\|\Delta_h\|_2\le1$，不是严格恒等于 1。
@@ -88,31 +83,28 @@ $$
 
 对查询头 $a\in\mathcal A(h)$，固定当前查询和注意力计算，其直接得分变化为：
 
-$$
+```math
 \delta s_{a,t,j}
 =\frac{g_rq_{a,t}^{\top}R_j\Delta_h}{\sqrt{d_k}}.
-$$
-
+```
 若 $a_j=\mathrm{softmax}(s)_j$、$a_j'=\mathrm{softmax}(s+\delta s)_j$，则
 
-$$
+```math
 \mathrm{KL}(a\Vert a')
 =\log\!\left(\sum_j a_j e^{\delta s_j}\right)
 -\sum_j a_j\delta s_j
 \le \max_j\delta s_j-\min_j\delta s_j
 \le 2\max_j|\delta s_j|.
-$$
+```
+令 $\mathcal J_{\mathrm{edit}}$ 表示当前查询头实际编辑的规则词元集合。在同一个固定查询头内，未编辑位置令 $\delta s_j=0$，得到
 
-在同一个固定查询头内，未编辑位置令 $\delta s_j=0$，得到
-
-$$
+```math
 \mathrm{KL}(a\Vert a')
 \le
 2\max(g^+,g^-)
-\max_{j\ \text{被编辑}}
+\max_{j\in\mathcal J_{\mathrm{edit}}}
 \frac{|q_{a,t}^{\top}R_j\Delta_h|}{\sqrt{d_k}}.
-$$
-
+```
 没有编辑位置时右端定义为零。该推导用于描述一次注意力计算的直接变化；完整前向传播的查询和后续表示由实际运行计算。
 
 ## E. 三项主要实验备注
@@ -129,11 +121,10 @@ $$
 
 **配对标签交换的检验对象。** 在最小对内交换正负状态，相当于 $d_{h,i,j}\mapsto-d_{h,i,j}$，但外积不变：
 
-$$
+```math
 (-d_{h,i,j})(-d_{h,i,j})^{\top}
 =d_{h,i,j}d_{h,i,j}^{\top}.
-$$
-
+```
 因此，配对符号置换用于有向均值、方向一致性或定向干预指标的对照，不用于构造差分二阶矩特征值的零分布。同一最小对内的全部词元使用同一符号；同源变体保持聚类关系，随机化单元及交换性假设预先固定。谱结构本身通过独立分半重现和非决定性事实对照检验。
 
 ### E.3 在线迁移与双向读取
