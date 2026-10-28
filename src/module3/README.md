@@ -4,7 +4,7 @@
 
 [guideline_prefix.py](guideline_prefix.py) 先无编辑预填充指南，为每个患者创建独立缓存视图，在指定 KV 头的编号与处置位置加入 `g R_j Delta`，再处理整个患者/问题/回答前缀。支持多个层头、双规则正负编辑、直接分数偏置对照及精确 suffix-tail 优化。冻结为 Transformers 4.57.6 的 eager Qwen3、默认 RoPE、batch 1，拒绝不受支持的缓存或架构。
 
-真实验证与全部对照见[2026-10-28 机制实验](../../experiments/module2_mechanism_20261028/RESULTS.zh.md)。实验使用 oracle 规则符号，不能替代完整模块一连接或实际处置生成验证。当前研究执行器不复用下方历史组件或 `module1.v6` 门控。
+真实验证与全部对照见[2026-10-28 机制实验](../../experiments/module2_mechanism_20261028/RESULTS.zh.md)。实验使用 oracle 规则符号，不能替代当前模块二处置盲评估的联合连接或实际处置生成验证。实验目录与方向脚本中的 `module2` 保留旧编号，现对应论文模块一；当前研究执行器不复用下方历史组件或 `module1.v6` 门控。
 
 ## 历史门控干预（下文保留原阶段含义）
 

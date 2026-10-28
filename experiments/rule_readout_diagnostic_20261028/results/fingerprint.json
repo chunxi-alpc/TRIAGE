@@ -1,0 +1,148 @@
+{
+  "schema_version": "rule_readout.diagnostic.v1",
+  "prior_commit": "f3a17f721118407d6a9855d8faf48cbbb90e9770",
+  "protocol_sha256": "74b93deb9a480c56dafafc5691aa37146216e549945aaa9cf9b8bfb793c794c9",
+  "input_sha256": "22e9fe7c7bdd287fdf6061f99798105baeca8f9851c45b793e0ecbf0bc293ac3",
+  "previous_records_sha256": "7c8a77a0b386f74d2442daefce085453e6e34d5e341b481ae9b654ff93809e77",
+  "previous_fingerprint_sha256": "ba21cc61c8b5add5c361a9a72c3e10e1b867f55e7763b7784795d462e76abe10",
+  "operators_sha256": "c1a25cb6dee25620a5f6b330867f1c001703dcbd548f2abc66d62e04cfa3a71c",
+  "selection_sha256": "ba1787ebf484d3078efe8de474313613b798d9ef2a8e1155cafe36d277779c1d",
+  "model_revision": "da87bfb608c14b7cf20ba1ce41287e8de496c0cd",
+  "model_files": {
+    "config.json": {
+      "sha256": "504a6b58c4271583724e66584b6b7698aea18450209df6b2f7582df0e89cee59",
+      "bytes": 727
+    },
+    "generation_config.json": {
+      "sha256": "8c970692323e3ea0e9b8b0a4dca79388d31226e41f83c9fd6014804280ebf6e8",
+      "bytes": 138
+    },
+    "merges.txt": {
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+      "bytes": 1671853
+    },
+    "model.safetensors": {
+      "sha256": "cd2a512003e2f9f3cd3c32a9c3573f820bb28c940f73c57b1ddaa983d9223eba",
+      "bytes": 1192135096
+    },
+    "tokenizer.json": {
+      "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "bytes": 7031645
+    },
+    "tokenizer_config.json": {
+      "sha256": "3c04ed3ca964ea2f6b2b5faf0dc4d31aec1cb1e8b4bcf63f402d295046b422b5",
+      "bytes": 9678
+    },
+    "vocab.json": {
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "bytes": 2776833
+    }
+  },
+  "conditions": [
+    [
+      "baseline",
+      0.0,
+      0.0,
+      null
+    ],
+    [
+      "projected4",
+      4.0,
+      0.0,
+      null
+    ],
+    [
+      "projected32",
+      32.0,
+      0.0,
+      null
+    ],
+    [
+      "projected_minus32",
+      -32.0,
+      0.0,
+      null
+    ],
+    [
+      "score_plus8",
+      0.0,
+      8.0,
+      null
+    ],
+    [
+      "score_minus8",
+      0.0,
+      -8.0,
+      null
+    ],
+    [
+      "note_gold",
+      0.0,
+      0.0,
+      "gold"
+    ],
+    [
+      "note_sibling",
+      0.0,
+      0.0,
+      "sibling"
+    ]
+  ],
+  "note_template": "\nRouting result (provided by the rule parser):\nApplicable rule: {applicable}.\n",
+  "heads": [
+    [
+      13,
+      4
+    ],
+    [
+      23,
+      6
+    ],
+    [
+      6,
+      2
+    ],
+    [
+      22,
+      7
+    ]
+  ],
+  "torch": "2.8.0+cpu",
+  "transformers": "4.57.6",
+  "numpy": "2.3.5",
+  "threads": 4,
+  "dtype": "float32",
+  "max_length": 4096,
+  "readout": {
+    "schema_version": "module2.boundary_readout.v1",
+    "purpose": "reuse canonical A/B candidates with full-vocabulary diagnostics",
+    "candidate_labels": [
+      "A",
+      "B"
+    ],
+    "candidate_continuations": [
+      " A",
+      " B"
+    ],
+    "candidate_token_ids": [
+      362,
+      425
+    ],
+    "legacy_candidate_token_ids": [
+      32,
+      33
+    ],
+    "boundary_rule": "tokenize(prompt + continuation) == tokenize(prompt) + one candidate token",
+    "prompt_changed": false,
+    "new_fit_or_selection": false
+  },
+  "source": {
+    "scripts/run_rule_readout_diagnostic.py": "1885dd757344fb0d71513994aef7124b2f1ee3fc52a87967a267204aefe8bd7f",
+    "src/module3/guideline_prefix.py": "fd1a898042e44605eaaf4ef7e9a76b006787922cd0f96c977b63054f898c63ee",
+    "src/module2/mechanism_extraction.py": "ed31646bee1f1f7ea2aff6f5e998b04f372379e67ad16e1808c784281dd5e5e7",
+    "src/module2/extraction.py": "de83c757951df08b8f68c7bbce01c610e0a0d4d4e8d23ed5f6c4b1be09782af5",
+    "scripts/run_module2_mechanism.py": "bb0482d03f46e375f9cd7a6496037c8e6d8553006493e481915deb0fd44caa44",
+    "scripts/run_module2_mechanism_causal.py": "9107c5580565cfed9b7810588662ab271a386f43a77c1baec17ea3f632449581",
+    "scripts/replay_module2_boundary_readout.py": "b3dbccf841a450876962c0a1b20eb4e2453e0b65e4eb1a93063d096536f37fde"
+  }
+}

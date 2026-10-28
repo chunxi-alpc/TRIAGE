@@ -1,8 +1,10 @@
-# 模块二：离线适用性方向与历史定位接口
+# 离线适用性方向与历史定位接口
+
+目录名 `module2` 保留冻结时的旧编号；本页上方的方向学习实现现对应[论文模块一](../../docs/ASTER/manuscript.zh.md)，下方历史说明按其原版本理解。模块二处置盲评估的当前入口见 [src/aster](../aster/README.md)。
 
 ## 当前正文对应的独立实现（2026-10-28）
 
-[mechanism.py](mechanism.py) 实现逐 token 配对二阶矩、单位投影均值、含缺失状态惩罚的 Sep、双状态在线 Read 选头和成组符号诊断。[mechanism_extraction.py](mechanism_extraction.py) 提取归一化后/旋转前键，并分别实现患者前置离线顺序与指南前置在线顺序。数据由 [minimal_pairs.py](minimal_pairs.py) 独立核验，不读取模块一伪标签。
+[mechanism.py](mechanism.py) 实现逐 token 配对二阶矩、单位投影均值、含缺失状态惩罚的 Sep、双状态在线 Read 选头和成组符号诊断。[mechanism_extraction.py](mechanism_extraction.py) 提取归一化后/旋转前键，并分别实现患者前置离线顺序与指南前置在线顺序。数据由 [minimal_pairs.py](minimal_pairs.py) 独立核验，不读取处置盲评估模块的伪标签。
 
 运行入口为 [run_module2_mechanism.py](../../scripts/run_module2_mechanism.py)。[2026-10-28 实验](../../experiments/module2_mechanism_20261028/RESULTS.zh.md)已在 Qwen3-0.6B-Base 上完成，支持共享方向与可控读取；原始均值和直接偏置同样有效。实际执行器为 [guideline_prefix.py](../module3/guideline_prefix.py)，不是下方历史的查询头消融或旧投影算子。
 
