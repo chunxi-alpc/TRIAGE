@@ -7,7 +7,7 @@
 ## 阅读顺序
 
 1. [设计决策与版本比较](design-update-20261027.zh.md)：哪些修改更合理、哪些保证必须撤下。
-2. [论文工作稿](manuscript.zh.md)：保留 TLBS 与五卷评测，重写三模块方法及理论边界。
+2. [论文工作稿](manuscript.zh.md)：保留 TLBS 与五卷评测，重写三模块方法及理论边界。 公式使用 GitHub 兼容的排版，检查脚本见 [数学公式检查](../../scripts/check_aster_markdown_math.py)。
 3. [模块一确定版](module1-spec.zh.md)：作为当前模块一的规范，不再采用原子抽取或证据员链条。
 4. [六项主张与证伪](claims-and-falsification.zh.md)：将表征假设与执行器贡献分开验证。
 5. [实验计划](experiment-plan.zh.md)：M1-only 强基线、同信息比较、校准与选择性干预。

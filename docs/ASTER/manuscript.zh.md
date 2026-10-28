@@ -209,15 +209,15 @@ flowchart TD
 给定患者病历 $P$、临床问题 $Q$ 和指南 $G$，我们将指南组织为分支组集合 $\mathcal G=\{g_1,\ldots,g_M\}$。每个分支组 $g\in\mathcal G$ 包含 $K_g$ 条互斥规则，其规则集合记为 $\mathcal R_g=\{r_1,\ldots,r_{K_g}\}$。一条规则 $r=(I_r,C_r,A_r)$ 由编号 $I_r$、适用条件 $C_r$ 和处置 $A_r$ 构成。对于层级指南，我们将规则自身条件与其祖先节点的条件合取，得到完整适用条件：
 
 $$
-\bar C_r=C_r\land\bigwedge_{u\in\operatorname{Anc}(r)}C_u.
+\bar C_r=C_r\land\bigwedge_{u\in\mathrm{Anc}(r)}C_u.
 $$
 
-其中，$\operatorname{Anc}(r)$ 表示规则 $r$ 的祖先条件节点集合。
+其中，$\mathrm{Anc}(r)$ 表示规则 $r$ 的祖先条件节点集合。
 
 我们从结构化指南中保留规则条件 $\bar C_r$，移除处置 $A_r$，并从问题 $Q$ 中保留必要的非处置任务语境 $Q_c$。患者病历 $P$ 保留既往治疗、检查结果及时间信息。为每个规则编号 $I_r$ 分配唯一的中性代理标签 $\ell_r$，同时为 $\mathrm{NONE}$ 分配标签 $\ell_{\mathrm{NONE}}$；原编号与代理标签的对应关系由分类器保存。对于每个分支组，我们构建：
 
 $$
-X_g=\operatorname{Prompt}\!\left(
+X_g=\mathrm{Prompt}\!\left(
 P,Q_c,\{(\ell_r,\bar C_r)\}_{r\in\mathcal R_g},
 \ell_{\mathrm{NONE}}
 \right).
@@ -294,7 +294,7 @@ $P_i^+$ 满足 $r_i$；$P_i^-$ 不满足 $r_i$，但满足同组兄弟规则；$
 离线提取采用“患者→问题→指南→固定回答前缀”的提示顺序。对输入格式化、词元化，并送入冻结模型：
 
 $$
-T_i^s=\operatorname{Tok}(\operatorname{Prompt}(x_i^s)),\qquad
+T_i^s=\mathrm{Tok}(\mathrm{Prompt}(x_i^s)),\qquad
 Z_{\ell-1}^s=f_\theta^{(<\ell)}(T_i^s).
 $$
 
@@ -302,12 +302,12 @@ $$
 
 $$
 k_{h,i,j}^s
-=\operatorname{KeyNorm}_h\!\left(
-W_h^K\operatorname{Norm}_{\ell}(Z_{\ell-1,j}^s)
+=\mathrm{KeyNorm}_h\!\left(
+W_h^K\mathrm{Norm}_{\ell}(Z_{\ell-1,j}^s)
 \right),\qquad j\in J_i.
 $$
 
-$W_h^K$ 是键投影，$\operatorname{Norm}_\ell$ 是层内注意力输入归一化，$\operatorname{KeyNorm}_h$ 是可选的键归一化（不存在时为恒等映射）。由此得到同一规则词元的三组键向量 $k_{h,i,j}^+$、$k_{h,i,j}^-$ 和 $k_{h,i,j}^0$。
+$W_h^K$ 是键投影，$\mathrm{Norm}_\ell$ 是层内注意力输入归一化，$\mathrm{KeyNorm}_h$ 是可选的键归一化（不存在时为恒等映射）。由此得到同一规则词元的三组键向量 $k_{h,i,j}^+$、$k_{h,i,j}^-$ 和 $k_{h,i,j}^0$。
 
 #### 4.3.2 适用性子空间与位移
 
@@ -320,7 +320,7 @@ $$
 $$
 \Omega_h=\frac{1}{N}\sum_{i=1}^{N}\frac{1}{|J_i|}
 \sum_{j\in J_i}d_{h,i,j}d_{h,i,j}^{\top},\qquad
-U_h=\operatorname{TopEig}_{m}(\Omega_h).\tag{6}
+U_h=\mathrm{TopEig}_{m}(\Omega_h).\tag{6}
 $$
 
 其中，$N$ 为训练最小对数量，$U_h\in\mathbb R^{d_k\times m}$ 为前 $m$ 个特征向量构成的正交基。每个最小对具有相同的统计权重。
@@ -361,16 +361,16 @@ $$
 据此定义验证集分离度：
 
 $$
-\operatorname{Sep}(h)=
-\frac{\operatorname{Mean}_{i}(z_{h,i})}
-{\operatorname{Std}_{i}(z_{h,i})+
-\operatorname{Mean}_{i}(|u_{h,i}|)+\epsilon}.
+\mathrm{Sep}(h)=
+\frac{\mathrm{Mean}_{i}(z_{h,i})}
+{\mathrm{Std}_{i}(z_{h,i})+
+\mathrm{Mean}_{i}(|u_{h,i}|)+\epsilon}.
 $$
 
 查询响应使用实际在线提示顺序“指南→患者→问题→回答前缀”。令 $\widetilde T_i^s$ 为按此顺序构造的验证输入，$\widetilde J_i$ 为其目标规则位置，$t_i$ 为回答前缀最后一个词元的位置。$\bar q_{h,i,t_i}^s$ 为与键值头 $h$ 对应的决策查询（分组查询注意力中，对共享该键值头的查询头取平均），包含查询侧位置编码。$R_j$ 为位置 $j$ 的键侧旋转矩阵。定义
 
 $$
-\operatorname{Read}(h)=
+\mathrm{Read}(h)=
 \frac{1}{2N_{\mathrm{val}}}
 \sum_{i=1}^{N_{\mathrm{val}}}\sum_{s\in\{+,-\}}
 \frac{1}{|\widetilde J_i|}\sum_{j\in\widetilde J_i}
@@ -380,9 +380,9 @@ $$
 最终按照联合得分选择头：
 
 $$
-S_h=[\operatorname{Sep}(h)]_+
-[\operatorname{Read}(h)]_+,\qquad
-H^*=\operatorname{TopK}_{h}(S_h).\tag{7}
+S_h=[\mathrm{Sep}(h)]_+
+[\mathrm{Read}(h)]_+,\qquad
+H^*=\mathrm{TopK}_{h}(S_h).\tag{7}
 $$
 
 子空间维数 $m$ 与头数 $K$ 在验证集上确定。我们将选定头及其参数组织为**一个共享适用性专家**：
