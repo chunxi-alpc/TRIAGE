@@ -1,7 +1,7 @@
 {
   "snapshot_version": 1,
-  "updated_at_utc": "2026-10-29T22:42:57.934892+00:00",
-  "updated_at_shanghai": "2026-10-30T06:42:57.934892+08:00",
+  "updated_at_utc": "2026-10-29T22:44:27.953074+00:00",
+  "updated_at_shanghai": "2026-10-30T06:44:27.953074+08:00",
   "source": "server_aggregate_only",
   "phase": "confirm",
   "status": "priority_context_replay",
@@ -45,16 +45,16 @@
         "zero": 328
       },
       "technical_failure_records": {
-        "context_overflow": 816
+        "context_overflow": 800
       },
       "technical_failure_cases": {
-        "context_overflow": 102
+        "context_overflow": 100
       },
       "invalid_output_records": 0,
       "judge_failed_records": 0,
-      "latest_output_age_seconds": 2172.9,
+      "latest_output_age_seconds": 2262.9,
       "original_context_failure_cases": 107,
-      "replayed_context_cells": 40,
+      "replayed_context_cells": 56,
       "replay_duplicate_cells": 0,
       "original_context_records_preserved": true
     },
@@ -158,14 +158,14 @@
     6
   ],
   "context_replay": {
-    "time": 1793313748.8435314,
+    "time": 1793313839.9619305,
     "status": "running",
     "phase": "confirm",
     "phases": {
       "confirm": {
         "target_cases": 107,
-        "complete_cases": 4,
-        "pending_cases": 103,
+        "complete_cases": 6,
+        "pending_cases": 101,
         "original_records_preserved": 856
       },
       "official_test": {
@@ -183,48 +183,41 @@
     },
     "active_jobs": [
       {
-        "gpu": 0,
-        "pid": 798977,
-        "cases": 4,
-        "capacity": 65536,
-        "elapsed_seconds": 1020.679928779602
-      },
-      {
         "gpu": 1,
         "pid": 798980,
         "cases": 4,
         "capacity": 65536,
-        "elapsed_seconds": 60.713305711746216
+        "elapsed_seconds": 151.85118460655212
       },
       {
         "gpu": 6,
         "pid": 798982,
         "cases": 4,
         "capacity": 65536,
-        "elapsed_seconds": 60.68632531166077
+        "elapsed_seconds": 151.8242049217224
       },
       {
         "gpu": 5,
         "pid": 798981,
         "cases": 4,
         "capacity": 65536,
-        "elapsed_seconds": 60.69926905632019
+        "elapsed_seconds": 151.83714890480042
       }
     ],
     "blocked_jobs": [],
     "unsupported_cases": 0,
     "probe_complete": true,
     "known_queue_eta": {
-      "completed_cases": 4,
-      "cases_per_gpu_hour": 10.44,
-      "remaining_cases": 103,
-      "remaining_hours_at_current_cards": 2.47,
+      "completed_cases": 6,
+      "cases_per_gpu_hour": 12.55,
+      "remaining_cases": 101,
+      "remaining_hours_at_current_cards": 2.68,
       "basis": "actual elapsed GPU-job time including model loading and in-flight cases; current discovered queue only; future overflow cases not included"
     },
     "priority_cohort": {
       "target_cases": 107,
-      "complete_cases": 4,
-      "remaining_cases": 103,
+      "complete_cases": 6,
+      "remaining_cases": 101,
       "allowed_gpus": [
         0,
         1,
@@ -233,7 +226,7 @@
       ]
     },
     "controller_alive": true,
-    "status_age_seconds": 29.0
+    "status_age_seconds": 27.9
   },
   "complete_cases_total": 328,
   "planned_cases_total": 13436,
@@ -241,8 +234,8 @@
   "gpu_status": [
     {
       "index": 0,
-      "memory_used_mib": 66477,
-      "utilization_percent": 93
+      "memory_used_mib": 46525,
+      "utilization_percent": 100
     },
     {
       "index": 1,
@@ -267,12 +260,12 @@
     {
       "index": 5,
       "memory_used_mib": 59669,
-      "utilization_percent": 98
+      "utilization_percent": 99
     },
     {
       "index": 6,
       "memory_used_mib": 59727,
-      "utilization_percent": 100
+      "utilization_percent": 98
     }
   ],
   "historical_transport_repair": {
