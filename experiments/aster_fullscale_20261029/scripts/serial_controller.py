@@ -21,6 +21,7 @@ def alive(pid):
  except Exception:return False
 children={};handles=[];services={}
 def spawn(name,cmd,gpu,status,attempt=0):
+ if gpu not in read(root/'resource_policy.json').get('allowed_gpus',[0,1,5,6]):raise RuntimeError('GPU not authorized by current resource policy: '+str(gpu))
  env=os.environ.copy();env['CUDA_VISIBLE_DEVICES']=str(gpu)
  log=(meta/(name+'_attempt_'+str(attempt)+'.log')).open('a');handles.append(log)
  proc=subprocess.Popen(cmd,cwd=repo,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True);children[name]=proc
@@ -62,15 +63,34 @@ def wait_jobs(phase,jobs):
   if pending:time.sleep(30)
  state(phase,'base_predictions_complete' if phase in ('confirm','official_test','med') else 'complete');event('base_stage_complete' if phase in ('confirm','official_test','med') else 'stage_complete',phase=phase)
 
+def wait_priority_context(phase):
+ policy=read(root/'resource_policy.json')
+ if policy.get('priority_phase')!=phase or policy.get('priority_context_complete'):return
+ from context_replay import completed
+ cohort=set(policy.get('priority_context_cases',[]))
+ while True:
+  ensure_background();done=completed(root,phase);pending=cohort-done
+  active=[]
+  for path in (root/'context_replay/scheduler').glob(phase+'_*/job.json'):
+   info=read(path)
+   if alive(info.get('pid',0)):active.append(info['pid'])
+  if not pending and not active:break
+  status=read(root/'context_replay/status.json')
+  if status.get('status')=='needs_attention':raise RuntimeError('priority context replay needs engineering recovery')
+  state(phase,'priority_context_replay',remaining_context_cases=len(pending),allowed_gpus=policy.get('allowed_gpus'));time.sleep(30)
+ policy['priority_context_complete']=True;write(root/'resource_policy.json',policy);event('priority_context_cohort_complete',phase=phase,cases=len(cohort))
+
 def clinical_workers(phase):
  config=root/'scheduler'/(phase+'_allocation.json')
  allocation=read(config)
+ allowed=set(read(root/'resource_policy.json').get('allowed_gpus',[0,1,5,6]))
+ if allocation and not set(allocation['cards'])<=allowed:raise RuntimeError('saved allocation conflicts with allowed GPUs; explicit reshard required')
  if not allocation:
   cards=[]
   output=subprocess.check_output(['nvidia-smi','--query-gpu=index,memory.used,utilization.gpu','--format=csv,noheader,nounits'],text=True)
   for line in output.splitlines():
    gpu,memory,utilization=[int(x.strip()) for x in line.split(',')]
-   if memory<1024 and utilization<5:cards.append(gpu)
+   if gpu in allowed and memory<1024 and utilization<5:cards.append(gpu)
   if not cards:raise RuntimeError('no free GPU available for '+phase)
   allocation={'cards':cards,'world':len(cards),'created':now()};write(config,allocation);event('clinical_allocation',phase=phase,**allocation)
  return [(gpu,rank) for rank,gpu in enumerate(allocation['cards'])]
@@ -95,6 +115,7 @@ try:
   state('merge','running');subprocess.run([sys.executable,str(scripts/'parallel_directions.py'),'merge','--run',str(root),'--world','5'],cwd=repo,check=True);event('stage_complete',phase='merge')
  if not (root/'serial/frozen.pt').exists():wait_jobs('select',stage_jobs('select',[(0,0)]))
  for phase in ['confirm','official_test','med']:
+  wait_priority_context(phase)
   workers=clinical_workers(phase)
   wait_jobs(phase,stage_jobs(phase,workers))
   from context_replay import barrier

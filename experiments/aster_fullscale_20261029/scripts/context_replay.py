@@ -31,9 +31,10 @@ def available_gpus(root):
  for rank,gpu in enumerate(allocation.get('cards',[])):
   info=read(root/'scheduler'/(str(state.get('phase'))+'_'+str(rank)+'.json')) or {}
   status=read(Path(info.get('status_file','/nonexistent'))) or {}
-  if alive(info.get('pid',0)) or status.get('status')!='complete':reserved.add(gpu)
+  if alive(info.get('pid',0)):reserved.add(gpu)
  text=subprocess.check_output(['nvidia-smi','--query-gpu=index,memory.used,utilization.gpu','--format=csv,noheader,nounits'],text=True,timeout=15)
- return [g for g,m,u in ([int(x.strip()) for x in line.split(',')] for line in text.splitlines()) if g not in reserved and m<1024 and u<5]
+ allowed=set((read(root/'resource_policy.json') or {}).get('allowed_gpus',[0,1,5,6]))
+ return [g for g,m,u in ([int(x.strip()) for x in line.split(',')] for line in text.splitlines()) if g in allowed and g not in reserved and m<1024 and u<5]
 
 class CaptureLength(Exception):pass
 
@@ -144,8 +145,10 @@ def coordinator(a):
    elif st.get('status')!='complete' and any(r['case_id'] not in done for r in job['cases']):
     if job.get('recovery_attempts',0)>=2:blocked.append(path.parent.name)
     else:
-     if job['gpu'] not in available_gpus(root):
+     free=available_gpus(root)
+     if not free:
       active.update(r['case_id'] for r in job['cases']);continue
+     if job['gpu'] not in free:job['gpu']=free[0]
      env=os.environ.copy();env['CUDA_VISIBLE_DEVICES']=str(job['gpu'])
      with (path.parent/'worker.log').open('a') as log:
       proc=subprocess.Popen([sys.executable,str(Path(__file__).resolve()),'worker','--run',str(root),'--job',str(path.parent)],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
@@ -171,6 +174,8 @@ def coordinator(a):
     with (root/'pipeline_events.jsonl').open('a') as f:f.write(json.dumps({'time':time.time(),'event':'context_replay_started','phase':phase,'gpu':gpu,'cases':len(selected),'pid':proc.pid,'capacity':capacity})+'\n')
   for name in PHASES:
    m=read(base/name/'manifest.json') or {'cases':{}};finished=completed(root,name);summary['phases'][name]={'target_cases':len(m['cases']),'complete_cases':len(finished),'pending_cases':len(set(m['cases'])-finished),'original_records_preserved':sum(v['original_records'] for v in m['cases'].values())}
+  policy=read(root/'resource_policy.json') or {};cohort=set(policy.get('priority_context_cases',[])) if policy.get('priority_phase')==phase else set()
+  summary['priority_cohort']={'target_cases':len(cohort),'complete_cases':len(cohort & done),'remaining_cases':len(cohort-done),'allowed_gpus':policy.get('allowed_gpus',[0,1,5,6])}
   finished_count=0;gpu_seconds=0.
   for _,job,st,running in jobs:
    finished_count+=sum(r['case_id'] in done for r in job['cases'])

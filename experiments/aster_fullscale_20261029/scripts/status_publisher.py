@@ -24,6 +24,7 @@ def elapsed(pid):
 def snapshot():
  state=read(root/'serial_status.json');now=datetime.now(timezone.utc)
  data={'snapshot_version':1,'updated_at_utc':now.isoformat(),'updated_at_shanghai':now.astimezone(timezone(timedelta(hours=8))).isoformat(),'source':'server_aggregate_only','phase':state.get('phase'),'status':state.get('status'),'controller_alive':alive(state.get('controller_pid',0)),'controller_status_age_seconds':age(root/'serial_status.json'),'planned_cases':PLAN,'methods':METHODS,'judge_draws_per_parsed_distinct_output':{'path':5,'conclusion':5},'phases':{},'worker_progress':{},'gpu_allocation':{},'privacy':'No clinical text, patient identifiers, prompts or model responses are published.'}
+ data['allowed_gpus']=read(root/'resource_policy.json').get('allowed_gpus',[0,1,5,6])
  for phase,target in PLAN.items():
   cells={};duplicates=0;latest=None
   for path in (root/'serial'/phase).glob('worker_*/*.jsonl'):
@@ -63,7 +64,7 @@ def snapshot():
     if k in progress:item[k]=progress[k]
    transport=progress.get('batch_transport',{});item['oom_batch_splits']=transport.get('oom_splits',0);item['token_budget_splits']=transport.get('token_budget_splits',0);item['progress_age_seconds']=age(statusfile.parent/('med_heldout_progress.json' if phase=='med' else 'mega_'+phase+'_progress.json'))
    data['worker_progress'][phase+'_'+str(worker)]=item
- replay=read(root/'context_replay/status.json');data['context_replay']={k:replay[k] for k in ['time','status','phase','phases','active_jobs','blocked_jobs','unsupported_cases','probe_complete','known_queue_eta'] if k in replay}
+ replay=read(root/'context_replay/status.json');data['context_replay']={k:replay[k] for k in ['time','status','phase','phases','active_jobs','blocked_jobs','unsupported_cases','probe_complete','known_queue_eta','priority_cohort'] if k in replay}
  if replay:data['context_replay'].update(controller_alive=alive(replay.get('pid',0)),status_age_seconds=age(root/'context_replay/status.json'))
  data['complete_cases_total']=sum(v['complete_cases'] for v in data['phases'].values());data['planned_cases_total']=sum(PLAN.values());data['unique_prediction_records_total']=sum(v['unique_prediction_records'] for v in data['phases'].values())
  active=[v for k,v in data['worker_progress'].items() if k.startswith(str(data['phase'])+'_') and v.get('alive')]
@@ -96,7 +97,7 @@ def publish(data):
  with (root/'monitor_snapshots.jsonl').open('a') as f:f.write(json.dumps(data,ensure_ascii=False)+'\n')
 last_phase=None;last_time=0.
 while True:
- state=read(root/'serial_status.json');phase=(state.get('phase'),state.get('status'))
+ state=read(root/'serial_status.json');replay=read(root/'context_replay/status.json');phase=(state.get('phase'),state.get('status'),alive(replay.get('pid',0)),replay.get('status'),replay.get('probe_complete'))
  if a.once or phase!=last_phase or time.time()-last_time>=a.interval:
   try:
    data=snapshot();publish(data);print(json.dumps({'published':True,'phase':data['phase'],'complete_cases_total':data['complete_cases_total'],'eta':data.get('eta')},ensure_ascii=False),flush=True);last_phase=phase;last_time=time.time()
