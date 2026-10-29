@@ -34,7 +34,7 @@ class PairedClusterStatsTests(unittest.TestCase):
 
     def test_non_boolean_scores_rejected(self):
         with self.assertRaises(ValueError):
-            mod.load_rows_from_objects([{"guideline_id": "g1", "baseline_correct": 1, "method_correct": True}])
+            mod.validate_rows([{"guideline_id": "g1", "baseline_correct": 1, "method_correct": True}])
 
 
 if __name__ == "__main__":
