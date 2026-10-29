@@ -1,12 +1,12 @@
 {
   "snapshot_version": 1,
-  "updated_at_utc": "2026-10-29T22:03:35.740050+00:00",
-  "updated_at_shanghai": "2026-10-30T06:03:35.740050+08:00",
+  "updated_at_utc": "2026-10-29T22:25:50.246841+00:00",
+  "updated_at_shanghai": "2026-10-30T06:25:50.246841+08:00",
   "source": "server_aggregate_only",
   "phase": "confirm",
   "status": "running",
   "controller_alive": true,
-  "controller_status_age_seconds": 3.2,
+  "controller_status_age_seconds": 0.1,
   "planned_cases": {
     "confirm": 5126,
     "official_test": 7458,
@@ -29,30 +29,34 @@
   "phases": {
     "confirm": {
       "planned_cases": 5126,
-      "complete_cases": 320,
+      "complete_cases": 328,
       "partial_cases": 0,
-      "unique_prediction_records": 2560,
+      "unique_prediction_records": 2624,
       "planned_prediction_records": 41008,
       "duplicate_cells": 0,
       "records_by_method": {
-        "baseline": 320,
-        "learned": 320,
-        "direct": 320,
-        "mean": 320,
-        "random": 320,
-        "reverse": 320,
-        "oracle": 320,
-        "zero": 320
+        "baseline": 328,
+        "learned": 328,
+        "direct": 328,
+        "mean": 328,
+        "random": 328,
+        "reverse": 328,
+        "oracle": 328,
+        "zero": 328
       },
       "technical_failure_records": {
-        "context_overflow": 824
+        "context_overflow": 848
       },
       "technical_failure_cases": {
-        "context_overflow": 103
+        "context_overflow": 106
       },
       "invalid_output_records": 0,
       "judge_failed_records": 0,
-      "latest_output_age_seconds": 238.2
+      "latest_output_age_seconds": 1145.2,
+      "original_context_failure_cases": 107,
+      "replayed_context_cells": 8,
+      "replay_duplicate_cells": 0,
+      "original_context_records_preserved": true
     },
     "official_test": {
       "planned_cases": 7458,
@@ -66,7 +70,11 @@
       "technical_failure_cases": {},
       "invalid_output_records": 0,
       "judge_failed_records": 0,
-      "latest_output_age_seconds": null
+      "latest_output_age_seconds": null,
+      "original_context_failure_cases": 0,
+      "replayed_context_cells": 0,
+      "replay_duplicate_cells": 0,
+      "original_context_records_preserved": true
     },
     "med": {
       "planned_cases": 852,
@@ -80,7 +88,11 @@
       "technical_failure_cases": {},
       "invalid_output_records": 0,
       "judge_failed_records": 0,
-      "latest_output_age_seconds": null
+      "latest_output_age_seconds": null,
+      "original_context_failure_cases": 0,
+      "replayed_context_cells": 0,
+      "replay_duplicate_cells": 0,
+      "original_context_records_preserved": true
     }
   },
   "worker_progress": {
@@ -92,13 +104,13 @@
       "world": 5,
       "alive": true,
       "gpu": 6,
-      "elapsed_seconds": 14734.30999999994,
+      "elapsed_seconds": 16068.829999999958,
       "completed_cases_this_invocation": 56,
       "written_records_this_invocation": 448,
       "wall_seconds": 12414.498906850815,
       "oom_batch_splits": 0,
       "token_budget_splits": 45,
-      "progress_age_seconds": 2308.4
+      "progress_age_seconds": 3642.9
     },
     "confirm_0": {
       "status": "running",
@@ -108,13 +120,13 @@
       "world": 5,
       "alive": true,
       "gpu": 0,
-      "elapsed_seconds": 14734.319999999949,
+      "elapsed_seconds": 16068.839999999967,
       "completed_cases_this_invocation": 56,
       "written_records_this_invocation": 446,
       "wall_seconds": 14358.247461795807,
       "oom_batch_splits": 0,
       "token_budget_splits": 66,
-      "progress_age_seconds": 364.8
+      "progress_age_seconds": 1699.3
     },
     "confirm_2": {
       "status": "running",
@@ -124,13 +136,13 @@
       "world": 5,
       "alive": true,
       "gpu": 4,
-      "elapsed_seconds": 14734.319999999949,
-      "completed_cases_this_invocation": 52,
-      "written_records_this_invocation": 415,
-      "wall_seconds": 11239.859890460968,
+      "elapsed_seconds": 16068.839999999967,
+      "completed_cases_this_invocation": 56,
+      "written_records_this_invocation": 447,
+      "wall_seconds": 14810.12475991249,
       "oom_batch_splits": 0,
-      "token_budget_splits": 61,
-      "progress_age_seconds": 3483.1
+      "token_budget_splits": 69,
+      "progress_age_seconds": 1247.3
     },
     "confirm_3": {
       "status": "running",
@@ -140,13 +152,13 @@
       "world": 5,
       "alive": true,
       "gpu": 5,
-      "elapsed_seconds": 14734.319999999949,
-      "completed_cases_this_invocation": 48,
-      "written_records_this_invocation": 357,
-      "wall_seconds": 13565.38551068306,
+      "elapsed_seconds": 16068.829999999958,
+      "completed_cases_this_invocation": 52,
+      "written_records_this_invocation": 389,
+      "wall_seconds": 14912.386751174927,
       "oom_batch_splits": 0,
       "token_budget_splits": 53,
-      "progress_age_seconds": 1157.7
+      "progress_age_seconds": 1145.2
     },
     "confirm_1": {
       "status": "running",
@@ -156,13 +168,13 @@
       "world": 5,
       "alive": true,
       "gpu": 1,
-      "elapsed_seconds": 14734.329999999958,
+      "elapsed_seconds": 16068.839999999967,
       "completed_cases_this_invocation": 36,
       "written_records_this_invocation": 285,
       "wall_seconds": 14485.802013397217,
       "oom_batch_splits": 0,
       "token_budget_splits": 32,
-      "progress_age_seconds": 238.2
+      "progress_age_seconds": 1572.7
     }
   },
   "gpu_allocation": {
@@ -180,17 +192,47 @@
     "med": {}
   },
   "privacy": "No clinical text, patient identifiers, prompts or model responses are published.",
-  "complete_cases_total": 320,
+  "context_replay": {
+    "time": 1793312727.9900537,
+    "status": "running",
+    "phase": "confirm",
+    "phases": {
+      "confirm": {
+        "target_cases": 107,
+        "complete_cases": 1,
+        "pending_cases": 106,
+        "original_records_preserved": 856
+      },
+      "official_test": {
+        "target_cases": 0,
+        "complete_cases": 0,
+        "pending_cases": 0,
+        "original_records_preserved": 0
+      },
+      "med": {
+        "target_cases": 0,
+        "complete_cases": 0,
+        "pending_cases": 0,
+        "original_records_preserved": 0
+      }
+    },
+    "active_jobs": [],
+    "blocked_jobs": [],
+    "unsupported_cases": 0,
+    "probe_complete": true
+  },
+  "complete_cases_total": 328,
   "planned_cases_total": 13436,
-  "unique_prediction_records_total": 2560,
+  "unique_prediction_records_total": 2624,
   "eta": {
+    "context_replay_not_yet_included": true,
     "basis": "sum of each live worker completed-case increments divided by current actual elapsed time including in-flight batches; future guideline mix may differ",
-    "mega_cases_per_hour": 60.59,
-    "remaining_mega_cases": 12264,
-    "remaining_mega_days_at_current_rate": 8.43,
+    "mega_cases_per_hour": 57.35,
+    "remaining_mega_cases": 12256,
+    "remaining_mega_days_at_current_rate": 8.9,
     "approximate_overall_days_range": [
-      5.9,
-      12.7
+      6.2,
+      13.5
     ]
   },
   "gpu_status": [
@@ -206,13 +248,13 @@
     },
     {
       "index": 2,
-      "memory_used_mib": 4809,
-      "utilization_percent": 51
+      "memory_used_mib": 5585,
+      "utilization_percent": 62
     },
     {
       "index": 3,
-      "memory_used_mib": 0,
-      "utilization_percent": 0
+      "memory_used_mib": 41773,
+      "utilization_percent": 100
     },
     {
       "index": 4,
@@ -221,8 +263,8 @@
     },
     {
       "index": 5,
-      "memory_used_mib": 78359,
-      "utilization_percent": 97
+      "memory_used_mib": 55113,
+      "utilization_percent": 98
     },
     {
       "index": 6,
