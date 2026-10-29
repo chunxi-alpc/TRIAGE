@@ -1,7 +1,7 @@
 {
-  "protocol_version": "aster_fullscale.v1",
+  "protocol_version": "aster_fullscale.v2",
   "created_date": "2026-10-29",
-  "status": "planned_not_run",
+  "status": "full_jobs_started_not_complete",
   "primary_dataset": {
     "name": "MEGA-CDP",
     "revision": "8f058c88ce1ed43693785b435ad0ff99907a2890",
@@ -9,7 +9,11 @@
     "train_val_trees_registered": 1834,
     "official_test_cases_registered": 7458,
     "official_test_trees_registered": 440,
-    "train_val_group_split": {"fit": 0.70, "select": 0.15, "confirm": 0.15},
+    "train_val_group_split": {
+      "fit": 0.7,
+      "select": 0.15,
+      "confirm": 0.15
+    },
     "test_policy": "official test locked until all model and analysis choices are frozen"
   },
   "external_dataset": {
@@ -18,17 +22,23 @@
     "source_cases_registered": 7747,
     "source_guideline_trees_registered": 55,
     "current_counterfactual_candidate_count": 3645,
-    "group_split": {"fit": 0.60, "select": 0.20, "heldout": 0.20},
-    "test_policy": "source-tree heldout from original train split; not an official test split"
+    "group_split": {
+      "fit": 0.6,
+      "select": 0.2,
+      "heldout": 0.2
+    },
+    "test_policy": "source-tree heldout from original train split; not an official test split",
+    "source_guideline_trees_observed": 53,
+    "source_families_observed": 24
   },
   "seed": 20261029,
   "grouping_unit": "source guideline tree/family, never individual case",
   "module_definition": {
-    "module_1": "learn applicability direction/subspace from verified minimal pairs",
-    "module_2": "predict applicability without exposing target actions",
-    "module_3": "apply signed key edits using module-2 predicted routing"
+    "module_1": "action-blind applicability prediction T/F/U",
+    "module_2": "synthetic logical pair query-difference eigendirection and select-only gain choice",
+    "module_3": "predicted signed rank-one key edit at last query and decoding"
   },
-  "primary_comparison": "end-to-end module-2-predicted routing plus module-3 ASTER versus no-edit baseline",
+  "primary_comparison": "predicted routing plus learned key projection versus same-input baseline",
   "required_controls": [
     "direct_attention_score_bias_same_routing",
     "raw_mean_direction",
@@ -39,7 +49,20 @@
   ],
   "primary_statistics": {
     "cluster_unit": "guideline_tree",
-    "report": ["all_valid_case_denominator", "coverage_and_abstention", "path_or_branch_fidelity", "invalid_output_rate", "paired_corrected", "paired_regressed", "net_change", "cluster_bootstrap_confidence_interval"]
+    "report": [
+      "all_valid_case_denominator",
+      "coverage_and_abstention",
+      "path_or_branch_fidelity",
+      "invalid_output_rate",
+      "paired_corrected",
+      "paired_regressed",
+      "net_change",
+      "cluster_bootstrap_confidence_interval"
+    ],
+    "continuous_metrics": [
+      "official_pcc",
+      "official_normalized_conclusion_score"
+    ]
   },
   "exclusion_policy": [
     "exclude only documented source corruption, invalid/missing gold path, or a pre-registered structural impossibility",
@@ -47,5 +70,8 @@
     "all technical failures remain in the intent-to-evaluate denominator and are separately counted"
   ],
   "cross_dataset_overlap_audit_required": true,
-  "expensive_model_inference_started": false
+  "expensive_model_inference_started": true,
+  "hashing_required": false,
+  "minimal_pair_scope": "synthetic explicit condition truth; not clinical gold patient edits",
+  "selection_task": "source-heldout synthetic logical applicability, not official test"
 }

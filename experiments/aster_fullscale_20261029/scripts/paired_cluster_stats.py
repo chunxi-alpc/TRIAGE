@@ -15,11 +15,14 @@ def validate_rows(rows, group_key="guideline_id"):
     for line_no, row in enumerate(rows, 1):
         if not isinstance(row, dict):
             raise ValueError(f"row {line_no} must be an object")
-        if group_key not in row:
+        if group_key not in row or row[group_key] is None or not str(row[group_key]).strip():
             raise KeyError(f"row {line_no} missing cluster key {group_key!r}")
         for key in ("baseline_correct", "method_correct"):
             if not isinstance(row.get(key), bool):
                 raise ValueError(f"row {line_no}: {key} must be bool; score failures as false")
+    identities = [r["case_id"] for r in rows if "case_id" in r]
+    if len(identities) != len(set(identities)):
+        raise ValueError("duplicate case_id")
     return rows
 
 
@@ -32,7 +35,7 @@ def load_rows(path, group_key="guideline_id"):
             row = json.loads(line)
             if not isinstance(row, dict):
                 raise ValueError(f"line {line_no} must be an object")
-            if group_key not in row:
+            if group_key not in row or row[group_key] is None or not str(row[group_key]).strip():
                 raise KeyError(f"line {line_no} missing cluster key {group_key!r}")
             for key in ("baseline_correct", "method_correct"):
                 if not isinstance(row.get(key), bool):
@@ -44,6 +47,8 @@ def load_rows(path, group_key="guideline_id"):
 
 
 def summarize(rows, bootstrap_draws=10000, seed=20261029, group_key="guideline_id"):
+    if not rows or bootstrap_draws < 1:
+        raise ValueError("nonempty rows and positive bootstrap_draws required")
     validate_rows(rows, group_key)
     grouped = defaultdict(list)
     corrected = regressed = 0
@@ -69,6 +74,8 @@ def summarize(rows, bootstrap_draws=10000, seed=20261029, group_key="guideline_i
         "n_guideline_clusters": len(grouped),
         "baseline_accuracy_micro": sum(bool(r["baseline_correct"]) for r in rows) / len(rows),
         "method_accuracy_micro": sum(bool(r["method_correct"]) for r in rows) / len(rows),
+        "baseline_accuracy_guideline_macro": sum(sum(r["baseline_correct"] for r in rows if str(r[group_key])==g)/len(grouped[g]) for g in grouped)/len(grouped),
+        "method_accuracy_guideline_macro": sum(sum(r["method_correct"] for r in rows if str(r[group_key])==g)/len(grouped[g]) for g in grouped)/len(grouped),
         "corrected": corrected,
         "regressed": regressed,
         "net_corrected_minus_regressed": corrected - regressed,

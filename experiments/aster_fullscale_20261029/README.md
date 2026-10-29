@@ -1,69 +1,27 @@
-# ASTER 全量实验工具
+# 全量临床指南实验
 
-先读 [实验计划](PLAN.zh.md) 与冻结协议 protocol.json。此目录提供按指南树分组的拆分工具和单元测试，不会自动启动模型推理。
+实际服务器：115，环境 `/home/gcx/gcx261014`，Qwen3-8B。全部计算在服务器执行，不计算文件哈希。
 
-## 1. 检查数据字段
+## 可复现入口
 
-先检查私有服务器上的 JSONL schema，确认决策树/来源指南 ID 的实际字段名。不要根据本示例猜字段名，也不要把病例 ID 当作分组字段。原始病例、指南文本和模型长输出应留在服务器私有目录。
+在 115 服务器执行 `bash experiments/aster_fullscale_20261029/run_server.sh /home/gcx/aster_fullscale_NEW`。必须使用不存在的新目录；不会覆盖历史结果。官方 MEGA 源码需位于 `/home/gcx/aster_fullscale_20261030/official_mega`，版本 `nchennnn/MEGA-CDP@15a3a12`。该依赖的推理模板、解析器、五次评审和 DTW 源码均已实际取得。
 
-## 2. 建立 MEGA-CDP train_val 分组清单
+实际运行目录为 `/home/gcx/aster_fullscale_20261030/run02`。`scripts/fullscale_run.py` 提供 prepare、smoke、full、report 四个入口。运行 `report --run RUN --output WORKER_DIR` 可更新该工作进程的报告。原始病例、输出和评审矩阵只保存于服务器。
 
-对决策树文件创建 manifest；将下例中的 TREE_ID_FIELD 替换成经检查的真实字段：
+## 数据与方法
 
-~~~bash
-python experiments/aster_fullscale_20261029/scripts/prepare_group_splits.py create \
-  --input /absolute/private/path/train_val/decision_trees.jsonl \
-  --group-key TREE_ID_FIELD \
-  --dataset MEGA-CDP-train_val \
-  --fractions fit=0.7,select=0.15,confirm=0.15 \
-  --seed 20261029 \
-  --output /absolute/private/path/aster_fullscale/mega_split_manifest.json
-~~~
+- MEGA train_val：34,895 例，按来源文件和相同规范化指南文本合并家族后分为 fit 24,447、select 5,322、confirm 5,126；官方测试 7,458 例，均不参与拟合和选参。
+- MedGUIDE：7,747 例，实际记录含 53 个 disease 树标识；按去除页码后缀的 24 个来源家族划分，fit 4,068、select 2,827、heldout 852。55 是之前的登记值，不能代替真实计数。此轮从 MEGA 迁移到 MedGUIDE，不再在 MedGUIDE 上拟合。
+- 模块一：只向 Qwen 提供患者及条件，预测 T/F/U。不给目标处置、选项、金标路径。未知不是假。解析失败保留为无信号，继续基线及端到端推理。
+- 模块二：在所有 fit 来源树的不同条件上构造真假逻辑最小对，固定规则、动作与顺序，只改变显式条件真假；要求长度对齐。学习各头最后查询向量差的二阶矩主方向，并以训练信号选头。选择集的逻辑任务选择 0.1/0.5/1.0 强度，随后冻结。**这些是合成逻辑患者事实，不是自然病历的临床金标最小对，也不能声称已验证自然病历编辑的临床有效性。**
+- 模块三：对同输入的规则词元施加预测路由的单头秩一键投影，修改末查询及后续解码查询。完整方法、直接分数偏置、均值方向、固定随机方向、反向干预、oracle 金标路由、零强度和基线共八臂。oracle 不作为主结果。所有投影方向单位范数；反向采用负增益，避免误用符号不变的投影。
+- MEGA 输入使用完整指南和从来源树提取的条件/子节点信息，输出采用官方原生路径叙述模板。它是带结构化规则补充的输入，不能冒称完全复现论文原始输入。
+- MEGA 评分使用官方解析器、五次 Qwen 评审、1–5 分归一化及官方 DTW，保留官方 PCC 和软结论分；额外的全对率要求五次结论评分全部为 5。官方 Qwen 评分路径不等同于论文主表的 GPT 评审。HTTP/SGLang 传输替换为同参数本地 Transformers；相同输出在同病例内共用五次评审以减少随机差异。
+- MedGUIDE 使用原始选项和答案评分 MCQA；输入附完整来源路径规则，不注入该病例金标路径。合成反事实不混入原始 MCQA 准确率。
+- 技术失败、无效输出、路由失败、评审失败分别记录。PCC 失败记 1，结论/MCQA 失败记 0，不删失败病例。指南为统计单位，报告配对纠正/退化以及连续指标的指南级 bootstrap。
 
-把同一分组映射应用到病例文件；病例文件必须有可映射到树的相同分组键：
+## 状态与限制
 
-~~~bash
-python experiments/aster_fullscale_20261029/scripts/prepare_group_splits.py apply \
-  --input /absolute/private/path/train_val/vignette_cases.jsonl \
-  --group-key TREE_ID_FIELD \
-  --manifest /absolute/private/path/aster_fullscale/mega_split_manifest.json \
-  --output /absolute/private/path/aster_fullscale/mega_cases
-~~~
+12 项 CPU 单元测试通过。第一轮结构化接口 smoke 完成 4 个合成逻辑对和 4 例、32 条输出，52.53 秒、峰值 18.12 GiB；原生输出和官方评分另在 smoke02_native 验证。smoke 数据均来自选择分区，不能作为方法有效性结论。
 
-若病例的分组字段与树文件字段不同，先生成一个只含 ID 到树 ID 的映射表并审计覆盖率；不能通过病例文本猜测归属。apply 报告中的 unknown_group_records 必须为 0，否则阻断实验。
-
-## 3. MedGUIDE
-
-用来源树/疾病树 ID 创建 60/20/20 manifest。由于 MedGUIDE 目前使用原始 train split，留出集只能称为按来源指南分组的内部外部验证，不能称为官方测试集。跨数据集来源重叠审计通过前，不得宣称完全独立的外部验证。
-
-## 4. 配对统计
-
-把模型输出先用固定评分器转换为每例一行的 JSONL。至少包含 case_id、guideline_id、baseline_correct、method_correct；正确性字段必须是布尔值。技术失败和无效输出仍保留该行，且主分析的 correctness 记为 false，同时将 technical_failure / invalid_output 设为 true。不要只导出成功解析的输出。
-
-~~~bash
-python experiments/aster_fullscale_20261029/scripts/paired_cluster_stats.py \\
-  --input /absolute/private/path/paired_scored.jsonl \\
-  --group-key guideline_id \\
-  --bootstrap-draws 10000 \\
-  --seed 20261029 \\
-  --output /absolute/private/path/summary.json
-~~~
-
-该脚本输出逐例微平均、指南宏平均、纠正/退化计数及指南簇 bootstrap 区间。它是通用二元配对统计工具；MEGA-CDP 的官方路径评分必须先用官方/已核验路径评分器生成每例正确性，不能把路径文本简单字符串匹配后冒充官方指标。
-
-## 5. 运行测试
-
-~~~bash
-python -m unittest discover -s experiments/aster_fullscale_20261029/tests -v
-~~~
-
-## 状态
-
-- [x] 固定数据分工、分母规则、对照和统计单位。
-- [x] 实现确定性指南级拆分与应用工具。
-- [x] 添加拆分工具单元测试。
-- [ ] 核验服务器原始数据字段并生成真实 manifest。
-- [ ] 接入最小对构造、ASTER 前向与官方路径评分。
-- [ ] 在参数冻结后运行 MEGA-CDP 官方测试和 MedGUIDE 留出验证。
-
-当前没有启动全量 GPU 推理，不能把规划或接口测试写成方法有效性结果。
+MEGA 与 MedGUIDE 的跨语料指南身份尚未完全建立，因此不宣称独立临床外部验证。完整临床自然病历最小对仍未建立；当前方向学习是明确标记的合成逻辑实验。最终是否有效必须以完整留出结果判断。完整数据清单、逐例分母、失败原因和运行状态在服务器运行目录保存。
