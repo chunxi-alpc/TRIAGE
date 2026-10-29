@@ -1,0 +1,159 @@
+{
+  "run": {
+    "scope": "E1 engineering pilot on development only; NOT formal E2",
+    "cases": 20,
+    "rows": 60,
+    "T1": {
+      "max_abs": 0.0,
+      "by_layer": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0,
+        "6": 0.0,
+        "7": 0.0,
+        "8": 0.0,
+        "9": 0.0,
+        "10": 0.0,
+        "11": 0.0,
+        "12": 0.0,
+        "13": 0.0,
+        "14": 0.0,
+        "15": 0.0,
+        "16": 0.0,
+        "17": 0.0,
+        "18": 0.0,
+        "19": 0.0,
+        "20": 0.0,
+        "21": 0.0,
+        "22": 0.0,
+        "23": 0.0,
+        "24": 0.0,
+        "25": 0.0,
+        "26": 0.0,
+        "27": 0.0,
+        "28": 0.0,
+        "29": 0.0,
+        "30": 0.0,
+        "31": 0.0,
+        "32": 0.0,
+        "33": 0.0,
+        "34": 0.0,
+        "35": 0.0
+      },
+      "common_prefix_tokens": 547,
+      "pass": true,
+      "edit": "append patient fact; same-prefix check"
+    },
+    "T2": {
+      "agreement": 0.7833333333333333,
+      "blind_accuracy": 0.3,
+      "hidden_accuracy": 0.35,
+      "pass": false
+    },
+    "T3": {
+      "hard_minus_crop_by_variant": {
+        "NC": -0.05,
+        "AC": 0.05,
+        "SW": -0.1
+      },
+      "pass": false
+    },
+    "elapsed_seconds": 627.4566705226898,
+    "peak_allocated_GiB": 15.465638160705566,
+    "gpu": "1",
+    "test_set_used": false,
+    "gate_pass": false
+  },
+  "by_variant": {
+    "NC": {
+      "n": 20,
+      "accuracy": {
+        "group3": 1.0,
+        "group4": 0.95,
+        "group9_hard": 0.95,
+        "strict_diagnostic": 1.0
+      },
+      "paired_hard_vs_crop": {
+        "difference": -0.05,
+        "tree_cluster_95CI": [
+          -0.12,
+          0.0
+        ],
+        "trees": 4,
+        "resamples": 10000,
+        "seed": 0
+      },
+      "paired_strict_vs_crop": {
+        "difference": 0.0,
+        "tree_cluster_95CI": [
+          0.0,
+          0.0
+        ],
+        "trees": 4,
+        "resamples": 10000,
+        "seed": 0
+      }
+    },
+    "AC": {
+      "n": 20,
+      "accuracy": {
+        "group3": 0.7,
+        "group4": 0.75,
+        "group9_hard": 0.75,
+        "strict_diagnostic": 0.95
+      },
+      "paired_hard_vs_crop": {
+        "difference": 0.05,
+        "tree_cluster_95CI": [
+          -0.14285714285714285,
+          0.15384615384615385
+        ],
+        "trees": 4,
+        "resamples": 10000,
+        "seed": 0
+      },
+      "paired_strict_vs_crop": {
+        "difference": 0.25,
+        "tree_cluster_95CI": [
+          0.1111111111111111,
+          0.4
+        ],
+        "trees": 4,
+        "resamples": 10000,
+        "seed": 0
+      }
+    },
+    "SW": {
+      "n": 20,
+      "accuracy": {
+        "group3": 0.85,
+        "group4": 0.8,
+        "group9_hard": 0.75,
+        "strict_diagnostic": 1.0
+      },
+      "paired_hard_vs_crop": {
+        "difference": -0.1,
+        "tree_cluster_95CI": [
+          -0.3,
+          0.13333333333333333
+        ],
+        "trees": 4,
+        "resamples": 10000,
+        "seed": 0
+      },
+      "paired_strict_vs_crop": {
+        "difference": 0.15,
+        "tree_cluster_95CI": [
+          0.06666666666666667,
+          0.21052631578947367
+        ],
+        "trees": 4,
+        "resamples": 10000,
+        "seed": 0
+      }
+    }
+  }
+}
