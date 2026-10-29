@@ -1,12 +1,12 @@
 {
   "snapshot_version": 1,
-  "updated_at_utc": "2026-10-29T22:39:46.801249+00:00",
-  "updated_at_shanghai": "2026-10-30T06:39:46.801249+08:00",
+  "updated_at_utc": "2026-10-29T22:41:51.388637+00:00",
+  "updated_at_shanghai": "2026-10-30T06:41:51.388637+08:00",
   "source": "server_aggregate_only",
   "phase": "confirm",
-  "status": "rescheduling_allowed_gpus",
-  "controller_alive": false,
-  "controller_status_age_seconds": 27.4,
+  "status": "priority_context_replay",
+  "controller_alive": true,
+  "controller_status_age_seconds": 23.5,
   "planned_cases": {
     "confirm": 5126,
     "official_test": 7458,
@@ -52,7 +52,7 @@
       },
       "invalid_output_records": 0,
       "judge_failed_records": 0,
-      "latest_output_age_seconds": 1981.7,
+      "latest_output_age_seconds": 2106.3,
       "original_context_failure_cases": 107,
       "replayed_context_cells": 32,
       "replay_duplicate_cells": 0,
@@ -96,85 +96,45 @@
     }
   },
   "worker_progress": {
-    "confirm_4": {
-      "status": "running",
-      "batch_mode": true,
-      "generation_batch_size": 4,
-      "judge_batch_size": 8,
-      "world": 5,
-      "alive": false,
-      "gpu": 6,
-      "elapsed_seconds": null,
-      "completed_cases_this_invocation": 56,
-      "written_records_this_invocation": 448,
-      "wall_seconds": 12414.498906850815,
-      "oom_batch_splits": 0,
-      "token_budget_splits": 45,
-      "progress_age_seconds": 4479.5
-    },
     "confirm_0": {
-      "status": "running",
-      "batch_mode": true,
-      "generation_batch_size": 4,
-      "judge_batch_size": 8,
-      "world": 5,
+      "status": "waiting_for_context_replay",
+      "world": 4,
       "alive": false,
-      "gpu": 0,
+      "gpu": null,
       "elapsed_seconds": null,
-      "completed_cases_this_invocation": 56,
-      "written_records_this_invocation": 446,
-      "wall_seconds": 14358.247461795807,
       "oom_batch_splits": 0,
-      "token_budget_splits": 66,
-      "progress_age_seconds": 2535.9
+      "token_budget_splits": 0,
+      "progress_age_seconds": null
     },
     "confirm_2": {
-      "status": "running",
-      "batch_mode": true,
-      "generation_batch_size": 4,
-      "judge_batch_size": 8,
-      "world": 5,
+      "status": "waiting_for_context_replay",
+      "world": 4,
       "alive": false,
-      "gpu": 4,
+      "gpu": null,
       "elapsed_seconds": null,
-      "completed_cases_this_invocation": 56,
-      "written_records_this_invocation": 447,
-      "wall_seconds": 14810.12475991249,
       "oom_batch_splits": 0,
-      "token_budget_splits": 69,
-      "progress_age_seconds": 2083.9
+      "token_budget_splits": 0,
+      "progress_age_seconds": null
     },
     "confirm_3": {
-      "status": "running",
-      "batch_mode": true,
-      "generation_batch_size": 4,
-      "judge_batch_size": 8,
-      "world": 5,
+      "status": "waiting_for_context_replay",
+      "world": 4,
       "alive": false,
-      "gpu": 5,
+      "gpu": null,
       "elapsed_seconds": null,
-      "completed_cases_this_invocation": 52,
-      "written_records_this_invocation": 389,
-      "wall_seconds": 14912.386751174927,
       "oom_batch_splits": 0,
-      "token_budget_splits": 53,
-      "progress_age_seconds": 1981.7
+      "token_budget_splits": 0,
+      "progress_age_seconds": null
     },
     "confirm_1": {
-      "status": "running",
-      "batch_mode": true,
-      "generation_batch_size": 4,
-      "judge_batch_size": 8,
-      "world": 5,
+      "status": "waiting_for_context_replay",
+      "world": 4,
       "alive": false,
-      "gpu": 1,
+      "gpu": null,
       "elapsed_seconds": null,
-      "completed_cases_this_invocation": 36,
-      "written_records_this_invocation": 285,
-      "wall_seconds": 14485.802013397217,
       "oom_batch_splits": 0,
-      "token_budget_splits": 32,
-      "progress_age_seconds": 2409.2
+      "token_budget_splits": 0,
+      "progress_age_seconds": null
     }
   },
   "gpu_allocation": {
@@ -182,18 +142,17 @@
       "cards": [
         0,
         1,
-        4,
         5,
         6
       ],
-      "world": 5
+      "world": 4
     },
     "official_test": {},
     "med": {}
   },
   "privacy": "No clinical text, patient identifiers, prompts or model responses are published.",
   "context_replay": {
-    "time": 1793313531.2370057,
+    "time": 1793313687.8613358,
     "status": "running",
     "phase": "confirm",
     "phases": {
@@ -216,27 +175,19 @@
         "original_records_preserved": 0
       }
     },
-    "active_jobs": [
-      {
-        "gpu": 3,
-        "pid": 797419,
-        "cases": 4,
-        "capacity": 65536,
-        "elapsed_seconds": 803.0819206237793
-      }
-    ],
+    "active_jobs": [],
     "blocked_jobs": [],
     "unsupported_cases": 0,
     "probe_complete": true,
     "known_queue_eta": {
       "completed_cases": 4,
-      "cases_per_gpu_hour": 14.69,
+      "cases_per_gpu_hour": 12.66,
       "remaining_cases": 103,
-      "remaining_hours_at_current_cards": 7.01,
+      "remaining_hours_at_current_cards": 8.13,
       "basis": "actual elapsed GPU-job time including model loading and in-flight cases; current discovered queue only; future overflow cases not included"
     },
-    "controller_alive": false,
-    "status_age_seconds": 55.4
+    "controller_alive": true,
+    "status_age_seconds": 23.1
   },
   "complete_cases_total": 328,
   "planned_cases_total": 13436,
@@ -244,18 +195,18 @@
   "gpu_status": [
     {
       "index": 0,
-      "memory_used_mib": 0,
-      "utilization_percent": 0
+      "memory_used_mib": 40301,
+      "utilization_percent": 100
     },
     {
       "index": 1,
-      "memory_used_mib": 0,
-      "utilization_percent": 0
+      "memory_used_mib": 39373,
+      "utilization_percent": 100
     },
     {
       "index": 2,
-      "memory_used_mib": 5063,
-      "utilization_percent": 57
+      "memory_used_mib": 0,
+      "utilization_percent": 0
     },
     {
       "index": 3,
@@ -269,13 +220,13 @@
     },
     {
       "index": 5,
-      "memory_used_mib": 0,
-      "utilization_percent": 0
+      "memory_used_mib": 41773,
+      "utilization_percent": 100
     },
     {
       "index": 6,
-      "memory_used_mib": 0,
-      "utilization_percent": 0
+      "memory_used_mib": 43165,
+      "utilization_percent": 100
     }
   ],
   "historical_transport_repair": {
