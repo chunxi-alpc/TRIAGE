@@ -11,6 +11,18 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 
+def validate_rows(rows, group_key="guideline_id"):
+    for line_no, row in enumerate(rows, 1):
+        if not isinstance(row, dict):
+            raise ValueError(f"row {line_no} must be an object")
+        if group_key not in row:
+            raise KeyError(f"row {line_no} missing cluster key {group_key!r}")
+        for key in ("baseline_correct", "method_correct"):
+            if not isinstance(row.get(key), bool):
+                raise ValueError(f"row {line_no}: {key} must be bool; score failures as false")
+    return rows
+
+
 def load_rows(path, group_key="guideline_id"):
     rows = []
     with open(path, encoding="utf-8") as stream:
@@ -28,10 +40,11 @@ def load_rows(path, group_key="guideline_id"):
             rows.append(row)
     if not rows:
         raise ValueError("no rows")
-    return rows
+    return validate_rows(rows, group_key)
 
 
 def summarize(rows, bootstrap_draws=10000, seed=20261029, group_key="guideline_id"):
+    validate_rows(rows, group_key)
     grouped = defaultdict(list)
     corrected = regressed = 0
     for row in rows:
