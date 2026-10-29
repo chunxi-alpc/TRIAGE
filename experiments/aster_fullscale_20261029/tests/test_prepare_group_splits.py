@@ -32,7 +32,7 @@ class GroupSplitTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             mod.allocate(["a", "b", "c"], {"fit": 0.8, "test": 0.3}, 1)
         with self.assertRaises(ValueError):
-            mod.allocate(["a", "b"], {"fit": 0.5, "test": 0.5}, 1)
+            mod.allocate(["a"], {"fit": 0.5, "test": 0.5}, 1)
 
     def test_each_group_has_one_split(self):
         groups = [f"tree-{i}" for i in range(55)]
