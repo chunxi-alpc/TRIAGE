@@ -65,6 +65,7 @@ def stage_jobs(phase,workers):
  for gpu,worker in workers:
   name=phase+'_'+str(worker);status=root/'serial'/phase/(('attempt_0') if phase=='select' else ('worker_'+str(worker)))/'status.json'
   cmd=[sys.executable,str(scripts/'serial_stage.py'),'--run',str(root),'--phase',phase,'--worker',str(worker),'--world',str(len(workers))]
+  if phase!='select':cmd+=['--batch-mode','--generation-batch-size','4','--judge-batch-size','8']
   jobs.append({'name':name,'gpu':gpu,'cmd':cmd,'status_file':str(status)})
  return jobs
 try:

@@ -73,5 +73,17 @@
   "expensive_model_inference_started": true,
   "hashing_required": false,
   "minimal_pair_scope": "synthetic explicit condition truth; not clinical gold patient edits",
-  "selection_task": "source-heldout synthetic logical applicability, not official test"
+  "selection_task": "source-heldout synthetic logical applicability, not official test",
+  "execution_transport": {
+    "generation_batch_size": 4,
+    "judge_batch_size": 8,
+    "per_row_intervention_state": true,
+    "shared_unedited_prefix_cache": true,
+    "judge_draws_per_parsed_distinct_output": {
+      "path": 5,
+      "conclusion": 5
+    },
+    "preserve_completed_predictions_and_judge_draws": true,
+    "oom_policy": "split batch without dropping cases"
+  }
 }
