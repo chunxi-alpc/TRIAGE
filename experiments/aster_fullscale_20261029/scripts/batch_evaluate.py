@@ -46,7 +46,7 @@ def evaluate_batch(e,args,out,artifact,dataset,splits,limit=None,methods=METHODS
    for c in cases:
     cache=phase/'batch_cache'/c['case_id'];prior=bycase.get(c['case_id'],[]);route=read(cache/'routing.json');fatal=None
     if c.get('invalid_source'):fatal='invalid_source:'+c['invalid_source']
-    if route is None and prior:
+    if route is None and prior and 'out of memory' not in str(prior[0].get('route_failure','')).lower():
      raw=prior[0].get('raw_routing','');failure=prior[0].get('route_failure');rmap={r['id']:0 for r in c['rules']}
      try:
       obj=json.loads(re.search(r'\{.*\}',raw,re.S).group());rmap={rid:{'T':1,'F':-1,'U':0}.get(str(obj.get(rid,'U')).upper(),0) for rid in rmap}
@@ -101,6 +101,7 @@ def evaluate_batch(e,args,out,artifact,dataset,splits,limit=None,methods=METHODS
      if cached and cached['raw_output']==raw:st['scores'][raw]=cached['score'];continue
      requests.append((st['case'],raw));locations.append((st,method,raw));draw_dirs.append(st['cache']/'judge'/method)
    if requests:
+    if hasattr(e,'prefix_cache'):e.prefix_cache.clear()
     outcomes=judge.score_many(requests,args.judge_batch_size,draw_dirs) if judge else [score(c,raw) for c,raw in requests]
     for (st,method,raw),value in zip(locations,outcomes):
      st['scores'][raw]=value;write(st['cache']/'scores'/(method+'.json'),{'raw_output':raw,'score':value})

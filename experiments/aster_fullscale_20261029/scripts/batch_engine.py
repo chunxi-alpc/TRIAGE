@@ -9,7 +9,7 @@ class BatchEngine(Engine):
  def __init__(self,model):
   super().__init__(model);self.tok.padding_side='left';self.tok.pad_token=self.tok.eos_token
   self.prefix_cache={};self.reuse_prefixes=True
-  self.batch_stats={'calls':0,'rows':0,'oom_splits':0,'seconds':0.,'prefix_builds':0,'prefix_reuses':0,'prefix_rows':0}
+  self.batch_stats={'calls':0,'rows':0,'oom_splits':0,'seconds':0.,'prefix_builds':0,'prefix_reuses':0,'prefix_rows':0,'token_budget_splits':0}
  def attention(self,module,q,k,v,mask,scaling,dropout=0.,**kw):
   layer=module.layer_idx
   if self.capture is not None and layer in self.capture:self.captured[layer]=q[0,:,-1,:].detach().float().cpu()
@@ -58,6 +58,8 @@ class BatchEngine(Engine):
     for ids in tokenized:
      if len(ids)>self.model.config.max_position_embeddings:raise ValueError('context_overflow')
     width=max(map(len,tokenized));adjusted=[]
+    if width*len(indices)>65536 and len(indices)>1:
+     self.batch_stats['token_budget_splits']+=1;half=len(indices)//2;run(indices[:half]);run(indices[half:]);return
     for i,ids in zip(indices,tokenized):
      a=configs[i]
      if a:
@@ -69,7 +71,8 @@ class BatchEngine(Engine):
     if share_prefix and width>1:
      cache_key=tuple(texts[i] for i in indices)
      if cache_key not in self.prefix_cache:
-      self.active=None;self.prefix_cache.clear()
+      self.active=None
+      if len(self.prefix_cache)>=2:self.prefix_cache.pop(next(iter(self.prefix_cache)))
       unique={};representatives=[];inverse=[]
       for j,i in enumerate(indices):
        if texts[i] not in unique:unique[texts[i]]=len(representatives);representatives.append(j)
@@ -94,13 +97,14 @@ class BatchEngine(Engine):
      if on_result:on_result(i,results[i])
     self.batch_stats['rows']+=len(indices)
    except Exception as ex:
-    self.active=None;self.prefix_cache.clear();torch.cuda.empty_cache()
+    message=str(ex);is_oom=isinstance(ex,torch.OutOfMemoryError) or 'out of memory' in message.lower();ex.__traceback__=None
+    self.active=None;self.prefix_cache.clear();cached=None;legacy=None;original=None;inverse=None;inp=None;prefix=None;prefix_output=None;y=None;adjusted=None;active=None;settings=None;torch.cuda.empty_cache()
     if len(indices)>1:
-     if isinstance(ex,torch.OutOfMemoryError) or 'out of memory' in str(ex).lower():self.batch_stats['oom_splits']+=1
+     if is_oom:self.batch_stats['oom_splits']+=1
      half=len(indices)//2;run(indices[:half]);run(indices[half:])
     else:
-     results[indices[0]]=ex
-     if on_result:on_result(indices[0],ex)
+     results[indices[0]]=RuntimeError(message)
+     if on_result:on_result(indices[0],results[indices[0]])
    finally:
     self.active=None;self.batch_stats['seconds']+=time.time()-started
   # Length ordering changes execution order only, never task admission or truncation.
