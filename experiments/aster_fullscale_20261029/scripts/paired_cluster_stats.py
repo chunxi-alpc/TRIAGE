@@ -31,12 +31,12 @@ def load_rows(path, group_key="guideline_id"):
     return rows
 
 
-def summarize(rows, bootstrap_draws=10000, seed=20261029):
+def summarize(rows, bootstrap_draws=10000, seed=20261029, group_key="guideline_id"):
     grouped = defaultdict(list)
     corrected = regressed = 0
     for row in rows:
         b, m = row["baseline_correct"], row["method_correct"]
-        grouped[str(row["guideline_id"])].append(int(m) - int(b))
+        grouped[str(row[group_key])].append(int(m) - int(b))
         corrected += int((not b) and m)
         regressed += int(b and (not m))
     cluster_means = {g: sum(ds) / len(ds) for g, ds in grouped.items()}
@@ -82,7 +82,7 @@ def main():
     if args.bootstrap_draws < 100:
         parser.error("--bootstrap-draws must be at least 100")
     rows = load_rows(args.input, args.group_key)
-    result = summarize(rows, args.bootstrap_draws, args.seed)
+    result = summarize(rows, args.bootstrap_draws, args.seed, args.group_key)
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     Path(args.output).write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, indent=2))
