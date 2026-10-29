@@ -153,9 +153,13 @@ def report(out):
   base={r['case_id']:r for r in groups.get((tag,'baseline'),[])}
   paired=[{'case_id':r['case_id'],'guideline_id':r['guideline_id'],'baseline_correct':base[r['case_id']]['correct'],'method_correct':r['correct'],'technical_failure':r['technical_failure'],'invalid_output':r['invalid_output'],'intervention_applied':r['intervention_applied']} for r in rs if r['case_id'] in base]
   if paired:
-   stats=summarize(paired,bootstrap_draws=1000);stats['official_pcc']=sum(r.get('official_pcc',1.) for r in rs)/len(rs) if any('official_pcc' in r for r in rs) else None;stats['official_accuracy']=sum(r.get('official_accuracy',0.) for r in rs)/len(rs) if any('official_accuracy' in r for r in rs) else None;stats['route_failures']=sum(bool(r.get('route_failure')) for r in rs);stats['judge_failures']=sum(bool(r.get('official_judge_failed')) for r in rs);stats['continuous_guideline_statistics']=continuous_stats(rs,base);stats['failure_reasons']=dict(Counter(r.get('failure_reason') for r in rs if r['technical_failure']));summary[tag+':'+method]=stats
+   stats=summarize(paired,bootstrap_draws=1000);stats['official_pcc']=sum(r.get('official_pcc',1.) for r in rs)/len(rs) if any('official_pcc' in r for r in rs) else None;stats['official_accuracy']=sum(r.get('official_accuracy',0.) for r in rs)/len(rs) if any('official_accuracy' in r for r in rs) else None;stats['route_failures']=sum(bool(r.get('route_failure')) for r in rs);stats['judge_failures']=sum(bool(r.get('official_judge_failed')) for r in rs);stats['continuous_guideline_statistics']=continuous_stats(rs,base);stats['failure_reasons']=dict(Counter(r.get('failure_reason') for r in rs if r['technical_failure']))
+   profiles=defaultdict(list)
+   for r in rs:profiles['yarn_'+str(r['generation_context_profile']['max_position_embeddings']) if r.get('generation_context_profile') else 'original'].append(r)
+   stats['context_runtime_strata']={name:{'n_cases':len(items),'failure_rows':sum(bool(r['technical_failure']) for r in items),'official_accuracy':sum(r.get('official_accuracy',0.) for r in items)/len(items),'official_pcc':sum(r.get('official_pcc',1.) for r in items)/len(items),'mcqa_or_full_agreement_accuracy':sum(bool(r['correct']) for r in items)/len(items)} for name,items in profiles.items()}
+   summary[tag+':'+method]=stats
  write(out/'summary.json',summary)
- lines=['# 实际运行报告','', 'MEGA 使用官方五次 Qwen 评审、PCC 与结论评分，推理传输改为本地 Transformers；MedGUIDE 为原始 MCQA。所有失败保留在分母。','', '|数据/方法|病例|指南|全对率/MCQA|官方结论分|PCC|失败|无效输出|','|---|---:|---:|---:|---:|---:|---:|---:|']
+ lines=['# 实际运行报告','', '原上下文失败记录完整保留；只对这些病例应用长上下文补跑结果。八臂采用同一长上下文设置，评分仍使用原模型配置。汇总包含按实际上下文配置分层的结果，不能称为全部采用原配置的结果。','', 'MEGA 使用官方五次 Qwen 评审、PCC 与结论评分，推理传输改为本地 Transformers；MedGUIDE 为原始 MCQA。所有失败保留在分母。','', '|数据/方法|病例|指南|全对率/MCQA|官方结论分|PCC|失败|无效输出|','|---|---:|---:|---:|---:|---:|---:|---:|']
  for key,s in summary.items():lines.append(f'|{key}|{s["n_cases"]}|{s["n_guideline_clusters"]}|{s["method_accuracy_micro"]:.4f}|{s.get("official_accuracy")}|{s.get("official_pcc")}|{s["failure_rows"]}|{s["invalid_output_rows"]}|')
  (out/'REPORT.zh.md').write_text('\n'.join(lines)+'\n');return summary
 

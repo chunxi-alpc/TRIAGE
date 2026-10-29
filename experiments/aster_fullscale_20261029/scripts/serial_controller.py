@@ -19,17 +19,32 @@ def alive(pid):
   status=Path('/proc')/str(pid)/'stat'
   return status.exists() and status.read_text().split()[2]!='Z'
  except Exception:return False
-children={};handles=[]
+children={};handles=[];services={}
 def spawn(name,cmd,gpu,status,attempt=0):
  env=os.environ.copy();env['CUDA_VISIBLE_DEVICES']=str(gpu)
  log=(meta/(name+'_attempt_'+str(attempt)+'.log')).open('a');handles.append(log)
  proc=subprocess.Popen(cmd,cwd=repo,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True);children[name]=proc
  info={'pid':proc.pid,'cmd':cmd,'gpu':gpu,'status_file':str(status),'attempt':attempt,'name':name};write(meta/(name+'.json'),info);event('worker_started',name=name,pid=proc.pid,gpu=gpu,attempt=attempt);return info
 
+def ensure_background():
+ # Lock ownership is the identity check; never create a second active publisher/queue.
+ for script,relative,arguments in [
+  ('context_replay.py','context_replay/controller.lock',['controller','--run',str(root)]),
+  ('status_publisher.py','status_publisher.lock',['--run',str(root)])]:
+  if script in services and services[script].poll() is None:continue
+  path=root/relative;path.parent.mkdir(parents=True,exist_ok=True)
+  with path.open('a') as test:
+   try:fcntl.flock(test,fcntl.LOCK_EX|fcntl.LOCK_NB)
+   except BlockingIOError:continue
+  log=(root/(script.replace('.py','')+'_supervised.log')).open('a');handles.append(log)
+  proc=subprocess.Popen([sys.executable,str(scripts/script),*arguments],cwd=repo,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+  services[script]=proc;event('background_service_started',script=script,pid=proc.pid)
+
 def wait_jobs(phase,jobs):
  # jobs contain existing worker identity or new commands; no duplicate worker is spawned.
  pending={job['name']:job for job in jobs}
  while pending:
+  ensure_background()
   for name,job in list(pending.items()):
    info=read(meta/(name+'.json'));status=Path(info.get('status_file',job['status_file']));s=read(status)
    if s.get('status')=='complete':pending.pop(name);continue
@@ -45,7 +60,7 @@ def wait_jobs(phase,jobs):
    spawn(name,cmd,job['gpu'],status,attempt)
   state(phase,'running',active_workers=list(pending),active_pids={n:read(meta/(n+'.json')).get('pid') for n in pending})
   if pending:time.sleep(30)
- state(phase,'complete');event('stage_complete',phase=phase)
+ state(phase,'base_predictions_complete' if phase in ('confirm','official_test','med') else 'complete');event('base_stage_complete' if phase in ('confirm','official_test','med') else 'stage_complete',phase=phase)
 
 def clinical_workers(phase):
  config=root/'scheduler'/(phase+'_allocation.json')
@@ -82,10 +97,13 @@ try:
  for phase in ['confirm','official_test','med']:
   workers=clinical_workers(phase)
   wait_jobs(phase,stage_jobs(phase,workers))
+  from context_replay import barrier
+  barrier(root,phase)
+  state(phase,'complete');event('stage_complete',phase=phase,context_replays_included=True)
   from fullscale_run import report
-  report(root/'serial');event('report_updated',phase=phase)
+  report(root/'analysis/serial');event('report_updated',phase=phase)
  state('report','running')
  from fullscale_run import report
- report(root/'serial');state('complete','complete');event('pipeline_complete')
+ report(root/'analysis/serial');state('complete','complete');event('pipeline_complete')
 except Exception as ex:
  state('failed','needs_attention',reason=str(ex));event('pipeline_failed',reason=str(ex));raise

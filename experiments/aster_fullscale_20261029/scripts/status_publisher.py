@@ -36,6 +36,17 @@ def snapshot():
      key=(r['case_id'],r['method'])
      if key in cells:duplicates+=1
      else:cells[key]=r
+  original_context={c for (c,m),r in cells.items() if r.get('technical_failure') and r.get('failure_reason')=='context_overflow'}
+  overlay={};replay_seen=set();replay_duplicates=0
+  for path in (root/'context_replay'/phase).glob('worker_*/*.jsonl'):
+   for line in path.open():
+    try:r=json.loads(line)
+    except json.JSONDecodeError:continue
+    key=(r['case_id'],r['method']);old=cells.get(key)
+    if key in replay_seen:replay_duplicates+=1
+    replay_seen.add(key)
+    if old and old.get('technical_failure') and old.get('failure_reason')=='context_overflow' and r.get('supersedes_original_context_failure'):overlay[key]=r
+  cells.update(overlay)
   grouped=defaultdict(set);failure=Counter();failure_cases=defaultdict(set);by_method=Counter();invalid=0;judge_failed=0
   for (case,method),r in cells.items():
    grouped[case].add(method);by_method[method]+=1;invalid+=bool(r.get('invalid_output'));judge_failed+=bool(r.get('official_judge_failed'))
@@ -43,6 +54,7 @@ def snapshot():
     reason=str(r.get('failure_reason','')).lower();category='context_overflow' if 'context_overflow' in reason else 'cuda_oom' if 'out of memory' in reason else 'other_technical';failure[category]+=1;failure_cases[category].add(case)
   complete=sum(len(v)==len(METHODS) for v in grouped.values())
   data['phases'][phase]={'planned_cases':target,'complete_cases':complete,'partial_cases':len(grouped)-complete,'unique_prediction_records':len(cells),'planned_prediction_records':target*len(METHODS),'duplicate_cells':duplicates,'records_by_method':dict(by_method),'technical_failure_records':dict(failure),'technical_failure_cases':{k:len(v) for k,v in failure_cases.items()},'invalid_output_records':invalid,'judge_failed_records':judge_failed,'latest_output_age_seconds':round(time.time()-latest,1) if latest else None}
+  data['phases'][phase].update(original_context_failure_cases=len(original_context),replayed_context_cells=len(overlay),replay_duplicate_cells=replay_duplicates,original_context_records_preserved=True)
   allocation=read(root/'scheduler'/(phase+'_allocation.json'));data['gpu_allocation'][phase]={k:allocation[k] for k in ('cards','world') if k in allocation}
   for statusfile in (root/'serial'/phase).glob('worker_*/status.json'):
    r=read(statusfile);worker=int(statusfile.parent.name.split('_')[-1]);info=read(root/'scheduler'/(phase+'_'+str(worker)+'.json'));progress=read(next(statusfile.parent.glob('*_progress.json'),statusfile.parent/'not_present'))
@@ -51,19 +63,21 @@ def snapshot():
     if k in progress:item[k]=progress[k]
    transport=progress.get('batch_transport',{});item['oom_batch_splits']=transport.get('oom_splits',0);item['token_budget_splits']=transport.get('token_budget_splits',0);item['progress_age_seconds']=age(statusfile.parent/('med_heldout_progress.json' if phase=='med' else 'mega_'+phase+'_progress.json'))
    data['worker_progress'][phase+'_'+str(worker)]=item
+ replay=read(root/'context_replay/status.json');data['context_replay']={k:replay[k] for k in ['time','status','phase','phases','active_jobs','blocked_jobs','unsupported_cases','probe_complete','known_queue_eta'] if k in replay}
+ if replay:data['context_replay'].update(controller_alive=alive(replay.get('pid',0)),status_age_seconds=age(root/'context_replay/status.json'))
  data['complete_cases_total']=sum(v['complete_cases'] for v in data['phases'].values());data['planned_cases_total']=sum(PLAN.values());data['unique_prediction_records_total']=sum(v['unique_prediction_records'] for v in data['phases'].values())
  active=[v for k,v in data['worker_progress'].items() if k.startswith(str(data['phase'])+'_') and v.get('alive')]
  rate=sum(v.get('completed_cases_this_invocation',0)/max(v.get('elapsed_seconds') or 0,v['wall_seconds']) for v in active if v.get('wall_seconds',0)>0)
  remaining_mega=sum(data['phases'][phase]['planned_cases']-data['phases'][phase]['complete_cases'] for phase in ('confirm','official_test'))
  if rate>0 and data['phase'] in ('confirm','official_test'):
   days=remaining_mega/rate/86400
-  data['eta']={'basis':'sum of each live worker completed-case increments divided by current actual elapsed time including in-flight batches; future guideline mix may differ','mega_cases_per_hour':round(rate*3600,2),'remaining_mega_cases':remaining_mega,'remaining_mega_days_at_current_rate':round(days,2),'approximate_overall_days_range':[round(days*.7,1),round(days*1.5+.1,1)]}
+  data['eta']={'context_replay_not_yet_included':True,'basis':'sum of each live worker completed-case increments divided by current actual elapsed time including in-flight batches; future guideline mix may differ','mega_cases_per_hour':round(rate*3600,2),'remaining_mega_cases':remaining_mega,'remaining_mega_days_at_current_rate':round(days,2),'approximate_overall_days_range':[round(days*.7,1),round(days*1.5+.1,1)]}
  try:
   raw=subprocess.check_output(['nvidia-smi','--query-gpu=index,memory.used,utilization.gpu','--format=csv,noheader,nounits'],text=True,timeout=10)
   data['gpu_status']=[dict(zip(['index','memory_used_mib','utilization_percent'],[int(v.strip()) for v in line.split(',')])) for line in raw.splitlines()]
  except Exception:data['gpu_status']=[]
  repair=read(root/'oom_repair_summary.json');data['historical_transport_repair']={k:repair[k] for k in ['retry_cells','rerouted_cases','counts'] if k in repair}
- aggregate=read(root/'serial/summary.json');allowed={'n_cases','n_guideline_clusters','method_accuracy_micro','corrected','regressed','net_corrected_minus_regressed','official_pcc','official_accuracy','failure_rows','invalid_output_rows','coverage_rows','continuous_guideline_statistics','route_failures','judge_failures'}
+ aggregate=read(root/'analysis/serial/summary.json') or read(root/'serial/summary.json');allowed={'n_cases','n_guideline_clusters','method_accuracy_micro','corrected','regressed','net_corrected_minus_regressed','official_pcc','official_accuracy','failure_rows','invalid_output_rows','coverage_rows','continuous_guideline_statistics','route_failures','judge_failures','context_runtime_strata'}
  if aggregate:data['completed_stage_metrics']={key:{k:v for k,v in value.items() if k in allowed} for key,value in aggregate.items()}
  return data
 
@@ -71,6 +85,7 @@ def publish(data):
  write(public/'AUTO_STATUS.json',data)
  lines=['# 自动进度快照','', '更新时间：'+data['updated_at_shanghai'],'当前阶段：'+str(data['phase'])+'；状态：'+str(data['status']),'','|阶段|完整病例|病例分母|预测记录|','|---|---:|---:|---:|']
  for phase,v in data['phases'].items():lines.append(f'|{phase}|{v["complete_cases"]}|{v["planned_cases"]}|{v["unique_prediction_records"]}|')
+ lines+=['','长上下文补跑：'+json.dumps(data.get('context_replay',{}),ensure_ascii=False)]
  lines+=['','预计剩余时间：'+json.dumps(data.get('eta',{}),ensure_ascii=False),'','本文件只发布汇总进度，不包含病例、提示或模型原文。实验由服务器原调度器运行，本发布程序不启动或重启实验。']
  (public/'AUTO_STATUS.zh.md').write_text('\n'.join(lines)+'\n')
  files=['experiments/aster_fullscale_20261029/AUTO_STATUS.json','experiments/aster_fullscale_20261029/AUTO_STATUS.zh.md']

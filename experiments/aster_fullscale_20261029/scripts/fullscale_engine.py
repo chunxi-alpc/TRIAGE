@@ -2,12 +2,17 @@
 import json,re
 from pathlib import Path
 import torch
-from transformers import AutoTokenizer,AutoModelForCausalLM
+from transformers import AutoTokenizer,AutoModelForCausalLM,AutoConfig
 from transformers.models.qwen3.modeling_qwen3 import ALL_ATTENTION_FUNCTIONS,repeat_kv
 class Engine:
- def __init__(self,model):
+ def __init__(self,model,config_overrides=None):
   self.tok=AutoTokenizer.from_pretrained(model,local_files_only=True)
-  self.model=AutoModelForCausalLM.from_pretrained(model,local_files_only=True,dtype=torch.bfloat16,attn_implementation='sdpa').to('cuda:0').eval()
+  options={}
+  if config_overrides:
+   config=AutoConfig.from_pretrained(model,local_files_only=True)
+   for key,value in config_overrides.items():setattr(config,key,value)
+   options['config']=config
+  self.model=AutoModelForCausalLM.from_pretrained(model,local_files_only=True,dtype=torch.bfloat16,attn_implementation='sdpa',**options).to('cuda:0').eval()
   self.model.generation_config.temperature=None;self.model.generation_config.top_p=None;self.model.generation_config.top_k=None
   self.original=ALL_ATTENTION_FUNCTIONS['sdpa'];self.active=None;self.capture=None;self.captured={}
   ALL_ATTENTION_FUNCTIONS.register('sdpa',self.attention)

@@ -30,7 +30,7 @@ def evaluate_batch(e,args,out,artifact,dataset,splits,limit=None,methods=METHODS
     if not lines[-1].endswith(b'\n'):path.write_bytes(data+b'\n')
    except json.JSONDecodeError:
     saved=path.with_name(path.name+'.partial_'+str(time.time_ns()));saved.write_bytes(lines[-1]);path.write_bytes(b''.join(lines[:-1]))
- judge=BatchJudge(e) if dataset=='mega' else None
+ judge=BatchJudge(getattr(e,'judge_engine',e)) if dataset=='mega' else None
  source=(c for i,c in enumerate(rows(args.run,dataset,set(splits))) if i%args.world==args.worker and not all((c['case_id'],m) in done for m in methods))
  with path.open('a') as log:
   while True:
@@ -75,6 +75,7 @@ def evaluate_batch(e,args,out,artifact,dataset,splits,limit=None,methods=METHODS
      saved=read(st['cache']/'generated'/(method+'.json'))
      if saved is not None:st['generated'][method]=saved;continue
      route=st['route'];record={'case_id':c['case_id'],'guideline_id':c['group'],'dataset':dataset,'split':c['split'],'method':method,'correct':False,'technical_failure':False,'invalid_output':False,'intervention_applied':False,'route_failure':route['failure'],'raw_routing':route['raw'],'raw_output':'','batched':True}
+     record.update(getattr(e,'record_metadata',{}))
      if st['fatal']:
       record.update(technical_failure=True,failure_reason=st['fatal']);st['generated'][method]=record;write(st['cache']/'generated'/(method+'.json'),record);continue
      selection=dict(artifact['selection'])

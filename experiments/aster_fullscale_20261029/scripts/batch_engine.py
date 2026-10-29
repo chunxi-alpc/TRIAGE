@@ -6,8 +6,8 @@ import torch
 from fullscale_engine import Engine
 from transformers.models.qwen3.modeling_qwen3 import repeat_kv
 class BatchEngine(Engine):
- def __init__(self,model):
-  super().__init__(model);self.tok.padding_side='left';self.tok.pad_token=self.tok.eos_token
+ def __init__(self,model,config_overrides=None):
+  super().__init__(model,config_overrides=config_overrides);self.tok.padding_side='left';self.tok.pad_token=self.tok.eos_token
   self.prefix_cache={};self.reuse_prefixes=True
   self.batch_stats={'calls':0,'rows':0,'oom_splits':0,'seconds':0.,'prefix_builds':0,'prefix_reuses':0,'prefix_rows':0,'token_budget_splits':0}
  def attention(self,module,q,k,v,mask,scaling,dropout=0.,**kw):
@@ -46,6 +46,8 @@ class BatchEngine(Engine):
   out=out.clone()
   for i in eligible:out[i,-1:,h:h+1,:]=changed[i]
   return out,w
+ def prefill(self,prefix,position):
+  return self.model(**prefix,position_ids=position,use_cache=True,logits_to_keep=1)
  @torch.inference_mode()
  def generate_many(self,texts,max_tokens,configs=None,sample=False,batch_size=4,on_result=None):
   share_prefix=(configs is not None or sample) and self.reuse_prefixes
@@ -79,7 +81,7 @@ class BatchEngine(Engine):
        inverse.append(unique[texts[i]])
       pick=torch.tensor(representatives,device=self.model.device);inverse=torch.tensor(inverse,device=self.model.device)
       prefix={k:v.index_select(0,pick)[:,:-1] for k,v in inp.items()};position=prefix['attention_mask'].long().cumsum(-1)-1;position.masked_fill_(prefix['attention_mask']==0,1)
-      prefix_output=self.model(**prefix,position_ids=position,use_cache=True,logits_to_keep=1)
+      prefix_output=self.prefill(prefix,position)
       self.prefix_cache[cache_key]=(prefix_output.past_key_values.to_legacy_cache(),inverse);del prefix_output
       self.batch_stats['prefix_rows']+=len(representatives)
       self.batch_stats['prefix_builds']+=1
