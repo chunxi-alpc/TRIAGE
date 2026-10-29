@@ -36,7 +36,22 @@ python experiments/aster_fullscale_20261029/scripts/prepare_group_splits.py appl
 
 用来源树/疾病树 ID 创建 60/20/20 manifest。由于 MedGUIDE 目前使用原始 train split，留出集只能称为按来源指南分组的内部外部验证，不能称为官方测试集。跨数据集来源重叠审计通过前，不得宣称完全独立的外部验证。
 
-## 4. 运行测试
+## 4. 配对统计
+
+把模型输出先用固定评分器转换为每例一行的 JSONL。至少包含 case_id、guideline_id、baseline_correct、method_correct；正确性字段必须是布尔值。技术失败和无效输出仍保留该行，且主分析的 correctness 记为 false，同时将 technical_failure / invalid_output 设为 true。不要只导出成功解析的输出。
+
+~~~bash
+python experiments/aster_fullscale_20261029/scripts/paired_cluster_stats.py \\
+  --input /absolute/private/path/paired_scored.jsonl \\
+  --group-key guideline_id \\
+  --bootstrap-draws 10000 \\
+  --seed 20261029 \\
+  --output /absolute/private/path/summary.json
+~~~
+
+该脚本输出逐例微平均、指南宏平均、纠正/退化计数及指南簇 bootstrap 区间。它是通用二元配对统计工具；MEGA-CDP 的官方路径评分必须先用官方/已核验路径评分器生成每例正确性，不能把路径文本简单字符串匹配后冒充官方指标。
+
+## 5. 运行测试
 
 ~~~bash
 python -m unittest discover -s experiments/aster_fullscale_20261029/tests -v
