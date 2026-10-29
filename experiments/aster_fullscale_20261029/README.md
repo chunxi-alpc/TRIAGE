@@ -6,7 +6,7 @@
 
 在 115 服务器执行 `bash experiments/aster_fullscale_20261029/run_server.sh /home/gcx/aster_fullscale_NEW`。必须使用不存在的新目录；不会覆盖历史结果。官方 MEGA 源码需位于 `/home/gcx/aster_fullscale_20261030/official_mega`，版本 `nchennnn/MEGA-CDP@15a3a12`。该依赖的推理模板、解析器、五次评审和 DTW 源码均已实际取得。
 
-实际运行目录为 `/home/gcx/aster_fullscale_20261030/run02`。`scripts/fullscale_run.py` 提供 prepare、smoke、full、report 四个入口。运行 `report --run RUN --output WORKER_DIR` 可更新该工作进程的报告。原始病例、输出和评审矩阵只保存于服务器。
+最新运行目录为 `/home/gcx/aster_fullscale_20261030/run03`，复用 run02 的数据与分组。GPU 0/1/4/5/6 五卡分片学习 23,068 个候选逻辑对，随后按双卡流程评价。并行入口：`bash experiments/aster_fullscale_20261029/run_parallel_server.sh /home/gcx/aster_fullscale_20261030/run03`。原 run02 的学习调度已被替代，历史输出保留。`scripts/fullscale_run.py` 提供 prepare、smoke、full、report 四个入口。运行 `report --run RUN --output WORKER_DIR` 可更新该工作进程的报告。原始病例、输出和评审矩阵只保存于服务器。
 
 ## 数据与方法
 

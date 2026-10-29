@@ -172,7 +172,7 @@ def select_strength(e,args,out,artifact):
  return sel
 
 def main():
- p=argparse.ArgumentParser(__doc__);p.add_argument('stage',choices=['prepare','smoke','full','report']);p.add_argument('--run',required=True);p.add_argument('--output');p.add_argument('--model',default='/home/gcx/TRIAGE/models/modelscope/Qwen3-8B');p.add_argument('--mega',default='/home/gcx/TRIAGE/data/MEGA-CDP');p.add_argument('--med',default='/home/gcx/TRIAGE/data/MedGUIDE/data/train-00000-of-00001.parquet');p.add_argument('--paths',default='/home/gcx/aster_medguide_20261022/private/all_paths.json');p.add_argument('--worker',type=int,default=0);args=p.parse_args();args.started=time.time()
+ p=argparse.ArgumentParser(__doc__);p.add_argument('stage',choices=['prepare','smoke','full','report']);p.add_argument('--run',required=True);p.add_argument('--output');p.add_argument('--model',default='/home/gcx/TRIAGE/models/modelscope/Qwen3-8B');p.add_argument('--mega',default='/home/gcx/TRIAGE/data/MEGA-CDP');p.add_argument('--med',default='/home/gcx/TRIAGE/data/MedGUIDE/data/train-00000-of-00001.parquet');p.add_argument('--paths',default='/home/gcx/aster_medguide_20261022/private/all_paths.json');p.add_argument('--artifact');p.add_argument('--worker',type=int,default=0);args=p.parse_args();args.started=time.time()
  if args.stage=='prepare':prepare(args);return
  out=Path(args.output)
  if args.stage=='report':report(out);return
@@ -188,7 +188,7 @@ def main():
    assert all(r['raw_output']==bases[r['case_id']] for r in rs if r['method']=='zero'),'zero_identity_failure'
    if all(r['technical_failure'] for r in rs):raise RuntimeError('all_smoke_cases_failed')
   elif args.worker==0:
-   artifact=fit(e,args,out)
+   artifact=torch.load(args.artifact,weights_only=False,map_location='cpu') if args.artifact else fit(e,args,out)
    # Select strength on the complete source-heldout development selection split.
    artifact['selection']=select_strength(e,args,out,artifact)
    torch.save(artifact,out/'frozen.pt');write(out/'frozen.json',{'selection':artifact['selection'],'training_pairs':artifact['training_pairs'],'test_used_for_selection':False})
