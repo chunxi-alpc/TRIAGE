@@ -1,12 +1,12 @@
 {
   "snapshot_version": 1,
-  "updated_at_utc": "2026-10-29T22:25:50.246841+00:00",
-  "updated_at_shanghai": "2026-10-30T06:25:50.246841+08:00",
+  "updated_at_utc": "2026-10-29T22:32:41.930375+00:00",
+  "updated_at_shanghai": "2026-10-30T06:32:41.930375+08:00",
   "source": "server_aggregate_only",
   "phase": "confirm",
   "status": "running",
   "controller_alive": true,
-  "controller_status_age_seconds": 0.1,
+  "controller_status_age_seconds": 0.0,
   "planned_cases": {
     "confirm": 5126,
     "official_test": 7458,
@@ -45,16 +45,16 @@
         "zero": 328
       },
       "technical_failure_records": {
-        "context_overflow": 848
+        "context_overflow": 840
       },
       "technical_failure_cases": {
-        "context_overflow": 106
+        "context_overflow": 105
       },
       "invalid_output_records": 0,
       "judge_failed_records": 0,
-      "latest_output_age_seconds": 1145.2,
+      "latest_output_age_seconds": 1556.9,
       "original_context_failure_cases": 107,
-      "replayed_context_cells": 8,
+      "replayed_context_cells": 16,
       "replay_duplicate_cells": 0,
       "original_context_records_preserved": true
     },
@@ -104,13 +104,13 @@
       "world": 5,
       "alive": true,
       "gpu": 6,
-      "elapsed_seconds": 16068.829999999958,
+      "elapsed_seconds": 16480.51000000001,
       "completed_cases_this_invocation": 56,
       "written_records_this_invocation": 448,
       "wall_seconds": 12414.498906850815,
       "oom_batch_splits": 0,
       "token_budget_splits": 45,
-      "progress_age_seconds": 3642.9
+      "progress_age_seconds": 4054.6
     },
     "confirm_0": {
       "status": "running",
@@ -120,13 +120,13 @@
       "world": 5,
       "alive": true,
       "gpu": 0,
-      "elapsed_seconds": 16068.839999999967,
+      "elapsed_seconds": 16480.52000000002,
       "completed_cases_this_invocation": 56,
       "written_records_this_invocation": 446,
       "wall_seconds": 14358.247461795807,
       "oom_batch_splits": 0,
       "token_budget_splits": 66,
-      "progress_age_seconds": 1699.3
+      "progress_age_seconds": 2111.0
     },
     "confirm_2": {
       "status": "running",
@@ -136,13 +136,13 @@
       "world": 5,
       "alive": true,
       "gpu": 4,
-      "elapsed_seconds": 16068.839999999967,
+      "elapsed_seconds": 16480.530000000028,
       "completed_cases_this_invocation": 56,
       "written_records_this_invocation": 447,
       "wall_seconds": 14810.12475991249,
       "oom_batch_splits": 0,
       "token_budget_splits": 69,
-      "progress_age_seconds": 1247.3
+      "progress_age_seconds": 1659.0
     },
     "confirm_3": {
       "status": "running",
@@ -152,13 +152,13 @@
       "world": 5,
       "alive": true,
       "gpu": 5,
-      "elapsed_seconds": 16068.829999999958,
+      "elapsed_seconds": 16480.52000000002,
       "completed_cases_this_invocation": 52,
       "written_records_this_invocation": 389,
       "wall_seconds": 14912.386751174927,
       "oom_batch_splits": 0,
       "token_budget_splits": 53,
-      "progress_age_seconds": 1145.2
+      "progress_age_seconds": 1556.9
     },
     "confirm_1": {
       "status": "running",
@@ -168,13 +168,13 @@
       "world": 5,
       "alive": true,
       "gpu": 1,
-      "elapsed_seconds": 16068.839999999967,
+      "elapsed_seconds": 16480.530000000028,
       "completed_cases_this_invocation": 36,
       "written_records_this_invocation": 285,
       "wall_seconds": 14485.802013397217,
       "oom_batch_splits": 0,
       "token_budget_splits": 32,
-      "progress_age_seconds": 1572.7
+      "progress_age_seconds": 1984.4
     }
   },
   "gpu_allocation": {
@@ -193,14 +193,14 @@
   },
   "privacy": "No clinical text, patient identifiers, prompts or model responses are published.",
   "context_replay": {
-    "time": 1793312727.9900537,
+    "time": 1793313149.5891976,
     "status": "running",
     "phase": "confirm",
     "phases": {
       "confirm": {
         "target_cases": 107,
-        "complete_cases": 1,
-        "pending_cases": 106,
+        "complete_cases": 2,
+        "pending_cases": 105,
         "original_records_preserved": 856
       },
       "official_test": {
@@ -216,10 +216,20 @@
         "original_records_preserved": 0
       }
     },
-    "active_jobs": [],
+    "active_jobs": [
+      {
+        "gpu": 3,
+        "pid": 797419,
+        "cases": 4,
+        "capacity": 65536,
+        "elapsed_seconds": 421.5809783935547
+      }
+    ],
     "blocked_jobs": [],
     "unsupported_cases": 0,
-    "probe_complete": true
+    "probe_complete": true,
+    "controller_alive": false,
+    "status_age_seconds": 12.1
   },
   "complete_cases_total": 328,
   "planned_cases_total": 13436,
@@ -227,12 +237,12 @@
   "eta": {
     "context_replay_not_yet_included": true,
     "basis": "sum of each live worker completed-case increments divided by current actual elapsed time including in-flight batches; future guideline mix may differ",
-    "mega_cases_per_hour": 57.35,
+    "mega_cases_per_hour": 55.92,
     "remaining_mega_cases": 12256,
-    "remaining_mega_days_at_current_rate": 8.9,
+    "remaining_mega_days_at_current_rate": 9.13,
     "approximate_overall_days_range": [
-      6.2,
-      13.5
+      6.4,
+      13.8
     ]
   },
   "gpu_status": [
@@ -244,17 +254,17 @@
     {
       "index": 1,
       "memory_used_mib": 65349,
-      "utilization_percent": 98
+      "utilization_percent": 96
     },
     {
       "index": 2,
-      "memory_used_mib": 5585,
-      "utilization_percent": 62
+      "memory_used_mib": 4871,
+      "utilization_percent": 53
     },
     {
       "index": 3,
-      "memory_used_mib": 41773,
-      "utilization_percent": 100
+      "memory_used_mib": 66803,
+      "utilization_percent": 98
     },
     {
       "index": 4,
@@ -269,7 +279,7 @@
     {
       "index": 6,
       "memory_used_mib": 56423,
-      "utilization_percent": 98
+      "utilization_percent": 95
     }
   ],
   "historical_transport_repair": {
