@@ -47,11 +47,24 @@ def wait_jobs(phase,jobs):
   if pending:time.sleep(30)
  state(phase,'complete');event('stage_complete',phase=phase)
 
+def clinical_workers(phase):
+ config=root/'scheduler'/(phase+'_allocation.json')
+ allocation=read(config)
+ if not allocation:
+  cards=[]
+  output=subprocess.check_output(['nvidia-smi','--query-gpu=index,memory.used,utilization.gpu','--format=csv,noheader,nounits'],text=True)
+  for line in output.splitlines():
+   gpu,memory,utilization=[int(x.strip()) for x in line.split(',')]
+   if memory<1024 and utilization<5:cards.append(gpu)
+  if not cards:raise RuntimeError('no free GPU available for '+phase)
+  allocation={'cards':cards,'world':len(cards),'created':now()};write(config,allocation);event('clinical_allocation',phase=phase,**allocation)
+ return [(gpu,rank) for rank,gpu in enumerate(allocation['cards'])]
+
 def stage_jobs(phase,workers):
  jobs=[]
  for gpu,worker in workers:
   name=phase+'_'+str(worker);status=root/'serial'/phase/(('attempt_0') if phase=='select' else ('worker_'+str(worker)))/'status.json'
-  cmd=[sys.executable,str(scripts/'serial_stage.py'),'--run',str(root),'--phase',phase,'--worker',str(worker)]
+  cmd=[sys.executable,str(scripts/'serial_stage.py'),'--run',str(root),'--phase',phase,'--worker',str(worker),'--world',str(len(workers))]
   jobs.append({'name':name,'gpu':gpu,'cmd':cmd,'status_file':str(status)})
  return jobs
 try:
@@ -65,7 +78,8 @@ try:
  if not (root/'parallel_fit/directions.pt').exists():
   state('merge','running');subprocess.run([sys.executable,str(scripts/'parallel_directions.py'),'merge','--run',str(root),'--world','5'],cwd=repo,check=True);event('stage_complete',phase='merge')
  if not (root/'serial/frozen.pt').exists():wait_jobs('select',stage_jobs('select',[(0,0)]))
- for phase,workers in [('confirm',[(0,0),(1,1)]),('official_test',[(0,0),(1,1)]),('med',[(0,0)])]:
+ for phase in ['confirm','official_test','med']:
+  workers=clinical_workers(phase)
   wait_jobs(phase,stage_jobs(phase,workers))
   from fullscale_run import report
   report(root/'serial');event('report_updated',phase=phase)

@@ -81,11 +81,16 @@ def evaluate(e,args,out,artifact,dataset,splits,limit=None,methods=METHODS,tag='
  if dataset=='mega':
   from official_judge import Judge
   judge=Judge(e)
- existing=[json.loads(x) for x in path.open()] if path.exists() else []
+ history_paths=list(out.parent.glob('worker_*/*.jsonl')) if getattr(args,'world',None) else ([path] if path.exists() else [])
+ existing=[]
+ for history in history_paths:
+  for line in history.open():
+   try:existing.append(json.loads(line))
+   except json.JSONDecodeError:continue
  done={(r['case_id'],r['method']) for r in existing}
  with path.open('a') as log:
   for case_index,c in enumerate(rows(args.run,dataset,set(splits))):
-   if args.stage=='full' and dataset=='mega' and tag in ('mega_confirm','mega_official_test') and case_index%2!=args.worker:continue
+   if args.stage=='full' and ((dataset=='mega' and tag in ('mega_confirm','mega_official_test')) or (tag=='med_heldout' and hasattr(args,'world'))) and case_index%getattr(args,'world',2)!=args.worker:continue
    if all((c['case_id'],m) in done for m in methods):continue
    if limit and counts['cases']>=limit:break
    counts['cases']+=1;t=time.time();routing={};raw_route='';route_failure=None;prep_failure=None
