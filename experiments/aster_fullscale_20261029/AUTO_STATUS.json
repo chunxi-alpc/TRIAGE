@@ -1,12 +1,12 @@
 {
   "snapshot_version": 1,
-  "updated_at_utc": "2026-10-29T22:32:41.930375+00:00",
-  "updated_at_shanghai": "2026-10-30T06:32:41.930375+08:00",
+  "updated_at_utc": "2026-10-29T22:39:46.801249+00:00",
+  "updated_at_shanghai": "2026-10-30T06:39:46.801249+08:00",
   "source": "server_aggregate_only",
   "phase": "confirm",
-  "status": "running",
-  "controller_alive": true,
-  "controller_status_age_seconds": 0.0,
+  "status": "rescheduling_allowed_gpus",
+  "controller_alive": false,
+  "controller_status_age_seconds": 27.4,
   "planned_cases": {
     "confirm": 5126,
     "official_test": 7458,
@@ -45,16 +45,16 @@
         "zero": 328
       },
       "technical_failure_records": {
-        "context_overflow": 840
+        "context_overflow": 824
       },
       "technical_failure_cases": {
-        "context_overflow": 105
+        "context_overflow": 103
       },
       "invalid_output_records": 0,
       "judge_failed_records": 0,
-      "latest_output_age_seconds": 1556.9,
+      "latest_output_age_seconds": 1981.7,
       "original_context_failure_cases": 107,
-      "replayed_context_cells": 16,
+      "replayed_context_cells": 32,
       "replay_duplicate_cells": 0,
       "original_context_records_preserved": true
     },
@@ -102,15 +102,15 @@
       "generation_batch_size": 4,
       "judge_batch_size": 8,
       "world": 5,
-      "alive": true,
+      "alive": false,
       "gpu": 6,
-      "elapsed_seconds": 16480.51000000001,
+      "elapsed_seconds": null,
       "completed_cases_this_invocation": 56,
       "written_records_this_invocation": 448,
       "wall_seconds": 12414.498906850815,
       "oom_batch_splits": 0,
       "token_budget_splits": 45,
-      "progress_age_seconds": 4054.6
+      "progress_age_seconds": 4479.5
     },
     "confirm_0": {
       "status": "running",
@@ -118,15 +118,15 @@
       "generation_batch_size": 4,
       "judge_batch_size": 8,
       "world": 5,
-      "alive": true,
+      "alive": false,
       "gpu": 0,
-      "elapsed_seconds": 16480.52000000002,
+      "elapsed_seconds": null,
       "completed_cases_this_invocation": 56,
       "written_records_this_invocation": 446,
       "wall_seconds": 14358.247461795807,
       "oom_batch_splits": 0,
       "token_budget_splits": 66,
-      "progress_age_seconds": 2111.0
+      "progress_age_seconds": 2535.9
     },
     "confirm_2": {
       "status": "running",
@@ -134,15 +134,15 @@
       "generation_batch_size": 4,
       "judge_batch_size": 8,
       "world": 5,
-      "alive": true,
+      "alive": false,
       "gpu": 4,
-      "elapsed_seconds": 16480.530000000028,
+      "elapsed_seconds": null,
       "completed_cases_this_invocation": 56,
       "written_records_this_invocation": 447,
       "wall_seconds": 14810.12475991249,
       "oom_batch_splits": 0,
       "token_budget_splits": 69,
-      "progress_age_seconds": 1659.0
+      "progress_age_seconds": 2083.9
     },
     "confirm_3": {
       "status": "running",
@@ -150,15 +150,15 @@
       "generation_batch_size": 4,
       "judge_batch_size": 8,
       "world": 5,
-      "alive": true,
+      "alive": false,
       "gpu": 5,
-      "elapsed_seconds": 16480.52000000002,
+      "elapsed_seconds": null,
       "completed_cases_this_invocation": 52,
       "written_records_this_invocation": 389,
       "wall_seconds": 14912.386751174927,
       "oom_batch_splits": 0,
       "token_budget_splits": 53,
-      "progress_age_seconds": 1556.9
+      "progress_age_seconds": 1981.7
     },
     "confirm_1": {
       "status": "running",
@@ -166,15 +166,15 @@
       "generation_batch_size": 4,
       "judge_batch_size": 8,
       "world": 5,
-      "alive": true,
+      "alive": false,
       "gpu": 1,
-      "elapsed_seconds": 16480.530000000028,
+      "elapsed_seconds": null,
       "completed_cases_this_invocation": 36,
       "written_records_this_invocation": 285,
       "wall_seconds": 14485.802013397217,
       "oom_batch_splits": 0,
       "token_budget_splits": 32,
-      "progress_age_seconds": 1984.4
+      "progress_age_seconds": 2409.2
     }
   },
   "gpu_allocation": {
@@ -193,14 +193,14 @@
   },
   "privacy": "No clinical text, patient identifiers, prompts or model responses are published.",
   "context_replay": {
-    "time": 1793313149.5891976,
+    "time": 1793313531.2370057,
     "status": "running",
     "phase": "confirm",
     "phases": {
       "confirm": {
         "target_cases": 107,
-        "complete_cases": 2,
-        "pending_cases": 105,
+        "complete_cases": 4,
+        "pending_cases": 103,
         "original_records_preserved": 856
       },
       "official_test": {
@@ -222,64 +222,60 @@
         "pid": 797419,
         "cases": 4,
         "capacity": 65536,
-        "elapsed_seconds": 421.5809783935547
+        "elapsed_seconds": 803.0819206237793
       }
     ],
     "blocked_jobs": [],
     "unsupported_cases": 0,
     "probe_complete": true,
+    "known_queue_eta": {
+      "completed_cases": 4,
+      "cases_per_gpu_hour": 14.69,
+      "remaining_cases": 103,
+      "remaining_hours_at_current_cards": 7.01,
+      "basis": "actual elapsed GPU-job time including model loading and in-flight cases; current discovered queue only; future overflow cases not included"
+    },
     "controller_alive": false,
-    "status_age_seconds": 12.1
+    "status_age_seconds": 55.4
   },
   "complete_cases_total": 328,
   "planned_cases_total": 13436,
   "unique_prediction_records_total": 2624,
-  "eta": {
-    "context_replay_not_yet_included": true,
-    "basis": "sum of each live worker completed-case increments divided by current actual elapsed time including in-flight batches; future guideline mix may differ",
-    "mega_cases_per_hour": 55.92,
-    "remaining_mega_cases": 12256,
-    "remaining_mega_days_at_current_rate": 9.13,
-    "approximate_overall_days_range": [
-      6.4,
-      13.8
-    ]
-  },
   "gpu_status": [
     {
       "index": 0,
-      "memory_used_mib": 68425,
-      "utilization_percent": 98
+      "memory_used_mib": 0,
+      "utilization_percent": 0
     },
     {
       "index": 1,
-      "memory_used_mib": 65349,
-      "utilization_percent": 96
+      "memory_used_mib": 0,
+      "utilization_percent": 0
     },
     {
       "index": 2,
-      "memory_used_mib": 4871,
-      "utilization_percent": 53
+      "memory_used_mib": 5063,
+      "utilization_percent": 57
     },
     {
       "index": 3,
-      "memory_used_mib": 66803,
-      "utilization_percent": 98
+      "memory_used_mib": 0,
+      "utilization_percent": 0
     },
     {
       "index": 4,
-      "memory_used_mib": 79359,
-      "utilization_percent": 98
+      "memory_used_mib": 0,
+      "utilization_percent": 0
     },
     {
       "index": 5,
-      "memory_used_mib": 55113,
-      "utilization_percent": 98
+      "memory_used_mib": 0,
+      "utilization_percent": 0
     },
     {
       "index": 6,
-      "memory_used_mib": 56423,
-      "utilization_percent": 95
+      "memory_used_mib": 0,
+      "utilization_percent": 0
     }
   ],
   "historical_transport_repair": {
