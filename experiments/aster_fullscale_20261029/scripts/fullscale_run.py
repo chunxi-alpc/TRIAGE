@@ -81,9 +81,12 @@ def evaluate(e,args,out,artifact,dataset,splits,limit=None,methods=METHODS,tag='
  if dataset=='mega':
   from official_judge import Judge
   judge=Judge(e)
- with path.open('x') as log:
+ existing=[json.loads(x) for x in path.open()] if path.exists() else []
+ done={(r['case_id'],r['method']) for r in existing}
+ with path.open('a') as log:
   for case_index,c in enumerate(rows(args.run,dataset,set(splits))):
    if args.stage=='full' and dataset=='mega' and tag in ('mega_confirm','mega_official_test') and case_index%2!=args.worker:continue
+   if all((c['case_id'],m) in done for m in methods):continue
    if limit and counts['cases']>=limit:break
    counts['cases']+=1;t=time.time();routing={};raw_route='';route_failure=None;prep_failure=None
    try:
@@ -94,7 +97,12 @@ def evaluate(e,args,out,artifact,dataset,splits,limit=None,methods=METHODS,tag='
     text,masks=e.task(c)
    except Exception as ex:prep_failure=str(ex)
    score_cache={}
+   metric_keys={'official_pcc','official_accuracy','official_failure','official_pathway_judge','official_accuracy_judge','official_judge_failed','parsed_native_output','mcqa_prediction','predicted_path','terminal_correct','path_prefix_fraction'}
+   for previous in existing:
+    if previous['case_id']==c['case_id'] and previous.get('raw_output') and not previous['technical_failure']:
+     score_cache[previous['raw_output']]=(previous['correct'],previous['invalid_output'],{k:v for k,v in previous.items() if k in metric_keys})
    for method in methods:
+    if (c['case_id'],method) in done:continue
     r={'case_id':c['case_id'],'guideline_id':c['group'],'dataset':dataset,'split':c['split'],'method':method,'correct':False,'technical_failure':False,'invalid_output':False,'intervention_applied':False,'route_failure':route_failure,'raw_routing':raw_route,'raw_output':''}
     try:
      if prep_failure:raise ValueError(prep_failure)

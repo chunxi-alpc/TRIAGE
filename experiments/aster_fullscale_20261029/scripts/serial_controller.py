@@ -1,0 +1,76 @@
+"""Server-resident sequential scheduler with process monitoring and checkpoint recovery."""
+import argparse,json,os,time,subprocess,sys,fcntl
+from pathlib import Path
+from datetime import datetime,timezone
+p=argparse.ArgumentParser(__doc__);p.add_argument('--run',required=True);a=p.parse_args();root=Path(a.run);repo=Path(__file__).resolve().parents[3];scripts=Path(__file__).resolve().parent
+lock=(root/'serial_controller.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+meta=root/'scheduler';meta.mkdir(exist_ok=True)
+def now():return datetime.now(timezone.utc).isoformat()
+def write(path,obj):
+ temp=path.with_suffix('.tmp');temp.write_text(json.dumps(obj,indent=2,ensure_ascii=False)+'\n');temp.replace(path)
+def event(kind,**kw):
+ with (root/'pipeline_events.jsonl').open('a') as f:f.write(json.dumps({'time':now(),'event':kind,**kw},ensure_ascii=False)+'\n')
+def state(phase,status,**kw):write(root/'serial_status.json',{'time':now(),'controller_pid':os.getpid(),'phase':phase,'status':status,**kw})
+def read(path):
+ try:return json.loads(path.read_text())
+ except (FileNotFoundError,json.JSONDecodeError):return {}
+def alive(pid):
+ try:
+  status=Path('/proc')/str(pid)/'stat'
+  return status.exists() and status.read_text().split()[2]!='Z'
+ except Exception:return False
+children={};handles=[]
+def spawn(name,cmd,gpu,status,attempt=0):
+ env=os.environ.copy();env['CUDA_VISIBLE_DEVICES']=str(gpu)
+ log=(meta/(name+'_attempt_'+str(attempt)+'.log')).open('a');handles.append(log)
+ proc=subprocess.Popen(cmd,cwd=repo,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True);children[name]=proc
+ info={'pid':proc.pid,'cmd':cmd,'gpu':gpu,'status_file':str(status),'attempt':attempt,'name':name};write(meta/(name+'.json'),info);event('worker_started',name=name,pid=proc.pid,gpu=gpu,attempt=attempt);return info
+
+def wait_jobs(phase,jobs):
+ # jobs contain existing worker identity or new commands; no duplicate worker is spawned.
+ pending={job['name']:job for job in jobs}
+ while pending:
+  for name,job in list(pending.items()):
+   info=read(meta/(name+'.json'));status=Path(info.get('status_file',job['status_file']));s=read(status)
+   if s.get('status')=='complete':pending.pop(name);continue
+   proc=children.get(name)
+   running=(proc.poll() is None) if proc else alive(info.get('pid',0))
+   if running:continue
+   attempt=info.get('attempt',-1)+1
+   if attempt>2:raise RuntimeError(name+' failed after recovery attempts; '+str(status))
+   cmd=list(job['cmd'])
+   if phase=='select':
+    cmd+=['--attempt',str(attempt)];status=root/'serial/select'/('attempt_'+str(attempt))/'status.json'
+   if info:event('worker_recovery',name=name,previous_pid=info.get('pid'),reason=s.get('reason','process_exited'))
+   spawn(name,cmd,job['gpu'],status,attempt)
+  state(phase,'running',active_workers=list(pending),active_pids={n:read(meta/(n+'.json')).get('pid') for n in pending})
+  if pending:time.sleep(30)
+ state(phase,'complete');event('stage_complete',phase=phase)
+
+def stage_jobs(phase,workers):
+ jobs=[]
+ for gpu,worker in workers:
+  name=phase+'_'+str(worker);status=root/'serial'/phase/(('attempt_0') if phase=='select' else ('worker_'+str(worker)))/'status.json'
+  cmd=[sys.executable,str(scripts/'serial_stage.py'),'--run',str(root),'--phase',phase,'--worker',str(worker)]
+  jobs.append({'name':name,'gpu':gpu,'cmd':cmd,'status_file':str(status)})
+ return jobs
+try:
+ event('controller_started',pid=os.getpid(),ordered_phases=['fit','merge','select','confirm','official_test','med','report'])
+ jobs=[]
+ for rank,gpu in enumerate([0,1,4,5,6]):
+  name='fit_'+str(rank);status=root/'parallel_fit'/('shard_'+str(rank))/'status.json'
+  cmd=[sys.executable,str(scripts/'parallel_directions.py'),'worker','--run',str(root),'--rank',str(rank),'--world','5']
+  jobs.append({'name':name,'gpu':gpu,'cmd':cmd,'status_file':str(status)})
+ wait_jobs('fit',jobs)
+ if not (root/'parallel_fit/directions.pt').exists():
+  state('merge','running');subprocess.run([sys.executable,str(scripts/'parallel_directions.py'),'merge','--run',str(root),'--world','5'],cwd=repo,check=True);event('stage_complete',phase='merge')
+ if not (root/'serial/frozen.pt').exists():wait_jobs('select',stage_jobs('select',[(0,0)]))
+ for phase,workers in [('confirm',[(0,0),(1,1)]),('official_test',[(0,0),(1,1)]),('med',[(0,0)])]:
+  wait_jobs(phase,stage_jobs(phase,workers))
+  from fullscale_run import report
+  report(root/'serial');event('report_updated',phase=phase)
+ state('report','running')
+ from fullscale_run import report
+ report(root/'serial');state('complete','complete');event('pipeline_complete')
+except Exception as ex:
+ state('failed','needs_attention',reason=str(ex));event('pipeline_failed',reason=str(ex));raise
