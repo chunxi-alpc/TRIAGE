@@ -7,18 +7,22 @@ from .data import read,write,REV
 from .classify import model_and_classifier,classify_case
 from .freeze import classification_records
 from .engine import ClinicalExecutor,METHODS,grade
+from .queue import assigned
 def atomic(path,obj):
  path.parent.mkdir(parents=True,exist_ok=True);temporary=path.with_suffix('.partial');write(temporary,obj);temporary.replace(path)
 def main():
- p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--phase',choices=['gain','confirm','official_test'],required=True);p.add_argument('--shard',type=int,required=True);p.add_argument('--resume',action='store_true');p.add_argument('--official-judge',action='store_true');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--phase',choices=['gain','confirm','official_test'],required=True);p.add_argument('--shard',type=int,required=True);p.add_argument('--resume',action='store_true');p.add_argument('--official-judge',action='store_true');p.add_argument('--native-query-chunks',type=int,default=0);p.add_argument('--dynamic',action='store_true');p.add_argument('--native-balanced',action='store_true');a=p.parse_args()
  execution_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();run=Path(a.run);out=run/(a.phase+str(a.shard));out.mkdir(exist_ok=a.resume);torch.set_num_threads(4);torch.manual_seed(20261030);start=time.time()
  freeze=json.loads((run/('clinical_freeze_pre_gain.json' if a.phase=='gain' else 'frozen.json')).read_text());expert=load_expert(run/'analysis/expert.json')
+ if a.native_query_chunks:freeze['native_attention_query_chunk_size']=a.native_query_chunks
+ freeze['native_attention_balanced']=a.native_balanced
  tok,model,classifier=model_and_classifier();engine=ClinicalExecutor(model,tok,expert,freeze)
  cases=read(run/'cases'/('development.jsonl' if a.phase=='gain' else a.phase+'.jsonl'))
  judge=None
  if a.official_judge:
   from .official_score import LocalOfficialJudge,score_case
   judge=LocalOfficialJudge(model,tok)
+ atomic(out/'execution_manifest.json',{'execution_code_commit':execution_commit,'native_attention_query_chunk_size':a.native_query_chunks,'native_attention_balanced':a.native_balanced,'dynamic_case_queue':a.dynamic,'tensor_batch_size':1,'official_Qwen_judge':a.official_judge,'model_revision':REV,'frozen_method_code':freeze.get('frozen_code_commit',freeze['code_commit'])})
  cached={r['case_id']:r for r in classification_records(run) if r['status']=='complete'} if a.phase=='gain' else {}
  # Actual clinical prompt comparison to the original reference, before method results.
  ref=next(c for c in read(run/'cases/development.jsonl') if 'source_failure' not in c)
@@ -33,9 +37,8 @@ def main():
  reference={'status':'passed','clinical_prompt_reference':True,'zero_max_logit_error':float((zero['first_logits']-native).abs().max()),'bias_zero_max_logit_error':float((biaszero['first_logits']-native).abs().max()),'model_revision':REV}
  atomic(out/'reference.json',reference)
  units=0;failures=0;native_units=0
- for i,case in enumerate(cases):
-  if i%2!=a.shard:continue
-  casepath=out/'units'/case['case_id'].replace(':','_');casepath.mkdir(parents=True,exist_ok=True)
+ for i,case,casepath in assigned(cases,run,out,a.shard,a.dynamic,a.official_judge):
+  casepath.mkdir(parents=True,exist_ok=True)
   classpath=casepath/'classification.json'
   if classpath.exists():cls=json.loads(classpath.read_text())
   elif case['case_id'] in cached:cls=cached[case['case_id']]
@@ -62,8 +65,8 @@ def main():
     if torch.cuda.is_available():torch.cuda.empty_cache()
    atomic(destination,record);units+=1
   if judge is not None:score_case(judge,case,casepath,METHODS,i)
-  write(out/'status.json',{'status':'running','completed_units':units,'technical_failures':failures,'assigned_cases':sum(j%2==a.shard for j in range(len(cases))),'phase':a.phase})
- write(out/'status.json',{'status':'complete','completed_units':units,'technical_failures':failures,'assigned_cases':sum(j%2==a.shard for j in range(len(cases))),'phase':a.phase,
+  write(out/'status.json',{'status':'running','completed_units':units,'technical_failures':failures,'registered_cases':len(cases),'dynamic_queue':a.dynamic,'phase':a.phase})
+ write(out/'status.json',{'status':'complete','completed_units':units,'technical_failures':failures,'registered_cases':len(cases),'dynamic_queue':a.dynamic,'phase':a.phase,
   'elapsed_seconds':time.time()-start,'peak_memory_gb':torch.cuda.max_memory_allocated()/1e9,'model_revision':REV,'frozen_code_commit':freeze.get('frozen_code_commit',freeze['code_commit']),
   'execution_code_commit':execution_commit})
 if __name__=='__main__':main()

@@ -25,7 +25,7 @@ def main():
       record={'pair_id':row['pair_id'],'source_id':row['source_id'],'state':state,'route':route,'method':method,'expected_root':expected,'clinical_root_only':True,'full_leaf_gold_available':False}
       try:
        result=engine.execute(case,raw,method,decisions_override=oracle if route=='gold_root_diagnostic' else None);result.pop('first_logits',None)
-       leaf,path,invalid=parse_prediction(result['text']);predicted=path[0] if path else 'NONE'
+       leaf,path,invalid=parse_prediction(result['text']);predicted=path[0] if path else 'NONE' if leaf=='NONE' else None
        record.update(status='complete',root_correct=predicted==expected,result=result)
       except Exception as e:failures+=1;record.update(status='failed',error_type=type(e).__name__,error=str(e),root_correct=False)
       handle.write(json.dumps(record,ensure_ascii=False,allow_nan=False)+'\n');handle.flush();units+=1

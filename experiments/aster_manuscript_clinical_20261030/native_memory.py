@@ -4,7 +4,7 @@ from types import MethodType
 import torch
 from transformers.models.qwen3.modeling_qwen3 import apply_rotary_pos_emb,repeat_kv,eager_attention_forward
 @contextmanager
-def query_chunked_attention(model,chunk_size=256):
+def query_chunked_attention(model,chunk_size=256,balanced=False):
  originals={}
  for layer,module in enumerate(model.model.layers):
   attn=module.self_attn;originals[layer]=attn.forward
@@ -19,8 +19,9 @@ def query_chunked_attention(model,chunk_size=256):
     out,weights=eager_attention_forward(self,q,k,v,attention_mask,scaling=self.scaling,dropout=0.)
    else:
     kk=repeat_kv(k,self.num_key_value_groups);vv=repeat_kv(v,self.num_key_value_groups);parts=[]
-    for start in range(0,q.shape[-2],chunk_size):
-     end=min(start+chunk_size,q.shape[-2])
+    length=q.shape[-2];n=(length+chunk_size-1)//chunk_size
+    bounds=[j*length//n for j in range(n+1)] if balanced else list(range(0,length,chunk_size))+[length]
+    for start,end in zip(bounds,bounds[1:]):
      scores=torch.matmul(q[:,:,start:end],kk.transpose(2,3))*self.scaling
      if attention_mask is not None:scores=scores+attention_mask[:,:,start:end,:kk.shape[-2]]
      w=torch.nn.functional.softmax(scores,dim=-1,dtype=torch.float32).to(q.dtype)

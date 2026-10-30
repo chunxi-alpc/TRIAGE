@@ -6,11 +6,15 @@ from .data import read,write
 from .classify import model_and_classifier
 from .native_memory import query_chunked_attention
 def main():
- p=argparse.ArgumentParser();p.add_argument('--run',required=True);a=p.parse_args();run=Path(a.run);out=run/'native_numeric_reference';out.mkdir(exist_ok=False)
+ p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--disagreement',action='store_true');a=p.parse_args();run=Path(a.run);out=run/('native_numeric_disagreement' if a.disagreement else 'native_numeric_reference');out.mkdir(exist_ok=False)
  torch.set_num_threads(4);torch.manual_seed(20261030);tok,model,_=model_and_classifier();cases=read(run/'cases/confirm.jsonl');refs=[]
  for i,c in enumerate(cases):
   p=run/('confirm'+str(i%2))/'units'/c['case_id'].replace(':','_')/'native_official.json';r=json.loads(p.read_text())
-  if r['status']=='complete':refs.append((r['result']['input_tokens'],c,r))
+  if r['status']=='complete':
+   if a.disagreement:
+    repaired=run/('native_memory_repair'+str(i%2))/'units'/(c['case_id'].replace(':','_')+'.json')
+    if not repaired.exists() or json.loads(repaired.read_text()).get('reference_tokens_equal') is not False:continue
+   refs.append((r['result']['input_tokens'],c,r))
  _,case,old=min(refs,key=lambda x:x[0]);lang='zh' if case['language']=='zh' else 'en';name='ZH_DECISION_MAKING_PREDICTION_TEMPLATE.txt' if lang=='zh' else 'DECISION_MAKING_PREDICTION_TEMPLATE.txt'
  path=run/'official_mega/mega_cdp/template'/('template_'+lang)/name
  prompt=path.read_text().replace('{Guideline}',Path(case['original_guideline_path']).read_text()).replace('{Case}',case['patient'])

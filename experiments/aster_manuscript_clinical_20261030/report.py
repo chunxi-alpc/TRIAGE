@@ -14,7 +14,9 @@ def load_units(run,phase,require_complete=True):
  for shard in [0,1]:
   root=run/(phase+str(shard));status=json.loads((root/'status.json').read_text())
   if require_complete and status['status']!='complete':raise ValueError('evaluation still running')
-  for p in (root/'units').glob('*/*.json'):
+  source=run/'official_test_units' if phase=='official_test' and (run/'official_test_units').exists() else root/'units'
+  if phase=='official_test' and (run/'official_test_units').exists() and shard==1:continue
+  for p in source.glob('*/*.json'):
    if p.name!='classification.json':rows.append(json.loads(p.read_text()))
  return rows
 def summarize(run,phase):

@@ -1,5 +1,7 @@
 """Clinical cache translation executors; gold fields are absent from routing."""
 import copy,json,re,time
+from contextlib import nullcontext
+from .native_memory import query_chunked_attention
 from pathlib import Path
 import torch
 from src.aster.manuscript_runtime import PromptBuilder,ManuscriptBackbone
@@ -55,11 +57,12 @@ class ClinicalExecutor:
   prompt=template.replace('{Guideline}',Path(case['original_guideline_path']).read_text()).replace('{Case}',case['patient'])
   rendered=self.tok.apply_chat_template([{'role':'user','content':prompt}],tokenize=False,add_generation_prompt=True,enable_thinking=False)
   ids=self.tok(rendered,return_tensors='pt',add_special_tokens=False).to(self.backend.device);self.backend._budget(ids['input_ids'].shape[1],self.freeze['max_new_tokens'])
-  with torch.inference_mode():
+  memory=query_chunked_attention(self.model,self.freeze['native_attention_query_chunk_size'],balanced=self.freeze.get('native_attention_balanced',False)) if self.freeze.get('native_attention_query_chunk_size') else nullcontext()
+  with torch.inference_mode(),memory:
    out=self.model.generate(**ids,max_new_tokens=self.freeze['max_new_tokens'],do_sample=False,pad_token_id=self.tok.eos_token_id,use_cache=True)
   generated=out[0,ids['input_ids'].shape[1]:].tolist()
   return {'text':self.tok.decode(generated,skip_special_tokens=True),'token_ids':generated,'input_tokens':ids['input_ids'].shape[1],
-   'official_native_prompt':True,'structural_score_applicable':False,'edit':{'skipped':True},'attention':[]}
+   'official_native_prompt':True,'native_attention_query_chunk_size':self.freeze.get('native_attention_query_chunk_size'),'structural_score_applicable':False,'edit':{'skipped':True},'attention':[]}
  def execute(self,case,raw,method,gain=None,capture=True,decisions_override=None):
   start=time.time();freeze=self.freeze;gain=freeze['g_plus'] if gain is None else gain
   decisions=decisions_from(raw,freeze) if decisions_override is None else decisions_override;plan=plan_gains(case['guideline'],decisions,g_plus=gain,g_minus=gain)
