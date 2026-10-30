@@ -1,7 +1,7 @@
 {
   "snapshot_version": 1,
-  "updated_at_utc": "2026-10-29T23:44:37.498941+00:00",
-  "updated_at_shanghai": "2026-10-30T07:44:37.498941+08:00",
+  "updated_at_utc": "2026-10-30T00:14:42.329274+00:00",
+  "updated_at_shanghai": "2026-10-30T08:14:42.329274+08:00",
   "source": "server_aggregate_only",
   "phase": "confirm",
   "status": "priority_context_replay",
@@ -45,16 +45,16 @@
         "zero": 328
       },
       "technical_failure_records": {
-        "context_overflow": 416
+        "context_overflow": 248
       },
       "technical_failure_cases": {
-        "context_overflow": 52
+        "context_overflow": 31
       },
       "invalid_output_records": 0,
       "judge_failed_records": 0,
-      "latest_output_age_seconds": 5872.5,
+      "latest_output_age_seconds": 7677.3,
       "original_context_failure_cases": 107,
-      "replayed_context_cells": 440,
+      "replayed_context_cells": 608,
       "replay_duplicate_cells": 0,
       "original_context_records_preserved": true
     },
@@ -158,14 +158,14 @@
     6
   ],
   "context_replay": {
-    "time": 1793317460.2812004,
+    "time": 1793319259.0444455,
     "status": "running",
     "phase": "confirm",
     "phases": {
       "confirm": {
         "target_cases": 107,
-        "complete_cases": 55,
-        "pending_cases": 52,
+        "complete_cases": 76,
+        "pending_cases": 31,
         "original_records_preserved": 856
       },
       "official_test": {
@@ -183,48 +183,48 @@
     },
     "active_jobs": [
       {
-        "gpu": 5,
-        "pid": 802607,
+        "gpu": 0,
+        "pid": 806452,
         "cases": 4,
         "capacity": 65536,
-        "elapsed_seconds": 1584.0021934509277
+        "elapsed_seconds": 183.05792689323425
+      },
+      {
+        "gpu": 5,
+        "pid": 806036,
+        "cases": 4,
+        "capacity": 65536,
+        "elapsed_seconds": 853.8319668769836
       },
       {
         "gpu": 6,
-        "pid": 804405,
+        "pid": 805671,
         "cases": 4,
         "capacity": 65536,
-        "elapsed_seconds": 213.45257902145386
-      },
-      {
-        "gpu": 0,
-        "pid": 803330,
-        "cases": 4,
-        "capacity": 65536,
-        "elapsed_seconds": 975.2607152462006
+        "elapsed_seconds": 1036.731041431427
       },
       {
         "gpu": 1,
         "pid": 804069,
         "cases": 4,
         "capacity": 65536,
-        "elapsed_seconds": 274.38544750213623
+        "elapsed_seconds": 2073.1529834270477
       }
     ],
     "blocked_jobs": [],
     "unsupported_cases": 0,
     "probe_complete": true,
     "known_queue_eta": {
-      "completed_cases": 55,
-      "cases_per_gpu_hour": 12.37,
-      "remaining_cases": 52,
-      "remaining_hours_at_current_cards": 1.05,
+      "completed_cases": 76,
+      "cases_per_gpu_hour": 11.83,
+      "remaining_cases": 31,
+      "remaining_hours_at_current_cards": 0.66,
       "basis": "actual elapsed GPU-job time including model loading and in-flight cases; current discovered queue only; future overflow cases not included"
     },
     "priority_cohort": {
       "target_cases": 107,
-      "complete_cases": 55,
-      "remaining_cases": 52,
+      "complete_cases": 76,
+      "remaining_cases": 31,
       "allowed_gpus": [
         0,
         1,
@@ -233,7 +233,7 @@
       ]
     },
     "controller_alive": true,
-    "status_age_seconds": 16.9
+    "status_age_seconds": 23.0
   },
   "complete_cases_total": 328,
   "planned_cases_total": 13436,
@@ -241,12 +241,12 @@
   "gpu_status": [
     {
       "index": 0,
-      "memory_used_mib": 60765,
-      "utilization_percent": 98
+      "memory_used_mib": 58889,
+      "utilization_percent": 97
     },
     {
       "index": 1,
-      "memory_used_mib": 58901,
+      "memory_used_mib": 60743,
       "utilization_percent": 99
     },
     {
@@ -266,13 +266,13 @@
     },
     {
       "index": 5,
-      "memory_used_mib": 65875,
+      "memory_used_mib": 59621,
       "utilization_percent": 99
     },
     {
       "index": 6,
-      "memory_used_mib": 60003,
-      "utilization_percent": 99
+      "memory_used_mib": 60359,
+      "utilization_percent": 98
     }
   ],
   "historical_transport_repair": {
