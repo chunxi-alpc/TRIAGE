@@ -49,7 +49,7 @@ class ClinicalExecutor:
   self.prefix=None
  def native(self,case):
   lang='zh' if case.get('language')=='zh' else 'en'
-  root=Path('/home/gcx/aster_fullscale_20261030/official_mega/mega_cdp/template')
+  root=Path('/home/gcx/aster_manuscript_20261030/clinical01/official_mega/mega_cdp/template')
   name='ZH_DECISION_MAKING_PREDICTION_TEMPLATE.txt' if lang=='zh' else 'DECISION_MAKING_PREDICTION_TEMPLATE.txt'
   template=(root/('template_'+lang)/name).read_text()
   prompt=template.replace('{Guideline}',Path(case['original_guideline_path']).read_text()).replace('{Case}',case['patient'])

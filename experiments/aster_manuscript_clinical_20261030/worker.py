@@ -10,14 +10,18 @@ from .engine import ClinicalExecutor,METHODS,grade
 def atomic(path,obj):
  path.parent.mkdir(parents=True,exist_ok=True);temporary=path.with_suffix('.partial');write(temporary,obj);temporary.replace(path)
 def main():
- p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--phase',choices=['gain','confirm','official_test'],required=True);p.add_argument('--shard',type=int,required=True);p.add_argument('--resume',action='store_true');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--phase',choices=['gain','confirm','official_test'],required=True);p.add_argument('--shard',type=int,required=True);p.add_argument('--resume',action='store_true');p.add_argument('--official-judge',action='store_true');a=p.parse_args()
  execution_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();run=Path(a.run);out=run/(a.phase+str(a.shard));out.mkdir(exist_ok=a.resume);torch.set_num_threads(4);torch.manual_seed(20261030);start=time.time()
  freeze=json.loads((run/('clinical_freeze_pre_gain.json' if a.phase=='gain' else 'frozen.json')).read_text());expert=load_expert(run/'analysis/expert.json')
  tok,model,classifier=model_and_classifier();engine=ClinicalExecutor(model,tok,expert,freeze)
  cases=read(run/'cases'/('development.jsonl' if a.phase=='gain' else a.phase+'.jsonl'))
+ judge=None
+ if a.official_judge:
+  from .official_score import LocalOfficialJudge,score_case
+  judge=LocalOfficialJudge(model,tok)
  cached={r['case_id']:r for r in classification_records(run) if r['status']=='complete'} if a.phase=='gain' else {}
  # Actual clinical prompt comparison to the original reference, before method results.
- ref=next(c for c in cases if 'source_failure' not in c)
+ ref=next(c for c in read(run/'cases/development.jsonl') if 'source_failure' not in c)
  raw=cached[ref['case_id']]['raw_decisions'] if ref['case_id'] in cached else classify_case(classifier,ref)['raw_decisions']
  zero=engine.execute(ref,raw,'zero',gain=0.)
  biaszero=engine.execute(ref,raw,'score_bias',gain=0.)
@@ -57,6 +61,7 @@ def main():
     traceback.print_exc()
     if torch.cuda.is_available():torch.cuda.empty_cache()
    atomic(destination,record);units+=1
+  if judge is not None:score_case(judge,case,casepath,METHODS,i)
   write(out/'status.json',{'status':'running','completed_units':units,'technical_failures':failures,'assigned_cases':sum(j%2==a.shard for j in range(len(cases))),'phase':a.phase})
  write(out/'status.json',{'status':'complete','completed_units':units,'technical_failures':failures,'assigned_cases':sum(j%2==a.shard for j in range(len(cases))),'phase':a.phase,
   'elapsed_seconds':time.time()-start,'peak_memory_gb':torch.cuda.max_memory_allocated()/1e9,'model_revision':REV,'frozen_code_commit':freeze.get('frozen_code_commit',freeze['code_commit']),
