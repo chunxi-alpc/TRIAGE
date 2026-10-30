@@ -28,7 +28,7 @@ def tree_guideline(tree):
  visit(tree);loc={id(n):i for i,(n,_,_) in enumerate(nodes)}
  groups=[];mapping={}
  for i,(n,parent,branch) in enumerate(nodes):
-  original=str(n['index']);mapping[original]={'node':i,'leaf':not any(isinstance(n.get(b),dict) for b in ['yes','no']),'description':n.get('description','')}
+  original=str(n['index']);mapping[original]={'node':i,'leaf':not any(isinstance(n.get(b),dict) for b in ['yes','no']),'description':n.get('conclusion',n.get('description',''))}
   if not any(isinstance(n.get(b),dict) for b in ['yes','no']):continue
   ancestors=[];cur=i
   while nodes[cur][1] is not None:
