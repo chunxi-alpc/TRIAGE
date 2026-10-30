@@ -60,9 +60,9 @@ class ClinicalExecutor:
   generated=out[0,ids['input_ids'].shape[1]:].tolist()
   return {'text':self.tok.decode(generated,skip_special_tokens=True),'token_ids':generated,'input_tokens':ids['input_ids'].shape[1],
    'official_native_prompt':True,'structural_score_applicable':False,'edit':{'skipped':True},'attention':[]}
- def execute(self,case,raw,method,gain=None,capture=True):
+ def execute(self,case,raw,method,gain=None,capture=True,decisions_override=None):
   start=time.time();freeze=self.freeze;gain=freeze['g_plus'] if gain is None else gain
-  decisions=decisions_from(raw,freeze);plan=plan_gains(case['guideline'],decisions,g_plus=gain,g_minus=gain)
+  decisions=decisions_from(raw,freeze) if decisions_override is None else decisions_override;plan=plan_gains(case['guideline'],decisions,g_plus=gain,g_minus=gain)
   if method=='native_official':
    result=self.native(case);result.update(plan=plan,decisions=decisions,seconds=time.time()-start);return result
   if method=='direct_map':
