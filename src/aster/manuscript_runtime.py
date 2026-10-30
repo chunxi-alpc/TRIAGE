@@ -39,7 +39,7 @@ class PromptBuilder:
             raise ValueError("模板参数不能覆盖分词或截断契约")
         if use_chat_template and not getattr(tokenizer, "chat_template", None):
             raise ValueError("没有聊天模板；基础模型须显式选择原始文本模板")
-        contract = dict(version="aster.manuscript.prompt.v1", use_chat=use_chat_template,
+        contract = dict(version="aster.manuscript.prompt.v2", use_chat=use_chat_template,
                         chat_template=getattr(tokenizer, "chat_template", None), kwargs=self.chat_kwargs)
         self.template_id = hashlib.sha256(json.dumps(contract, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
 
@@ -65,7 +65,8 @@ class PromptBuilder:
                 first = add(rid)
                 add("\n条件：" + rule["condition"] + "\n处置：")
                 second = add(rule["action"])
-                add("\n\n")
+                # Keep punctuation separate from newline without widening either editable span.
+                add(" \n\n")
                 spans[rid] = [first, second]
         return "".join(chunks), spans
 

@@ -11,7 +11,7 @@ def save(path,obj):
     path.write_text(json.dumps(obj,ensure_ascii=False,indent=2,allow_nan=False)+'\n')
 
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--dtype',required=True); p.add_argument('--output',required=True)
+    p=argparse.ArgumentParser(); p.add_argument('--dtype',required=True); p.add_argument('--output',required=True); p.add_argument('--triplets'); p.add_argument('--pair-index',type=int,default=0)
     a=p.parse_args(); out=Path(a.output); out.mkdir(exist_ok=False,parents=True)
     start=time.time(); checks={}; report={'status':'running','dtype':a.dtype,'checks':checks}; save(out/'status.json',report)
     try:
@@ -25,6 +25,8 @@ def main():
              'target_rule_id':'R1','question':'选择哪个规则？','states':{'positive':'x=1\n编码：2表示未记录。','negative':'x=0\n编码：2表示未记录。','unknown':'x=2\n编码：2表示未记录。'},
              'verification':{'verifier':'explicit-x-equality-v1','reference':'synthetic logical patient; no clinical gold',
              'positive_rule_id':'R1','negative_rule_id':'R2','unknown_label':'NONE','ancestors_reachable':True,'independent_of_classifier':True}}
+        if a.triplets:
+            row=json.loads(Path(a.triplets).read_text().splitlines()[a.pair_index]); guide=row['guideline']
         target,offline=aligned_triplet(builder,row)
         online={s:builder.prepare(guide,t,row['question'],online=True) for s,t in row['states'].items()}
         save(out/'tokens.json',{'row':row,'template_id':builder.template_id,'prompts':{
@@ -95,11 +97,11 @@ def main():
         for (k,v),(bk,bv) in zip(original,before): assert torch.equal(k,bk) and torch.equal(v,bv)
         checks['two_patients_share_original_prefix']=True
         classifier=ActionBlindBranchClassifier(HFLabelScorer(model,tok,max_input_tokens=4096),temperature=1.,probability_threshold=0.,margin_threshold=0.)
-        report['classification']=classifier.run(guide,'x=1',include_logits=True)
+        report['classification']=classifier.run(guide,row['states']['positive'],include_logits=True)
         assert classifier.scorer.model is backend.model; checks['classifier_generation_same_model']=True
         failure=plan_gains(guide,{'g':None},g_plus=1,g_minus=1)
         assert all(g==0 for g in failure['gains'].values()); report['classification_failure']=failure
-        child={'group_id':'child','parent_group_id':'g','parent_rule_id':'R1','mutually_exclusive':True,'ancestor_conditions':['x=1'],
+        child={'group_id':'child','parent_group_id':'g','parent_rule_id':'R1','mutually_exclusive':True,'ancestor_conditions':[guide['groups'][0]['rules'][0]['condition']],
                'rules':[{'rule_id':'C1','condition':'y=1','action':'Gamma'},{'rule_id':'C2','condition':'y=0','action':'Delta'}]}
         closed=plan_gains({'groups':guide['groups']+[child]},{'g':{'prediction':'R1','abstain':True},'child':{'prediction':'C1','abstain':False}},g_plus=1,g_minus=1)
         assert closed['gains']['C1']==closed['gains']['C2']==0; checks['ancestor_abstention_closes_child']=True

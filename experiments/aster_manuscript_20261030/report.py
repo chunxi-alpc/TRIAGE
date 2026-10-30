@@ -57,13 +57,13 @@ def summarize(run):
      'correct':sum(r['correct'] for r in group),'accuracy':sum(r['correct'] for r in group)/len(group),'accuracy_cluster_ci':interval(accuracy),
      'delta_accuracy':sum(x for v in delta.values() for x in v)/len(group),'delta_cluster_ci':interval(delta),
      'corrected':corrected,'regressed':regressed,'technical_failures':sum(r['status']=='failed' for r in group),
-     'invalid_outputs':sum(r.get('invalid_output',False) for r in group),'scoring_failures':0,'routing_edit_coverage':covered/len(group),
+     'invalid_outputs':sum(r.get('invalid_output',False) for r in group),'no_actual_key_change':sum(r.get('result',{}).get('edit',{}).get('changed_key_vectors',0)==0 for r in group),'scoring_failures':0,'routing_edit_coverage':covered/len(group),
      'generated_tokens':sum(len(r.get('result',{}).get('token_ids',[])) for r in group),'attention':att})
  write(out/'comparisons.json',comparisons)
  stats=json.loads((run/'analysis/statistics.json').read_text());selected=json.loads((run/'gain/frozen.json').read_text())['selected_heads']
  structure={}
  for name in selected:
-  s=stats[name];cos=[c['cosine'] for c in s['unseen_rule_cosines'] if c['cosine'] is not None];responses=[v for d in s['heldout_query_responses'].values() for vv in d.values() for v in vv for v in v]
+  s=stats[name];cos=[c['cosine'] for c in s['unseen_rule_cosines'] if c['cosine'] is not None];responses=[value for d in s['heldout_query_responses'].values() for matrix in d.values() for head in matrix for value in head]
   structure[name]={'train_energy':s['training_energy_retention'],'heldout_energy':s['heldout_all_difference_energy'],'mean_norm_retention':s['mean_norm_retention'],
    'guideline_half_overlap':s.get('guideline_half_overlap'),'random_overlap_mean':sum(s.get('random_overlap',[0]))/len(s.get('random_overlap',[0])),
    'unseen_rule_cosine_mean':sum(cos)/len(cos) if cos else None,'unseen_rule_positive_fraction':sum(c>0 for c in cos)/len(cos) if cos else None,

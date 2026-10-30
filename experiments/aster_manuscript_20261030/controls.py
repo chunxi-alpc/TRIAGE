@@ -77,6 +77,8 @@ def execute(backend,builder,expert,freeze,record,state,route,method,gain,*,captu
   guide=copy.deepcopy(guide)
   guide['groups'][0]['rules']=[r for r in guide['groups'][0]['rules'] if gains[r['rule_id']]>=0]
  prompt=builder.prepare(guide,row['states'][state],question,online=True)
+ if expert['identity']!=backend.identity or expert['provenance']['template_id']!=prompt.template_id:
+  raise ValueError('Frozen expert and execution backbone/template differ')
  prefix=backend.prefill(prompt);heads=list(directions_for(expert,'spectral'))
  direct={};directions={}
  if method in ['spectral','mean','random','reverse','enhance_only','suppress_only']:directions=directions_for(expert,method)

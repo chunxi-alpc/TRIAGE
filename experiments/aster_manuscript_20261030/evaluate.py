@@ -14,8 +14,8 @@ def label(text):
  return next(iter(matches)) if len(matches)==1 else None
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--mode',choices=['gain','evaluate'],required=True);p.add_argument('--shard',type=int,default=0);a=p.parse_args()
- run=Path(a.run);out=run/(('gain'+str(a.shard)) if a.mode=='gain' else 'evaluate'+str(a.shard));out.mkdir(exist_ok=False)
+ p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--mode',choices=['gain','evaluate'],required=True);p.add_argument('--shard',type=int,default=0);p.add_argument('--resume',action='store_true');a=p.parse_args()
+ run=Path(a.run);out=run/(('gain'+str(a.shard)) if a.mode=='gain' else 'evaluate'+str(a.shard));out.mkdir(exist_ok=a.resume)
  torch.set_num_threads(4);torch.manual_seed(20261030);start=time.time()
  rows=load(run);expert=load_expert(run/'analysis/expert.json');freeze=json.loads((run/'analysis/freeze_pre_gain.json').read_text())
  path='/home/gcx/TRIAGE/models/modelscope/Qwen3-8B';tok=AutoTokenizer.from_pretrained(path,local_files_only=True);builder=PromptBuilder(tok,chat_template_kwargs={'enable_thinking':False})
@@ -53,12 +53,19 @@ def main():
  for r in rows:
   if r['row']['split']=='heldout_exploratory':
    for state in ['positive','negative','unknown']:cases.append((r,state))
- failures=0;done=0
- with (out/'results.jsonl').open('x') as f:
+ existing=[]
+ results_path=out/'results.jsonl'
+ if a.resume and results_path.exists():
+  existing=[json.loads(line) for line in results_path.read_text().splitlines() if line.strip()]
+ seen={(r['pair_id'],r['state'],r['route'],r['method']) for r in existing}
+ if len(seen)!=len(existing):raise ValueError('Duplicate completed units in resume file')
+ failures=sum(r['status']=='failed' for r in existing);done=len(existing)
+ with results_path.open('a' if a.resume else 'x') as f:
   for i,(r,state) in enumerate(cases):
    if i%2!=a.shard:continue
    for route in ['gold','predicted']:
     for method in METHODS:
+     if (r['row']['pair_id'],state,route,method) in seen:continue
      unit={'pair_id':r['row']['pair_id'],'source_id':r['row']['source_id'],'control':r['row'].get('control'),'state':state,'route':route,'method':method,'gold':gold(r,state)}
      try:
       result=execute(backend,builder,expert,freeze,r,state,route,method,freeze['g_plus'])
