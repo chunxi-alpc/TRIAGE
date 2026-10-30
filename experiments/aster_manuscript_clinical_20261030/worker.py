@@ -11,18 +11,18 @@ from .queue import assigned
 def atomic(path,obj):
  path.parent.mkdir(parents=True,exist_ok=True);temporary=path.with_suffix('.partial');write(temporary,obj);temporary.replace(path)
 def main():
- p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--phase',choices=['gain','confirm','official_test'],required=True);p.add_argument('--shard',type=int,required=True);p.add_argument('--resume',action='store_true');p.add_argument('--official-judge',action='store_true');p.add_argument('--native-query-chunks',type=int,default=0);p.add_argument('--dynamic',action='store_true');p.add_argument('--native-balanced',action='store_true');a=p.parse_args()
- execution_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();run=Path(a.run);out=run/(a.phase+str(a.shard));out.mkdir(exist_ok=a.resume);torch.set_num_threads(4);torch.manual_seed(20261030);start=time.time()
+ p=argparse.ArgumentParser();p.add_argument('--run',required=True);p.add_argument('--phase',choices=['gain','confirm','official_test'],required=True);p.add_argument('--shard',type=int,required=True);p.add_argument('--resume',action='store_true');p.add_argument('--official-judge',action='store_true');p.add_argument('--native-query-chunks',type=int,default=0);p.add_argument('--dynamic',action='store_true');p.add_argument('--native-balanced',action='store_true');p.add_argument('--exact-execution',action='store_true');p.add_argument('--decode-graphs',action='store_true');p.add_argument('--worker-tag');a=p.parse_args()
+ execution_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();run=Path(a.run);out=run/(a.phase+(a.worker_tag or str(a.shard)));out.mkdir(exist_ok=a.resume);torch.set_num_threads(4);torch.manual_seed(20261030);start=time.time()
  freeze=json.loads((run/('clinical_freeze_pre_gain.json' if a.phase=='gain' else 'frozen.json')).read_text());expert=load_expert(run/'analysis/expert.json')
  if a.native_query_chunks:freeze['native_attention_query_chunk_size']=a.native_query_chunks
  freeze['native_attention_balanced']=a.native_balanced
- tok,model,classifier=model_and_classifier();engine=ClinicalExecutor(model,tok,expert,freeze)
+ tok,model,classifier=model_and_classifier();engine=ClinicalExecutor(model,tok,expert,freeze,exact_execution=a.exact_execution)
  cases=read(run/'cases'/('development.jsonl' if a.phase=='gain' else a.phase+'.jsonl'))
  judge=None
  if a.official_judge:
   from .official_score import LocalOfficialJudge,score_case
-  judge=LocalOfficialJudge(model,tok)
- atomic(out/'execution_manifest.json',{'execution_code_commit':execution_commit,'native_attention_query_chunk_size':a.native_query_chunks,'native_attention_balanced':a.native_balanced,'dynamic_case_queue':a.dynamic,'tensor_batch_size':1,'official_Qwen_judge':a.official_judge,'model_revision':REV,'frozen_method_code':freeze.get('frozen_code_commit',freeze['code_commit'])})
+  judge=LocalOfficialJudge(model,tok,exact_execution=a.exact_execution)
+ atomic(out/'execution_manifest.json',{'execution_code_commit':execution_commit,'native_attention_query_chunk_size':a.native_query_chunks,'native_attention_balanced':a.native_balanced,'dynamic_case_queue':a.dynamic,'tensor_batch_size':1,'exact_execution_optimizations':a.exact_execution,'decode_graphs':a.decode_graphs,'official_Qwen_judge':a.official_judge,'model_revision':REV,'frozen_method_code':freeze.get('frozen_code_commit',freeze['code_commit'])})
  cached={r['case_id']:r for r in classification_records(run) if r['status']=='complete'} if a.phase=='gain' else {}
  # Actual clinical prompt comparison to the original reference, before method results.
  ref=next(c for c in read(run/'cases/development.jsonl') if 'source_failure' not in c)
@@ -36,6 +36,10 @@ def main():
  assert torch.equal(zero['first_logits'],native) and torch.equal(biaszero['first_logits'],native)
  reference={'status':'passed','clinical_prompt_reference':True,'zero_max_logit_error':float((zero['first_logits']-native).abs().max()),'bias_zero_max_logit_error':float((biaszero['first_logits']-native).abs().max()),'model_revision':REV}
  atomic(out/'reference.json',reference)
+ graphs=None
+ if a.decode_graphs:
+  from .decode_graphs import DecodeMLPGraphs
+  graphs=DecodeMLPGraphs(model).prepare().install()
  units=0;failures=0;native_units=0
  for i,case,casepath in assigned(cases,run,out,a.shard,a.dynamic,a.official_judge):
   casepath.mkdir(parents=True,exist_ok=True)
@@ -51,10 +55,15 @@ def main():
    if destination.exists():
     old=json.loads(destination.read_text());units+=1;failures+=old['status']=='failed';continue
    record={'case_id':case['case_id'],'source_id':case['source_id'],'phase':a.phase,'method':method,'gain':gain,'model_revision':REV,
-    'source_split':case['source_split'],'previous_PR40_exposure':case.get('previous_PR40_exposure',False)}
+    'execution_code_commit':execution_commit,'execution_profile':'performance01' if a.exact_execution else 'reference','decode_graphs':a.decode_graphs and method!='native_official','source_split':case['source_split'],'previous_PR40_exposure':case.get('previous_PR40_exposure',False)}
    try:
     if 'source_failure' in case or cls.get('status')=='failed':raise ValueError(case.get('source_failure',cls.get('error','classification unavailable')))
-    result=engine.execute(case,cls['raw_decisions'],method,gain=gain,capture=a.phase!='gain');result.pop('first_logits',None)
+    suspend_graphs=graphs is not None and method=='native_official'
+    if suspend_graphs:graphs.restore()
+    try:result=engine.execute(case,cls['raw_decisions'],method,gain=gain,capture=a.phase!='gain')
+    finally:
+     if suspend_graphs:graphs.install()
+    result.pop('first_logits',None)
     record.update(status='complete',result=result,classification_failures=cls['classification_failures'],classification_seconds=cls['classification_seconds'],classification_forwards=cls['classification_forwards'])
     if method=='native_official':
      record['score']={'primary_score_applicable':False,'official_semantic_score':'pending Qwen-adapted official scorer'};native_units+=1
@@ -66,6 +75,8 @@ def main():
    atomic(destination,record);units+=1
   if judge is not None:score_case(judge,case,casepath,METHODS,i)
   write(out/'status.json',{'status':'running','completed_units':units,'technical_failures':failures,'registered_cases':len(cases),'dynamic_queue':a.dynamic,'phase':a.phase})
+ if graphs is not None:
+  atomic(out/'decode_graphs.json',graphs.summary());graphs.restore()
  write(out/'status.json',{'status':'complete','completed_units':units,'technical_failures':failures,'registered_cases':len(cases),'dynamic_queue':a.dynamic,'phase':a.phase,
   'elapsed_seconds':time.time()-start,'peak_memory_gb':torch.cuda.max_memory_allocated()/1e9,'model_revision':REV,'frozen_code_commit':freeze.get('frozen_code_commit',freeze['code_commit']),
   'execution_code_commit':execution_commit})

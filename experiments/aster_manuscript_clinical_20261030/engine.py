@@ -2,6 +2,7 @@
 import copy,json,re,time
 from contextlib import nullcontext
 from .native_memory import query_chunked_attention
+from .fast_probe import attention_probe as fast_attention_probe
 from pathlib import Path
 import torch
 from src.aster.manuscript_runtime import PromptBuilder,ManuscriptBackbone
@@ -44,11 +45,11 @@ def grade(case,text):
  return {'final_leaf_correct':leaf==case['gold_leaf'],'path_f1':2*inter/(len(set(path))+len(set(gold))) if path or gold else 1.,
   'exact_path':path==gold,'predicted_leaf':leaf,'predicted_path':path,'invalid_generation':invalid,'scoring_failure':False}
 class ClinicalExecutor:
- def __init__(self,model,tok,expert,freeze):
+ def __init__(self,model,tok,expert,freeze,exact_execution=False):
   self.model,self.tok,self.expert,self.freeze=model,tok,expert,freeze
   self.builder=PromptBuilder(tok,chat_template_kwargs={'enable_thinking':False})
   self.backend=ManuscriptBackbone(model,model_id='Qwen/Qwen3-8B',model_revision=freeze['model_revision'])
-  self.prefix=None
+  self.prefix=None;self.exact_execution=exact_execution
  def native(self,case):
   lang='zh' if case.get('language')=='zh' else 'en'
   root=Path('/home/gcx/aster_manuscript_20261030/clinical01/official_mega/mega_cdp/template')
@@ -84,9 +85,12 @@ class ClinicalExecutor:
   if self.expert['identity']!=self.backend.identity or self.expert['provenance']['template_id']!=prompt.template_id:raise ValueError('expert/model/template mismatch')
   self.backend._budget(prompt.input_ids.shape[1],freeze['max_new_tokens'])
   p=prompt.prefix_length
-  if self.prefix is None or self.prefix.template_id!=prompt.template_id or not torch.equal(self.prefix.input_ids,prompt.input_ids[:,:p]):
-   self.prefix=self.backend.prefill(prompt)
-  prefix=self.prefix;gains=plan['gains'].copy();directions={};bias={}
+  same_prefix=self.prefix is not None and self.prefix.template_id==prompt.template_id and torch.equal(self.prefix.input_ids,prompt.input_ids[:,:p])
+  if same_prefix:prefix=self.prefix
+  else:
+   prefix=self.backend.prefill(prompt)
+   self.prefix=prefix
+  gains=plan['gains'].copy();directions={};bias={}
   if method in ['spectral','mean','random','reverse','enhance_only','suppress_only']:directions=directions_for(self.expert,method)
   if method=='enhance_only':gains={r:max(0,v) for r,v in gains.items()}
   if method=='suppress_only':gains={r:min(0,v) for r,v in gains.items()}
@@ -99,7 +103,9 @@ class ClinicalExecutor:
    cache=type(prefix.cache).from_legacy_cache(tuple(layers))
    # Score-bias applies all rule targets; measurement records root and routed targets.
    probe_positions=prompt.positions if bias else observed
-   with attention_probe(self.backend,heads if capture or bias else [],probe_positions,gains,bias,capture_positions={last+n for n in [0,1,2,4,8,16]}) as stats:
+   probe=fast_attention_probe if self.exact_execution else attention_probe
+   extra={'initial_start':p} if self.exact_execution else {}
+   with probe(self.backend,heads if capture or bias else [],probe_positions,gains,bias,capture_positions={last+n for n in [0,1,2,4,8,16]},**extra) as stats:
     result=self.backend._forward(prompt.input_ids[:,p:],cache=cache,start=p,use_cache=True);first=result.logits[0,-1].detach().float().cpu()
     for step in range(freeze['max_new_tokens']):
      token=int(result.logits[0,-1].argmax());tokens.append(token)
