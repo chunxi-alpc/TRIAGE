@@ -1,0 +1,117 @@
+{
+  "notice": "仅说明输入格式；示例为显式布尔逻辑，不是临床病例或泛化实验数据。真实分词器下仍须通过词元对齐。",
+  "fit_record_example": {
+    "pair_id": "fit-example",
+    "source_id": "verified-source-fit",
+    "split": "fit",
+    "guideline": {
+      "groups": [
+        {
+          "group_id": "g",
+          "mutually_exclusive": true,
+          "ancestor_conditions": [],
+          "rules": [
+            {
+              "rule_id": "R1",
+              "condition": "x=1",
+              "action": "Alpha"
+            },
+            {
+              "rule_id": "R2",
+              "condition": "x=0",
+              "action": "Beta"
+            }
+          ]
+        }
+      ]
+    },
+    "target_rule_id": "R1",
+    "question": "选择哪个规则？",
+    "states": {
+      "positive": "x=1",
+      "negative": "x=0",
+      "unknown": "x=?"
+    },
+    "verification": {
+      "verifier": "工程测试逻辑核验器",
+      "reference": "布尔测试夹具，不是临床标注",
+      "positive_rule_id": "R1",
+      "negative_rule_id": "R2",
+      "unknown_label": "NONE",
+      "ancestors_reachable": true,
+      "independent_of_classifier": true
+    }
+  },
+  "selection_record_example": {
+    "pair_id": "selection-example",
+    "source_id": "verified-source-selection",
+    "split": "selection",
+    "guideline": {
+      "groups": [
+        {
+          "group_id": "g",
+          "mutually_exclusive": true,
+          "ancestor_conditions": [],
+          "rules": [
+            {
+              "rule_id": "R1",
+              "condition": "x=1",
+              "action": "Alpha"
+            },
+            {
+              "rule_id": "R2",
+              "condition": "x=0",
+              "action": "Beta"
+            }
+          ]
+        }
+      ]
+    },
+    "target_rule_id": "R1",
+    "question": "选择哪个规则？",
+    "states": {
+      "positive": "x=1",
+      "negative": "x=0",
+      "unknown": "x=?"
+    },
+    "verification": {
+      "verifier": "工程测试逻辑核验器",
+      "reference": "布尔测试夹具，不是临床标注",
+      "positive_rule_id": "R1",
+      "negative_rule_id": "R2",
+      "unknown_label": "NONE",
+      "ancestors_reachable": true,
+      "independent_of_classifier": true
+    }
+  },
+  "inference_record_example": {
+    "case_id": "case-example",
+    "guideline": {
+      "groups": [
+        {
+          "group_id": "g",
+          "mutually_exclusive": true,
+          "ancestor_conditions": [],
+          "rules": [
+            {
+              "rule_id": "R1",
+              "condition": "x=1",
+              "action": "Alpha"
+            },
+            {
+              "rule_id": "R2",
+              "condition": "x=0",
+              "action": "Beta"
+            }
+          ]
+        }
+      ]
+    },
+    "patient": "x=1",
+    "question": "选择哪个规则？",
+    "options": [
+      "R1",
+      "R2"
+    ]
+  }
+}
