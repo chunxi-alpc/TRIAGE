@@ -22,7 +22,7 @@ def main():
         guide={'groups':[{'group_id':'g','mutually_exclusive':True,'ancestor_conditions':[], 'rules':[
             {'rule_id':'R1','condition':'x=1','action':'Alpha'}, {'rule_id':'R2','condition':'x=0','action':'Beta'}]}]}
         row={'pair_id':'interface-logic','source_id':'synthetic-interface-only','split':'fit','guideline':guide,
-             'target_rule_id':'R1','question':'选择哪个规则？','states':{'positive':'x=1','negative':'x=0','unknown':'x=?'},
+             'target_rule_id':'R1','question':'选择哪个规则？','states':{'positive':'x=1\n编码：2表示未记录。','negative':'x=0\n编码：2表示未记录。','unknown':'x=2\n编码：2表示未记录。'},
              'verification':{'verifier':'explicit-x-equality-v1','reference':'synthetic logical patient; no clinical gold',
              'positive_rule_id':'R1','negative_rule_id':'R2','unknown_label':'NONE','ancestors_reachable':True,'independent_of_classifier':True}}
         target,offline=aligned_triplet(builder,row)
