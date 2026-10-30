@@ -1,0 +1,20 @@
+{
+  "source_run": "/home/gcx/aster_manuscript_20261030/clinical01",
+  "phase": "confirm",
+  "gpu": 1,
+  "oracle_methods": [
+    "spectral",
+    "text_clip"
+  ],
+  "maximum_cases": 43,
+  "query_chunk_size": 512,
+  "bootstrap_repeats": 2000,
+  "seed": 20261030,
+  "threshold_policy": "read frozen thresholds without selection",
+  "gold_routing_scope": "diagnostic_only",
+  "routes": [
+    "predicted",
+    "gold_path_diagnostic_only"
+  ],
+  "causal_comparison": "new matched execution only"
+}

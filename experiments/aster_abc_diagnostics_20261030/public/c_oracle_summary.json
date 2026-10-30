@@ -1,0 +1,87 @@
+{
+  "status": "complete",
+  "cases": 43,
+  "units": 172,
+  "technical_failures": 0,
+  "elapsed_seconds": 864.2403066158295,
+  "peak_memory_gb": 20.821003776,
+  "comparisons": [
+    {
+      "comparison": "oracle_spectral minus predicted_spectral",
+      "paired_cases": 43,
+      "source_clusters": 2,
+      "case_weighted_delta": -0.023255813953488372,
+      "source_weighted_delta": -0.02,
+      "case_weighted_cluster_bootstrap_ci": [
+        -0.04,
+        0.0
+      ],
+      "source_weighted_cluster_bootstrap_ci": [
+        -0.04,
+        0.0
+      ],
+      "interval_scope": "exploratory_few_clusters",
+      "corrected": 0,
+      "regressed": 1,
+      "paired_success_cases": 43,
+      "paired_success_coverage": 1.0,
+      "paired_success_delta": -0.023255813953488372
+    },
+    {
+      "comparison": "oracle_text_clip minus predicted_text_clip",
+      "paired_cases": 43,
+      "source_clusters": 2,
+      "case_weighted_delta": 0.4186046511627907,
+      "source_weighted_delta": 0.4377777777777778,
+      "case_weighted_cluster_bootstrap_ci": [
+        0.32,
+        0.5555555555555556
+      ],
+      "source_weighted_cluster_bootstrap_ci": [
+        0.32,
+        0.5555555555555556
+      ],
+      "interval_scope": "exploratory_few_clusters",
+      "corrected": 18,
+      "regressed": 0,
+      "paired_success_cases": 43,
+      "paired_success_coverage": 1.0,
+      "paired_success_delta": 0.4186046511627907
+    }
+  ],
+  "methods": [
+    {
+      "method": "spectral",
+      "route": "predicted",
+      "denominator": 43,
+      "correct": 20,
+      "exact_path_correct": 21,
+      "root_correct": 43
+    },
+    {
+      "method": "spectral",
+      "route": "gold_path_diagnostic_only",
+      "denominator": 43,
+      "correct": 19,
+      "exact_path_correct": 20,
+      "root_correct": 43
+    },
+    {
+      "method": "text_clip",
+      "route": "predicted",
+      "denominator": 43,
+      "correct": 25,
+      "exact_path_correct": 22,
+      "root_correct": 43
+    },
+    {
+      "method": "text_clip",
+      "route": "gold_path_diagnostic_only",
+      "denominator": 43,
+      "correct": 43,
+      "exact_path_correct": 43,
+      "root_correct": 43
+    }
+  ],
+  "limitation": "Matched oracle paths reveal source reference and are diagnostic, not deployable. Current confirm has two source clusters."
+}

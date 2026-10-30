@@ -1,0 +1,46 @@
+{
+  "protocol": "B-root-mechanism-v1",
+  "input_run": "/home/gcx/aster_manuscript_20261030/clinical01",
+  "split": "confirm",
+  "maximum_sources": 8,
+  "pairs_per_source": 1,
+  "states": [
+    "positive",
+    "negative",
+    "unknown"
+  ],
+  "steps": 17,
+  "capture_query_offsets": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "routes": [
+    "gold_root",
+    "predicted_root"
+  ],
+  "primary_route": "gold_root",
+  "methods": [
+    "baseline",
+    "spectral",
+    "reverse",
+    "mean",
+    "score_bias",
+    "random:20261030",
+    "random:20261031",
+    "random:20261032",
+    "random:20261033",
+    "random:20261034"
+  ],
+  "gain": "read_only_from_frozen_config",
+  "thresholds": "read_only_from_frozen_config",
+  "expected_current_source_clusters": 2,
+  "expected_current_records": 60,
+  "random_null_min_p": 0.16666666666666666,
+  "physician_three_state_gold_pairs": 0,
+  "gpu": "one NVIDIA A100 80GB; reserve 55-65GB",
+  "no_official_test_inputs": true
+}
