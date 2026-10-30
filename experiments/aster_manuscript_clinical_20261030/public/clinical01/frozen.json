@@ -1,0 +1,168 @@
+{
+  "rank": 8,
+  "top_k": 4,
+  "selected_heads": [
+    "33:3",
+    "31:1",
+    "33:4",
+    "23:4"
+  ],
+  "temperature": {
+    "temperature": 5.74809379053039,
+    "split": "calibration",
+    "n_records": 99,
+    "nll_before": 1.2979920346871112,
+    "nll_after": 0.43958989761933653,
+    "bounds": [
+      0.05,
+      20.0
+    ],
+    "at_boundary": false,
+    "method": "pooled_multiclass_nll_single_temperature"
+  },
+  "thresholds": {
+    "probability": 0.0,
+    "margin": 0.0,
+    "accepted_groups": 182,
+    "accepted_accuracy": 0.9560439560439561,
+    "root_coverage": 1.0,
+    "development_cases": 35
+  },
+  "threshold_candidates": [
+    {
+      "probability": 0.0,
+      "margin": 0.0,
+      "accepted_groups": 182,
+      "accepted_accuracy": 0.9560439560439561,
+      "root_coverage": 1.0,
+      "development_cases": 35
+    },
+    {
+      "probability": 0.0,
+      "margin": 0.1,
+      "accepted_groups": 137,
+      "accepted_accuracy": 0.9854014598540146,
+      "root_coverage": 1.0,
+      "development_cases": 35
+    },
+    {
+      "probability": 0.7,
+      "margin": 0.0,
+      "accepted_groups": 94,
+      "accepted_accuracy": 1.0,
+      "root_coverage": 1.0,
+      "development_cases": 35
+    },
+    {
+      "probability": 0.7,
+      "margin": 0.1,
+      "accepted_groups": 94,
+      "accepted_accuracy": 1.0,
+      "root_coverage": 1.0,
+      "development_cases": 35
+    },
+    {
+      "probability": 0.9,
+      "margin": 0.0,
+      "accepted_groups": 65,
+      "accepted_accuracy": 1.0,
+      "root_coverage": 0.9428571428571428,
+      "development_cases": 35
+    },
+    {
+      "probability": 0.9,
+      "margin": 0.1,
+      "accepted_groups": 65,
+      "accepted_accuracy": 1.0,
+      "root_coverage": 0.9428571428571428,
+      "development_cases": 35
+    }
+  ],
+  "gain_candidates": [
+    0.25,
+    1.0,
+    4.0
+  ],
+  "bias_unit_rms": {
+    "33:3": 0.3571344740925425,
+    "31:1": 0.325224094186689,
+    "33:4": 0.31717316603430146,
+    "23:4": 0.3628716314489233
+  },
+  "random_seed": 20261030,
+  "max_new_tokens": 512,
+  "code_commit": "78947fb18e75108b8f8cd3b934f94f25efade799",
+  "scope": "clinical original-vignette evaluation; age-only rule-verified direction training; no physician gold claim",
+  "model_revision": "26028140be3ee69b82b1d1450179ab71bb1121b9",
+  "model_path": "/home/gcx/aster_manuscript_20261030/clinical01/models/Qwen3-8B-2602814",
+  "clinical_calibration": {
+    "original_visited_group_labels": 87,
+    "independent_three_state_labels": 12,
+    "original_calibration_cases": 18
+  },
+  "gain_selection": "development final leaf-id accuracy, tie smaller gain",
+  "evaluation_metrics": [
+    "leaf_id_accuracy",
+    "path_rule_F1",
+    "exact_path",
+    "invalid_generation",
+    "technical_failure",
+    "official_Qwen_judged_PCC_secondary"
+  ],
+  "methods": [
+    "baseline",
+    "zero",
+    "spectral",
+    "mean",
+    "random",
+    "reverse",
+    "score_bias",
+    "enhance_only",
+    "suppress_only",
+    "direct_map",
+    "text_append",
+    "text_clip",
+    "native_official"
+  ],
+  "query_observation_offsets": [
+    0,
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "sampling": "greedy",
+  "repeats": 1,
+  "bootstrap_repeats": 1000,
+  "g_plus": 0.25,
+  "g_minus": 0.25,
+  "development_gain_results": [
+    {
+      "gain": 0.25,
+      "denominator": 35,
+      "correct": 16,
+      "leaf_accuracy": 0.45714285714285713,
+      "path_f1": 0.823281734592715,
+      "technical_failures": 0
+    },
+    {
+      "gain": 1.0,
+      "denominator": 35,
+      "correct": 16,
+      "leaf_accuracy": 0.45714285714285713,
+      "path_f1": 0.8273397056072078,
+      "technical_failures": 0
+    },
+    {
+      "gain": 4.0,
+      "denominator": 35,
+      "correct": 16,
+      "leaf_accuracy": 0.45714285714285713,
+      "path_f1": 0.8273397056072078,
+      "technical_failures": 0
+    }
+  ],
+  "frozen_code_commit": "f65bf5d32e1aca4a2a378a67718d3d96da3108e5",
+  "freeze_scope": "source-isolated original clinical evaluation; no official test tuning"
+}

@@ -45,18 +45,30 @@ def summarize(run,phase):
     macro_guideline_accuracy=sum(sum(v)/len(v) for v in macro.values())/len(macro),leaf_accuracy_ci=ci(metric),delta_accuracy=sum(v for vs in delta.values() for v in vs)/n,delta_ci=ci(delta),
     path_rule_f1=sum(f1)/n,exact_path_accuracy=sum(exact)/n,corrected=corrected,regressed=regressed)
   summary.append(record)
+ contrasts=[]
+ for other in ['mean','score_bias','text_clip']:
+  paired=defaultdict(list)
+  for r in rows:
+   if r['method']!='spectral':continue
+   b=index[r['case_id'],other]
+   paired[r['source_id']].append(int(r.get('score',{}).get('final_leaf_correct',False))-int(b.get('score',{}).get('final_leaf_correct',False)))
+  contrasts.append({'comparison':'spectral minus '+other,'denominator':sum(map(len,paired.values())),'guideline_clusters':len(paired),'leaf_accuracy_delta':sum(map(sum,paired.values()))/sum(map(len,paired.values())),'paired_guideline_cluster_ci':ci(paired)})
+ write(out/'operator_contrasts.json',contrasts)
  write(out/'comparisons.json',summary)
  semantic=[]
  for method in METHODS:
-  scores=[]
+  scores=[];by_source=defaultdict(list)
   source_roots=[run/'official_test_units'] if phase=='official_test' and (run/'official_test_units').exists() else [run/(phase+str(i))/'units' for i in [0,1]]
   for root in source_roots:
-   for p in root.glob('*/official_scores/'+method+'.json'):scores.append(json.loads(p.read_text()))
+   for p in root.glob('*/official_scores/'+method+'.json'):
+    score=json.loads(p.read_text());scores.append(score)
+    unit=json.loads((p.parent.parent/(method+'.json')).read_text())
+    by_source[unit['source_id']].append(score.get('Qwen_judged_official_accuracy',0.) if score.get('status')=='complete' else 0.)
   valid=[r for r in scores if r.get('status')=='complete']
   semantic.append({'method':method,'registered_denominator':expected//len(METHODS),'scored_records':len(scores),'scoring_successes':len(valid),'scoring_failures':len(scores)-len(valid),
    'pending_records':expected//len(METHODS)-len(scores),'Qwen_judged_official_accuracy_on_valid_scores':sum(r['Qwen_judged_official_accuracy'] for r in valid)/len(valid) if valid else None,
    'Qwen_judged_official_accuracy_failures_as_zero':sum(r['Qwen_judged_official_accuracy'] for r in valid)/(expected//len(METHODS)),
-   'Qwen_judged_official_PCC_cost_on_valid_scores':sum(r['Qwen_judged_official_PCC'] for r in valid)/len(valid) if valid else None,'not_GPT_main_table':True})
+   'Qwen_judged_official_PCC_cost_on_valid_scores':sum(r['Qwen_judged_official_PCC'] for r in valid)/len(valid) if valid else None,'failure_as_zero_guideline_cluster_ci':ci(by_source) if by_source else None,'not_GPT_main_table':True})
  write(out/'official_Qwen_scores.json',semantic)
  write(out/'status.json',{'status':'complete','phase':phase,'units':len(rows),'expected_units':len(read(run/'cases'/(phase+'.jsonl')))*len(METHODS),
   'cases':len({r['case_id'] for r in rows}),'technical_failures':sum(r['status']=='failed' for r in rows),'raw_patient_data_published':False})
