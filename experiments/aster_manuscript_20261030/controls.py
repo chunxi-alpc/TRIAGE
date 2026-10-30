@@ -19,7 +19,7 @@ def decision(record,freeze,state,route):
  return summarize_logits(c['logits'],temperature=freeze['temperature']['temperature'],probability_threshold=f['probability'],margin_threshold=f['margin'])
 
 @contextmanager
-def attention_probe(backend,heads,positions,gains,bias_unit):
+def attention_probe(backend,heads,positions,gains,bias_unit,capture_positions=None):
  """Original eager math, with optional score bias; no global registry changes."""
  original={};stats=[]
  for layer in sorted({h[0] for h in heads}):
@@ -39,9 +39,10 @@ def attention_probe(backend,heads,positions,gains,bias_unit):
     name=f'{_layer}:{kv}'
     if name in bias_unit:
      for rid,indices in positions.items():
+      if gains[rid]==0:continue
       scores[:,kv*backend.group_size:(kv+1)*backend.group_size,:,list(indices)]+=gains[rid]*bias_unit[name]
    weights=torch.nn.functional.softmax(scores,dim=-1,dtype=torch.float32).to(q.dtype)
-   for kv in _heads:
+   for kv in (_heads if capture_positions is None or int(cache_position[-1]) in capture_positions else []):
     masses={rid:weights[0,kv*backend.group_size:(kv+1)*backend.group_size,-1,list(indices)].float().sum(-1).detach().cpu().tolist() for rid,indices in positions.items()}
     stats.append({'layer':_layer,'kv_head':kv,'query_absolute_position':int(cache_position[-1]),'mass':masses})
    result=torch.matmul(weights,vv).transpose(1,2).contiguous().reshape(*input_shape,-1)
