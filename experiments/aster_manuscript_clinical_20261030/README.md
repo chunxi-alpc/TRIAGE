@@ -33,3 +33,5 @@
 `official_score.py` 采用本地固定 Qwen 作为官方算法的传输适配，不是 GPT 主表。结构编号输出按预测源树条件/结论文字渲染，真实官方格式保持原样；同病例相同表示共享评分。官方代码对路径和结论各调用模型五次，每个未复用预测表示共十次生成；此前一次请求内五个结果的文字说明有误，实际运行次数未变。
 
 官方启动器只阻塞等待四个子进程结束后执行一次汇总，不轮询GPU；完成发布任务通过Linux进程结束通知等待，不持续监控。MedGUIDE 当前只有17家族来源归并，未运行端到端。当前年龄规则验证加辅助模型复核不等于医生金标。
+
+当前performance01在物理0/1/5/6续跑；原native保持参考路径，评分和结构解码用数值一致的CUDA Graph，重复预填充复用。状态目录official_testperf1_0至3，恢复时补`--worker-tag perf1_S --exact-execution --decode-graphs`。详见[性能报告](../../docs/ASTER/performance-results-20261030.zh.md)。
