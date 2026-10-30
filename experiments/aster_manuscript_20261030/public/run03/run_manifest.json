@@ -1,0 +1,85 @@
+{
+  "initial_remote_head": "78e8498244fbeb5fbecd464feecb20e0c063f3ee",
+  "specification_commit": "60027c426a3155bf55c26273f4c3f49fd563ce1f",
+  "mechanism_execution_commit": "4f107a846f5c3663b030712a1b42a190f564870e",
+  "branch": "codex/aster-manuscript-implementation-20261030",
+  "python": "/home/gcx/aster_manuscript_20261030/venv-overlay/bin/python",
+  "packages": {
+    "torch": "2.8.0",
+    "transformers": "4.57.6",
+    "numpy": "2.5.4",
+    "pyarrow": "26.0.0",
+    "matplotlib": "3.11.2"
+  },
+  "environment": "private venv interpreter with base gcx261014 site-packages read via .pth; no shared environment modifications",
+  "physical_gpus": [
+    0,
+    1
+  ],
+  "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "upstream_model_revision": null,
+  "revision_note": "Downloaded directory and tracked acquisition manifest both contain no upstream revision; local snapshot dated 2026-10-14, no revision invented",
+  "model_config": {
+    "architectures": [
+      "Qwen3ForCausalLM"
+    ],
+    "attention_bias": false,
+    "attention_dropout": 0.0,
+    "bos_token_id": 151643,
+    "eos_token_id": 151645,
+    "head_dim": 128,
+    "hidden_act": "silu",
+    "hidden_size": 4096,
+    "initializer_range": 0.02,
+    "intermediate_size": 12288,
+    "max_position_embeddings": 40960,
+    "max_window_layers": 36,
+    "model_type": "qwen3",
+    "num_attention_heads": 32,
+    "num_hidden_layers": 36,
+    "num_key_value_heads": 8,
+    "rms_norm_eps": 1e-06,
+    "rope_scaling": null,
+    "rope_theta": 1000000,
+    "sliding_window": null,
+    "tie_word_embeddings": false,
+    "torch_dtype": "bfloat16",
+    "transformers_version": "4.51.0",
+    "use_cache": true,
+    "use_sliding_window": false,
+    "vocab_size": 151936
+  },
+  "weight_shards": [
+    {
+      "file": "model-00001-of-00005.safetensors",
+      "bytes": 3996250744
+    },
+    {
+      "file": "model-00002-of-00005.safetensors",
+      "bytes": 3993160032
+    },
+    {
+      "file": "model-00003-of-00005.safetensors",
+      "bytes": 3959604768
+    },
+    {
+      "file": "model-00004-of-00005.safetensors",
+      "bytes": 3187841392
+    },
+    {
+      "file": "model-00005-of-00005.safetensors",
+      "bytes": 1244659840
+    }
+  ],
+  "tokenizer_files": [
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "vocab.json",
+    "merges.txt"
+  ],
+  "sampling": "deterministic greedy, no clinical judge",
+  "sensitive_artifacts": "server only",
+  "hashes_computed": false,
+  "interface_acceptance_code_commit": "fc2bf1a2399bac5f636376d4f4655bba7f63a69a",
+  "run_id": "run03"
+}

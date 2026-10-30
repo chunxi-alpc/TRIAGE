@@ -20,7 +20,7 @@ def verify(row):
  return vals
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--output',required=True);a=p.parse_args();out=Path(a.output);out.mkdir(exist_ok=False,parents=True)
+ p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--original-actions',action='store_true');a=p.parse_args();out=Path(a.output);out.mkdir(exist_ok=False,parents=True)
  root=Path('/home/gcx/TRIAGE/data/MEGA-CDP'); data={s:read(root/s/'decision_trees.jsonl') for s in ['train_val','test']}
  parents={}; parsed=[]; errors=[]
  def find(x):
@@ -75,6 +75,12 @@ def main():
      else:
       rr=controlrow['guideline']['groups'][0]['rules'];rr[0]['action'],rr[1]['action']=rr[1]['action'],rr[0]['action']
      verify(controlrow);rows.append(controlrow)
+ if a.original_actions:
+  for row in rows:
+   actions=row['source_actions']
+   if row.get('control')=='action_mapping':actions={'R1':actions['R2'],'R2':actions['R1']}
+   for rule in row['guideline']['groups'][0]['rules']:rule['action']=actions[rule['rule_id']].strip()
+   row['action_adaptation']='original source child descriptions; synthetic logical patient, no natural clinical gold'
  with (out/'pairs.jsonl').open('x') as f:
   for row in rows:f.write(json.dumps(row,ensure_ascii=False)+'\n')
  import pyarrow.parquet as pq

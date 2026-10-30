@@ -1,0 +1,49 @@
+{
+  "seed": 20261030,
+  "kind": "synthetic logic mechanism; no clinical task efficacy claim",
+  "rank_candidates": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "sample_size_candidates": [
+    4,
+    8,
+    16,
+    24
+  ],
+  "repeats": 3,
+  "top_k_candidates": [
+    1,
+    4
+  ],
+  "rank_selection": "maximize mean heldout all-difference energy retention on selection set minus rank/128; tie smaller rank",
+  "head_selection": "manuscript positive separation, read+ and read-, score descending; allow empty",
+  "sample_size_selection": "use all 24 fit pairs; sizes/repeats only sensitivity, not outcome selection",
+  "gain_candidates": [
+    0.25,
+    1.0,
+    4.0
+  ],
+  "gain_selection": "development gold-route first-token accuracy; tie smaller gain",
+  "threshold_grid": {
+    "probability": [
+      0.0,
+      0.7,
+      0.9
+    ],
+    "margin": [
+      0.0,
+      0.1
+    ]
+  },
+  "threshold_selection": "development accepted accuracy>=0.9 then maximum coverage; otherwise max accepted accuracy then coverage",
+  "random_control": "one fixed unit direction per selected KV head; seed=20261030; not a distributional null",
+  "bias_calibration": "RMS of direct fixed-query score shift per KV head on development, per unit gain",
+  "inference_max_new_tokens": 12,
+  "bootstrap_repeats": 1000,
+  "statistics_unit": "source guideline cluster",
+  "code_specification": "60027c426a3155bf55c26273f4c3f49fd563ce1f",
+  "model_revision": "local-modelscope-snapshot-20261014-upstream-revision-unavailable"
+}
