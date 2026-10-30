@@ -54,8 +54,8 @@ def main():
  for (key,r,t),split in zip(selected,splits):
   source='mega-source:'+find(key);condition=t['description'].strip()
   guide={'groups':[{'group_id':'g','mutually_exclusive':True,'ancestor_conditions':[], 'rules':[
-   {'rule_id':'R1','condition':'条件C成立：'+condition,'action':t['yes']['description'].strip()},
-   {'rule_id':'R2','condition':'条件C不成立：'+condition,'action':t['no']['description'].strip()}]}]}
+   {'rule_id':'R1','condition':'条件C成立：'+condition,'action':'Alpha'},
+   {'rule_id':'R2','condition':'条件C不成立：'+condition,'action':'Beta'}]}]}
   for target in ['R1','R2']:
    positive=1 if target=='R1' else 0; negative=1-positive
    def patient(v,phrase='以下记录条件真值',fact=0):
@@ -65,7 +65,7 @@ def main():
      'states':dict(zip(['positive','negative','unknown'],[patient(positive),patient(negative),patient(2)])),
      'verification':{'verifier':'explicit-condition-value-parser-v1','reference':f'MEGA-CDP/{r["guideline_id"]}/root; logical assertions only',
       'positive_rule_id':target,'negative_rule_id':'R2' if target=='R1' else 'R1','unknown_label':'NONE','ancestors_reachable':True,'independent_of_classifier':True},
-     'source_snapshot':str(root.resolve()),'source_guideline_id':r['guideline_id']}
+     'source_actions':{'R1':t['yes']['description'],'R2':t['no']['description']},'action_adaptation':'fixed synthetic Alpha/Beta labels; original source actions are provenance only','source_snapshot':str(root.resolve()),'source_guideline_id':r['guideline_id']}
    verify(row);rows.append(row)
    if split=='heldout_exploratory' and target=='R1':
     for control in ['nondetermining_fact','paraphrase','action_mapping']:
