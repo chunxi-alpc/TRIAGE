@@ -11,12 +11,12 @@ def save(path,obj):
     path.write_text(json.dumps(obj,ensure_ascii=False,indent=2,allow_nan=False)+'\n')
 
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--dtype',required=True); p.add_argument('--output',required=True); p.add_argument('--triplets'); p.add_argument('--pair-index',type=int,default=0)
+    p=argparse.ArgumentParser(); p.add_argument('--dtype',required=True); p.add_argument('--output',required=True); p.add_argument('--model',default='/home/gcx/TRIAGE/models/modelscope/Qwen3-8B'); p.add_argument('--model-revision',default='local-modelscope-snapshot-20261014-upstream-revision-unavailable'); p.add_argument('--triplets'); p.add_argument('--pair-index',type=int,default=0)
     a=p.parse_args(); out=Path(a.output); out.mkdir(exist_ok=False,parents=True)
     start=time.time(); checks={}; report={'status':'running','dtype':a.dtype,'checks':checks}; save(out/'status.json',report)
     try:
         torch.set_num_threads(4); torch.manual_seed(20261030)
-        model_path='/home/gcx/TRIAGE/models/modelscope/Qwen3-8B'
+        model_path=a.model
         tok=AutoTokenizer.from_pretrained(model_path,local_files_only=True)
         builder=PromptBuilder(tok,chat_template_kwargs={'enable_thinking':False})
         guide={'groups':[{'group_id':'g','mutually_exclusive':True,'ancestor_conditions':[], 'rules':[
@@ -36,7 +36,7 @@ def main():
         for q in online.values(): assert q.text.count('患者：\n')==1
         checks['patient_once']=True
         model=AutoModelForCausalLM.from_pretrained(model_path,local_files_only=True,dtype=getattr(torch,a.dtype),attn_implementation='eager').to('cuda:0').eval()
-        backend=ManuscriptBackbone(model,model_id='Qwen/Qwen3-8B',model_revision='local-modelscope-snapshot-20261014-upstream-revision-unavailable')
+        backend=ManuscriptBackbone(model,model_id='Qwen/Qwen3-8B',model_revision=a.model_revision)
         report['identity']=backend.identity
         snaps={s:backend.extract(q,target,keys=True,queries=False) for s,q in offline.items()}
         queries={s:backend.extract(online[s],target,keys=False,queries=True) for s in ['positive','negative']}
@@ -108,7 +108,7 @@ def main():
         report['ancestor_abstention']=closed
         torch.save({'offline':{s:snap.keys for s,snap in snaps.items()},'online_queries':{s:snap.queries for s,snap in queries.items()},'segmented_logits':logits[0].cpu(),'full_logits':full.cpu()},out/'numerical.pt')
         report.update(status='passed',elapsed_seconds=time.time()-start,peak_allocated_gb=torch.cuda.max_memory_allocated()/1e9,
-            code_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),upstream_model_revision_verified=False)
+            code_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),upstream_model_revision_verified=a.model_revision!='local-modelscope-snapshot-20261014-upstream-revision-unavailable')
     except Exception as e:
         report.update(status='failed',error_type=type(e).__name__,error=str(e),elapsed_seconds=time.time()-start)
         traceback.print_exc()
