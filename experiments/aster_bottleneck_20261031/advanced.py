@@ -11,6 +11,7 @@ def records(stage):
  for i in range(4):
   p=OUT/f'{stage}_{i}.jsonl'
   if p.exists():rows+=read(p)
+ for p in sorted(OUT.glob(f'{stage}_part*_0.jsonl')):rows+=read(p)
  return list({(r.get('case_id'),r.get('arm'),r.get('order'),r.get('state'),r.get('pair_id'),r.get('candidate')):r for r in rows}.values())
 def summary(stage):
  rows=records(stage);groups=defaultdict(list)
@@ -63,7 +64,7 @@ def worker(stage,shard):
  start=time.time();count=0
  with query_chunked_attention(model,256),output.open('a') as f:
   for i,case in enumerate(cases):
-   if i%4!=shard:continue
+   if i%int(os.environ.get('ASTER_WORKER_SHARDS','4'))!=shard:continue
    repeated={}
    for original in specs:
     spec=copy.deepcopy(original)

@@ -52,6 +52,13 @@ def worker(stage,shard):
  allcases={c['case_id']:c for c in read(M1/'development100.jsonl')+read(OUT/'validation120.jsonl')}
  cases=[allcases[x] for x in cfg['cases']]
  depths=json.loads((M1/'decision_depths.json').read_text()) if (M1/'decision_depths.json').exists() else {}
+ if any(s.get('deeper') for s in cfg['specs']):
+  basefile=M1/f'baseline_{shard}.jsonl'
+  if basefile.exists():
+   own={r['case_id']:r for r in read(basefile) if r['status']=='complete'}
+   for c in cases:
+    if c['case_id'] not in depths and c['case_id'] in own:depths[c['case_id']]=first_error_depth(c,own[c['case_id']])
+
  routings={}
  if cfg.get('predicted'):
   from .advanced import records

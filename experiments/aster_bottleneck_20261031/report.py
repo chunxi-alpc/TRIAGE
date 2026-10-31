@@ -13,6 +13,7 @@ def stage_rows(stage):
  for i in range(4):
   p=OUT/f'{stage}_{i}.jsonl'
   if p.exists():rs+=read(p)
+ for p in sorted(OUT.glob(f'{stage}_part*_0.jsonl')):rs+=read(p)
  return list({(r.get('case_id'),r.get('arm'),r.get('order'),r.get('state'),r.get('pair_id'),r.get('candidate')):r for r in rs}.values())
 def paired(rows,baseline_rows,metric='exact_path'):
  baseline={r['case_id']:r for r in baseline_rows};groups=defaultdict(list)
