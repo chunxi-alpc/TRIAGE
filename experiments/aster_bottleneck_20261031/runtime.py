@@ -151,6 +151,12 @@ def execute(engine,case,spec,route=None,capture=False):
   expert=copy.deepcopy(engine.expert) if spec.get('direction_heads') is not None else engine.expert
   if spec.get('direction_heads') is not None:expert['selected_heads']=[str(l)+':'+str(h) for l,h in spec['direction_heads']]
   directions=directions_for(expert,'mean' if spec['kind']=='lowfreq' else spec['kind'])
+  if spec.get('random_seed') is not None:
+   for (ll,hh),vec in directions.items():
+    gen=torch.Generator().manual_seed(int(spec['random_seed'])+ll*8+hh)
+    vec=torch.randn(vec.shape,generator=gen,dtype=vec.dtype);directions[ll,hh]=vec/vec.norm()
+  if spec.get('unit_directions'):
+   directions={h:v/v.norm() for h,v in directions.items()}
   if spec['kind']=='lowfreq':
    for h,vec in directions.items():
     vec=vec.clone();half=vec.shape[-1]//2;vec[:half//2]=0;vec[half:half+half//2]=0;directions[h]=vec/(vec.norm()+1e-12)
@@ -177,6 +183,7 @@ def execute(engine,case,spec,route=None,capture=False):
   cache=type(prefix.cache).from_legacy_cache(tuple(layers))
  else:
   cache=cache_copy(prefix.cache)
+  if spec['kind']=='paired_patch':cache=engine.paired_patch(cache,prompt,prefix,spec)
   if spec['kind']=='erase':cache=erase_cached_keys(engine,cache,prompt,prefix,{**spec,**({'erase_positions':sorted(set(mask['path']+mask['nonpath']))} if spec.get('full_rule_keys') else {})})
   layers=cache.to_legacy_cache()
  kind=spec['kind'];beta=spec.get('beta',0.)

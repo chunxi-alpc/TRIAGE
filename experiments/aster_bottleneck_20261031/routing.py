@@ -114,7 +114,11 @@ def worker(shard):
  torch.set_num_threads(4);torch.manual_seed(20261031)
  tok,model,classifier=model_and_classifier();freeze=json.loads((BASE/'frozen.json').read_text())
  engine=ClinicalExecutor(model,tok,load_expert(BASE/'analysis/expert.json'),freeze);direct=DirectClassifier(model,tok,engine.backend)
- cal=json.loads((OUT/'routing_calibration.json').read_text());cases=read(OUT/'development43.jsonl')+read(OUT/'validation120.jsonl')
+ cal=json.loads((OUT/'routing_calibration.json').read_text())
+ from .module_one_data import M1
+ development100=read(M1/'development100.jsonl')
+ cases=read(OUT/'development43.jsonl')+development100+read(OUT/'validation120.jsonl')
+ stages={r['case_id']:label for label,rs in [('development',read(OUT/'development43.jsonl')),('development100',development100),('validation',read(OUT/'validation120.jsonl'))] for r in rs}
  output=OUT/f'routing_{shard}.jsonl'
  done={r['case_id'] for r in read(output) if r['status']=='complete'} if output.exists() else set()
  start=time.time();count=0
@@ -124,7 +128,7 @@ def worker(shard):
    try:
     legacy=classify_case(classifier,case)
     result=evaluate(case,legacy['raw_decisions'],direct,cal)
-    row={'case_id':case['case_id'],'source_id':case['source_id'],'stage':'development' if i<43 else 'validation',
+    row={'case_id':case['case_id'],'source_id':case['source_id'],'stage':stages[case['case_id']],
      'status':'complete','result':result,'legacy':legacy}
    except Exception as e:
     traceback.print_exc();row={'case_id':case['case_id'],'source_id':case['source_id'],'status':'failed','error':str(e)}
@@ -137,7 +141,7 @@ def summarize():
  rows=[]
  for i in range(4):rows+=read(OUT/f'routing_{i}.jsonl')
  rows=list({r['case_id']:r for r in rows}.values());out={}
- for stage in ['development','validation']:
+ for stage in ['development','development100','validation']:
   subset=[r for r in rows if r.get('stage')==stage and r['status']=='complete'];arms={}
   for name in subset[0]['result']['outcomes']:
    scores=[r['result']['outcomes'][name]['score'] for r in subset];accepted=sum(s['accepted'] for s in scores)
@@ -146,13 +150,13 @@ def summarize():
     'risk':sum(s['wrong_accepted'] for s in scores)/accepted if accepted else None,
     'mean_prefix':sum(s['prefix_length'] for s in scores)/len(scores)}
   out[stage]=arms
- baseline=out['development']['legacy:0.0']
- candidates={k:v for k,v in out['development'].items() if v['risk'] is not None and v['risk']<=baseline['risk']}
+ baseline=out['development100']['legacy:0.0']
+ candidates={k:v for k,v in out['development100'].items() if v['risk'] is not None and v['risk']<=baseline['risk']}
  selected=max(candidates,key=lambda k:(candidates[k]['path'],-candidates[k]['risk'],candidates[k]['mean_prefix'],-float(k.split(':')[1])))
  direct_candidates={k:v for k,v in candidates.items() if k.startswith('direct:')}
- if not direct_candidates:direct_candidates={k:v for k,v in out['development'].items() if k.startswith('direct:')}
+ if not direct_candidates:direct_candidates={k:v for k,v in out['development100'].items() if k.startswith('direct:')}
  out['selected_direct']=max(direct_candidates,key=lambda k:(direct_candidates[k]['path'],-(direct_candidates[k]['risk'] if direct_candidates[k]['risk'] is not None else 1.),direct_candidates[k]['mean_prefix'],-float(k.split(':')[1])))
- out['selected']=selected;out['selection_scope']='development43 only; validation untouched'
+ out['selected']=selected;out['selection_scope']='development100 only; old43 historical; validation untouched'
  write(OUT/'routing_summary.json',out);return out
 
 def beam_routes(case,decisions,k=3):

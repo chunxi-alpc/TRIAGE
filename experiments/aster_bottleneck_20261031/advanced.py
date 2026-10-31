@@ -143,6 +143,7 @@ def run_pipeline(wait_pid=None):
  write(OUT/'causal_head_ranking.json',{'window':chosen,'selection_cases':probe_ids,'heads':scored})
  subsets=[{'name':'heads'+str(n),'kind':'bias','beta':beta,'heads':[r['head'] for r in scored[:n]],'deeper':True} for n in [4,8,16,32,len(scored)]]
  register('subsets',dev_ids,subsets);result=launch('subsets');selected=best(result,subsets)
+ write(OUT/'b4_selected_head_subset.json',selected)
  # If no window subset approaches all-layer soft bias, test the full available
  # direction pool; layer zero has no patient-conditioned key difference.
  if result[selected['name']]['path']<core['bias'+str(beta)]['path']:
@@ -165,12 +166,15 @@ def run_pipeline(wait_pid=None):
  comparison={**selected,'name':'matched_bias','capture':True}
  register('key_controls',dev_ids,[comparison]+key_specs);write(OUT/'advanced_status.json',{'status':'running','stage':'key_controls'});launch('key_controls')
  val_specs=[{**s,'deeper':False} for s in [comparison]+key_specs]
- register('key_validation',val_ids,val_specs);launch('key_validation')
+ # Pending old module-one validation is superseded by development100 selection.
  # Module-two estimators are frozen independently of operator selection.
  write(OUT/'advanced_status.json',{'status':'running','stage':'routing'})
  launch('routing')
  from .routing import summarize as summarize_routes
  routing_summary=summarize_routes();variant=routing_summary['selected']
+ write(OUT/'advanced_status.json',{'status':'running','stage':'module_one_new_development'})
+ from .module_one import run_pipeline as run_module_one
+ run_module_one()
  pred_specs=[]
  for rv in list(dict.fromkeys(['legacy:0.0','calibrated:0.0',routing_summary['selected_direct']])):
   for op in [{'kind':'clip'},{'kind':'hard'},{'kind':'bias','beta':beta},{'kind':'mean','gain':.25}]:
@@ -190,15 +194,7 @@ def run_pipeline(wait_pid=None):
  register('errors_dev',dev_ids,curve);write(OUT/'advanced_status.json',{'status':'running','stage':'errors_dev'});launch('errors_dev')
  valid_curve=[s for s in curve if s['epsilon'] in [.2,.5] and s['seed']==13]
  register('errors_validation',val_ids,valid_curve);launch('errors_validation')
- write(OUT/'advanced_status.json',{'status':'running','stage':'behavior'})
- from .behavior import summarize as summarize_behavior
- launch('behavior');trained=summarize_behavior()
- learned={'name':'behavior_direction','kind':'mean','gain':trained['gain'],'direction_heads':trained['heads'],'full_rule_keys':True,'direction_mix':trained['selected']['coefficients']}
- register('behavior_validation',val_ids,[learned]);launch('behavior_validation')
- from .proof import fit_erasers,summarize as summarize_proof
- if not (OUT/'leace.pt').exists():fit_erasers()
- launch('proof');summarize_proof()
- write(OUT/'advanced_status.json',{'status':'complete','stages':['windows','headscan','subsets','key_calibration','key_controls','key_validation','behavior','behavior_validation','proof','routing','predicted_dev','predicted_validation','errors_dev','errors_validation']})
+ write(OUT/'advanced_status.json',{'status':'complete','stages':['windows','headscan','subsets','key_calibration','key_controls','module_one_new_development','routing','predicted_dev','predicted_validation','errors_dev','errors_validation']})
  from .report import build_report
  build_report()
 if __name__=='__main__':

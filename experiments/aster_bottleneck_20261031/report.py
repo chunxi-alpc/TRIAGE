@@ -58,9 +58,9 @@ def build_report():
   if result:report[stage]=result;text+=['',f'## {title}','',table(result)]
  routing=load('routing_summary.json')
  if routing:
-  report['routing']=routing;text+=['','## 模块二','',f'开发选择：{routing["selected"]}。新来源不参与选择。','',
-   '| 方法 | 开发完整路径 | 新来源完整路径 | 新来源接受节点 | 新来源错误接受节点 |','|---|---:|---:|---:|---:|']
-  for name,d in routing['development'].items():
+  report['routing']=routing;text+=['','## 模块二','',f'新100例开发集选择：{routing["selected"]}。新来源不参与选择。','',
+   '| 方法 | 新100例开发完整路径 | 新来源完整路径 | 新来源接受节点 | 新来源错误接受节点 |','|---|---:|---:|---:|---:|']
+  for name,d in routing.get('development100',routing['development']).items():
    v=routing['validation'][name];text.append(f'| {name} | {d["path"]}/{d["cases"]} | {v["path"]}/{v["cases"]} | {v["accepted"]} | {v["wrong_accepted"]} |')
   text+=['', '模块二直接读取原始病历与规则条件，不抽取结构化事实、不拆原子条件。只比较原分类器、NONE校正及直接T/F/U判断；停止门控后保留已接受祖先。']
  for stage,title in [('predicted_dev','开发预测路径执行'),('predicted_validation','新来源预测路径执行')]:
@@ -99,6 +99,10 @@ def build_report():
    '| 集合 | 类型 | ε | 算子 | 完整路径准确率 |','|---|---|---:|---|---:|']
   for stage,rs in curves.items():
    for r in rs:text.append(f'| {stage} | {r["error"]} | {r["epsilon"]} | {r["operator"]} | {r["path_accuracy"]:.4f} |')
+ m1_path=OUT/'module_one'/'summary.json'
+ if m1_path.exists():
+  report['module_one']=json.loads(m1_path.read_text())
+  text+=['','## 模块一修订实验','', '模块一以新100例／10来源选参，旧43例仅提议候选。结果详见 [模块一报告](module-one-results-20261031.zh.md)。七种组合搜索和LEACE不在本轮队列。']
  resources=[]
  for p in OUT.glob('*_status.json'):
   obj=json.loads(p.read_text())
