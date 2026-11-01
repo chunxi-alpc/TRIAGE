@@ -33,6 +33,38 @@ def result_status(args, module):
     return OUT / f'{split}_{kind}_status.json'
 
 
+def decided_full_selection(complete):
+    """Start dependent work once unfinished candidates cannot win on accuracy."""
+    choices = []
+    for layer in [18, 24, 30]:
+        path = OUT / f'full_layer{layer}/selected.json'
+        if path.exists():choices.append(json.loads(path.read_text()))
+    if not choices:return None
+    chosen = max(choices, key=selection_key)
+    if all('train_full_'+str(layer) in complete for layer in [18,24,30]):return chosen
+    total = len(read(OUT/'development.jsonl'))
+    bounds = []
+    for layer in [18,24,30]:
+        if 'train_full_'+str(layer) in complete:continue
+        for epoch in [1,2,3]:
+            path = OUT/f'full_layer{layer}/development_epoch{epoch}.jsonl'
+            rows = {}
+            if path.exists():
+                for line in path.read_text().splitlines():
+                    try:row=json.loads(line)
+                    except json.JSONDecodeError:continue  # writer may be completing its final line
+                    if row.get('status')=='complete' and row.get('view')=='original':rows[row['case_id']]=row
+            correct=sum(r['score']['exact_path'] and r['score']['leaf_correct'] for r in rows.values())
+            upper=correct+total-len(rows)
+            bounds.append({'layer':layer,'epoch':epoch,'evaluated':len(rows),'correct':correct,'maximum_possible':upper})
+            # A possible tie still needs the original stability/edit-size tie breaks.
+            if upper >= chosen['summary']['original']['joint']:return None
+    write(OUT/'layer_selection_evidence.json',{'selected_layer':chosen['layer'],'selected_epoch':chosen['epoch'],
+          'selected_joint':chosen['summary']['original']['joint'],'unfinished_candidate_bounds':bounds,
+          'reason':'No unfinished checkpoint can tie the selected original joint count; evaluation continues.'})
+    return chosen
+
+
 def run_job(name, args, gpu, module='train', adopted=None):
     env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(gpu), PYTHONUNBUFFERED='1', TOKENIZERS_PARALLELISM='false')
     started = time.time()
@@ -168,14 +200,14 @@ def main():
                     name, code, gpu = future.result(); running.pop(future); free.append(gpu)
                     if code: failed[name] = code
                     else: complete.add(name)
-            if not full_selected and all('train_full_'+str(l) in complete for l in [18,24,30]):
-                choices = [json.loads((OUT/f'full_layer{layer}/selected.json').read_text()) for layer in [18,24,30]]
-                chosen = max(choices, key=selection_key); write(OUT/'selected_full.json', chosen)
+            chosen = decided_full_selection(complete) if not full_selected else None
+            if chosen is not None:
+                write(OUT/'selected_full.json', chosen)
                 pending[0:0] = [(f'train_{variant}', ['--train',variant,'--layer',str(chosen['layer'])], 'train')
                                 for variant in ['context','ordinary','no_js']]
                 pending.append(('train_blind_readout',['--train','--layer',str(chosen['layer'])],'comparators'))
                 full_selected = True
-            if full_selected and not confirmation_queued and all('train_'+v in complete for v in ['ordinary','no_js','context','blind_readout']):
+            if full_selected and not confirmation_queued and all('train_full_'+str(l) in complete for l in [18,24,30]) and all('train_'+v in complete for v in ['ordinary','no_js','context','blind_readout']):
                 layer = json.loads((OUT/'selected_full.json').read_text())['layer']
                 for variant in ['ordinary','no_js','context','blind_readout']:
                     chosen = json.loads((OUT/f'{variant}_layer{layer}/selected.json').read_text())
