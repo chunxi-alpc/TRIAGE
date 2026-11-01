@@ -25,4 +25,4 @@ python -m experiments.aster_representation_20261101.orchestrate
 
 ## 补充对照
 
-`comparators.py`实现直接盲判查表和同参数量的盲表示分类器；`train.py --train context`在当前节点向问题加入T/F/U概率，使用相同普通低秩模块训练。它们只使用已选层，全部冻结后再做新确认。调度器重启可接管仍在运行的原工作进程，不重跑已完成条件。补充安排见`docs/ASTER/representation-comparison-extension-20261101.zh.md`。
+`comparators.py`实现直接盲判查表和同参数量的盲表示分类器；`train.py --train context`在当前节点向问题加入T/F/U概率，使用相同普通低秩模块训练。它们只使用已选层，各自冻结后即可做新确认，不等待其他方法。调度器重启可接管仍在运行的原工作进程，不重跑已完成条件。补充安排见`docs/ASTER/representation-comparison-extension-20261101.zh.md`。

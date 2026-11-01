@@ -13,6 +13,7 @@ from .train import selection_key
 GPUS = [0, 1]
 LEARNED = ['full', 'ordinary', 'no_js', 'context', 'blind_readout']
 KINDS = ['zero', 'static', 'fusion', 'blind_lookup', 'ordinary', 'no_js', 'context', 'blind_readout', 'full']
+CONFIRMATION_ORDER = ['full', 'blind_readout', 'ordinary', 'no_js', 'zero', 'fusion', 'blind_lookup', 'static', 'context']
 
 
 def worker_alive(pid):
@@ -154,12 +155,55 @@ def finish_report():
     (repository/'docs/ASTER/representation-results-20261101.zh.md').write_text('\n'.join(text)+'\n')
 
 
+def ready_confirmation_jobs(complete, scheduled):
+    """Freeze each finished method once and queue only its missing confirmation."""
+    full_path = OUT/'selected_full.json'
+    if not full_path.exists():
+        return []
+    layer = json.loads(full_path.read_text())['layer']
+    jobs = []
+    for kind in CONFIRMATION_ORDER:
+        name = 'confirmation_' + kind
+        if name in scheduled:
+            continue
+        args = ['--evaluate', 'confirmation', '--kind', kind]
+        frozen_path = OUT/f'freeze_confirmation_{kind}.json'
+        if kind in LEARNED:
+            prerequisite = f'train_full_{layer}' if kind == 'full' else 'train_' + kind
+            if prerequisite not in complete:
+                continue
+            selected_path = OUT/f'selected_{kind}.json'
+            if not selected_path.exists():
+                write(selected_path, json.loads((OUT/f'{kind}_layer{layer}/selected.json').read_text()))
+            chosen = json.loads(selected_path.read_text())
+            if not frozen_path.exists():
+                write(frozen_path, {'status': 'frozen', 'selection_data': 'development100',
+                                   'frozen_at_unix': time.time(), 'model': chosen})
+            args += ['--selection', str(selected_path)]
+        else:
+            if 'dev_' + kind not in complete:
+                continue
+            if not frozen_path.exists():
+                write(frozen_path, {'status': 'frozen', 'kind': kind,
+                                   'frozen_at_unix': time.time(), 'configuration': 'unchanged_from_development'})
+        jobs.append((name, args, 'comparators' if kind in ['blind_lookup', 'blind_readout'] else 'train'))
+    if jobs:
+        frozen = {v: json.loads((OUT/f'freeze_confirmation_{v}.json').read_text())['model']
+                  for v in LEARNED if (OUT/f'freeze_confirmation_{v}.json').exists()}
+        write(OUT/'freeze_before_confirmation.json', {
+            'status': 'frozen' if len(frozen) == len(LEARNED) else 'partially_frozen',
+            'selection_data': 'development100', 'models': frozen,
+            'pending_models': [v for v in LEARNED if v not in frozen],
+            'policy': 'Each method is frozen before its own confirmation; other training may continue.'})
+    return jobs
+
+
 def main():
     pending = [(f'train_full_{layer}', ['--train','full','--layer',str(layer)], 'train') for layer in [18,24,30]]
     pending += [(f'dev_{kind}', ['--evaluate','development','--kind',kind], 'train') for kind in ['zero','fusion','static']]
     pending += [('dev_blind_lookup', ['--evaluate','development','--kind','blind_lookup'], 'comparators')]
     complete, failed = set(), {}
-    full_selected = False; confirmation_queued = False
+    full_selected = False
     free = list(GPUS); running = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         adopted_names = set()
@@ -207,22 +251,13 @@ def main():
                                 for variant in ['context','ordinary','no_js']]
                 pending.append(('train_blind_readout',['--train','--layer',str(chosen['layer'])],'comparators'))
                 full_selected = True
-            if full_selected and not confirmation_queued and all('train_full_'+str(l) in complete for l in [18,24,30]) and all('train_'+v in complete for v in ['ordinary','no_js','context','blind_readout']):
-                layer = json.loads((OUT/'selected_full.json').read_text())['layer']
-                for variant in ['ordinary','no_js','context','blind_readout']:
-                    chosen = json.loads((OUT/f'{variant}_layer{layer}/selected.json').read_text())
-                    write(OUT/f'selected_{variant}.json', chosen)
-                write(OUT/'freeze_before_confirmation.json', {'status': 'frozen', 'selection_data': 'development100',
-                     'models': {v:json.loads((OUT/f'selected_{v}.json').read_text()) for v in LEARNED}})
-                for kind in KINDS:
-                    args = ['--evaluate','confirmation','--kind',kind]
-                    if kind in LEARNED:
-                        args += ['--selection',str(OUT/f'selected_{kind}.json')]
-                    pending.append(('confirmation_'+kind, args, 'comparators' if kind in ['blind_lookup','blind_readout'] else 'train'))
-                confirmation_queued = True
+            if full_selected:
+                scheduled = complete | adopted_names | set(failed) | {job[0] for job in pending}
+                scheduled |= {job['name'] for job in running.values()}
+                pending.extend(ready_confirmation_jobs(complete, scheduled))
             write(OUT/'queue_status.json', {'status':'running', 'active':list(running.values()),
                   'pending':[name for name,args,module in pending], 'complete':sorted(complete), 'failed':failed})
-    success = not failed and confirmation_queued
+    success = not failed and all('confirmation_'+kind in complete for kind in KINDS)
     if success: finish_report()
     write(OUT/'queue_status.json', {'status':'complete' if success else 'failed', 'complete':sorted(complete), 'failed':failed})
 
