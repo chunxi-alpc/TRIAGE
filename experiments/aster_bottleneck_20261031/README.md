@@ -26,3 +26,9 @@ prepare只在新运行目录执行一次。run完成初轮；advanced需要初�
 其他实施范围：祖先中只有规则导航指令时不构造虚假的治疗历史。原behavior.py和proof.py保留为未采用的旧实现，不再自动运行。当前模块一入口为module_one.py，协议见docs/ASTER/module-one-plan-20261031.zh.md；结果保存module_one子目录。
 
 调度器接管前写入scheduler_adopt.json，已有进程通过pidfd等待后复用输出；仅使用0、1、5、6。模块一分片完成基线即可标定；错误注入拆为每任务2例，仍使用原种子和病例。选头／选参需要的结果汇总保留实际依赖。不要与旧advanced独立启动器并行运行。
+
+## 2026-11-01 开发集后续对照
+
+`structure_followup.py`运行结构约束与只抑制编辑对照，仅使用开发100例。先运行`python -m experiments.aster_bottleneck_20261031.structure_followup --mode pilot`，读取小批次资源估算并向用户报告后，再运行同一命令的`--mode formal`。使用GPU 0、1的常驻工作进程共享病例队列；成功小批次结果复用。原120例验证结果不改写。
+
+详见`docs/ASTER/structure-followup-plan-20261101.zh.md`。

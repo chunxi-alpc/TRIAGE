@@ -178,6 +178,8 @@ def execute(engine,case,spec,route=None,capture=False):
    edit_positions={r:ids for r,ids in edit_positions.items() if ids}
    gains={r:spec.get('gain',1.)*(1 if r=='PATH' else -1) for r in edit_positions}
    mask['edit_positions']=edit_positions
+  if spec.get('suppress_only'):
+   gains={rid:min(0.,gain) for rid,gain in gains.items()}
   if spec.get('calibrate_only'):layers=tuple((k.clone(),v.clone()) for k,v in base)
   else:layers,_=edit_kv_layers(base,directions,edit_positions,gains,prefix.cos,prefix.sin)
   cache=type(prefix.cache).from_legacy_cache(tuple(layers))
@@ -188,6 +190,17 @@ def execute(engine,case,spec,route=None,capture=False):
   layers=cache.to_legacy_cache()
  kind=spec['kind'];beta=spec.get('beta',0.)
  kwargs=dict(mask=mask,beta=beta,hard=kind in ['hard','repair'],siblings_only=spec.get('siblings_only',False),heads=spec.get('heads'))
+ # Structured generation uses the original complete graph, even for clipping.
+ # Return before diagnostic gold-prefix scoring: no reference decision enters it.
+ if spec.get('structured'):
+  from .structured import decode
+  with back.session(),attention_control(back,**kwargs):
+   res=back._forward(prompt.input_ids[:,p:],cache=cache,start=p,use_cache=True)
+   result=decode(engine,case['guideline'],res,prompt.input_ids.shape[1])
+  result.update(input_tokens=prompt.input_ids.shape[1],nonpath_tokens=len(mask['nonpath']),
+   root_margin=None,decision_margin=None,decision_depth=None,seconds=time.time()-start,
+   trace=[],recomputed_fraction=recompute_fraction)
+  return result
  # Root decision scores use the full contextualized identifier; shared prefix is
  # teacher-forced and candidate suffix log probabilities are summed.
  depth=min(spec.get('decision_depth',0),len(case['gold_rules'])-1)
