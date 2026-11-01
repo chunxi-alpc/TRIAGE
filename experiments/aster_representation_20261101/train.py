@@ -35,10 +35,12 @@ def save_checkpoint(path, module, optimizer, epoch, layer, variant, stats):
 def train_case(engine, case, module, layer, backward=True, accumulation=8):
     sample_nodes = nodes(case)
     inputs = [deployment(case), deployment(swap_actions(case))]
-    contexts = [engine.context(c) for c in inputs]
+    contexts = [] if module.variant == 'context' else [engine.context(c) for c in inputs]
     totals = defaultdict(float)
     for node in sample_nodes:
-        state = None if module.variant == 'ordinary' else engine.blind(inputs[0], node['gid'])['states'][layer]
+        if module.variant == 'context':
+            contexts = [engine.context(engine.with_hint(c, node['gid'])) for c in inputs]
+        state = None if module.variant in ('ordinary', 'context') else engine.blind(inputs[0], node['gid'])['states'][layer]
         logits, baseline, magnitudes = [], [], []
         for context in contexts:
             edited, clean, diag = engine.training_decision(context, node['history'], node['gid'], layer,
@@ -52,6 +54,9 @@ def train_case(engine, case, module, layer, backward=True, accumulation=8):
         for key, value in terms.items():
             totals[key] += value / len(sample_nodes)
         del logits, baseline, magnitudes, loss, edited, clean, diag
+        if module.variant == 'context':
+            contexts.clear()
+            del context
     del contexts
     return dict(totals)
 
@@ -108,7 +113,7 @@ def evaluate(engine, cases, path, module=None, layer=None, kind='zero', reuse_ol
                     elif 'target_rule' in case:
                         # Historical age pairs provide a local root truth, not a full-path truth.
                         gid = 'G0'
-                        context = engine.context(public)
+                        context = engine.context(engine.with_hint(public, gid) if module is not None and module.variant == 'context' else public)
                         prefix = 'PATH: R' + gid[1:]
                         tokens = engine.builder.tokenizer.encode(prefix, add_special_tokens=False)
                         from .engine import copy_cache
@@ -118,7 +123,7 @@ def evaluate(engine, cases, path, module=None, layer=None, kind='zero', reuse_ol
                                 start=context['length'], use_cache=True)
                         logits = clean.logits[0, -1].float()
                         if module is not None:
-                            blind = None if module.variant == 'ordinary' else engine.blind(public, gid)['states'][layer]
+                            blind = None if module.variant in ('ordinary', 'context') else engine.blind(public, gid)['states'][layer]
                             logits, _ = engine.edit_query(clean, tokens[-1], context['length']+len(tokens)-1, layer, module, blind)
                         probs = logits[[engine.yes, engine.no]].softmax(-1)
                         if kind == 'fusion':
@@ -285,7 +290,7 @@ def pilot():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--train', choices=['full', 'ordinary', 'no_js'])
+    parser.add_argument('--train', choices=['full', 'ordinary', 'no_js', 'context'])
     parser.add_argument('--layer', type=int)
     parser.add_argument('--evaluate', choices=['development', 'confirmation'])
     parser.add_argument('--kind', default='zero')

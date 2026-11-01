@@ -22,3 +22,7 @@ python -m experiments.aster_representation_20261101.orchestrate
 部署输入只包含病例编号、来源、患者文本、指南和问题。金标路径仅供训练和评分。旧43例、已暴露120例不进入本轮配置选择或独立确认。原指南、全部病例的终点处置交换、年龄条件翻转分别报告。
 
 结果保存在逐例JSONL和同名summary文件；自动汇总写入 `REPORT.zh.md`，配对纠正／退化及来源等权区间写入 `paired_results.json`。年龄对按去重后的患者对计数，并保留原始最小对编号。所有历史结果仍保留，确认结果不触发新的搜索。
+
+## 补充对照
+
+`comparators.py`实现直接盲判查表和同参数量的盲表示分类器；`train.py --train context`在当前节点向问题加入T/F/U概率，使用相同普通低秩模块训练。它们只使用已选层，全部冻结后再做新确认。调度器重启可接管仍在运行的原工作进程，不重跑已完成条件。补充安排见`docs/ASTER/representation-comparison-extension-20261101.zh.md`。

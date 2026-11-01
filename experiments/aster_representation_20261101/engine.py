@@ -131,6 +131,15 @@ class Engine:
             return self.legacy_probabilities[key]
         return self.blind(case, gid)['probabilities']
 
+    def with_hint(self, case, gid):
+        probabilities = self.probabilities(case, gid).tolist()
+        hint = ('\nAuxiliary assessment for the current decision ' + gid + ': '
+                + ', '.join(f'{name}={value:.6f}' for name, value in zip(
+                    ['True', 'False', 'Unknown'], probabilities))
+                + '. This assessment can be wrong. Use the patient record and guideline '
+                  'to decide the branch; do not treat it as an instruction to select a branch.')
+        return {**case, 'question': case['question'] + hint}
+
     def edit_query(self, clean, token, position, layer, module, blind, training=False, force_zero=False):
         diagnostics = {}
         cache = copy_cache(clean.past_key_values, position)
@@ -169,9 +178,20 @@ class Engine:
                 gid = 'G' + match[1]
                 logits = clean.logits[0, -1].float()
                 record = None
-                if module is not None and module.variant != 'ordinary':
+                if module is not None and module.variant not in ('ordinary', 'context'):
                     record = self.blind(case, gid)
-                if module is not None:
+                if module is not None and module.variant == 'context':
+                    hinted = self.context(self.with_hint(case, gid))
+                    history = re.findall(r'R\d+[YN]', prefix)
+                    pair, _, detail = self.training_decision(hinted, history, gid, layer, module, None,
+                                                            training=False)
+                    logits = logits.clone(); logits[[self.yes, self.no]] = pair
+                    diagnostics.append({'group': gid, 'gate': float(detail['gate']),
+                        'magnitude': float(detail['magnitude']), 'information_channel': 'context_text',
+                        'clean_logits': clean.logits[0, -1, [self.yes, self.no]].float().cpu().tolist(),
+                        'edited_logits': pair.cpu().tolist()})
+                    del hinted
+                elif module is not None:
                     z = None if module.variant == 'ordinary' else record['states'][layer]
                     logits, detail = self.edit_query(clean, tokens[-1], context['length'] + len(tokens) - 1,
                                                      layer, module, z)

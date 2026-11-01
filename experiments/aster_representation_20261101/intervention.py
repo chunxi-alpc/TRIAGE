@@ -22,7 +22,7 @@ class ConditionalIntervention(nn.Module):
             return output, original.sum() * 0, original.sum() * 0
         basis = torch.linalg.qr(self.basis, mode='reduced').Q
         current = original @ basis
-        source = original if self.variant == 'ordinary' else blind.detach().float()
+        source = original if self.variant in ('ordinary', 'context') else blind.detach().float()
         target = self.mapping(source)
         gate = self.gate(torch.cat([current, target], dim=-1)).sigmoid()
         delta = gate * ((target - current) @ basis.T)
