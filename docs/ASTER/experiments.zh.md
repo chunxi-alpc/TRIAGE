@@ -1,3 +1,5 @@
+> 历史协议：本文保留旧静态键编辑方法。本轮主方法与运行安排以[2026-11-01处置盲表示干预协议](representation-method-20261101.zh.md)为准；旧43例及已分析120例不再作为新的独立确认。
+
 # 实验协议：三模块瓶颈与新来源验证
 
 [论文主稿](manuscript.zh.md) · [方法补充](supplementary.zh.md) · [引用清单](references.zh.md)

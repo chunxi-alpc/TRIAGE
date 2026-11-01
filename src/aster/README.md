@@ -82,3 +82,9 @@ python -m scripts.run_aster_module1 --help
 契约测试使用可控分数与分词替身，覆盖输入遮蔽、病史保留、标签、概率、弃权、校准和增益错误输入。源码检查不等于性能、实际缓存编辑或临床有效性验证。
 
 2026-10-31修订实验见[运行说明](../../experiments/aster_bottleneck_20261031/README.md)。v1接口及历史冻结产物保持可复现；新实验结果与实现范围单独报告。
+
+## 2026-11-01：处置盲表示干预
+
+当前论文方法见[方法与协议](../../docs/ASTER/representation-method-20261101.zh.md)。独立训练与推理实现位于`experiments/aster_representation_20261101/`，骨干冻结，只学习当前分支查询的注意力输出干预；旧推理路径保持可复现。`Engine.blind`提供指定层连续表示与T/F/U诊断，`Engine.generate`实现干净缓存推进和共同的合法路径、终点停止及处置填写。
+
+数据与中间表示只准备一次，后续直接复用。数据目录为`/home/gcx/aster_representation_20261101`。入口：`python -m experiments.aster_representation_20261101.orchestrate`；只使用GPU0、1，已完成任务自动跳过。训练配置冻结后再执行新确认集。
