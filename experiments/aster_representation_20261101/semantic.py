@@ -4,6 +4,7 @@ import bisect
 import gc
 import json
 import os
+import signal
 import subprocess
 import sys
 import time
@@ -433,6 +434,124 @@ def aggregate():
     return summary
 
 
+
+
+def update_primary_manuscript(summary,manuscript=MANUSCRIPT,expected_cases=7458):
+    """Fill only the main method DTW/Acc cells after complete official coverage."""
+    import fcntl
+    if summary['status']!='complete' or summary['registered']!=expected_cases:
+        return 'incomplete'
+    manuscript=Path(manuscript)
+    if not manuscript.exists():
+        return 'not_found'
+    with (OUT/'manuscript.lock').open('a') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        text=manuscript.read_text()
+        start='<!-- ASTER_FINAL_MAIN_START -->'
+        end='<!-- ASTER_FINAL_MAIN_END -->'
+        if text.count(start)!=1 or text.count(end)!=1:
+            return 'markers_missing'
+        prefix,body=text.split(start,1)
+        table,suffix=body.split(end,1)
+        lines=table.splitlines()
+        header=next((line for line in lines if line.startswith('|') and 'DTW-PCC' in line and 'Acc' in line),None)
+        if header is None:
+            return 'headers_missing'
+        columns=[cell.strip().strip('*') for cell in header.split('|')[1:-1]]
+        indices={}
+        for index,name in enumerate(columns):
+            if name.startswith('DTW-PCC'):
+                indices['DTW_PCC']=index
+            elif name.startswith('Acc'):
+                indices['Acc']=index
+        if len(indices)!=2:
+            return 'headers_missing'
+        matching=[i for i,line in enumerate(lines) if line.startswith('|')
+                  and line.split('|')[1].strip()==PAPER_LABELS[-1]]
+        if len(matching)!=1:
+            return 'method_row_missing'
+        i=matching[0]
+        cells=[cell.strip() for cell in lines[i].split('|')[1:-1]]
+        for metric,index in indices.items():
+            cells[index]='**'+f"{100*summary['all_registered'][metric]:.2f}"+'**'
+        lines[i]='| '+' | '.join(cells)+' |'
+        updated=prefix+start+'\n'.join(lines)+'\n'+end+suffix
+        if updated!=text:
+            temp=manuscript.with_name(manuscript.name+f'.{os.getpid()}.tmp')
+            temp.write_text(updated)
+            temp.replace(manuscript)
+            return 'updated'
+        return 'unchanged'
+
+
+def aggregate_primary():
+    """Report the requested two semantic metrics for the completed main method."""
+    cases=official.all_cases()
+    rows=[read_json(OUT/'units'/case_key(c)/'no_js.json') for c in cases]
+    saved=[r for r in rows if r is not None]
+    valid=[r for r in saved if r['status']=='complete']
+    complete=len(saved)==len(cases)
+    penalties={'DTW_PCC':1.,'Acc':0.}
+    summary={'status':'complete' if complete else 'incomplete','method':'no_js',
+        'registered':len(cases),'recorded':len(saved),'scored':len(valid),
+        'scoring_failures':len(saved)-len(valid),
+        'configuration':{k:CONFIG[k] for k in ['judge','draws','temperature','top_p','top_k','thinking']},
+        'all_registered':{k:sum(r['metrics'][k] if r and r['status']=='complete' else v
+                              for r in rows)/len(cases) if complete else None for k,v in penalties.items()},
+        'valid_only':{k:sum(r['metrics'][k] for r in valid)/len(valid) if valid else None for k in penalties}}
+    summary['manuscript']=update_primary_manuscript(summary)
+    write(OUT/'primary_summary.json',summary)
+    values=['—' if summary['all_registered'][k] is None else f"{100*summary['all_registered'][k]:.2f}"
+            for k in penalties]
+    lines=['# 主方法单轮语义评分','',
+        f"已登记 {len(saved)}/{len(cases)} 例；成功评分 {len(valid)} 例；评分失败 {len(saved)-len(valid)} 例。",
+        '', '| 方法 | DTW-PCC↓ | Acc↑ |','|---|---:|---:|',
+        '| 处置盲内部干预（no_js） | '+' | '.join(values)+' |','',
+        '五次裁判采样；只复用既有主方法预测。完整覆盖后填写最终指标，失败保留完整分母。']
+    (OUT/'PRIMARY_REPORT.zh.md').write_text('\n'.join(lines)+'\n')
+    return summary
+
+
+def process_state(pid):
+    try:
+        return Path(f'/proc/{pid}/stat').read_text().split(') ',1)[1][0]
+    except FileNotFoundError:
+        return None
+
+
+def pause_generation_workers(paused):
+    """Only pause workers that this launch owns the responsibility to resume."""
+    info=read_json(official.OUT/'launch.json',{})
+    for gpu,pid in info.get('workers',{}).items():
+        if int(gpu) not in [0,1] or not official.live(pid):
+            continue
+        if process_state(pid) in ['T','t']:
+            continue
+        # Register before signaling so the caller's finally can always restore it.
+        paused[int(gpu)]=pid
+        try:
+            os.kill(pid,signal.SIGSTOP)
+        except ProcessLookupError:
+            paused.pop(int(gpu),None)
+
+
+def resume_generation_workers(paused,gpu=None):
+    resumed=[]
+    keys=list(paused) if gpu is None else [gpu]
+    for key in keys:
+        pid=paused.get(key)
+        if pid is None:
+            continue
+        if official.live(pid):
+            try:
+                os.kill(pid,signal.SIGCONT)
+            except ProcessLookupError:
+                pass
+        resumed.append(pid)
+        paused.pop(key,None)
+    return resumed
+
+
 def pid_live(pid, module=MODULE):
     try:
         return module.encode() in Path(f'/proc/{pid}/cmdline').read_bytes()
@@ -469,7 +588,7 @@ def worker(args):
     cases=official.all_cases()
     for i,c in enumerate(cases):
         c['_semantic_index']=i
-    if args.wait_for_generation:
+    if args.wait_for_generation and not args.pause_generation:
         while generation_running(args.worker):
             time.sleep(20)
     holder=[]
@@ -493,7 +612,8 @@ def worker(args):
     finished=set()
     while True:
         did_work=False
-        for phase,kinds in [('primary',['no_js']),('controls',METHODS[1:])]:
+        phases=[('primary',['no_js'])] if args.primary_only else [('primary',['no_js']),('controls',METHODS[1:])]
+        for phase,kinds in phases:
             for case in cases:
                 key=(phase,case['case_id'])
                 if key in finished:
@@ -519,37 +639,112 @@ def worker(args):
             if phase=='primary' and did_work:
                 break
         if not did_work:
-            if generation_running() or any(pid_live((read_json(p,{}) or {}).get('pid',0)) for p in (OUT/'claims').glob('*.json')):
+            # Main predictions are complete; let an idle GPU resume its controls
+            # while the other scorer finishes a claimed long case.
+            if args.primary_only:
+                break
+            claims_active=any(pid_live((read_json(p,{}) or {}).get('pid',0)) for p in (OUT/'claims').glob('*.json'))
+            if claims_active or (not args.primary_only and generation_running()):
                 time.sleep(20)
                 continue
             break
     write(status,{'status':'complete','gpu':args.worker,'elapsed':time.time()-started})
-    aggregate()
+    aggregate_primary() if args.primary_only else aggregate()
 
 
 def launch(args):
     manifest()
-    info=read_json(OUT/'launch.json',{})
-    if any(pid_live(pid) for pid in info.get('workers',{}).values()):
+    previous=read_json(OUT/'launch.json',{})
+    if any(pid_live(pid) for pid in previous.get('workers',{}).values()):
         raise RuntimeError('Semantic workers are already running')
+    if args.pause_generation and not args.primary_only:
+        raise ValueError('--pause-generation requires --primary-only')
+    if args.pause_generation:
+        primary=read_json(official.OUT/'primary_summary.json',{})
+        if primary.get('status')!='complete':
+            raise ValueError('Main-method predictions must be complete before pausing controls')
     workers={}
-    for gpu in [0,1]:
-        env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),TOKENIZERS_PARALLELISM='false')
-        log=(OUT/f'worker_gpu{gpu}.log').open('a')
-        command=[sys.executable,'-m',MODULE,'--worker',str(gpu),'--memory-fraction',str(args.memory_fraction)]
-        if args.wait_for_generation:
-            command.append('--wait-for-generation')
-        if args.retry_failed:
-            command.append('--retry-failed')
-        workers[gpu]=subprocess.Popen(command,env=env,stdout=log,stderr=subprocess.STDOUT)
-        log.close()
-    info={'status':'running','controller_pid':os.getpid(),'workers':{g:w.pid for g,w in workers.items()},
-          'gpus':[0,1],'started_at':time.time(),'wait_for_generation':args.wait_for_generation,'configuration':CONFIG}
-    write(OUT/'launch.json',info)
-    codes={g:w.wait() for g,w in workers.items()}
-    info.update(status='complete' if all(c==0 for c in codes.values()) else 'failed',exit_codes=codes)
-    write(OUT/'launch.json',info)
-    aggregate()
+    paused={}
+    codes={}
+    info={'status':'starting','controller_pid':os.getpid(),'workers':{},
+        'gpus':[0,1],'started_at':time.time(),'wait_for_generation':args.wait_for_generation,
+        'primary_only':args.primary_only,'pause_generation':args.pause_generation,
+        'methods':['no_js'] if args.primary_only else METHODS,
+        'reported_metrics':['DTW_PCC','Acc'] if args.primary_only else ['DTW_PCC','Acc','OT_PCC','LNDS_PCS'],
+        'paused_generation':{},'resumed_generation':{},'configuration':CONFIG}
+    old_handlers={}
+    def terminate(signum,frame):
+        raise SystemExit(128+signum)
+    for sig in [signal.SIGTERM,signal.SIGINT]:
+        old_handlers[sig]=signal.signal(sig,terminate)
+    completed=False
+    try:
+        if args.pause_generation:
+            pause_generation_workers(paused)
+            info['paused_generation']=dict(paused)
+            write(OUT/'launch.json',info)
+        for gpu in [0,1]:
+            env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),TOKENIZERS_PARALLELISM='false')
+            log=(OUT/f'worker_gpu{gpu}.log').open('a')
+            command=[sys.executable,'-m',MODULE,'--worker',str(gpu),'--memory-fraction',str(args.memory_fraction)]
+            if args.wait_for_generation and not args.pause_generation:
+                command.append('--wait-for-generation')
+            if args.primary_only:
+                command.append('--primary-only')
+            if args.pause_generation:
+                command.append('--pause-generation')
+            if args.retry_failed:
+                command.append('--retry-failed')
+            try:
+                workers[gpu]=subprocess.Popen(command,env=env,stdout=log,stderr=subprocess.STDOUT)
+            finally:
+                log.close()
+            info['workers'][gpu]=workers[gpu].pid
+            write(OUT/'launch.json',info)
+        info['status']='running'
+        write(OUT/'launch.json',info)
+        pending=set(workers)
+        while pending:
+            for gpu in list(pending):
+                code=workers[gpu].poll()
+                if code is None:
+                    continue
+                codes[gpu]=code
+                pending.remove(gpu)
+                resumed=resume_generation_workers(paused,gpu)
+                if resumed:
+                    info['resumed_generation'][gpu]={'pid':resumed[0],'at':time.time()}
+                info['exit_codes']=dict(codes)
+                write(OUT/'launch.json',info)
+            if pending:
+                time.sleep(1)
+        completed=True
+    finally:
+        # A second termination signal must not interrupt restoration of controls.
+        for sig in old_handlers:
+            signal.signal(sig,signal.SIG_IGN)
+        try:
+            if not completed:
+                for process in workers.values():
+                    if process.poll() is None:
+                        process.terminate()
+                for process in workers.values():
+                    if process.poll() is None:
+                        try:
+                            process.wait(timeout=5)
+                        except subprocess.TimeoutExpired:
+                            process.kill()
+                            process.wait(timeout=5)
+        finally:
+            for gpu,pid in list(paused.items()):
+                resume_generation_workers(paused,gpu)
+                info['resumed_generation'][gpu]={'pid':pid,'at':time.time()}
+            info.update(status='complete' if completed and all(c==0 for c in codes.values()) else 'failed',
+                        exit_codes=codes,finished_at=time.time())
+            write(OUT/'launch.json',info)
+            for sig,handler in old_handlers.items():
+                signal.signal(sig,handler)
+    aggregate_primary() if args.primary_only else aggregate()
 
 
 def main():
@@ -562,6 +757,8 @@ def main():
     p.add_argument('--memory-fraction',type=float,default=1.)
     p.add_argument('--retry-failed',action='store_true')
     p.add_argument('--wait-for-generation',action='store_true')
+    p.add_argument('--primary-only',action='store_true')
+    p.add_argument('--pause-generation',action='store_true')
     p.add_argument('--launch',action='store_true')
     p.add_argument('--aggregate',action='store_true')
     a=p.parse_args()
@@ -572,7 +769,7 @@ def main():
     elif a.launch:
         launch(a)
     elif a.aggregate:
-        print(json.dumps(aggregate(),ensure_ascii=False))
+        print(json.dumps(aggregate_primary() if a.primary_only else aggregate(),ensure_ascii=False))
 
 
 if __name__=='__main__':

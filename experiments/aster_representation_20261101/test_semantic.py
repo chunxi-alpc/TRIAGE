@@ -1,4 +1,6 @@
 import tempfile
+import argparse
+import signal
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -104,6 +106,83 @@ class SemanticTests(unittest.TestCase):
                 self.assertIsNone(s.claim(case,1))
             first.unlink()
             self.assertIsNotNone(s.claim(case,1))
+
+
+    def primary_args(self,**overrides):
+        values=dict(worker=0,wait_for_generation=False,pause_generation=True,
+                    primary_only=True,pilot=False,retry_failed=False,memory_fraction=.4)
+        values.update(overrides)
+        return argparse.Namespace(**values)
+
+    def test_primary_worker_exits_without_waiting_for_controls(self):
+        with tempfile.TemporaryDirectory() as directory,patch.object(s,'OUT',Path(directory)), \
+             patch.object(s,'manifest',return_value={}), \
+             patch.object(s.official,'all_cases',return_value=[{'case_id':'case:1'}]), \
+             patch.object(s,'unit_finished',return_value=True), \
+             patch.object(s,'generation_running',side_effect=AssertionError('unnecessary wait')), \
+             patch.object(s,'aggregate_primary') as aggregate, \
+             patch.object(s,'pid_live',return_value=True), \
+             patch.object(s.time,'sleep',side_effect=AssertionError('idle GPU waited for other claim')):
+            s.write(s.OUT/'claims'/'other.json',{'pid':999})
+            s.worker(self.primary_args())
+            aggregate.assert_called_once()
+
+    def test_pause_skips_an_already_stopped_worker(self):
+        paused={}
+        with patch.object(s,'read_json',return_value={'workers':{'0':101,'1':102}}), \
+             patch.object(s.official,'live',return_value=True), \
+             patch.object(s,'process_state',side_effect=['T','S']),patch.object(s.os,'kill') as kill:
+            s.pause_generation_workers(paused)
+            self.assertEqual(paused,{1:102})
+            kill.assert_called_once_with(102,signal.SIGSTOP)
+            s.resume_generation_workers(paused)
+            self.assertEqual(paused,{})
+            self.assertEqual(kill.call_args.args,(102,signal.SIGCONT))
+
+    def test_launch_resumes_each_gpu_as_its_scorer_exits(self):
+        class Process:
+            def __init__(self,pid,polls):
+                self.pid=pid
+                self.polls=iter(polls)
+            def poll(self):
+                return next(self.polls,0)
+        with tempfile.TemporaryDirectory() as directory,patch.object(s,'OUT',Path(directory)), \
+             patch.object(s,'manifest',return_value={}), \
+             patch.object(s,'read_json',return_value={'status':'complete'}), \
+             patch.object(s,'pause_generation_workers',side_effect=lambda paused:paused.update({0:101,1:102})), \
+             patch.object(s.official,'live',return_value=True), \
+             patch.object(s.os,'kill') as kill,patch.object(s.signal,'signal'), \
+             patch.object(s.time,'sleep'),patch.object(s,'aggregate_primary'), \
+             patch.object(s.subprocess,'Popen',side_effect=[Process(201,[0]),Process(202,[None,0])]):
+            s.launch(self.primary_args())
+            self.assertEqual([call.args for call in kill.call_args_list],
+                             [(101,signal.SIGCONT),(102,signal.SIGCONT)])
+
+    def test_launch_failure_restores_paused_controls(self):
+        with tempfile.TemporaryDirectory() as directory,patch.object(s,'OUT',Path(directory)), \
+             patch.object(s,'manifest',return_value={}), \
+             patch.object(s,'read_json',return_value={'status':'complete'}), \
+             patch.object(s,'pause_generation_workers',side_effect=lambda paused:paused.update({0:101,1:102})), \
+             patch.object(s.official,'live',return_value=True), \
+             patch.object(s.os,'kill') as kill,patch.object(s.signal,'signal'), \
+             patch.object(s.subprocess,'Popen',side_effect=RuntimeError('startup failed')):
+            with self.assertRaisesRegex(RuntimeError,'startup failed'):
+                s.launch(self.primary_args())
+            self.assertEqual([call.args for call in kill.call_args_list],
+                             [(101,signal.SIGCONT),(102,signal.SIGCONT)])
+
+    def test_primary_table_only_updates_requested_metrics(self):
+        with tempfile.TemporaryDirectory() as directory,patch.object(s,'OUT',Path(directory)):
+            path=Path(directory)/'paper.md'
+            original=('<!-- ASTER_FINAL_MAIN_START -->\n\n'
+                '| 方法 | PathAcc↑ | DTW-PCC↓ | Acc↑ |\n'
+                '|---|---:|---:|---:|\n'
+                '| **处置盲内部干预（本文）** | **89.21** | — | — |\n\n'
+                '<!-- ASTER_FINAL_MAIN_END -->\n')
+            path.write_text(original)
+            summary={'status':'complete','registered':2,'all_registered':{'DTW_PCC':.1,'Acc':.8}}
+            s.update_primary_manuscript(summary,path,expected_cases=2)
+            self.assertIn('| **处置盲内部干预（本文）** | **89.21** | **10.00** | **80.00** |',path.read_text())
 
 
 if __name__=='__main__':
