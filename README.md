@@ -17,6 +17,10 @@ python -m experiments.aster_representation --help
 旧版规则键编辑研究见[历史文档](docs/ASTER/archive/README.md)。
 
 
+## Gemma 3 27B 选层选头先导（运行中）
+
+[实验说明与复现入口](experiments/gemma3_head_pilot/)：复用200例训练、16个年龄训练状态、100例开发、100例确认，扫描992个层—KV头组，比较整层、选中头和未选头对照。仅用GPU 0、1；9项CPU测试及真实27B零干预／梯度试跑通过。正式流程已启动，**尚无确认集成绩**；本轮不运行官方7,458例。
+
 ---
 
 ## 版本是怎样变化的
