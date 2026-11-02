@@ -1,4 +1,5 @@
 """Resumable API judging of frozen main-method predictions; CPU/network only."""
+import re
 import concurrent.futures as cf
 import json,os,time,urllib.request,urllib.error,argparse,threading
 from pathlib import Path
@@ -21,38 +22,65 @@ def request(prompt,limit):
   try:
    with urllib.request.urlopen(req,timeout=180) as response:d=json.load(response)
    text='\n'.join(c['text'] for o in d.get('output',[]) for c in o.get('content',[]) if c.get('type')=='output_text')
+   refusal='\n'.join(c.get('refusal','') for o in d.get('output',[]) for c in o.get('content',[]) if c.get('type')=='refusal')
+   if refusal:return refusal,d
    if d.get('status')=='incomplete' or not text:raise ValueError('Incomplete API response')
    return text,d
   except (urllib.error.URLError,TimeoutError,ValueError) as exc:
    if attempt==4:raise RuntimeError(type(exc).__name__+': API request failed')
    time.sleep(min(60,3*2**attempt))
-def score(case):
- cid=case['case_id'];folder=OUT/'cases'/cid.replace(':','_')
+def score(case,output_root=None,shared=None):
+ cid=case['case_id'];folder=(output_root or OUT)/'cases'/cid.replace(':','_')
  unit=folder/'result.json';prior=read(unit)
- if prior and prior.get('status')=='complete':return prior
+ if prior and prior.get('status') in ('complete','unscorable'):return prior
  start=time.time()
  try:
   refs=case['reference_steps'];preds=case['candidate_steps']
   path_prompt=official.pcc.build_prompt(case['language'],refs,preds)
   outcome_prompt=official.acc.render_template(official.acc.TEMPLATE_ZH if case['language']=='zh' else official.acc.TEMPLATE_EN,{'Reference_Conclusion':case['reference_conclusion'],'Candidate_Conclusion':case['candidate_conclusion']})
   values={}
+  blocked=[]
   for stage,prompt in [('path',path_prompt),('outcome',outcome_prompt)]:
-   values[stage]=[]
-   for i in range(5):
-    p=folder/f'{stage}_{i+1}.json';saved=read(p)
+   stage_folder=(shared or {}).get(stage,folder)
+   def parse(raw):
+    parser=(lambda t:official.pcc.parse_pairwise_score_matrix(t,refs,preds)) if stage=='path' else official.acc.parse_accuracy_score
+    try:return parser(raw)
+    except ValueError:
+     normalized=raw.replace('：',':').replace('，',',').replace('**','').replace('–','-')
+     return parser(normalized)
+   slots={}
+   for i in range(1,6):
+    p=stage_folder/f'{stage}_{i}.json'
+    saved=read(p)
     if saved and saved.get('status')=='complete':
      if saved['model']!=MODEL or saved['prompt']!=prompt:raise ValueError('Existing scoring protocol differs')
-     values[stage].append(saved['score']);continue
-    for retry in range(3):
+     slots[i]=saved['score']
+     continue
+    rejected=sorted(stage_folder.glob(f'{stage}_{i}_invalid_*.json'))
+    for invalid in rejected:
+     raw=read(invalid)
+     try:value=parse(raw['text'])
+     except (ValueError,TypeError):continue
+     write(p,{'status':'complete','model':MODEL,'prompt':prompt,'score':value,'raw_output':raw['text'],'response_id':raw.get('response_id'),'recovered_from':invalid.name})
+     slots[i]=value
+     break
+    if rejected and i not in slots:blocked.append(stage)
+   if stage not in blocked:
+    for i in range(1,6):
+     if i in slots:continue
      text,response=request(prompt,max(8192,14*len(refs)*len(preds)+2048) if stage=='path' else 4096)
-     try:
-      value=official.pcc.parse_pairwise_score_matrix(text,refs,preds) if stage=='path' else official.acc.parse_accuracy_score(text)
+     try:value=parse(text)
+     except (ValueError,TypeError):
+      write(stage_folder/f'{stage}_{i}_invalid_0.json',{'text':text,'response_id':response.get('id')})
+      blocked.append(stage)
       break
-     except Exception:
-      write(folder/f'{stage}_{i+1}_invalid_{retry}.json',{'text':text,'response_id':response.get('id')})
-      if retry==2:raise ValueError('Judge output could not be parsed')
-    write(p,{'status':'complete','model':MODEL,'returned_model':response.get('model'),'prompt':prompt,'raw_output':text,'score':value,'usage':response.get('usage'),'response_id':response.get('id')})
-    values[stage].append(value)
+     write(stage_folder/f'{stage}_{i}.json',{'status':'complete','model':MODEL,'returned_model':response.get('model'),'prompt':prompt,'raw_output':text,'score':value,'usage':response.get('usage'),'response_id':response.get('id')})
+     slots[i]=value
+   values[stage]=list(slots.values())
+  if blocked:
+   result={'case_id':cid,'status':'unscorable','blocked_stages':sorted(set(blocked)),'saved_draws':{s:len(v) for s,v in values.items()}}
+   write(unit,result)
+   return result
   import numpy as np
   matrix=np.asarray(values['path'],dtype=float).mean(axis=0)
   _,dtw,_=official.dynamic_time_warping((1-(matrix-1)/4).tolist())
@@ -65,7 +93,7 @@ def aggregate(cases):
  rows=[read(OUT/'cases'/c['case_id'].replace(':','_')/'result.json') for c in cases]
  valid=[r for r in rows if r and r['status']=='complete']
  done=len(valid)==len(cases)==7458
- d={'status':'complete' if done else 'incomplete','registered':len(cases),'scored':len(valid),'failed':sum(bool(r and r['status']=='failed') for r in rows),'judge':MODEL,'draws_per_metric':5,'metrics':{k:sum(r[k] for r in valid)/len(valid) if done else None for k in ['DTW_PCC','Acc']}}
+ d={'status':'complete' if done else 'incomplete','registered':len(cases),'scored':len(valid),'unscorable':sum(bool(r and r['status']=='unscorable') for r in rows),'failed':sum(bool(r and r['status']=='failed') for r in rows),'judge':MODEL,'draws_per_metric':5,'metrics':{k:sum(r[k] for r in valid)/len(valid) if done else None for k in ['DTW_PCC','Acc']}}
  write(OUT/'summary.json',d)
  if done:
   paper=Path('/home/gcx/TRIAGE-worktrees/aster-bottleneck-revision-20261031/docs/ASTER/manuscript.zh.md')
@@ -79,6 +107,7 @@ def aggregate(cases):
   text=text.replace('**本文：结构化指南／Qwen裁判**','**本文：结构化指南／gpt-6.1-sol裁判**')
   text=text.replace('语义评分裁判为Qwen3-8B','主方法语义评分裁判为gpt-6.1-sol（第三方接口返回名称）')
   text=text.replace('以Qwen3-8B为裁判，每个输入采样五次','主方法以gpt-6.1-sol为裁判，每个输入独立采样五次')
+  text=re.sub(r'\n> 阶段性语义评分（[^\n]+\n','\n',text)
   paper.write_text(text)
  values=['—' if d['metrics'][k] is None else '%.2f'%(100*d['metrics'][k]) for k in ['DTW_PCC','Acc']]
  (OUT/'REPORT.zh.md').write_text('# 主方法API裁判结果\n\n裁判：'+MODEL+'；完成 '+str(len(valid))+'/7458，每项五次独立请求。\n\n| DTW-PCC↓ | Acc↑ |\n|---:|---:|\n| '+' | '.join(values)+' |\n')
@@ -100,7 +129,7 @@ def main():
    if len(results)%50==0:aggregate(cases)
  if not a.pilot:
   for retry_round in range(2):
-   failed_ids={r['case_id'] for r in results if r['status']!='complete'}
+   failed_ids={r['case_id'] for r in results if r['status']=='failed'}
    if not failed_ids:break
    retry_cases=[c for c in chosen if c['case_id'] in failed_ids]
    with cf.ThreadPoolExecutor(max_workers=a.workers) as pool:retried=list(pool.map(score,retry_cases))
