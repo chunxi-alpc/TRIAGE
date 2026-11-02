@@ -2,18 +2,18 @@
   "model": "google/gemma-3-27b-it",
   "source": "ModelScope",
   "source_revision": "master",
-  "cpu_tests_passed": 8,
+  "cpu_tests_passed": 9,
   "whole": {
     "zero_identical": true,
     "gradient": true,
     "parameters": 43017,
-    "magnitude": 1.4821515570417887e-08
+    "magnitude": 5.8591428597765116e-08
   },
   "heads": {
     "zero_identical": true,
     "gradient": true,
     "parameters": 8201,
-    "magnitude": 6.045464573389836e-08
+    "magnitude": 4.6164387867975165e-08
   },
   "native_prefill": "native whole prefill; chunk comparison is diagnostic only",
   "chunked_diagnostic": {
@@ -46,5 +46,55 @@
   "expected_hours": [
     24,
     48
+  ],
+  "bf16_probe_checks": [
+    {
+      "layer": 0,
+      "strength": 0.25,
+      "scores": [
+        -11.375011444091797,
+        -1.1444026313256472e-05
+      ]
+    },
+    {
+      "layer": 0,
+      "strength": -0.25,
+      "scores": [
+        -11.125014305114746,
+        -1.4781842764932662e-05
+      ]
+    },
+    {
+      "layer": 31,
+      "strength": 0.25,
+      "scores": [
+        -11.125014305114746,
+        -1.4781842764932662e-05
+      ]
+    },
+    {
+      "layer": 31,
+      "strength": -0.25,
+      "scores": [
+        -11.25001335144043,
+        -1.2993727978027891e-05
+      ]
+    },
+    {
+      "layer": 61,
+      "strength": 0.25,
+      "scores": [
+        -11.25001335144043,
+        -1.2993727978027891e-05
+      ]
+    },
+    {
+      "layer": 61,
+      "strength": -0.25,
+      "scores": [
+        -11.125014305114746,
+        -1.4781842764932662e-05
+      ]
+    }
   ]
 }

@@ -72,6 +72,20 @@ class PilotTests(unittest.TestCase):
   self.assertEqual(values.shape,(2,));self.assertTrue(torch.isfinite(values).all())
   self.assertEqual(common_prefix([[1,2,3],[1,2,4]]),([1,2],[[3],[4]]))
 
+ def test_bf16_probe_edit_preserves_dtype_and_unselected_heads(self):
+  projection=torch.nn.Linear(32,32,bias=False,dtype=torch.bfloat16)
+  fake=SimpleNamespace(layers=[SimpleNamespace(self_attn=SimpleNamespace(o_proj=projection))])
+  x=torch.randn(1,1,32).to(torch.bfloat16);reference={"pre":{0:torch.randn(32)}}
+  for strength in (.25,-.25,0.):
+   captured=[]
+   with Engine.edit(fake,0,reference=reference,groups=list(range(16)),strength=strength):
+    handle=projection.register_forward_pre_hook(lambda m,args:captured.append(args[0].detach().clone()))
+    output=projection(x);handle.remove()
+   self.assertEqual(captured[0].dtype,torch.bfloat16)
+   self.assertTrue(torch.equal(captured[0][...,16:],x[...,16:]))
+   self.assertTrue(torch.isfinite(output).all())
+   if strength==0:self.assertTrue(torch.equal(captured[0],x))
+
  def test_group_mapping(self):
   self.assertEqual(group_indices([1],self.engine.config),list(range(16,32)))
 

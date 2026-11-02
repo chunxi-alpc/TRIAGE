@@ -140,7 +140,7 @@ class Engine:
                 if x.shape[1] != 1: raise ValueError("Only the decision query may be edited")
                 ref = reference["pre"][layer].to(x.device).reshape(1, 1, -1)
                 delta = strength * (ref.index_select(-1, index) - x.index_select(-1, index))
-                return (x.index_add(-1, index, delta),) + args[1:]
+                return (x.float().index_add(-1, index, delta.float()).to(x.dtype),) + args[1:]
             handle = projection.register_forward_pre_hook(pre_hook)
         elif hasattr(module, "indices"):
             def pre_hook(proj, args):

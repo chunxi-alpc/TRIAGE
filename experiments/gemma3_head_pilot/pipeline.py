@@ -43,6 +43,15 @@ def smoke(engine, root):
     with torch.no_grad(): baseline, _ = engine.scores(query)
     layer = engine.config.num_hidden_layers // 2
     result = dict(started=started, architecture=architecture(engine))
+    probes = []
+    for probe_layer in (0, layer, engine.config.num_hidden_layers-1):
+        for strength in (.25, -.25):
+            with torch.no_grad():
+                value, _ = engine.scores(query, layer=probe_layer, reference=reference,
+                                         indices=group_indices([0], engine.config), strength=strength)
+            if not torch.isfinite(value).all(): raise AssertionError("Nonfinite BF16 probe score")
+            probes.append(dict(layer=probe_layer, strength=strength, scores=value.detach().float().cpu().tolist()))
+    result["bf16_probe_checks"] = probes
     from .core import ConditionalIntervention
     whole = make_module(dict(kind="whole", layer=layer), engine.config, engine.layer_device(layer))
     head = make_module(dict(kind="heads", layer=layer, groups=[0,1,2,3]), engine.config, engine.layer_device(layer))
