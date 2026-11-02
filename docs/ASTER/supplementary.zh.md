@@ -39,7 +39,7 @@ CUDA_VISIBLE_DEVICES=0 python -m experiments.aster_representation predict --mode
 python -m experiments.aster_representation score --cases work/test.jsonl --predictions work/no_js.jsonl
 ```
 
-`predict` 默认加载仓库内的冻结权重。患者、指南和问题进入预测，金标路径进入评分。若已有冻结实验的预测，直接运行 `score`，其 `--predictions` 也接受存放原实验分片 JSONL 的目录。该命令报告严格完整路径正确率。论文对应计数为 **6,653／7,458**。DTW-PCC 和 Acc 另需对步骤和结论作语义评分。
+`predict` 默认加载仓库内的冻结权重。患者、指南和问题进入预测，金标路径进入评分。若已有冻结实验的预测，直接运行 `score`，其 `--predictions` 也接受存放原实验分片 JSONL 的目录。该命令报告严格完整路径正确率。论文对应计数为 **6,653／7,458**。表1的 DTW-PCC 已使用本地 BERTScore 完成全量评价。Acc 使用单独的结论语义评分，表中注明有效例数。
 
 ## 从训练病例复现干预参数
 
@@ -52,3 +52,47 @@ CUDA_VISIBLE_DEVICES=0 python -m experiments.aster_representation train --model 
 ```
 
 用训练所得权重执行预测时，向 `predict` 传入 `--weights work/trained/epoch3.safetensors`。开发集和内部确认集可分别用 `prepare --split development` 和 `prepare --split confirmation` 重建。
+
+## 官方测试的配对净提升
+
+主方法与普通低秩逐例比较。原指南中分支序列完全正确记为1，无效输出和技术失败记为0。正向不一致497例，反向不一致127例，因此净提升为 $(497-127)/7458=4.96\%$，即4.96个百分点。两个方法的配对表如下。
+
+| 普通低秩 | 主方法正确 | 主方法错误 |
+|---|---:|---:|
+| 正确 | 6,156 | 127 |
+| 错误 | 497 | 678 |
+
+[来源簇计数](results/pathacc-by-source.csv)按对照方法和来源簇保留这四个格子；[结果数据](results/single-turn.json)同时提供来源等权结果、中英文分组和去除历史暴露标记后的计数。按病例加权的来源簇重采样区间为4.01至5.94个百分点，来源等权的净提升为4.13个百分点（95%区间3.30至4.99）。使用公开计数即可在 CPU 上复算：
+
+```bash
+python -m experiments.aster_representation.paired --source-counts docs/ASTER/results/pathacc-by-source.csv --control ordinary
+```
+
+如已有两个方法的逐例预测，也可以从原始单轮输出复算。下面的目录可包含多个方法的 JSONL 分片，或者将两个文件作为独立参数传给 `--predictions`：
+
+```bash
+python -m experiments.aster_representation.paired --cases work/test.jsonl --predictions work/official_predictions --control ordinary
+```
+
+此入口以登记病例为单位，读取原指南视图，用严格路径解析器重算正确与否。来源簇按病例清单中的首次出现顺序记录。区间使用 NumPy 随机种子20261102进行2,000次来源簇重采样。[配对统计实现](../../experiments/aster_representation/paired.py)
+
+## 交换、事实翻转与同一表示的对照
+
+开发集和内部确认集中的交换采用全树终点文本循环置换。在40棵不同的树中，根节点的处置多重集合全部保留，但829个非根节点中有819个节点的局部处置多重集合发生变化。因此，该扰动检验的是全树重排后的正确性。在相同病例上，以下列出主方法与概率上下文的正反向配对数：
+
+| 数据与判据 | 配对数 | 仅主方法正确 | 仅概率上下文正确 |
+|---|---:|---:|---:|
+| 开发集，原指南与重排视图均正确 | 100 | 12 | 1 |
+| 内部确认集，原指南与重排视图均正确 | 100 | 22 | 4 |
+| 开发集，限原指南两方法均正确，再比较交换后 | 84 | 4 | 0 |
+| 内部确认集，限原指南两方法均正确，再比较交换后 | 72 | 6 | 3 |
+
+已核验的年龄最小对中，主方法与概率上下文都在原指南上答对全部8组训练对的两个状态。交换后分别为8/8和7/8。两组历史诊断对在两个视图中均为2/2，现有年龄诊断的规模不足以区分两种方法。
+
+同一表示实验另取18个未参与选参的来源，每个来源一个节点，使用单事实构造记录，固定合法祖先前缀。交换只在两个兄弟终点之间进行，保留条件、转移、终点编号和节点内处置集合。两组均读取同一第18层盲表示和完整决策表示，使用相同216个训练状态、586个训练节点、原训练双视图、损失、优化器、32,777个参数及第3轮检查点。输入侧将条件软提示施加到决策查询前一个既有词元的嵌入；其幅度项和内部干预一样，在第18层决策注意力输出上计算。每个节点的四个条件和两种方法的正确标记见[逐节点结果](results/matched-nodes.csv)。[节点选择与事实模板](https://github.com/chunxi-alpc/TRIAGE/blob/d8cf67d53d6b068d9b382114de4a5fa4b22f633b/experiments/aster_representation_20261101/matched_data.py) · [同一表示的训练、推断和配对汇总](https://github.com/chunxi-alpc/TRIAGE/blob/d8cf67d53d6b068d9b382114de4a5fa4b22f633b/experiments/aster_representation_20261101/matched.py)
+
+## 路径语义评分与原实验归档
+
+全部六种方法的 BERTScore 结果覆盖官方单轮原指南7,458例。同一病例内合并相同步骤序列后有11,807条不同路径，按语言与步骤文本去重后共计算482,871个不同的文本对。表1的 DTW-PCC 和表2a均使用这次本地评测。中、英文编码器、层、重缩放参数及配对区间见[结果数据](results/single-turn.json)。表1的生成式 Acc 和表2b保留各自分母与裁判名称。[原运行的 BERTScore 实现](https://github.com/chunxi-alpc/TRIAGE/blob/d8cf67d53d6b068d9b382114de4a5fa4b22f633b/experiments/aster_representation_20261101/bertscore_local.py)
+
+[固定实验快照](https://github.com/chunxi-alpc/TRIAGE/tree/d8cf67d53d6b068d9b382114de4a5fa4b22f633b/experiments/aster_representation_20261101/release)保留普通低秩、概率上下文、盲表示分类器、匹配软提示和主方法的推理检查点，以及训练、单轮推断、交换构造和评分入口。早期43例的裁剪与键编辑、100例开发和120例验证的诊断可在[历史实验报告](https://github.com/chunxi-alpc/TRIAGE/blob/d8cf67d53d6b068d9b382114de4a5fa4b22f633b/docs/ASTER/bottleneck-results-20261031.zh.md)中查阅。运行代码保留当时服务器的目录约定，主方法在其他环境的运行方式见上文。
