@@ -1,0 +1,50 @@
+{
+  "model": "google/gemma-3-27b-it",
+  "source": "ModelScope",
+  "source_revision": "master",
+  "cpu_tests_passed": 8,
+  "whole": {
+    "zero_identical": true,
+    "gradient": true,
+    "parameters": 43017,
+    "magnitude": 1.4821515570417887e-08
+  },
+  "heads": {
+    "zero_identical": true,
+    "gradient": true,
+    "parameters": 8201,
+    "magnitude": 6.045464573389836e-08
+  },
+  "native_prefill": "native whole prefill; chunk comparison is diagnostic only",
+  "chunked_diagnostic": {
+    "max_logit_difference": 0.25,
+    "argmax_equal": true,
+    "allclose": false
+  },
+  "long_training_case": {
+    "case_selection": "largest training text by character count",
+    "characters": 17535,
+    "zero_generation_seconds": 5.98931097984314,
+    "path_steps": 5,
+    "training_case_seconds": 11.773396730422974,
+    "training_nodes": 3,
+    "finite_gradients": true,
+    "peak_allocated_gib": [
+      31.9750919342041,
+      33.0942440032959
+    ],
+    "peak_reserved_gib": [
+      32.947265625,
+      33.38671875
+    ]
+  },
+  "state": "running; no final confirmation metrics",
+  "physical_gpus": [
+    0,
+    1
+  ],
+  "expected_hours": [
+    24,
+    48
+  ]
+}
