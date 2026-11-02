@@ -45,6 +45,7 @@ python -m experiments.aster_representation --help
 - [run03 选中结构](https://github.com/chunxi-alpc/TRIAGE/blob/codex/aster-manuscript-implementation-20261030/experiments/aster_manuscript_20261030/public/run03/selected_structure.json)
 - [run05 选中结构](https://github.com/chunxi-alpc/TRIAGE/blob/codex/aster-manuscript-implementation-20261030/experiments/aster_manuscript_20261030/public/run05/selected_structure.json)
 - [临床确认集头选择记录](https://github.com/chunxi-alpc/TRIAGE/blob/codex/aster-manuscript-implementation-20261030/experiments/aster_manuscript_clinical_20261030/public/clinical01/rank_selection.json)
+- [临床确认集最终选中头与留出诊断](https://github.com/chunxi-alpc/TRIAGE/blob/codex/aster-manuscript-implementation-20261030/experiments/aster_manuscript_clinical_20261030/public/clinical01/structure.json)
 
 注意：run03、run05 与临床确认阶段是不同冻结记录，文件中选中的头组并不完全相同。复现或引用时必须同时注明运行批次、数据划分和冻结配置，不能把不同批次的头组拼成一个结果。PR #42 的临床实验冻结头组以该 PR 正文及 clinical01 产物为准。
 
