@@ -79,3 +79,14 @@
 | [research/module2-mechanism-20261028](https://github.com/chunxi-alpc/TRIAGE/tree/research/module2-mechanism-20261028) | [5435f91007f8](https://github.com/chunxi-alpc/TRIAGE/commit/5435f91007f826d78bc8685191ce6d861e537470) | [PR #40](https://github.com/chunxi-alpc/TRIAGE/pull/40)，模块二机制与答案读出诊断，未合并 |
 
 **合并原则：** 以上分支是可追溯研究快照，不构成待合并清单。尤其 PR #41、#42、#43 的代码与实验协议有不同冻结点；先审查实验状态、提交祖先、文件重叠及回归结果，再决定是否合并。不要仅因分支名称相近或日期连续而合并。
+
+
+### 补充：同日清点遗漏项
+
+复核 GitHub 当前分支列表后，补入前一版索引遗漏的两个研究分支及本次索引维护分支：
+
+| 分支 | 2026-11-03 固定提交 | 追踪说明 |
+| --- | --- | --- |
+| [codex/triage-applicability-decision-20261029](https://github.com/chunxi-alpc/TRIAGE/tree/codex/triage-applicability-decision-20261029) | [32e75a808997](https://github.com/chunxi-alpc/TRIAGE/commit/32e75a808997b4f040c1d6e293d55ac6d79b6949) | TRIAGE 适用性决策研究支线 |
+| [docs/aster-experiments-20261028](https://github.com/chunxi-alpc/TRIAGE/tree/docs/aster-experiments-20261028) | [9cbaa22ea943](https://github.com/chunxi-alpc/TRIAGE/commit/9cbaa22ea94343e50b159db751c96c6106ebef1c) | [PR #39](https://github.com/chunxi-alpc/TRIAGE/pull/39)，ASTER 实验章节与协议，已合并 |
+| [chore/branch-index-refresh-20261103](https://github.com/chunxi-alpc/TRIAGE/tree/chore/branch-index-refresh-20261103) | [74c8f66c0064](https://github.com/chunxi-alpc/TRIAGE/commit/74c8f66c00648d51fc3cfa7dd91983f42e4b4caf) | [PR #45](https://github.com/chunxi-alpc/TRIAGE/pull/45)，分支索引维护，已合并 |
