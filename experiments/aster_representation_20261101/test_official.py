@@ -46,8 +46,25 @@ class OfficialRunnerTests(unittest.TestCase):
             self.assertEqual(result['methods']['full']['leaf_correct'],2)
             self.assertEqual(result['methods']['context']['registered'],2)
             self.assertEqual(result['methods']['context']['technical_failures'],1)
-            self.assertEqual(result['full_vs_controls']['context']['corrected'],1)
-            self.assertEqual(result['full_vs_controls']['context']['paired_delta'],.5)
+            self.assertEqual(result['primary_vs_controls']['context']['corrected'],1)
+            self.assertEqual(result['primary_vs_controls']['context']['paired_delta'],.5)
+
+    def test_primary_is_claimed_first_and_controls_cannot_share_an_active_tree(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(official,'OUT',Path(tmp)), patch.object(official,'live',return_value=True):
+            root=Path(tmp)
+            manifest={'primary_method':'no_js','prioritize_primary':True,
+                      'jobs':[{'guideline_id':1},{'guideline_id':2}]}
+            a=official.claim_work(manifest,0)
+            b=official.claim_work(manifest,1)
+            self.assertEqual(a['methods'],['no_js'])
+            self.assertEqual(b['phase'],'primary')
+            self.assertNotEqual(a['guideline_id'],b['guideline_id'])
+            self.assertIsNone(official.claim_work(manifest,0))
+            official.write(root/'done/primary/1.json',{'status':'complete'})
+            c=official.claim_work(manifest,0)
+            self.assertEqual(c['guideline_id'],1)
+            self.assertEqual(c['phase'],'controls')
+            self.assertNotIn('no_js',c['methods'])
 
 
 if __name__=='__main__':unittest.main()

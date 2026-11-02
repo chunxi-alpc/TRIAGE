@@ -98,18 +98,22 @@ def live(pid):
         return False
 
 
-def claim_next(jobs, gpu):
-    folder = OUT / 'claims'
-    folder.mkdir(exist_ok=True)
+def claim_next(jobs, gpu, phase=None, methods=None):
+    folder = OUT / 'claims' / phase if phase else OUT / 'claims'
+    done_folder = OUT / 'done' / phase if phase else OUT / 'done'
+    folder.mkdir(parents=True, exist_ok=True)
     for job in jobs:
         gid = job['guideline_id']
-        if (OUT / 'done' / f'{gid}.json').exists():
+        if (done_folder / f'{gid}.json').exists():
+            continue
+        if phase == 'controls' and not (OUT / 'done' / 'primary' / f'{gid}.json').exists():
+            # Never append to a tree that the other worker is still evaluating.
             continue
         path = folder / f'{gid}.json'
         try:
             with path.open('x') as h:
                 h.write(json.dumps({'pid': os.getpid(), 'gpu': gpu}))
-            return job
+            return {**job, 'phase': phase, 'methods': methods or METHODS}
         except FileExistsError:
             try:
                 saved = json.loads(path.read_text())
@@ -121,8 +125,18 @@ def claim_next(jobs, gpu):
                 except FileNotFoundError:
                     pass
                 # Reclaim on the next pass; completed records are still skipped.
-                return claim_next(jobs, gpu)
+                return claim_next(jobs, gpu, phase, methods)
     return None
+
+
+def claim_work(manifest, gpu):
+    primary = manifest.get('primary_method', 'full')
+    if manifest.get('prioritize_primary'):
+        job = claim_next(manifest['jobs'], gpu, 'primary', [primary])
+        if job is not None:
+            return job
+        return claim_next(manifest['jobs'], gpu, 'controls', [k for k in METHODS if k != primary])
+    return claim_next(manifest['jobs'], gpu)
 
 
 def modules(engine, manifest):
@@ -144,13 +158,13 @@ def modules(engine, manifest):
     return result
 
 
-def evaluate_case(engine, learned, case, path, done):
+def evaluate_case(engine, learned, case, path, done, methods=None):
     import torch
     from .data import deployment
     from .comparators import lookup
     from experiments.aster_abc_diagnostics_20261030.c.audit import strict_score
     public = deployment(case)
-    for kind in METHODS:
+    for kind in methods or METHODS:
         key = case['case_id'], kind
         if key in done:
             continue
@@ -183,6 +197,38 @@ def evaluate_case(engine, learned, case, path, done):
     engine.blind_cache.clear()  # Disk states remain available to every method/resume.
 
 
+def finish_primary(manifest):
+    if not manifest.get('prioritize_primary') or (OUT / 'primary_summary.json').exists():
+        return
+    if len(list((OUT / 'done' / 'primary').glob('*.json'))) != len(manifest['jobs']):
+        return
+    primary = manifest['primary_method']
+    records = {}
+    for path in (OUT/'results').glob('*.jsonl'):
+        for line in path.read_text().splitlines():
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError:
+                # Another worker can still be appending a control record.
+                continue
+            if row['kind'] == primary:
+                records[row['case_id']] = row
+    # Control files may still be extending. Use only the completed primary units.
+    if len(records) != manifest['case_count']:
+        return
+    correct = sum(r['status']=='complete' and r['score']['exact_path'] for r in records.values())
+    summary = {'status':'complete','primary_method':primary,'n':len(records),'exact_path':correct,
+               'accuracy':correct/len(records),
+               'technical_failures':sum(r['status']=='failed' for r in records.values()),
+               'control_comparisons':'Wait for each full control; do not rank methods on partial coverage.'}
+    write(OUT/'primary_summary.json',summary)
+    text = ('# 主方法官方测试完成\n\n'
+            f"无JS版本：完整路径正确 {correct}/{len(records)}，正确率 {correct/len(records):.2%}。\n\n"
+            f"技术失败 {summary['technical_failures']} 例，保留在总分母中。\n\n"
+            '其他对照继续原队列，待全量完成后比较配对纠正与退化，不用部分病例排名。\n')
+    (OUT/'PRIMARY_REPORT.zh.md').write_text(text)
+
+
 def worker(gpu, pilot=False):
     import torch
     from .engine import Engine
@@ -206,7 +252,7 @@ def worker(gpu, pilot=False):
             write(status, {'status': 'complete', 'gpu': gpu, 'case_ids': ids, 'elapsed': time.time()-started})
             return
         while True:
-            job = claim_next(manifest['jobs'], gpu)
+            job = claim_work(manifest, gpu)
             if job is None:
                 break
             gid = job['guideline_id']
@@ -215,23 +261,29 @@ def worker(gpu, pilot=False):
             for index, key in enumerate(job['cases']):
                 write(status, {'status': 'running', 'pid': os.getpid(), 'gpu': gpu,
                     'guideline_id': gid, 'case_id': key, 'tree_case_index': index,
-                    'tree_cases': len(job['cases']), 'elapsed': time.time()-started})
-                evaluate_case(engine, learned, cases[key], path, done)
-            write(OUT / 'done' / f'{gid}.json', {'status': 'complete', 'units': len(done),
+                    'tree_cases': len(job['cases']), 'phase': job['phase'], 'methods': job['methods'],
+                    'elapsed': time.time()-started})
+                evaluate_case(engine, learned, cases[key], path, done, job['methods'])
+            done_folder = OUT / 'done' / job['phase'] if job['phase'] else OUT / 'done'
+            claim_folder = OUT / 'claims' / job['phase'] if job['phase'] else OUT / 'claims'
+            write(done_folder / f'{gid}.json', {'status': 'complete', 'units': len(done),
                 'failed': sum(r['status'] == 'failed' for r in done.values()), 'gpu': gpu})
-            (OUT / 'claims' / f'{gid}.json').unlink(missing_ok=True)
+            (claim_folder / f'{gid}.json').unlink(missing_ok=True)
+            finish_primary(manifest)
     write(status, {'status': 'complete', 'gpu': gpu, 'elapsed': time.time()-started})
 
 
 def aggregate():
     import numpy as np
     manifest = json.loads((OUT / 'manifest.json').read_text())
+    primary = manifest.get('primary_method', 'full')
     cases = {c['case_id']: c for c in all_cases()}
     records = {key: row for path in (OUT / 'results').glob('*.jsonl') for key, row in saved_units(path).items()}
     n = len(cases)
     methods, comparisons = {}, {}
-    labels = {'full':'完整方法', 'ordinary':'普通低秩干预', 'context':'上下文方法',
-              'blind_readout':'盲表示分类器', 'zero':'零干预', 'fusion':'标签概率融合', 'no_js':'去掉不变性损失'}
+    labels = {'full':'含JS版本', 'ordinary':'普通低秩干预', 'context':'上下文方法',
+              'blind_readout':'盲表示分类器', 'zero':'零干预', 'fusion':'标签概率融合', 'no_js':'无JS版本'}
+    labels[primary] += '（主方法）'
     def correct(key, kind):
         row = records.get((key, kind))
         return bool(row and row['status'] == 'complete' and row['score']['exact_path'])
@@ -250,11 +302,11 @@ def aggregate():
             'excluding_PR40_marked': {'n':sum(not c.get('previous_PR40_exposure',False) for c in cases.values()),
                 'correct':sum(correct(k,kind) for k,c in cases.items() if not c.get('previous_PR40_exposure',False))}}
     for kind in METHODS:
-        if kind == 'full':
+        if kind == primary:
             continue
         differences = defaultdict(list); gains = []; losses = []
         for key, case in cases.items():
-            delta = int(correct(key,'full')) - int(correct(key,kind))
+            delta = int(correct(key,primary)) - int(correct(key,kind))
             differences[case['source_id']].append(delta)
             if delta > 0:gains.append(key)
             if delta < 0:losses.append(key)
@@ -272,7 +324,8 @@ def aggregate():
             'corrected_ids':gains,'regressed_ids':losses}
     complete = len(records) == manifest['expected_units']
     summary = {'status':'complete' if complete else 'incomplete', 'expected_units':manifest['expected_units'],
-               'recorded_units':len(records),'methods':methods,'full_vs_controls':comparisons}
+               'recorded_units':len(records),'methods':methods,'primary_method':primary,
+               'primary_vs_controls':comparisons}
     write(OUT/'summary.json',summary)
     lines = ['# MEGA-CDP官方测试划分：冻结配置评测','',
         '输入为完整结构化决策树，全部方法使用同一合法路径输出。主指标为原指南完整路径正确率；失败留在7,458例分母中。不是原始指南自由文本输入设置的复现。','',
@@ -280,7 +333,7 @@ def aggregate():
         '| 方法 | 完整路径正确 | 正确率 | 终点正确 | 技术失败 |','|---|---:|---:|---:|---:|']
     for kind,s in methods.items():
         lines.append(f"| {labels[kind]} | {s['exact_path']}/{n} | {s['exact_path']/n:.2%} | {s['leaf_correct']} | {s['technical_failures']} |")
-    lines += ['','| 完整方法相对对照 | 纠正 | 退化 | 配对净提升 | 来源簇重抽样95%区间 |','|---|---:|---:|---:|---|']
+    lines += ['','| 主方法相对对照 | 纠正 | 退化 | 配对净提升 | 来源簇重抽样95%区间 |','|---|---:|---:|---:|---|']
     for kind,s in comparisons.items():
         lo,hi=s['source_cluster_bootstrap_95']
         lines.append(f"| {labels[kind]} | {s['corrected']} | {s['regressed']} | {s['paired_delta']:.2%} | [{lo:.2%}, {hi:.2%}] |")
@@ -308,6 +361,8 @@ def launch(pilot=False):
     info = {'status':'running','controller_pid':os.getpid(),'workers':{g:w.pid for g,w in workers.items()},
             'gpus':[0,1],'expected_units':14 if pilot else manifest['expected_units'],
             'started_at_unix':time.time(),'methods':METHODS,'views':['original'],
+            'primary_method':manifest.get('primary_method','full'),
+            'prioritize_primary':manifest.get('prioritize_primary',False),
             'independent_work_claims':True,'pilot_predictions_reused':True}
     write(path,info)
     import concurrent.futures
