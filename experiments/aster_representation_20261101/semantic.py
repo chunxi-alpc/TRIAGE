@@ -74,14 +74,12 @@ def lnds_length(sequence):
     return len(tails)
 
 
-def compute_metrics(score):
+def compute_path_metrics(path):
     import numpy as np
     from experiments.aster_manuscript_clinical_20261030.official_score import dynamic_time_warping
     from ot.unbalanced import sinkhorn_knopp_unbalanced
-    path = score['path_draws']['results']
-    outcome = score['outcome_draws']['results']
-    if len(path) != 5 or len(outcome) != 5:
-        raise ValueError('Exactly five draws are required for both semantic judgments')
+    if len(path) != 5:
+        raise ValueError('Exactly five path matrices are required')
     values = np.asarray(path, dtype=np.float64)
     if values.ndim != 3 or min(values.shape[1:]) == 0:
         raise ValueError('Expected draw x reference x predicted matrix')
@@ -101,12 +99,18 @@ def compute_metrics(score):
     mass = float(plan.sum())
     if not np.isfinite(plan).all() or mass <= 0:
         raise ValueError('Invalid unbalanced transport solution')
-    outcomes = np.asarray(outcome, dtype=float)
-    if np.any((outcomes < 1) | (outcomes > 5)) or not np.isfinite(outcomes).all():
-        raise ValueError('Outcome judgment outside 1..5')
-    return {'DTW_PCC': float(dtw), 'Acc': float(((outcomes - 1.) / 4.).mean()),
-            'OT_PCC': float((plan * cost).sum() / mass), 'LNDS_PCS': float(lnds),
-            'reference_steps': m, 'predicted_steps': n}
+    return {'DTW_PCC':float(dtw),'OT_PCC':float((plan*cost).sum()/mass),
+            'LNDS_PCS':float(lnds),'reference_steps':m,'predicted_steps':n}
+
+
+def compute_metrics(score):
+    import numpy as np
+    metrics=compute_path_metrics(score['path_draws']['results'])
+    outcomes=np.asarray(score['outcome_draws']['results'],dtype=float)
+    if outcomes.shape!=(5,) or not np.isfinite(outcomes).all() or np.any((outcomes<1)|(outcomes>5)):
+        raise ValueError('Expected five outcome judgments in 1..5')
+    metrics['Acc']=float(((outcomes-1.)/4.).mean())
+    return metrics
 
 
 def reusable(score, text):
@@ -747,9 +751,34 @@ def launch(args):
     aggregate_primary() if args.primary_only else aggregate()
 
 
+def reuse_primary():
+    reused=0
+    for case in official.all_cases():
+        if unit_finished(case,'no_js'):
+            continue
+        rows=prediction_rows(case)
+        if 'no_js' not in rows or rows['no_js'].get('status')!='complete':
+            continue
+        text=canonical(case,rows['no_js']['result']['text'])
+        if find_reusable(case,text)[1] is None:
+            continue
+        lock=claim(case,'cpu-reuse')
+        if lock is None:
+            continue
+        try:
+            def no_model():
+                raise RuntimeError('CPU reuse must never load a judge')
+            score_case(case,rows,['no_js'],no_model)
+            reused+=1
+        finally:
+            lock.unlink(missing_ok=True)
+    write(OUT/'reuse_primary.json',{'reused':reused,'model_calls':0})
+
+
 def main():
     p=argparse.ArgumentParser()
     p.add_argument('--prepare',action='store_true')
+    p.add_argument('--reuse-only',action='store_true')
     p.add_argument('--worker','--gpu',dest='worker',type=int,choices=[0,1])
     p.add_argument('--pilot',action='store_true')
     p.add_argument('--case-id',action='append')
@@ -762,7 +791,9 @@ def main():
     p.add_argument('--launch',action='store_true')
     p.add_argument('--aggregate',action='store_true')
     a=p.parse_args()
-    if a.prepare:
+    if a.reuse_only:
+        reuse_primary()
+    elif a.prepare:
         print(json.dumps(manifest(),ensure_ascii=False))
     elif a.worker is not None:
         worker(a)

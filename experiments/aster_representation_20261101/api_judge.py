@@ -29,18 +29,21 @@ def request(prompt,limit):
   except (urllib.error.URLError,TimeoutError,ValueError) as exc:
    if attempt==4:raise RuntimeError(type(exc).__name__+': API request failed')
    time.sleep(min(60,3*2**attempt))
-def score(case,output_root=None,shared=None):
+def score(case,output_root=None,shared=None,*,path_only=False):
  cid=case['case_id'];folder=(output_root or OUT)/'cases'/cid.replace(':','_')
- unit=folder/'result.json';prior=read(unit)
+ unit=folder/('path_stage.json' if path_only else 'result.json');prior=read(unit)
  if prior and prior.get('status') in ('complete','unscorable'):return prior
  start=time.time()
  try:
   refs=case['reference_steps'];preds=case['candidate_steps']
   path_prompt=official.pcc.build_prompt(case['language'],refs,preds)
-  outcome_prompt=official.acc.render_template(official.acc.TEMPLATE_ZH if case['language']=='zh' else official.acc.TEMPLATE_EN,{'Reference_Conclusion':case['reference_conclusion'],'Candidate_Conclusion':case['candidate_conclusion']})
+  stages=[('path',path_prompt)]
+  if not path_only:
+   outcome_prompt=official.acc.render_template(official.acc.TEMPLATE_ZH if case['language']=='zh' else official.acc.TEMPLATE_EN,{'Reference_Conclusion':case['reference_conclusion'],'Candidate_Conclusion':case['candidate_conclusion']})
+   stages.append(('outcome',outcome_prompt))
   values={}
   blocked=[]
-  for stage,prompt in [('path',path_prompt),('outcome',outcome_prompt)]:
+  for stage,prompt in stages:
    stage_folder=(shared or {}).get(stage,folder)
    def parse(raw):
     parser=(lambda t:official.pcc.parse_pairwise_score_matrix(t,refs,preds)) if stage=='path' else official.acc.parse_accuracy_score
@@ -79,6 +82,10 @@ def score(case,output_root=None,shared=None):
    values[stage]=list(slots.values())
   if blocked:
    result={'case_id':cid,'status':'unscorable','blocked_stages':sorted(set(blocked)),'saved_draws':{s:len(v) for s,v in values.items()}}
+   write(unit,result)
+   return result
+  if path_only:
+   result={'case_id':cid,'status':'complete','model':MODEL,'path_draws':len(values['path'])}
    write(unit,result)
    return result
   import numpy as np
