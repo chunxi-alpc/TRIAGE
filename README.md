@@ -51,6 +51,6 @@ python -m experiments.aster_representation --help
 ## 分支与合并原则
 
 - 当前首页所述 ASTER 方法和结果是主线入口；历史 CARE／ACRE 研究通过上表和 [历史分支索引](docs/BRANCHES.md)追溯。
-- 已合并的代码／文档版本：以 GitHub PR 的 merged 状态为准；当前可确认的关键整合包括 PR #16（CARE A1）和 PR #39（ASTER 实验协议）。
+- 已合并的代码／文档版本：以 GitHub PR 的 merged 状态为准；当前可确认的关键整合包括 PR #16（CARE A1）、PR #22（ASTER MedGUIDE 反事实预实验）、PR #39（ASTER 实验协议）和本次 PR #44（首页版本历史与 Qwen3-8B 选头索引）。
 - 仍开放的实验 PR 不因“版本整理”而直接合并。特别是 PR #41／#42 的执行实现与 PR #43 的方法修订存在研究设计差异；先完成方法决策、逐文件审查和回归测试，再决定合并或保留为独立版本。
 - 旧实验、负结果、原始冻结配置和模型指纹均保留；整理首页不覆盖历史结果，也不把未完成实验标成完成。
