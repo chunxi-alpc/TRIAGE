@@ -58,3 +58,24 @@
 旧支线的“当前”“默认”“后续计划”仅指原研究阶段。支线上的 ASTER 试点、门控或 SEKA 探索不自动满足新主线的五卷、阶段掩码、同信息和锁定测试要求；正式纳入须补充明确的代码与证据核验。
 
 原有代码和实验资产仍保留在主线文件树中便于复现；它们的研究身份为历史资产，不作为本稿已实现或已验证的声明。旧顶层叙述只保留归档跳转，避免与新主线产生多个权威版本。
+
+
+## 2026-11-03 后续新增分支
+
+以下分支在 2026-10-26 快照之后创建或进入当前仓库清单。此表是 **2026-11-03 的补充快照**；SHA 固定当日读取到的分支头，分支后续推进时请重新核对。当前仓库中除 `main` 外的分支均可由 GitHub 分支页查看。
+
+| 分支 | 2026-11-03 固定提交 | 追踪说明 |
+| --- | --- | --- |
+| [aster-method-experiment-plan-revision](https://github.com/chunxi-alpc/TRIAGE/tree/aster-method-experiment-plan-revision) | [7e8fc83c3ff8](https://github.com/chunxi-alpc/TRIAGE/commit/7e8fc83c3ff81a7c186d429c432bec98a03d1ed8) | [PR #43](https://github.com/chunxi-alpc/TRIAGE/pull/43)，ASTER 方法与实验计划修订，未合并 |
+| [chore/version-history-20261103](https://github.com/chunxi-alpc/TRIAGE/tree/chore/version-history-20261103) | [49e977ef9fd2](https://github.com/chunxi-alpc/TRIAGE/commit/49e977ef9fd25a304d73ca84fa3fd6f544fa2658) | [PR #44](https://github.com/chunxi-alpc/TRIAGE/pull/44)，版本历史与 8B 选头索引，已合并 |
+| [codex/aster-abc-diagnostics-20261030](https://github.com/chunxi-alpc/TRIAGE/tree/codex/aster-abc-diagnostics-20261030) | [87dc97545e08](https://github.com/chunxi-alpc/TRIAGE/commit/87dc97545e084d6ce41fc9dad979cbf422c9dc29) | ASTER A/B/C 机制诊断 |
+| [codex/aster-fullscale-plan-20261029](https://github.com/chunxi-alpc/TRIAGE/tree/codex/aster-fullscale-plan-20261029) | [85c7e06a4fb2](https://github.com/chunxi-alpc/TRIAGE/commit/85c7e06a4fb2e7f8da26a987cd5e42c92f621d51) | [PR #41](https://github.com/chunxi-alpc/TRIAGE/pull/41)，全量评测执行分支，未合并 |
+| [codex/aster-manuscript-implementation-20261030](https://github.com/chunxi-alpc/TRIAGE/tree/codex/aster-manuscript-implementation-20261030) | [4fbc0c511a04](https://github.com/chunxi-alpc/TRIAGE/commit/4fbc0c511a041f24bc9d92f9f7cecffa9779b3a3) | [PR #42](https://github.com/chunxi-alpc/TRIAGE/pull/42)，Qwen3-8B 选头、临床确认与官方评测，未合并 |
+| [codex/care-decide-ask-pivot-20261021](https://github.com/chunxi-alpc/TRIAGE/tree/codex/care-decide-ask-pivot-20261021) | [d3190844e660](https://github.com/chunxi-alpc/TRIAGE/commit/d3190844e660cc87d6627f4e5ad55ff1ee08dfd3) | CARE 决策／询问路线 |
+| [docs/aster-module1-clarity-20261028](https://github.com/chunxi-alpc/TRIAGE/tree/docs/aster-module1-clarity-20261028) | [9fb4dd771b13](https://github.com/chunxi-alpc/TRIAGE/commit/9fb4dd771b13e95a0b30899c480dd683702de0b2) | ASTER 模块一文档澄清 |
+| [exp/aster-p1-p6-20261027](https://github.com/chunxi-alpc/TRIAGE/tree/exp/aster-p1-p6-20261027) | [ad2b8d64fa60](https://github.com/chunxi-alpc/TRIAGE/commit/ad2b8d64fa600791a3666249be1731958f14ad36) | ASTER P1–P6 实验路线 |
+| [research/aster-single-turn-20261102](https://github.com/chunxi-alpc/TRIAGE/tree/research/aster-single-turn-20261102) | [d8cf67d53d6b](https://github.com/chunxi-alpc/TRIAGE/commit/d8cf67d53d6b068d9b382114de4a5fa4b22f633b) | ASTER 单轮研究支线 |
+| [research/module2-applicability-subspace](https://github.com/chunxi-alpc/TRIAGE/tree/research/module2-applicability-subspace) | [6078465acdbe](https://github.com/chunxi-alpc/TRIAGE/commit/6078465acdbe9676678aa1db143d9954e5ed26ed) | 模块二适用性子空间研究 |
+| [research/module2-mechanism-20261028](https://github.com/chunxi-alpc/TRIAGE/tree/research/module2-mechanism-20261028) | [5435f91007f8](https://github.com/chunxi-alpc/TRIAGE/commit/5435f91007f826d78bc8685191ce6d861e537470) | [PR #40](https://github.com/chunxi-alpc/TRIAGE/pull/40)，模块二机制与答案读出诊断，未合并 |
+
+**合并原则：** 以上分支是可追溯研究快照，不构成待合并清单。尤其 PR #41、#42、#43 的代码与实验协议有不同冻结点；先审查实验状态、提交祖先、文件重叠及回归结果，再决定是否合并。不要仅因分支名称相近或日期连续而合并。
