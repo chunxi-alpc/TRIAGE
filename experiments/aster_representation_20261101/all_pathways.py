@@ -183,7 +183,6 @@ def render(text,d):
         cells=['未取得有效评分' if row['means'][k] is None else f"{row['means'][k]:.2f}" for k in METRICS]
         external.append('| '+LABELS[kind]+f"（n={row['n']:,}） | "+' | '.join(cells)+' |')
     text=before+h+'\n\n'+'\n'.join(external)+'\n\n'+e+after
-    text=re.sub(r'^\*\*表2　.*$', '**表2　单轮测试的路径语义指标（%）。** 前16个模型引用原论文表5—7的 Qwen3-8B 裁判结果。本文六种方法均覆盖7,458例预测，使用 gpt-6.1-sol 裁判。每行 n 为取得五次有效路径评分的病例数，三个数值来自相同的步骤语义评分矩阵。各行的有效病例可能不同。',text,flags=re.M)
     text=text.replace('主方法的语义评分仅在路径和结论均取得五次有效评分后纳入阶段均值，另报覆盖率。','每项语义指标按取得五次有效评分的病例汇总，并报告对应例数。')
     text=text.replace('表1的主方法使用gpt-6.1-sol裁判','本文六种方法的步骤语义评分使用gpt-6.1-sol裁判')
     text=text.replace('LNDS阈值固定为0.9。','本文对六种方法使用预先固定的 LNDS 匹配阈值 0.9。')
