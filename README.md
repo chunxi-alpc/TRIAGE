@@ -1,26 +1,17 @@
 # TRIAGE · ASTER
 
-**离线学习编辑方向，在线判断适用性，再执行规则键编辑。**
+ASTER 研究大语言模型能否根据患者事实逐步执行临床指南。主方法保留完整指南，同时让同一个冻结模型单独读取患者和当前条件。在每次选择分支之前，一个可学习的四维子空间把这份处置盲参考引入当前决策。训练要求原指南和重排终点处置后的指南都选对分支。
 
-ASTER（Action-blind Selection, Then Eigen-subspace Re-routing）研究不适用兄弟分支上的处置是否会干扰指南分支判断。当前主稿按三个独立职责组织，模块一和模块二分别向模块三提供输入，不串联训练。
+冻结版本为 Qwen3-8B 第 18 层、第 3 轮的 `no_js`。在 MEGA-CDP 官方单轮测试上，完整路径正确率为 **89.21%（6,653／7,458）**。
 
-| 模块 | 作用 | 输出 |
-|---|---|---|
-| 一：对比适用性子空间学习 | 用独立金标最小对离线学习 | 有效键值头与编辑方向 |
-| 二：处置盲适用性评估 | 同一冻结骨干只读患者与条件 | 分支概率、预测与弃权 |
-| 三：适用性门控的规则键编辑 | 按病例分配增益并修改独立缓存 | 正常生成的答案或路径 |
+- [论文正文与结果](docs/ASTER/manuscript.zh.md)
+- [方法补充与复现步骤](docs/ASTER/supplementary.zh.md)
+- [主方法代码与冻结干预权重](experiments/aster_representation/)
 
-**研究状态：方法与实验方案。** 参考实现覆盖模块二的分类、温度拟合和模块三的规则增益接口；模块一方向学习、实际键编辑及完整流水线仍待实现。没有新增模型性能结果，历史实验不等于新版验证。
-
-## 阅读入口
-
-[**论文主稿**](docs/ASTER/manuscript.zh.md)是唯一方法正文；[方法补充](docs/ASTER/supplementary.zh.md)保存推导与实现约定；[实验协议](docs/ASTER/experiments.zh.md)保存数据、基线、指标与冻结规则；[引用清单](docs/ASTER/references.zh.md)说明来源和支持范围。
-
-可运行接口及实现状态统一见 [src/aster](src/aster/README.md)。旧脚本 `run_aster_module1` 保留兼容名称，现对应论文模块二；类名与输出格式未改。
+从仓库根目录查看数据准备、训练、预测和评分命令：
 
 ```bash
-python scripts/check_aster_markdown_math.py
-python -m unittest discover -s tests -p 'test_aster*.py' -v
+python -m experiments.aster_representation --help
 ```
 
-上述源码检查不替代模型验证。历史方案、旧实验、审计和重复模板统一从[归档入口](docs/ASTER/archive/README.md)访问，不再并列为当前主线。
+旧版规则键编辑研究见[历史文档](docs/ASTER/archive/README.md)。

@@ -1,127 +1,44 @@
-# 方法补充：估计、接口与实现约定
+# 方法补充与复现
 
-[论文主稿](manuscript.zh.md) · [实验协议](experiments.zh.md) · [代码与实现状态](../../src/aster/README.md)
+主方法在 Qwen3-8B 的第 18 层修改即将产生 Y/N 选择的查询表示。参考来自同一模型对患者、祖先条件和当前条件的另一次前向。模型只取参考的隐藏表示参与干预。测试时按实际选中的分支继续遍历，最终处置取自预测终点。公式与训练目标见[论文第 3 节](manuscript.zh.md#3-方法)。
 
-**版本：2026-10-28。** 本文只补充主稿未展开的定义和推导。模块顺序统一为：一、对比适用性子空间学习；二、处置盲适用性评估；三、适用性门控的规则键编辑。不增加方法组件或实验结论。
-
-## A. 差分估计与共享位移
-
-### A.1 对比样本与提取坐标
-
-正、负、未知三种状态须分别经独立条件解析器核验。目标规则的条件包含祖先条件；负状态保持组可达，只使同组兄弟规则适用；未知状态保留已知祖先事实，并移除决定性区分事实。事实替换须同步核验关联字段，不能只匹配“未记录”等字符串。
-
-同一三元组保持问题、指南、处置与其他患者事实一致。在实际聊天模板下逐位置核验目标词元标识、绝对位置及边界。等字符数不代替词元对齐。处置平衡发生在不同三元组之间，改变下游依赖且无法一致更新的置换不纳入。
-
-离线使用患者前置顺序。令 $T_i^s=\mathrm{Tok}(\mathrm{Prompt}(x_i^s))$，$Z_{\ell-1}^s=f_\theta^{(<\ell)}(T_i^s)$。对 $j\in J_i$ 提取：
-
-```math
-k_{h,i,j}^s=\mathrm{KeyNorm}_h\!\left(W_h^K\mathrm{Norm}_{\ell}(Z_{\ell-1,j}^s)\right)\in\mathbb R^{d_k}.
-```
-
-无键归一化的模型采用恒等映射。模型处于确定性评估模式；这里的旋转前坐标不消除上游隐藏状态中的顺序与位置影响。在线响应另用指南前置顺序及其位置 $\widetilde J_i$，不能复用离线位置。
-
-### A.2 二阶矩与谱目标
-
-令 $w_{i,j}=1/(N|J_i|)$，则 $\sum_{i,j}w_{i,j}=1$。沿用主稿的 $d_{h,i,j}$ 与 $\bar d_h$，定义同权重经验协方差 $C_h$：
-
-```math
-C_h=\sum_{i,j}w_{i,j}(d_{h,i,j}-\bar d_h)(d_{h,i,j}-\bar d_h)^{\top},\qquad
-\Omega_h=C_h+\bar d_h\bar d_h^{\top}.
-```
-
-因此未中心化估计同时保留平均差分与波动。$\Omega_h$ 对称半正定，前 $m$ 个特征向量求解：
-
-```math
-\max_{U^{\top}U=I_m}\mathrm{tr}(U^{\top}\Omega_hU)
-=\max_{U^{\top}U=I_m}\sum_{i,j}w_{i,j}\|U^{\top}d_{h,i,j}\|_2^2.
-```
-
-等价地，它最小化差分的加权投影重构误差。若矩阵 $D_h$ 的各行为 $\sqrt{w_{i,j}}d_{h,i,j}^{\top}$，则 $\Omega_h=D_h^{\top}D_h$，可由右奇异向量实现。最小对等权不自动等于规则或指南等权，三种统计数量均须保存。
-
-### A.3 共享位移的最小二乘解释
-
-在 $\mathcal U_h=\mathrm{span}(U_h)$ 内拟合一个共享位移：
-
-```math
-\min_{v\in\mathcal U_h}\sum_{i,j}w_{i,j}\|d_{h,i,j}-v\|_2^2.
-```
-
-目标可分解为与 $v$ 无关的离差项及 $\|v-\bar d_h\|_2^2$，故最优解为 $v_h=U_hU_h^{\top}\bar d_h$。再按主稿归一化为 $\Delta_h$。这一解释适用于共享差分拟合，不证明实际模型的完整决策被最小改变。
-
-数值实现预先固定累积精度、特征值容差和对称化步骤。秩不足 $m$、非有限统计量或 $\|v_h\|_2\le\tau_\Delta$ 的头排除；$\epsilon$ 仅用于数值稳定，不代替近零筛选。
-
-## B. 选头评分与共享专家
-
-### B.1 表示分离度
-
-在验证最小对上，先对每个片段平均：
-
-```math
-z_{h,i}=\frac1{|J_i|}\sum_{j\in J_i}\Delta_h^{\top}(k_{h,i,j}^+-k_{h,i,j}^-),\qquad
-u_{h,i}=\frac1{|J_i|}\sum_{j\in J_i}\Delta_h^{\top}\left(\frac{k_{h,i,j}^++k_{h,i,j}^-}{2}-k_{h,i,j}^0\right).
-```
-
-```math
-\mathrm{Sep}(h)=\frac{\mathrm{Mean}_i(z_{h,i})}{\mathrm{Std}_i(z_{h,i})+\mathrm{Mean}_i(|u_{h,i}|)+\epsilon}.
-```
-
-标准差采用除以 $N_{\mathrm{val}}$ 的经验总体标准差，至少需要两个验证最小对。缺失偏移先在片段内平均，再取绝对值，不能改成逐词元绝对值的平均。分别记录分子、波动和缺失惩罚，避免单个评分隐藏失败来源。
-
-### B.2 双状态在线读取
-
-按实际在线顺序，在未编辑骨干上计算回答前缀最后一个词元 $t_i$ 的查询。$\mathcal A(h)$ 为共享键值头 $h$ 的查询头集合，查询已包含查询侧位置编码：
-
-```math
-\bar q_{h,i,t_i}^s=\frac1{|\mathcal A(h)|}\sum_{a\in\mathcal A(h)}q_{a,i,t_i}^s,
-```
-
-```math
-\mathrm{Read}^s(h)=\frac1{N_{\mathrm{val}}}\sum_i\frac1{|\widetilde J_i|}\sum_{j\in\widetilde J_i}\frac{(\bar q_{h,i,t_i}^s)^{\top}R_j\Delta_h}{\sqrt{d_k}},\qquad s\in\{+,-\}.
-```
-
-正负状态使用相同的完整可评分最小对，失败数独立记录。该量表示增加一个单位系数的正位移所引起的平均直接得分变化；实际负向抑制再乘以 $-g^-$，故不能将负状态筛选改成 $\mathrm{Read}^-<0$。
-
-按照主稿有效集合和联合评分选择至多 $K$ 个头；并列按层号、键值头编号排序。没有有效头时输出空专家，而非补入无效头。专家保存 $H^*,U_h,\Delta_h$、投影均值范数、谱值、评分及模型、模板、数据划分、超参数指纹。在线最小依赖仅为 $H^*$ 与每头 $\Delta_h$。
-
-## C. 处置盲评估与执行接口
-
-处置盲输入使用白名单：患者、祖先条件、组内条件、固定任务指令，以及经过声明核验的条件语境。原问题、选项、处置、标题和说明不自动进入分类器。患者中待选择建议与已发生病史仍需输入适配器区分，不能宣称任意自由文本均自动无泄漏。
-
-代理标签须在真实模板边界上为互异单词元。当前参考实现每组支持 1–25 条实际规则，再加 NONE。重复编号、空组、超限、缺少互斥声明、无效标签或非有限分数应报错；程序检查不等于自然语言互斥性的证明。直接标签读出采用冻结评估模式，分类在模块三编辑前运行。
-
-论文接口固定为 $\mathcal S_g=(\mathbf p_g,\hat r_g,\delta_g,H_g,a_g)$。实现可以额外保存最大概率、提示哈希和原始分数，但它们不重新定义 $\mathcal S_g$。预测始终保留最大类别；弃权不替换为 NONE。$e_g$ 表示输入与可达性有效，由执行侧另传。`rule_gains` 只实现增益映射，不遍历树、不学习方向、不修改注意力。
-
-当前公共类名、`aster.action_blind.v1` 字段、脚本名称保持兼容。旧名称中的 module1 指历史编号，现对应论文模块二；不据此更改既有数据格式。调用示例和唯一实现状态表见[代码说明](../../src/aster/README.md)。
-
-## D. 键编辑与缓存边界
-
-生成未编辑指南前缀后，为每例建立独立可编辑缓存。已经旋转的键必须加入 $g_rR_j\Delta_h$，不得直接加入旋转前方向，亦不在编辑后额外归一化。共享原始缓存不变；患者、问题与生成查询读取病例缓存。模块二分类不得读取该编辑缓存。
-
-规则位置必须唯一归属，重叠或无法映射的词元不能重复叠加增益。分组查询注意力的编辑单位是键值头，影响共享它的全部查询头，不声称只影响其中一个查询头。无编辑时绕过算子；一致性参照使用相同分段预填充和解码设置，不因缓存实现不同而预设逐位相等。
-
-对固定查询，令 $\alpha_j=\mathrm{softmax}(s)_j$，$\alpha'_j=\mathrm{softmax}(s+\delta s)_j$。未编辑位置的直接 $\delta s_j=0$，则：
-
-```math
-\mathrm{KL}(\alpha\Vert\alpha')=\log\left(\sum_j\alpha_j e^{\delta s_j}\right)-\sum_j\alpha_j\delta s_j
-\le\max_j\delta s_j-\min_j\delta s_j\le2\max_j|\delta s_j|.
-```
-
-结合主稿式（11），有：
-
-```math
-\mathrm{KL}(\alpha\Vert\alpha')\le2\max(g^+,g^-)\max_{j\ \text{被编辑}}\frac{|q_{a,t}^{\top}R_j\Delta_h|}{\sqrt{d_k}}.
-```
-
-没有编辑位置时右端为零。这里使用 $\alpha_j$ 避免与组弃权标记 $a_g$ 混淆。此界仅描述单次固定查询的直接变化，后续查询、表示和生成由实际前向计算。
-
-## E. 实现验收与诊断
-
-| 范围 | 必须核验 |
+| 组成 | 实现 |
 |---|---|
-| 对比数据 | 三状态标签、祖先可达性、词元对齐、处置平衡、同源隔离及排除计数 |
-| 方向与选头 | 数值秩、近零排除、双状态响应、并列规则、至多 K 个有效头、空专家 |
-| 分类 | 处置字段改写后的提示与词元不变、病史保留、单词元标签、NONE／弃权／并列 |
-| 编辑 | 位置旋转、规则归属、键值头映射、仅目标键直接改变、缓存隔离、全零回退 |
-| 产物 | 代码与模型修订、模板和数据哈希、完整分类结果、专家指纹、增益、输出及失败 |
+| 条件提示、全指南提示、处置重排和合法路径 | [inputs.py](../../experiments/aster_representation/inputs.py) |
+| 正交子空间、参考映射、门控及损失 | [intervention.py](../../experiments/aster_representation/intervention.py) |
+| 参考读取、决策位置干预及缓存更新 | [engine.py](../../experiments/aster_representation/engine.py) |
+| 原指南和重排视图的监督 | [training.py](../../experiments/aster_representation/training.py) |
+| 正式评测使用的四个参数张量 | [no_js_layer18_epoch3.safetensors](../../experiments/aster_representation/no_js_layer18_epoch3.safetensors) |
 
-分半子空间比较使用投影矩阵或主夹角，不直接比较符号不唯一的特征向量。未见规则方向余弦须保留 $\|\Delta_h\|_2$ 分母，近零规则均值单列。配对符号置换不改变外积，因此只检验有向均值与定向作用。各状态的平均响应与正号比例均报告，逐头、逐位置和后续生成诊断与主读出位置分开。契约通过不能替代模型性能验证。
+## 冻结配置
+
+含 JS 的版本在开发集上比较第 18、24、30 层，选出第 18 层。普通低秩、上下文和无 JS 版本沿用该层位。各轮检查点先比较开发集原指南的路径与终点同时正确数，若相同则依次比较原指南与重排视图的路径一致率、原指南的平均编辑幅度（越小越优）。主方法取第 3 轮。开发集与内部确认集都参与了主方法版本的选择。
+
+训练集包含 200 个普通病例，另有 8 组年龄最小对，共 16 个不同的患者状态。每个病例的贡献按节点数平均。AdamW 学习率为 0.001，权重衰减为 0.01，单病例批次，梯度累积 8，梯度范数上限为 1，训练 3 轮。骨干为 BF16，干预参数为 FP32。盲参考和完整前向均关闭思考模式。路径解码只允许当前节点的合法转移，最多生成 512 个词元。
+
+## 使用冻结权重复现官方单轮结果
+
+从仓库根目录运行。环境采用 Python 3.12、PyTorch 2.8.0 和 Transformers 4.57.6。准备 [MEGA-CDP 数据](https://huggingface.co/datasets/nchennnn/MEGA-CDP) 和 [Qwen3-8B 固定版本](https://huggingface.co/Qwen/Qwen3-8B/tree/26028140be3ee69b82b1d1450179ab71bb1121b9) 的本地目录。数据目录下应包含 `test/` 和 `train_val/`。随代码发布的权重只包含学习得到的干预参数。
+
+```bash
+python -m pip install -r experiments/aster_representation/requirements.txt
+MEGA=/path/to/MEGA-CDP
+MODEL=/path/to/Qwen3-8B
+python -m experiments.aster_representation prepare --dataset "$MEGA" --split official_test --output work/test.jsonl
+CUDA_VISIBLE_DEVICES=0 python -m experiments.aster_representation predict --model "$MODEL" --cases work/test.jsonl --output work/no_js.jsonl
+python -m experiments.aster_representation score --cases work/test.jsonl --predictions work/no_js.jsonl
+```
+
+`predict` 默认加载仓库内的冻结权重。患者、指南和问题进入预测，金标路径进入评分。若已有冻结实验的预测，直接运行 `score`，其 `--predictions` 也接受存放原实验分片 JSONL 的目录。该命令报告严格完整路径正确率。论文对应计数为 **6,653／7,458**。DTW-PCC 和 Acc 另需对步骤和结论作语义评分。
+
+## 从训练病例复现干预参数
+
+数据准备按[登记的病例编号](../../experiments/aster_representation/splits.json)从公开数据重建病例。年龄最小对按原病例和登记的年龄改动重建。以下命令复现选定层位的训练。不同轮次的权重写入新的输出目录。
+
+```bash
+python -m experiments.aster_representation prepare --dataset "$MEGA" --split train --output work/train.jsonl
+python -m experiments.aster_representation prepare --dataset "$MEGA" --split age_train --output work/age_train.jsonl
+CUDA_VISIBLE_DEVICES=0 python -m experiments.aster_representation train --model "$MODEL" --cases work/train.jsonl --age-cases work/age_train.jsonl --output work/trained
+```
+
+用训练所得权重执行预测时，向 `predict` 传入 `--weights work/trained/epoch3.safetensors`。开发集和内部确认集可分别用 `prepare --split development` 和 `prepare --split confirmation` 重建。
