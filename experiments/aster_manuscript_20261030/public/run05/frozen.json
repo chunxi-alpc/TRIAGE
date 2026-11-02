@@ -1,0 +1,180 @@
+{
+  "rank": 8,
+  "top_k": 4,
+  "selected_heads": [
+    "21:4",
+    "21:6",
+    "24:3",
+    "29:7"
+  ],
+  "temperature": {
+    "temperature": 0.05,
+    "split": "calibration",
+    "n_records": 24,
+    "nll_before": 0.00043680238404664103,
+    "nll_after": 0.0,
+    "bounds": [
+      0.05,
+      20.0
+    ],
+    "at_boundary": true,
+    "method": "pooled_multiclass_nll_single_temperature"
+  },
+  "thresholds": {
+    "probability": 0.0,
+    "margin": 0.0,
+    "accepted": 24,
+    "total": 24,
+    "accepted_accuracy": 1.0
+  },
+  "threshold_candidates": [
+    {
+      "probability": 0.0,
+      "margin": 0.0,
+      "accepted": 24,
+      "total": 24,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "probability": 0.0,
+      "margin": 0.1,
+      "accepted": 24,
+      "total": 24,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "probability": 0.7,
+      "margin": 0.0,
+      "accepted": 24,
+      "total": 24,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "probability": 0.7,
+      "margin": 0.1,
+      "accepted": 24,
+      "total": 24,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "probability": 0.9,
+      "margin": 0.0,
+      "accepted": 24,
+      "total": 24,
+      "accepted_accuracy": 1.0
+    },
+    {
+      "probability": 0.9,
+      "margin": 0.1,
+      "accepted": 24,
+      "total": 24,
+      "accepted_accuracy": 1.0
+    }
+  ],
+  "gain_candidates": [
+    0.25,
+    1.0,
+    4.0
+  ],
+  "bias_unit_rms": {
+    "21:4": 0.3468308969188124,
+    "21:6": 0.3776321468737661,
+    "24:3": 0.3385274367901106,
+    "29:7": 0.39894579702205935
+  },
+  "random_seed": 20261030,
+  "max_new_tokens": 12,
+  "code_commit": "bb944d0a524c94d1a97f0ea273d5c6eb33016ff9",
+  "scope": "synthetic mechanism only; exploratory heldout; no clinical gold",
+  "g_plus": 0.25,
+  "g_minus": 0.25,
+  "gain_selection_results": [
+    {
+      "gain": 0.25,
+      "denominator": 16,
+      "first_token_accuracy": 1.0,
+      "rule_accuracy": 0.875
+    },
+    {
+      "gain": 1.0,
+      "denominator": 16,
+      "first_token_accuracy": 1.0,
+      "rule_accuracy": 0.875
+    },
+    {
+      "gain": 4.0,
+      "denominator": 16,
+      "first_token_accuracy": 1.0,
+      "rule_accuracy": 0.875
+    }
+  ],
+  "frozen_code_commit": "bb944d0a524c94d1a97f0ea273d5c6eb33016ff9",
+  "expert_fit_config": {
+    "rank": 8,
+    "top_k": 4,
+    "epsilon": 1e-08,
+    "min_norm": 1e-06,
+    "eig_rtol": 1e-08
+  },
+  "backbone_identity": {
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "local-modelscope-snapshot-20261014-upstream-revision-unavailable",
+    "model_type": "qwen3",
+    "num_layers": 36,
+    "num_kv_heads": 8,
+    "num_query_heads": 32,
+    "head_dim": 128,
+    "dtype": "torch.bfloat16",
+    "rope_scaling": {},
+    "candidate_layers": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ]
+  },
+  "template_id": "5c1c203898b98262172de78a976379049784b205eb9387dc21e1fc6fff05c456",
+  "generation": {
+    "sampling": "greedy",
+    "enable_thinking": false,
+    "max_new_tokens": 12
+  },
+  "scoring": {
+    "method": "one unique R1/R2/NONE token pattern in generated text",
+    "repeats": 1,
+    "clinical_judge": null,
+    "official_path_score": false
+  }
+}

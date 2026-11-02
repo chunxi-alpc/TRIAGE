@@ -1,0 +1,274 @@
+{
+  "status": "passed",
+  "dtype": "bfloat16",
+  "checks": {
+    "triplet_token_alignment": true,
+    "patient_once": true,
+    "post_k_norm_pre_rope": true,
+    "rotated_all_four_gqa_queries": true,
+    "original_cache_values_and_nontarget_unchanged": true,
+    "fixed_query_score_formula_with_rounding_bound": true,
+    "segmented_zero_empty_logits_equal": true,
+    "two_patients_share_original_prefix": true,
+    "classifier_generation_same_model": true,
+    "ancestor_abstention_closes_child": true
+  },
+  "identity": {
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "26028140be3ee69b82b1d1450179ab71bb1121b9",
+    "model_type": "qwen3",
+    "num_layers": 36,
+    "num_kv_heads": 8,
+    "num_query_heads": 32,
+    "head_dim": 128,
+    "dtype": "torch.bfloat16",
+    "rope_scaling": {},
+    "candidate_layers": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35
+    ]
+  },
+  "edit": {
+    "planned_key_vectors": 6,
+    "changed_key_vectors": 6,
+    "max_actual_shift_norm": 1.00082528591156,
+    "skipped": false
+  },
+  "score_equation": {
+    "actual": [
+      [
+        0.014487960736373599,
+        0.10203025386477337,
+        0.05762361382600368,
+        0.035642040888980306
+      ],
+      [
+        0.017879796858916625,
+        0.10492428038866405,
+        0.06339175248786368,
+        0.03780373826112488
+      ],
+      [
+        0.007809692491057227,
+        0.09778059601977078,
+        0.057425798909606814,
+        0.0583167082130532
+      ],
+      [
+        -0.014731946208225133,
+        -0.09657775426850046,
+        -0.07253302460824,
+        -0.086585521471621
+      ],
+      [
+        -0.00064868214543117,
+        -0.08819070000222659,
+        -0.0461412739316655,
+        -0.06460123533122474
+      ],
+      [
+        -0.03271476840414861,
+        -0.0956461851100422,
+        -0.0635579849267467,
+        -0.01326509890278836
+      ]
+    ],
+    "ideal": [
+      [
+        0.010011677419254003,
+        0.09999350396927183,
+        0.05173926865644288,
+        0.027231840077102054
+      ],
+      [
+        0.019855495693353552,
+        0.10638127232165256,
+        0.06470870843833926,
+        0.035040790384603115
+      ],
+      [
+        0.00938898216512966,
+        0.09893044577735455,
+        0.06012315366729249,
+        0.06503195107128519
+      ],
+      [
+        -0.012378734436373356,
+        -0.09950093252010309,
+        -0.06867207641269521,
+        -0.09091669123020503
+      ],
+      [
+        -0.0004286328103800703,
+        -0.08885695917490986,
+        -0.04331229253369142,
+        -0.06273264514232096
+      ],
+      [
+        -0.031952386606710126,
+        -0.09702400308535122,
+        -0.062315250486554806,
+        -0.013053735973495805
+      ]
+    ],
+    "rounding_bound": [
+      [
+        0.04010045295109961,
+        0.04147999087419556,
+        0.04170891733783533,
+        0.051752753852059546
+      ],
+      [
+        0.0389433117158838,
+        0.04028304160443447,
+        0.04050536215139713,
+        0.05025937307675462
+      ],
+      [
+        0.04266880070577111,
+        0.04413669506542871,
+        0.04438028377663938,
+        0.05506740641511392
+      ],
+      [
+        0.0419156268710742,
+        0.04335761050426407,
+        0.04359689947794576,
+        0.05409537699383997
+      ],
+      [
+        0.04331644349568895,
+        0.04480661809717826,
+        0.045053904087663514,
+        0.05590323981409203
+      ],
+      [
+        0.04881921842856224,
+        0.05049869978704547,
+        0.05077740015599485,
+        0.06300499891271254
+      ]
+    ],
+    "max_abs_error": 0.008410198614001274
+  },
+  "tiny_gain_edit": {
+    "planned_key_vectors": 6,
+    "changed_key_vectors": 0,
+    "max_actual_shift_norm": 0.0,
+    "skipped": false
+  },
+  "full_vs_segmented": {
+    "max_abs_logit_error": 1.0,
+    "mean_abs_logit_error": 0.35956788063049316,
+    "argmax_equal": true
+  },
+  "classification": {
+    "schema_version": "aster.action_blind.v1",
+    "groups": [
+      {
+        "probabilities": {
+          "R1": 0.9999999999999063,
+          "R2": 9.357622968839298e-14,
+          "NONE": 1.4068617124460148e-16
+        },
+        "prediction": "R1",
+        "probability": 0.9999999999999063,
+        "margin": 0.9999999999998127,
+        "entropy": 2.906124759180585e-12,
+        "abstain": false,
+        "intervention_allowed": true,
+        "group_id": "g",
+        "prompt_sha256": "412ecb2aef1d115938b2650a6c89e603a5910c66f5b7edfcae2ae9210ebe425c",
+        "logits": {
+          "R1": 63.25,
+          "R2": 33.25,
+          "NONE": 26.75
+        }
+      }
+    ],
+    "metadata": {
+      "prompt_version": "condition-only-v1",
+      "temperature": 1.0,
+      "probability_threshold": 0.0,
+      "margin_threshold": 0.0,
+      "entropy_unit": "nats",
+      "question_and_options_used": false,
+      "task_context_used": false,
+      "probability_method": "restricted_label_softmax"
+    }
+  },
+  "classification_failure": {
+    "gains": {
+      "R1": 0.0,
+      "R2": 0.0
+    },
+    "groups": {
+      "g": {
+        "reachable": true,
+        "enabled": false,
+        "prediction": null,
+        "reason": "classification_failure"
+      }
+    }
+  },
+  "ancestor_abstention": {
+    "gains": {
+      "R1": 0.0,
+      "R2": 0.0,
+      "C1": 0.0,
+      "C2": 0.0
+    },
+    "groups": {
+      "g": {
+        "reachable": true,
+        "enabled": false,
+        "prediction": "R1",
+        "reason": "abstain"
+      },
+      "child": {
+        "reachable": false,
+        "enabled": false,
+        "prediction": "C1",
+        "reason": "unreachable"
+      }
+    }
+  },
+  "elapsed_seconds": 6.943225622177124,
+  "peak_allocated_gb": 16.495965184,
+  "code_commit": "78947fb18e75108b8f8cd3b934f94f25efade799",
+  "upstream_model_revision_verified": true
+}
