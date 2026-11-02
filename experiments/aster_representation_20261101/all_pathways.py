@@ -186,6 +186,8 @@ def render(text,d):
     text=text.replace('主方法的语义评分仅在路径和结论均取得五次有效评分后纳入阶段均值，另报覆盖率。','每项语义指标按取得五次有效评分的病例汇总，并报告对应例数。')
     text=text.replace('表1的主方法使用gpt-6.1-sol裁判','本文六种方法的步骤语义评分使用gpt-6.1-sol裁判')
     text=text.replace('LNDS阈值固定为0.9。','本文对六种方法使用预先固定的 LNDS 匹配阈值 0.9。')
+    if 'DTW-PCC 列采用 BERTScore 步骤相似度' in text:
+        return text
     # Table 1 and Table 2 should show the same DTW and effective denominator.
     h='<!-- ASTER_FINAL_MAIN_START -->';e='<!-- ASTER_FINAL_MAIN_END -->'
     pre,rest=text.split(h,1);table,post=rest.split(e,1)

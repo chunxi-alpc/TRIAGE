@@ -109,7 +109,10 @@ def aggregate(cases):
   lines=table.split('\n')
   for i,line in enumerate(lines):
    if line.startswith('| **处置盲内部干预（本文）** |'):
-    cells=line.split('|');cells[3]=' **%.2f** '%(100*d['metrics']['DTW_PCC']);cells[4]=' **%.2f** '%(100*d['metrics']['Acc']);lines[i]='|'.join(cells)
+    cells=line.split('|')
+    if 'DTW-PCC 列采用 BERTScore 步骤相似度' not in text:
+     cells[3]=' **%.2f** '%(100*d['metrics']['DTW_PCC'])
+    cells[4]=' **%.2f** '%(100*d['metrics']['Acc']);lines[i]='|'.join(cells)
   text=before+start+'\n'.join(lines)+end+after
   text=text.replace('**本文：结构化指南／Qwen裁判**','**本文：结构化指南／gpt-6.1-sol裁判**')
   text=text.replace('语义评分裁判为Qwen3-8B','主方法语义评分裁判为gpt-6.1-sol（第三方接口返回名称）')
