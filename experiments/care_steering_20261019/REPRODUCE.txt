@@ -1,0 +1,108 @@
+CARE / knowledge-selection steering 最小实验复现说明
+2026-10-19。模型推断只在 gcx@10.29.128.115 执行；此说明本身不代表任何阶段已经完成。
+
+1. 范围与固定来源
+这是单模型、小规模方法适配，不能称原论文完整数值复现或 CARE 原上传文件复现。
+目标模型是原服务器已有 Qwen3-8B。实际文件SHA256与环境版本以 sources/model_environment_manifest.json 为准；运行设置在 results/engine.json、方向在 results/direction.json、源dev选择在 results/selected.json。
+源数据为已冻结 ClashEval 子集；不是原方法的 NQ-Swap/MacNoise。原 CARE 上传txt仍未恢复，不能声明读过。
+正式论文和代码版本、实现差异见 sources/paper_method_audit.md。
+交付包不含模型权重、环境二进制、.deps或完整外部论文/代码副本；重建时必须保留相同模型文件，或明确记录模型变化。不能只因本地模型目录同名就认为权重相同。
+
+2. 主要文件
+src/reproduce.py：在全新目录重跑，拒绝已有输出目录。
+src/engine.py：末提示词元、prefill一次的残差干预；向量不单位化。
+src/prepare_facts.py、src/run_facts.py：冻结事实输入、训练筛选、方向估计及仅源dev选系数。
+data/build_data.py、data/manifest.json：合成数据构造、拆分、种子与校验。
+data/care_gate.py：V6数值比较/三值逻辑和窄语法解析，不调用Phi-4或BioLinkBERT。
+src/run_rules.py：A/B/C_reduced/D_adapt约束选项评分及仅目标dev选择D系数。
+src/run_free.py：探索性自由生成；设置见 audit/free_generation_protocol.json。
+src/run_c_full.py：单独运行已有V6模型链路的小子集补充，不属于reproduce.py入口。
+src/analyze.py：家族bootstrap、家族配对置换、次要McNemar和多重比较校正。
+src/build_report.py：读取实际结果和完成标记，生成REPORT.txt/REPORT.html及静态图；不运行模型、不重新选参数。
+results/保留原始输出和数值；audit/保留独立审查。计划和完成结果必须分开读。
+
+3. 推荐安全复跑入口
+先连接服务器并进入交付包所在目录，激活原环境：
+source /home/gcx/gcx261014/bin/activate
+
+以下输出目录只是示例，必须使用尚不存在的新路径。脚本会拒绝已有目录，因此不会向原结果追加。
+默认重跑facts、rules及统计：
+python src/reproduce.py --output-dir /home/gcx/care_repeat_main_20261019 --gpu 6
+
+重跑并包含探索性自由生成：
+python src/reproduce.py --output-dir /home/gcx/care_repeat_free_20261019 --gpu 2 --include-free-generation
+
+仅把现有原始结果复制到新目录并重新计算主统计（不加载模型）：
+python src/reproduce.py --output-dir /home/gcx/care_reanalysis_20261019 --analysis-only
+
+仅重算主统计及已完整保存的自由生成统计：
+python src/reproduce.py --output-dir /home/gcx/care_reanalysis_free_20261019 --analysis-only --include-free-generation
+
+--analysis-only --include-free-generation要求源包已含完整free_predictions.jsonl；不能用该入口把未完成生成变成完成结果。
+reproduce.py使用当前解释器；必须先激活指定环境。模型路径仍来自src/engine.py的MODEL；复制到另一服务器时修改该路径并核验权重摘要。
+默认入口不运行C_V6，不安装依赖，也不运行最终打包。它会复制原audit文件；这些审查属于原运行，不自动成为新方向的筛选/稳定性证据。重新生成filter_attrition/training_direction_bootstrap等审查后再用于新报告；只有统计重算、原始输出未变化时可沿用原审查。
+如果D在新运行的dev选择epsilon不为0，当前run_free.py中D复用A的条件不再成立，不应把该自由生成结果称D的非零扰动结果；应先实现并审查对应D生成干预。本轮D的实际选择见results/key_selected.json。
+
+4. 单独重建完整已有V6补充
+实现细节见 sources/c_full_implementation.md。原服务器用的是Phi-4 NF4 + TrialMatchAI LoRA + BioLinkBERT；这是已有V6代码链路，不等于缺失上传文件的原CARE方法复现。
+必须保留sources/__init__.py、sources/care_v6_frozen.py和sources/trialmatch_parser.py。模型目录来自src/run_c_full.py的MODELS，并由results/c_full/contract.json记录；确认模型摘要和配置后再运行。
+
+交付包排除了.deps。原服务器可在新实验目录执行下列命令，恢复本次使用的项目内bitsandbytes包，不修改共享环境：
+mkdir -p .deps
+cp -a /home/gcx/n/.venv/lib/python3.12/site-packages/bitsandbytes .deps/
+cp -a /home/gcx/n/.venv/lib/python3.12/site-packages/bitsandbytes-0.50.2.dist-info .deps/
+export PYTHONPATH="$PWD/.deps:$PWD${PYTHONPATH:+:$PYTHONPATH}"
+
+然后验证副本与记录的实际文件摘要一致：
+python - <<'PY'
+import hashlib
+import importlib.metadata
+import json
+from pathlib import Path
+manifest = json.loads(Path("sources/bitsandbytes_local_dependency.json").read_text())
+for name, expected in manifest["files_sha256"].items():
+    path = Path(".deps") / name
+    assert path.is_file(), f"Missing dependency file: {name}"
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == expected, f"Dependency changed: {name}"
+assert importlib.metadata.version("bitsandbytes") == "0.50.2"
+import bitsandbytes
+print("bitsandbytes 0.50.2 verified")
+PY
+
+上述复制源不存在时，可在兼容的新环境安装同版本项目依赖：
+python -m pip install --no-deps --target .deps bitsandbytes==0.50.2
+安装后重新记录实际文件摘要；即使版本号相同，也不应冒充与原记录逐字节一致。原环境其余依赖见sources/requirements_frozen.txt；不要为复现而直接改动共享环境。
+
+新目录中先准备并验证契约（该步骤不启动GPU推断）：
+python src/run_c_full.py --prepare-only
+
+正式执行（先按下文向使用者报告GPU资源）：
+CUDA_VISIBLE_DEVICES=6 TOKENIZERS_PARALLELISM=false HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 python src/run_c_full.py
+
+run_c_full.sh写死原目录与PYTHONPATH；复制目录后应修改这些路径，或采用以上Python入口。重复使用已保存批次只允许源码、输入及契约均一致；完成以results/c_full/complete.json和完整唯一预测共同为准。不要仅因已写prepared.json就称模型实验完成。
+
+5. 原始入口、数据与报告
+一般优先使用reproduce.py。直接调用run_facts.py、run_rules.py、run_free.py会追加结果，不能在已有results中重复执行；应创建完整新副本，保留data/src/sources/audit目录，建立空results/logs，并按facts→rules→analyze的依赖顺序运行。
+冻结data/facts.jsonl和data/cases.jsonl足够重放本轮输入；重新抽取事实数据需要prepare_facts.py中指定的原始parquet，来源及SHA256见sources/facts_provenance.json。
+同一问题去重后拆分，所有指令变体留在同一集合。规则按具体家族隔离，但共享通用逻辑模板；设备路由迁移只是领域表述迁移。
+在已完成统计、且相应审查确属本次运行的目录中，可执行：
+python src/build_report.py
+
+报告会显示计划和完成状态；只有生成完成标记、完整唯一输出、相应统计及独立验收标记都齐备才展示自由生成成绩。audit/free_acceptance.json须含accepted=true（或status=passed/accepted）以及与results/free_predictions.jsonl一致的predictions_sha256；不能仅为显示报告而跳过验收写此标记。报告读取统计JSON，不使用旧实验的硬编码准确率或p值。若复跑副本未包含官方commit记录或独立审查，报告应显示缺失，不能沿用为新核验证据。
+
+6. 判读与资源要求
+正式启动模型前，先向使用者报告GPU编号、预计显存、实验规模和预计时长。只使用授权GPU 0、1、2、3、6、7；其他进程占用时不要擅自终止。稳定运行后停止持续监控。
+本轮事实筛选分解见audit/filter_attrition.json；不能把低合格数都归因于多次clean要求。规范化恢复某个已保存阶段，不等于该题后续未执行阶段也通过。
+方向bootstrap仅重采本轮已有合格样本，不证明跨数据、跨模型稳定性，也没有替代新的方向训练种子。
+候选字母log probability最大者不同于自然生成答案。自由生成为事后增加的探索性补充，不能冒充原先注册的主终点。
+解析失败按错误计准确率；误用率同时报告不适用病例的判断覆盖、可判读子集值和全体上下界，不能把无答案当作未误用。
+[100%,100%]等零宽经验bootstrap区间只反映现有家族的观测分布，没有证明总体确定成功。共享模板、家族少和单方向种子均限制外推。
+C_reduced与C_V6须分开。D_adapt是成对Key差的低秩空间适配，所选epsilon与实际结果以JSON为准；不能据此断言原CARE有效或无效。
+所有原始输出保持不变；没有真实患者临床验证、参数旧知识回退验证、不同逻辑模板迁移或原论文多模型全基准复现。
+
+最终答案格式兼容分析（同一批输出，CPU处理，无模型重跑）
+原strict解析会把✅等装饰和答案之后的排版行计为INVALID。最终版读取明确最终答案块，允许常见排版，仍不读取gold、不覆盖raw/strict。
+python audit/normalize_free_format.py
+OPENBLAS_NUM_THREADS=1 python src/analyze.py --predictions results/free_format_normalized_predictions.jsonl --output results/free_format_normalized_analysis.json --markdown results/free_format_normalized_analysis.md --exploratory
+20例完整V6自由生成使用相同item的A完成项精确复用（全部V6 gate=0），不计为新增生成。
+对应表见 results/c_full_free_subset_summary.json。
