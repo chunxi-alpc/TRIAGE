@@ -17,9 +17,14 @@ python -m experiments.aster_representation --help
 旧版规则键编辑研究见[历史文档](docs/ASTER/archive/README.md)。
 
 
-## Gemma 3 27B 选层选头先导（运行中）
+## Gemma 3 27B 选层选头先导与四输入补评
 
-[实验说明与复现入口](experiments/gemma3_head_pilot/)：复用200例训练、16个年龄训练状态、100例开发、100例确认，扫描992个层—KV头组，比较整层、选中头和未选头对照。仅用GPU 0、1；9项CPU测试及真实27B零干预／梯度试跑通过。正式流程已启动，**尚无确认集成绩**；本轮不运行官方7,458例。
+[实验说明与复现入口](experiments/gemma3_head_pilot/)：扫描992个层—KV头组，完成三个候选层的整层／选头训练和未选头对照。仅用GPU 0、1；本轮未运行官方7,458例。
+
+原先导按开发PathAcc选参，100例独立确认集上，零干预77%、直接盲读89%、整层85%、选头77%、未选头对照77%。[确认结果](experiments/gemma3_head_pilot/results/pilot_confirmation.zh.md)；[开发集含两条基线的比较](experiments/gemma3_head_pilot/results/pilot_development.zh.md)。
+
+按论文规则忠实执行主指标，新增20组受控开发反事实（10套开发指南，每组四种输入），补评全部18个已有检查点和两条基线。以四项全对率优先、原100例开发PathAcc次之、实际编辑量更小再次之，重新选择层、头组和轮次。[四输入统一对比表](experiments/gemma3_head_pilot/results/fourway_development_20261104.zh.md)。四项全对：零干预16/20、直接盲读19/20、新选整层16/20、新选头17/20。新选头的原开发PathAcc为74%，低于零干预79%，存在指标取舍。此项是开发选择结果，独立反事实确认尚未运行。
+
 
 ---
 

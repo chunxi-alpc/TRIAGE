@@ -157,10 +157,10 @@ def scan(engine, root):
                     cells=len(saved),failed_cells=sum(r["status"]!="complete" for r in saved.values()),seconds=time.time()-started)
     write_json(root/"head_selection.json",selected);return selected
 
-def predict(engine, cases, path, spec=None, module=None, mode="zero"):
+def predict(engine, cases, path, spec=None, module=None, mode="zero", progress_label=None):
     saved=journal(path,lambda r:(r["case_id"],r["view"]))
     if module is not None:module.eval()
-    for case in cases:
+    for case_index,case in enumerate(cases,1):
         for view in ("original","swapped"):
             key=(case["case_id"],view)
             if key in saved:continue
@@ -173,6 +173,10 @@ def predict(engine, cases, path, spec=None, module=None, mode="zero"):
                 row.update(status="failed",path=[],leaf=None,magnitudes=[],error=type(exc).__name__+": "+str(exc)[:500])
             append(path,row);saved[key]=row
             cleanup(engine)
+        if progress_label:
+            write_json(engine.root/"status.json",dict(stage="development_baselines",method=progress_label,
+                       cases=case_index,total_cases=len(cases),prediction_cells=len(saved)))
+            if case_index%10==0:print(json.dumps({"baseline_progress":progress_label,"cases":case_index,"total":len(cases)}),flush=True)
     return prediction_summary(cases,list(saved.values()))
 
 def save_progress(path, module, optimizer, epoch, next_index):
@@ -239,6 +243,7 @@ def train_job(engine,root,spec):
         summary.update(layer=spec["layer"],epoch=epoch,kind=spec["kind"],groups=spec.get("groups"),
                        checkpoint=str(weights),parameters=parameter_count(module),name=spec["name"])
         write_json(job/f"development_epoch{epoch}.json",summary)
+        development_comparison(root)
     write_json(job/"training_complete.json",dict(seconds=time.time()-started,parameters=parameter_count(module)))
     del module,optimizer;cleanup(engine)
     return [json.loads((job/f"development_epoch{e}.json").read_text()) for e in (1,2,3)]
@@ -308,6 +313,70 @@ def report(root):
     write_json(root/"status.json",dict(stage="complete" if final["complete"] else "incomplete",results=str(root/"results.json")))
     return final
 
+def development_comparison(root):
+    """Compare complete development baselines with each job's best available checkpoint."""
+    root=Path(root);cases=rows(root/"data/development.jsonl");expected=2*len(cases)
+    methods={};labels={};configs={}
+    for key,label in (("zero","原模型／零干预"),("blind","直接盲读")):
+        path=root/"development_baselines"/(key+".jsonl")
+        if not path.exists():return None
+        records=list(journal(path,lambda r:(r["case_id"],r["view"])).values())
+        if len(records)!=expected:return None
+        methods[key]=records;labels[key]=label
+    all_checkpoints=[]
+    for job in sorted((root/"jobs").glob("*")):
+        completed=[]
+        for path in job.glob("development_epoch*.json"):
+            item=json.loads(path.read_text())
+            raw=job/f"development_epoch{item['epoch']}.jsonl"
+            if raw.exists():completed.append(item)
+        if not completed:continue
+        selected=choose(completed)
+        records=list(journal(job/f"development_epoch{selected['epoch']}.jsonl",
+                             lambda r:(r["case_id"],r["view"])).values())
+        if len(records)!=expected:continue
+        key=selected["name"];methods[key]=records
+        kind="整层干预" if selected["kind"]=="whole" else "选头干预"
+        if key.startswith("control_"):kind="未选头对照"
+        labels[key]=f"{kind}，层{selected['layer']}，第{selected['epoch']}轮"
+        configs[key]={k:selected.get(k) for k in ("kind","layer","groups","epoch","parameters")}
+        all_checkpoints.extend([{k:x.get(k) for k in ("name","kind","layer","groups","epoch",
+                    "original_correct","both_views_correct","mean_magnitude","failures","parameters")}
+                    for x in completed])
+    summaries={key:prediction_summary(cases,records) for key,records in methods.items()}
+    comparisons=paired(cases,methods,"zero")
+    report=dict(model="google/gemma-3-27b-it",split="development",cases=len(cases),
+                labels=labels,summaries=summaries,paired_vs_zero=comparisons,
+                selected_available_checkpoints=configs,all_completed_checkpoints=all_checkpoints,
+                confirmation_result=False,scope="same prompts, native attention, legal-path decoder; checkpoints chosen on development")
+    write_json(root/"development_comparison.json",report)
+    lines=["# Gemma 3 27B：开发集基线与干预对比","",
+           f"同一批{len(cases)}例开发病例；各方法均评测原指南和处置重排视图。",
+           "原模型／零干预指冻结模型在完整指南、相同提示和合法路径解码下不施加内部编辑。直接盲读不训练干预参数，逐节点判断条件后查表。",
+           "","| 方法 | 原指南完整路径正确 | 两视图均正确 | 相对零干预纠正 | 退化 | 净增加 | 失败单元 |",
+           "|---|---:|---:|---:|---:|---:|---:|"]
+    for key in methods:
+        s=summaries[key];p=comparisons[key]
+        lines.append(f"| {labels[key]} | {s['original_correct']}/{len(cases)} | {s['both_views_correct']}/{len(cases)} | {p['corrections']} | {p['regressions']} | {p['net']} | {s['failures']}/{expected} |")
+    lines+=["","干预行是各任务当前已完成轮次中的开发集最优检查点，并非独立确认成绩；训练中的候选尚未计入。",
+            "失败保留在全部病例分母中。逐例预测留服务器，公开表仅含汇总；确认集仍按原流程在配置冻结后评测。"]
+    (root/"DEVELOPMENT_COMPARISON.zh.md").write_text("\n".join(lines)+"\n")
+    return report
+
+def development_baselines(engine,root):
+    root=Path(root);cases=rows(root/"data/development.jsonl")
+    folder=root/"development_baselines";folder.mkdir(exist_ok=True)
+    started=time.time()
+    for name in ("zero","blind"):
+        write_json(root/"status.json",dict(stage="development_baselines",method=name,cases=0,total_cases=len(cases)))
+        summary=predict(engine,cases,folder/(name+".jsonl"),mode=name,
+                        progress_label=f"development_{name}")
+        write_json(folder/(name+".summary.json"),summary)
+        print(json.dumps({"baseline_complete":name,**summary}),flush=True)
+    report=development_comparison(root)
+    write_json(folder/"complete.json",dict(cases=len(cases),seconds=time.time()-started,complete=True))
+    return report
+
 def run(root,model_path,stage="all",chunk=0):
     root=Path(root);prepare(root)
     if stage=="report":return report(root)
@@ -316,6 +385,9 @@ def run(root,model_path,stage="all",chunk=0):
     write_json(root/"architecture.json",architecture(engine))
     for device in (0,1):torch.cuda.reset_peak_memory_stats(device)
     if stage=="smoke":return smoke(engine,root)
+    if stage in ("all","baselines"):
+        if not (root/"development_baselines/complete.json").exists():development_baselines(engine,root)
+        if stage=="baselines":return
     if stage in ("all","collect"):
         if not (root/"representation_statistics.json").exists():collect(engine,root)
         if stage=="collect":return

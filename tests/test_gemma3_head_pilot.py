@@ -86,6 +86,36 @@ class PilotTests(unittest.TestCase):
    self.assertTrue(torch.isfinite(output).all())
    if strength==0:self.assertTrue(torch.equal(captured[0],x))
 
+ def test_development_baselines_and_paired_table(self):
+  from experiments.gemma3_head_pilot.pipeline import development_comparison
+  import json
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);(root/"data").mkdir();(root/"development_baselines").mkdir()
+   job=root/"jobs"/"heads_layer1";job.mkdir(parents=True)
+   cases=[dict(case_id="a",gold_rules=["R0Y"],gold_leaf="L1"),
+          dict(case_id="b",gold_rules=["R0N"],gold_leaf="L2")]
+   (root/"data/development.jsonl").write_text("".join(json.dumps(c)+"\n" for c in cases))
+   def records(correct):
+    return [dict(case_id=c["case_id"],view=v,status="complete",
+                 path=c["gold_rules"] if c["case_id"] in correct else ["R0Y","wrong"],
+                 leaf=c["gold_leaf"] if c["case_id"] in correct else None,magnitudes=[])
+            for c in cases for v in ("original","swapped")]
+   for path,values in [(root/"development_baselines/zero.jsonl",records({"a"})),
+                       (root/"development_baselines/blind.jsonl",records({"a","b"})),
+                       (job/"development_epoch1.jsonl",records({"b"}))]:
+    path.write_text("".join(json.dumps(r)+"\n" for r in values))
+   summary=dict(name="heads_layer1",kind="heads",layer=1,groups=[0],epoch=1,
+                original_correct=1,both_views_correct=1,mean_magnitude=0.,failures=0,parameters=137)
+   (job/"development_epoch1.json").write_text(json.dumps(summary))
+   result=development_comparison(root)
+   self.assertEqual(result["summaries"]["zero"]["original_correct"],1)
+   self.assertEqual(result["summaries"]["blind"]["original_correct"],2)
+   self.assertEqual(result["paired_vs_zero"]["heads_layer1"]["corrections"],1)
+   self.assertEqual(result["paired_vs_zero"]["heads_layer1"]["regressions"],1)
+   table=(root/"DEVELOPMENT_COMPARISON.zh.md").read_text()
+   self.assertIn("原模型／零干预",table);self.assertIn("直接盲读",table)
+   self.assertFalse(result["confirmation_result"])
+
  def test_group_mapping(self):
   self.assertEqual(group_indices([1],self.engine.config),list(range(16,32)))
 
