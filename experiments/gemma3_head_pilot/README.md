@@ -86,7 +86,7 @@ CUDA_VISIBLE_DEVICES=0,1 python -m experiments.gemma3_head_pilot.fourway --stage
 
 ## 100组开发选择与100组独立确认（2026-11-04）
 
-本轮扩大评测已启动，复用同一Gemma骨干与18个已有干预检查点。运行协议见 [expanded_protocol_20261104.json](results/expanded_protocol_20261104.json)。
+本轮扩大评测已完成，复用同一Gemma骨干与18个已有干预检查点。[100组独立确认结果及全部18个开发候选](results/expanded_confirmation_20261104.zh.md)：零干预85/100、直接盲读94/100、整层91/100、选头85/100；整层净提升6组，选头净提升0。整层为层索引61第3轮，选头为层索引59、组0/3/12/13第3轮。所有配置在独立确认前冻结。运行协议见 [expanded_protocol_20261104.json](results/expanded_protocol_20261104.json)。
 
 ### 数据与指标
 
@@ -118,3 +118,5 @@ CUDA_VISIBLE_DEVICES=0,1 python -m experiments.gemma3_head_pilot.expanded --stag
 默认输出 /home/gcx/gemma3_27b_fourway_expanded_20261104；--root、--pilot-root 可切换实验输出和旧检查点目录。只执行 prepare、report 及CPU测试不加载模型。服务器保存数据与候选清单、冻结时间、两阶段逐输入分数、统一报告、统计区间、耗时和显存。技术失败保留；按缺失单元恢复；运行稳定后不需要持续资源监控。
 
 22项CPU测试通过，包括原有缓存／干预测试、四项全对指标、100组来源配额、冻结前禁止确认、冻结选择恢复不变、按来源配对重采样，以及最终开发／确认同表生成。
+
+本轮实际耗时67.24分钟，物理GPU0/1峰值预留36.13/36.39GiB，全部9,600评分单元无技术失败。整层相对零干预配对提升的来源重采样95%区间为[+2,+11]个百分点，选头为[-5,+4]。直接盲读点估计最高；整层相对盲读差值[-9,+3]个百分点的区间包含0。结果范围限于所构造的40套指南、固定前缀和深度0–4的节点，不是官方完整路径评测。
