@@ -3,7 +3,7 @@ from pathlib import Path
 
 def main():
  p=argparse.ArgumentParser(description="Gemma 3 27B selected-head pilot")
- p.add_argument("stage",choices=["prepare","smoke","collect","scan","train","predict","confirm","report","all"])
+ p.add_argument("stage",choices=["prepare","smoke","baselines","collect","scan","train","predict","confirm","report","all"])
  p.add_argument("--root",type=Path,default=Path("/home/gcx/gemma3_27b_head_pilot_20261103"))
  p.add_argument("--model",type=Path)
  p.add_argument("--prefill-chunk",type=int,default=0,help="0 uses native whole prefill")
