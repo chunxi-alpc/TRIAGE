@@ -7,6 +7,7 @@ ASTER 研究大语言模型能否根据患者事实逐步执行临床指南。�
 - [论文正文与结果](docs/ASTER/manuscript.zh.md)
 - [方法补充与复现步骤](docs/ASTER/supplementary.zh.md)
 - [主方法代码与冻结干预权重](experiments/aster_representation/)
+- [数据集与使用状态](#数据集与使用状态)
 
 从仓库根目录查看数据准备、训练、预测和评分命令：
 
@@ -16,6 +17,49 @@ python -m experiments.aster_representation --help
 
 旧版规则键编辑研究见[历史文档](docs/ASTER/archive/README.md)。
 
+
+## 数据集与使用状态
+
+更新日期：2026-11-04。按同系列子集合并、同一数据集的版本不重复计数，仓库已登记准备或实际使用 **14 个外部数据集系列：11 个任务数据集、3 个通用基线数据集**。另有未获取的 MedNLI，以及自建或派生实验集。
+
+计数时将 FaithEval 的三个子集合为一个系列，旧版 NLI4CT 与 NLI4CT-2024 不重复计数；TrialGPT 和通用基线数据的使用记录来自历史实验分支。下载状态主要依据 [数据配置](configs/datasets.json)，**已下载不等于已完成评测，历史方法的结果也不等于当前表示干预方法的结果**。以下任务适用性用于说明研究用途，不能代替实际实验结论。
+
+### 任务数据集
+
+| 数据集 | 数据内容及适用理由 | 仓库中的使用状态 |
+|---|---|---|
+| **[MEGA-CDP](https://huggingface.co/datasets/nchennnn/MEGA-CDP)** | 提供临床指南、结构化决策树、指南衍生病例和参考路径，可评价“条件判断 → 分支选择 → 最终处置”的完整过程，最直接对应逐节点干预。 | 当前主线；已完成官方 7,458 例单轮原指南测试，见 [论文结果](docs/ASTER/manuscript.zh.md) 和 [保存指标](docs/ASTER/results/single-turn.json)。 |
+| **[MedGUIDE](https://arxiv.org/abs/2505.11613)** | 基于 55 棵 NCCN 指南树、17 类肿瘤构造 7,747 道选择题。结合完整候选树，可检验是否依据患者条件选择指南处置，并构造处置交换、条件变化等实验。 | 历史分支已有 200／800 例及多轮派生实验，见 [200 例研究](https://github.com/chunxi-alpc/TRIAGE/pull/23) 与 [800 例研究](https://github.com/chunxi-alpc/TRIAGE/pull/25)；这些不是当前表示干预版本的完整外部测试。 |
+| **[MedPIC-Bench](https://arxiv.org/abs/2608.03028)** | 467 道用药安全题，包含患者信息改变后规则适用性随之改变的反事实配对，适合检验模型是否真正使用患者条件。原生任务为多选，且不提供完整指南树，接入当前方法需要适配。 | 已登记下载，历史分支已有适配准备；尚无本次核对到的完整正式评测，见 [执行记录](https://github.com/chunxi-alpc/TRIAGE/blob/codex/aster-seka-execution-20261025/experiments/aster_seka_execution/REPORT.zh.md)。 |
+| **[TrialGPT-Criterion-Annotations](https://huggingface.co/datasets/ncbi/TrialGPT-Criterion-Annotations)** | 专家标注患者是否满足临床试验条款，适合单独检查条件适用性，以及信息不足是否被误判为确定答案；不直接评价完整指南路径。 | 历史冻结 A1 已评估全部 1,015 条母集记录。原生六类到 T/F/U 的映射有信息损失，见 [实验报告](https://github.com/chunxi-alpc/TRIAGE/pull/20)。 |
+| **[NLI4CT-2024](https://aclanthology.org/2024.semeval-1.271/)** | 根据临床试验文本判断陈述是否成立，并包含扰动，适合检查数值、否定和条件变化下的证据推断与一致性。 | 已登记下载；旧 NLI4CT 条目由 2024 版替代，不重复计算。 |
+| **[MedCalc-Bench](https://huggingface.co/datasets/ncbi/MedCalc-Bench)** | 根据患者记录完成医学计算，可诊断数值读取、单位与计算错误；与指南分支执行的联系较间接，适合作为专项补充。 | 已登记下载；未列为当前主线已完成的完整评测。 |
+| **[ConflictMedQA／DriftMed](https://huggingface.co/datasets/RDBH/DriftMed)** | 包含正确医疗建议及人为修改的错误版本，适合研究错误建议对模型的干扰。识别错误建议与忠实执行指定指南是不同评价目标，应分别解释。 | 历史分支做过建议级实验，并非原生全部场景的完整复现，见 [PR #10](https://github.com/chunxi-alpc/TRIAGE/pull/10)。两个名称在此指同一数据来源，不重复计算。 |
+| **[MedChangeQA](https://arxiv.org/abs/2509.04304)** | 512 道医学共识随时间改变的问题，可用于诊断是否固守过时知识，为外部证据与模型记忆冲突提供医学场景；原生任务不是指南路径执行。 | 已登记下载；未列为当前主线已完成的完整评测。 |
+| **[FaithEval](https://huggingface.co/datasets/Salesforce/FaithEval-counterfactual-v1.0)** | 包含反事实、上下文矛盾、不可回答三个子集，适合检验上下文忠实性与信息不足处理，可作为 CAD 相关研究的通用补充。 | 三个子集均已登记下载；按一个系列计数，未列为当前主线已完成的完整评测。 |
+| **[ConFiQA](https://github.com/byronBBL/Context-DPO)** | QA、MR、MC 分别涉及单跳、多跳和多处知识冲突，适合检验多步推理是否持续使用给定上下文；属于通用任务。 | 三个子集均已登记下载；按一个系列计数，未列为当前主线已完成的完整评测。 |
+| **[ClashEval](https://github.com/kevinwu23/StanfordClashEval)** | 通过修改外部信息研究模型如何在内部知识与外部证据之间选择，可诊断过度相信错误上下文；不直接评价患者规则适用性。 | 已登记下载；未列为当前主线已完成的完整评测。 |
+
+### 通用基线数据集
+
+以下三项用于基线实现验证或专家构建，不能替代医学任务评价。实际使用见 [SEKA／AdaSEKA 历史执行报告](https://github.com/chunxi-alpc/TRIAGE/blob/codex/aster-seka-execution-20261025/experiments/aster_seka_execution/REPORT.zh.md)。
+
+| 数据集 | 在仓库中的用途 |
+|---|---|
+| CounterFact | 以反事实知识及改写提示检验上下文引导；用于 SEKA、CAD 等方法的标准任务比较和相关专家构建。 |
+| BiasBios | 以传记中的职业信息检验指定证据的利用；用于标准任务比较及 AdaSEKA 专家构建。 |
+| HotpotQA | 提供多跳问答证据；用于 AdaSEKA 专家构建。构建专家不等于已完成该数据集的全面性能评测。 |
+
+### 未获取的数据与自建实验集
+
+- **MedNLI：**数据配置记为未获取原始数据，不计入上述 14 类。使用经过 MedNLI 训练的 BioLinkBERT 模型，不等于在 MedNLI 数据上完成了评测。
+- **CARE 模拟病例与受控变体：**用于适用性、证据定位和干预诊断，见 [历史实验索引](experiments/README.md)；不能当作独立临床病例验证。
+- **MedGUIDE-CF 等派生版本：**基于原数据构造处置交换、条件变化等实验；200／800 例和不同反事实版本不分别算作新的公开数据集。
+- **MEGA-CDP 年龄最小对与四输入反事实组：**用于检查决定性事实变化和处置交换下的行为，见 [方法补充](docs/ASTER/supplementary.zh.md) 与 [Gemma 四输入确认](experiments/gemma3_head_pilot/results/expanded_confirmation_20261104.zh.md)；固定节点的构造反事实成绩与自主完整路径成绩分列。
+
+### 当前论文的数据安排建议
+
+以 **MEGA-CDP** 验证完整路径执行，以 **MedGUIDE** 补充肿瘤指南任务，以 **MedPIC-Bench** 检验患者条件变化下的适用性。**TrialGPT** 用于辅助分析条件判断和信息不足错误，**FaithEval** 可补充上下文忠实性评价。上述安排是研究建议；当前完成情况以上表和对应实验报告为准。
 
 ## Gemma 3 27B 选层选头先导与四输入补评
 
