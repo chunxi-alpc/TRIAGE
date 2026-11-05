@@ -1,5 +1,9 @@
 # 历史结果索引
 
+## 三数据集补充分析（2026-11-05，已完成）
+
+[汇总 CSV/JSON、融合参数和验证结果](three_dataset_analysis_20261105/README.md) · [报告与四张主表](../reports/three_dataset_analysis_20261105/REPORT.zh.md) · [结果分析](../reports/three_dataset_analysis_20261105/ANALYSIS.zh.md)。MedPAIR 历史删除与本轮评分分别呈现；MedGUIDE 方案变体分别统计；MedEinst 主结果采用独立 46 候选最高分预测。
+
 > **2026-10-26 主线说明：** 当前研究主线为 [ASTER](../docs/ASTER/README.md)。下列既有内容保留原实验阶段含义，其中“当前”“默认”不定义新版 ASTER。实验数字和实现不得未经核验迁入新论文。完整旧主线见[归档分支](https://github.com/chunxi-alpc/TRIAGE/tree/archive/pre-aster-main-20261026)。
 
 [项目首页](../README.md) · [实验索引](../experiments/README.md) · [版本记录](../docs/REPOSITORY_STATUS.md)
