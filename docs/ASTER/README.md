@@ -3,7 +3,8 @@
 [当前论文正文](manuscript.zh.md)整合临床背景、单步条件判断、四类配对测试、两项挑战、三项机制假设与三模块方法。新版使用冻结模型中的头定位、反事实子空间估计和信号保持擦除；机制比例与方法效果待对应实验补齐。
 
 - [首页概述](../../README.md)：完整研究叙事与入口。
-- [新版正文](manuscript.zh.md)：Intro、任务定义、机制分析、Method、斜投影与输出融合命题、实验组织。
+- [新版正文](manuscript.zh.md)：引言、节点规约、三模块完整计算、斜投影与条件化输出融合命题、验证实验。
+- [方法补充说明](method-clarifications.zh.md)：本次补齐的接口、数据用途、理论条件及旧版入口。
 - [旧版正文与完整结果](manuscript-representation.zh.md)：可训练处置盲表示干预，MEGA-CDP 完整路径正确率89.21%。
 - [旧版方法核对](method-check.zh.md)、[旧版方法补充与复现](supplementary.zh.md)、[旧版代码与冻结权重](../../experiments/aster_representation/)。
 - [旧版结果附件](results/)：官方测试配对计数、BERTScore 汇总和18节点反事实结果。
