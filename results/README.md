@@ -1,5 +1,9 @@
 # 历史结果索引
 
+## 修订遮挡与关键事实预实验（2026-11-05，已完成）
+
+[指标、逐例分数与输入快照](semantic_masking_followup_20261105/README.md) · [结果分析](../reports/semantic_masking_followup_20261105/ANALYSIS.zh.md) · [冻结报告](../reports/semantic_masking_followup_20261105/REPORT_full.zh.md)。保留固定 40 份指南、379 个统计节点，修订后 2,994 条评分齐全；发布快照 CPU 复算与全部最终指标一致。旧结果替代原因与有效分母在报告中明确记录。
+
 ## 三数据集补充分析（2026-11-05，已完成）
 
 [汇总 CSV/JSON、融合参数和验证结果](three_dataset_analysis_20261105/README.md) · [报告与四张主表](../reports/three_dataset_analysis_20261105/REPORT.zh.md) · [结果分析](../reports/three_dataset_analysis_20261105/ANALYSIS.zh.md)。MedPAIR 历史删除与本轮评分分别呈现；MedGUIDE 方案变体分别统计；MedEinst 主结果采用独立 46 候选最高分预测。

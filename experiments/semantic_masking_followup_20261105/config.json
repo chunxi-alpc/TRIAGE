@@ -1,0 +1,50 @@
+{
+  "seed": 20261105,
+  "mega_root": "/home/gcx/TRIAGE/data/MEGA-CDP",
+  "medguide_root": "/home/gcx/TRIAGE/data/MedGUIDE",
+  "medgemma": "/home/gcx/TRIAGE/models/modelscope/medgemma-27b-text-it",
+  "qwen": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "reference_report": "/home/gcx/aster_reference_swap_20261104/expanded100/REPORT.zh.md",
+  "sources_per_publisher": 20,
+  "development_per_publisher": 5,
+  "nodes_per_source": 10,
+  "construct_max": 50,
+  "pilot_nodes": 20,
+  "annotation_max_input_tokens": 14500,
+  "annotation_max_new_tokens": 2000,
+  "scoring_max_tokens": 24000,
+  "score_budget": 7000,
+  "weights": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "alphas": [
+    0,
+    0.25,
+    0.5,
+    1,
+    2,
+    4
+  ],
+  "logistic_c": [
+    0.01,
+    0.1,
+    1,
+    10
+  ],
+  "gpus": [
+    0,
+    1
+  ],
+  "automatic_pilot": true,
+  "old_run": "/home/gcx/semantic_masking_pilot_20261105",
+  "revision": "target_bound_dependencies_and_derived_restoration_v2",
+  "prior_revision": "/home/gcx/semantic_masking_revision_20261105",
+  "prior_score_runs": [
+    "/home/gcx/semantic_masking_revision_20261105"
+  ],
+  "followup_annotation_targets": 174
+}

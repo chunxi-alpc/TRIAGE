@@ -1,0 +1,900 @@
+{
+  "analysis_type": "Supplementary descriptive analysis of fixed test predictions",
+  "parameter_refitting": false,
+  "new_inference": false,
+  "case_independence_note": "Constructed test examples are six variants of each of 28 nodes, not 168 independent conditions.",
+  "source_files": [
+    "data/inputs_full.jsonl",
+    "results/scores_full_0.jsonl",
+    "results/scores_full_1.jsonl",
+    "results/fusion_predictions_full_direct.jsonl",
+    "results/fusion_predictions_full_condition_ancestors.jsonl"
+  ],
+  "key_facts": {
+    "full": {
+      "nodes": 28,
+      "P_b": {
+        "numerator": 16,
+        "denominator": 28,
+        "rate": 0.5714285714285714
+      },
+      "failure_types": {
+        "both_correct": 12,
+        "at_least_one_wrong": 16,
+        "prediction_unchanged": 16,
+        "prediction_changed": 12,
+        "constant_yes": 15,
+        "constant_no": 1,
+        "reverse_flip": 0
+      },
+      "probability_direction": {
+        "correct": 24,
+        "opposite": 1,
+        "equal_saved_probability": 3
+      },
+      "probability_direction_among_failed": {
+        "correct": 12,
+        "opposite": 1,
+        "equal_saved_probability": 3
+      },
+      "probability_note": "Directions use stored binary probabilities; equality near 0 or 1 may reflect floating-point saturation.",
+      "failed_node_ids": [
+        "00af1512db52ba99bc141458324f7fc4:18",
+        "0859e1f897706e607f69626dca971398:2",
+        "0859e1f897706e607f69626dca971398:6",
+        "176178ab78b4a90667d3313fc60b9e2b:12",
+        "361d70abe387a692496e1396ec2b9bb0:1",
+        "361d70abe387a692496e1396ec2b9bb0:22",
+        "47453b1e7342ef125dad4c005448a426:49",
+        "48b354078dca3fbaf7855e527e8d1637:13",
+        "48b354078dca3fbaf7855e527e8d1637:6",
+        "616e0a329049dfda55e76d9c7798ad91:13",
+        "a5601ad58cbdfd25f69c459332318a3f:3",
+        "ac29aff693f40424d1b43cf8b92bd776:18",
+        "b8d8c75ad738f9452c3c41236516d8a5:28",
+        "b8d8c75ad738f9452c3c41236516d8a5:30",
+        "d9906cd6be177a867400393324954892:13",
+        "d9906cd6be177a867400393324954892:6"
+      ],
+      "background": {
+        "paired_examples": 84,
+        "changed_predictions": 1,
+        "change_rate": {
+          "numerator": 1,
+          "denominator": 84,
+          "rate": 0.011904761904761904
+        },
+        "neutral_correct": 59,
+        "cue_correct": 60,
+        "changed_examples": [
+          {
+            "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+            "metric_level": "above",
+            "condition": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+            "value": 271,
+            "gold": 0,
+            "neutral_prediction": 1,
+            "cue_prediction": 0,
+            "neutral_p_yes": 0.8175744414329529,
+            "cue_p_yes": 0.22270016372203827
+          }
+        ]
+      },
+      "noncrossing": {
+        "pairs": 28,
+        "stable_predictions": 27,
+        "both_correct": 18
+      },
+      "examples": [
+        {
+          "node_id": "83cf1b073d03d1221b88fcd00c45f468:2",
+          "both_correct": true,
+          "below": {
+            "node_id": "83cf1b073d03d1221b88fcd00c45f468:2",
+            "example_id": "83cf1b073d03d1221b88fcd00c45f468:2:constructed:below:neutral:original",
+            "condition": "Is performance status good (ECOG 0–1) with good biliary drainage and adequate nutritional intake?",
+            "metric": "ECOG performance status",
+            "value": 0,
+            "unit": "points",
+            "fixed_facts": {
+              "drainage": "Biliary drainage is good.",
+              "nutrition": "Nutritional intake is adequate."
+            },
+            "gold": 1,
+            "prediction": 1,
+            "p_yes": 1.0
+          },
+          "above": {
+            "node_id": "83cf1b073d03d1221b88fcd00c45f468:2",
+            "example_id": "83cf1b073d03d1221b88fcd00c45f468:2:constructed:above:neutral:original",
+            "condition": "Is performance status good (ECOG 0–1) with good biliary drainage and adequate nutritional intake?",
+            "metric": "ECOG performance status",
+            "value": 2,
+            "unit": "points",
+            "fixed_facts": {
+              "drainage": "Biliary drainage is good.",
+              "nutrition": "Nutritional intake is adequate."
+            },
+            "gold": 0,
+            "prediction": 0,
+            "p_yes": 4.363462480228009e-09
+          }
+        },
+        {
+          "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+          "both_correct": false,
+          "below": {
+            "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+            "example_id": "48b354078dca3fbaf7855e527e8d1637:13:constructed:below:neutral:original",
+            "condition": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+            "metric": "咳嗽呼气气流峰值",
+            "value": 269,
+            "unit": "L/min",
+            "fixed_facts": {},
+            "gold": 1,
+            "prediction": 1,
+            "p_yes": 0.9999991059303284
+          },
+          "above": {
+            "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+            "example_id": "48b354078dca3fbaf7855e527e8d1637:13:constructed:above:neutral:original",
+            "condition": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+            "metric": "咳嗽呼气气流峰值",
+            "value": 271,
+            "unit": "L/min",
+            "fixed_facts": {},
+            "gold": 0,
+            "prediction": 1,
+            "p_yes": 0.8175744414329529
+          }
+        }
+      ]
+    },
+    "direct": {
+      "nodes": 28,
+      "P_b": {
+        "numerator": 16,
+        "denominator": 28,
+        "rate": 0.5714285714285714
+      },
+      "failure_types": {
+        "both_correct": 12,
+        "at_least_one_wrong": 16,
+        "prediction_unchanged": 16,
+        "prediction_changed": 12,
+        "constant_yes": 15,
+        "constant_no": 1,
+        "reverse_flip": 0
+      },
+      "probability_direction": {
+        "correct": 23,
+        "opposite": 1,
+        "equal_saved_probability": 4
+      },
+      "probability_direction_among_failed": {
+        "correct": 11,
+        "opposite": 1,
+        "equal_saved_probability": 4
+      },
+      "probability_note": "Directions use stored binary probabilities; equality near 0 or 1 may reflect floating-point saturation.",
+      "failed_node_ids": [
+        "00af1512db52ba99bc141458324f7fc4:18",
+        "01de3cd3fc809c0292e2518e75bf99cb:12",
+        "0859e1f897706e607f69626dca971398:2",
+        "0859e1f897706e607f69626dca971398:6",
+        "176178ab78b4a90667d3313fc60b9e2b:12",
+        "361d70abe387a692496e1396ec2b9bb0:1",
+        "361d70abe387a692496e1396ec2b9bb0:22",
+        "47453b1e7342ef125dad4c005448a426:49",
+        "48b354078dca3fbaf7855e527e8d1637:6",
+        "616e0a329049dfda55e76d9c7798ad91:13",
+        "a5601ad58cbdfd25f69c459332318a3f:3",
+        "ac29aff693f40424d1b43cf8b92bd776:18",
+        "b8d8c75ad738f9452c3c41236516d8a5:28",
+        "b8d8c75ad738f9452c3c41236516d8a5:30",
+        "d9906cd6be177a867400393324954892:13",
+        "d9906cd6be177a867400393324954892:6"
+      ],
+      "background": {
+        "paired_examples": 84,
+        "changed_predictions": 1,
+        "change_rate": {
+          "numerator": 1,
+          "denominator": 84,
+          "rate": 0.011904761904761904
+        },
+        "neutral_correct": 59,
+        "cue_correct": 60,
+        "changed_examples": [
+          {
+            "node_id": "01de3cd3fc809c0292e2518e75bf99cb:12",
+            "metric_level": "below",
+            "condition": "Is the tumor located on the trunk or extremities with clinical diameter ≥2 cm?",
+            "value": 1.9,
+            "gold": 0,
+            "neutral_prediction": 1,
+            "cue_prediction": 0,
+            "neutral_p_yes": 0.5,
+            "cue_p_yes": 0.022977372631430626
+          }
+        ]
+      },
+      "noncrossing": {
+        "pairs": 28,
+        "stable_predictions": 28,
+        "both_correct": 19
+      },
+      "examples": []
+    },
+    "condition_ancestors": {
+      "nodes": 28,
+      "P_b": {
+        "numerator": 20,
+        "denominator": 28,
+        "rate": 0.7142857142857143
+      },
+      "failure_types": {
+        "both_correct": 8,
+        "at_least_one_wrong": 20,
+        "prediction_unchanged": 20,
+        "prediction_changed": 8,
+        "constant_yes": 19,
+        "constant_no": 1,
+        "reverse_flip": 0
+      },
+      "probability_direction": {
+        "correct": 22,
+        "opposite": 1,
+        "equal_saved_probability": 5
+      },
+      "probability_direction_among_failed": {
+        "correct": 14,
+        "opposite": 1,
+        "equal_saved_probability": 5
+      },
+      "probability_note": "Directions use stored binary probabilities; equality near 0 or 1 may reflect floating-point saturation.",
+      "failed_node_ids": [
+        "01de3cd3fc809c0292e2518e75bf99cb:12",
+        "0859e1f897706e607f69626dca971398:2",
+        "0859e1f897706e607f69626dca971398:6",
+        "361d70abe387a692496e1396ec2b9bb0:1",
+        "361d70abe387a692496e1396ec2b9bb0:22",
+        "47453b1e7342ef125dad4c005448a426:49",
+        "48b354078dca3fbaf7855e527e8d1637:6",
+        "616e0a329049dfda55e76d9c7798ad91:13",
+        "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+        "83cf1b073d03d1221b88fcd00c45f468:2",
+        "a5601ad58cbdfd25f69c459332318a3f:3",
+        "ac29aff693f40424d1b43cf8b92bd776:18",
+        "ac29aff693f40424d1b43cf8b92bd776:22",
+        "ac29aff693f40424d1b43cf8b92bd776:4",
+        "b8d8c75ad738f9452c3c41236516d8a5:28",
+        "b8d8c75ad738f9452c3c41236516d8a5:30",
+        "d9906cd6be177a867400393324954892:13",
+        "d9906cd6be177a867400393324954892:6",
+        "f8b2e3dcad5c734d8a6a9641fe410be7:30",
+        "f8b2e3dcad5c734d8a6a9641fe410be7:8"
+      ],
+      "background": {
+        "paired_examples": 84,
+        "changed_predictions": 3,
+        "change_rate": {
+          "numerator": 3,
+          "denominator": 84,
+          "rate": 0.03571428571428571
+        },
+        "neutral_correct": 55,
+        "cue_correct": 56,
+        "changed_examples": [
+          {
+            "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+            "metric_level": "same_side",
+            "condition": "结石是否为肾结石且直径在10–20 mm范围内？",
+            "value": 22,
+            "gold": 0,
+            "neutral_prediction": 1,
+            "cue_prediction": 0,
+            "neutral_p_yes": 0.7310584783554077,
+            "cue_p_yes": 0.3775406777858734
+          },
+          {
+            "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+            "metric_level": "same_side",
+            "condition": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+            "value": 272,
+            "gold": 0,
+            "neutral_prediction": 0,
+            "cue_prediction": 1,
+            "neutral_p_yes": 0.3775406777858734,
+            "cue_p_yes": 0.8175744414329529
+          },
+          {
+            "node_id": "0859e1f897706e607f69626dca971398:6",
+            "metric_level": "below",
+            "condition": "患者当前是否处于颌面骨发育稳定期（女性≥16岁或男性≥18岁）？",
+            "value": 17,
+            "gold": 0,
+            "neutral_prediction": 1,
+            "cue_prediction": 0,
+            "neutral_p_yes": 0.9626731276512146,
+            "cue_p_yes": 0.14804720878601074
+          }
+        ]
+      },
+      "noncrossing": {
+        "pairs": 28,
+        "stable_predictions": 27,
+        "both_correct": 18
+      },
+      "examples": []
+    }
+  },
+  "fusion": {
+    "direct": {
+      "single_example_comparisons": {
+        "original": {
+          "calibration_full": {
+            "n": 279,
+            "method": "logistic",
+            "baseline": "calibration_full",
+            "method_accuracy": {
+              "numerator": 260,
+              "denominator": 279,
+              "rate": 0.931899641577061
+            },
+            "baseline_accuracy": {
+              "numerator": 256,
+              "denominator": 279,
+              "rate": 0.9175627240143369
+            },
+            "gained_examples": 7,
+            "lost_examples": 3,
+            "net_correct_difference": 4,
+            "gain_node_count": 7,
+            "loss_node_count": 3,
+            "gain_node_counts": {
+              "00af1512db52ba99bc141458324f7fc4:15": 1,
+              "176178ab78b4a90667d3313fc60b9e2b:18": 1,
+              "176178ab78b4a90667d3313fc60b9e2b:40": 1,
+              "2e37abc94fc42dc04349c4d8b863d5d1:50": 1,
+              "47453b1e7342ef125dad4c005448a426:57": 1,
+              "616e0a329049dfda55e76d9c7798ad91:8": 1,
+              "83cf1b073d03d1221b88fcd00c45f468:27": 1
+            },
+            "loss_node_counts": {
+              "62fd1f5e51dded5bbd254e0aa71cf2fe:15": 1,
+              "8f7dc7d162d763f50279a02823c79512:7": 1,
+              "b8d8c75ad738f9452c3c41236516d8a5:11": 1
+            },
+            "gain_example_ids": [
+              "00af1512db52ba99bc141458324f7fc4:15:original",
+              "176178ab78b4a90667d3313fc60b9e2b:18:original",
+              "176178ab78b4a90667d3313fc60b9e2b:40:original",
+              "2e37abc94fc42dc04349c4d8b863d5d1:50:original",
+              "47453b1e7342ef125dad4c005448a426:57:original",
+              "616e0a329049dfda55e76d9c7798ad91:8:original",
+              "83cf1b073d03d1221b88fcd00c45f468:27:original"
+            ],
+            "loss_example_ids": [
+              "62fd1f5e51dded5bbd254e0aa71cf2fe:15:original",
+              "8f7dc7d162d763f50279a02823c79512:7:original",
+              "b8d8c75ad738f9452c3c41236516d8a5:11:original"
+            ]
+          },
+          "calibration_blind": {
+            "n": 279,
+            "method": "logistic",
+            "baseline": "calibration_blind",
+            "method_accuracy": {
+              "numerator": 260,
+              "denominator": 279,
+              "rate": 0.931899641577061
+            },
+            "baseline_accuracy": {
+              "numerator": 260,
+              "denominator": 279,
+              "rate": 0.931899641577061
+            },
+            "gained_examples": 0,
+            "lost_examples": 0,
+            "net_correct_difference": 0,
+            "gain_node_count": 0,
+            "loss_node_count": 0,
+            "gain_node_counts": {},
+            "loss_node_counts": {},
+            "gain_example_ids": [],
+            "loss_example_ids": []
+          }
+        },
+        "constructed": {
+          "calibration_full": {
+            "n": 168,
+            "method": "logistic",
+            "baseline": "calibration_full",
+            "method_accuracy": {
+              "numerator": 122,
+              "denominator": 168,
+              "rate": 0.7261904761904762
+            },
+            "baseline_accuracy": {
+              "numerator": 122,
+              "denominator": 168,
+              "rate": 0.7261904761904762
+            },
+            "gained_examples": 0,
+            "lost_examples": 0,
+            "net_correct_difference": 0,
+            "gain_node_count": 0,
+            "loss_node_count": 0,
+            "gain_node_counts": {},
+            "loss_node_counts": {},
+            "gain_example_ids": [],
+            "loss_example_ids": []
+          },
+          "calibration_blind": {
+            "n": 168,
+            "method": "logistic",
+            "baseline": "calibration_blind",
+            "method_accuracy": {
+              "numerator": 122,
+              "denominator": 168,
+              "rate": 0.7261904761904762
+            },
+            "baseline_accuracy": {
+              "numerator": 122,
+              "denominator": 168,
+              "rate": 0.7261904761904762
+            },
+            "gained_examples": 0,
+            "lost_examples": 0,
+            "net_correct_difference": 0,
+            "gain_node_count": 0,
+            "loss_node_count": 0,
+            "gain_node_counts": {},
+            "loss_node_counts": {},
+            "gain_example_ids": [],
+            "loss_example_ids": []
+          }
+        }
+      },
+      "primary_pair_population": "test sources, neutral background, original condition, one below/above pair per node",
+      "primary_pair_metrics_all_methods": {
+        "blind": {
+          "P_b": {
+            "numerator": 16,
+            "denominator": 28,
+            "rate": 0.5714285714285714
+          },
+          "both_correct_pairs": 12
+        },
+        "cad_blind": {
+          "P_b": {
+            "numerator": 15,
+            "denominator": 28,
+            "rate": 0.5357142857142857
+          },
+          "both_correct_pairs": 13
+        },
+        "cad_full": {
+          "P_b": {
+            "numerator": 16,
+            "denominator": 28,
+            "rate": 0.5714285714285714
+          },
+          "both_correct_pairs": 12
+        },
+        "calibration_blind": {
+          "P_b": {
+            "numerator": 14,
+            "denominator": 28,
+            "rate": 0.5
+          },
+          "both_correct_pairs": 14
+        },
+        "calibration_full": {
+          "P_b": {
+            "numerator": 14,
+            "denominator": 28,
+            "rate": 0.5
+          },
+          "both_correct_pairs": 14
+        },
+        "full": {
+          "P_b": {
+            "numerator": 16,
+            "denominator": 28,
+            "rate": 0.5714285714285714
+          },
+          "both_correct_pairs": 12
+        },
+        "logistic": {
+          "P_b": {
+            "numerator": 14,
+            "denominator": 28,
+            "rate": 0.5
+          },
+          "both_correct_pairs": 14
+        },
+        "probability_average": {
+          "P_b": {
+            "numerator": 16,
+            "denominator": 28,
+            "rate": 0.5714285714285714
+          },
+          "both_correct_pairs": 12
+        }
+      },
+      "primary_pair_logistic_comparisons": {
+        "full": {
+          "gained_complete_pairs": 2,
+          "lost_complete_pairs": 0,
+          "gain_node_ids": [
+            "0859e1f897706e607f69626dca971398:2",
+            "48b354078dca3fbaf7855e527e8d1637:13"
+          ],
+          "loss_node_ids": [],
+          "gain_conditions": {
+            "0859e1f897706e607f69626dca971398:2": "患者年龄是否在10~20岁之间或既往病史提示起病多在青春期前后，且青春期后萎缩趋于稳定（1~2年内外形无肉眼可见变化）？",
+            "48b354078dca3fbaf7855e527e8d1637:13": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？"
+          }
+        },
+        "calibration_full": {
+          "gained_complete_pairs": 0,
+          "lost_complete_pairs": 0,
+          "gain_node_ids": [],
+          "loss_node_ids": [],
+          "gain_conditions": {}
+        },
+        "calibration_blind": {
+          "gained_complete_pairs": 0,
+          "lost_complete_pairs": 0,
+          "gain_node_ids": [],
+          "loss_node_ids": [],
+          "gain_conditions": {}
+        }
+      }
+    },
+    "condition_ancestors": {
+      "single_example_comparisons": {
+        "original": {
+          "calibration_full": {
+            "n": 279,
+            "method": "logistic",
+            "baseline": "calibration_full",
+            "method_accuracy": {
+              "numerator": 270,
+              "denominator": 279,
+              "rate": 0.967741935483871
+            },
+            "baseline_accuracy": {
+              "numerator": 256,
+              "denominator": 279,
+              "rate": 0.9175627240143369
+            },
+            "gained_examples": 14,
+            "lost_examples": 0,
+            "net_correct_difference": 14,
+            "gain_node_count": 14,
+            "loss_node_count": 0,
+            "gain_node_counts": {
+              "00af1512db52ba99bc141458324f7fc4:15": 1,
+              "176178ab78b4a90667d3313fc60b9e2b:18": 1,
+              "176178ab78b4a90667d3313fc60b9e2b:40": 1,
+              "2be2f55c22cb374535eb4ce395f69b5f:21": 1,
+              "2be2f55c22cb374535eb4ce395f69b5f:22": 1,
+              "2e37abc94fc42dc04349c4d8b863d5d1:50": 1,
+              "32ff34a0ab3982b1907969a5c11491ad:2": 1,
+              "3a5e6d25d0dc9e2820526eb29571d60a:20": 1,
+              "47453b1e7342ef125dad4c005448a426:57": 1,
+              "4bebe823a18445cce8d20f5dab3145e4:47": 1,
+              "616e0a329049dfda55e76d9c7798ad91:8": 1,
+              "83cf1b073d03d1221b88fcd00c45f468:27": 1,
+              "929375350ba9f6a757ec6b7e3e7c8153:17": 1,
+              "9a63b226ae33f83321db5960fc828b93:6": 1
+            },
+            "loss_node_counts": {},
+            "gain_example_ids": [
+              "00af1512db52ba99bc141458324f7fc4:15:original",
+              "176178ab78b4a90667d3313fc60b9e2b:18:original",
+              "176178ab78b4a90667d3313fc60b9e2b:40:original",
+              "2be2f55c22cb374535eb4ce395f69b5f:21:original",
+              "2be2f55c22cb374535eb4ce395f69b5f:22:original",
+              "2e37abc94fc42dc04349c4d8b863d5d1:50:original",
+              "32ff34a0ab3982b1907969a5c11491ad:2:original",
+              "3a5e6d25d0dc9e2820526eb29571d60a:20:original",
+              "47453b1e7342ef125dad4c005448a426:57:original",
+              "4bebe823a18445cce8d20f5dab3145e4:47:original",
+              "616e0a329049dfda55e76d9c7798ad91:8:original",
+              "83cf1b073d03d1221b88fcd00c45f468:27:original",
+              "929375350ba9f6a757ec6b7e3e7c8153:17:original",
+              "9a63b226ae33f83321db5960fc828b93:6:original"
+            ],
+            "loss_example_ids": []
+          },
+          "calibration_blind": {
+            "n": 279,
+            "method": "logistic",
+            "baseline": "calibration_blind",
+            "method_accuracy": {
+              "numerator": 270,
+              "denominator": 279,
+              "rate": 0.967741935483871
+            },
+            "baseline_accuracy": {
+              "numerator": 268,
+              "denominator": 279,
+              "rate": 0.9605734767025089
+            },
+            "gained_examples": 3,
+            "lost_examples": 1,
+            "net_correct_difference": 2,
+            "gain_node_count": 3,
+            "loss_node_count": 1,
+            "gain_node_counts": {
+              "2823f380e87e17cfb12dd8f5694d75a0:24": 1,
+              "2be2f55c22cb374535eb4ce395f69b5f:4": 1,
+              "b8d8c75ad738f9452c3c41236516d8a5:6": 1
+            },
+            "loss_node_counts": {
+              "0859e1f897706e607f69626dca971398:39": 1
+            },
+            "gain_example_ids": [
+              "2823f380e87e17cfb12dd8f5694d75a0:24:original",
+              "2be2f55c22cb374535eb4ce395f69b5f:4:original",
+              "b8d8c75ad738f9452c3c41236516d8a5:6:original"
+            ],
+            "loss_example_ids": [
+              "0859e1f897706e607f69626dca971398:39:original"
+            ]
+          }
+        },
+        "constructed": {
+          "calibration_full": {
+            "n": 168,
+            "method": "logistic",
+            "baseline": "calibration_full",
+            "method_accuracy": {
+              "numerator": 125,
+              "denominator": 168,
+              "rate": 0.7440476190476191
+            },
+            "baseline_accuracy": {
+              "numerator": 122,
+              "denominator": 168,
+              "rate": 0.7261904761904762
+            },
+            "gained_examples": 12,
+            "lost_examples": 9,
+            "net_correct_difference": 3,
+            "gain_node_count": 4,
+            "loss_node_count": 5,
+            "gain_node_counts": {
+              "00af1512db52ba99bc141458324f7fc4:18": 4,
+              "0859e1f897706e607f69626dca971398:6": 2,
+              "a5601ad58cbdfd25f69c459332318a3f:3": 2,
+              "b8d8c75ad738f9452c3c41236516d8a5:30": 4
+            },
+            "loss_node_counts": {
+              "0859e1f897706e607f69626dca971398:6": 2,
+              "3a5e6d25d0dc9e2820526eb29571d60a:20": 3,
+              "a5601ad58cbdfd25f69c459332318a3f:3": 2,
+              "f8b2e3dcad5c734d8a6a9641fe410be7:30": 1,
+              "f8b2e3dcad5c734d8a6a9641fe410be7:8": 1
+            },
+            "gain_example_ids": [
+              "00af1512db52ba99bc141458324f7fc4:18:constructed:above:cue:original",
+              "00af1512db52ba99bc141458324f7fc4:18:constructed:above:neutral:original",
+              "00af1512db52ba99bc141458324f7fc4:18:constructed:same_side:cue:original",
+              "00af1512db52ba99bc141458324f7fc4:18:constructed:same_side:neutral:original",
+              "0859e1f897706e607f69626dca971398:6:constructed:below:cue:original",
+              "0859e1f897706e607f69626dca971398:6:constructed:below:neutral:original",
+              "a5601ad58cbdfd25f69c459332318a3f:3:constructed:below:cue:original",
+              "a5601ad58cbdfd25f69c459332318a3f:3:constructed:below:neutral:original",
+              "b8d8c75ad738f9452c3c41236516d8a5:30:constructed:above:cue:original",
+              "b8d8c75ad738f9452c3c41236516d8a5:30:constructed:above:neutral:original",
+              "b8d8c75ad738f9452c3c41236516d8a5:30:constructed:same_side:cue:original",
+              "b8d8c75ad738f9452c3c41236516d8a5:30:constructed:same_side:neutral:original"
+            ],
+            "loss_example_ids": [
+              "0859e1f897706e607f69626dca971398:6:constructed:above:cue:original",
+              "0859e1f897706e607f69626dca971398:6:constructed:same_side:cue:original",
+              "3a5e6d25d0dc9e2820526eb29571d60a:20:constructed:above:cue:original",
+              "3a5e6d25d0dc9e2820526eb29571d60a:20:constructed:same_side:cue:original",
+              "3a5e6d25d0dc9e2820526eb29571d60a:20:constructed:same_side:neutral:original",
+              "a5601ad58cbdfd25f69c459332318a3f:3:constructed:same_side:cue:original",
+              "a5601ad58cbdfd25f69c459332318a3f:3:constructed:same_side:neutral:original",
+              "f8b2e3dcad5c734d8a6a9641fe410be7:30:constructed:below:cue:original",
+              "f8b2e3dcad5c734d8a6a9641fe410be7:8:constructed:below:cue:original"
+            ]
+          },
+          "calibration_blind": {
+            "n": 168,
+            "method": "logistic",
+            "baseline": "calibration_blind",
+            "method_accuracy": {
+              "numerator": 125,
+              "denominator": 168,
+              "rate": 0.7440476190476191
+            },
+            "baseline_accuracy": {
+              "numerator": 115,
+              "denominator": 168,
+              "rate": 0.6845238095238095
+            },
+            "gained_examples": 14,
+            "lost_examples": 4,
+            "net_correct_difference": 10,
+            "gain_node_count": 9,
+            "loss_node_count": 1,
+            "gain_node_counts": {
+              "01de3cd3fc809c0292e2518e75bf99cb:12": 1,
+              "0859e1f897706e607f69626dca971398:2": 3,
+              "3a5e6d25d0dc9e2820526eb29571d60a:20": 1,
+              "83cf1b073d03d1221b88fcd00c45f468:2": 1,
+              "ac29aff693f40424d1b43cf8b92bd776:22": 1,
+              "ac29aff693f40424d1b43cf8b92bd776:4": 2,
+              "b8d8c75ad738f9452c3c41236516d8a5:30": 3,
+              "f8b2e3dcad5c734d8a6a9641fe410be7:30": 1,
+              "f8b2e3dcad5c734d8a6a9641fe410be7:8": 1
+            },
+            "loss_node_counts": {
+              "176178ab78b4a90667d3313fc60b9e2b:12": 4
+            },
+            "gain_example_ids": [
+              "01de3cd3fc809c0292e2518e75bf99cb:12:constructed:below:neutral:original",
+              "0859e1f897706e607f69626dca971398:2:constructed:above:cue:original",
+              "0859e1f897706e607f69626dca971398:2:constructed:above:neutral:original",
+              "0859e1f897706e607f69626dca971398:2:constructed:same_side:neutral:original",
+              "3a5e6d25d0dc9e2820526eb29571d60a:20:constructed:above:neutral:original",
+              "83cf1b073d03d1221b88fcd00c45f468:2:constructed:above:neutral:original",
+              "ac29aff693f40424d1b43cf8b92bd776:22:constructed:below:cue:original",
+              "ac29aff693f40424d1b43cf8b92bd776:4:constructed:below:cue:original",
+              "ac29aff693f40424d1b43cf8b92bd776:4:constructed:below:neutral:original",
+              "b8d8c75ad738f9452c3c41236516d8a5:30:constructed:above:neutral:original",
+              "b8d8c75ad738f9452c3c41236516d8a5:30:constructed:same_side:cue:original",
+              "b8d8c75ad738f9452c3c41236516d8a5:30:constructed:same_side:neutral:original",
+              "f8b2e3dcad5c734d8a6a9641fe410be7:30:constructed:below:neutral:original",
+              "f8b2e3dcad5c734d8a6a9641fe410be7:8:constructed:below:neutral:original"
+            ],
+            "loss_example_ids": [
+              "176178ab78b4a90667d3313fc60b9e2b:12:constructed:above:cue:original",
+              "176178ab78b4a90667d3313fc60b9e2b:12:constructed:above:neutral:original",
+              "176178ab78b4a90667d3313fc60b9e2b:12:constructed:same_side:cue:original",
+              "176178ab78b4a90667d3313fc60b9e2b:12:constructed:same_side:neutral:original"
+            ]
+          }
+        }
+      },
+      "primary_pair_population": "test sources, neutral background, original condition, one below/above pair per node",
+      "primary_pair_metrics_all_methods": {
+        "blind": {
+          "P_b": {
+            "numerator": 20,
+            "denominator": 28,
+            "rate": 0.7142857142857143
+          },
+          "both_correct_pairs": 8
+        },
+        "cad_blind": {
+          "P_b": {
+            "numerator": 20,
+            "denominator": 28,
+            "rate": 0.7142857142857143
+          },
+          "both_correct_pairs": 8
+        },
+        "cad_full": {
+          "P_b": {
+            "numerator": 16,
+            "denominator": 28,
+            "rate": 0.5714285714285714
+          },
+          "both_correct_pairs": 12
+        },
+        "calibration_blind": {
+          "P_b": {
+            "numerator": 18,
+            "denominator": 28,
+            "rate": 0.6428571428571429
+          },
+          "both_correct_pairs": 10
+        },
+        "calibration_full": {
+          "P_b": {
+            "numerator": 14,
+            "denominator": 28,
+            "rate": 0.5
+          },
+          "both_correct_pairs": 14
+        },
+        "full": {
+          "P_b": {
+            "numerator": 16,
+            "denominator": 28,
+            "rate": 0.5714285714285714
+          },
+          "both_correct_pairs": 12
+        },
+        "logistic": {
+          "P_b": {
+            "numerator": 11,
+            "denominator": 28,
+            "rate": 0.39285714285714285
+          },
+          "both_correct_pairs": 17
+        },
+        "probability_average": {
+          "P_b": {
+            "numerator": 20,
+            "denominator": 28,
+            "rate": 0.7142857142857143
+          },
+          "both_correct_pairs": 8
+        }
+      },
+      "primary_pair_logistic_comparisons": {
+        "full": {
+          "gained_complete_pairs": 5,
+          "lost_complete_pairs": 0,
+          "gain_node_ids": [
+            "00af1512db52ba99bc141458324f7fc4:18",
+            "0859e1f897706e607f69626dca971398:2",
+            "0859e1f897706e607f69626dca971398:6",
+            "48b354078dca3fbaf7855e527e8d1637:13",
+            "b8d8c75ad738f9452c3c41236516d8a5:30"
+          ],
+          "loss_node_ids": [],
+          "gain_conditions": {
+            "00af1512db52ba99bc141458324f7fc4:18": "Is the closest margin <1 cm (narrow margin) by treating physician assessment?",
+            "0859e1f897706e607f69626dca971398:2": "患者年龄是否在10~20岁之间或既往病史提示起病多在青春期前后，且青春期后萎缩趋于稳定（1~2年内外形无肉眼可见变化）？",
+            "0859e1f897706e607f69626dca971398:6": "患者当前是否处于颌面骨发育稳定期（女性≥16岁或男性≥18岁）？",
+            "48b354078dca3fbaf7855e527e8d1637:13": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+            "b8d8c75ad738f9452c3c41236516d8a5:30": "Is the patient between 3 and 5 years after treatment completion?"
+          }
+        },
+        "calibration_full": {
+          "gained_complete_pairs": 3,
+          "lost_complete_pairs": 0,
+          "gain_node_ids": [
+            "00af1512db52ba99bc141458324f7fc4:18",
+            "0859e1f897706e607f69626dca971398:6",
+            "b8d8c75ad738f9452c3c41236516d8a5:30"
+          ],
+          "loss_node_ids": [],
+          "gain_conditions": {
+            "00af1512db52ba99bc141458324f7fc4:18": "Is the closest margin <1 cm (narrow margin) by treating physician assessment?",
+            "0859e1f897706e607f69626dca971398:6": "患者当前是否处于颌面骨发育稳定期（女性≥16岁或男性≥18岁）？",
+            "b8d8c75ad738f9452c3c41236516d8a5:30": "Is the patient between 3 and 5 years after treatment completion?"
+          }
+        },
+        "calibration_blind": {
+          "gained_complete_pairs": 8,
+          "lost_complete_pairs": 1,
+          "gain_node_ids": [
+            "01de3cd3fc809c0292e2518e75bf99cb:12",
+            "0859e1f897706e607f69626dca971398:2",
+            "3a5e6d25d0dc9e2820526eb29571d60a:20",
+            "83cf1b073d03d1221b88fcd00c45f468:2",
+            "ac29aff693f40424d1b43cf8b92bd776:4",
+            "b8d8c75ad738f9452c3c41236516d8a5:30",
+            "f8b2e3dcad5c734d8a6a9641fe410be7:30",
+            "f8b2e3dcad5c734d8a6a9641fe410be7:8"
+          ],
+          "loss_node_ids": [
+            "176178ab78b4a90667d3313fc60b9e2b:12"
+          ],
+          "gain_conditions": {
+            "01de3cd3fc809c0292e2518e75bf99cb:12": "Is the tumor located on the trunk or extremities with clinical diameter ≥2 cm?",
+            "0859e1f897706e607f69626dca971398:2": "患者年龄是否在10~20岁之间或既往病史提示起病多在青春期前后，且青春期后萎缩趋于稳定（1~2年内外形无肉眼可见变化）？",
+            "3a5e6d25d0dc9e2820526eb29571d60a:20": "Can ART be initiated immediately or at least ≥7 days before cancer therapy (unless urgent cancer treatment timing precludes this)?",
+            "83cf1b073d03d1221b88fcd00c45f468:2": "Is performance status good (ECOG 0–1) with good biliary drainage and adequate nutritional intake?",
+            "ac29aff693f40424d1b43cf8b92bd776:4": "Is the patient in blast phase with ≥20% blasts in bone marrow and/or peripheral blood?",
+            "b8d8c75ad738f9452c3c41236516d8a5:30": "Is the patient between 3 and 5 years after treatment completion?",
+            "f8b2e3dcad5c734d8a6a9641fe410be7:30": "Is the individual age ≥35 years?",
+            "f8b2e3dcad5c734d8a6a9641fe410be7:8": "Is the individual age ≥35 years?"
+          }
+        }
+      }
+    }
+  }
+}

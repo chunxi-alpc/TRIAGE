@@ -1,5 +1,9 @@
 # 历史实验索引
 
+## 修订遮挡与关键事实预实验（2026-11-05，已完成）
+
+[代码与 CPU 复算入口](semantic_masking_followup_20261105/README.md) · [结果分析](../reports/semantic_masking_followup_20261105/ANALYSIS.zh.md) · [完整输入与分数快照](../results/semantic_masking_followup_20261105/README.md)。修正指定删除、完整条件标签和开发集融合选择；2,994 条评分齐全，21 项服务器测试通过。主关键事实测试 28 对，固定预测的配对融合分析单列补充；未训练内部干预模块。
+
 ## 三数据集补充分析（2026-11-05，已完成）
 
 [代码与复现入口](three_dataset_analysis_20261105/README.md) · [实验说明](../reports/three_dataset_analysis_20261105/EXPERIMENTS.zh.md) · [四张主表与分析](../reports/three_dataset_analysis_20261105/README.md)。本轮复用已有标注与历史结果，仅补 MedPAIR 缺失候选评分，新增 538 个唯一输入；不训练内部干预模块。
