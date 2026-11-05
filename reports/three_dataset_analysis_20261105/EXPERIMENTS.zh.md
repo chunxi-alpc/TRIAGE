@@ -67,7 +67,7 @@ B=两路均错数/测试样本数；双错纠正率=融合纠正的双错数/两
 
 已有验证通过：选项映射与概率归一化、配对输入、开发/测试分组、相同位置补回、融合计数关系；4 项融合测试覆盖零系数、相同分数、双错为空、不同候选数及概率平均纠正不同错误等情况。
 
-在服务器激活环境后，进入[代码目录](../../experiments/three_dataset_analysis_20261105/README.md)。分析依赖 NumPy/SciPy；模型评分另依赖原仓库及 PyTorch/Transformers。代码绑定本次服务器目录和 inventory。顺序为：
+在服务器激活环境后，进入[代码目录](../../experiments/three_dataset_analysis_20261105/README.md)。分析依赖 NumPy/SciPy，Work3 补充另需 pandas 和 Parquet 引擎；模型评分另依赖原仓库及 PyTorch/Transformers。代码绑定本次服务器目录和 inventory。顺序为：
 
 1. analyze_offline.py：复算已有结果。
 2. prepare_medpair.py：准备补评分输入；score_medpair.py：仅在缺少分数且已汇报 GPU 资源时运行，断点只补缺失记录。

@@ -45,3 +45,5 @@ MedEinst：每侧独立取 46 候选最高分；原始分数文件路径、行�
 本目录收录到 TRIAGE 后，实验输入和历史运行目录继续使用原位置。common.py 从 `/home/gcx/experiment_data_reuse_20261105/data_inventory.json` 找到原 MedPAIR 仓库 `/home/gcx/work3-migration-20261104/target`；prepare_medpair.py 和 score_medpair.py 从该仓库导入 ClinicalCase、build_prompt 与选项评分函数。MedGUIDE 和 MedEinst 复用 inventory 及脚本中记录的服务器历史分数。仅克隆 TRIAGE 不包含这些原始数据和依赖。
 
 原 config.json 的 code_root 记录实际运行时的代码位置，保留原样。当前代码入口为 TRIAGE 的本目录；export_repository.py 默认写入所在仓库，可通过 `--repo-root` 指定其他位置。整理不重跑模型，也不复制患者输入和逐题输出。
+
+MedGUIDE 离线复算还动态导入 `/home/gcx/TRIAGE-worktrees/qwen800-methods/experiments/aster_validation_20261022/mechanism_20261023/run.py` 的原分支提示函数。Work3 补充分析读取 Parquet，需要 pandas 和可用的 Parquet 引擎；本次 gcx261014 环境已满足。
