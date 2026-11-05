@@ -1,0 +1,89 @@
+{
+  "protocol_version": "aster_fullscale.v2",
+  "created_date": "2026-10-29",
+  "status": "full_jobs_started_not_complete",
+  "primary_dataset": {
+    "name": "MEGA-CDP",
+    "revision": "8f058c88ce1ed43693785b435ad0ff99907a2890",
+    "train_val_cases_registered": 34895,
+    "train_val_trees_registered": 1834,
+    "official_test_cases_registered": 7458,
+    "official_test_trees_registered": 440,
+    "train_val_group_split": {
+      "fit": 0.7,
+      "select": 0.15,
+      "confirm": 0.15
+    },
+    "test_policy": "official test locked until all model and analysis choices are frozen"
+  },
+  "external_dataset": {
+    "name": "MedGUIDE-MCQA-8K",
+    "revision": "1460ec478280a7295040b92f7eb985327f77dcbe",
+    "source_cases_registered": 7747,
+    "source_guideline_trees_registered": 55,
+    "current_counterfactual_candidate_count": 3645,
+    "group_split": {
+      "fit": 0.6,
+      "select": 0.2,
+      "heldout": 0.2
+    },
+    "test_policy": "source-tree heldout from original train split; not an official test split",
+    "source_guideline_trees_observed": 53,
+    "source_families_observed": 24
+  },
+  "seed": 20261029,
+  "grouping_unit": "source guideline tree/family, never individual case",
+  "module_definition": {
+    "module_1": "action-blind applicability prediction T/F/U",
+    "module_2": "synthetic logical pair query-difference eigendirection and select-only gain choice",
+    "module_3": "predicted signed rank-one key edit at last query and decoding"
+  },
+  "primary_comparison": "predicted routing plus learned key projection versus same-input baseline",
+  "required_controls": [
+    "direct_attention_score_bias_same_routing",
+    "raw_mean_direction",
+    "reverse_direction",
+    "random_same_norm_direction_fixed_seed",
+    "zero_edit_identity",
+    "oracle_gold_routing_diagnostic_only"
+  ],
+  "primary_statistics": {
+    "cluster_unit": "guideline_tree",
+    "report": [
+      "all_valid_case_denominator",
+      "coverage_and_abstention",
+      "path_or_branch_fidelity",
+      "invalid_output_rate",
+      "paired_corrected",
+      "paired_regressed",
+      "net_change",
+      "cluster_bootstrap_confidence_interval"
+    ],
+    "continuous_metrics": [
+      "official_pcc",
+      "official_normalized_conclusion_score"
+    ]
+  },
+  "exclusion_policy": [
+    "exclude only documented source corruption, invalid/missing gold path, or a pre-registered structural impossibility",
+    "never exclude by model correctness, model knowledge, refusal, parse failure, applicability prediction, or intervention outcome",
+    "all technical failures remain in the intent-to-evaluate denominator and are separately counted"
+  ],
+  "cross_dataset_overlap_audit_required": true,
+  "expensive_model_inference_started": true,
+  "hashing_required": false,
+  "minimal_pair_scope": "synthetic explicit condition truth; not clinical gold patient edits",
+  "selection_task": "source-heldout synthetic logical applicability, not official test",
+  "execution_transport": {
+    "generation_batch_size": 4,
+    "judge_batch_size": 8,
+    "per_row_intervention_state": true,
+    "shared_unedited_prefix_cache": true,
+    "judge_draws_per_parsed_distinct_output": {
+      "path": 5,
+      "conclusion": 5
+    },
+    "preserve_completed_predictions_and_judge_draws": true,
+    "oom_policy": "split batch without dropping cases"
+  }
+}
