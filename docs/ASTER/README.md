@@ -1,11 +1,15 @@
 # ASTER
 
+[当前论文正文](manuscript.zh.md)整合临床背景、单步条件判断、四类配对测试、两项挑战、三项机制假设与三模块方法。新版使用冻结模型中的头定位、反事实子空间估计和信号保持擦除；机制比例与方法效果待对应实验补齐。
+
+- [首页概述](../../README.md)：完整研究叙事与入口。
+- [新版正文](manuscript.zh.md)：Intro、任务定义、机制分析、Method、斜投影与输出融合命题、实验组织。
+- [旧版正文与完整结果](manuscript-representation.zh.md)：可训练处置盲表示干预，MEGA-CDP 完整路径正确率89.21%。
+- [旧版方法核对](method-check.zh.md)、[旧版方法补充与复现](supplementary.zh.md)、[旧版代码与冻结权重](../../experiments/aster_representation/)。
+- [旧版结果附件](results/)：官方测试配对计数、BERTScore 汇总和18节点反事实结果。
+
 ## 三数据集补充分析（2026-11-05）
 
-[实验说明、结果与分析](../../reports/three_dataset_analysis_20261105/README.md)比较信息删除与补回、方案干扰、关键事实响应和输出融合。该批结果复用已有标注和历史预测，与上方表示干预主实验保持各自协议。
+[实验说明、结果与分析](../../reports/three_dataset_analysis_20261105/README.md)比较信息删除与补回、方案干扰、关键事实响应和输出融合。该批结果复用已有标注和历史预测，可为新版配对实验提供背景，不作为新闭式方法的结果。
 
-[论文正文](manuscript.zh.md)介绍处置盲表示干预及其单轮评测结果。[方法核对](method-check.zh.md)说明文字描述与当前最好结果的对应关系。[方法补充](supplementary.zh.md)给出监督信号、配置选择和复现步骤。[主方法代码](../../experiments/aster_representation/)提供冻结权重与运行入口。
-
-[结果附件](results/)提供官方测试的配对计数、全量 BERTScore 汇总和18节点反事实实验的逐节点结果。[固定实验代码与检查点](https://github.com/chunxi-alpc/TRIAGE/tree/d8cf67d53d6b068d9b382114de4a5fa4b22f633b/experiments/aster_representation_20261101/release)可用于追溯对照实现。
-
-此前的规则键编辑方案可从[归档](archive/README.md)查阅。
+旧版的[固定实验代码与检查点](https://github.com/chunxi-alpc/TRIAGE/tree/d8cf67d53d6b068d9b382114de4a5fa4b22f633b/experiments/aster_representation_20261101/release)用于追溯已完成对照。此前规则键编辑方案见[归档](archive/README.md)。

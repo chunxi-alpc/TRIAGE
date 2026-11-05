@@ -1,4 +1,6 @@
-# 方法描述与最好结果的核对
+# 旧版方法描述与最好结果的核对
+
+> 本文记录2026-11-02的可训练处置盲表示干预。下文“当前主方法”指当时的冻结配置；新闭式方案见[当前正文](manuscript.zh.md)。
 
 核对日期：2026-11-02。仅查看服务器既有代码、检查点和结果，没有新增训练或模型推理。
 
@@ -34,7 +36,7 @@
 
 ## 依据
 
-- [论文正文第3节](manuscript.zh.md#3-方法)：本次按实际实现重写的模块说明。
+- [论文正文第3节](manuscript-representation.zh.md#3-方法)：本次按实际实现重写的模块说明。
 - [训练与推断补充](supplementary.zh.md)、[结果汇总](results/single-turn.json)：训练规模、冻结配置和官方全量结果。
 - [干预算子和损失](../../experiments/aster_representation/intervention.py)、[双视图训练](../../experiments/aster_representation/training.py)、[参考提示与重排](../../experiments/aster_representation/inputs.py)、[节点推断](../../experiments/aster_representation/engine.py)。
 - 服务器 `/home/gcx/aster_representation_20261101/` 下的 `manifest.json`、`final_selected.json`、`freeze_confirmation_no_js.json`，以及 `official_test_20261102/primary_summary.json`、`official_test_20261102/with_js_evaluation/summary.json`。后者报告含 JS 与无 JS 版本均覆盖7,458例的计数。本次仅读取这些已有文件。
