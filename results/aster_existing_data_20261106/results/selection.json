@@ -1,0 +1,4701 @@
+{
+  "method": "grid_11",
+  "path": "/home/gcx/aster_existing_data_20261106/operators/grid_11.pt",
+  "config": {
+    "eta": 0.95,
+    "kmax": 4,
+    "theta": 45
+  },
+  "heads": 51,
+  "rank": 120,
+  "selection_rule": "PA macro across all development pairs, original accuracy, fewer heads, lower edit rank, larger angle",
+  "selection_cohort": "main development pairs only",
+  "development_metrics": {
+    "grid_00": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.228125,
+            "mean_abs": 0.759375,
+            "std": 1.0661289131127625,
+            "median": 0.0,
+            "p05": -0.7625,
+            "p95": 2.8812499999999996,
+            "rms": 1.0902622964222877
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.23684210526315788,
+            "mean_abs": 0.6710526315789473,
+            "std": 0.8856445920855073,
+            "median": -0.125,
+            "p05": -1.775,
+            "p95": 1.0249999999999995,
+            "rms": 0.9167663422681864
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 55.375,
+            "mean_abs": 55.375,
+            "std": 0.0,
+            "median": 55.375,
+            "p05": 55.375,
+            "p95": 55.375,
+            "rms": 55.375
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 55.375,
+            "mean_abs": 55.375,
+            "std": 0.0,
+            "median": 55.375,
+            "p05": 55.375,
+            "p95": 55.375,
+            "rms": 55.375
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 47.134375,
+            "mean_abs": 47.134375,
+            "std": 9.024592593816909,
+            "median": 48.0,
+            "p05": 37.7875,
+            "p95": 56.15625,
+            "rms": 47.990546757929316
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 47.134375,
+            "mean_abs": 47.134375,
+            "std": 9.024592593816909,
+            "median": 48.0,
+            "p05": 37.7875,
+            "p95": 56.15625,
+            "rms": 47.990546757929316
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.1875,
+            "mean_abs": 0.6375,
+            "std": 0.8664763412811685,
+            "median": -0.0625,
+            "p05": -1.55,
+            "p95": 1.0812499999999996,
+            "rms": 0.8865311613248572
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.2916666666666667,
+            "mean_abs": 0.7083333333333334,
+            "std": 0.9033118078616166,
+            "median": -0.125,
+            "p05": -1.75,
+            "p95": 0.8999999999999999,
+            "rms": 0.9492321458245431
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_01": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.190625,
+            "mean_abs": 0.746875,
+            "std": 1.0792747492529415,
+            "median": 0.125,
+            "p05": -1.0,
+            "p95": 1.943749999999996,
+            "rms": 1.0959798697968863
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.34210526315789475,
+            "mean_abs": 0.8157894736842105,
+            "std": 1.055095799827866,
+            "median": -0.25,
+            "p05": -2.4375,
+            "p95": 1.0124999999999997,
+            "rms": 1.109172285037242
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 55.25,
+            "mean_abs": 55.25,
+            "std": 0.0,
+            "median": 55.25,
+            "p05": 55.25,
+            "p95": 55.25,
+            "rms": 55.25
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 55.25,
+            "mean_abs": 55.25,
+            "std": 0.0,
+            "median": 55.25,
+            "p05": 55.25,
+            "p95": 55.25,
+            "rms": 55.25
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.684375,
+            "mean_abs": 48.684375,
+            "std": 8.652266118444059,
+            "median": 49.3125,
+            "p05": 41.18750000000001,
+            "p95": 57.51875,
+            "rms": 49.44724540482513
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.684375,
+            "mean_abs": 48.684375,
+            "std": 8.652266118444059,
+            "median": 49.3125,
+            "p05": 41.18750000000001,
+            "p95": 57.51875,
+            "rms": 49.44724540482513
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.3,
+            "mean_abs": 0.9,
+            "std": 1.1742018565817378,
+            "median": -0.125,
+            "p05": -2.15625,
+            "p95": 1.0687499999999999,
+            "rms": 1.2119199643540823
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.3888888888888889,
+            "mean_abs": 0.7222222222222222,
+            "std": 0.9022434316062063,
+            "median": -0.25,
+            "p05": -1.825,
+            "p95": 0.7,
+            "rms": 0.982485510212633
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_02": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.15,
+            "mean_abs": 0.75,
+            "std": 1.1937990827605791,
+            "median": 0.0,
+            "p05": -1.0,
+            "p95": 2.193749999999996,
+            "rms": 1.203185875083314
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.3157894736842105,
+            "mean_abs": 0.7368421052631579,
+            "std": 1.0453282828071597,
+            "median": 0.0,
+            "p05": -2.875,
+            "p95": 0.7999999999999989,
+            "rms": 1.0919863600459099
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 54.5,
+            "mean_abs": 54.5,
+            "std": 0.0,
+            "median": 54.5,
+            "p05": 54.5,
+            "p95": 54.5,
+            "rms": 54.5
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 54.5,
+            "mean_abs": 54.5,
+            "std": 0.0,
+            "median": 54.5,
+            "p05": 54.5,
+            "p95": 54.5,
+            "rms": 54.5
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.91875,
+            "mean_abs": 48.91875,
+            "std": 7.977044702613869,
+            "median": 49.625,
+            "p05": 40.900000000000006,
+            "p95": 57.2625,
+            "rms": 49.56488014461449
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.91875,
+            "mean_abs": 48.91875,
+            "std": 7.977044702613869,
+            "median": 49.625,
+            "p05": 40.900000000000006,
+            "p95": 57.2625,
+            "rms": 49.56488014461449
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.2875,
+            "mean_abs": 0.7625,
+            "std": 1.0563054719161498,
+            "median": -0.1875,
+            "p05": -2.03125,
+            "p95": 0.9687499999999993,
+            "rms": 1.0947317022905658
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.3472222222222222,
+            "mean_abs": 0.7083333333333334,
+            "std": 1.032085566842183,
+            "median": 0.0,
+            "p05": -2.125,
+            "p95": 0.5999999999999999,
+            "rms": 1.0889278621143317
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_03": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.0625,
+            "mean_abs": 0.74375,
+            "std": 1.0547511554864493,
+            "median": 0.0,
+            "p05": -1.2999999999999998,
+            "p95": 1.7999999999999972,
+            "rms": 1.0566012729502081
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.4407894736842105,
+            "mean_abs": 0.5855263157894737,
+            "std": 0.7720108111424189,
+            "median": -0.25,
+            "p05": -2.125,
+            "p95": 0.5374999999999992,
+            "rms": 0.8889859687484268
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 51.75,
+            "mean_abs": 51.75,
+            "std": 0.0,
+            "median": 51.75,
+            "p05": 51.75,
+            "p95": 51.75,
+            "rms": 51.75
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 51.75,
+            "mean_abs": 51.75,
+            "std": 0.0,
+            "median": 51.75,
+            "p05": 51.75,
+            "p95": 51.75,
+            "rms": 51.75
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 47.61875,
+            "mean_abs": 47.61875,
+            "std": 7.99022596285612,
+            "median": 48.125,
+            "p05": 41.550000000000004,
+            "p95": 56.474999999999994,
+            "rms": 48.28445984475751
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 47.61875,
+            "mean_abs": 47.61875,
+            "std": 7.99022596285612,
+            "median": 48.125,
+            "p05": 41.550000000000004,
+            "p95": 56.474999999999994,
+            "rms": 48.28445984475751
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.4875,
+            "mean_abs": 0.6625,
+            "std": 0.8318841565987418,
+            "median": -0.25,
+            "p05": -1.9,
+            "p95": 0.48124999999999907,
+            "rms": 0.9642030387838445
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.3888888888888889,
+            "mean_abs": 0.5,
+            "std": 0.6958319472152972,
+            "median": -0.25,
+            "p05": -1.575,
+            "p95": 0.2999999999999998,
+            "rms": 0.7971302695712079
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_04": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.121875,
+            "mean_abs": 0.853125,
+            "std": 1.2931573219740127,
+            "median": -0.25,
+            "p05": -1.0,
+            "p95": 2.049999999999997,
+            "rms": 1.2988877453421446
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.4144736842105263,
+            "mean_abs": 0.7828947368421053,
+            "std": 1.1283230392429406,
+            "median": 0.0,
+            "p05": -2.8,
+            "p95": 1.0,
+            "rms": 1.2020404800960214
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 54.75,
+            "mean_abs": 54.75,
+            "std": 0.0,
+            "median": 54.75,
+            "p05": 54.75,
+            "p95": 54.75,
+            "rms": 54.75
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 54.75,
+            "mean_abs": 54.75,
+            "std": 0.0,
+            "median": 54.75,
+            "p05": 54.75,
+            "p95": 54.75,
+            "rms": 54.75
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.009375,
+            "mean_abs": 48.009375,
+            "std": 8.272950440101463,
+            "median": 49.125,
+            "p05": 39.6625,
+            "p95": 57.2625,
+            "rms": 48.71695594836566
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.009375,
+            "mean_abs": 48.009375,
+            "std": 8.272950440101463,
+            "median": 49.125,
+            "p05": 39.6625,
+            "p95": 57.2625,
+            "rms": 48.71695594836566
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.35,
+            "mean_abs": 0.775,
+            "std": 1.1233320969330487,
+            "median": 0.0,
+            "p05": -2.4125,
+            "p95": 0.9437499999999999,
+            "rms": 1.1765946625750092
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.4861111111111111,
+            "mean_abs": 0.7916666666666666,
+            "std": 1.12953475618597,
+            "median": -0.25,
+            "p05": -2.4,
+            "p95": 0.6999999999999997,
+            "rms": 1.2296962136144756
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_05": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.225,
+            "mean_abs": 0.85625,
+            "std": 1.2538067036030713,
+            "median": 0.25,
+            "p05": -1.125,
+            "p95": 1.837499999999995,
+            "rms": 1.2738352522991345
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.46710526315789475,
+            "mean_abs": 0.875,
+            "std": 1.2558037013355585,
+            "median": 0.0,
+            "p05": -3.3,
+            "p95": 0.7999999999999989,
+            "rms": 1.339862031389014
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 55.0,
+            "mean_abs": 55.0,
+            "std": 0.0,
+            "median": 55.0,
+            "p05": 55.0,
+            "p95": 55.0,
+            "rms": 55.0
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 55.0,
+            "mean_abs": 55.0,
+            "std": 0.0,
+            "median": 55.0,
+            "p05": 55.0,
+            "p95": 55.0,
+            "rms": 55.0
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.2375,
+            "mean_abs": 48.2375,
+            "std": 7.961224387617774,
+            "median": 49.375,
+            "p05": 40.425000000000004,
+            "p95": 56.43125,
+            "rms": 48.8900552259864
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.2375,
+            "mean_abs": 48.2375,
+            "std": 7.961224387617774,
+            "median": 49.375,
+            "p05": 40.425000000000004,
+            "p95": 56.43125,
+            "rms": 48.8900552259864
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.3875,
+            "mean_abs": 0.8625,
+            "std": 1.341000093214016,
+            "median": 0.0625,
+            "p05": -2.85,
+            "p95": 0.9124999999999992,
+            "rms": 1.3958644275143628
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.5555555555555556,
+            "mean_abs": 0.8888888888888888,
+            "std": 1.1473264682257436,
+            "median": -0.25,
+            "p05": -2.45,
+            "p95": 0.6499999999999999,
+            "rms": 1.2747548783981961
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_06": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.125,
+            "mean_abs": 0.71875,
+            "std": 0.978279740156158,
+            "median": 0.125,
+            "p05": -1.7625,
+            "p95": 1.7812499999999982,
+            "rms": 0.9862333648787187
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": 0.019736842105263157,
+            "mean_abs": 0.48026315789473684,
+            "std": 0.6492191132920472,
+            "median": -0.125,
+            "p05": -0.7625,
+            "p95": 1.0999999999999979,
+            "rms": 0.649519052838329
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 53.375,
+            "mean_abs": 53.375,
+            "std": 0.0,
+            "median": 53.375,
+            "p05": 53.375,
+            "p95": 53.375,
+            "rms": 53.375
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 53.375,
+            "mean_abs": 53.375,
+            "std": 0.0,
+            "median": 53.375,
+            "p05": 53.375,
+            "p95": 53.375,
+            "rms": 53.375
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 47.1875,
+            "mean_abs": 47.1875,
+            "std": 8.352815767751615,
+            "median": 48.8125,
+            "p05": 36.375,
+            "p95": 55.38749999999999,
+            "rms": 47.92107769551933
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 47.1875,
+            "mean_abs": 47.1875,
+            "std": 8.352815767751615,
+            "median": 48.8125,
+            "p05": 36.375,
+            "p95": 55.38749999999999,
+            "rms": 47.92107769551933
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": 0.15,
+            "mean_abs": 0.525,
+            "std": 0.7433034373659253,
+            "median": -0.1875,
+            "p05": -0.44375,
+            "p95": 1.549999999999999,
+            "rms": 0.758287544405155
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.125,
+            "mean_abs": 0.4305555555555556,
+            "std": 0.485912657903775,
+            "median": 0.0,
+            "p05": -0.825,
+            "p95": 0.44999999999999996,
+            "rms": 0.5017331074496789
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_07": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.13125,
+            "mean_abs": 0.70625,
+            "std": 1.1127633115357463,
+            "median": 0.0625,
+            "p05": -0.7625,
+            "p95": 1.5624999999999964,
+            "rms": 1.120477018952196
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.3618421052631579,
+            "mean_abs": 0.8355263157894737,
+            "std": 1.226687034386689,
+            "median": 0.0,
+            "p05": -2.65,
+            "p95": 1.25,
+            "rms": 1.2789412767886117
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 53.0,
+            "mean_abs": 53.0,
+            "std": 0.0,
+            "median": 53.0,
+            "p05": 53.0,
+            "p95": 53.0,
+            "rms": 53.0
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 53.0,
+            "mean_abs": 53.0,
+            "std": 0.0,
+            "median": 53.0,
+            "p05": 53.0,
+            "p95": 53.0,
+            "rms": 53.0
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.09375,
+            "mean_abs": 48.09375,
+            "std": 7.6936332241340954,
+            "median": 49.4375,
+            "p05": 41.4125,
+            "p95": 55.63125,
+            "rms": 48.70524387835462
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.09375,
+            "mean_abs": 48.09375,
+            "std": 7.6936332241340954,
+            "median": 49.4375,
+            "p05": 41.4125,
+            "p95": 55.63125,
+            "rms": 48.70524387835462
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.375,
+            "mean_abs": 0.925,
+            "std": 1.399776767916942,
+            "median": 0.125,
+            "p05": -2.875,
+            "p95": 0.9687499999999993,
+            "rms": 1.449137674618944
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.3472222222222222,
+            "mean_abs": 0.7361111111111112,
+            "std": 0.9996141230803656,
+            "median": 0.0,
+            "p05": -1.9,
+            "p95": 0.9499999999999997,
+            "rms": 1.0582020916000245
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_08": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.259375,
+            "mean_abs": 0.715625,
+            "std": 1.092012012010399,
+            "median": 0.25,
+            "p05": -0.75,
+            "p95": 2.143749999999999,
+            "rms": 1.1223928122542481
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.40131578947368424,
+            "mean_abs": 0.9144736842105263,
+            "std": 1.2351612318632985,
+            "median": -0.25,
+            "p05": -2.8375,
+            "p95": 1.0249999999999995,
+            "rms": 1.298721537350847
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 53.625,
+            "mean_abs": 53.625,
+            "std": 0.0,
+            "median": 53.625,
+            "p05": 53.625,
+            "p95": 53.625,
+            "rms": 53.625
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 53.625,
+            "mean_abs": 53.625,
+            "std": 0.0,
+            "median": 53.625,
+            "p05": 53.625,
+            "p95": 53.625,
+            "rms": 53.625
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.559375,
+            "mean_abs": 48.559375,
+            "std": 7.7426370013306824,
+            "median": 49.75,
+            "p05": 40.93750000000001,
+            "p95": 56.2625,
+            "rms": 49.17277018965883
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.559375,
+            "mean_abs": 48.559375,
+            "std": 7.7426370013306824,
+            "median": 49.75,
+            "p05": 40.93750000000001,
+            "p95": 56.2625,
+            "rms": 49.17277018965883
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.525,
+            "mean_abs": 1.0,
+            "std": 1.3402425153680209,
+            "median": -0.125,
+            "p05": -2.89375,
+            "p95": 0.8312499999999996,
+            "rms": 1.439400917048478
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.2638888888888889,
+            "mean_abs": 0.8194444444444444,
+            "std": 1.090432579243918,
+            "median": -0.25,
+            "p05": -1.95,
+            "p95": 1.15,
+            "rms": 1.1219093348196882
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_09": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.196875,
+            "mean_abs": 0.778125,
+            "std": 1.1053447920784718,
+            "median": 0.0,
+            "p05": -1.0,
+            "p95": 2.7624999999999993,
+            "rms": 1.122740787092016
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.25,
+            "mean_abs": 0.75,
+            "std": 0.9724832565193738,
+            "median": -0.125,
+            "p05": -1.9125,
+            "p95": 1.049999999999999,
+            "rms": 1.0041034230648387
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 55.0,
+            "mean_abs": 55.0,
+            "std": 0.0,
+            "median": 55.0,
+            "p05": 55.0,
+            "p95": 55.0,
+            "rms": 55.0
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 55.0,
+            "mean_abs": 55.0,
+            "std": 0.0,
+            "median": 55.0,
+            "p05": 55.0,
+            "p95": 55.0,
+            "rms": 55.0
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 47.590625,
+            "mean_abs": 47.590625,
+            "std": 9.017820356625819,
+            "median": 48.4375,
+            "p05": 38.275000000000006,
+            "p95": 57.0125,
+            "rms": 48.437471774185326
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 47.590625,
+            "mean_abs": 47.590625,
+            "std": 9.017820356625819,
+            "median": 48.4375,
+            "p05": 38.275000000000006,
+            "p95": 57.0125,
+            "rms": 48.437471774185326
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.125,
+            "mean_abs": 0.75,
+            "std": 0.9568829604502319,
+            "median": -0.0625,
+            "p05": -1.5375,
+            "p95": 1.2749999999999995,
+            "rms": 0.9650129532809392
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.3888888888888889,
+            "mean_abs": 0.75,
+            "std": 0.9708323398500719,
+            "median": -0.125,
+            "p05": -2.05,
+            "p95": 0.7499999999999998,
+            "rms": 1.0458250331675945
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_10": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.2625,
+            "mean_abs": 0.73125,
+            "std": 1.1010648255211861,
+            "median": 0.125,
+            "p05": -0.75,
+            "p95": 1.9499999999999957,
+            "rms": 1.1319231422671772
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.3026315789473684,
+            "mean_abs": 0.7236842105263158,
+            "std": 0.9659633430184613,
+            "median": -0.25,
+            "p05": -2.4,
+            "p95": 0.8874999999999997,
+            "rms": 1.0122603680039928
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 54.875,
+            "mean_abs": 54.875,
+            "std": 0.0,
+            "median": 54.875,
+            "p05": 54.875,
+            "p95": 54.875,
+            "rms": 54.875
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 54.875,
+            "mean_abs": 54.875,
+            "std": 0.0,
+            "median": 54.875,
+            "p05": 54.875,
+            "p95": 54.875,
+            "rms": 54.875
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.93125,
+            "mean_abs": 48.93125,
+            "std": 8.500319387381865,
+            "median": 49.25,
+            "p05": 41.475,
+            "p95": 57.525,
+            "rms": 49.664098262728984
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.93125,
+            "mean_abs": 48.93125,
+            "std": 8.500319387381865,
+            "median": 49.25,
+            "p05": 41.475,
+            "p95": 57.525,
+            "rms": 49.664098262728984
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.225,
+            "mean_abs": 0.8,
+            "std": 1.0588909292273685,
+            "median": -0.1875,
+            "p05": -2.0625,
+            "p95": 0.9437499999999999,
+            "rms": 1.0825317547305484
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.3888888888888889,
+            "mean_abs": 0.6388888888888888,
+            "std": 0.8425417160057279,
+            "median": -0.25,
+            "p05": -1.825,
+            "p95": 0.575,
+            "rms": 0.927960727138337
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_11": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.24375,
+            "mean_abs": 0.8375,
+            "std": 1.2329936891565991,
+            "median": 0.125,
+            "p05": -0.88125,
+            "p95": 2.287499999999998,
+            "rms": 1.2568561970249421
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.34868421052631576,
+            "mean_abs": 0.756578947368421,
+            "std": 1.0086622747419152,
+            "median": -0.25,
+            "p05": -2.5375,
+            "p95": 0.9124999999999992,
+            "rms": 1.0672301828368118
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 53.875,
+            "mean_abs": 53.875,
+            "std": 0.0,
+            "median": 53.875,
+            "p05": 53.875,
+            "p95": 53.875,
+            "rms": 53.875
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 53.875,
+            "mean_abs": 53.875,
+            "std": 0.0,
+            "median": 53.875,
+            "p05": 53.875,
+            "p95": 53.875,
+            "rms": 53.875
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.9375,
+            "mean_abs": 48.9375,
+            "std": 7.908263083636001,
+            "median": 49.75,
+            "p05": 41.1625,
+            "p95": 57.875,
+            "rms": 49.57236660933186
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.9375,
+            "mean_abs": 48.9375,
+            "std": 7.908263083636001,
+            "median": 49.75,
+            "p05": 41.1625,
+            "p95": 57.875,
+            "rms": 49.57236660933186
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.2875,
+            "mean_abs": 0.7875,
+            "std": 0.9953799525809228,
+            "median": -0.3125,
+            "p05": -1.825,
+            "p95": 1.0812499999999996,
+            "rms": 1.036068289255105
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.4166666666666667,
+            "mean_abs": 0.7222222222222222,
+            "std": 1.0189182717197902,
+            "median": 0.0,
+            "p05": -2.125,
+            "p95": 0.6499999999999999,
+            "rms": 1.1008204011352423
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_12": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.03125,
+            "mean_abs": 0.85,
+            "std": 1.1520192869479227,
+            "median": 0.0,
+            "p05": -1.2999999999999998,
+            "p95": 1.9312499999999968,
+            "rms": 1.1524430571616109
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.46710526315789475,
+            "mean_abs": 0.6907894736842105,
+            "std": 0.8649251805023577,
+            "median": -0.25,
+            "p05": -2.2625,
+            "p95": 0.5624999999999987,
+            "rms": 0.9829968945713116
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 51.75,
+            "mean_abs": 51.75,
+            "std": 0.0,
+            "median": 51.75,
+            "p05": 51.75,
+            "p95": 51.75,
+            "rms": 51.75
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 51.75,
+            "mean_abs": 51.75,
+            "std": 0.0,
+            "median": 51.75,
+            "p05": 51.75,
+            "p95": 51.75,
+            "rms": 51.75
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 47.575,
+            "mean_abs": 47.575,
+            "std": 7.97093352437467,
+            "median": 47.25,
+            "p05": 42.0375,
+            "p95": 56.793749999999996,
+            "rms": 48.23812191876877
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 47.575,
+            "mean_abs": 47.575,
+            "std": 7.97093352437467,
+            "median": 47.25,
+            "p05": 42.0375,
+            "p95": 56.793749999999996,
+            "rms": 48.23812191876877
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.625,
+            "mean_abs": 0.725,
+            "std": 0.7945124291035351,
+            "median": -0.3125,
+            "p05": -2.025,
+            "p95": 0.27499999999999947,
+            "rms": 1.0108783309577865
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.2916666666666667,
+            "mean_abs": 0.6527777777777778,
+            "std": 0.905231707600018,
+            "median": -0.125,
+            "p05": -1.725,
+            "p95": 0.8249999999999997,
+            "rms": 0.9510593508761106
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_13": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.08125,
+            "mean_abs": 0.88125,
+            "std": 1.3174163872899107,
+            "median": -0.125,
+            "p05": -1.00625,
+            "p95": 2.0749999999999957,
+            "rms": 1.3199195051214296
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.4144736842105263,
+            "mean_abs": 0.8486842105263158,
+            "std": 1.0890095629767662,
+            "median": -0.25,
+            "p05": -2.5125,
+            "p95": 0.6874999999999987,
+            "rms": 1.1652168309623299
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 55.25,
+            "mean_abs": 55.25,
+            "std": 0.0,
+            "median": 55.25,
+            "p05": 55.25,
+            "p95": 55.25,
+            "rms": 55.25
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 55.25,
+            "mean_abs": 55.25,
+            "std": 0.0,
+            "median": 55.25,
+            "p05": 55.25,
+            "p95": 55.25,
+            "rms": 55.25
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.5875,
+            "mean_abs": 48.5875,
+            "std": 8.143402237394392,
+            "median": 49.375,
+            "p05": 40.650000000000006,
+            "p95": 57.25625,
+            "rms": 49.26520228569046
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.5875,
+            "mean_abs": 48.5875,
+            "std": 8.143402237394392,
+            "median": 49.375,
+            "p05": 40.650000000000006,
+            "p95": 57.25625,
+            "rms": 49.26520228569046
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.35,
+            "mean_abs": 0.925,
+            "std": 1.2270391191808026,
+            "median": -0.125,
+            "p05": -2.56875,
+            "p95": 0.9687499999999993,
+            "rms": 1.2759800155174845
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.4861111111111111,
+            "mean_abs": 0.7638888888888888,
+            "std": 0.9060836905722273,
+            "median": -0.25,
+            "p05": -2.0,
+            "p95": 0.5,
+            "rms": 1.0282468899377555
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_14": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.2125,
+            "mean_abs": 0.75625,
+            "std": 1.2842799539041323,
+            "median": 0.0,
+            "p05": -0.7749999999999999,
+            "p95": 2.087499999999995,
+            "rms": 1.3017416218282336
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.4276315789473684,
+            "mean_abs": 0.8223684210526315,
+            "std": 1.2134903643069967,
+            "median": -0.25,
+            "p05": -3.275,
+            "p95": 1.049999999999999,
+            "rms": 1.2866342260249988
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 54.625,
+            "mean_abs": 54.625,
+            "std": 0.0,
+            "median": 54.625,
+            "p05": 54.625,
+            "p95": 54.625,
+            "rms": 54.625
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 54.625,
+            "mean_abs": 54.625,
+            "std": 0.0,
+            "median": 54.625,
+            "p05": 54.625,
+            "p95": 54.625,
+            "rms": 54.625
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.48125,
+            "mean_abs": 48.48125,
+            "std": 8.013102063963743,
+            "median": 49.5,
+            "p05": 39.975,
+            "p95": 57.043749999999996,
+            "rms": 49.13900086743726
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.48125,
+            "mean_abs": 48.48125,
+            "std": 8.013102063963743,
+            "median": 49.5,
+            "p05": 39.975,
+            "p95": 57.043749999999996,
+            "rms": 49.13900086743726
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.325,
+            "mean_abs": 0.8,
+            "std": 1.2688577540449522,
+            "median": 0.0625,
+            "p05": -2.6,
+            "p95": 0.9374999999999987,
+            "rms": 1.3098186897429736
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.5416666666666666,
+            "mean_abs": 0.8472222222222222,
+            "std": 1.1380416903123052,
+            "median": -0.25,
+            "p05": -2.45,
+            "p95": 0.7499999999999998,
+            "rms": 1.2603736218545145
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_15": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.0875,
+            "mean_abs": 0.65,
+            "std": 0.8524780055813758,
+            "median": 0.125,
+            "p05": -1.25,
+            "p95": 1.75,
+            "rms": 0.8569568250501305
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": 0.05921052631578947,
+            "mean_abs": 0.5460526315789473,
+            "std": 0.8012822998792143,
+            "median": -0.125,
+            "p05": -0.6375,
+            "p95": 1.1749999999999963,
+            "rms": 0.803466994049112
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 52.125,
+            "mean_abs": 52.125,
+            "std": 0.0,
+            "median": 52.125,
+            "p05": 52.125,
+            "p95": 52.125,
+            "rms": 52.125
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 52.125,
+            "mean_abs": 52.125,
+            "std": 0.0,
+            "median": 52.125,
+            "p05": 52.125,
+            "p95": 52.125,
+            "rms": 52.125
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 47.01875,
+            "mean_abs": 47.01875,
+            "std": 9.02217537168836,
+            "median": 48.75,
+            "p05": 31.893750000000004,
+            "p95": 56.61874999999999,
+            "rms": 47.876533917985334
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 47.01875,
+            "mean_abs": 47.01875,
+            "std": 9.02217537168836,
+            "median": 48.75,
+            "p05": 31.893750000000004,
+            "p95": 56.61874999999999,
+            "rms": 47.876533917985334
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": 0.1375,
+            "mean_abs": 0.6625,
+            "std": 0.9897127108408783,
+            "median": -0.1875,
+            "p05": -0.69375,
+            "p95": 1.9624999999999981,
+            "rms": 0.9992184445855671
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.027777777777777776,
+            "mean_abs": 0.4166666666666667,
+            "std": 0.5026933630792738,
+            "median": -0.125,
+            "p05": -0.575,
+            "p95": 0.7999999999999998,
+            "rms": 0.5034602488997738
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_16": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.146875,
+            "mean_abs": 0.784375,
+            "std": 1.2364539455131356,
+            "median": 0.0625,
+            "p05": -0.7749999999999999,
+            "p95": 2.037499999999998,
+            "rms": 1.2451468286912992
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.2894736842105263,
+            "mean_abs": 0.75,
+            "std": 1.1606575889473878,
+            "median": 0.0,
+            "p05": -2.4125,
+            "p95": 1.25,
+            "rms": 1.196211123770206
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 52.5,
+            "mean_abs": 52.5,
+            "std": 0.0,
+            "median": 52.5,
+            "p05": 52.5,
+            "p95": 52.5,
+            "rms": 52.5
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 52.5,
+            "mean_abs": 52.5,
+            "std": 0.0,
+            "median": 52.5,
+            "p05": 52.5,
+            "p95": 52.5,
+            "rms": 52.5
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.290625,
+            "mean_abs": 48.290625,
+            "std": 7.824460220000802,
+            "median": 49.1875,
+            "p05": 41.45,
+            "p95": 57.00625,
+            "rms": 48.92041128838759
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.290625,
+            "mean_abs": 48.290625,
+            "std": 7.824460220000802,
+            "median": 49.1875,
+            "p05": 41.45,
+            "p95": 57.00625,
+            "rms": 48.92041128838759
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.4125,
+            "mean_abs": 0.8125,
+            "std": 1.3003004460508347,
+            "median": 0.0,
+            "p05": -2.58125,
+            "p95": 0.8562499999999991,
+            "rms": 1.36416183057583
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.1527777777777778,
+            "mean_abs": 0.6805555555555556,
+            "std": 0.964253053206099,
+            "median": 0.0,
+            "p05": -1.65,
+            "p95": 1.0999999999999999,
+            "rms": 0.9762812094883317
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    },
+    "grid_17": {
+      "PA_A": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_C": {
+        "numerator": 1,
+        "denominator": 1,
+        "rate": 1.0,
+        "scored_pairs": 1,
+        "missing_score_pairs": 0
+      },
+      "PA_F": {
+        "numerator": 38,
+        "denominator": 40,
+        "rate": 0.95,
+        "scored_pairs": 40,
+        "missing_score_pairs": 0
+      },
+      "PA_P_clinical": {
+        "numerator": 10,
+        "denominator": 10,
+        "rate": 1.0,
+        "scored_pairs": 10,
+        "missing_score_pairs": 0
+      },
+      "PA_P_preference": {
+        "numerator": 9,
+        "denominator": 9,
+        "rate": 1.0,
+        "scored_pairs": 9,
+        "missing_score_pairs": 0
+      },
+      "PA_P": {
+        "rate": 1.0,
+        "numerator": null,
+        "denominator": 19,
+        "clinical": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "scored_pairs": 10,
+          "missing_score_pairs": 0
+        },
+        "preference": {
+          "numerator": 9,
+          "denominator": 9,
+          "rate": 1.0,
+          "scored_pairs": 9,
+          "missing_score_pairs": 0
+        },
+        "pooled_rate": 1.0,
+        "weighting": "equal clinical and preference weights",
+        "unspecified_pairs": 0
+      },
+      "macro_PA": 0.98125,
+      "missing_pair_types": [],
+      "original_accuracy": {
+        "numerator": 39,
+        "denominator": 40,
+        "rate": 0.975
+      },
+      "all_input_accuracy": {
+        "numerator": 117,
+        "denominator": 119,
+        "rate": 0.9831932773109243
+      },
+      "score_coverage": {
+        "numerator": 119,
+        "denominator": 119,
+        "rate": 1.0,
+        "missing": 0
+      },
+      "historical_fourway": {
+        "numerator": 19,
+        "denominator": 20,
+        "rate": 0.95,
+        "incomplete_groups": 0,
+        "name": "historical fact-state by action-view four-input correctness"
+      },
+      "responses": {
+        "A": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 0.215625,
+            "mean_abs": 0.815625,
+            "std": 1.187495888150776,
+            "median": 0.25,
+            "p05": -1.0,
+            "p95": 2.037499999999998,
+            "rms": 1.206913677526276
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P": {
+          "total_pairs": 19,
+          "score_response": {
+            "n": 19,
+            "mean": -0.3618421052631579,
+            "mean_abs": 0.756578947368421,
+            "std": 1.0956663563982132,
+            "median": -0.25,
+            "p05": -2.6125,
+            "p95": 0.7749999999999995,
+            "rms": 1.1538693486197693
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "C": {
+          "total_pairs": 1,
+          "score_response": {
+            "n": 1,
+            "mean": 52.25,
+            "mean_abs": 52.25,
+            "std": 0.0,
+            "median": 52.25,
+            "p05": 52.25,
+            "p95": 52.25,
+            "rms": 52.25
+          },
+          "truth_aligned_response": {
+            "n": 1,
+            "mean": 52.25,
+            "mean_abs": 52.25,
+            "std": 0.0,
+            "median": 52.25,
+            "p05": 52.25,
+            "p95": 52.25,
+            "rms": 52.25
+          }
+        },
+        "F": {
+          "total_pairs": 40,
+          "score_response": {
+            "n": 40,
+            "mean": 48.653125,
+            "mean_abs": 48.653125,
+            "std": 7.616054563182632,
+            "median": 49.625,
+            "p05": 41.475,
+            "p95": 56.7625,
+            "rms": 49.24561766670208
+          },
+          "truth_aligned_response": {
+            "n": 40,
+            "mean": 48.653125,
+            "mean_abs": 48.653125,
+            "std": 7.616054563182632,
+            "median": 49.625,
+            "p05": 41.475,
+            "p95": 56.7625,
+            "rms": 49.24561766670208
+          }
+        },
+        "P_clinical": {
+          "total_pairs": 10,
+          "score_response": {
+            "n": 10,
+            "mean": -0.3875,
+            "mean_abs": 0.8375,
+            "std": 1.2468084255409888,
+            "median": 0.125,
+            "p05": -2.55625,
+            "p95": 0.7749999999999995,
+            "rms": 1.305636817801949
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        },
+        "P_preference": {
+          "total_pairs": 9,
+          "score_response": {
+            "n": 9,
+            "mean": -0.3333333333333333,
+            "mean_abs": 0.6666666666666666,
+            "std": 0.8975274678557507,
+            "median": -0.25,
+            "p05": -1.7,
+            "p95": 0.75,
+            "rms": 0.9574271077563381
+          },
+          "truth_aligned_response": {
+            "n": 0,
+            "mean": null,
+            "mean_abs": null,
+            "std": null,
+            "median": null,
+            "p05": null,
+            "p95": null,
+            "rms": null
+          }
+        }
+      }
+    }
+  },
+  "candidates": [
+    {
+      "method": "grid_00",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_00.pt",
+      "config": {
+        "eta": 0.9,
+        "kmax": 4,
+        "theta": 15
+      },
+      "heads": 51,
+      "rank": 208
+    },
+    {
+      "method": "grid_01",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_01.pt",
+      "config": {
+        "eta": 0.9,
+        "kmax": 4,
+        "theta": 30
+      },
+      "heads": 51,
+      "rank": 161
+    },
+    {
+      "method": "grid_02",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_02.pt",
+      "config": {
+        "eta": 0.9,
+        "kmax": 4,
+        "theta": 45
+      },
+      "heads": 51,
+      "rank": 124
+    },
+    {
+      "method": "grid_03",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_03.pt",
+      "config": {
+        "eta": 0.9,
+        "kmax": 8,
+        "theta": 15
+      },
+      "heads": 51,
+      "rank": 419
+    },
+    {
+      "method": "grid_04",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_04.pt",
+      "config": {
+        "eta": 0.9,
+        "kmax": 8,
+        "theta": 30
+      },
+      "heads": 51,
+      "rank": 348
+    },
+    {
+      "method": "grid_05",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_05.pt",
+      "config": {
+        "eta": 0.9,
+        "kmax": 8,
+        "theta": 45
+      },
+      "heads": 51,
+      "rank": 271
+    },
+    {
+      "method": "grid_06",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_06.pt",
+      "config": {
+        "eta": 0.9,
+        "kmax": 16,
+        "theta": 15
+      },
+      "heads": 51,
+      "rank": 828
+    },
+    {
+      "method": "grid_07",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_07.pt",
+      "config": {
+        "eta": 0.9,
+        "kmax": 16,
+        "theta": 30
+      },
+      "heads": 51,
+      "rank": 709
+    },
+    {
+      "method": "grid_08",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_08.pt",
+      "config": {
+        "eta": 0.9,
+        "kmax": 16,
+        "theta": 45
+      },
+      "heads": 51,
+      "rank": 581
+    },
+    {
+      "method": "grid_09",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_09.pt",
+      "config": {
+        "eta": 0.95,
+        "kmax": 4,
+        "theta": 15
+      },
+      "heads": 51,
+      "rank": 213
+    },
+    {
+      "method": "grid_10",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_10.pt",
+      "config": {
+        "eta": 0.95,
+        "kmax": 4,
+        "theta": 30
+      },
+      "heads": 51,
+      "rank": 161
+    },
+    {
+      "method": "grid_11",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_11.pt",
+      "config": {
+        "eta": 0.95,
+        "kmax": 4,
+        "theta": 45
+      },
+      "heads": 51,
+      "rank": 120
+    },
+    {
+      "method": "grid_12",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_12.pt",
+      "config": {
+        "eta": 0.95,
+        "kmax": 8,
+        "theta": 15
+      },
+      "heads": 51,
+      "rank": 426
+    },
+    {
+      "method": "grid_13",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_13.pt",
+      "config": {
+        "eta": 0.95,
+        "kmax": 8,
+        "theta": 30
+      },
+      "heads": 51,
+      "rank": 346
+    },
+    {
+      "method": "grid_14",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_14.pt",
+      "config": {
+        "eta": 0.95,
+        "kmax": 8,
+        "theta": 45
+      },
+      "heads": 51,
+      "rank": 264
+    },
+    {
+      "method": "grid_15",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_15.pt",
+      "config": {
+        "eta": 0.95,
+        "kmax": 16,
+        "theta": 15
+      },
+      "heads": 51,
+      "rank": 854
+    },
+    {
+      "method": "grid_16",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_16.pt",
+      "config": {
+        "eta": 0.95,
+        "kmax": 16,
+        "theta": 30
+      },
+      "heads": 51,
+      "rank": 711
+    },
+    {
+      "method": "grid_17",
+      "path": "/home/gcx/aster_existing_data_20261106/operators/grid_17.pt",
+      "config": {
+        "eta": 0.95,
+        "kmax": 16,
+        "theta": 45
+      },
+      "heads": 51,
+      "rank": 551
+    }
+  ],
+  "H_A": [
+    736,
+    796,
+    1029,
+    691,
+    762,
+    872,
+    781,
+    773,
+    714,
+    761,
+    1071,
+    834,
+    709,
+    715,
+    984,
+    857,
+    1089,
+    766,
+    811,
+    300,
+    967,
+    858
+  ],
+  "H_P": [
+    736,
+    1029,
+    709,
+    857,
+    650,
+    761,
+    796,
+    835,
+    965,
+    708,
+    939,
+    815,
+    639,
+    718,
+    831,
+    681,
+    740,
+    799,
+    872,
+    691,
+    945,
+    1122,
+    751,
+    636,
+    795,
+    690,
+    762,
+    711,
+    1071,
+    655,
+    942,
+    518,
+    830,
+    739,
+    590,
+    721,
+    1039,
+    797,
+    883
+  ],
+  "H": [
+    300,
+    518,
+    590,
+    636,
+    639,
+    650,
+    655,
+    681,
+    690,
+    691,
+    708,
+    709,
+    711,
+    714,
+    715,
+    718,
+    721,
+    736,
+    739,
+    740,
+    751,
+    761,
+    762,
+    766,
+    773,
+    781,
+    795,
+    796,
+    797,
+    799,
+    811,
+    815,
+    830,
+    831,
+    834,
+    835,
+    857,
+    858,
+    872,
+    883,
+    939,
+    942,
+    945,
+    965,
+    967,
+    984,
+    1029,
+    1039,
+    1071,
+    1089,
+    1122
+  ],
+  "T_h": {
+    "300": [
+      "A"
+    ],
+    "518": [
+      "P"
+    ],
+    "590": [
+      "P"
+    ],
+    "636": [
+      "P"
+    ],
+    "639": [
+      "P"
+    ],
+    "650": [
+      "P"
+    ],
+    "655": [
+      "P"
+    ],
+    "681": [
+      "P"
+    ],
+    "690": [
+      "P"
+    ],
+    "691": [
+      "A",
+      "P"
+    ],
+    "708": [
+      "P"
+    ],
+    "709": [
+      "A",
+      "P"
+    ],
+    "711": [
+      "P"
+    ],
+    "714": [
+      "A"
+    ],
+    "715": [
+      "A"
+    ],
+    "718": [
+      "P"
+    ],
+    "721": [
+      "P"
+    ],
+    "736": [
+      "A",
+      "P"
+    ],
+    "739": [
+      "P"
+    ],
+    "740": [
+      "P"
+    ],
+    "751": [
+      "P"
+    ],
+    "761": [
+      "A",
+      "P"
+    ],
+    "762": [
+      "A",
+      "P"
+    ],
+    "766": [
+      "A"
+    ],
+    "773": [
+      "A"
+    ],
+    "781": [
+      "A"
+    ],
+    "795": [
+      "P"
+    ],
+    "796": [
+      "A",
+      "P"
+    ],
+    "797": [
+      "P"
+    ],
+    "799": [
+      "P"
+    ],
+    "811": [
+      "A"
+    ],
+    "815": [
+      "P"
+    ],
+    "830": [
+      "P"
+    ],
+    "831": [
+      "P"
+    ],
+    "834": [
+      "A"
+    ],
+    "835": [
+      "P"
+    ],
+    "857": [
+      "A",
+      "P"
+    ],
+    "858": [
+      "A"
+    ],
+    "872": [
+      "A",
+      "P"
+    ],
+    "883": [
+      "P"
+    ],
+    "939": [
+      "P"
+    ],
+    "942": [
+      "P"
+    ],
+    "945": [
+      "P"
+    ],
+    "965": [
+      "P"
+    ],
+    "967": [
+      "A"
+    ],
+    "984": [
+      "A"
+    ],
+    "1029": [
+      "A",
+      "P"
+    ],
+    "1039": [
+      "P"
+    ],
+    "1071": [
+      "A",
+      "P"
+    ],
+    "1089": [
+      "A"
+    ],
+    "1122": [
+      "P"
+    ]
+  },
+  "epsilon": 0.1,
+  "rho": 0.8,
+  "candidates_per_type": 64,
+  "fit_sources": "fit",
+  "selection_sources": "dev",
+  "development_C_pairs": 1,
+  "tied_on_primary_metrics": [
+    {
+      "method": "grid_00",
+      "rank": 208,
+      "config": {
+        "eta": 0.9,
+        "kmax": 4,
+        "theta": 15
+      }
+    },
+    {
+      "method": "grid_01",
+      "rank": 161,
+      "config": {
+        "eta": 0.9,
+        "kmax": 4,
+        "theta": 30
+      }
+    },
+    {
+      "method": "grid_02",
+      "rank": 124,
+      "config": {
+        "eta": 0.9,
+        "kmax": 4,
+        "theta": 45
+      }
+    },
+    {
+      "method": "grid_03",
+      "rank": 419,
+      "config": {
+        "eta": 0.9,
+        "kmax": 8,
+        "theta": 15
+      }
+    },
+    {
+      "method": "grid_04",
+      "rank": 348,
+      "config": {
+        "eta": 0.9,
+        "kmax": 8,
+        "theta": 30
+      }
+    },
+    {
+      "method": "grid_05",
+      "rank": 271,
+      "config": {
+        "eta": 0.9,
+        "kmax": 8,
+        "theta": 45
+      }
+    },
+    {
+      "method": "grid_06",
+      "rank": 828,
+      "config": {
+        "eta": 0.9,
+        "kmax": 16,
+        "theta": 15
+      }
+    },
+    {
+      "method": "grid_07",
+      "rank": 709,
+      "config": {
+        "eta": 0.9,
+        "kmax": 16,
+        "theta": 30
+      }
+    },
+    {
+      "method": "grid_08",
+      "rank": 581,
+      "config": {
+        "eta": 0.9,
+        "kmax": 16,
+        "theta": 45
+      }
+    },
+    {
+      "method": "grid_09",
+      "rank": 213,
+      "config": {
+        "eta": 0.95,
+        "kmax": 4,
+        "theta": 15
+      }
+    },
+    {
+      "method": "grid_10",
+      "rank": 161,
+      "config": {
+        "eta": 0.95,
+        "kmax": 4,
+        "theta": 30
+      }
+    },
+    {
+      "method": "grid_11",
+      "rank": 120,
+      "config": {
+        "eta": 0.95,
+        "kmax": 4,
+        "theta": 45
+      }
+    },
+    {
+      "method": "grid_12",
+      "rank": 426,
+      "config": {
+        "eta": 0.95,
+        "kmax": 8,
+        "theta": 15
+      }
+    },
+    {
+      "method": "grid_13",
+      "rank": 346,
+      "config": {
+        "eta": 0.95,
+        "kmax": 8,
+        "theta": 30
+      }
+    },
+    {
+      "method": "grid_14",
+      "rank": 264,
+      "config": {
+        "eta": 0.95,
+        "kmax": 8,
+        "theta": 45
+      }
+    },
+    {
+      "method": "grid_15",
+      "rank": 854,
+      "config": {
+        "eta": 0.95,
+        "kmax": 16,
+        "theta": 15
+      }
+    },
+    {
+      "method": "grid_16",
+      "rank": 711,
+      "config": {
+        "eta": 0.95,
+        "kmax": 16,
+        "theta": 30
+      }
+    },
+    {
+      "method": "grid_17",
+      "rank": 551,
+      "config": {
+        "eta": 0.95,
+        "kmax": 16,
+        "theta": 45
+      }
+    }
+  ],
+  "tie_interpretation": "Development C has one pair. Ties do not establish parameter superiority."
+}
