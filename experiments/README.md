@@ -1,5 +1,13 @@
 # 历史实验索引
 
+## ASTER 三轮闭式实验与全历史整合（2026-11-06）
+
+[运行与 CPU 复算](aster_closed_form/SYNTHESIS.zh.md) · [总分析](../reports/aster_synthesis_20261106/ANALYSIS.zh.md)。包含硬筛选、连续衰减、全局均值／同事实参考；固定数据与基，保留全部正负结果。
+
+## ASTER 闭式现成数据实验（2026-11-06，已完成）
+
+[代码与 CPU 复算](aster_closed_form/EXISTING_DATA.zh.md) · [结果与问题分析](../reports/aster_existing_data_20261106/ANALYSIS.zh.md) · [输入、分数和固定算子](../results/aster_existing_data_20261106/README.md)。200 节点、1,290 输入、1,053 配对及 432 例路径全部完成。主配对宏平均提高 0.51 个百分点，完整路径减少 3 例正确；没有稳定整体优势。
+
 ## 修订遮挡与关键事实预实验（2026-11-05，已完成）
 
 [代码与 CPU 复算入口](semantic_masking_followup_20261105/README.md) · [结果分析](../reports/semantic_masking_followup_20261105/ANALYSIS.zh.md) · [完整输入与分数快照](../results/semantic_masking_followup_20261105/README.md)。修正指定删除、完整条件标签和开发集融合选择；2,994 条评分齐全，21 项服务器测试通过。主关键事实测试 28 对，固定预测的配对融合分析单列补充；未训练内部干预模块。

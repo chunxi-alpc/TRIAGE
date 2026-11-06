@@ -1,0 +1,989 @@
+{
+  "test_same_fact_vs_direct_prediction_disagreements": 0,
+  "test_same_fact_vs_direct_score_differences": 379,
+  "main_test_new_errors_reduced": true,
+  "historical_edited_new_errors_reduced": true,
+  "main_test_macro": {
+    "full": 0.965688775510204,
+    "global_mean": 0.7755612244897959,
+    "same_fact": 0.9695408163265306,
+    "direct_reference": 0.9695408163265306,
+    "aster": 0.9707908163265305,
+    "soft_angle": 0.9707908163265305,
+    "calibrated_full": 0.9707908163265305
+  },
+  "main_test_vs_full": {
+    "global_mean": {
+      "split": "test",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 610,
+      "inputs": 610,
+      "reference": "full",
+      "candidate": "global_mean",
+      "corrected": 4,
+      "degraded": 92,
+      "unchanged": 514,
+      "reference_correct": 601,
+      "candidate_correct": 513,
+      "accuracy_change_ci95": {
+        "low": -0.20310262125786518,
+        "high": -0.09290973357103949,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.1009283850931677,
+        "high": 0.20877387051700047,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      }
+    },
+    "same_fact": {
+      "split": "test",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 610,
+      "inputs": 610,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 6,
+      "degraded": 6,
+      "unchanged": 598,
+      "reference_correct": 601,
+      "candidate_correct": 601,
+      "accuracy_change_ci95": {
+        "low": -0.027446423202675787,
+        "high": 0.027650833037929808,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.03010159493117762,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      }
+    },
+    "direct_reference": {
+      "split": "test",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 610,
+      "inputs": 610,
+      "reference": "full",
+      "candidate": "direct_reference",
+      "corrected": 6,
+      "degraded": 6,
+      "unchanged": 598,
+      "reference_correct": 601,
+      "candidate_correct": 601,
+      "accuracy_change_ci95": {
+        "low": -0.027446423202675787,
+        "high": 0.027650833037929808,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.03010159493117762,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      }
+    },
+    "aster": {
+      "split": "test",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 610,
+      "inputs": 610,
+      "reference": "full",
+      "candidate": "aster",
+      "corrected": 2,
+      "degraded": 0,
+      "unchanged": 608,
+      "reference_correct": 601,
+      "candidate_correct": 603,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.009868827495014304,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      }
+    },
+    "soft_angle": {
+      "split": "test",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 610,
+      "inputs": 610,
+      "reference": "full",
+      "candidate": "soft_angle",
+      "corrected": 2,
+      "degraded": 1,
+      "unchanged": 607,
+      "reference_correct": 601,
+      "candidate_correct": 602,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.004934413747507152,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.004934413747507152,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      }
+    },
+    "calibrated_full": {
+      "split": "test",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 610,
+      "inputs": 610,
+      "reference": "full",
+      "candidate": "calibrated_full",
+      "corrected": 2,
+      "degraded": 0,
+      "unchanged": 608,
+      "reference_correct": 601,
+      "candidate_correct": 603,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.009868827495014304,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 610,
+        "sources": 20,
+        "resamples": 2000
+      }
+    }
+  },
+  "main_all_vs_full": {
+    "global_mean": {
+      "split": "all",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 1290,
+      "inputs": 1290,
+      "reference": "full",
+      "candidate": "global_mean",
+      "corrected": 11,
+      "degraded": 205,
+      "unchanged": 1074,
+      "reference_correct": 1266,
+      "candidate_correct": 1072,
+      "accuracy_change_ci95": {
+        "low": -0.1916051710311218,
+        "high": -0.11049329428415526,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.12011951903865435,
+        "high": 0.197712230517574,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      }
+    },
+    "same_fact": {
+      "split": "all",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 1290,
+      "inputs": 1290,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 16,
+      "degraded": 11,
+      "unchanged": 1263,
+      "reference_correct": 1266,
+      "candidate_correct": 1271,
+      "accuracy_change_ci95": {
+        "low": -0.013061868627358565,
+        "high": 0.019878436854601902,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.020241299139657328,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      }
+    },
+    "direct_reference": {
+      "split": "all",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 1290,
+      "inputs": 1290,
+      "reference": "full",
+      "candidate": "direct_reference",
+      "corrected": 16,
+      "degraded": 13,
+      "unchanged": 1261,
+      "reference_correct": 1266,
+      "candidate_correct": 1269,
+      "accuracy_change_ci95": {
+        "low": -0.015604930190898487,
+        "high": 0.018519894337130586,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.02282852950504168,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      }
+    },
+    "aster": {
+      "split": "all",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 1290,
+      "inputs": 1290,
+      "reference": "full",
+      "candidate": "aster",
+      "corrected": 3,
+      "degraded": 4,
+      "unchanged": 1283,
+      "reference_correct": 1266,
+      "candidate_correct": 1265,
+      "accuracy_change_ci95": {
+        "low": -0.00851442726860047,
+        "high": 0.00534361350369433,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.009516445753559154,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      }
+    },
+    "soft_angle": {
+      "split": "all",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 1290,
+      "inputs": 1290,
+      "reference": "full",
+      "candidate": "soft_angle",
+      "corrected": 3,
+      "degraded": 6,
+      "unchanged": 1281,
+      "reference_correct": 1266,
+      "candidate_correct": 1263,
+      "accuracy_change_ci95": {
+        "low": -0.009600963855421685,
+        "high": 0.0029651593773165306,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.011774142646749421,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      }
+    },
+    "calibrated_full": {
+      "split": "all",
+      "stratum": "all",
+      "scope": "all",
+      "original_denominator": 1290,
+      "inputs": 1290,
+      "reference": "full",
+      "candidate": "calibrated_full",
+      "corrected": 2,
+      "degraded": 0,
+      "unchanged": 1288,
+      "reference_correct": 1266,
+      "candidate_correct": 1268,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.004811644254396747,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 1290,
+        "sources": 40,
+        "resamples": 2000
+      }
+    }
+  },
+  "historical_changed_vs_full": {
+    "global_mean": {
+      "population": "all",
+      "scope": "reference_changed",
+      "original_denominator": 569,
+      "inputs": 515,
+      "reference": "full",
+      "candidate": "global_mean",
+      "corrected": 12,
+      "degraded": 90,
+      "unchanged": 413,
+      "reference_correct": 360,
+      "candidate_correct": 282,
+      "accuracy_change_ci95": {
+        "low": -0.22728098173013425,
+        "high": -0.07494446289319699,
+        "n": 515,
+        "sources": 19,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.10493233618233617,
+        "high": 0.24717505241090143,
+        "n": 515,
+        "sources": 19,
+        "resamples": 2000
+      }
+    },
+    "same_fact": {
+      "population": "all",
+      "scope": "reference_changed",
+      "original_denominator": 569,
+      "inputs": 515,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 2,
+      "degraded": 6,
+      "unchanged": 507,
+      "reference_correct": 360,
+      "candidate_correct": 356,
+      "accuracy_change_ci95": {
+        "low": -0.026372965669133865,
+        "high": 0.0041668841336116895,
+        "n": 515,
+        "sources": 19,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.03381751562142179,
+        "n": 515,
+        "sources": 19,
+        "resamples": 2000
+      }
+    },
+    "direct_reference": {
+      "population": "all",
+      "scope": "reference_changed",
+      "original_denominator": 569,
+      "inputs": 515,
+      "reference": "full",
+      "candidate": "direct_reference",
+      "corrected": 4,
+      "degraded": 8,
+      "unchanged": 503,
+      "reference_correct": 360,
+      "candidate_correct": 356,
+      "accuracy_change_ci95": {
+        "low": -0.037037037037037035,
+        "high": 0.008585081433828634,
+        "n": 515,
+        "sources": 19,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.046761700725115284,
+        "n": 515,
+        "sources": 19,
+        "resamples": 2000
+      }
+    },
+    "aster": {
+      "population": "all",
+      "scope": "reference_changed",
+      "original_denominator": 569,
+      "inputs": 515,
+      "reference": "full",
+      "candidate": "aster",
+      "corrected": 1,
+      "degraded": 11,
+      "unchanged": 503,
+      "reference_correct": 360,
+      "candidate_correct": 350,
+      "accuracy_change_ci95": {
+        "low": -0.04989210016390321,
+        "high": 0.002079328282257151,
+        "n": 515,
+        "sources": 19,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.05108131412355381,
+        "n": 515,
+        "sources": 19,
+        "resamples": 2000
+      }
+    },
+    "soft_angle": {
+      "population": "all",
+      "scope": "reference_changed",
+      "original_denominator": 569,
+      "inputs": 515,
+      "reference": "full",
+      "candidate": "soft_angle",
+      "corrected": 2,
+      "degraded": 14,
+      "unchanged": 499,
+      "reference_correct": 360,
+      "candidate_correct": 348,
+      "accuracy_change_ci95": {
+        "low": -0.046783154484713506,
+        "high": -0.005127768313458265,
+        "n": 515,
+        "sources": 19,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.008517887563884156,
+        "high": 0.05133618831092467,
+        "n": 515,
+        "sources": 19,
+        "resamples": 2000
+      }
+    }
+  },
+  "direct_reference_at_least_same_fact_test_macro": true,
+  "observed_no_damage_groups": [
+    {
+      "dataset": "main",
+      "split": "fit",
+      "stratum": "F",
+      "scope": "reference_changed",
+      "original_denominator": 316,
+      "inputs": 224,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 2,
+      "degraded": 0,
+      "unchanged": 222,
+      "reference_correct": 220,
+      "candidate_correct": 222,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.02727272727272727,
+        "n": 224,
+        "sources": 16,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 224,
+        "sources": 16,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "main",
+      "split": "dev",
+      "stratum": "C",
+      "scope": "reference_changed",
+      "original_denominator": 2,
+      "inputs": 2,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 2,
+      "reference_correct": 2,
+      "candidate_correct": 2,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 2,
+        "sources": 1,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 2,
+        "sources": 1,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "main",
+      "split": "dev",
+      "stratum": "F",
+      "scope": "reference_changed",
+      "original_denominator": 80,
+      "inputs": 44,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 44,
+      "reference_correct": 44,
+      "candidate_correct": 44,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 44,
+        "sources": 4,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 44,
+        "sources": 4,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "main",
+      "split": "test",
+      "stratum": "C",
+      "scope": "reference_changed",
+      "original_denominator": 28,
+      "inputs": 28,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 28,
+      "reference_correct": 27,
+      "candidate_correct": 27,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 28,
+        "sources": 7,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 28,
+        "sources": 7,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "full",
+      "stratum": "below",
+      "scope": "reference_changed",
+      "original_denominator": 56,
+      "inputs": 56,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 56,
+      "reference_correct": 44,
+      "candidate_correct": 44,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 56,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 56,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "full",
+      "stratum": "exact_threshold",
+      "scope": "reference_changed",
+      "original_denominator": 12,
+      "inputs": 12,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 12,
+      "reference_correct": 12,
+      "candidate_correct": 12,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 12,
+        "sources": 5,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 12,
+        "sources": 5,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "full",
+      "stratum": "baseline_abs_score_gt_4",
+      "scope": "reference_changed",
+      "original_denominator": 159,
+      "inputs": 159,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 159,
+      "reference_correct": 112,
+      "candidate_correct": 112,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 159,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 159,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "direct",
+      "stratum": "below",
+      "scope": "reference_changed",
+      "original_denominator": 56,
+      "inputs": 56,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 56,
+      "reference_correct": 44,
+      "candidate_correct": 44,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 56,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 56,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "direct",
+      "stratum": "same_side",
+      "scope": "reference_changed",
+      "original_denominator": 56,
+      "inputs": 56,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 56,
+      "reference_correct": 38,
+      "candidate_correct": 38,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 56,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 56,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "direct",
+      "stratum": "exact_threshold",
+      "scope": "reference_changed",
+      "original_denominator": 12,
+      "inputs": 12,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 12,
+      "reference_correct": 12,
+      "candidate_correct": 12,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 12,
+        "sources": 5,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 12,
+        "sources": 5,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "direct",
+      "stratum": "baseline_abs_score_gt_4",
+      "scope": "reference_changed",
+      "original_denominator": 153,
+      "inputs": 153,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 153,
+      "reference_correct": 112,
+      "candidate_correct": 112,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 153,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 153,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "condition_ancestors",
+      "stratum": "above",
+      "scope": "reference_changed",
+      "original_denominator": 56,
+      "inputs": 56,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 56,
+      "reference_correct": 36,
+      "candidate_correct": 36,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 56,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 56,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "condition_ancestors",
+      "stratum": "same_side",
+      "scope": "reference_changed",
+      "original_denominator": 56,
+      "inputs": 56,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 2,
+      "degraded": 0,
+      "unchanged": 54,
+      "reference_correct": 38,
+      "candidate_correct": 40,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.08620689655172414,
+        "n": 56,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 56,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "condition_ancestors",
+      "stratum": "exact_threshold",
+      "scope": "reference_changed",
+      "original_denominator": 12,
+      "inputs": 12,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 12,
+      "reference_correct": 12,
+      "candidate_correct": 12,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 12,
+        "sources": 5,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 12,
+        "sources": 5,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    },
+    {
+      "dataset": "historical",
+      "population": "constructed",
+      "view": "condition_ancestors",
+      "stratum": "baseline_abs_score_gt_4",
+      "scope": "reference_changed",
+      "original_denominator": 153,
+      "inputs": 153,
+      "reference": "full",
+      "candidate": "same_fact",
+      "corrected": 0,
+      "degraded": 0,
+      "unchanged": 153,
+      "reference_correct": 101,
+      "candidate_correct": 101,
+      "accuracy_change_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 153,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "degraded_rate_ci95": {
+        "low": 0.0,
+        "high": 0.0,
+        "n": 153,
+        "sources": 17,
+        "resamples": 2000
+      },
+      "no_new_errors_observed": true
+    }
+  ],
+  "main_test_ap_gaps": {
+    "full": {
+      "A": 0.828125,
+      "P": 1.3099489795918366
+    },
+    "global_mean": {
+      "A": 0.44375,
+      "P": 0.5382653061224489
+    },
+    "same_fact": {
+      "A": 0.61,
+      "P": 0.37244897959183676
+    },
+    "direct_reference": {
+      "A": 0.441875,
+      "P": 0.0
+    }
+  },
+  "main_test_common_shifts": {
+    "global_mean": {
+      "A": 17.1646875,
+      "P": 17.051658163265305,
+      "C": 4.495535714285714,
+      "F": 4.2521875
+    },
+    "same_fact": {
+      "A": 0.9828125,
+      "P": 2.2480867346938775,
+      "C": 1.4464285714285714,
+      "F": 0.8428125
+    }
+  },
+  "no_parameter_adjustment": true
+}
