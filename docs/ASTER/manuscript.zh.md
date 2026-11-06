@@ -80,8 +80,8 @@ M1/M2 的历史产物来自已有构造配对，此来源继续记录。原版�
 
 ```math
 \begin{aligned}
-M_h^q &= \mathbb E[\delta_h^q(\delta_h^q)^\top], \\
-U_h &= \operatorname{orth}([U_h^q]_{q\in T_h}), \\
+M_h^q &= \mathbb E[\delta_h^q(\delta_h^q)^\top], \\[2pt]
+U_h &= \operatorname{orth}([U_h^q]_{q\in T_h}), \\[2pt]
 S_h &= \operatorname{orth}([U_h^C,U_h^F]).
 \end{aligned}
 ```
@@ -96,8 +96,8 @@ S_h &= \operatorname{orth}([U_h^C,U_h^F]).
 
 ```math
 \begin{aligned}
-c_h &= U_h^\top z_h, \\
-t_h &= W_hr_h, \\
+c_h &= U_h^\top z_h, \\[2pt]
+t_h &= W_hr_h, \\[2pt]
 g_h &= \sigma\!\left(a_h^\top[c_h;t_h]+b_h\right).
 \end{aligned}
 ```
