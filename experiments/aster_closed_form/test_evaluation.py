@@ -309,7 +309,7 @@ class AutonomousPathTests(unittest.TestCase):
             self.assertEqual(again, records)
             self.assertEqual(resumed.calls, [])
 
-    def test_mask_requests_exclude_patient_and_gold_and_missing_mask_is_failure(self):
+    def test_mask_requests_exclude_patient_and_gold_and_missing_mask_is_unavailable_input(self):
         from unittest.mock import patch
         from .paths import enumerate_contexts, run_paths
         case, engine = self.case(), self.Engine()
@@ -323,7 +323,7 @@ class AutonomousPathTests(unittest.TestCase):
                 "experiments.aster_closed_form.paths.prompt", self.fake_prompt):
             records = run_paths(engine, [case], {}, spec, {}, d)
         by_method = {r["method"]: r for r in records}
-        self.assertEqual(by_method["semantic"]["status"], "failed")
+        self.assertEqual(by_method["semantic"]["status"], "unavailable_input")
         self.assertIn("mask", by_method["semantic"]["error"])
         self.assertEqual(by_method["full"]["status"], "complete")
         self.assertEqual(by_method["best_output"]["status"], "complete")

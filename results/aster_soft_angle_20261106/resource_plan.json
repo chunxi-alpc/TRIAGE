@@ -1,0 +1,27 @@
+{
+  "gpus": [
+    0,
+    1
+  ],
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "model_copies": 2,
+  "precision": "bfloat16",
+  "expected_gib_per_gpu": [
+    17,
+    30
+  ],
+  "expected_minutes": [
+    20,
+    40
+  ],
+  "scale": {
+    "main_inputs": 1290,
+    "main_pairs": 1053,
+    "mechanism_dev_pairs": 59,
+    "mechanism_test_pairs": 298,
+    "historical_inputs": 569,
+    "path_cases": 432,
+    "nested_path_cases": 100
+  },
+  "monitoring": "First 20 inputs per GPU, then completion only"
+}

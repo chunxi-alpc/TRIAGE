@@ -99,8 +99,10 @@ def energy_basis(differences, eta=0.90, kmax=4, mean_direction=False):
     }
 
 
-def oblique_factors(nuisance, signal, theta=15):
+def oblique_factors(nuisance, signal, theta=15, variant="aster"):
     """Equations (12)-(13): principal-angle screening, then oblique erasure."""
+    if variant not in ("aster", "soft_angle"):
+        raise ValueError("Unknown angle variant: " + str(variant))
     nuisance, signal = _double(nuisance), _double(signal)
     if not 0 < theta <= 90:
         raise ValueError("theta must be in (0,90] degrees")
@@ -116,16 +118,29 @@ def oblique_factors(nuisance, signal, theta=15):
     threshold = math.sin(math.radians(theta))
     keep = singular >= threshold
     # Rotations preserve orthonormality of the retained nuisance basis.
-    nbar = nuisance @ vh[keep].T
-    b = q[:, keep].T / singular[keep, None]
+    if variant == "soft_angle":
+        nbar = nuisance @ vh.T
+        weights = singular / singular.square().clamp_min(threshold**2)
+        b = weights[:, None] * q.T
+    else:
+        nbar = nuisance @ vh[keep].T
+        b = q[:, keep].T / singular[keep, None]
     angles = torch.rad2deg(torch.asin(singular.clamp(0, 1)))
     return nbar, b, {
+        "variant": variant,
+        "self_erasure_fractions": (singular.square() / singular.square().clamp_min(threshold**2)).tolist()
+            if variant == "soft_angle" else keep.double().tolist(),
+        "self_residual_fractions": (1 - singular.square() / singular.square().clamp_min(threshold**2)).tolist()
+            if variant == "soft_angle" else (~keep).double().tolist(),
+        "high_angle_indices": keep.nonzero(as_tuple=False).flatten().tolist(),
+        "low_angle_indices": (~keep).nonzero(as_tuple=False).flatten().tolist(),
+        "factor_columns": nbar.shape[1],
         "principal_angles_degrees": angles.tolist(),
         "singular_values": singular.tolist(),
-        "retained_direction_indices": keep.nonzero(as_tuple=False).flatten().tolist(),
-        "discarded_direction_indices": (~keep).nonzero(as_tuple=False).flatten().tolist(),
-        "retained_rank": int(keep.sum()),
-        "discarded_rank": int((~keep).sum()), "theta_min": theta,
+        "retained_direction_indices": list(range(len(singular))) if variant == "soft_angle" else keep.nonzero(as_tuple=False).flatten().tolist(),
+        "discarded_direction_indices": [] if variant == "soft_angle" else (~keep).nonzero(as_tuple=False).flatten().tolist(),
+        "retained_rank": nbar.shape[1],
+        "discarded_rank": 0 if variant == "soft_angle" else int((~keep).sum()), "theta_min": theta,
         "smallest_retained_sine": float(singular[keep].min()) if keep.any() else None,
     }
 
@@ -134,7 +149,7 @@ def _matrix_norm(matrix):
     return float(torch.linalg.matrix_norm(matrix, ord=2)) if matrix.numel() else 0.0
 
 
-def algebra_diagnostics(n, b, signal, theta=None, require_signal=True):
+def algebra_diagnostics(n, b, signal, theta=None, require_signal=True, variant="aster"):
     """Measure actual factors, including stored float32 rounding."""
     n, b, signal = _double(n), _double(b), _double(signal)
     d = n.shape[0]
@@ -144,6 +159,9 @@ def algebra_diagnostics(n, b, signal, theta=None, require_signal=True):
     residuals = {
         "signal_preservation_error": _matrix_norm(e @ signal - signal),
         "erasure_error": _matrix_norm(e @ n),
+        "nuisance_residual_norm": _matrix_norm(e @ n),
+        "exact_erasure_expected": variant != "soft_angle",
+        "idempotence_expected": variant != "soft_angle",
         "idempotence_error": _matrix_norm(e @ e - e),
         "edit_range_error": _matrix_norm(update - basis @ (basis.T @ update)),
         "edit_operator_norm": _matrix_norm(update),
@@ -244,7 +262,7 @@ def fit_operators(features: Mapping[str, Mapping[str, Any]], pairs: Iterable[Map
         "aster": "aster", "per_type_mean": "per_type_mean", "mean": "per_type_mean",
         "mean_difference": "per_type_mean",
         "no_C": "no_C", "no_c": "no_C", "no_F": "no_F", "no_f": "no_F",
-        "orthogonal": "orthogonal", "leace": "leace",
+        "orthogonal": "orthogonal", "leace": "leace", "soft_angle": "soft_angle",
     }
     if variant not in variants:
         raise ValueError("Unknown operator variant: " + str(variant))
@@ -305,7 +323,7 @@ def fit_operators(features: Mapping[str, Mapping[str, Any]], pairs: Iterable[Map
         un = orth(torch.cat([bases[k] for k in allowed], dim=1)) if allowed else _empty(d)
         protection = [k for k in ("C", "F") if variant != "no_" + k]
         us = orth(torch.cat([bases[k] for k in protection], dim=1))
-        nbar, b, geometry = oblique_factors(un, us, theta)
+        nbar, b, geometry = oblique_factors(un, us, theta, variant="soft_angle" if variant == "soft_angle" else "aster")
         energy = {}
         for kind in allowed:
             retained_energy = _energy_in(nbar, moments[kind])
@@ -376,7 +394,7 @@ def fit_operators(features: Mapping[str, Mapping[str, Any]], pairs: Iterable[Map
         operators[h] = op
         check = algebra_diagnostics(op["N"], op["B"], op["S"],
                                     None if variant == "leace" else theta,
-                                    variant not in ("orthogonal", "leace"))
+                                    variant not in ("orthogonal", "leace"), variant=variant)
         info["heads"][str(h)] = {
             "types": allowed, "per_type": type_details,
             "merged_nuisance_rank": un.shape[1], "merged_signal_rank": us.shape[1],
@@ -421,3 +439,30 @@ def apply_operator(vector, operator, amplification=1.0):
         s = _double(operator["S"])
         edited = edited + (amplification - 1.0) * s @ (s.T @ (edited - mu))
     return edited
+
+
+def soft_angle_from_saved(operators, theta=45):
+    """Reuse saved bases and anchors; change only the principal-angle weights."""
+    result, diagnostics = {}, {}
+    for head, old in operators.items():
+        n, b, geometry = oblique_factors(old["U_N"], old["S"], theta, variant="soft_angle")
+        op = dict(old, N=n.float().contiguous(), B=b.float().contiguous(), variant="soft_angle")
+        result[int(head)] = op
+        check = algebra_diagnostics(op["N"], op["B"], op["S"], theta, variant="soft_angle")
+        u, s = _double(old["U_N"]), _double(old["S"])
+        q, values, vh = torch.linalg.svd(u-s@(s.T@u), full_matrices=False)
+        high = values >= math.sin(math.radians(theta))
+        high_update = u @ vh[high].T @ (q[:, high].T / values[high, None])
+        stored_hard = _double(old["N"]) @ _double(old["B"])
+        d = _double(op["N"]) @ _double(op["B"])
+        error = (torch.eye(u.shape[0], dtype=u.dtype)-d) @ u
+        diagnostics[str(head)] = dict(
+            geometry=geometry, algebra=check,
+            high_angle_vs_stored_hard_error=_matrix_norm(high_update-stored_hard),
+            residual_frobenius=float(torch.linalg.vector_norm(error)),
+            residual_fraction=float(torch.linalg.vector_norm(error) / torch.linalg.vector_norm(u))
+                if u.numel() else 0.0,
+            attenuation_trace=float(torch.trace(u.T@d@u)),
+            nuisance_rank=u.shape[1], hard_rank=old["N"].shape[1],
+        )
+    return result, diagnostics

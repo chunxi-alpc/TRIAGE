@@ -1,0 +1,177 @@
+{
+  "current_scope": "Current closed-form version; signal/energy estimates refer to the fixed fitted basis",
+  "fit_nuisance_energy": {
+    "A": {
+      "heads": 22,
+      "total": 20.54738671007787,
+      "in_merged_nuisance_basis": 11.356221064666531,
+      "in_retained_principal_directions": 3.816055710880457,
+      "discarded_by_angle": 7.540165353786074,
+      "outside_merged_nuisance_basis": 9.191165645411338,
+      "merged_fraction": 0.5526844471709217,
+      "retained_fraction": 0.18571975914624694,
+      "angle_retained_fraction_of_merged": 0.3360321791157835,
+      "per_type_rank_target_reached": 0,
+      "per_type_required_rank": {
+        "n": 22,
+        "mean": 44.95454545454545,
+        "median": 46.0,
+        "min": 21.0,
+        "max": 60.0
+      }
+    },
+    "P": {
+      "heads": 39,
+      "total": 45.72071358689107,
+      "in_merged_nuisance_basis": 34.675948308171684,
+      "in_retained_principal_directions": 4.843459528695534,
+      "discarded_by_angle": 29.83248877947615,
+      "outside_merged_nuisance_basis": 11.04476527871939,
+      "merged_fraction": 0.7584297266548763,
+      "retained_fraction": 0.1059357815903433,
+      "angle_retained_fraction_of_merged": 0.13967778143082912,
+      "per_type_rank_target_reached": 1,
+      "per_type_required_rank": {
+        "n": 39,
+        "mean": 33.17948717948718,
+        "median": 36.0,
+        "min": 4.0,
+        "max": 49.0
+      }
+    }
+  },
+  "signal_basis_energy": {
+    "C": {
+      "retained_fraction": 0.9658800814581366,
+      "head_fraction": {
+        "n": 51,
+        "mean": 0.886741874910237,
+        "median": 0.8999358885295182,
+        "min": 0.7341643567197274,
+        "max": 0.9843165383795474
+      },
+      "target_reached": 16,
+      "needed_rank": {
+        "n": 51,
+        "mean": 6.019607843137255,
+        "median": 7.0,
+        "min": 1.0,
+        "max": 11.0
+      }
+    },
+    "F": {
+      "retained_fraction": 0.953114740630313,
+      "head_fraction": {
+        "n": 51,
+        "mean": 0.798977698081797,
+        "median": 0.8285511609574447,
+        "min": 0.30049572378779216,
+        "max": 0.982650178704355
+      },
+      "target_reached": 12,
+      "needed_rank": {
+        "n": 51,
+        "mean": 19.666666666666668,
+        "median": 18.0,
+        "min": 1.0,
+        "max": 59.0
+      }
+    }
+  },
+  "ranks": {
+    "heads": 51,
+    "nuisance_before_angle": 244,
+    "after_angle": 120,
+    "signal": 356,
+    "zero_edit_heads": [
+      "883",
+      "965",
+      "1039"
+    ]
+  },
+  "algebra": {
+    "max_signal_error": 1.939375800992246e-08,
+    "max_erasure_error": 2.5204284002343422e-08,
+    "max_norm": 1.4113816179269916
+  },
+  "selection": {
+    "config": {
+      "eta": 0.95,
+      "kmax": 4,
+      "theta": 45
+    },
+    "heads": 51,
+    "rank": 120,
+    "ties": 18,
+    "dev_C_pairs": 1
+  },
+  "local_theory": {
+    "dev": {
+      "summary": {
+        "nodes": 20,
+        "mean_abs_nonlinear_error": 0.1604300538163443,
+        "mean_abs_cross_layer_change": 0.65625,
+        "mean_abs_total_prediction_error": 0.6575545924420112
+      },
+      "mean_abs_linear_delta": 0.6660984299906886,
+      "mean_abs_actual_edit_delta": 1.25,
+      "prediction_error_sign_reversal": 2
+    },
+    "test": {
+      "summary": {
+        "nodes": 20,
+        "mean_abs_nonlinear_error": 0.1768061054614236,
+        "mean_abs_cross_layer_change": 0.49375,
+        "mean_abs_total_prediction_error": 0.5850187134388534
+      },
+      "mean_abs_linear_delta": 0.3453845267764109,
+      "mean_abs_actual_edit_delta": 0.8125,
+      "prediction_error_sign_reversal": 5
+    }
+  },
+  "calibration": {
+    "family": "calibration",
+    "route": "full",
+    "masked_route": "full",
+    "coefficients": [
+      0.2248677857599413
+    ],
+    "intercept": -0.14365076847617594,
+    "training": {
+      "split": "fit",
+      "labels": "node truth for output calibration only",
+      "C": 1.0,
+      "solver": "lbfgs",
+      "fit_intercept": true,
+      "max_iter": 2000,
+      "clinical_verification": "automatic pre-experiment",
+      "n": 561,
+      "sources": [
+        "train_val:1299",
+        "train_val:1501",
+        "train_val:1650",
+        "train_val:1822",
+        "train_val:1901",
+        "train_val:1922",
+        "train_val:1926",
+        "train_val:2175",
+        "train_val:2326",
+        "train_val:2477",
+        "train_val:2485",
+        "train_val:2557",
+        "train_val:428",
+        "train_val:680",
+        "train_val:732",
+        "train_val:938"
+      ]
+    },
+    "selected_on": "dev",
+    "selection_cohort": null,
+    "raw_margin_threshold": 0.6388232444710022
+  },
+  "ci_main_difference": {
+    "low": 0.0,
+    "high": 0.015625,
+    "valid_resamples": 1999
+  }
+}
