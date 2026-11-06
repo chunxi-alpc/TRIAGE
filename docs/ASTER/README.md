@@ -1,24 +1,28 @@
 # ASTER
 
-## 全部实验汇总与问题定位（2026-11-06）
+## 当前方法方案（2026-11-06）
 
-[总分析](../../reports/aster_synthesis_20261106/ANALYSIS.zh.md) · [30 阶段与 60 份历史报告](../../reports/aster_synthesis_20261106/EXPERIMENTS.zh.md) · [复算数据](../../results/aster_synthesis_20261106/README.md)。M1 定位已有支持，主要损失发生于 M2→M3 的方向处理与参考设置；当前闭式方法尚未证明超过简单对照。旧版学习式官方结果单列。
+**保留 M1；沿用此前选定的 M2 及全部 244 个未筛选干扰方向；仅将 M3 改为可训练映射与门控。** 新 M3 尚未实现、训练和验证。
 
-## 闭式方法现成数据实验（2026-11-06，已完成）
+M2 已比较过能量目标与秩上限，现沿用 0.95、4 的已选版本。M1 的 51 个头及 M2 保存基冻结。本轮 M3 训练和评测只用 MEGA-CDP 原版发布记录及标签，200 例训练、100 例开发、7,458 例官方测试，不新增构造样本。
 
-[结果与问题分析](../../reports/aster_existing_data_20261106/ANALYSIS.zh.md) · [固定配置、原始分数与表格](../../results/aster_existing_data_20261106/README.md) · [代码及复算](../../experiments/aster_closed_form/EXISTING_DATA.zh.md)。本轮主配对宏平均小幅提高，历史事实诊断和自主路径退化；机制诊断显示低秩截断及夹角筛选损失了大部分可修补干扰效应。论文中的方法有效性表述应依据这些正负结果，不能仅由算子代数性质推出实际优势。
+- [首页](../../README.md)：最新方案、实验安排及历史入口。
+- [方法正文](manuscript.zh.md)：三模块接口、M3 映射与门控、损失、固定设置和五组对照。
+- [方法补充](method-clarifications.zh.md)：M2 已有调整、此次修改及版本区别。
+- [原闭式正文](manuscript-closed-form.zh.md)与[原方法补充](method-clarifications-closed-form.zh.md)：历史公式和理论原样保留。
+- [旧版可学习正文](manuscript-representation.zh.md)、[复现说明](supplementary.zh.md)、[代码与权重](../../experiments/aster_representation/)：89.21% 的历史来源，不作为新 M3 成绩。
+- [旧版方法核对](method-check.zh.md)、[旧版结果附件](results/)与[早期方案归档](archive/README.md)。
 
-[当前论文正文](manuscript.zh.md)整合临床背景、单步条件判断、四类配对测试、两项挑战、三项机制假设与三模块方法。新版使用冻结模型中的头定位、反事实子空间估计和信号保持擦除；对应机制与方法对照现已完成，正负结果见上述总分析；论文正文尚未按本轮结果重写。
+## 已完成实验与模块分析
 
-- [首页概述](../../README.md)：完整研究叙事与入口。
-- [新版正文](manuscript.zh.md)：引言、节点规约、三模块完整计算、斜投影与条件化输出融合命题、验证实验。
-- [方法补充说明](method-clarifications.zh.md)：本次补齐的接口、数据用途、理论条件及旧版入口。
-- [旧版正文与完整结果](manuscript-representation.zh.md)：可训练处置盲表示干预，MEGA-CDP 完整路径正确率89.21%。
-- [旧版方法核对](method-check.zh.md)、[旧版方法补充与复现](supplementary.zh.md)、[旧版代码与冻结权重](../../experiments/aster_representation/)。
-- [旧版结果附件](results/)：官方测试配对计数、BERTScore 汇总和18节点反事实结果。
+[总分析](../../reports/aster_synthesis_20261106/ANALYSIS.zh.md) · [30 个阶段和 60 份历史报告](../../reports/aster_synthesis_20261106/EXPERIMENTS.zh.md) · [复算数据](../../results/aster_synthesis_20261106/README.md) · [闭式代码与复算](../../experiments/aster_closed_form/SYNTHESIS.zh.md)。
 
-## 三数据集补充分析（2026-11-05）
+M1 定位已有支持；M2 低秩截断损失部分作用，最大进一步损失发生于 M3 的硬夹角筛选。同事实参考缓解全局均值造成的偏移，但尚未超过直接参考。后续按已确定的方案改造 M3，保留原始结果及数据来源。
 
-[实验说明、结果与分析](../../reports/three_dataset_analysis_20261105/README.md)比较信息删除与补回、方案干扰、关键事实响应和输出融合。该批结果复用已有标注和历史预测，可为新版配对实验提供背景，不作为新闭式方法的结果。
+[原硬筛选实验](../../reports/aster_existing_data_20261106/ANALYSIS.zh.md)、[连续衰减](../../results/aster_soft_angle_20261106/README.md)、[同事实参考](../../results/aster_reference_anchor_20261106/README.md)均为已完成的历史版本。
 
-旧版的[固定实验代码与检查点](https://github.com/chunxi-alpc/TRIAGE/tree/d8cf67d53d6b068d9b382114de4a5fa4b22f633b/experiments/aster_representation_20261101/release)用于追溯已完成对照。此前规则键编辑方案见[归档](archive/README.md)。
+## 历史补充
+
+[三数据集分析](../../reports/three_dataset_analysis_20261105/README.md)与[修订遮挡实验](../../reports/semantic_masking_followup_20261105/ANALYSIS.zh.md)提供背景证据，其构造输入及任务指标按原协议保留。本轮不新增配对或修复旧构造病例。
+
+旧版[完整研究快照](https://github.com/chunxi-alpc/TRIAGE/tree/d8cf67d53d6b068d9b382114de4a5fa4b22f633b)用于追溯已完成实验。

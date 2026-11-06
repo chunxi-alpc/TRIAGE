@@ -1,6 +1,6 @@
 # English figure captions
 
-> **Historical figure set, 2026-10-26.** Figures 2 and 4 describe the superseded mask/clerk and log-gating method. The current 2026-10-27 method uses action-blind branch classification, offline applicability directions, and signed key translation. See the [current manuscript](../manuscript.zh.md). Figures 1 and 3 remain task/protocol illustrations, not empirical results.
+> **Historical figure set, 2026-10-26.** Figures 2 and 4 describe the superseded mask/clerk and log-gating method. The 2026-10-27 version used action-blind branch classification, offline applicability directions, and signed key translation; it is also historical. The current plan preserves M1 and the selected M2 bases and trains only M3. See the [current manuscript](../manuscript.zh.md). Figures 1 and 3 remain task/protocol illustrations, not empirical results.
 
 [Figure files and reproduction](README.md) · [LaTeX inclusion](figures.tex) · [Four-page figure-and-caption proof](figures_review.pdf)
 

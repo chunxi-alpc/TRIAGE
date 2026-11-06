@@ -1,5 +1,7 @@
 # 三轮闭式实验与全历史结果整合
 
+> 本目录实现已完成的闭式三轮实验。最新方案保留 M1、沿用此前选定 M2 的全部未筛选方向，仅改造 M3，见[当前方法](../../docs/ASTER/manuscript.zh.md)。新 M3 尚未实现、训练和验证；下列复算命令仅重现历史结果。
+
 本次整合将现成数据硬筛选、连续衰减、未筛选方向的同事实参考代码和结果放入同一仓库，复用保存分数生成总表，不新增模型推理。
 
 [总分析](../../reports/aster_synthesis_20261106/ANALYSIS.zh.md) · [全部阶段](../../reports/aster_synthesis_20261106/EXPERIMENTS.zh.md) · [数据表](../../results/aster_synthesis_20261106/README.md)
