@@ -4,7 +4,7 @@
 
 使用 [EXISTING_DATA.zh.md](EXISTING_DATA.zh.md) 中的 `experiments.aster_closed_form.existing`。它不生成病例、条件或标签。已完成的代码、固定算子、评分、路径及负结果见[结果包](../../results/aster_existing_data_20261106/README.md)与[问题分析](../../reports/aster_existing_data_20261106/ANALYSIS.zh.md)。以下原始流水线说明保留其历史用途。
 
-本入口实现 [新版方法正文](../../docs/ASTER/manuscript.zh.md) 与 [方法补充说明](../../docs/ASTER/method-clarifications.zh.md) 的三个模块。历史可训练干预和旧 Y/N 路径结果保留在原入口；本轮重新计算完整提示下的“是减否”分数。本文档描述执行协议和产物位置，不表示实验已全部完成。数据构造和结果均属于自动预实验，医生核验状态为待完成。
+本入口实现[历史闭式正文](../../docs/ASTER/manuscript-closed-form.zh.md)与[历史方法补充](../../docs/ASTER/method-clarifications-closed-form.zh.md)的三个模块。最新方案保留 M1、沿用已选 M2，仅改造 M3，见[当前方法](../../docs/ASTER/manuscript.zh.md)；新 M3 尚未实现、训练和验证。历史可训练干预和旧 Y/N 路径结果保留在原入口；本轮重新计算完整提示下的“是减否”分数。本文档描述执行协议和产物位置，不表示实验已全部完成。数据构造和结果均属于自动预实验，医生核验状态为待完成。
 
 ## 数据与划分
 

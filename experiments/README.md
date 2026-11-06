@@ -1,5 +1,9 @@
 # 历史实验索引
 
+## ASTER 最新方法方案（2026-11-06）
+
+保留 M1，沿用此前选定 M2 的全部未筛选方向，仅训练 M3 映射与门控。使用原版 MEGA-CDP 数据，新 M3 尚未实现、训练和验证；[固定方案](../docs/ASTER/manuscript.zh.md)。下列闭式与表示干预实现均为各自历史版本。
+
 ## ASTER 三轮闭式实验与全历史整合（2026-11-06）
 
 [运行与 CPU 复算](aster_closed_form/SYNTHESIS.zh.md) · [总分析](../reports/aster_synthesis_20261106/ANALYSIS.zh.md)。包含硬筛选、连续衰减、全局均值／同事实参考；固定数据与基，保留全部正负结果。
