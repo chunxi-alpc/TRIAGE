@@ -1,5 +1,9 @@
 # 历史结果索引
 
+## ASTER 闭式现成数据实验（2026-11-06）
+
+[完整结果包](aster_existing_data_20261106/README.md) · [问题分析](../reports/aster_existing_data_20261106/ANALYSIS.zh.md)。主测试宏平均 96.57%→97.08%，432 例完整路径 404→401；历史事实诊断下降，技术失败为 0。正负结果及逐例分数一并保存。
+
 ## 修订遮挡与关键事实预实验（2026-11-05，已完成）
 
 [指标、逐例分数与输入快照](semantic_masking_followup_20261105/README.md) · [结果分析](../reports/semantic_masking_followup_20261105/ANALYSIS.zh.md) · [冻结报告](../reports/semantic_masking_followup_20261105/REPORT_full.zh.md)。保留固定 40 份指南、379 个统计节点，修订后 2,994 条评分齐全；发布快照 CPU 复算与全部最终指标一致。旧结果替代原因与有效分母在报告中明确记录。
