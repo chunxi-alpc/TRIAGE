@@ -1,0 +1,1165 @@
+{
+  "protocol": "Post-run descriptive analysis of saved predictions. No models, new inputs, exclusions, relabeling, or parameter selection.",
+  "paths": {
+    "cases": 432,
+    "full_correct": 404,
+    "aster_correct": 401,
+    "corrected": 2,
+    "degraded": 5,
+    "paired_difference_ci95_by_source": [
+      -0.017242206631808855,
+      0.002525572988770957
+    ],
+    "source_count": 20,
+    "resamples": 2000,
+    "common_node_count": 2934,
+    "common_node_flips": [
+      {
+        "case_id": "path-11-25",
+        "source_id": "train_val:11",
+        "gid": "G33",
+        "gold": 0,
+        "full_ell": -2.5,
+        "aster_ell": 0.5,
+        "delta": 3.0,
+        "full_label": 0,
+        "aster_label": 1,
+        "changed": true,
+        "main_node_covered": false,
+        "full_path_correct": true,
+        "aster_path_correct": false
+      },
+      {
+        "case_id": "path-620-5",
+        "source_id": "train_val:620",
+        "gid": "G16",
+        "gold": null,
+        "full_ell": -3.25,
+        "aster_ell": 2.25,
+        "delta": 5.5,
+        "full_label": 0,
+        "aster_label": 1,
+        "changed": true,
+        "main_node_covered": false,
+        "full_path_correct": false,
+        "aster_path_correct": false
+      },
+      {
+        "case_id": "path-667-10",
+        "source_id": "train_val:667",
+        "gid": "G21",
+        "gold": 1,
+        "full_ell": 0.5,
+        "aster_ell": -2.25,
+        "delta": -2.75,
+        "full_label": 1,
+        "aster_label": 0,
+        "changed": true,
+        "main_node_covered": false,
+        "full_path_correct": true,
+        "aster_path_correct": false
+      },
+      {
+        "case_id": "path-2303-24",
+        "source_id": "train_val:2303",
+        "gid": "G48",
+        "gold": 0,
+        "full_ell": -2.0,
+        "aster_ell": 2.0,
+        "delta": 4.0,
+        "full_label": 0,
+        "aster_label": 1,
+        "changed": true,
+        "main_node_covered": false,
+        "full_path_correct": true,
+        "aster_path_correct": false
+      },
+      {
+        "case_id": "path-2432-11",
+        "source_id": "train_val:2432",
+        "gid": "G23",
+        "gold": 0,
+        "full_ell": 0.0,
+        "aster_ell": 1.5,
+        "delta": 1.5,
+        "full_label": 0,
+        "aster_label": 1,
+        "changed": true,
+        "main_node_covered": false,
+        "full_path_correct": true,
+        "aster_path_correct": false
+      },
+      {
+        "case_id": "path-667-23",
+        "source_id": "train_val:667",
+        "gid": "G46",
+        "gold": 1,
+        "full_ell": -0.25,
+        "aster_ell": 3.0,
+        "delta": 3.25,
+        "full_label": 0,
+        "aster_label": 1,
+        "changed": true,
+        "main_node_covered": false,
+        "full_path_correct": false,
+        "aster_path_correct": true
+      },
+      {
+        "case_id": "path-800-2",
+        "source_id": "train_val:800",
+        "gid": "G4",
+        "gold": 1,
+        "full_ell": 0.5,
+        "aster_ell": -0.75,
+        "delta": -1.25,
+        "full_label": 1,
+        "aster_label": 0,
+        "changed": true,
+        "main_node_covered": false,
+        "full_path_correct": true,
+        "aster_path_correct": false
+      },
+      {
+        "case_id": "path-2624-11",
+        "source_id": "train_val:2624",
+        "gid": "G16",
+        "gold": 1,
+        "full_ell": -2.5,
+        "aster_ell": 1.0,
+        "delta": 3.5,
+        "full_label": 0,
+        "aster_label": 1,
+        "changed": true,
+        "main_node_covered": false,
+        "full_path_correct": false,
+        "aster_path_correct": true
+      }
+    ],
+    "common_abs_full_margin_median": 25.875,
+    "common_abs_full_margin_le_2_5": 19,
+    "outcome_changes": [
+      {
+        "case_id": "path-11-25",
+        "source_id": "train_val:11",
+        "outcome": "degraded",
+        "original_100_subset": false,
+        "gid": "G33",
+        "gold": 0,
+        "full_ell": -2.5,
+        "aster_ell": 0.5,
+        "delta": 3.0,
+        "main_node_covered": false,
+        "condition": "病史或当前表现中是否存在表 3 所列的可疑血管相关症状或体征（如头痛不同以往的性质、单纯颈痛伴其他神经体征、视力障碍、眩晕、面部或四肢感觉异常、行走不稳/共济失调、语言/构音障碍、肢体无力、吞咽困难、恶心呕吐、上睑下垂、面瘫、意识丧失或意识混乱等）？（判断为是）",
+        "patient": "患者因颈部不适就诊，原计划接受颈部骨科手法治疗（如颈椎手法/脊柱手法等 OMT 干预）。既往病史中未见提示颈部血管疾病或发病倾向的危险因素：否认近期创伤史，亦无已知血管畸形、吸烟史、偏头痛、高总胆固醇、近期感染、高血压病史、口服避孕药使用史、脑卒中家族史或其他相关共病。就诊时病史与当前表现亦未出现可疑血管相关症状或体征：无“不同以往性质”的头痛，无单纯颈痛伴其他神经系统体征，无视力障碍、眩晕、面部或四肢感觉异常、行走不稳或共济失调、语言/构音障碍、肢体无力、吞咽困难、恶心呕吐、上睑下垂、面瘫，以及无意识丧失或意识混乱。\n\n体格检查中血压测量提示风险增高，记录为 190/110 mmHg。神经系统查体提示上运动神经元或颅神经受累的体征，表现为查体可见行走不稳，并可诱发构音不清。颈动脉检查亦发现异常，听诊可闻及颈动脉杂音，且双侧颈内动脉搏动不对称。\n\n本病例的主要临床关注点为管理。",
+        "first_gold_error_in_full": null,
+        "first_gold_error_in_aster": "G33"
+      },
+      {
+        "case_id": "path-667-10",
+        "source_id": "train_val:667",
+        "outcome": "degraded",
+        "original_100_subset": false,
+        "gid": "G21",
+        "gold": 1,
+        "full_ell": 0.5,
+        "aster_ell": -2.25,
+        "delta": -2.75,
+        "main_node_covered": false,
+        "condition": "Does the patient smoke (current smoking status)?（判断为是）",
+        "patient": "A male patient aged 72 years, who was an active smoker, presented without clinical features suggestive of a rupturing or ruptured abdominal aortic aneurysm, and ultrasonography likewise did not raise concern for impending rupture. Given the patient’s demographic risk profile and smoking status, the clinical encounter proceeded in the context of being considered for abdominal aortic aneurysm screening. The primary clinical focus was management.",
+        "first_gold_error_in_full": null,
+        "first_gold_error_in_aster": "G21"
+      },
+      {
+        "case_id": "path-2303-24",
+        "source_id": "train_val:2303",
+        "outcome": "degraded",
+        "original_100_subset": false,
+        "gid": "G48",
+        "gold": 0,
+        "full_ell": -2.0,
+        "aster_ell": 2.0,
+        "delta": 4.0,
+        "main_node_covered": false,
+        "condition": "After a documented risk–benefit balance and shared decision-making, is an antidepressant needed?（判断为是）",
+        "patient": "A patient with established epilepsy screened positive for clinically significant depressive symptoms, with an NDDI-E score of 16. A neurologist and psychiatrist obtained a detailed anamnesis and applied ICD-10 diagnostic criteria in the assessment of depression. The depressive symptoms were not temporally linked to seizures and were not described as peri-ictal phenomena. There was no history suggesting that symptoms were attributable to antiseizure medication effects. On interview, no suicide risk was identified, and there was no suspicion of another psychiatric comorbidity. The clinical picture did not include psychotic features, and there was no evidence of bipolar disorder. The patient had not failed two adequately dosed and adherent antidepressant trials, and augmentation of antidepressant therapy was not considered necessary. The episode was not mild and was characterized as moderate-to-severe. The patient was pregnant, and after a documented risk–benefit discussion and shared decision-making, an antidepressant was not pursued. The primary clinical focus was management.",
+        "first_gold_error_in_full": null,
+        "first_gold_error_in_aster": "G48"
+      },
+      {
+        "case_id": "path-2432-11",
+        "source_id": "train_val:2432",
+        "outcome": "degraded",
+        "original_100_subset": true,
+        "gid": "G23",
+        "gold": 0,
+        "full_ell": 0.0,
+        "aster_ell": 1.5,
+        "delta": 1.5,
+        "main_node_covered": false,
+        "condition": "Is percutaneous biopsy feasible (approach to be discussed between radiologist and surgeon) or is endoscopic biopsy required because percutaneous route is not possible?（判断为是）",
+        "patient": "The patient presented with a mesenteric mass attributed to a desmoid tumor but had no mechanical or surgical complication, with no evidence of bowel occlusion, digestive perforation, or mesenteric ischemia. A histological diagnosis was obtained via percutaneous core-needle biopsy when anatomically possible, rather than relying on cytology. Molecular testing was performed as first-line evaluation to assess for a somatic pathogenic *CTNNB1* variant, and no pathogenic *CTNNB1* variant was detected. Given the negative *CTNNB1* result, constitutional testing for a pathogenic *APC* variant was performed and returned positive, consistent with APC-linked familial adenomatous polyposis. Even in the context of proven APC-linked FAP and expert-center imaging, biopsy was not considered potentially morbid in this case. There was strong clinical concern for an alternative diagnosis such as lymphoma or carcinoma in the setting of an FAP patient with a suggestive mesenteric mass, yet percutaneous biopsy was not feasible and endoscopic biopsy was not required because a percutaneous route had been achievable. The primary clinical focus was management.",
+        "first_gold_error_in_full": null,
+        "first_gold_error_in_aster": "G23"
+      },
+      {
+        "case_id": "path-667-23",
+        "source_id": "train_val:667",
+        "outcome": "corrected",
+        "original_100_subset": false,
+        "gid": "G46",
+        "gold": 1,
+        "full_ell": -0.25,
+        "aster_ell": 3.0,
+        "delta": 3.25,
+        "main_node_covered": false,
+        "condition": "Is the fusiform AAA diameter greater than or equal to 5.5 cm?（判断为是）",
+        "patient": "The patient was evaluated without clinical or ultrasonographic features concerning for a rupturing or ruptured abdominal aortic aneurysm. The encounter was not undertaken as part of an abdominal aortic aneurysm screening evaluation in a screening-eligible population. An abdominal aortic aneurysm was nevertheless detected on abdominal ultrasonography and measured at 5.8 cm in maximal diameter. There were no symptoms attributable to the aneurysm, and a symptomatic aneurysm was not suspected. Morphologic assessment did not demonstrate a saccular configuration; instead, the aneurysm was described as fusiform in shape. Overall, the presentation centered on management.",
+        "first_gold_error_in_full": "G46",
+        "first_gold_error_in_aster": null
+      },
+      {
+        "case_id": "path-800-2",
+        "source_id": "train_val:800",
+        "outcome": "degraded",
+        "original_100_subset": false,
+        "gid": "G4",
+        "gold": 1,
+        "full_ell": 0.5,
+        "aster_ell": -0.75,
+        "delta": -1.25,
+        "main_node_covered": false,
+        "condition": "Is the patient currently responsive to diuretic therapy (e.g., adequate increase in urine output after diuretics)?（判断为是）",
+        "patient": "A neonatal/pediatric patient receiving extracorporeal membrane oxygenation developed clinical concern for fluid overload, with a clearly positive cumulative fluid balance and associated weight gain. Using the ICU admission weight in the calculation, the percent fluid overload was elevated at 14% \\[(fluid in − fluid out) / admission weight × 100\\]. Diuretic therapy was administered and produced an initial rise in urine output, indicating some diuretic responsiveness; however, urine output was not maintained above the desired threshold, averaging 0.4 mL/kg/hour rather than >0.5–1 mL/kg/hour, and ongoing fluid overload persisted. Following a furosemide challenge, urine output remained low, consistent with a poor renal tubular response. The primary clinical focus was management.",
+        "first_gold_error_in_full": null,
+        "first_gold_error_in_aster": "G4"
+      },
+      {
+        "case_id": "path-2624-11",
+        "source_id": "train_val:2624",
+        "outcome": "corrected",
+        "original_100_subset": false,
+        "gid": "G16",
+        "gold": 1,
+        "full_ell": -2.5,
+        "aster_ell": 1.0,
+        "delta": 3.5,
+        "main_node_covered": false,
+        "condition": "患者是否为临床I B~IV期(无脑转移)黑色素瘤术后辅助治疗情境？（判断为是）",
+        "patient": "患者既往无已知干扰素制品过敏史；亦无心绞痛、心肌梗死或其他严重心血管疾病病史；不存在其他严重疾病以致不能耐受本品不良反应的情况；无癫痫及其他中枢神经系统功能紊乱。此次就诊时并非首次使用hIFNα1b治疗，也并非停药后重启治疗。肿瘤学评估显示，患者并非不可切除性体表移行转移黑色素瘤或皮肤/皮下软组织转移黑色素瘤，亦不属于III～IV期（无脑转移）不可切除黑色素瘤拟行系统治疗的情境。当前为黑色素瘤术后辅助治疗场景，临床分期不符合I B～II A期，也不符合II B～II C期，而符合III期（无脑转移）术后辅助治疗的临床背景。管理。",
+        "first_gold_error_in_full": "G16",
+        "first_gold_error_in_aster": null
+      }
+    ],
+    "policy": "Observed common nodes only; no counterfactual scores or labels inferred for unvisited branches."
+  },
+  "historical": {
+    "full": {
+      "inputs": 168,
+      "nodes": 28,
+      "exact_threshold": {
+        "natural": {
+          "correct": 12,
+          "total": 12,
+          "rate": 1.0
+        },
+        "aster": {
+          "correct": 12,
+          "total": 12,
+          "rate": 1.0
+        }
+      },
+      "accuracy": {
+        "natural": {
+          "correct": 119,
+          "total": 168,
+          "rate": 0.7083333333333334
+        },
+        "aster": {
+          "correct": 114,
+          "total": 168,
+          "rate": 0.6785714285714286
+        }
+      },
+      "corrected": 0,
+      "degraded": 5,
+      "input_flips": [
+        {
+          "score_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:neutral:original:full",
+          "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+          "source_id": "62fd1f5e51dded5bbd254e0aa71cf2fe",
+          "metric_level": "above",
+          "metric_value": 21,
+          "background": "neutral",
+          "gold": 0,
+          "condition": "结石是否为肾结石且直径在10–20 mm范围内？",
+          "patient": "结石直径: 21 mm.\n结石位于肾内，不是输尿管结石。\nThe consultation record was entered in the electronic form.",
+          "predicate": {
+            "op": "and",
+            "args": [
+              {
+                "op": "==",
+                "field": "renal_stone",
+                "value": true
+              },
+              {
+                "op": "and",
+                "args": [
+                  {
+                    "op": ">=",
+                    "field": "measurement",
+                    "value": 10
+                  },
+                  {
+                    "op": "<=",
+                    "field": "measurement",
+                    "value": 20
+                  }
+                ]
+              }
+            ]
+          },
+          "full_ell": -2.75,
+          "aster_ell": 0.5,
+          "delta": 3.25,
+          "outcome": "degraded"
+        },
+        {
+          "score_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:cue:original:full",
+          "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+          "source_id": "62fd1f5e51dded5bbd254e0aa71cf2fe",
+          "metric_level": "above",
+          "metric_value": 21,
+          "background": "cue",
+          "gold": 0,
+          "condition": "结石是否为肾结石且直径在10–20 mm范围内？",
+          "patient": "结石直径: 21 mm.\n结石位于肾内，不是输尿管结石。\nThe patient or caregiver expresses a preference for active treatment.",
+          "predicate": {
+            "op": "and",
+            "args": [
+              {
+                "op": "==",
+                "field": "renal_stone",
+                "value": true
+              },
+              {
+                "op": "and",
+                "args": [
+                  {
+                    "op": ">=",
+                    "field": "measurement",
+                    "value": 10
+                  },
+                  {
+                    "op": "<=",
+                    "field": "measurement",
+                    "value": 20
+                  }
+                ]
+              }
+            ]
+          },
+          "full_ell": -0.25,
+          "aster_ell": 2.25,
+          "delta": 2.5,
+          "outcome": "degraded"
+        },
+        {
+          "score_id": "48b354078dca3fbaf7855e527e8d1637:13:constructed:above:cue:original:full",
+          "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+          "source_id": "48b354078dca3fbaf7855e527e8d1637",
+          "metric_level": "above",
+          "metric_value": 271,
+          "background": "cue",
+          "gold": 0,
+          "condition": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+          "patient": "咳嗽呼气气流峰值: 271 L/min.\nThe patient or caregiver expresses a preference for active treatment.",
+          "predicate": {
+            "op": "<",
+            "field": "measurement",
+            "value": 270
+          },
+          "full_ell": -1.0,
+          "aster_ell": 2.25,
+          "delta": 3.25,
+          "outcome": "degraded"
+        },
+        {
+          "score_id": "48b354078dca3fbaf7855e527e8d1637:13:constructed:same_side:neutral:original:full",
+          "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+          "source_id": "48b354078dca3fbaf7855e527e8d1637",
+          "metric_level": "same_side",
+          "metric_value": 272,
+          "background": "neutral",
+          "gold": 0,
+          "condition": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+          "patient": "咳嗽呼气气流峰值: 272 L/min.\nThe consultation record was entered in the electronic form.",
+          "predicate": {
+            "op": "<",
+            "field": "measurement",
+            "value": 270
+          },
+          "full_ell": -0.75,
+          "aster_ell": 2.25,
+          "delta": 3.0,
+          "outcome": "degraded"
+        },
+        {
+          "score_id": "48b354078dca3fbaf7855e527e8d1637:13:constructed:same_side:cue:original:full",
+          "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+          "source_id": "48b354078dca3fbaf7855e527e8d1637",
+          "metric_level": "same_side",
+          "metric_value": 272,
+          "background": "cue",
+          "gold": 0,
+          "condition": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+          "patient": "咳嗽呼气气流峰值: 272 L/min.\nThe patient or caregiver expresses a preference for active treatment.",
+          "predicate": {
+            "op": "<",
+            "field": "measurement",
+            "value": 270
+          },
+          "full_ell": -2.0,
+          "aster_ell": 0.75,
+          "delta": 2.75,
+          "outcome": "degraded"
+        }
+      ],
+      "strata": {
+        "below:neutral": {
+          "natural": {
+            "correct": 22,
+            "total": 28,
+            "rate": 0.7857142857142857
+          },
+          "aster": {
+            "correct": 22,
+            "total": 28,
+            "rate": 0.7857142857142857
+          }
+        },
+        "below:cue": {
+          "natural": {
+            "correct": 22,
+            "total": 28,
+            "rate": 0.7857142857142857
+          },
+          "aster": {
+            "correct": 22,
+            "total": 28,
+            "rate": 0.7857142857142857
+          }
+        },
+        "above:neutral": {
+          "natural": {
+            "correct": 18,
+            "total": 28,
+            "rate": 0.6428571428571429
+          },
+          "aster": {
+            "correct": 17,
+            "total": 28,
+            "rate": 0.6071428571428571
+          }
+        },
+        "above:cue": {
+          "natural": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          },
+          "aster": {
+            "correct": 17,
+            "total": 28,
+            "rate": 0.6071428571428571
+          }
+        },
+        "same_side:neutral": {
+          "natural": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          },
+          "aster": {
+            "correct": 18,
+            "total": 28,
+            "rate": 0.6428571428571429
+          }
+        },
+        "same_side:cue": {
+          "natural": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          },
+          "aster": {
+            "correct": 18,
+            "total": 28,
+            "rate": 0.6428571428571429
+          }
+        }
+      },
+      "pairs": {
+        "F": {
+          "natural": {
+            "correct": 25,
+            "total": 56,
+            "rate": 0.44642857142857145
+          },
+          "aster": {
+            "correct": 22,
+            "total": 56,
+            "rate": 0.39285714285714285
+          },
+          "changed_pairs": [
+            {
+              "pair_id": "48b354078dca3fbaf7855e527e8d1637:13:F:cue",
+              "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+              "source_id": "48b354078dca3fbaf7855e527e8d1637",
+              "outcome": "degraded",
+              "left": "48b354078dca3fbaf7855e527e8d1637:13:constructed:below:cue:original",
+              "right": "48b354078dca3fbaf7855e527e8d1637:13:constructed:above:cue:original"
+            },
+            {
+              "pair_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:F:neutral",
+              "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+              "source_id": "62fd1f5e51dded5bbd254e0aa71cf2fe",
+              "outcome": "degraded",
+              "left": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:below:neutral:original",
+              "right": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:neutral:original"
+            },
+            {
+              "pair_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:F:cue",
+              "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+              "source_id": "62fd1f5e51dded5bbd254e0aa71cf2fe",
+              "outcome": "degraded",
+              "left": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:below:cue:original",
+              "right": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:cue:original"
+            }
+          ]
+        },
+        "P": {
+          "natural": {
+            "correct": 59,
+            "total": 84,
+            "rate": 0.7023809523809523
+          },
+          "aster": {
+            "correct": 57,
+            "total": 84,
+            "rate": 0.6785714285714286
+          },
+          "changed_pairs": [
+            {
+              "pair_id": "48b354078dca3fbaf7855e527e8d1637:13:P:same_side",
+              "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+              "source_id": "48b354078dca3fbaf7855e527e8d1637",
+              "outcome": "degraded",
+              "left": "48b354078dca3fbaf7855e527e8d1637:13:constructed:same_side:neutral:original",
+              "right": "48b354078dca3fbaf7855e527e8d1637:13:constructed:same_side:cue:original"
+            },
+            {
+              "pair_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:P:above",
+              "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+              "source_id": "62fd1f5e51dded5bbd254e0aa71cf2fe",
+              "outcome": "degraded",
+              "left": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:neutral:original",
+              "right": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:cue:original"
+            }
+          ]
+        }
+      }
+    },
+    "direct": {
+      "inputs": 168,
+      "nodes": 28,
+      "exact_threshold": {
+        "natural": {
+          "correct": 12,
+          "total": 12,
+          "rate": 1.0
+        },
+        "aster": {
+          "correct": 12,
+          "total": 12,
+          "rate": 1.0
+        }
+      },
+      "accuracy": {
+        "natural": {
+          "correct": 120,
+          "total": 168,
+          "rate": 0.7142857142857143
+        },
+        "aster": {
+          "correct": 115,
+          "total": 168,
+          "rate": 0.6845238095238095
+        }
+      },
+      "corrected": 0,
+      "degraded": 5,
+      "input_flips": [
+        {
+          "score_id": "01de3cd3fc809c0292e2518e75bf99cb:12:constructed:below:neutral:original:direct",
+          "node_id": "01de3cd3fc809c0292e2518e75bf99cb:12",
+          "source_id": "01de3cd3fc809c0292e2518e75bf99cb",
+          "metric_level": "below",
+          "metric_value": 1.9,
+          "background": "neutral",
+          "gold": 0,
+          "condition": "Is the tumor located on the trunk or extremities with clinical diameter ≥2 cm?",
+          "patient": "Clinical tumor diameter: 1.9 cm.\nThe tumor is on the trunk.\nThe tumor is not on an extremity.\nThe consultation record was entered in the electronic form.",
+          "predicate": {
+            "op": "and",
+            "args": [
+              {
+                "op": "or",
+                "args": [
+                  {
+                    "op": "==",
+                    "field": "trunk",
+                    "value": true
+                  },
+                  {
+                    "op": "==",
+                    "field": "extremity",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "op": ">=",
+                "field": "measurement",
+                "value": 2
+              }
+            ]
+          },
+          "full_ell": 0.0,
+          "aster_ell": 1.0,
+          "delta": 1.0,
+          "outcome": "degraded"
+        },
+        {
+          "score_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:neutral:original:direct",
+          "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+          "source_id": "62fd1f5e51dded5bbd254e0aa71cf2fe",
+          "metric_level": "above",
+          "metric_value": 21,
+          "background": "neutral",
+          "gold": 0,
+          "condition": "结石是否为肾结石且直径在10–20 mm范围内？",
+          "patient": "结石直径: 21 mm.\n结石位于肾内，不是输尿管结石。\nThe consultation record was entered in the electronic form.",
+          "predicate": {
+            "op": "and",
+            "args": [
+              {
+                "op": "==",
+                "field": "renal_stone",
+                "value": true
+              },
+              {
+                "op": "and",
+                "args": [
+                  {
+                    "op": ">=",
+                    "field": "measurement",
+                    "value": 10
+                  },
+                  {
+                    "op": "<=",
+                    "field": "measurement",
+                    "value": 20
+                  }
+                ]
+              }
+            ]
+          },
+          "full_ell": -2.75,
+          "aster_ell": 0.5,
+          "delta": 3.25,
+          "outcome": "degraded"
+        },
+        {
+          "score_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:cue:original:direct",
+          "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+          "source_id": "62fd1f5e51dded5bbd254e0aa71cf2fe",
+          "metric_level": "above",
+          "metric_value": 21,
+          "background": "cue",
+          "gold": 0,
+          "condition": "结石是否为肾结石且直径在10–20 mm范围内？",
+          "patient": "结石直径: 21 mm.\n结石位于肾内，不是输尿管结石。\nThe patient or caregiver expresses a preference for active treatment.",
+          "predicate": {
+            "op": "and",
+            "args": [
+              {
+                "op": "==",
+                "field": "renal_stone",
+                "value": true
+              },
+              {
+                "op": "and",
+                "args": [
+                  {
+                    "op": ">=",
+                    "field": "measurement",
+                    "value": 10
+                  },
+                  {
+                    "op": "<=",
+                    "field": "measurement",
+                    "value": 20
+                  }
+                ]
+              }
+            ]
+          },
+          "full_ell": -0.25,
+          "aster_ell": 2.25,
+          "delta": 2.5,
+          "outcome": "degraded"
+        },
+        {
+          "score_id": "48b354078dca3fbaf7855e527e8d1637:13:constructed:above:neutral:original:direct",
+          "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+          "source_id": "48b354078dca3fbaf7855e527e8d1637",
+          "metric_level": "above",
+          "metric_value": 271,
+          "background": "neutral",
+          "gold": 0,
+          "condition": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+          "patient": "咳嗽呼气气流峰值: 271 L/min.\nThe consultation record was entered in the electronic form.",
+          "predicate": {
+            "op": "<",
+            "field": "measurement",
+            "value": 270
+          },
+          "full_ell": -0.75,
+          "aster_ell": 1.75,
+          "delta": 2.5,
+          "outcome": "degraded"
+        },
+        {
+          "score_id": "48b354078dca3fbaf7855e527e8d1637:13:constructed:above:cue:original:direct",
+          "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+          "source_id": "48b354078dca3fbaf7855e527e8d1637",
+          "metric_level": "above",
+          "metric_value": 271,
+          "background": "cue",
+          "gold": 0,
+          "condition": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+          "patient": "咳嗽呼气气流峰值: 271 L/min.\nThe patient or caregiver expresses a preference for active treatment.",
+          "predicate": {
+            "op": "<",
+            "field": "measurement",
+            "value": 270
+          },
+          "full_ell": -2.75,
+          "aster_ell": 0.25,
+          "delta": 3.0,
+          "outcome": "degraded"
+        }
+      ],
+      "strata": {
+        "below:neutral": {
+          "natural": {
+            "correct": 22,
+            "total": 28,
+            "rate": 0.7857142857142857
+          },
+          "aster": {
+            "correct": 21,
+            "total": 28,
+            "rate": 0.75
+          }
+        },
+        "below:cue": {
+          "natural": {
+            "correct": 22,
+            "total": 28,
+            "rate": 0.7857142857142857
+          },
+          "aster": {
+            "correct": 22,
+            "total": 28,
+            "rate": 0.7857142857142857
+          }
+        },
+        "above:neutral": {
+          "natural": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          },
+          "aster": {
+            "correct": 17,
+            "total": 28,
+            "rate": 0.6071428571428571
+          }
+        },
+        "above:cue": {
+          "natural": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          },
+          "aster": {
+            "correct": 17,
+            "total": 28,
+            "rate": 0.6071428571428571
+          }
+        },
+        "same_side:neutral": {
+          "natural": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          },
+          "aster": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          }
+        },
+        "same_side:cue": {
+          "natural": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          },
+          "aster": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          }
+        }
+      },
+      "pairs": {
+        "F": {
+          "natural": {
+            "correct": 26,
+            "total": 56,
+            "rate": 0.4642857142857143
+          },
+          "aster": {
+            "correct": 21,
+            "total": 56,
+            "rate": 0.375
+          },
+          "changed_pairs": [
+            {
+              "pair_id": "01de3cd3fc809c0292e2518e75bf99cb:12:F:neutral",
+              "node_id": "01de3cd3fc809c0292e2518e75bf99cb:12",
+              "source_id": "01de3cd3fc809c0292e2518e75bf99cb",
+              "outcome": "degraded",
+              "left": "01de3cd3fc809c0292e2518e75bf99cb:12:constructed:below:neutral:original",
+              "right": "01de3cd3fc809c0292e2518e75bf99cb:12:constructed:above:neutral:original"
+            },
+            {
+              "pair_id": "48b354078dca3fbaf7855e527e8d1637:13:F:neutral",
+              "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+              "source_id": "48b354078dca3fbaf7855e527e8d1637",
+              "outcome": "degraded",
+              "left": "48b354078dca3fbaf7855e527e8d1637:13:constructed:below:neutral:original",
+              "right": "48b354078dca3fbaf7855e527e8d1637:13:constructed:above:neutral:original"
+            },
+            {
+              "pair_id": "48b354078dca3fbaf7855e527e8d1637:13:F:cue",
+              "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+              "source_id": "48b354078dca3fbaf7855e527e8d1637",
+              "outcome": "degraded",
+              "left": "48b354078dca3fbaf7855e527e8d1637:13:constructed:below:cue:original",
+              "right": "48b354078dca3fbaf7855e527e8d1637:13:constructed:above:cue:original"
+            },
+            {
+              "pair_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:F:neutral",
+              "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+              "source_id": "62fd1f5e51dded5bbd254e0aa71cf2fe",
+              "outcome": "degraded",
+              "left": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:below:neutral:original",
+              "right": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:neutral:original"
+            },
+            {
+              "pair_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:F:cue",
+              "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+              "source_id": "62fd1f5e51dded5bbd254e0aa71cf2fe",
+              "outcome": "degraded",
+              "left": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:below:cue:original",
+              "right": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:cue:original"
+            }
+          ]
+        },
+        "P": {
+          "natural": {
+            "correct": 60,
+            "total": 84,
+            "rate": 0.7142857142857143
+          },
+          "aster": {
+            "correct": 57,
+            "total": 84,
+            "rate": 0.6785714285714286
+          },
+          "changed_pairs": [
+            {
+              "pair_id": "01de3cd3fc809c0292e2518e75bf99cb:12:P:below",
+              "node_id": "01de3cd3fc809c0292e2518e75bf99cb:12",
+              "source_id": "01de3cd3fc809c0292e2518e75bf99cb",
+              "outcome": "degraded",
+              "left": "01de3cd3fc809c0292e2518e75bf99cb:12:constructed:below:neutral:original",
+              "right": "01de3cd3fc809c0292e2518e75bf99cb:12:constructed:below:cue:original"
+            },
+            {
+              "pair_id": "48b354078dca3fbaf7855e527e8d1637:13:P:above",
+              "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+              "source_id": "48b354078dca3fbaf7855e527e8d1637",
+              "outcome": "degraded",
+              "left": "48b354078dca3fbaf7855e527e8d1637:13:constructed:above:neutral:original",
+              "right": "48b354078dca3fbaf7855e527e8d1637:13:constructed:above:cue:original"
+            },
+            {
+              "pair_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:P:above",
+              "node_id": "62fd1f5e51dded5bbd254e0aa71cf2fe:17",
+              "source_id": "62fd1f5e51dded5bbd254e0aa71cf2fe",
+              "outcome": "degraded",
+              "left": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:neutral:original",
+              "right": "62fd1f5e51dded5bbd254e0aa71cf2fe:17:constructed:above:cue:original"
+            }
+          ]
+        }
+      }
+    },
+    "condition_ancestors": {
+      "inputs": 168,
+      "nodes": 28,
+      "exact_threshold": {
+        "natural": {
+          "correct": 12,
+          "total": 12,
+          "rate": 1.0
+        },
+        "aster": {
+          "correct": 12,
+          "total": 12,
+          "rate": 1.0
+        }
+      },
+      "accuracy": {
+        "natural": {
+          "correct": 111,
+          "total": 168,
+          "rate": 0.6607142857142857
+        },
+        "aster": {
+          "correct": 111,
+          "total": 168,
+          "rate": 0.6607142857142857
+        }
+      },
+      "corrected": 1,
+      "degraded": 1,
+      "input_flips": [
+        {
+          "score_id": "83cf1b073d03d1221b88fcd00c45f468:2:constructed:above:cue:original:condition_ancestors",
+          "node_id": "83cf1b073d03d1221b88fcd00c45f468:2",
+          "source_id": "83cf1b073d03d1221b88fcd00c45f468",
+          "metric_level": "above",
+          "metric_value": 2,
+          "background": "cue",
+          "gold": 0,
+          "condition": "Is performance status good (ECOG 0–1) with good biliary drainage and adequate nutritional intake?",
+          "patient": "ECOG performance status: 2 points.\nBiliary drainage is good.\nNutritional intake is adequate.\nThe patient or caregiver expresses a preference for active treatment.",
+          "predicate": {
+            "op": "and",
+            "args": [
+              {
+                "op": "and",
+                "args": [
+                  {
+                    "op": ">=",
+                    "field": "measurement",
+                    "value": 0
+                  },
+                  {
+                    "op": "<=",
+                    "field": "measurement",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "op": "==",
+                "field": "drainage",
+                "value": true
+              },
+              {
+                "op": "==",
+                "field": "nutrition",
+                "value": true
+              }
+            ]
+          },
+          "full_ell": 1.0,
+          "aster_ell": -4.5,
+          "delta": -5.5,
+          "outcome": "corrected"
+        },
+        {
+          "score_id": "48b354078dca3fbaf7855e527e8d1637:13:constructed:same_side:neutral:original:condition_ancestors",
+          "node_id": "48b354078dca3fbaf7855e527e8d1637:13",
+          "source_id": "48b354078dca3fbaf7855e527e8d1637",
+          "metric_level": "same_side",
+          "metric_value": 272,
+          "background": "neutral",
+          "gold": 0,
+          "condition": "患者咳嗽呼气气流峰值是否低于270 L/min，提示咳嗽明显无力？",
+          "patient": "咳嗽呼气气流峰值: 272 L/min.\nThe consultation record was entered in the electronic form.",
+          "predicate": {
+            "op": "<",
+            "field": "measurement",
+            "value": 270
+          },
+          "full_ell": -0.5,
+          "aster_ell": 0.25,
+          "delta": 0.75,
+          "outcome": "degraded"
+        }
+      ],
+      "strata": {
+        "below:neutral": {
+          "natural": {
+            "correct": 18,
+            "total": 28,
+            "rate": 0.6428571428571429
+          },
+          "aster": {
+            "correct": 18,
+            "total": 28,
+            "rate": 0.6428571428571429
+          }
+        },
+        "below:cue": {
+          "natural": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          },
+          "aster": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          }
+        },
+        "above:neutral": {
+          "natural": {
+            "correct": 18,
+            "total": 28,
+            "rate": 0.6428571428571429
+          },
+          "aster": {
+            "correct": 18,
+            "total": 28,
+            "rate": 0.6428571428571429
+          }
+        },
+        "above:cue": {
+          "natural": {
+            "correct": 18,
+            "total": 28,
+            "rate": 0.6428571428571429
+          },
+          "aster": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          }
+        },
+        "same_side:neutral": {
+          "natural": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          },
+          "aster": {
+            "correct": 18,
+            "total": 28,
+            "rate": 0.6428571428571429
+          }
+        },
+        "same_side:cue": {
+          "natural": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          },
+          "aster": {
+            "correct": 19,
+            "total": 28,
+            "rate": 0.6785714285714286
+          }
+        }
+      },
+      "pairs": {
+        "F": {
+          "natural": {
+            "correct": 17,
+            "total": 56,
+            "rate": 0.30357142857142855
+          },
+          "aster": {
+            "correct": 18,
+            "total": 56,
+            "rate": 0.32142857142857145
+          },
+          "changed_pairs": [
+            {
+              "pair_id": "83cf1b073d03d1221b88fcd00c45f468:2:F:cue",
+              "node_id": "83cf1b073d03d1221b88fcd00c45f468:2",
+              "source_id": "83cf1b073d03d1221b88fcd00c45f468",
+              "outcome": "corrected",
+              "left": "83cf1b073d03d1221b88fcd00c45f468:2:constructed:below:cue:original",
+              "right": "83cf1b073d03d1221b88fcd00c45f468:2:constructed:above:cue:original"
+            }
+          ]
+        },
+        "P": {
+          "natural": {
+            "correct": 54,
+            "total": 84,
+            "rate": 0.6428571428571429
+          },
+          "aster": {
+            "correct": 54,
+            "total": 84,
+            "rate": 0.6428571428571429
+          },
+          "changed_pairs": []
+        }
+      }
+    }
+  },
+  "existing_text_cautions": [
+    {
+      "case_id": "path-11-25",
+      "observation": "病历先否认可疑神经症状，后又记载查体可见行走不稳、可诱发构音不清；G33询问病史或当前表现。",
+      "implication": "同一现成病例中的正反叙述使gold=0的事实对应关系不清；本分析保留原标签，不据此重新判分。"
+    },
+    {
+      "case_id": "path-2432-11",
+      "observation": "病历既说经皮穿刺在解剖条件允许时已完成，后又说经皮不可行、内镜不需要，因为经皮路径曾经可达。",
+      "implication": "条件同时询问经皮可行或因不可行而需内镜，且病例混有时态；保留既有gold=0。"
+    },
+    {
+      "case_id": "path-800-2",
+      "observation": "先记利尿剂使尿量初增，随后记尿量未维持、液体超负荷持续、呋塞米挑战后反应差。",
+      "implication": "G4问当前是否有利尿反应，早期反应与当前状态的对应关系不够直接；保留既有gold=1。"
+    }
+  ],
+  "interpretation_limits": [
+    "Main-node coverage is a (source_id,gid) check; original_100_subset is a case subset, not node coverage.",
+    "Historical natural and ASTER scores use the same saved inputs and template. Absolute accuracy is not compared across the main and historical templates.",
+    "Small score margin is an observed location of flips, not a proposed gate or a proven root cause of representation failure.",
+    "Text cautions are not independent clinical adjudication and do not change any reported denominator."
+  ]
+}
