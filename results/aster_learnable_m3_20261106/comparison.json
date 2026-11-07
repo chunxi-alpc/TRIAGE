@@ -1,0 +1,85 @@
+{
+  "methods": {
+    "full": {
+      "cases": 7458,
+      "correct": 7068,
+      "path_accuracy": 0.9477071600965407,
+      "source_bootstrap_95ci": [
+        0.9386355623559578,
+        0.9569867746132913
+      ],
+      "corrected_vs_full": 0,
+      "degraded_vs_full": 0
+    },
+    "aster": {
+      "cases": 7458,
+      "correct": 7045,
+      "path_accuracy": 0.9446232233842853,
+      "source_bootstrap_95ci": [
+        0.9356439664743357,
+        0.9539776867111353
+      ],
+      "corrected_vs_full": 22,
+      "degraded_vs_full": 45
+    },
+    "learned_reference": {
+      "cases": 7458,
+      "correct": 7072,
+      "path_accuracy": 0.9482434969160632,
+      "source_bootstrap_95ci": [
+        0.9393091122182526,
+        0.9573338074056688
+      ],
+      "corrected_vs_full": 6,
+      "degraded_vs_full": 2
+    },
+    "learned_self": {
+      "cases": 7458,
+      "correct": 7068,
+      "path_accuracy": 0.9477071600965407,
+      "source_bootstrap_95ci": [
+        0.9386421248663962,
+        0.9570037904586948
+      ],
+      "corrected_vs_full": 3,
+      "degraded_vs_full": 3
+    },
+    "direct_reference": {
+      "cases": 7458,
+      "correct": 6445,
+      "path_accuracy": 0.8641727004558863,
+      "source_bootstrap_95ci": [
+        0.8481081461265387,
+        0.8792054644370068
+      ],
+      "corrected_vs_full": 137,
+      "degraded_vs_full": 760
+    }
+  },
+  "comparisons": {
+    "learned_reference minus aster": {
+      "accuracy_difference": 0.0036202735317779565,
+      "source_bootstrap_95ci": [
+        0.0013023674691537883,
+        0.006080039631897539
+      ],
+      "corrected": 50,
+      "degraded": 23
+    },
+    "learned_reference minus learned_self": {
+      "accuracy_difference": 0.0005363368195226602,
+      "source_bootstrap_95ci": [
+        -0.000263826149778927,
+        0.001287072391720574
+      ],
+      "corrected": 7,
+      "degraded": 3
+    }
+  },
+  "bootstrap": {
+    "unit": "source",
+    "resamples": 2000,
+    "seed": 20261105
+  },
+  "historical_accuracy": 0.8921
+}

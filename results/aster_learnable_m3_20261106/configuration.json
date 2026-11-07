@@ -1,0 +1,293 @@
+{
+  "seed": 20261105,
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "frozen_basis": "/home/gcx/aster_existing_data_20261106/operators/aster.pt",
+  "frozen_heads": 51,
+  "training_cases": 200,
+  "development_cases": 100,
+  "test_cases": 7458,
+  "epochs": 3,
+  "lr": 0.001,
+  "weight_decay": 0.01,
+  "optimizer": "AdamW",
+  "accumulation": 8,
+  "loss": "CE + 0.1 KL(clean||edited) on clean-correct nodes + 0.001 mean head relative squared edit",
+  "sampled_nodes": "first, middle (floor length/2), last, deduplicated",
+  "selection": "dev full path accuracy, smaller mean relative edit, earlier epoch",
+  "gate": "sigmoid(linear(concat(U.T z, W r)))",
+  "gate_initial": 0.01,
+  "mapping_initial": "U_N.T",
+  "reference": "original patient/current condition/structural ancestor conditions; no branch outcomes",
+  "data": "raw MEGA-CDP cases and labels; original 200/100 identities; entire test split",
+  "gpus": [
+    0,
+    1
+  ],
+  "precision": "bfloat16 backbone, float32 M3",
+  "trainable_parameters": 31771,
+  "additional_pairs": false,
+  "refit": false,
+  "js_loss": false,
+  "pretrained_editor_weights": false,
+  "source_engine": "/home/gcx/aster_reference_anchor_20261106/code/experiments/aster_closed_form/engine.py",
+  "heads": [
+    300,
+    518,
+    590,
+    636,
+    639,
+    650,
+    655,
+    681,
+    690,
+    691,
+    708,
+    709,
+    711,
+    714,
+    715,
+    718,
+    721,
+    736,
+    739,
+    740,
+    751,
+    761,
+    762,
+    766,
+    773,
+    781,
+    795,
+    796,
+    797,
+    799,
+    811,
+    815,
+    830,
+    831,
+    834,
+    835,
+    857,
+    858,
+    872,
+    883,
+    939,
+    942,
+    945,
+    965,
+    967,
+    984,
+    1029,
+    1039,
+    1071,
+    1089,
+    1122
+  ],
+  "ranks": {
+    "300": {
+      "U_N": 4,
+      "S": 8
+    },
+    "518": {
+      "U_N": 4,
+      "S": 8
+    },
+    "590": {
+      "U_N": 4,
+      "S": 8
+    },
+    "636": {
+      "U_N": 4,
+      "S": 8
+    },
+    "639": {
+      "U_N": 4,
+      "S": 8
+    },
+    "650": {
+      "U_N": 4,
+      "S": 8
+    },
+    "655": {
+      "U_N": 4,
+      "S": 8
+    },
+    "681": {
+      "U_N": 4,
+      "S": 8
+    },
+    "690": {
+      "U_N": 4,
+      "S": 8
+    },
+    "691": {
+      "U_N": 8,
+      "S": 8
+    },
+    "708": {
+      "U_N": 4,
+      "S": 8
+    },
+    "709": {
+      "U_N": 8,
+      "S": 8
+    },
+    "711": {
+      "U_N": 4,
+      "S": 8
+    },
+    "714": {
+      "U_N": 4,
+      "S": 8
+    },
+    "715": {
+      "U_N": 4,
+      "S": 8
+    },
+    "718": {
+      "U_N": 4,
+      "S": 7
+    },
+    "721": {
+      "U_N": 4,
+      "S": 8
+    },
+    "736": {
+      "U_N": 8,
+      "S": 8
+    },
+    "739": {
+      "U_N": 4,
+      "S": 8
+    },
+    "740": {
+      "U_N": 4,
+      "S": 4
+    },
+    "751": {
+      "U_N": 4,
+      "S": 8
+    },
+    "761": {
+      "U_N": 8,
+      "S": 8
+    },
+    "762": {
+      "U_N": 8,
+      "S": 8
+    },
+    "766": {
+      "U_N": 4,
+      "S": 8
+    },
+    "773": {
+      "U_N": 4,
+      "S": 8
+    },
+    "781": {
+      "U_N": 4,
+      "S": 8
+    },
+    "795": {
+      "U_N": 4,
+      "S": 8
+    },
+    "796": {
+      "U_N": 8,
+      "S": 8
+    },
+    "797": {
+      "U_N": 4,
+      "S": 7
+    },
+    "799": {
+      "U_N": 4,
+      "S": 8
+    },
+    "811": {
+      "U_N": 4,
+      "S": 8
+    },
+    "815": {
+      "U_N": 4,
+      "S": 8
+    },
+    "830": {
+      "U_N": 4,
+      "S": 4
+    },
+    "831": {
+      "U_N": 4,
+      "S": 8
+    },
+    "834": {
+      "U_N": 4,
+      "S": 7
+    },
+    "835": {
+      "U_N": 4,
+      "S": 8
+    },
+    "857": {
+      "U_N": 8,
+      "S": 8
+    },
+    "858": {
+      "U_N": 4,
+      "S": 8
+    },
+    "872": {
+      "U_N": 8,
+      "S": 8
+    },
+    "883": {
+      "U_N": 4,
+      "S": 7
+    },
+    "939": {
+      "U_N": 4,
+      "S": 2
+    },
+    "942": {
+      "U_N": 4,
+      "S": 2
+    },
+    "945": {
+      "U_N": 4,
+      "S": 3
+    },
+    "965": {
+      "U_N": 4,
+      "S": 6
+    },
+    "967": {
+      "U_N": 4,
+      "S": 8
+    },
+    "984": {
+      "U_N": 4,
+      "S": 4
+    },
+    "1029": {
+      "U_N": 8,
+      "S": 2
+    },
+    "1039": {
+      "U_N": 4,
+      "S": 8
+    },
+    "1071": {
+      "U_N": 8,
+      "S": 2
+    },
+    "1089": {
+      "U_N": 4,
+      "S": 4
+    },
+    "1122": {
+      "U_N": 4,
+      "S": 7
+    }
+  },
+  "frozen_artifact_snapshot": "/home/gcx/TRIAGE/results/aster_learnable_m3_20261106/frozen_m1_m2.pt"
+}
