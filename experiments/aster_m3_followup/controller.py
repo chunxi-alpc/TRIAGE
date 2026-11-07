@@ -25,6 +25,8 @@ def main():
         start=time.time()
         try:
             cfg=read(ROOT/"configuration.json")
+            from .reuse_history import run as reuse_history
+            reuse_history()
             if read(ROOT/"smoke.json").get("state")!="passed":raise RuntimeError("Functional smoke run has not passed")
             names=[v["name"] for v in cfg["variants"]]
             old=["full","aster","learned_reference","learned_self","bias"]

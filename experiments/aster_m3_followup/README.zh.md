@@ -51,3 +51,7 @@ CUDA_VISIBLE_DEVICES='' python -m experiments.aster_m3_followup.report
 `--final` 只表示请求最终汇总；实际缺少计划结果时仍返回 `in_progress`。完整结果见 [REPORT.zh.md](../../results/aster_m3_followup_20261107/REPORT.zh.md)，直接统计见 [P0](../../results/aster_m3_followup_20261107/p0/REPORT.zh.md)，配置见 [configuration.json](../../results/aster_m3_followup_20261107/configuration.json)。
 
 完成后，控制器将汇总、压缩逐例结果及同步文档推送至独立分支 codex/aster-m3-p0-p3-20261107。模型权重、原始输入与运行日志保留在服务器。
+
+### 历史实验继承与复用
+
+本轮继承既有训练／开发病例和已有 JS、条件翻转、自身条件编辑思路，新增检验的是这些目标在冻结 M1/M2 头子空间中的作用。随机头、子空间消融及校准已有历史结果；旧表示版本 JS 相对无 JS 在 7,458 例上净降 80 例，该负结果保留。已复用相同输入的完整阅读和闭式配对分数，校准由完整阅读缓存计算。详见[历史核对与复用记录](../../results/aster_m3_followup_20261107/HISTORY_REUSE.zh.md)。

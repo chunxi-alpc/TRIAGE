@@ -64,14 +64,30 @@ def evaluate(engine,name,dataset):
     path=ROOT/"predictions"/dataset/f"{name}.jsonl"
     if (ROOT/"status"/f"eval_{dataset}_{name}.json").exists() and read(ROOT/"status"/f"eval_{dataset}_{name}.json")["state"]=="complete":return
     done={r["case_id"] for r in rows(path)};start=time.perf_counter()
+    if name=="bias" and (dataset.startswith("medguide") or dataset=="pairs"):
+        full_status=ROOT/"status"/f"eval_{dataset}_full.json"
+        while not full_status.exists() or read(full_status).get("state")!="complete":
+            job=ROOT/"jobs"/f"{dataset}_full.json"
+            if job.exists() and read(job).get("state")=="failed":
+                raise RuntimeError("Full baseline failed; calibration requires its saved scores")
+            time.sleep(2)
     editor,spec=load_editor(engine,name) if name not in ["full","aster","bias","direct_reference"] else (None,None)
     basis=frozen() if name=="aster" else None
     if dataset.startswith("medguide"):
         split=dataset.removeprefix("medguide_")
         cases=rows(ROOT/"data"/f"medguide_{split}.jsonl")
         bias=read(ROOT/"calibration/medguide.json")["bias"] if name=="bias" else 0.
+        full_cache={r["case_id"]:r for r in rows(ROOT/"predictions"/dataset/"full.jsonl")} if name=="bias" else {}
         for i,c in enumerate(cases):
-            if c["sample_id"] not in done:append(path,mcq(engine,c,name,editor,spec,basis,bias))
+            if c["sample_id"] not in done:
+                if c["sample_id"] in full_cache:
+                    r=dict(full_cache[c["sample_id"]]);r["label_logits"]=list(r["label_logits"])
+                    r["label_logits"][0]+=bias
+                    r["prediction"]="ABCDEFGH"[int(np.argmax(r["label_logits"]))]
+                    r.update(method=name,correct=r["prediction"]==r["label"],reused_from="full label_logits")
+                elif name=="bias":raise ValueError("Completed full baseline lacks MCQ scores")
+                else:r=mcq(engine,c,name,editor,spec,basis,bias)
+                append(path,r)
             progress(f"eval_{dataset}_{name}",start,i+1,len(cases),engine)
     elif dataset=="mega":
         cases=rows(OLD/"data/test.jsonl");bias=read(ROOT/"calibration/mega.json")["bias"] if name=="bias" else 0.
@@ -87,12 +103,18 @@ def evaluate(engine,name,dataset):
         groups={g["group_id"]:g for g in rows(LEGACY/"data/groups_main.jsonl")}
         node_path=ROOT/"predictions/pair_views"/f"{name}.jsonl"
         scored={r["view_id"]:r for r in rows(node_path)}
+        full_cache={r["view_id"]:r for r in rows(ROOT/"predictions/pair_views/full.jsonl")} if name=="bias" else {}
         bias=read(ROOT/"calibration/mega.json")["bias"] if name=="bias" else 0.
         for i,p in enumerate(ps):
             if p["pair_id"] not in done:
                 for side in ["left","right"]:
                     vid=p[side];v=views[vid]
                     if vid in scored:continue
+                    if vid in full_cache:
+                        row=dict(full_cache[vid]);row["ell"]=float(row["ell"])+bias
+                        row.update(prediction=int(row["ell"]>0),reused_from="full ell plus fitted bias")
+                        scored[vid]=row;append(node_path,row);continue
+                    if name=="bias":raise ValueError("Completed full baseline lacks pair scores")
                     ref=None
                     if spec and spec["reference"]=="reference":
                         donor=pair_reference_prompt(v,groups[v["group_id"]])
