@@ -38,6 +38,7 @@ def choose(model,final=False):
    selection="path accuracy drop <=0.5pp, then four-class PA macro, then fewer trainable parameters")
  selected=next(r for r in candidates if r["name"]==chosen["aster_cr"])
  chosen["ordinary_matched"]=("ordinary_r"+str(selected["rank"])) if model=="qwen" and selected.get("rank") is not None else "ordinary_confirm" if model=="medgemma" else chosen["ordinary"]
+ if any(r["name"]=="ordinary_matched" for r in candidates):chosen["ordinary_matched"]="ordinary_matched"
  write(root/"development_selection.json",chosen)
  if final:
   template=choose_template(model)
@@ -84,11 +85,14 @@ def downstream(phase_function=phase):
   (6,["experiments.aster_cr.paths","--split","dev","--shard","1","--shards","2"])])
  phase_function("qwen_selectivity_and_comparator_fit",[
   (0,["experiments.aster_cr.mechanisms","--stage","h2"]),
-  (1,["experiments.aster_cr.comparators","--fit"])])
+  (1,["experiments.aster_cr.comparators","--fit"]),
+  (6,["experiments.aster_cr.historical_h3"])])
  cpu("experiments.aster_cr.mechanisms","--stage","h3")
  cpu("experiments.aster_cr.diagnostics")
  cpu("experiments.aster_cr.readout")
  readout_paths("qwen","dev");choose("qwen")
+ cpu("experiments.aster_cr.ablate")
+ readout_paths("qwen","dev")
  jobs=[["experiments.aster_cr.baselines","--kind",kind,"--lr",str(lr)] for kind in ("loreft","lofit","lora","last_layer") for lr in (.0001,.001,.01)]
  for i in range(0,len(jobs),3):phase_function("qwen_training_"+str(i//3),list(zip(GPUS,jobs[i:i+3])))
  phase_function("qwen_comparators_dev",[(gpu,["experiments.aster_cr.comparators","--split","dev","--shard",str(i)]) for i,gpu in enumerate(GPUS)])
@@ -110,6 +114,7 @@ def downstream(phase_function=phase):
   phase_function("medgemma_"+split,[(6,["experiments.aster_cr.score","--model","medgemma","--split",split,"--shards","1"])])
  phase_function("medgemma_localize",[(6,["experiments.aster_cr.mechanisms","--model","medgemma","--stage","localize"])])
  phase_function("medgemma_h2",[(6,["experiments.aster_cr.mechanisms","--model","medgemma","--stage","h2"])])
+ phase_function("medgemma_historical_h3",[(6,["experiments.aster_cr.historical_h3","--model","medgemma"])])
  cpu("experiments.aster_cr.mechanisms","--model","medgemma","--stage","h3")
  cpu("experiments.aster_cr.diagnostics","--model","medgemma")
  cpu("experiments.aster_cr.readout","--model","medgemma")

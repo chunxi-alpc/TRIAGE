@@ -79,8 +79,15 @@ def train(model):
   lines(root/"readout_scores"/(name+"_dev.jsonl"),[dict(view_id=k,ell=float(v)) for k,v in devscore.items()])
   write(root/"readout_candidates.json",records)
  def candidate(name,headset,rank,component,reg,weights,support_type="paired"):
+  allowed=h2.get("by_rank",{}).get(str(rank),h2).get("nuisance_enabled",False)
+  if name.startswith("cr_") and not allowed:
+   component="signal" if component=="both" else "bias" if component=="nuisance" else component
   key=(tuple(headset),rank)
-  if key not in support_cache:support_cache[key]=supports(f,headset,rank)
+  if key not in support_cache:
+   saved=root/("supports_r"+str(rank)+".npz")
+   if list(headset)==sel["heads"] and saved.exists():
+    with np.load(saved) as arrays:support_cache[key]={k:arrays[k] for k in arrays.files}
+   else:support_cache[key]=supports(f,headset,rank)
   support=dict(support_cache[key])
   if tuple(headset) not in matrix_cache:matrix_cache[tuple(headset)]=(f.matrix(train,headset),f.matrix(dev,headset))
   fitraw,devraw=matrix_cache[tuple(headset)]
@@ -90,7 +97,7 @@ def train(model):
    q,_=np.linalg.qr(rng.normal(size=(len(support["mu"]),max(total,1))))
    ns=support["S"].shape[1];support["S"]=q[:,:ns].astype(np.float32);support["N"]=q[:,ns:total].astype(np.float32)
   if component=="ordinary":
-   target_dim=(support["S"].shape[1] if active in ("signal","both") else 0)+(support["N"].shape[1] if active in ("nuisance","both") else 0)
+   target_dim=(support["S"].shape[1] if active in ("signal","both") else 0)+(support["N"].shape[1] if active in ("nuisance","both") and allowed else 0)
    support["O"]=basis((fitraw-support["mu"])/support["scale"],target_dim,trim=False) if target_dim else np.empty((fitraw.shape[1],0),np.float32)
   x=project(fitraw,support,component)
   fitted=optimize(ell,x,yd,ps,correct,reg,weights,"linear")

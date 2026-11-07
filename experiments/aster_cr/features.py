@@ -32,7 +32,10 @@ def basis(x,rank,trim=True):
  keep=(s>max(1e-7,float(s.max())*1e-6)) if trim else np.ones(len(s),dtype=bool)
  return vt[keep].T.astype(np.float32)
 def orth_nuisance(signal,nuisance):
- x=nuisance-signal@(signal.T@nuisance)
- if x.size==0:return x
+ d=signal.shape[0]
+ if signal.shape[1]>=d or nuisance.shape[1]==0:return np.empty((d,0),np.float32)
+ q=np.linalg.qr(signal.astype(np.float64),mode="reduced")[0] if signal.shape[1] else np.empty((d,0))
+ x=nuisance.astype(np.float64)-q@(q.T@nuisance.astype(np.float64))
+ x=x-q@(q.T@x)
  u,s,_=np.linalg.svd(x,full_matrices=False)
- return u[:,s>max(1e-6,(s.max() if len(s) else 0)*1e-5)].astype(np.float32)
+ return u[:,s>max(1e-10,(s.max() if len(s) else 0)*1e-6)].astype(np.float32)

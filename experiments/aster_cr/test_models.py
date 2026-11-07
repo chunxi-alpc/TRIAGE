@@ -43,3 +43,29 @@ def test_adapter_gradients_and_cache_replay(tmp_path):
   torch.manual_seed(0);other=tiny_engine();restored=Adapter(other,kind,17,load=path)
   assert abs(restored.score("x")-cached)<1e-4,kind
   restored.close()
+
+def test_full_signal_span_has_no_nuisance_space():
+ rng=np.random.default_rng(9);s=np.linalg.qr(rng.normal(size=(24,24)))[0].astype(np.float32)
+ n=np.linalg.qr(rng.normal(size=(24,8)))[0].astype(np.float32)
+ assert orth_nuisance(s,n).shape==(24,0)
+
+def test_h3_historical_errors_keep_separate_accuracy_denominator(tmp_path,monkeypatch):
+ from . import mechanisms
+ from .common import write,lines,read
+ rng=np.random.default_rng(4)
+ views=[dict(view_id=str(i),split="fit" if i<20 else "dev",variant="full",label=i%2,source_id=str(i)) for i in range(26)]
+ head={v["view_id"]:rng.normal(size=(2,4,8)).astype(np.float32) for v in views}
+ residual={v["view_id"]:rng.normal(size=32).astype(np.float32) for v in views}
+ class Fake:
+  def __init__(self,model):self.views=views
+  def ell(self,vid):return -1 if int(vid)%2 else 1
+  def matrix(self,vs,heads=None,kind="heads"):
+   if kind=="residual":return np.stack([residual[v["view_id"]] for v in vs])
+   return np.stack([(head[v["view_id"]].reshape(8,8) if heads is None else head[v["view_id"]].reshape(8,8)[heads]).reshape(-1) for v in vs])
+ monkeypatch.setattr(mechanisms,"ROOT",tmp_path);monkeypatch.setattr(mechanisms,"Features",Fake)
+ write(tmp_path/"qwen/selection.json",dict(heads=[0,1]))
+ feature=tmp_path/"historical.npz";np.savez(feature,heads=rng.normal(size=(2,4,8)),residual=rng.normal(size=32))
+ lines(tmp_path/"qwen/historical_h3/scores.jsonl",[dict(status="ok",current_error=True,feature=str(feature),label=1)])
+ mechanisms.h3("qwen")
+ result=read(tmp_path/"qwen/h3.json")["probes"]["selected_heads"]
+ assert result["dev_n"]==6 and result["historical_error_nodes"]==1 and result["error_nodes"]==7

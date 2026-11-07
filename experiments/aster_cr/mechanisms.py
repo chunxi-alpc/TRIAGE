@@ -83,8 +83,12 @@ def h2(model):
  from sklearn.linear_model import Ridge
  from sklearn.metrics import r2_score
  from .engine import Engine
- f=Features(model);sel=read(ROOT/model/"selection.json");h=sel["heads"];sup=supports(f,h,8)
+ f=Features(model);sel=read(ROOT/model/"selection.json");h=sel["heads"]
+ ranks=[4,8,16,"full"] if model=="qwen" else [next((r.get("rank") or 8 for r in read(ROOT/"qwen/readout_candidates.json") if r["name"]==read(ROOT/"qwen/development_selection.json")["aster_cr"]),8)]
+ support_by_rank={str(rank):supports(f,h,rank) for rank in ranks}
+ sup=support_by_rank.get("8",next(iter(support_by_rank.values())))
  root=ROOT/model;np.savez_compressed(root/"supports_h2.npz",**sup)
+ for rank,value in support_by_rank.items():np.savez_compressed(root/("supports_r"+rank+".npz"),**value)
  eng=Engine(model);records=[]
  for p in f.pairs:
   if p["split"]!="dev" or p["kind"] not in ("A","P","C","F"):continue
@@ -98,6 +102,13 @@ def h2(model):
   for name,delta in operations.items():
    ell=eng.run(context,replacements={j:za[j]+delta[i] for i,j in enumerate(h)},capture=False)["ell"]
    rr[name]=ell-base;rr[name+"_correct"]=int((ell>0)==bool(p["left_label"]))
+  rr["leakage_by_rank"]={}
+  for rank,value in support_by_rank.items():
+   if value is sup:rr["leakage_by_rank"][rank]=rr["low_rank"];continue
+   low_rank=((d@value["N"])@value["N"].T)*value["scale"]
+   low_rank=low_rank.reshape(len(h),-1)
+   value_ell=eng.run(context,replacements={j:za[j]+low_rank[i] for i,j in enumerate(h)},capture=False)["ell"]
+   rr["leakage_by_rank"][rank]=value_ell-base
   rh=sel["random_heads"]
   ell=eng.run(context,replacements={j:zb[j] for j in rh},capture=False)["ell"];rr["random_heads"]=ell-base
   if sel["old_heads"]:
@@ -109,26 +120,31 @@ def h2(model):
    r=eng.run(other,replacements={j:zb[j]+fixed[i] for i,j in enumerate(h)},capture=False)["ell"]
    rr["same_nuisance_direction_difference"]=(r-l)-(f.ell(b)-base);del other
   append(root/"mechanisms/h2_dev.jsonl",rr);records.append(rr);del context
- # Predict unseen-source interference score differences, fit only.
- tr=[];ty=[];dx=[];dy=[]
- for p in f.pairs:
-  if p["kind"] not in ("A","P"):continue
-  diff=(f.heads(p["right"],h)-f.heads(p["left"],h))/sup["scale"]
-  z=diff@sup["N"];target=f.ell(p["right"])-f.ell(p["left"])
-  if p["split"]=="fit":tr.append(z);ty.append(target)
-  elif p["split"]=="dev":dx.append(z);dy.append(target)
- r2=None
- if tr and dx and sup["N"].shape[1] and len(dy)>1:
-  estimator=Ridge(alpha=.01).fit(np.stack(tr),ty);r2=float(r2_score(dy,estimator.predict(np.stack(dx))))
- sig=[r for r in records if r["kind"] in ("C","F")]
- leak=float(np.sqrt(np.mean([r["low_rank"]**2 for r in sig]))) if sig else None
- true=float(np.sqrt(np.mean([r["total_effect"]**2 for r in sig]))) if sig else None
- ratio=leak/true if true and leak is not None else None
- gate=bool(r2 is not None and r2>0 and ratio is not None and ratio<=.1)
- write(root/"h2.json",dict(dev_interference_r2=r2,signal_leakage_rms=leak,true_signal_rms=true,leakage_ratio=ratio,
-  nuisance_enabled=gate,criterion="R2 > 0 and leakage RMS / true signal RMS <= 0.1",dev_pairs=len(records),
+ # Every searched nuisance support receives its own held-out gate.
+ diagnostics={}
+ for rank,value in support_by_rank.items():
+  tr=[];ty=[];dx=[];dy=[]
+  for p in f.pairs:
+   if p["kind"] not in ("A","P"):continue
+   diff=(f.heads(p["right"],h)-f.heads(p["left"],h))/value["scale"]
+   z=diff@value["N"];target=f.ell(p["right"])-f.ell(p["left"])
+   if p["split"]=="fit":tr.append(z);ty.append(target)
+   elif p["split"]=="dev":dx.append(z);dy.append(target)
+  r2=None
+  if tr and dx and value["N"].shape[1] and len(dy)>1:
+   estimator=Ridge(alpha=.01).fit(np.stack(tr),ty);r2=float(r2_score(dy,estimator.predict(np.stack(dx))))
+  sig=[r for r in records if r["kind"] in ("C","F")]
+  leak=float(np.sqrt(np.mean([r["leakage_by_rank"][rank]**2 for r in sig]))) if sig else None
+  true=float(np.sqrt(np.mean([r["total_effect"]**2 for r in sig]))) if sig else None
+  ratio=leak/true if true and leak is not None else None
+  diagnostics[rank]=dict(dev_interference_r2=r2,signal_leakage_rms=leak,true_signal_rms=true,leakage_ratio=ratio,
+    nuisance_enabled=bool(r2 is not None and r2>0 and ratio is not None and ratio<=.1))
+ default=diagnostics.get("8",next(iter(diagnostics.values())))
+ write(root/"h2.json",dict(default,by_rank=diagnostics,nuisance_enabled=any(r["nuisance_enabled"] for r in diagnostics.values()),
+  criterion="For each rank: R2 > 0 and leakage RMS / true signal RMS <= 0.1",dev_pairs=len(records),
   corrected=sum(not r["original_correct"] and r["low_rank_correct"] for r in records if r["kind"] in ("A","P")),
   new_errors=sum(r["original_correct"] and not r["low_rank_correct"] for r in records if r["kind"] in ("A","P"))))
+
 def h3(model):
  from sklearn.decomposition import PCA
  from sklearn.linear_model import RidgeClassifier
@@ -137,18 +153,32 @@ def h3(model):
  dev=[v for v in f.views if v["split"]=="dev" and v["variant"]=="full"]
  y=np.array([v["label"] for v in fit]);yd=np.array([v["label"] for v in dev])
  errors=np.array([(f.ell(v["view_id"])>0)!=bool(v["label"]) for v in dev])
+ history=[r for r in rows(ROOT/model/"historical_h3/scores.jsonl") if r.get("status")=="ok" and r["current_error"]]
  rng=np.random.default_rng(SEED);result={}
  for kind,heads in [("residual",None),("selected_heads",sel["heads"]),("all_heads",None)]:
   x=f.matrix(fit,heads,kind="residual" if kind=="residual" else "heads")
   d=f.matrix(dev,heads,kind="residual" if kind=="residual" else "heads")
+  history_x=[]
+  for record in history:
+   with np.load(record["feature"]) as arr:
+    if kind=="residual":value=arr["residual"].astype(np.float32)
+    else:
+     value=arr["heads"].astype(np.float32);value=value.reshape(-1,value.shape[-1])
+     if heads is not None:value=value[heads]
+     value=value.reshape(-1)
+    history_x.append(value)
+  if history_x:d=np.concatenate([d,np.stack(history_x)])
+  eval_y=np.r_[yd,[r["label"] for r in history]] if history else yd
+  error_mask=np.r_[errors,np.ones(len(history),dtype=bool)] if history else errors
   mu=x.mean(0);scale=np.maximum(x.std(0),1e-5);x=(x-mu)/scale;d=(d-mu)/scale
   dim=min(64,len(fit)-1,x.shape[1]);pca=PCA(n_components=dim,svd_solver="randomized",random_state=SEED)
   x=pca.fit_transform(x);d=pca.transform(d)
   clf=RidgeClassifier(alpha=1.).fit(x,y);pred=clf.predict(d)
   shuffled=RidgeClassifier(alpha=1.).fit(x,rng.permutation(y)).predict(d)
-  result[kind]=dict(dev_n=len(dev),accuracy=float(np.mean(pred==yd)),shuffle_accuracy=float(np.mean(shuffled==yd)),
-    error_nodes=int(errors.sum()),error_accuracy=float(np.mean(pred[errors]==yd[errors])) if errors.any() else None,
-    error_shuffle_accuracy=float(np.mean(shuffled[errors]==yd[errors])) if errors.any() else None)
+  result[kind]=dict(dev_n=len(dev),accuracy=float(np.mean(pred[:len(dev)]==yd)),shuffle_accuracy=float(np.mean(shuffled[:len(dev)]==yd)),
+    historical_error_nodes=len(history),error_nodes=int(error_mask.sum()),
+    error_accuracy=float(np.mean(pred[error_mask]==eval_y[error_mask])) if error_mask.any() else None,
+    error_shuffle_accuracy=float(np.mean(shuffled[error_mask]==eval_y[error_mask])) if error_mask.any() else None)
   del x,d,pca
  # Positive decoding evidence is kept separate from the >=100 error-node evidence target.
  r=result["selected_heads"]
