@@ -16,7 +16,16 @@ def export():
 def publish(final=False):
     actual=subprocess.check_output(["git","branch","--show-current"],cwd=REPO,text=True).strip()
     if actual!=BRANCH:raise RuntimeError("Publish is limited to the experiment branch")
-    if final:export()
+    if final:
+        export()
+        replacements={
+            "新版已实现，训练与全量实验尚未完成":"新版已完成本次训练与评测",
+            "P0–P3 后续新版已实现，训练与全量评价尚未完成":"P0–P3 后续新版已完成本次训练与评测"
+        }
+        for name in ["README.md","docs/ASTER/README.md","docs/ASTER/manuscript.zh.md","docs/ASTER/method-clarifications.zh.md"]:
+            path=REPO/name;text=path.read_text()
+            for old,new in replacements.items():text=text.replace(old,new)
+            path.write_text(text)
     paths=["experiments/aster_m3_followup","results/aster_m3_followup_20261107","README.md",
            "docs/ASTER/README.md","docs/ASTER/manuscript.zh.md","docs/ASTER/method-clarifications.zh.md"]
     subprocess.run(["git","add","--"]+paths,cwd=REPO,check=True)
