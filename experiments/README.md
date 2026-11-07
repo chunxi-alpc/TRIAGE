@@ -1,8 +1,10 @@
 # 历史实验索引
 
-## ASTER 最新方法方案（2026-11-06）
+## ASTER近期方法与实验（2026-11-07）
 
-保留 M1，沿用此前选定 M2 的全部未筛选方向，仅训练 M3 映射与门控。使用原版 MEGA-CDP 数据，新 M3 尚未实现、训练和验证；[固定方案](../docs/ASTER/manuscript.zh.md)。下列闭式与表示干预实现均为各自历史版本。
+[按版本实验索引](../docs/ASTER/experiments.zh.md) · [版本演变](../docs/ASTER/versions.zh.md) · [中文论文](../docs/ASTER/manuscript.zh.md)。
+
+辅助参考／自身参考M3已完成五方法全量测试，辅助参考正确7,072/7,458；[代码](aster_learnable_m3/README.zh.md)与[完整结果](../results/aster_learnable_m3_20261106/REPORT.zh.md)已合入。最新P0–P3实现和阶段结果见[运行入口](aster_m3_followup/README.zh.md)，paired_ns正式训练与评测尚未完成。M1双模型诊断已完成，作为[机制分析](../results/m1_diagnostics_20261106/README.md)引用。
 
 ## ASTER 三轮闭式实验与全历史整合（2026-11-06）
 

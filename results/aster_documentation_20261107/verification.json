@@ -1,0 +1,76 @@
+{
+  "markdown_files": 18,
+  "links_checked": 263,
+  "link_failures": [],
+  "manuscript_sections": [
+    "1 摘要",
+    "2 引言",
+    "3 相关工作",
+    "4 任务定义",
+    "5 方法：ASTER",
+    "6 实验设置",
+    "7 实验结果",
+    "8 消融与机制分析",
+    "9 参考文献",
+    "10 附录"
+  ],
+  "full_results": {
+    "full": {
+      "cases": 7458,
+      "correct": 7068,
+      "corrected": 0,
+      "new_errors": 0,
+      "sources": 440
+    },
+    "aster": {
+      "cases": 7458,
+      "correct": 7045,
+      "corrected": 22,
+      "new_errors": 45,
+      "sources": 440
+    },
+    "learned_reference": {
+      "cases": 7458,
+      "correct": 7072,
+      "corrected": 6,
+      "new_errors": 2,
+      "sources": 440
+    },
+    "learned_self": {
+      "cases": 7458,
+      "correct": 7068,
+      "corrected": 3,
+      "new_errors": 3,
+      "sources": 440
+    },
+    "direct_reference": {
+      "cases": 7458,
+      "correct": 6445,
+      "corrected": 137,
+      "new_errors": 760,
+      "sources": 440
+    }
+  },
+  "parameters_checked": true,
+  "scope": "Links, formulas against source, saved numerical results and status only. No training, evaluation or GPU use.",
+  "historical_input_counts": {
+    "cases": 610,
+    "correct": {
+      "full": 601,
+      "aster": 603,
+      "soft_angle": 602,
+      "global_mean": 513,
+      "same_fact": 601
+    },
+    "same_fact_equals_direct": true
+  },
+  "formula_review": [
+    "Hard screening matches operators.oblique_factors: N=U R_K, B=Sigma_K^-1 Q_K.T; ES=S is direction preservation, not preservation of S.T z for every input.",
+    "Soft angle matches saved-basis operator: weight=s/max(s*s,sin(45deg)^2); no general idempotence.",
+    "Reference comparison uses U U.T with mean or frozen per-input donor and does not enforce D S=0.",
+    "Learnable HeadEditor matches V.T z, W detach(r), sigmoid gate and V-space delta; fixed N/S/NS basis dimensions and parameter totals checked.",
+    "Latest engine online_self uses raw current head detach when external reference is None; learned_self uses a separate unedited pass.",
+    "Training formula matches per-node correctness indicator KL, case-averaged original nodes, per-type paired averaging, JS and label-oriented hinge with margin one."
+  ],
+  "status_review": "Completed previous M3 reports and selected epoch 1 for both variants; P0-P3 documented from committed stage report plus timestamped read-only progress snapshot; miniature validation excluded from formal completion."
+}

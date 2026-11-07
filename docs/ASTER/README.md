@@ -1,34 +1,19 @@
-# ASTER
+# ASTER文档
 
-## 当前方法与已完成结果（2026-11-07）
+更新：2026-11-07。当前方法为P0–P3中的`paired_ns`：固定51头和已有基，在NS联合空间上学习映射与门控，使用在线自身参考及配对监督。已实现，正式训练与评测尚未完成。
 
-**保留 M1；沿用此前选定的 M2 及全部 244 个未筛选干扰方向；将 M3 改为可训练映射与门控。** 两种参考版本已各完成 3 轮训练、均选第 1 轮，五方法完成 7,458 例官方测试。辅助参考 7,072 例正确，完整阅读 7,068 例，旧闭式 ASTER 7,045 例。辅助参考相对完整阅读净增 4 例，差值为 +0.054 个百分点；来源重采样 95% 区间为 [−0.014, +0.130] 个百分点，来源配对置换和病例级精确 McNemar 检验均为 p=0.289。结果支持其减少旧闭式编辑的损伤，尚未证明相对完整阅读有稳定纠错收益。
+最新完整结果属于上一阶段辅助参考M3：7,072/7,458（94.82%），完整阅读7,068/7,458（94.77%）；净纠正4例，差值来源区间包含零。实验成绩与方法版本分别标注。
 
-M2 已比较过能量目标与秩上限，现沿用 0.95、4 的已选版本。M1 的 51 个头及 M2 保存基冻结。本轮 M3 训练和评测只用 MEGA-CDP 原版发布记录及标签，200 例训练、100 例开发、7,458 例官方测试，不新增构造样本。
+| 入口 | 内容 |
+|---|---|
+| [中文主稿](manuscript.zh.md) | 摘要、引言、相关工作、任务、最新版方法、设置、结果、分析、参考文献和附录 |
+| [版本演变](versions.zh.md) | 闭式→连续衰减→未筛选方向与参考→可学习M3→P0–P3；动机、公式、结果与继承 |
+| [实验索引](experiments.zh.md) | 各版本分母、完成状态、结果和服务器运行入口 |
+| [模块说明](method-clarifications.zh.md) | 当前M1/M2/M3含义、参考差别和信号保持性质 |
+| [全量M3结果](../../results/aster_learnable_m3_20261106/REPORT.zh.md) | 已完成五方法比较 |
+| [P0–P3阶段报告](../../results/aster_m3_followup_20261107/REPORT.zh.md) | 节点、迁移、选头、N/S/NS；阶段状态 |
+| [M1诊断](../../results/m1_diagnostics_20261106/README.md) | 已完成双模型机制分析及原文基础试测 |
+| [引用说明](references.zh.md) | 当前引用与支持范围 |
+| [历史与快照](archive/README.md) | 闭式理论、旧表示方法、早期协议和整理前原文 |
 
-- [首页](../../README.md)：已完成结果、后续状态及历史入口。
-- [已完成 M3 报告](../../results/aster_learnable_m3_20261106/REPORT.zh.md)与[P0 直接统计](../../results/aster_m3_followup_20261107/p0/REPORT.zh.md)。
-- [P0–P3 后续报告](../../results/aster_m3_followup_20261107/REPORT.zh.md)：新版已实现，训练与全量实验尚未完成，按完成状态单列。
-- [方法正文](manuscript.zh.md)：三模块接口、M3 映射与门控、损失、固定设置和五组对照。
-- [方法补充](method-clarifications.zh.md)：M2 已有调整、此次修改及版本区别。
-- [原闭式正文](manuscript-closed-form.zh.md)与[原方法补充](method-clarifications-closed-form.zh.md)：历史公式和理论原样保留。
-- [旧版可学习正文](manuscript-representation.zh.md)、[复现说明](supplementary.zh.md)、[代码与权重](../../experiments/aster_representation/)：89.21% 的历史来源，不作为新 M3 成绩。
-- [旧版方法核对](method-check.zh.md)、[旧版结果附件](results/)与[早期方案归档](archive/README.md)。
-
-## 已完成实验与模块分析
-
-[总分析](../../reports/aster_synthesis_20261106/ANALYSIS.zh.md) · [30 个阶段和 60 份历史报告](../../reports/aster_synthesis_20261106/EXPERIMENTS.zh.md) · [复算数据](../../results/aster_synthesis_20261106/README.md) · [闭式代码与复算](../../experiments/aster_closed_form/SYNTHESIS.zh.md)。
-
-M1 定位已有支持；M2 低秩截断损失部分作用，最大进一步损失发生于 M3 的硬夹角筛选。同事实参考缓解全局均值造成的偏移，但尚未超过直接参考。学习式 M3 已完成训练与全量比较，保留原始结果及数据来源；进一步的配对训练和选头对照作为 P0–P3 后续新版。
-
-[原硬筛选实验](../../reports/aster_existing_data_20261106/ANALYSIS.zh.md)、[连续衰减](../../results/aster_soft_angle_20261106/README.md)、[同事实参考](../../results/aster_reference_anchor_20261106/README.md)均为已完成的历史版本。
-
-## 历史补充
-
-[三数据集分析](../../reports/three_dataset_analysis_20261105/README.md)与[修订遮挡实验](../../reports/semantic_masking_followup_20261105/ANALYSIS.zh.md)提供背景证据，其构造输入及任务指标按原协议保留。已完成的原版 M3 不新增配对；P3 后续新版另外使用既有构造配对及不跨阈值的数值对照，结果分别归属。
-
-旧版[完整研究快照](https://github.com/chunxi-alpc/TRIAGE/tree/d8cf67d53d6b068d9b382114de4a5fa4b22f633b)用于追溯已完成实验。
-
-### 历史实验继承与复用
-
-本轮继承既有训练／开发病例和已有 JS、条件翻转、自身条件编辑思路，新增检验的是这些目标在冻结 M1/M2 头子空间中的作用。随机头、子空间消融及校准已有历史结果；旧表示版本 JS 相对无 JS 在 7,458 例上净降 80 例，该负结果保留。已复用相同输入的完整阅读和闭式配对分数，校准由完整阅读缓存计算。详见[历史核对与复用记录](../../results/aster_m3_followup_20261107/HISTORY_REUSE.zh.md)。
+P0–P3进度以[带时间的状态快照](../../results/aster_documentation_20261107/progress.json)及原实验分支后续报告为准。图表安排和逐章待补项在主稿附录，旧图稿继续保留原路径。

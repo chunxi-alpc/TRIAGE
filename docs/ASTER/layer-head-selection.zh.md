@@ -2,7 +2,7 @@
 
 [项目首页](../../README.md) · [当前方法](manuscript.zh.md) · [旧版 8B 选头结果](../../experiments/aster_manuscript_clinical_20261030/public/clinical01/structure.json)
 
-> ASTER 的 M1 已通过干扰配对的归因预筛、双向精确修补和联合恢复选定 51 个查询头；最新方案复用该集合及 $`\mathcal H,T_h`$，见[当前 M1](manuscript.zh.md#42-m1干扰通路定位)。本轮沿用已选 M2，仅改造 M3。下面的层18和 KV 头结果属于其他历史版本。
+> ASTER 的 M1 已通过干扰配对的归因预筛、双向精确修补和联合恢复选定 51 个查询头；最新方案复用该集合及 $`\mathcal H,T_h`$，见[当前 M1](manuscript.zh.md#52-m1干扰通路定位)。本轮沿用已选 M2，仅改造 M3。下面的层18和 KV 头结果属于其他历史版本。
 
 ## 先确定使用哪套方法
 

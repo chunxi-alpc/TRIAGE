@@ -1,5 +1,7 @@
 # ASTER：仅训练 M3
 
+**状态：已完成训练、开发选轮和五方法全量测试。** [结果](../../results/aster_learnable_m3_20261106/REPORT.zh.md)；后续在线自身参考与N/S/NS配对训练见[P0–P3](../aster_m3_followup/README.zh.md)。下文描述辅助／自身参考版本。
+
 保持既有 51 个头、未筛选 U_N、S 和各头秩。新的映射和门控共 31,771 个参数；Qwen 全部冻结。原固定算子接口仍通过 Engine.run(operators=...) 使用；新接口为 Engine.run(m3=..., reference=..., training=True)。
 
 代码基于已部署的 ASTER 最后输入位置 o_proj 前向钩子扩展。Engine.run 的 training=True 返回带计算图的两个判断 logits，由训练程序计算损失并反向传播；原 grad=True 诊断接口保持原行为。
