@@ -11,6 +11,24 @@ ASTER 研究模型如何根据完整指南和患者事实判断当前条件，�
 - [旧版可学习表示方法及结果](docs/ASTER/manuscript-representation.zh.md) · [旧版实现](experiments/aster_representation/)
 - [数据集与使用状态](#数据集与使用状态)
 
+
+<!-- m1-diagnostics:start -->
+## 冻结 M1 诊断与原文试测（2026-11-07，已完成）
+
+两模型各完成64对头修补、64对层内外贡献诊断、12对残差扫描，以及MedGUIDE和MEGA-CDP各200例发布原文试测。
+
+|基础模型|MedGUIDE正确/错误|MEGA完整路径正确/错误|MEGA原标注节点正确/总数|
+|---|---|---|---|
+|Qwen3-8B|103/97|193/7|1074/1081|
+|MedGemma 27B|111/89|196/4|1077/1081|
+
+两模型在MedGUIDE共同错71题，在MEGA共同错1例。冻结专用头的旧测试A/P恢复率分别为Qwen 84.21%/74.96%、MedGemma 74.17%/82.10%；区间、分母和精度见报告。结果支持M1定位部分分数变化通路；候选外贡献与组合不可加提示后续改进方向。本轮没有纠错训练，恢复率不能换算为准确率收益。原文200例是探索样本，不是全数据集成绩；完整前向与缓存前向的数值差异已单列。
+
+[最终结论](results/m1_diagnostics_20261106/README.md) · [完整诊断表](results/m1_diagnostics_20261106/REPORT.zh.md) · [代码与复现](experiments/m1_diagnostics/README.zh.md)
+
+实验完成后自动合并上传本仓库主分支。入口为 `python -m experiments.m1_diagnostics.publish`；完整实验的报告阶段已接入该入口。仅提交本实验代码、汇总和压缩明细，保留已有结果及README其他章节。上传失败会保留本地结果并写入状态文件，可重试；模型权重、激活缓存、原始数据和运行日志留在服务器。后续实验沿用这一完成即上传要求。
+<!-- m1-diagnostics:end -->
+
 ## ASTER 三个模块与本轮改动
 
 | 模块 | 已有工作 | 最新安排 |

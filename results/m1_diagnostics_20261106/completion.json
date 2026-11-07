@@ -1,0 +1,92 @@
+{
+  "completed": true,
+  "verified_at": 1794023065.3625991,
+  "checks": {
+    "qwen": {
+      "pairs": 64,
+      "max_errors": {
+        "replay_errors": 0.0,
+        "self_errors": 0.0,
+        "all_head_donor_errors": 0.0,
+        "full_forward_errors": 0.6771183013916016
+      }
+    },
+    "medgemma": {
+      "pairs": 64,
+      "max_errors": {
+        "replay_errors": 0.0,
+        "self_errors": 0.0,
+        "all_head_donor_errors": 0.0,
+        "full_forward_errors": 0.10116004943847656
+      },
+      "fixed_scale_no_intervention_max_error": 0.0
+    }
+  },
+  "baselines": [
+    {
+      "model": "qwen",
+      "dataset": "medguide",
+      "frozen_cases": 200,
+      "finished": 200,
+      "scored": 200,
+      "sources": 53,
+      "scored_sources": 53,
+      "overlength": 0,
+      "unscorable": 0,
+      "correct": 103,
+      "wrong": 97
+    },
+    {
+      "model": "qwen",
+      "dataset": "mega",
+      "frozen_cases": 200,
+      "finished": 200,
+      "scored": 200,
+      "sources": 200,
+      "scored_sources": 200,
+      "overlength": 0,
+      "unscorable": 0,
+      "correct": 193,
+      "wrong": 7,
+      "node_correct": 1074,
+      "node_wrong": 7,
+      "node_total": 1081,
+      "annotated_cases_wrong": 7
+    },
+    {
+      "model": "medgemma",
+      "dataset": "medguide",
+      "frozen_cases": 200,
+      "finished": 200,
+      "scored": 200,
+      "sources": 53,
+      "scored_sources": 53,
+      "overlength": 0,
+      "unscorable": 0,
+      "correct": 111,
+      "wrong": 89
+    },
+    {
+      "model": "medgemma",
+      "dataset": "mega",
+      "frozen_cases": 200,
+      "finished": 200,
+      "scored": 200,
+      "sources": 200,
+      "scored_sources": 200,
+      "overlength": 0,
+      "unscorable": 0,
+      "correct": 196,
+      "wrong": 4,
+      "node_correct": 1077,
+      "node_wrong": 4,
+      "node_total": 1081,
+      "annotated_cases_wrong": 4
+    }
+  ],
+  "report": "REPORT.zh.md",
+  "analysis": "FINAL_ANALYSIS.zh.md",
+  "selection_changed": false,
+  "correction_training_performed": false,
+  "numerical_limit": "Full-forward and cached-final-token scores differ; see report."
+}
