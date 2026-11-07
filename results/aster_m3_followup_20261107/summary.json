@@ -1,0 +1,925 @@
+{
+  "state": "in_progress",
+  "final_requested": false,
+  "incomplete_stages": [
+    "MEGA",
+    "MedGUIDE pilot",
+    "pairs",
+    "MedGUIDE confirmation",
+    "fixed gold nodes",
+    "changed-node reruns",
+    "training"
+  ],
+  "primary_new_method": "paired_ns",
+  "mega": {
+    "expected": 7458,
+    "state": "partial",
+    "methods": {
+      "full": {
+        "n": 7458,
+        "correct": 7068,
+        "accuracy": 0.9477071600965407,
+        "source_pages": 440,
+        "statistical_sources": 440
+      },
+      "aster": {
+        "n": 7458,
+        "correct": 7045,
+        "accuracy": 0.9446232233842853,
+        "source_pages": 440,
+        "statistical_sources": 440
+      },
+      "learned_reference": {
+        "n": 7458,
+        "correct": 7072,
+        "accuracy": 0.9482434969160632,
+        "source_pages": 440,
+        "statistical_sources": 440
+      },
+      "learned_self": {
+        "n": 7458,
+        "correct": 7068,
+        "accuracy": 0.9477071600965407,
+        "source_pages": 440,
+        "statistical_sources": 440
+      },
+      "direct_reference": {
+        "n": 7458,
+        "correct": 6445,
+        "accuracy": 0.8641727004558863,
+        "source_pages": 440,
+        "statistical_sources": 440
+      }
+    },
+    "comparisons": {
+      "full minus learned_reference": {
+        "n": 7458,
+        "sources": 440,
+        "corrected": 2,
+        "degraded": 6,
+        "net": -4,
+        "difference": -0.0005363368195226602,
+        "source_bootstrap_95ci": [
+          -0.0012995959028553204,
+          0.0001376661460841966
+        ],
+        "mcnemar_exact_p": 0.2890625,
+        "source_permutation_p": 0.2890625,
+        "source_permutation_exact": true,
+        "source_permutation_draws": 256,
+        "nonzero_source_count": 8,
+        "seed": 20261107,
+        "bootstrap_resamples": 20000
+      },
+      "aster minus full": {
+        "n": 7458,
+        "sources": 440,
+        "corrected": 22,
+        "degraded": 45,
+        "net": -23,
+        "difference": -0.003083936712255296,
+        "source_bootstrap_95ci": [
+          -0.0053879344905001,
+          -0.0009110876202348456
+        ],
+        "mcnemar_exact_p": 0.006741447363103123,
+        "source_permutation_p": 0.009699515024248788,
+        "source_permutation_exact": false,
+        "source_permutation_draws": 20000,
+        "nonzero_source_count": 54,
+        "seed": 20261107,
+        "bootstrap_resamples": 20000
+      },
+      "aster minus learned_reference": {
+        "n": 7458,
+        "sources": 440,
+        "corrected": 23,
+        "degraded": 50,
+        "net": -27,
+        "difference": -0.0036202735317779565,
+        "source_bootstrap_95ci": [
+          -0.005984805815690141,
+          -0.001369290915203386
+        ],
+        "mcnemar_exact_p": 0.0021181727464006325,
+        "source_permutation_p": 0.002849857507124644,
+        "source_permutation_exact": false,
+        "source_permutation_draws": 20000,
+        "nonzero_source_count": 59,
+        "seed": 20261107,
+        "bootstrap_resamples": 20000
+      },
+      "learned_reference minus full": {
+        "n": 7458,
+        "sources": 440,
+        "corrected": 6,
+        "degraded": 2,
+        "net": 4,
+        "difference": 0.0005363368195226602,
+        "source_bootstrap_95ci": [
+          -0.00013766614608419668,
+          0.0012995959028553159
+        ],
+        "mcnemar_exact_p": 0.2890625,
+        "source_permutation_p": 0.2890625,
+        "source_permutation_exact": true,
+        "source_permutation_draws": 256,
+        "nonzero_source_count": 8,
+        "seed": 20261107,
+        "bootstrap_resamples": 20000
+      },
+      "learned_self minus full": {
+        "n": 7458,
+        "sources": 440,
+        "corrected": 3,
+        "degraded": 3,
+        "net": 0,
+        "difference": 0.0,
+        "source_bootstrap_95ci": [
+          -0.000669077576491644,
+          0.0006566009740152783
+        ],
+        "mcnemar_exact_p": 1.0,
+        "source_permutation_p": 1.0,
+        "source_permutation_exact": true,
+        "source_permutation_draws": 64,
+        "nonzero_source_count": 6,
+        "seed": 20261107,
+        "bootstrap_resamples": 20000
+      },
+      "learned_self minus learned_reference": {
+        "n": 7458,
+        "sources": 440,
+        "corrected": 3,
+        "degraded": 7,
+        "net": -4,
+        "difference": -0.0005363368195226602,
+        "source_bootstrap_95ci": [
+          -0.0013224014810896587,
+          0.00013704449935294182
+        ],
+        "mcnemar_exact_p": 0.34375,
+        "source_permutation_p": 0.2890625,
+        "source_permutation_exact": true,
+        "source_permutation_draws": 256,
+        "nonzero_source_count": 8,
+        "seed": 20261107,
+        "bootstrap_resamples": 20000
+      },
+      "direct_reference minus full": {
+        "n": 7458,
+        "sources": 440,
+        "corrected": 137,
+        "degraded": 760,
+        "net": -623,
+        "difference": -0.08353445964065433,
+        "source_bootstrap_95ci": [
+          -0.09697959960155327,
+          -0.0702070637206331
+        ],
+        "mcnemar_exact_p": 2.7364415664816857e-105,
+        "source_permutation_p": 4.999750012499375e-05,
+        "source_permutation_exact": false,
+        "source_permutation_draws": 20000,
+        "nonzero_source_count": 261,
+        "seed": 20261107,
+        "bootstrap_resamples": 20000
+      },
+      "direct_reference minus learned_reference": {
+        "n": 7458,
+        "sources": 440,
+        "corrected": 132,
+        "degraded": 759,
+        "net": -627,
+        "difference": -0.084070796460177,
+        "source_bootstrap_95ci": [
+          -0.09742503704269165,
+          -0.070869174343662
+        ],
+        "mcnemar_exact_p": 1.1558876234348459e-107,
+        "source_permutation_p": 4.999750012499375e-05,
+        "source_permutation_exact": false,
+        "source_permutation_draws": 20000,
+        "nonzero_source_count": 262,
+        "seed": 20261107,
+        "bootstrap_resamples": 20000
+      }
+    },
+    "pending": {
+      "bias": 0,
+      "random_13": 0,
+      "random_37": 0,
+      "random_73": 0,
+      "candidates": 0,
+      "all_heads": 0,
+      "paired_n": 0,
+      "paired_s": 0,
+      "paired_ns": 0,
+      "online_n": 0
+    },
+    "source_unit": "guideline_source"
+  },
+  "medguide_pilot": {
+    "expected": 200,
+    "state": "partial",
+    "methods": {},
+    "comparisons": {},
+    "pending": {
+      "full": 0,
+      "aster": 0,
+      "learned_reference": 0,
+      "learned_self": 0,
+      "bias": 0,
+      "random_13": 0,
+      "random_37": 0,
+      "random_73": 0,
+      "candidates": 0,
+      "all_heads": 0,
+      "paired_n": 0,
+      "paired_s": 0,
+      "paired_ns": 0,
+      "online_n": 0
+    },
+    "source_unit": "disease_family"
+  },
+  "medguide_confirm": {
+    "expected": 4955,
+    "state": "not_decided",
+    "methods": {},
+    "comparisons": {},
+    "pending": {
+      "full": 0,
+      "aster": 0,
+      "learned_reference": 0,
+      "learned_self": 0,
+      "bias": 0,
+      "random_13": 0,
+      "random_37": 0,
+      "random_73": 0,
+      "candidates": 0,
+      "all_heads": 0,
+      "paired_n": 0,
+      "paired_s": 0,
+      "paired_ns": 0,
+      "online_n": 0
+    },
+    "source_unit": "disease_family"
+  },
+  "confirmation_decision": null,
+  "pairs": {
+    "expected": 522,
+    "state": "partial",
+    "methods": {},
+    "comparisons": {},
+    "pending": {
+      "full": 0,
+      "aster": 0,
+      "learned_reference": 0,
+      "learned_self": 0,
+      "bias": 0,
+      "random_13": 0,
+      "random_37": 0,
+      "random_73": 0,
+      "candidates": 0,
+      "all_heads": 0,
+      "paired_n": 0,
+      "paired_s": 0,
+      "paired_ns": 0,
+      "online_n": 0
+    },
+    "source_unit": "guideline_source"
+  },
+  "pair_counts": {
+    "fit": {
+      "F": 158,
+      "A": 156,
+      "C": 13,
+      "P": 114,
+      "F_same": 22
+    },
+    "dev": {
+      "F": 40,
+      "A": 40,
+      "P": 19,
+      "C": 1,
+      "F_same": 2
+    },
+    "test": {
+      "F": 200,
+      "A": 200,
+      "P": 98,
+      "C": 14,
+      "F_same": 10
+    }
+  },
+  "pair_kinds": {},
+  "medgemma_common_errors": {},
+  "nodes": {
+    "full": {
+      "expected": 45627,
+      "state": "partial",
+      "scored": 44416,
+      "correct": 44026,
+      "accuracy": 0.9912193804034583,
+      "corrected_vs_full": 0,
+      "degraded_vs_full": 0,
+      "paired_node_denominator": 44416,
+      "comparison_vs_full": null,
+      "first_error_corrected": 0,
+      "first_error_scored": 390,
+      "first_error_expected": 390,
+      "full_wrong_cases": 390,
+      "condition_strata": {
+        "compound": {
+          "n": 16480,
+          "correct": 16312
+        },
+        "numeric": {
+          "n": 5844,
+          "correct": 5783
+        },
+        "other": {
+          "n": 19305,
+          "correct": 19187
+        },
+        "negation": {
+          "n": 2787,
+          "correct": 2744
+        }
+      },
+      "condition_strata_definition": "exclusive keyword categories: numeric, negation, compound, other; not manual A/P/C/F labels"
+    },
+    "aster": {
+      "expected": 45627,
+      "state": "partial",
+      "scored": 44377,
+      "correct": 43964,
+      "accuracy": 0.9906933771999008,
+      "corrected_vs_full": 23,
+      "degraded_vs_full": 47,
+      "paired_node_denominator": 44302,
+      "comparison_vs_full": null,
+      "first_error_corrected": 23,
+      "first_error_scored": 388,
+      "first_error_expected": 390,
+      "full_wrong_cases": 390,
+      "condition_strata": {
+        "compound": {
+          "n": 16465,
+          "correct": 16291
+        },
+        "numeric": {
+          "n": 5850,
+          "correct": 5785
+        },
+        "other": {
+          "n": 19276,
+          "correct": 19150
+        },
+        "negation": {
+          "n": 2786,
+          "correct": 2738
+        }
+      },
+      "condition_strata_definition": "exclusive keyword categories: numeric, negation, compound, other; not manual A/P/C/F labels"
+    },
+    "learned_reference": {
+      "expected": 45627,
+      "state": "partial",
+      "scored": 44430,
+      "correct": 44044,
+      "accuracy": 0.9913121764573486,
+      "corrected_vs_full": 6,
+      "degraded_vs_full": 2,
+      "paired_node_denominator": 44414,
+      "comparison_vs_full": null,
+      "first_error_corrected": 6,
+      "first_error_scored": 390,
+      "first_error_expected": 390,
+      "full_wrong_cases": 390,
+      "condition_strata": {
+        "compound": {
+          "n": 16484,
+          "correct": 16318
+        },
+        "numeric": {
+          "n": 5851,
+          "correct": 5793
+        },
+        "other": {
+          "n": 19307,
+          "correct": 19189
+        },
+        "negation": {
+          "n": 2788,
+          "correct": 2744
+        }
+      },
+      "condition_strata_definition": "exclusive keyword categories: numeric, negation, compound, other; not manual A/P/C/F labels"
+    },
+    "learned_self": {
+      "expected": 45627,
+      "state": "partial",
+      "scored": 44416,
+      "correct": 44026,
+      "accuracy": 0.9912193804034583,
+      "corrected_vs_full": 3,
+      "degraded_vs_full": 3,
+      "paired_node_denominator": 44407,
+      "comparison_vs_full": null,
+      "first_error_corrected": 3,
+      "first_error_scored": 390,
+      "first_error_expected": 390,
+      "full_wrong_cases": 390,
+      "condition_strata": {
+        "compound": {
+          "n": 16482,
+          "correct": 16315
+        },
+        "numeric": {
+          "n": 5846,
+          "correct": 5787
+        },
+        "other": {
+          "n": 19301,
+          "correct": 19182
+        },
+        "negation": {
+          "n": 2787,
+          "correct": 2742
+        }
+      },
+      "condition_strata_definition": "exclusive keyword categories: numeric, negation, compound, other; not manual A/P/C/F labels"
+    },
+    "direct_reference": {
+      "expected": 45627,
+      "state": "partial",
+      "scored": 42157,
+      "correct": 41144,
+      "accuracy": 0.9759707759091016,
+      "corrected_vs_full": 157,
+      "degraded_vs_full": 801,
+      "paired_node_denominator": 41699,
+      "comparison_vs_full": null,
+      "first_error_corrected": 157,
+      "first_error_scored": 349,
+      "first_error_expected": 390,
+      "full_wrong_cases": 390,
+      "condition_strata": {
+        "compound": {
+          "n": 15613,
+          "correct": 15273
+        },
+        "numeric": {
+          "n": 5601,
+          "correct": 5464
+        },
+        "other": {
+          "n": 18278,
+          "correct": 17813
+        },
+        "negation": {
+          "n": 2665,
+          "correct": 2594
+        }
+      },
+      "condition_strata_definition": "exclusive keyword categories: numeric, negation, compound, other; not manual A/P/C/F labels"
+    }
+  },
+  "changed_nodes": {
+    "state": "partial",
+    "cases": 8,
+    "expected_method_nodes": 32,
+    "scored_method_nodes": 0,
+    "rerun_score_changes": 0,
+    "max_abs_rerun_score_difference": null,
+    "values": [
+      {
+        "case_id": "mega:test:79:14",
+        "source_id": "test:070ab49f64cd2244aba6023bce2f144f",
+        "gid": "G3",
+        "label": 0,
+        "condition": "Are natriuretic peptide levels elevated in the non-acute setting (BNP ≥35 pg/mL or NT-proBNP ≥125 pg/mL or MR-proANP ≥40 pg/mL)?（判断为是）",
+        "outcome": "corrected",
+        "first_error_full": "G3",
+        "scores": {
+          "full": {
+            "gid": "G3",
+            "label": 1,
+            "ell": 0.25
+          },
+          "aster": {
+            "gid": "G3",
+            "label": 1,
+            "ell": 3.75
+          },
+          "learned_reference": {
+            "gid": "G3",
+            "label": 0,
+            "ell": -0.25
+          },
+          "learned_self": {
+            "gid": "G3",
+            "label": 0,
+            "ell": -0.25
+          },
+          "direct_reference": {
+            "gid": "G3",
+            "label": 0,
+            "ell": -17.75
+          }
+        },
+        "path_magnitude": {
+          "full": 0.0,
+          "aster": 0.0,
+          "learned_reference": 1.794166146282805e-05,
+          "learned_self": 3.6715403894049815e-06,
+          "direct_reference": 0.0
+        },
+        "reruns": {
+          "full": null,
+          "learned_reference": null,
+          "learned_self": null,
+          "aster": null
+        }
+      },
+      {
+        "case_id": "mega:test:137:44",
+        "source_id": "test:0bed3a39cca8cd13fd801e6902f7c968",
+        "gid": "G86",
+        "label": 0,
+        "condition": "Is chemotherapy feasible for this recurrent malignant germ cell tumor?（判断为是）",
+        "outcome": "corrected",
+        "first_error_full": "G86",
+        "scores": {
+          "full": {
+            "gid": "G86",
+            "label": 1,
+            "ell": 0.25
+          },
+          "aster": {
+            "gid": "G86",
+            "label": 1,
+            "ell": 1.0
+          },
+          "learned_reference": {
+            "gid": "G86",
+            "label": 0,
+            "ell": -0.25
+          },
+          "learned_self": {
+            "gid": "G86",
+            "label": 1,
+            "ell": 0.25
+          },
+          "direct_reference": {
+            "gid": "G86",
+            "label": 0,
+            "ell": -17.5
+          }
+        },
+        "path_magnitude": {
+          "full": 0.0,
+          "aster": 0.0,
+          "learned_reference": 2.3657431989300272e-05,
+          "learned_self": 2.9079959505098586e-06,
+          "direct_reference": 0.0
+        },
+        "reruns": {
+          "full": null,
+          "learned_reference": null,
+          "learned_self": null,
+          "aster": null
+        }
+      },
+      {
+        "case_id": "mega:test:192:25",
+        "source_id": "test:10ff4551e00ab5032131ac9d29cbec59",
+        "gid": "G51",
+        "label": 0,
+        "condition": "在 CYP2C19 超快/快代谢背景下，CYP2B6 表型是否为超快或快代谢者？（判断为是）",
+        "outcome": "corrected",
+        "first_error_full": "G51",
+        "scores": {
+          "full": {
+            "gid": "G51",
+            "label": 1,
+            "ell": 0.25
+          },
+          "aster": {
+            "gid": "G51",
+            "label": 1,
+            "ell": 8.5
+          },
+          "learned_reference": {
+            "gid": "G51",
+            "label": 0,
+            "ell": -0.25
+          },
+          "learned_self": {
+            "gid": "G51",
+            "label": 1,
+            "ell": 0.25
+          },
+          "direct_reference": {
+            "gid": "G51",
+            "label": 0,
+            "ell": -18.25
+          }
+        },
+        "path_magnitude": {
+          "full": 0.0,
+          "aster": 0.0,
+          "learned_reference": 2.769204493233701e-05,
+          "learned_self": 3.2643091117279257e-06,
+          "direct_reference": 0.0
+        },
+        "reruns": {
+          "full": null,
+          "learned_reference": null,
+          "learned_self": null,
+          "aster": null
+        }
+      },
+      {
+        "case_id": "mega:test:695:15",
+        "source_id": "test:3dbd9d7a2d21d0c50507ec4d5ab1ac76",
+        "gid": "G18",
+        "label": 0,
+        "condition": "Has the lesion failed or is the patient inappropriate for topical 5-fluorouracil (5%), PDT, laser, curettage with cautery, and standard surgery (e.g. due to inadequate response or contraindications)?（判断为是）",
+        "outcome": "corrected",
+        "first_error_full": "G18",
+        "scores": {
+          "full": {
+            "gid": "G18",
+            "label": 1,
+            "ell": 0.25
+          },
+          "aster": {
+            "gid": "G18",
+            "label": 1,
+            "ell": 1.25
+          },
+          "learned_reference": {
+            "gid": "G18",
+            "label": 0,
+            "ell": 0.0
+          },
+          "learned_self": {
+            "gid": "G18",
+            "label": 0,
+            "ell": 0.0
+          },
+          "direct_reference": {
+            "gid": "G18",
+            "label": 1,
+            "ell": 13.5
+          }
+        },
+        "path_magnitude": {
+          "full": 0.0,
+          "aster": 0.0,
+          "learned_reference": 1.9850725286894225e-05,
+          "learned_self": 2.9155140013740906e-06,
+          "direct_reference": 0.0
+        },
+        "reruns": {
+          "full": null,
+          "learned_reference": null,
+          "learned_self": null,
+          "aster": null
+        }
+      },
+      {
+        "case_id": "mega:test:1093:22",
+        "source_id": "test:633aa5092b6056be32a569ccd27e6834",
+        "gid": "G22",
+        "label": 0,
+        "condition": "Is the eosinophil-related disease a respiratory localized eosinophilic disease (CRSwNP or SA-EP)?（判断为是）",
+        "outcome": "corrected",
+        "first_error_full": "G22",
+        "scores": {
+          "full": {
+            "gid": "G22",
+            "label": 1,
+            "ell": 0.25
+          },
+          "aster": {
+            "gid": "G22",
+            "label": 1,
+            "ell": 0.5
+          },
+          "learned_reference": {
+            "gid": "G22",
+            "label": 0,
+            "ell": -0.75
+          },
+          "learned_self": {
+            "gid": "G22",
+            "label": 1,
+            "ell": 0.25
+          },
+          "direct_reference": {
+            "gid": "G22",
+            "label": 0,
+            "ell": -22.75
+          }
+        },
+        "path_magnitude": {
+          "full": 0.0,
+          "aster": 0.0,
+          "learned_reference": 2.393250019849802e-05,
+          "learned_self": 3.0240760679589583e-06,
+          "direct_reference": 0.0
+        },
+        "reruns": {
+          "full": null,
+          "learned_reference": null,
+          "learned_self": null,
+          "aster": null
+        }
+      },
+      {
+        "case_id": "mega:test:1265:11",
+        "source_id": "test:72d1bb6ba89a72a9b9af1aa6234fb431",
+        "gid": "G18",
+        "label": 0,
+        "condition": "在妊娠期高血压疾病中，是否“无凝血异常、无DIC、无休克和昏迷”？（判断为是）",
+        "outcome": "degraded",
+        "first_error_full": null,
+        "scores": {
+          "full": {
+            "gid": "G18",
+            "label": 0,
+            "ell": 0.0
+          },
+          "aster": {
+            "gid": "G18",
+            "label": 1,
+            "ell": 2.75
+          },
+          "learned_reference": {
+            "gid": "G18",
+            "label": 1,
+            "ell": 0.5
+          },
+          "learned_self": {
+            "gid": "G18",
+            "label": 0,
+            "ell": 0.0
+          },
+          "direct_reference": {
+            "gid": "G18",
+            "label": 1,
+            "ell": 18.75
+          }
+        },
+        "path_magnitude": {
+          "full": 0.0,
+          "aster": 0.0,
+          "learned_reference": 1.548223159867727e-05,
+          "learned_self": 2.801463602332256e-06,
+          "direct_reference": 0.0
+        },
+        "reruns": {
+          "full": null,
+          "learned_reference": null,
+          "learned_self": null,
+          "aster": null
+        }
+      },
+      {
+        "case_id": "mega:test:1962:4",
+        "source_id": "test:b24adae7056b383655d682d25b434e9c",
+        "gid": "G7",
+        "label": 1,
+        "condition": "疼痛强度是否为轻度癌痛？（判断为是）",
+        "outcome": "degraded",
+        "first_error_full": null,
+        "scores": {
+          "full": {
+            "gid": "G7",
+            "label": 1,
+            "ell": 0.5
+          },
+          "aster": {
+            "gid": "G7",
+            "label": 1,
+            "ell": 1.5
+          },
+          "learned_reference": {
+            "gid": "G7",
+            "label": 0,
+            "ell": 0.0
+          },
+          "learned_self": {
+            "gid": "G7",
+            "label": 1,
+            "ell": 0.5
+          },
+          "direct_reference": {
+            "gid": "G7",
+            "label": 0,
+            "ell": -16.75
+          }
+        },
+        "path_magnitude": {
+          "full": 0.0,
+          "aster": 0.0,
+          "learned_reference": 2.391896547730236e-05,
+          "learned_self": 3.4440863601048477e-06,
+          "direct_reference": 0.0
+        },
+        "reruns": {
+          "full": null,
+          "learned_reference": null,
+          "learned_self": null,
+          "aster": null
+        }
+      },
+      {
+        "case_id": "mega:test:2028:4",
+        "source_id": "test:b8bb1f7adc9a35ec5f970191ac8b5aba",
+        "gid": "G2",
+        "label": 0,
+        "condition": "Is mean transvalvular pressure gradient (mPG) > 40 mmHg?（判断为是）",
+        "outcome": "corrected",
+        "first_error_full": "G2",
+        "scores": {
+          "full": {
+            "gid": "G2",
+            "label": 1,
+            "ell": 0.5
+          },
+          "aster": {
+            "gid": "G2",
+            "label": 1,
+            "ell": 3.25
+          },
+          "learned_reference": {
+            "gid": "G2",
+            "label": 0,
+            "ell": 0.0
+          },
+          "learned_self": {
+            "gid": "G2",
+            "label": 1,
+            "ell": 0.5
+          },
+          "direct_reference": {
+            "gid": "G2",
+            "label": 0,
+            "ell": -0.25
+          }
+        },
+        "path_magnitude": {
+          "full": 0.0,
+          "aster": 0.0,
+          "learned_reference": 1.841215972880101e-05,
+          "learned_self": 3.6617780854915813e-06,
+          "direct_reference": 0.0
+        },
+        "reruns": {
+          "full": null,
+          "learned_reference": null,
+          "learned_self": null,
+          "aster": null
+        }
+      }
+    ]
+  },
+  "training": {
+    "random_13": {
+      "state": "pending"
+    },
+    "random_37": {
+      "state": "pending"
+    },
+    "random_73": {
+      "state": "pending"
+    },
+    "candidates": {
+      "state": "pending"
+    },
+    "all_heads": {
+      "state": "pending"
+    },
+    "paired_n": {
+      "state": "pending"
+    },
+    "paired_s": {
+      "state": "pending"
+    },
+    "paired_ns": {
+      "state": "pending"
+    },
+    "online_n": {
+      "state": "pending"
+    }
+  },
+  "conclusions": {
+    "mega": [],
+    "medguide_pilot": [],
+    "medguide_confirm": []
+  }
+}

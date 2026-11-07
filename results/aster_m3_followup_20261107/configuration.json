@@ -1,0 +1,151 @@
+{
+  "training_seed": 20261105,
+  "primary_new_method": "paired_ns",
+  "seed": 20261107,
+  "gpus": [
+    0,
+    1
+  ],
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "epochs": 3,
+  "lr": 0.001,
+  "weight_decay": 0.01,
+  "accumulation": 8,
+  "kl": 0.1,
+  "edit": 0.001,
+  "pair_weight": 1.0,
+  "loss": "original-node CE + 0.1 clean-correct KL + 0.001 edit; paired variants additionally use both-side CE and A/P/F_same JS or C/F label-oriented margin with margin=1",
+  "pairs": {
+    "dev:F": 40,
+    "dev:A": 40,
+    "dev:P": 19,
+    "fit:F": 158,
+    "fit:A": 156,
+    "fit:C": 13,
+    "fit:P": 114,
+    "dev:C": 1,
+    "test:F": 200,
+    "test:A": 200,
+    "test:P": 98,
+    "test:C": 14,
+    "fit:F_same": 22,
+    "dev:F_same": 2,
+    "test:F_same": 10
+  },
+  "medguide": {
+    "pilot": 200,
+    "calibration": 200,
+    "confirm": 4955,
+    "calibration_families": [
+      "bon",
+      "cer",
+      "cml",
+      "cns",
+      "eso",
+      "gas",
+      "hcc",
+      "vulvar"
+    ],
+    "confirmation_families": [
+      "aml",
+      "bla",
+      "bre",
+      "col",
+      "nscl",
+      "pancreatic",
+      "prostate",
+      "sclc",
+      "thyroid"
+    ],
+    "policy": "Scalar answer-position bias fitted on calibration only; M3 never trained on MedGUIDE. Pilot is historically observed and spans all 53 pages. Confirmation is family-disjoint from calibration and excludes pilot IDs; its families have prior pilot exposure."
+  },
+  "variants": [
+    {
+      "name": "random_13",
+      "heads": "same_layer_random",
+      "seed": 13,
+      "support": "N",
+      "reference": "reference",
+      "paired": false
+    },
+    {
+      "name": "random_37",
+      "heads": "same_layer_random",
+      "seed": 37,
+      "support": "N",
+      "reference": "reference",
+      "paired": false
+    },
+    {
+      "name": "random_73",
+      "heads": "same_layer_random",
+      "seed": 73,
+      "support": "N",
+      "reference": "reference",
+      "paired": false
+    },
+    {
+      "name": "candidates",
+      "heads": "candidates",
+      "seed": 20261107,
+      "support": "N",
+      "reference": "reference",
+      "paired": false
+    },
+    {
+      "name": "all_heads",
+      "heads": "all",
+      "seed": 20261107,
+      "support": "N",
+      "reference": "reference",
+      "paired": false
+    },
+    {
+      "name": "paired_n",
+      "heads": "selected",
+      "seed": 20261107,
+      "support": "N",
+      "reference": "online_self",
+      "paired": true
+    },
+    {
+      "name": "paired_s",
+      "heads": "selected",
+      "seed": 20261107,
+      "support": "S",
+      "reference": "online_self",
+      "paired": true
+    },
+    {
+      "name": "paired_ns",
+      "heads": "selected",
+      "seed": 20261107,
+      "support": "NS",
+      "reference": "online_self",
+      "paired": true
+    },
+    {
+      "name": "online_n",
+      "heads": "selected",
+      "seed": 20261107,
+      "support": "N",
+      "reference": "online_self",
+      "paired": false
+    }
+  ],
+  "selection": "100 original development cases, path accuracy then smaller relative edit then earlier epoch",
+  "precision": "bf16 backbone and label projection, float32 trainable editors; preserves frozen M3 scoring",
+  "old_results": "/home/gcx/TRIAGE/results/aster_learnable_m3_20261106",
+  "resources": {
+    "gpu_memory_gb_per_card": [
+      18,
+      26
+    ],
+    "estimated_wall_hours": [
+      10,
+      20
+    ]
+  },
+  "confirmation_trigger": "pilot learned_reference or any frozen editor has more correct cases than full; no pilot-based checkpoint or hyperparameter tuning",
+  "publication": "Results and revised docs are pushed to codex/aster-m3-p0-p3-20261107 after completion; no merge or force push."
+}

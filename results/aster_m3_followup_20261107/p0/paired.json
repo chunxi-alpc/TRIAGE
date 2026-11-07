@@ -1,0 +1,104 @@
+{
+  "comparisons": {
+    "learned_reference minus full": {
+      "n": 7458,
+      "sources": 440,
+      "corrected": 6,
+      "degraded": 2,
+      "net": 4,
+      "difference": 0.0005363368195226602,
+      "source_bootstrap_95ci": [
+        -0.00013766614608419668,
+        0.0012995959028553159
+      ],
+      "mcnemar_exact_p": 0.2890625,
+      "source_permutation_p": 0.2890625,
+      "source_permutation_exact": true,
+      "source_permutation_draws": 256,
+      "nonzero_source_count": 8,
+      "seed": 20261107,
+      "bootstrap_resamples": 20000
+    },
+    "learned_self minus full": {
+      "n": 7458,
+      "sources": 440,
+      "corrected": 3,
+      "degraded": 3,
+      "net": 0,
+      "difference": 0.0,
+      "source_bootstrap_95ci": [
+        -0.000669077576491644,
+        0.0006566009740152783
+      ],
+      "mcnemar_exact_p": 1.0,
+      "source_permutation_p": 1.0,
+      "source_permutation_exact": true,
+      "source_permutation_draws": 64,
+      "nonzero_source_count": 6,
+      "seed": 20261107,
+      "bootstrap_resamples": 20000
+    },
+    "learned_reference minus learned_self": {
+      "n": 7458,
+      "sources": 440,
+      "corrected": 7,
+      "degraded": 3,
+      "net": 4,
+      "difference": 0.0005363368195226602,
+      "source_bootstrap_95ci": [
+        -0.00013704449935294198,
+        0.0013224014810896587
+      ],
+      "mcnemar_exact_p": 0.34375,
+      "source_permutation_p": 0.2890625,
+      "source_permutation_exact": true,
+      "source_permutation_draws": 256,
+      "nonzero_source_count": 8,
+      "seed": 20261107,
+      "bootstrap_resamples": 20000
+    },
+    "learned_reference minus aster": {
+      "n": 7458,
+      "sources": 440,
+      "corrected": 50,
+      "degraded": 23,
+      "net": 27,
+      "difference": 0.0036202735317779565,
+      "source_bootstrap_95ci": [
+        0.001369290915203385,
+        0.005984805815690137
+      ],
+      "mcnemar_exact_p": 0.0021181727464006325,
+      "source_permutation_p": 0.002849857507124644,
+      "source_permutation_exact": false,
+      "source_permutation_draws": 20000,
+      "nonzero_source_count": 59,
+      "seed": 20261107,
+      "bootstrap_resamples": 20000
+    }
+  },
+  "split_counts": {
+    "train": {
+      "cases": 200,
+      "sources": 20,
+      "gold_nodes": 1035
+    },
+    "dev": {
+      "cases": 100,
+      "sources": 10,
+      "gold_nodes": 546
+    },
+    "test": {
+      "cases": 7458,
+      "sources": 440,
+      "gold_nodes": 45627
+    }
+  },
+  "source_filename_overlaps": {
+    "train vs dev": 0,
+    "train vs test": 0,
+    "dev vs test": 0
+  },
+  "missing_node_method_scores": 8339,
+  "independence": "Official MEGA split, disjoint filenames in this training/development/test selection; repeatedly used benchmark, not a new blinded test."
+}
