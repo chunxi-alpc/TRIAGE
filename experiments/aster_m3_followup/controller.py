@@ -1,14 +1,33 @@
-"""Two-card sequential phases; completion produces reports without human polling."""
+"""Three-card sequential phases; completion produces reports without human polling."""
 import fcntl,subprocess,sys,traceback,time
+from pathlib import Path
 from .common import *
+def active_workers(name):
+    found={}
+    for entry in Path("/proc").iterdir():
+        if not entry.name.isdigit():continue
+        try:
+            args=(entry/"cmdline").read_bytes().decode().split("\0")
+            if "experiments.aster_m3_followup.worker" not in args:continue
+            if args[args.index("--phase")+1]!=name:continue
+            if str(REPO) not in str((entry/"cwd").resolve()):continue
+            found[int(args[args.index("--gpu")+1])]=int(entry.name)
+        except (OSError,ValueError,IndexError):continue
+    return found
+def process_alive(pid):
+    try:
+        return Path(f"/proc/{pid}/stat").read_text().split(") ",1)[1][0]!="Z"
+    except OSError:return False
 def phase(name,jobs):
     pending=[j for j in jobs if not (ROOT/"jobs"/f"{j['id']}.json").exists()
              or read(ROOT/"jobs"/f"{j['id']}.json").get("state")!="complete"]
     if not pending:return
-    write(ROOT/"queues"/f"{name}.json",dict(jobs=pending,next=0))
-    status("pipeline",state="running",phase=name,pending=len(pending))
+    existing=active_workers(name)
+    if not existing:write(ROOT/"queues"/f"{name}.json",dict(jobs=pending,next=0))
+    status("pipeline",state="running",phase=name,pending=len(pending),gpus=[0,1,6])
     processes=[]
-    for gpu in [0,1]:
+    for gpu in [0,1,6]:
+        if gpu in existing:continue
         env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),OMP_NUM_THREADS="4",TOKENIZERS_PARALLELISM="false")
         log=(ROOT/"logs"/f"{name}_{gpu}.log").open("a")
         process=subprocess.Popen([sys.executable,"-m","experiments.aster_m3_followup.worker","--phase",name,"--gpu",str(gpu)],
@@ -16,7 +35,9 @@ def phase(name,jobs):
         processes.append((process,log))
     codes=[]
     for process,log in processes:codes.append(process.wait());log.close()
-    if any(codes):raise RuntimeError(f"Phase {name} failed: {codes}; see jobs and logs")
+    while any(process_alive(pid) for pid in existing.values()):time.sleep(5)
+    failed=[j["id"] for j in jobs if read(ROOT/"jobs"/f"{j['id']}.json").get("state")!="complete"]
+    if any(codes) or failed:raise RuntimeError(f"Phase {name} failed: {codes}; incomplete jobs: {failed}")
 def eval_job(name,dataset):return dict(id=f"{dataset}_{name}",kind="evaluate",name=name,dataset=dataset)
 def main():
     ROOT.mkdir(parents=True,exist_ok=True);(ROOT/"logs").mkdir(exist_ok=True)
