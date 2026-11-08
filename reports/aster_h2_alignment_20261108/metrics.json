@@ -1,0 +1,850 @@
+{
+  "model": "qwen",
+  "input_root": "/home/gcx/aster_cr_repair_v2_run_20261108",
+  "selected_cr": "cr_r16_l0.01",
+  "selected_component": "nuisance",
+  "ranks": [
+    "4",
+    "8",
+    "16",
+    "full"
+  ],
+  "alpha": 0.01,
+  "fit_intercept": false,
+  "gpu_used": false,
+  "target": "original total logit difference: ell(right)-ell(left); not head-mediated IE",
+  "criterion": "AP centered R2 > 0 and CF correction RMS / original difference RMS <= 0.1",
+  "actual_cr_sign": "q_CR(x) = -(ell_CR(x)-ell(x)); subtract q_CR to recover CR",
+  "test_selection": "No fitting or model selection uses dev/test in this diagnostic",
+  "coverage": {
+    "fit": {
+      "A": {
+        "expected": 4869,
+        "available": 4869,
+        "missing": 0
+      },
+      "P": {
+        "expected": 18,
+        "available": 18,
+        "missing": 0
+      },
+      "C": {
+        "expected": 66,
+        "available": 66,
+        "missing": 0
+      },
+      "F": {
+        "expected": 69,
+        "available": 69,
+        "missing": 0
+      }
+    },
+    "dev": {
+      "A": {
+        "expected": 1194,
+        "available": 1194,
+        "missing": 0
+      },
+      "P": {
+        "expected": 4,
+        "available": 4,
+        "missing": 0
+      },
+      "C": {
+        "expected": 29,
+        "available": 29,
+        "missing": 0
+      },
+      "F": {
+        "expected": 31,
+        "available": 31,
+        "missing": 0
+      }
+    },
+    "test": {
+      "A": {
+        "expected": 2283,
+        "available": 0,
+        "missing": 2283
+      },
+      "P": {
+        "expected": 10,
+        "available": 0,
+        "missing": 10
+      },
+      "C": {
+        "expected": 33,
+        "available": 0,
+        "missing": 33
+      },
+      "F": {
+        "expected": 7,
+        "available": 0,
+        "missing": 7
+      }
+    }
+  },
+  "regressions": {
+    "4": {
+      "dimensions": 4,
+      "fit_pairs": 4887,
+      "dev": {
+        "AP": {
+          "n": 1198,
+          "r2": 0.057712806427039354,
+          "target_rms": 3.8793544255914028,
+          "residual_rms": 3.7648468058974855,
+          "residual_mean": -0.1000495551062262,
+          "normalized_mse": 0.9418368954945935,
+          "correction_rms": 0.5515896612981688,
+          "signal_leakage_ratio": 0.14218594146990826,
+          "sources": 20
+        },
+        "CF": {
+          "n": 60,
+          "r2": -0.5527934979849536,
+          "target_rms": 42.19247286721427,
+          "residual_rms": 41.94397909329783,
+          "residual_mean": -25.20848716026198,
+          "normalized_mse": 0.9882556294291112,
+          "correction_rms": 0.5393807019246605,
+          "signal_leakage_ratio": 0.012783813445165172,
+          "sources": 11
+        },
+        "A": {
+          "n": 1194,
+          "r2": 0.057382575668418756,
+          "target_rms": 3.8833766302853494,
+          "residual_rms": 3.7694080729890342,
+          "residual_mean": -0.10026643066972366,
+          "normalized_mse": 0.9421656950514931,
+          "correction_rms": 0.5519838838414025,
+          "signal_leakage_ratio": 0.14214018788098925,
+          "sources": 20
+        },
+        "P": {
+          "n": 4,
+          "r2": 0.31644488773871504,
+          "target_rms": 2.393582610242202,
+          "residual_rms": 1.9788621588208055,
+          "residual_mean": -0.03531219940223629,
+          "normalized_mse": 0.6834932743974295,
+          "correction_rms": 0.4175974903209381,
+          "signal_leakage_ratio": 0.17446545965617716,
+          "sources": 2
+        },
+        "C": {
+          "n": 29,
+          "r2": -0.5720594873535769,
+          "target_rms": 30.705363165082996,
+          "residual_rms": 30.374134979601852,
+          "residual_mean": -18.545508501266827,
+          "normalized_mse": 0.9785417515752467,
+          "correction_rms": 0.5292753327072205,
+          "signal_leakage_ratio": 0.01723722757687793,
+          "sources": 10
+        },
+        "F": {
+          "n": 31,
+          "r2": -0.6236393465726244,
+          "target_rms": 50.6316634047686,
+          "residual_rms": 50.41850298276872,
+          "residual_mean": -31.44159622835424,
+          "normalized_mse": 0.9915976800819113,
+          "correction_rms": 0.5486656405865151,
+          "signal_leakage_ratio": 0.01083641349485746,
+          "sources": 5
+        },
+        "criterion_pass": true
+      },
+      "test": {
+        "AP": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "CF": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "A": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "P": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "C": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "F": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "criterion_pass": null
+      }
+    },
+    "8": {
+      "dimensions": 8,
+      "fit_pairs": 4887,
+      "dev": {
+        "AP": {
+          "n": 1198,
+          "r2": 0.19195472740411135,
+          "target_rms": 3.8793544255914028,
+          "residual_rms": 3.486370287803522,
+          "residual_mean": 0.12351441677140458,
+          "normalized_mse": 0.8076591257438829,
+          "correction_rms": 1.3657072436412914,
+          "signal_leakage_ratio": 0.3520449780592272,
+          "sources": 20
+        },
+        "CF": {
+          "n": 60,
+          "r2": -0.555122899650295,
+          "target_rms": 42.19247286721427,
+          "residual_rms": 41.975428142984754,
+          "residual_mean": -25.06424358450441,
+          "normalized_mse": 0.9897381474277779,
+          "correction_rms": 1.7358501695294093,
+          "signal_leakage_ratio": 0.04114122855496945,
+          "sources": 11
+        },
+        "A": {
+          "n": 1194,
+          "r2": 0.1910849236444192,
+          "target_rms": 3.8833766302853494,
+          "residual_rms": 3.4918605338939064,
+          "residual_mean": 0.12305839384757075,
+          "normalized_mse": 0.8085274210718334,
+          "correction_rms": 1.3641181983076816,
+          "signal_leakage_ratio": 0.3512711560525219,
+          "sources": 20
+        },
+        "P": {
+          "n": 4,
+          "r2": 0.8745645069652208,
+          "target_rms": 2.393582610242202,
+          "residual_rms": 0.8476937798647725,
+          "residual_mean": 0.2596372595358023,
+          "normalized_mse": 0.12542414550361183,
+          "correction_rms": 1.7776373265640408,
+          "signal_leakage_ratio": 0.7426680487055198,
+          "sources": 2
+        },
+        "C": {
+          "n": 29,
+          "r2": -0.5190504658239619,
+          "target_rms": 30.705363165082996,
+          "residual_rms": 29.85764373903756,
+          "residual_mean": -17.863733455629905,
+          "normalized_mse": 0.9455458368569045,
+          "correction_rms": 1.7062782616768444,
+          "signal_leakage_ratio": 0.05556938872545761,
+          "sources": 10
+        },
+        "F": {
+          "n": 31,
+          "r2": -0.6454900706794384,
+          "target_rms": 50.6316634047686,
+          "residual_rms": 50.75663194151569,
+          "residual_mean": -31.800204672806363,
+          "normalized_mse": 1.0049424708312635,
+          "correction_rms": 1.763065228345765,
+          "signal_leakage_ratio": 0.034821396529107825,
+          "sources": 5
+        },
+        "criterion_pass": true
+      },
+      "test": {
+        "AP": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "CF": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "A": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "P": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "C": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "F": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "criterion_pass": null
+      }
+    },
+    "16": {
+      "dimensions": 16,
+      "fit_pairs": 4887,
+      "dev": {
+        "AP": {
+          "n": 1198,
+          "r2": 0.4068713203649338,
+          "target_rms": 3.8793544255914028,
+          "residual_rms": 2.986964952257245,
+          "residual_mean": 0.062036200304394745,
+          "normalized_mse": 0.592845236639676,
+          "correction_rms": 1.8763468748011856,
+          "signal_leakage_ratio": 0.4836750317071477,
+          "sources": 20
+        },
+        "CF": {
+          "n": 60,
+          "r2": -0.4449634947202239,
+          "target_rms": 42.19247286721427,
+          "residual_rms": 40.461428721856436,
+          "residual_mean": -24.308369138134587,
+          "normalized_mse": 0.9196285982842647,
+          "correction_rms": 3.086873794854064,
+          "signal_leakage_ratio": 0.07316171783931452,
+          "sources": 11
+        },
+        "A": {
+          "n": 1194,
+          "r2": 0.40633265959326437,
+          "target_rms": 3.8833766302853494,
+          "residual_rms": 2.991417317164381,
+          "residual_mean": 0.06166347817257583,
+          "normalized_mse": 0.593382838005898,
+          "correction_rms": 1.8715839667688412,
+          "signal_leakage_ratio": 0.4819475793753535,
+          "sources": 20
+        },
+        "P": {
+          "n": 4,
+          "r2": 0.8295422346844263,
+          "target_rms": 2.393582610242202,
+          "residual_rms": 0.9881825285822209,
+          "residual_mean": 0.17329375665235336,
+          "normalized_mse": 0.17044234484121007,
+          "correction_rms": 2.9747631826259195,
+          "signal_leakage_ratio": 1.2428078186634675,
+          "sources": 2
+        },
+        "C": {
+          "n": 29,
+          "r2": -0.41104197964134004,
+          "target_rms": 30.705363165082996,
+          "residual_rms": 28.776594556459827,
+          "residual_mean": -17.365782430325417,
+          "normalized_mse": 0.878315039228467,
+          "correction_rms": 3.3311728545951587,
+          "signal_leakage_ratio": 0.10848830664159821,
+          "sources": 10
+        },
+        "F": {
+          "n": 31,
+          "r2": -0.5290711551306966,
+          "target_rms": 50.6316634047686,
+          "residual_rms": 48.92817428972366,
+          "residual_mean": -30.8030470260851,
+          "normalized_mse": 0.9338424899029429,
+          "correction_rms": 2.8393702419263596,
+          "signal_leakage_ratio": 0.05607894449817624,
+          "sources": 5
+        },
+        "criterion_pass": true
+      },
+      "test": {
+        "AP": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "CF": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "A": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "P": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "C": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "F": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "criterion_pass": null
+      }
+    },
+    "full": {
+      "dimensions": 4887,
+      "fit_pairs": 4887,
+      "dev": {
+        "AP": {
+          "n": 1198,
+          "r2": 0.5483676578114423,
+          "target_rms": 3.8793544255914028,
+          "residual_rms": 2.606442702558984,
+          "residual_mean": 0.7440408203979975,
+          "normalized_mse": 0.4514165171437062,
+          "correction_rms": 3.9950824999272787,
+          "signal_leakage_ratio": 1.0298317868489764,
+          "sources": 20
+        },
+        "CF": {
+          "n": 60,
+          "r2": -0.07772470914874718,
+          "target_rms": 42.19247286721427,
+          "residual_rms": 34.94352364412273,
+          "residual_mean": -20.167222895888816,
+          "normalized_mse": 0.6859041541410559,
+          "correction_rms": 10.046185715292232,
+          "signal_leakage_ratio": 0.23810374298062623,
+          "sources": 11
+        },
+        "A": {
+          "n": 1194,
+          "r2": 0.5480528909492444,
+          "target_rms": 3.8833766302853494,
+          "residual_rms": 2.610052427414562,
+          "residual_mean": 0.7469911349647795,
+          "normalized_mse": 0.45173052304572375,
+          "correction_rms": 3.9975555212489127,
+          "signal_leakage_ratio": 1.029401961703409,
+          "sources": 20
+        },
+        "P": {
+          "n": 4,
+          "r2": 0.7952849483755037,
+          "target_rms": 2.393582610242202,
+          "residual_rms": 1.082938175066953,
+          "residual_mean": -0.1366280777864367,
+          "normalized_mse": 0.2046965320621897,
+          "correction_rms": 3.171836038455943,
+          "signal_leakage_ratio": 1.3251416620774126,
+          "sources": 2
+        },
+        "C": {
+          "n": 29,
+          "r2": 0.040148882196644586,
+          "target_rms": 30.705363165082996,
+          "residual_rms": 23.734023504517314,
+          "residual_mean": -13.851291866487676,
+          "normalized_mse": 0.5974674633005813,
+          "correction_rms": 10.325172529118158,
+          "signal_leakage_ratio": 0.3362660937636967,
+          "sources": 10
+        },
+        "F": {
+          "n": 31,
+          "r2": -0.17291796680582805,
+          "target_rms": 50.6316634047686,
+          "residual_rms": 42.85277813118042,
+          "residual_mean": -26.075674504038258,
+          "normalized_mse": 0.7163307154795094,
+          "correction_rms": 9.777994386083792,
+          "signal_leakage_ratio": 0.19312014910343395,
+          "sources": 5
+        },
+        "criterion_pass": false
+      },
+      "test": {
+        "AP": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "CF": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "A": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "P": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "C": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "F": {
+          "n": 0,
+          "r2": null,
+          "target_rms": null,
+          "residual_rms": null,
+          "residual_mean": null,
+          "normalized_mse": null,
+          "correction_rms": null,
+          "signal_leakage_ratio": null,
+          "sources": 0
+        },
+        "criterion_pass": null
+      }
+    }
+  },
+  "actual_cr": {
+    "dev": {
+      "AP": {
+        "n": 1198,
+        "r2": -0.5129755954908681,
+        "target_rms": 3.8793544255914028,
+        "residual_rms": 4.77058486719052,
+        "residual_mean": 0.16474628936070235,
+        "normalized_mse": 1.5122525781264033,
+        "correction_rms": 4.801678006983096,
+        "signal_leakage_ratio": 1.2377518216194143,
+        "sources": 20
+      },
+      "CF": {
+        "n": 60,
+        "r2": -0.28035864401547617,
+        "target_rms": 42.19247286721427,
+        "residual_rms": 38.087160428086015,
+        "residual_mean": -22.967014934619268,
+        "normalized_mse": 0.8148679391551513,
+        "correction_rms": 5.748160654000414,
+        "signal_leakage_ratio": 0.13623663803946015,
+        "sources": 11
+      },
+      "A": {
+        "n": 1194,
+        "r2": -0.513097025459422,
+        "target_rms": 3.8833766302853494,
+        "residual_rms": 4.775719528884181,
+        "residual_mean": 0.16865185487210452,
+        "normalized_mse": 1.5123719060075946,
+        "correction_rms": 4.800619600799263,
+        "signal_leakage_ratio": 1.2361972731052138,
+        "sources": 20
+      },
+      "P": {
+        "n": 4,
+        "r2": -0.4186228894105073,
+        "target_rms": 2.393582610242202,
+        "residual_rms": 2.8507705082567614,
+        "residual_mean": -1.0010650157928467,
+        "normalized_mse": 1.4184945535857518,
+        "correction_rms": 5.107818158090181,
+        "signal_leakage_ratio": 2.1339635975937052,
+        "sources": 2
+      },
+      "C": {
+        "n": 29,
+        "r2": -0.30802583515900595,
+        "target_rms": 30.705363165082996,
+        "residual_rms": 27.706239981198994,
+        "residual_mean": -16.694755496649908,
+        "normalized_mse": 0.8141917670029551,
+        "correction_rms": 5.812234765233926,
+        "signal_leakage_ratio": 0.1892905397010052,
+        "sources": 10
+      },
+      "F": {
+        "n": 31,
+        "r2": -0.33464346727542305,
+        "target_rms": 50.6316634047686,
+        "residual_rms": 45.711744479985406,
+        "residual_mean": -28.8346124733648,
+        "normalized_mse": 0.8151005755560455,
+        "correction_rms": 5.6875669105806415,
+        "signal_leakage_ratio": 0.11233221522097916,
+        "sources": 5
+      },
+      "criterion_pass": false
+    },
+    "test": {
+      "AP": {
+        "n": 0,
+        "r2": null,
+        "target_rms": null,
+        "residual_rms": null,
+        "residual_mean": null,
+        "normalized_mse": null,
+        "correction_rms": null,
+        "signal_leakage_ratio": null,
+        "sources": 0
+      },
+      "CF": {
+        "n": 0,
+        "r2": null,
+        "target_rms": null,
+        "residual_rms": null,
+        "residual_mean": null,
+        "normalized_mse": null,
+        "correction_rms": null,
+        "signal_leakage_ratio": null,
+        "sources": 0
+      },
+      "A": {
+        "n": 0,
+        "r2": null,
+        "target_rms": null,
+        "residual_rms": null,
+        "residual_mean": null,
+        "normalized_mse": null,
+        "correction_rms": null,
+        "signal_leakage_ratio": null,
+        "sources": 0
+      },
+      "P": {
+        "n": 0,
+        "r2": null,
+        "target_rms": null,
+        "residual_rms": null,
+        "residual_mean": null,
+        "normalized_mse": null,
+        "correction_rms": null,
+        "signal_leakage_ratio": null,
+        "sources": 0
+      },
+      "C": {
+        "n": 0,
+        "r2": null,
+        "target_rms": null,
+        "residual_rms": null,
+        "residual_mean": null,
+        "normalized_mse": null,
+        "correction_rms": null,
+        "signal_leakage_ratio": null,
+        "sources": 0
+      },
+      "F": {
+        "n": 0,
+        "r2": null,
+        "target_rms": null,
+        "residual_rms": null,
+        "residual_mean": null,
+        "normalized_mse": null,
+        "correction_rms": null,
+        "signal_leakage_ratio": null,
+        "sources": 0
+      },
+      "criterion_pass": null
+    }
+  },
+  "checks": {
+    "pair_difference_max_error_rank_4": 5.48172618408671e-16,
+    "pair_difference_max_error_rank_8": 1.7763568394002505e-15,
+    "pair_difference_max_error_rank_16": 1.7763568394002505e-15,
+    "pair_difference_max_error_rank_full": 3.730349362740526e-14,
+    "saved_cr_scores_compared": 1685,
+    "saved_cr_scores_max_abs_error": 9.5367431640625e-07,
+    "saved_cr_decision_disagreements": 0
+  },
+  "original_h2_separate_operations": {
+    "dev_interference_r2": 0.188792884349823,
+    "signal_leakage_rms": 0.3641678527570859,
+    "true_signal_rms": 42.19247286721427,
+    "leakage_ratio": 0.008631109484935241,
+    "nuisance_enabled": true,
+    "by_rank": {
+      "4": {
+        "dev_interference_r2": 0.05617803335189819,
+        "signal_leakage_rms": 0.20042275727724554,
+        "true_signal_rms": 42.19247286721427,
+        "leakage_ratio": 0.004750201722188803,
+        "nuisance_enabled": true
+      },
+      "8": {
+        "dev_interference_r2": 0.188792884349823,
+        "signal_leakage_rms": 0.3641678527570859,
+        "true_signal_rms": 42.19247286721427,
+        "leakage_ratio": 0.008631109484935241,
+        "nuisance_enabled": true
+      },
+      "16": {
+        "dev_interference_r2": 0.40614253282546997,
+        "signal_leakage_rms": 0.43507787192106795,
+        "true_signal_rms": 42.19247286721427,
+        "leakage_ratio": 0.010311741463704203,
+        "nuisance_enabled": true
+      },
+      "full": {
+        "dev_interference_r2": 0.5479006767272949,
+        "signal_leakage_rms": 0.9462098208194706,
+        "true_signal_rms": 42.19247286721427,
+        "leakage_ratio": 0.022426033757190003,
+        "nuisance_enabled": true
+      }
+    },
+    "criterion": "For each rank: R2 > 0 and leakage RMS / true signal RMS <= 0.1",
+    "dev_pairs": 1258,
+    "corrected": 0,
+    "new_errors": 0
+  },
+  "runtime_seconds": 25.399057626724243,
+  "views_loaded": 8330,
+  "unique_feature_files_loaded": 8330
+}
