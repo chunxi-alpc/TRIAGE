@@ -60,6 +60,66 @@ def phase(name,jobs):
   write(ROOT/"jobs"/(name+"_"+str(g)+".json"),dict(state="complete" if complete else "failed",args=args,adopted=True,completion_from_output=True))
   if not complete:codes.append(1)
  if any(codes):raise RuntimeError(f"{name} failed with exit codes {codes}; see logs")
+def baseline_result(args):
+ model=args[args.index("--model")+1] if "--model" in args else "qwen"
+ kind=args[args.index("--kind")+1];lr=float(args[args.index("--lr")+1])
+ split=args[args.index("--split")+1] if "--evaluate" in args else "dev"
+ return ROOT/model/"baselines"/f"{kind}_lr{lr}_{split}_metrics.json"
+def queue_result(args):
+ if args[0]=="experiments.aster_cr.comparators":
+  model=args[args.index("--model")+1];split=args[args.index("--split")+1];shard=args[args.index("--shard")+1]
+  if split!="dev":raise ValueError("Only development comparators may overlap training")
+  return ROOT/model/"comparators"/f"{split}_{shard}_metrics.json"
+ if args[0]!="experiments.aster_cr.baselines":raise ValueError("Unsupported training queue task")
+ return baseline_result(args)
+def process_alive(pid):
+ try:return (Path("/proc")/str(pid)/"stat").read_text().split(") ",1)[1][0]!="Z"
+ except FileNotFoundError:return False
+def baseline_queue(name,jobs):
+ """Fill freed GPUs with training or independent dev comparisons; join before freeze."""
+ pending=[];active={};completed=[];failed=[]
+ def marker(i):return ROOT/"jobs"/f"{name}_job{i}.json"
+ def record(i,args,gpu,code,adopted=False):
+  ok=code==0 and bool(read(queue_result(args)))
+  write(marker(i),dict(state="complete" if ok else "failed",args=args,gpu=gpu,exit_code=code,adopted=adopted))
+  (completed if ok else failed).append(i)
+ for i,args in enumerate(jobs):
+  existing=[(gpu,find_existing(gpu,args)) for gpu in GPUS]
+  existing=[(gpu,pid) for gpu,pid in existing if pid is not None]
+  if existing:
+   if len(existing)!=1 or existing[0][0] in active:raise RuntimeError("Multiple baseline workers on one assigned GPU")
+   gpu,pid=existing[0];active[gpu]=dict(i=i,args=args,pid=pid,proc=None,log=None)
+  elif read(queue_result(args)):
+   record(i,args,None,0)
+  else:pending.append((i,args))
+ while pending or active:
+  for gpu,job in list(active.items()):
+   p=job["proc"]
+   code=p.poll() if p is not None else None if process_alive(job["pid"]) else 0
+   if code is None:continue
+   if job["log"] is not None:job["log"].close()
+   record(job["i"],job["args"],gpu,code,adopted=p is None)
+   del active[gpu]
+  # Let already running jobs finish if one fails; do not launch more work.
+  if not failed:
+   for gpu in GPUS:
+    if gpu in active or not pending:continue
+    memory=subprocess.check_output(["nvidia-smi","-i",str(gpu),"--query-gpu=memory.free","--format=csv,noheader,nounits"],text=True)
+    required=30 if pending[0][1][0]=="experiments.aster_cr.comparators" else 50
+    if int(memory.strip())<required*1024:continue
+    i,args=pending.pop(0)
+    env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),OMP_NUM_THREADS="4",MKL_NUM_THREADS="4",OPENBLAS_NUM_THREADS="4",TOKENIZERS_PARALLELISM="false")
+    logfile=ROOT/"logs"/f"{name}_job{i}_{gpu}.log";logfile.parent.mkdir(parents=True,exist_ok=True)
+    f=logfile.open("a")
+    try:p=subprocess.Popen([sys.executable,"-u","-m",*args],cwd=REPO,env=env,stdout=f,stderr=subprocess.STDOUT)
+    except BaseException:f.close();raise
+    active[gpu]=dict(i=i,args=args,pid=p.pid,proc=p,log=f)
+  workers=[dict(pid=j["pid"],gpu=g,job=j["i"],args=j["args"],adopted=j["proc"] is None) for g,j in active.items()]
+  write(ROOT/"processes.json",dict(controller=os.getpid(),phase=name,workers=workers,pending=[i for i,args in pending],completed=completed,failed=failed))
+  status("pipeline",state="draining_after_failure" if failed else "running" if active else "waiting_for_memory" if pending else "running",phase=name,completed=len(completed),pending=len(pending),active=len(active),failed=failed,training_completed=sum(jobs[i][0]=="experiments.aster_cr.baselines" for i in completed),dev_comparator_completed=sum(jobs[i][0]=="experiments.aster_cr.comparators" for i in completed))
+  if failed and not active:raise RuntimeError(f"{name} failed jobs {failed}; see logs")
+  if pending or active:time.sleep(5)
+
 def main(stage):
  ROOT.mkdir(parents=True,exist_ok=True)
  with (ROOT/"controller.lock").open("a") as lock:

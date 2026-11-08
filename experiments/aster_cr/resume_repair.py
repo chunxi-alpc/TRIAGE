@@ -95,7 +95,10 @@ def run(resume_training=False):
     status("preparation",state="complete",data_version="repair-v2")
    downstream(phase,final_report=False,resume_training=resume_training)
    for model in MODELS:
-    run_jobs(phase,"external_"+model,[["experiments.aster_cr.external_score","--model",model,"--dataset",dataset] for dataset in ("nli4ct","medpic")])
+    jobs=[["experiments.aster_cr.external_score","--model",model,"--dataset",dataset] for dataset in ("nli4ct","medpic")]
+    if model=="medgemma":
+     for args in jobs:phase("external_medgemma_"+args[-1],[(GPUS[-1],args)])
+    else:run_jobs(phase,"external_"+model,jobs)
     summarize(model)
    status("external",state="complete",datasets=["nli4ct","medpic"],included_in_mega=False)
    status("pipeline",state="complete",seconds=time.time()-started)

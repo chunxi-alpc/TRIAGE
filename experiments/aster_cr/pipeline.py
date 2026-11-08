@@ -10,7 +10,7 @@ def choose_template(model):
  rr=[r for p in root.glob("dev_*.jsonl") for r in rows(p)]
  pr=[r for p in root.glob("paths_dev_*.jsonl") for r in rows(p)]
  pairs=[p for p in rows(ROOT/"data/pairs.jsonl") if p["split"]=="dev"]
- full=np.mean([r["methods"]["full"]["correct"] for r in pr]);candidates=[]
+ full=float(np.mean([r["methods"]["full"]["correct"] for r in pr]));candidates=[]
  for form in ("full","order_no_yes","map_ab","map_ba","equivalent"):
   name="template_"+form;ss={r["view_id"]:r["scores"][name] for r in rr if name in r["scores"]}
   metric=pair_metrics([],pairs,ss);path=float(np.mean([r["methods"][name]["correct"] for r in pr]))
@@ -96,8 +96,10 @@ def downstream(phase_function=phase,final_report=True,resume_training=False):
   readout_paths("qwen","dev");choose("qwen")
   cpu("experiments.aster_cr.ablate");readout_paths("qwen","dev")
  jobs=[["experiments.aster_cr.baselines","--kind",kind,"--lr",str(lr)] for kind in ("loreft","lofit","lora","last_layer") for lr in (.0001,.001,.01)]
- run_jobs(phase_function,"qwen_training",jobs)
- run_jobs(phase_function,"qwen_comparators_dev",shard_jobs("experiments.aster_cr.comparators","dev"))
+ from .controller import baseline_queue
+ # Dev comparators use already-fitted settings and do not depend on baseline training.
+ jobs.extend(shard_jobs("experiments.aster_cr.comparators","dev"))
+ baseline_queue("qwen_training",jobs)
  choose("qwen",final=True);report(final=False)
  run_jobs(phase_function,"qwen_test_features",shard_jobs("experiments.aster_cr.score","test"))
  run_jobs(phase_function,"qwen_test_paths",shard_jobs("experiments.aster_cr.paths","test"))

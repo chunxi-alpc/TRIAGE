@@ -1,0 +1,26 @@
+{
+  "kind": "lofit",
+  "lr": 0.0001,
+  "fit_views": 6727,
+  "stages": [
+    {
+      "stage": "select",
+      "steps": 6727,
+      "parameters": 147456,
+      "seconds": 6215.336879491806,
+      "mean_loss": 0.11531167782841868
+    },
+    {
+      "stage": "tune",
+      "steps": 6727,
+      "parameters": 128,
+      "seconds": 5893.301007509232,
+      "mean_loss": 0.2542783262532179
+    }
+  ],
+  "parameters": 128,
+  "target_budget": 17,
+  "seconds": 12113.67433810234,
+  "peak_gib": 18.52933979034424,
+  "implementation": "Qwen3/Gemma3 hooks port official LoFiT per-coordinate (1+A)*head+v; select A then discard A and tune selected v"
+}

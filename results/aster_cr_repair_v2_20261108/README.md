@@ -1,11 +1,13 @@
 # repair-v2 结果快照
 
-快照：2026-11-08 07:18:26 UTC。当前阶段：qwen_training_batch0。训练和后续评价未全部完成。
+快照：2026-11-08 16:53:02 UTC。当前阶段：qwen_test_features_batch0。12组训练和4个开发分片完成，Qwen已冻结；后续评价未全部完成。
 
 [分析报告](../../reports/aster_cr_repair_v2_20261108/ANALYSIS.zh.md) · [数据修复报告](../../reports/aster_cr_repair_v2_20261108/DATA_REPAIR.zh.md) · [独立普通读出](../ordinary_readout_20261108/REPORT.zh.md)
 
 - snapshot.json：快照时间、运行阶段、各部分完成状态。
 - development_analysis.json：全部 Qwen 开发读出/消融、类别区间、路径差值与宏平均差值。
+- training_development_analysis.json：12组训练指标、选择、对CR差值及区间。
+- comparator_development_analysis.json：全部开发对照及模板结果。
 - qwen/：已经产生的机制、诊断、开发预测、路径明细、成本与选参记录。
 - data/：冻结分母、类别数量、配对及输入/节点元数据。
 - external/：两套外部数据的构造与任务数量；尚无模型正式结果。

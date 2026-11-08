@@ -1,0 +1,165 @@
+{
+  "E2_readout_check": {
+    "full": {
+      "candidate_original_errors": 0,
+      "corrected_by_readout": 0
+    },
+    "cr_r16_l0.01": {
+      "candidate_original_errors": 0,
+      "corrected_by_readout": 0
+    },
+    "ordinary_r8": {
+      "candidate_original_errors": 0,
+      "corrected_by_readout": 0
+    }
+  },
+  "H3b": {},
+  "state": "in_progress",
+  "frozen": true,
+  "main_method": "cr_r16_l0.01",
+  "pairs": {},
+  "paths": {},
+  "main_macro_differences": {},
+  "selection": {
+    "frozen": true,
+    "time": "2026-11-08 16:51:33",
+    "development": {
+      "aster_cr": "cr_r16_l0.01",
+      "calibration": "full",
+      "ordinary": "ordinary_r8",
+      "path_full_accuracy": 0.9142857142857143,
+      "dev_path_exclusion_margin": 0.005,
+      "excluded_path": [
+        "cr_r16_l0.001",
+        "cr_rfull_l0.001",
+        "cr_rfull_l0.01",
+        "cr_rfull_l0.1",
+        "signal_only",
+        "complete_exploratory",
+        "ordinary_r16",
+        "no_AP",
+        "no_CF",
+        "random_heads",
+        "random_support",
+        "ordinary_matched"
+      ],
+      "selection": "path accuracy drop <=0.5pp, then four-class PA macro, then fewer trainable parameters",
+      "ordinary_matched": "ordinary_matched"
+    },
+    "readouts": [
+      "bias",
+      "ce_only",
+      "complete_exploratory",
+      "cr_r16_l0.01",
+      "full",
+      "logistic",
+      "no_AP",
+      "no_CF",
+      "nuisance_only",
+      "ordinary_matched",
+      "ordinary_r8",
+      "random_heads",
+      "random_support",
+      "signal_only",
+      "temperature"
+    ],
+    "baseline_families": {
+      "last_layer": "last_layer_lr0.0001",
+      "loreft": "loreft_lr0.01",
+      "lora": "lora_lr0.001",
+      "lofit": "lofit_lr0.001"
+    },
+    "strongest_baseline": "lofit_lr0.001",
+    "best_template": "full",
+    "baseline_path_gate": {
+      "last_layer_lr0.0001": true,
+      "loreft_lr0.01": true,
+      "lora_lr0.01": false,
+      "loreft_lr0.001": true,
+      "loreft_lr0.0001": true,
+      "last_layer_lr0.01": true,
+      "lora_lr0.001": true,
+      "lora_lr0.0001": false,
+      "lofit_lr0.001": true,
+      "last_layer_lr0.001": true,
+      "lofit_lr0.0001": true,
+      "lofit_lr0.01": true
+    },
+    "test_tuning": false
+  },
+  "h2": {
+    "dev_interference_r2": 0.188792884349823,
+    "signal_leakage_rms": 0.3641678527570859,
+    "true_signal_rms": 42.19247286721427,
+    "leakage_ratio": 0.008631109484935241,
+    "nuisance_enabled": true,
+    "by_rank": {
+      "4": {
+        "dev_interference_r2": 0.05617803335189819,
+        "signal_leakage_rms": 0.20042275727724554,
+        "true_signal_rms": 42.19247286721427,
+        "leakage_ratio": 0.004750201722188803,
+        "nuisance_enabled": true
+      },
+      "8": {
+        "dev_interference_r2": 0.188792884349823,
+        "signal_leakage_rms": 0.3641678527570859,
+        "true_signal_rms": 42.19247286721427,
+        "leakage_ratio": 0.008631109484935241,
+        "nuisance_enabled": true
+      },
+      "16": {
+        "dev_interference_r2": 0.40614253282546997,
+        "signal_leakage_rms": 0.43507787192106795,
+        "true_signal_rms": 42.19247286721427,
+        "leakage_ratio": 0.010311741463704203,
+        "nuisance_enabled": true
+      },
+      "full": {
+        "dev_interference_r2": 0.5479006767272949,
+        "signal_leakage_rms": 0.9462098208194706,
+        "true_signal_rms": 42.19247286721427,
+        "leakage_ratio": 0.022426033757190003,
+        "nuisance_enabled": true
+      }
+    },
+    "criterion": "For each rank: R2 > 0 and leakage RMS / true signal RMS <= 0.1",
+    "dev_pairs": 1258,
+    "corrected": 0,
+    "new_errors": 0
+  },
+  "h3": {
+    "probes": {
+      "residual": {
+        "dev_n": 398,
+        "accuracy": 0.9874371859296482,
+        "shuffle_accuracy": 0.7512562814070352,
+        "historical_error_nodes": 195,
+        "error_nodes": 202,
+        "error_accuracy": 0.09405940594059406,
+        "error_shuffle_accuracy": 0.594059405940594
+      },
+      "selected_heads": {
+        "dev_n": 398,
+        "accuracy": 0.9874371859296482,
+        "shuffle_accuracy": 0.7537688442211056,
+        "historical_error_nodes": 195,
+        "error_nodes": 202,
+        "error_accuracy": 0.09900990099009901,
+        "error_shuffle_accuracy": 0.5841584158415841
+      },
+      "all_heads": {
+        "dev_n": 398,
+        "accuracy": 0.9849246231155779,
+        "shuffle_accuracy": 0.7512562814070352,
+        "historical_error_nodes": 195,
+        "error_nodes": 202,
+        "error_accuracy": 0.08415841584158416,
+        "error_shuffle_accuracy": 0.5841584158415841
+      }
+    },
+    "signal_claim_enabled": false,
+    "error_subset_evidence": "sufficient",
+    "interpretation": "Accuracy on held-out sources; insufficient errors do not establish absence of encoded signal."
+  }
+}

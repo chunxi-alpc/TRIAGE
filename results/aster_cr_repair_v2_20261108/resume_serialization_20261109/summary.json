@@ -1,0 +1,85 @@
+{
+  "time": "2026-11-08 16:51:29 UTC",
+  "pid": 3257789,
+  "regressions": "45 passed",
+  "completed_training": 12,
+  "completed_dev_comparator_shards": 4,
+  "frozen": {
+    "frozen": true,
+    "time": "2026-11-08 16:51:29",
+    "development": {
+      "aster_cr": "cr_r16_l0.01",
+      "calibration": "full",
+      "ordinary": "ordinary_r8",
+      "path_full_accuracy": 0.9142857142857143,
+      "dev_path_exclusion_margin": 0.005,
+      "excluded_path": [
+        "cr_r16_l0.001",
+        "cr_rfull_l0.001",
+        "cr_rfull_l0.01",
+        "cr_rfull_l0.1",
+        "signal_only",
+        "complete_exploratory",
+        "ordinary_r16",
+        "no_AP",
+        "no_CF",
+        "random_heads",
+        "random_support",
+        "ordinary_matched"
+      ],
+      "selection": "path accuracy drop <=0.5pp, then four-class PA macro, then fewer trainable parameters",
+      "ordinary_matched": "ordinary_matched"
+    },
+    "readouts": [
+      "bias",
+      "ce_only",
+      "complete_exploratory",
+      "cr_r16_l0.01",
+      "full",
+      "logistic",
+      "no_AP",
+      "no_CF",
+      "nuisance_only",
+      "ordinary_matched",
+      "ordinary_r8",
+      "random_heads",
+      "random_support",
+      "signal_only",
+      "temperature"
+    ],
+    "baseline_families": {
+      "last_layer": "last_layer_lr0.0001",
+      "loreft": "loreft_lr0.01",
+      "lora": "lora_lr0.001",
+      "lofit": "lofit_lr0.001"
+    },
+    "strongest_baseline": "lofit_lr0.001",
+    "best_template": "full",
+    "baseline_path_gate": {
+      "last_layer_lr0.0001": true,
+      "loreft_lr0.01": true,
+      "lora_lr0.01": false,
+      "loreft_lr0.001": true,
+      "loreft_lr0.0001": true,
+      "last_layer_lr0.01": true,
+      "lora_lr0.001": true,
+      "lora_lr0.0001": false,
+      "lofit_lr0.001": true,
+      "last_layer_lr0.001": true,
+      "lofit_lr0.0001": true,
+      "lofit_lr0.01": true
+    },
+    "test_tuning": false
+  },
+  "remaining_estimate_hours": [
+    15,
+    30
+  ],
+  "gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "medgemma_gpu": 6
+}

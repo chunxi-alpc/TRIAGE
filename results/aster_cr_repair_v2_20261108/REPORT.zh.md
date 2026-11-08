@@ -21,11 +21,19 @@ MEGA 原始病例是基准提供的病例，不能解释为医院病例的自然
 - preparation：complete
 - qwen：pending
 - medgemma：pending
-- pipeline：running，qwen_training_batch0
+- pipeline：failed
 
 ## qwen
 
-状态：pending。
+状态：in_progress。
+主配置：cr_r16_l0.01。
+
+| 方法 | 四类 PA 宏平均 | 路径正确数 / 总数 | 相对 Full 非劣性 |
+|---|---:|---:|---|
+
+H2*：{"dev_interference_r2": 0.188792884349823, "signal_leakage_rms": 0.3641678527570859, "true_signal_rms": 42.19247286721427, "leakage_ratio": 0.008631109484935241, "nuisance_enabled": true, "by_rank": {"4": {"dev_interference_r2": 0.05617803335189819, "signal_leakage_rms": 0.20042275727724554, "true_signal_rms": 42.19247286721427, "leakage_ratio": 0.004750201722188803, "nuisance_enabled": true}, "8": {"dev_interference_r2": 0.188792884349823, "signal_leakage_rms": 0.3641678527570859, "true_signal_rms": 42.19247286721427, "leakage_ratio": 0.008631109484935241, "nuisance_enabled": true}, "16": {"dev_interference_r2": 0.40614253282546997, "signal_leakage_rms": 0.43507787192106795, "true_signal_rms": 42.19247286721427, "leakage_ratio": 0.010311741463704203, "nuisance_enabled": true}, "full": {"dev_interference_r2": 0.5479006767272949, "signal_leakage_rms": 0.9462098208194706, "true_signal_rms": 42.19247286721427, "leakage_ratio": 0.022426033757190003, "nuisance_enabled": true}}, "criterion": "For each rank: R2 > 0 and leakage RMS / true signal RMS <= 0.1", "dev_pairs": 1258, "corrected": 0, "new_errors": 0}
+
+H3a 错误子集证据：sufficient。
 
 ## medgemma
 
@@ -48,5 +56,3 @@ CAD、参考融合、参考版旧 M3 计入额外参考前向；对称输出平�
 未超过校准和普通读出时，收束为规约诊断与负结果；未超过 LoReFT/LoFiT 时，不主张完整方法优于这些训练方法。最终解释以实际区间和消融为准。
 
 官方实现：[LoReFT](https://github.com/stanfordnlp/pyreft)、[LoFiT](https://github.com/fc2869/lo-fit)、[ITI](https://github.com/likenneth/honest_llama)、[SEA](https://github.com/yfqiu-nlp/sea-llm)。
-
-已扩展为 GPU 0、1、5、6。原训练进程保持运行，新增两卡承担其他训练对照；扩容检查通过，停止持续监控。剩余流程暂估 20–40 小时。

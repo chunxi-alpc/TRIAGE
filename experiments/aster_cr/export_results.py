@@ -25,7 +25,7 @@ def export(root,destination):
  frozen=read(root/"data/frozen.json");variants=read(root/"data/variants.json")
  for name in ("configuration.json","resource_plan.json","preflight.json","cache_reuse.json","verification.json","startup_observation.json","README.zh.md","REPORT.zh.md"):
   copy(root/name,out/name)
- for folder in ("verification","gpu_expansion","status","jobs"):
+ for folder in ("verification","gpu_expansion","queue_update","dev_overlap","resume_serialization_20261109","status","jobs"):
   for p in (root/folder).glob("*.json"):copy(p,out/folder/p.name)
  for name in ("frozen.json","variants.json","sources.jsonl"):
   copy(root/"data"/name,out/"data"/name)
@@ -79,17 +79,43 @@ def export(root,destination):
    macro_interval=macro_difference(pairs,scores[name],{}),macro_difference_from_full=macro_difference(pairs,scores[name],scores["full"]),
    path=dict(n=len(ps),correct=sum(v["correct"] for v in ps),corrected=sum(d==1 for d in diffs),new_errors=sum(d==-1 for d in diffs),difference_from_full=path_delta))
  comparisons={n:macro_difference(pairs,scores[selected],scores[n]) for n in ("full",selection["ordinary"],"ordinary_matched") if n in scores}
- dev=dict(snapshot_at=now,scope="Qwen development; selections not yet finally frozen",selected=selected,methods=analysis,selected_macro_comparisons=comparisons,
+ dev=dict(snapshot_at=now,scope="Qwen development; frozen settings recorded separately; not test performance",selected=selected,methods=analysis,selected_macro_comparisons=comparisons,
   interval_protocol="2000 source bootstrap draws; macro draws missing any class omitted; selection on this same development set")
  write(out/"development_analysis.json",dev)
+ final_selection=read(root/"qwen/frozen.json")
+ training={}
+ for p in sorted((root/"qwen/baselines").glob("*_dev_metrics.json")):
+  record=read(p);name=record["name"]
+  ss={v["view_id"]:v["ell"] for v in rows(root/"qwen/baselines"/(name+"_dev.jsonl"))}
+  ps=rows(root/"qwen/baselines"/(name+"_paths_dev.jsonl"))
+  diffs=[int(v["correct"])-int(full_paths[v["case_id"]]["correct"]) for v in ps]
+  training[name]=dict(metrics=record,selected_for_test=name in final_selection.get("baseline_families",{}).values(),
+   macro_difference_from_cr=macro_difference(pairs,ss,scores[selected]),
+   path_difference_from_full=interval(diffs,[v["source_id"] for v in ps]),
+   corrected=sum(d==1 for d in diffs),new_errors=sum(d==-1 for d in diffs))
+ write(out/"training_development_analysis.json",dict(snapshot_at=now,scope="development; same set used for selection",completed=len(training),methods=training,frozen=final_selection))
+ comp_scores={};comp_paths={}
+ for p in sorted((root/"qwen/comparators").glob("dev_*.jsonl")):
+  for v in rows(p):
+   for name,value in v["scores"].items():comp_scores.setdefault(name,{})[v["view_id"]]=value
+ for p in sorted((root/"qwen/comparators").glob("paths_dev_*.jsonl")):
+  for v in rows(p):
+   for name,value in v["methods"].items():comp_paths.setdefault(name,{})[v["case_id"]]=dict(case_id=v["case_id"],source_id=v["source_id"],**value)
+ comp_analysis={}
+ for name,ss in comp_scores.items():
+  ps=list(comp_paths.get(name,{}).values());diffs=[int(v["correct"])-int(full_paths[v["case_id"]]["correct"]) for v in ps]
+  comp_analysis[name]=dict(pairs=pair_metrics([],pairs,ss,ci=True),input_count=len(ss),path=dict(n=len(ps),correct=sum(v["correct"] for v in ps),
+   corrected=sum(d==1 for d in diffs),new_errors=sum(d==-1 for d in diffs),difference_from_full=interval(diffs,[v["source_id"] for v in ps])))
+ write(out/"comparator_development_analysis.json",dict(snapshot_at=now,scope="development; template selection uses this set",methods=comp_analysis))
+
  state=dict(snapshot_at=now,server_run=str(root),pipeline=pipeline,scope="current observed results; running work is not final",
-  qwen_test_frozen=bool(read(root/"qwen/frozen.json").get("frozen")),qwen_test_complete=(root/"qwen/test_pairs.json").exists(),
+  qwen_test_frozen=bool(read(root/"qwen/frozen.json").get("frozen")),qwen_test_complete=read(root/"status/qwen.json").get("state")=="complete",
   medgemma_formal_complete=read(root/"status/medgemma.json").get("state")=="complete",external_model_evaluation_complete=read(root/"status/external.json").get("state")=="complete",
   ordinary_readout_complete=read(ordinary/"status.json").get("state")=="complete",gpus=read(root/"configuration.json")["gpus"])
  write(out/"snapshot.json",state)
  h2=read(root/"qwen/h2.json");h3=read(root/"qwen/h3.json");p0=read(root/"qwen/diagnostics/development/p0.json")
  text=["# repair-v2 实验结果与分析","",f"快照时间：{now}。修复版运行阶段：`{pipeline.get('phase',pipeline.get('state'))}`。","",
- "已完成 Qwen fit/dev 特征、P0、定位、H2/H3、读出与消融。训练对照仍在进行；修复版 test、MedGemma 正式确认和外部模型评价尚未完成。这里的修复版性能数值均来自开发集。",
+ "已完成 Qwen fit/dev 特征、P0、定位、H2/H3、读出、消融，以及12组训练对照和4个开发对照分片。开发配置已冻结，修复版test继续执行；MedGemma正式确认和外部模型评价待完成。下列性能数值均来自开发集。",
  "","## 当前结论","",
  "修复版选中的读出在开发配对宏平均上略高于 Full，低于普通读出；开发完整路径比 Full 少正确 1 例。当前结果尚未支持修复版读出优于普通读出。独立的原始病例普通线性读出已完成测试，其预测与单参数校准完全一致，没有额外路径收益。",
  "","## 数据规模与分母","",
@@ -99,7 +125,7 @@ def export(root,destination):
   for kind in ("A","P","C","F","F0"):
    v=variants[split][kind];text.append(f"| {split} | {kind} | {v['pairs']} | {v['nodes']} | {v['sources']} |")
  text += ["","P/C/F 的独立节点仍少。开发 P 只有 4 个节点、2 个来源；test F 只有 2 个节点、2 个来源。配对总数增加不能据此证明这些类别的证据充分。","",
- "## Qwen 开发结果","","两端均预测正确才计该对正确；宏平均对 A/P/C/F 四类等权，F0 单列。先要求路径正确率下降不超过 0.5 个百分点，再按开发宏平均选参。当前预选配置为 `"+selected+"`，只有干扰分量，17 个可训练参数；最终配置尚待训练对照和模板比较完成后冻结。",
+ "## Qwen 开发结果","","两端均预测正确才计该对正确；宏平均对 A/P/C/F 四类等权，F0 单列。先要求路径正确率下降不超过 0.5 个百分点，再按开发宏平均选参。当前预选配置为 `"+selected+"`，只有干扰分量，17 个可训练参数；开发配置已在test前冻结，最佳模板为原Full模板。",
  "","| 方法 | 参数量 | 配对宏平均 | 路径正确/420 | 相对 Full 纠正/新增错误 |","|---|---:|---:|---:|---:|"]
  names=["full","bias","logistic",selected,selection["ordinary"],"ordinary_matched","ce_only","no_AP","no_CF","random_heads","random_support"]
  for name in dict.fromkeys(names):
@@ -123,18 +149,35 @@ def export(root,destination):
  "","线性读出相对 Full 的路径差为 −0.124 个百分点，95% 来源区间 [−0.943, +0.674]；相对校准差为 0，区间 [0,0]。结论是未获得超过简单校准的额外预测收益。该独立实验沿用原始来源划分，不称为整个研究过程从未观察的盲测，也不将其结果冒充修复版 test 结果。",
  "","[独立普通读出完整报告](../../results/ordinary_readout_20261108/REPORT.zh.md)。","",
  "## 运行、复用与待完成结果","",
- "GPU 0、1、5、6。已复用 960 条输入及评分口径一致的 Full 分数/激活和 8,312 条开发路径节点缓存。修复影响的定位、训练、选参重新执行，旧完成标记未复制。34 项回归测试以及两模型各 7 条前向验证已通过；MedGemma 前向验证不等于正式评价。",
- "","四类训练对照（LoReFT、LoFiT、LoRA、最后一层）各三个学习率正在运行。之后冻结开发配置，再进行修复版 test、MedGemma 关键确认。NLI4CT 已有 5,500 条输入、5,000 对，MedPIC 有 650 道题、92 对；模型成绩尚待独立评价。两套外部数据不进入 MEGA 训练、选参、宏平均和路径分母。",
+ "GPU 0、1、5、6。已复用 960 条输入及评分口径一致的 Full 分数/激活和 8,312 条开发路径节点缓存。修复影响的定位、训练、选参重新执行，旧完成标记未复制。45 项回归测试以及此前两模型各 7 条前向验证已通过；MedGemma 前向验证不等于正式评价。",
+ "","四类训练对照（LoReFT、LoFiT、LoRA、最后一层）各三个学习率均已完成开发评价，4个开发对照分片也已完成。流程曾在保存模板选择时因NumPy布尔值序列化失败而停止；转换为Python float后测试通过，复用已完成结果、冻结配置并继续test。MedGemma及其外部评价使用GPU 6。NLI4CT 已有 5,500 条输入、5,000 对，MedPIC 有 650 道题、92 对；模型成绩尚待独立评价。两套外部数据不进入 MEGA 训练、选参、宏平均和路径分母。",
  "","原始数值、逐对/逐例明细、配置与状态见 [结果目录](../../results/"+RUN_NAME+"/README.md)；数据修复阶段报告见 [DATA_REPAIR.zh.md](DATA_REPAIR.zh.md)。历史 7,458 例路径结果的分母与本轮不同，不直接比较百分点。"]
+
+ text += ["","## 新完成的训练与开发对照","","| 训练方法 | 学习率 | 配对宏平均 | 路径正确/420 | 参数量 | test所选 |","|---|---:|---:|---:|---:|---|"]
+ for name,item in training.items():
+  r=item["metrics"];kind,lr=name.split("_lr")
+  text.append(f"| {kind} | {lr} | {pct(r['pairs']['macro'])} | {r['paths']['correct']}/{r['paths']['n']} | {r['parameters']} | {'是' if item['selected_for_test'] else '否'} |")
+ text += ["","各训练方法继续采用同一开发路径阈值，再按配对宏平均选择学习率。LoRA较高宏平均的lr0.0001未通过路径阈值，因此选择lr0.001；LoReFT三个学习率同分，本次冻结记录为lr0.01。最强训练对照为LoFiT lr0.001。",
+ "","CR宏平均79.09%、路径383/420；LoFiT宏平均79.17%、路径386/420；普通读出宏平均79.86%、路径382/420。CR当前未超过这两个对照，结论仍需冻结后的test。"]
+ for name,item in training.items():
+  if not item["selected_for_test"]:continue
+  delta=item["macro_difference_from_cr"]
+  text.append(f"\n{name}相对CR的开发宏平均差为{100*delta['difference']:+.3f}个百分点，95%来源区间{ci(delta['ci95'])}；有效重采样{delta['valid_draws']}/2000。")
+ text += ["","| 开发对照 | 配对宏平均 | 正确路径/420 |","|---|---:|---:|"]
+ for name,item in sorted(comp_analysis.items()):
+  text.append(f"| {name} | {pct(item['pairs']['macro'])} | {item['path']['correct']}/{item['path']['n']} |")
+ text += ["","直接参考和参考融合的开发路径为393/420和392/420，配对宏平均为78.59%和78.53%；路径与配对指标呈现不同排序。所有训练学习率、模板及开发对照均保留，未按test重选。详见training_development_analysis.json与comparator_development_analysis.json。"]
  (report/"ANALYSIS.zh.md").write_text("\n".join(text)+"\n")
  (out/"README.md").write_text(f"""# repair-v2 结果快照
 
-快照：{now}。当前阶段：{pipeline.get('phase')}。训练和后续评价未全部完成。
+快照：{now}。当前阶段：{pipeline.get('phase')}。12组训练和4个开发分片完成，Qwen已冻结；后续评价未全部完成。
 
 [分析报告](../../reports/{RUN_NAME}/ANALYSIS.zh.md) · [数据修复报告](../../reports/{RUN_NAME}/DATA_REPAIR.zh.md) · [独立普通读出](../ordinary_readout_20261108/REPORT.zh.md)
 
 - snapshot.json：快照时间、运行阶段、各部分完成状态。
 - development_analysis.json：全部 Qwen 开发读出/消融、类别区间、路径差值与宏平均差值。
+- training_development_analysis.json：12组训练指标、选择、对CR差值及区间。
+- comparator_development_analysis.json：全部开发对照及模板结果。
 - qwen/：已经产生的机制、诊断、开发预测、路径明细、成本与选参记录。
 - data/：冻结分母、类别数量、配对及输入/节点元数据。
 - external/：两套外部数据的构造与任务数量；尚无模型正式结果。

@@ -22,5 +22,38 @@
     "ITI": "https://github.com/likenneth/honest_llama",
     "SEA": "https://github.com/yfqiu-nlp/sea-llm"
   },
-  "note": "ITI/SEA binary-task adaptation uses correct and incorrect fit-answer completions. Existing closed-form settings retained. No new hyperparameter search."
+  "note": "ITI/SEA binary-task adaptation uses correct and incorrect fit-answer completions. Existing closed-form settings retained. No new hyperparameter search.",
+  "template_dev_candidates": [
+    {
+      "form": "full",
+      "macro": 0.7825852939148841,
+      "path_accuracy": 0.9142857142857143,
+      "eligible": true
+    },
+    {
+      "form": "order_no_yes",
+      "macro": 0.7631781450821031,
+      "path_accuracy": 0.8904761904761904,
+      "eligible": false
+    },
+    {
+      "form": "map_ab",
+      "macro": 0.7753582987238752,
+      "path_accuracy": 0.9166666666666666,
+      "eligible": true
+    },
+    {
+      "form": "map_ba",
+      "macro": 0.7126318000830999,
+      "path_accuracy": 0.9166666666666666,
+      "eligible": true
+    },
+    {
+      "form": "equivalent",
+      "macro": 0.77410201731684,
+      "path_accuracy": 0.9071428571428571,
+      "eligible": false
+    }
+  ],
+  "template_selection": "path gate then PA macro; no test outputs"
 }
