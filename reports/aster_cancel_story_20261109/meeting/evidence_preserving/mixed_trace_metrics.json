@@ -1,0 +1,1095 @@
+{
+  "experiment_type": "Actual CPU fitting on synthetic data; not language-model results",
+  "settings": {
+    "seeds": [
+      11,
+      22,
+      33
+    ],
+    "trace_dimension": 16,
+    "trace_noise_sd": 0.03,
+    "ridge_lambda_sum_loss": 0.01,
+    "evidence_score_coefficient": 2.0,
+    "nuisance_score_coefficient": 1.0,
+    "constraint_budget_fraction_fit_ap_rms": 0.1,
+    "sizes": {
+      "fit": {
+        "AP": 5000,
+        "CF": 200
+      },
+      "dev": {
+        "AP": 1000,
+        "CF": 500
+      },
+      "test": {
+        "AP": 2000,
+        "CF": 1000
+      }
+    },
+    "scenarios": {
+      "mixed_separable": {
+        "D": [
+          1.0,
+          0.0
+        ],
+        "H": [
+          0.8,
+          1.0
+        ]
+      },
+      "mixed_inseparable": {
+        "D": [
+          1.0,
+          0.0
+        ],
+        "H": [
+          1.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "formulas": {
+    "trace": "t=D*nu+H*e+epsilon; epsilon independent N(0,0.03^2 I)",
+    "score": "ell=2*e+nu",
+    "AP": "same e, independent nu; pair difference is right minus left",
+    "CF": "same nu, e:-1 -> +1, independently sampled trace noise",
+    "objective": "sum((AP_X*w+AP_y)^2)+0.01*||w||^2",
+    "constraint": "abs(CF_X*w)<=0.1*fit_AP_raw_RMS, individually on fit CF",
+    "VR": "100*(1-var(AP_y+AP_X*w)/var(AP_y))",
+    "ER": "100*mean(CF_y+CF_X*w)/mean(CF_y)",
+    "oracle": "Known H, w constrained exactly by H^T*w=0; training still uses AP pairs only"
+  },
+  "interpretation": {
+    "trace_noise": "Even oracle evidence-independent correction varies across noisy CF traces.",
+    "fit_vs_test": "Per-pair hard bounds apply to fitting constraints; dev/test report out-of-sample violations.",
+    "inseparable": "D=H means exact nuisance cancellation and exact evidence preservation are incompatible.",
+    "delta_zero": "Fit CF matrices are full column rank with independent noise, so an exact zero empirical CF constraint permits w=0 only.",
+    "uncertainty": "SD over three generated-data seeds, not LM run uncertainty"
+  },
+  "fits": [
+    {
+      "scenario": "mixed_separable",
+      "seed": 11,
+      "fit_budget_logit": 0.14118510259873426,
+      "fit_cf_matrix_rank": 16,
+      "constrained_solver": {
+        "success": true,
+        "iterations": 30,
+        "max_fit_constraint_violation": 2.498001805406602e-16,
+        "message": "Optimization terminated successfully"
+      },
+      "weights": {
+        "raw": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "AP_ridge": [
+          -0.998702483252691,
+          -0.01691909812767423,
+          -0.008381102159317571,
+          -0.021822412750314463,
+          0.009216402896968135,
+          0.01837334788852921,
+          0.008068750425158595,
+          0.014124633557042188,
+          -0.0026718791074148815,
+          -0.012910543593694132,
+          0.005043151858222269,
+          -0.0045536708098031,
+          0.006949204141792014,
+          0.0034023438818544566,
+          -0.01274703648091255,
+          -0.010532306110010008
+        ],
+        "evidence_constrained_ridge": [
+          -0.9982381570764364,
+          0.7993310287380311,
+          0.0031072755835031005,
+          -0.012179308178899475,
+          -0.018701698521125035,
+          0.0323493642414358,
+          -0.01972850080932672,
+          0.018466795660359962,
+          0.0024689817686265295,
+          -0.01106131563342218,
+          0.06079462906685222,
+          -0.003807433640690593,
+          -0.005305846817597088,
+          0.04112587304946517,
+          -0.014596897513158484,
+          0.03840767909059457
+        ],
+        "oracle_H_nullspace_ridge": [
+          -0.9982736689422388,
+          0.7986189351537912,
+          -0.0013226118593307598,
+          -0.02062857340619055,
+          -0.014294426948527204,
+          0.025689356278289985,
+          0.010398419342104243,
+          -0.0015905647832589183,
+          0.011765719433153465,
+          -0.00977264875815214,
+          0.026485252472700404,
+          0.009143568531000432,
+          0.011051343163120444,
+          0.005446952446887078,
+          -0.0012938751978272395,
+          -0.011434438032519768
+        ]
+      },
+      "analytical_evidence_coefficients": {
+        "raw": 0.0,
+        "AP_ridge": -0.815881084729827,
+        "evidence_constrained_ridge": 0.0007405030768818932,
+        "oracle_H_nullspace_ridge": 1.1102230246251565e-16
+      },
+      "analytical_nuisance_residual_coefficients": {
+        "raw": 1.0,
+        "AP_ridge": 0.0012975167473090465,
+        "evidence_constrained_ridge": 0.001761842923563628,
+        "oracle_H_nullspace_ridge": 0.00172633105776121
+      }
+    },
+    {
+      "scenario": "mixed_separable",
+      "seed": 22,
+      "fit_budget_logit": 0.14093928483656512,
+      "fit_cf_matrix_rank": 16,
+      "constrained_solver": {
+        "success": true,
+        "iterations": 30,
+        "max_fit_constraint_violation": 4.718447854656915e-16,
+        "message": "Optimization terminated successfully"
+      },
+      "weights": {
+        "raw": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "AP_ridge": [
+          -0.998887252057157,
+          0.0015848704122155858,
+          -0.01893054126951093,
+          0.0028544503633378894,
+          0.008814175682705653,
+          -0.000943241511117866,
+          0.0031914775154395746,
+          0.033956594405776766,
+          0.008152968798794187,
+          0.0031443618857648387,
+          0.02143033227299861,
+          0.02110485400018882,
+          0.015049644594223666,
+          -0.004155428185831772,
+          0.012793828981796615,
+          0.011741865329217381
+        ],
+        "evidence_constrained_ridge": [
+          -0.9977230886587091,
+          0.786441127775476,
+          0.029045529525675445,
+          0.04137826440509432,
+          0.14144330266567287,
+          -0.013836204101644786,
+          0.08424221507909438,
+          0.08916727096210131,
+          0.1764964397381839,
+          0.01777935057925767,
+          -0.035689427199112805,
+          0.01324605350335901,
+          -0.017207653602122903,
+          -0.0017173201797442143,
+          -0.021621981547092363,
+          -0.11761641634312757
+        ],
+        "oracle_H_nullspace_ridge": [
+          -0.9979934070315478,
+          0.7983947256252385,
+          -0.02339031453786658,
+          0.00797973588970582,
+          0.02133606957252821,
+          -0.008414751532294873,
+          0.005448094346305134,
+          0.02578001707239712,
+          0.005797706708517799,
+          0.01590602781097094,
+          0.022742602547694897,
+          0.03780246750388807,
+          0.0020131165509395116,
+          0.0028106596809174583,
+          0.005598369929819131,
+          -0.008503108027254003
+        ]
+      },
+      "analytical_evidence_coefficients": {
+        "raw": 0.0,
+        "AP_ridge": -0.7975249312335101,
+        "evidence_constrained_ridge": -0.01173734315149122,
+        "oracle_H_nullspace_ridge": 2.220446049250313e-16
+      },
+      "analytical_nuisance_residual_coefficients": {
+        "raw": 1.0,
+        "AP_ridge": 0.0011127479428429954,
+        "evidence_constrained_ridge": 0.0022769113412909325,
+        "oracle_H_nullspace_ridge": 0.002006592968452181
+      }
+    },
+    {
+      "scenario": "mixed_separable",
+      "seed": 33,
+      "fit_budget_logit": 0.13947390724229802,
+      "fit_cf_matrix_rank": 16,
+      "constrained_solver": {
+        "success": true,
+        "iterations": 36,
+        "max_fit_constraint_violation": 3.3306690738754696e-16,
+        "message": "Optimization terminated successfully"
+      },
+      "weights": {
+        "raw": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "AP_ridge": [
+          -0.9984297585550524,
+          0.013574609977873412,
+          0.016446144884139372,
+          0.008827954827737001,
+          0.027391144852691562,
+          -0.008627033259556629,
+          0.016531579019519516,
+          0.024496610649826642,
+          0.026812421495498697,
+          -0.007171625148126755,
+          -0.0015661933088504591,
+          -0.017803672401817898,
+          -0.012292680318063428,
+          0.013657869319231882,
+          0.013507122704448909,
+          -0.007452267763512719
+        ],
+        "evidence_constrained_ridge": [
+          -0.997284161118519,
+          0.7859115943258034,
+          -0.05204328185700044,
+          0.0635346030238178,
+          -0.007199628428396618,
+          0.03242804259990273,
+          0.010240590199787578,
+          0.010294325800592618,
+          0.00042019081639713585,
+          -0.01826540696776302,
+          0.026877159664154434,
+          -0.01734513246746261,
+          0.03721840055092974,
+          -0.04384489537919599,
+          0.060920676418469565,
+          -0.0019419058015262784
+        ],
+        "oracle_H_nullspace_ridge": [
+          -0.9979051151173342,
+          0.7983240920938676,
+          0.03408223157343457,
+          0.013873218281914004,
+          0.022075078303025766,
+          -0.014249582514066047,
+          0.023075342897689914,
+          0.012126840092032897,
+          0.04111713324009553,
+          -0.00621452552739117,
+          -0.00014679652930445642,
+          -0.022647363109266513,
+          -0.005930769968643257,
+          0.0285543979300622,
+          -0.0023787584217899293,
+          -0.02141239742956685
+        ]
+      },
+      "analytical_evidence_coefficients": {
+        "raw": 0.0,
+        "AP_ridge": -0.7851691968661686,
+        "evidence_constrained_ridge": -0.011915734569011849,
+        "oracle_H_nullspace_ridge": 2.220446049250313e-16
+      },
+      "analytical_nuisance_residual_coefficients": {
+        "raw": 1.0,
+        "AP_ridge": 0.001570241444947551,
+        "evidence_constrained_ridge": 0.0027158388814809697,
+        "oracle_H_nullspace_ridge": 0.0020948848826658484
+      }
+    },
+    {
+      "scenario": "mixed_inseparable",
+      "seed": 11,
+      "fit_budget_logit": 0.14118510259873426,
+      "fit_cf_matrix_rank": 16,
+      "constrained_solver": {
+        "success": true,
+        "iterations": 8,
+        "max_fit_constraint_violation": 1.5543122344752192e-15,
+        "message": "Optimization terminated successfully"
+      },
+      "weights": {
+        "raw": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "AP_ridge": [
+          -0.998702483252691,
+          -0.01691909812767491,
+          -0.008381102159317765,
+          -0.02182241275031411,
+          0.009216402896968028,
+          0.01837334788852935,
+          0.008068750425158672,
+          0.014124633557042203,
+          -0.002671879107415014,
+          -0.012910543593694,
+          0.00504315185822201,
+          -0.004553670809802841,
+          0.006949204141792131,
+          0.0034023438818551344,
+          -0.012747036480912646,
+          -0.010532306110010109
+        ],
+        "evidence_constrained_ridge": [
+          -0.0681007739688877,
+          -0.012928060298260984,
+          3.4718993276278923e-05,
+          0.0010864032908147784,
+          0.017692830347200927,
+          0.009303925973661272,
+          -0.008060612107974067,
+          0.005996587222860448,
+          -0.005970672560330725,
+          -0.01160434188771174,
+          0.022930255013144107,
+          0.00393588820745707,
+          0.012081833933804674,
+          -0.003760391850360781,
+          -0.0021415821846350884,
+          -0.013520540340503302
+        ],
+        "oracle_H_nullspace_ridge": [
+          0.0,
+          -0.20514696663227788,
+          -0.3621571430380624,
+          -0.19210430561043088,
+          0.494895739418667,
+          0.09660861020705,
+          0.07389580390152903,
+          0.3082670959864914,
+          0.41818292798753576,
+          -0.41099932955092067,
+          -0.8010303687609359,
+          0.09985400590202971,
+          0.4808726944121119,
+          -0.4083291732280706,
+          0.03706436732726513,
+          0.0051770921052561245
+        ]
+      },
+      "analytical_evidence_coefficients": {
+        "raw": 0.0,
+        "AP_ridge": -0.998702483252691,
+        "evidence_constrained_ridge": -0.0681007739688877,
+        "oracle_H_nullspace_ridge": 0.0
+      },
+      "analytical_nuisance_residual_coefficients": {
+        "raw": 1.0,
+        "AP_ridge": 0.0012975167473090465,
+        "evidence_constrained_ridge": 0.9318992260311123,
+        "oracle_H_nullspace_ridge": 1.0
+      }
+    },
+    {
+      "scenario": "mixed_inseparable",
+      "seed": 22,
+      "fit_budget_logit": 0.14093928483656512,
+      "fit_cf_matrix_rank": 16,
+      "constrained_solver": {
+        "success": true,
+        "iterations": 4,
+        "max_fit_constraint_violation": 4.413136522884997e-15,
+        "message": "Optimization terminated successfully"
+      },
+      "weights": {
+        "raw": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "AP_ridge": [
+          -0.9988872520571574,
+          0.001584870412215353,
+          -0.018930541269511138,
+          0.002854450363338009,
+          0.008814175682705622,
+          -0.0009432415111178655,
+          0.0031914775154396145,
+          0.03395659440577686,
+          0.008152968798793932,
+          0.003144361885764732,
+          0.021430332272998745,
+          0.02110485400018858,
+          0.015049644594223822,
+          -0.004155428185831881,
+          0.012793828981796542,
+          0.011741865329217026
+        ],
+        "evidence_constrained_ridge": [
+          -0.06837058344517744,
+          -0.01832228671716267,
+          -0.012963864681139957,
+          0.003355738631945642,
+          0.0013672945575823265,
+          -0.0024695241262668007,
+          0.004057112719989209,
+          0.0006463748783429142,
+          -0.01204054569320182,
+          -0.01268588306075185,
+          -0.007924549859275903,
+          -0.005958706830513714,
+          -0.002196552036858061,
+          -0.0030928944453021867,
+          -0.00038325371178855145,
+          -0.008745234712708943
+        ],
+        "oracle_H_nullspace_ridge": [
+          0.0,
+          0.41879913272271724,
+          -0.7835435085467242,
+          -0.4938923612497193,
+          -0.18141043767448395,
+          -0.36195487056391845,
+          -0.43107563707255997,
+          -0.008457921060591398,
+          0.31202788323298464,
+          -0.27331046401757664,
+          -0.30768345169496153,
+          0.3395232598946897,
+          -0.2585083554655338,
+          0.4704553451393016,
+          -0.2700048948635267,
+          0.6544774366802628
+        ]
+      },
+      "analytical_evidence_coefficients": {
+        "raw": 0.0,
+        "AP_ridge": -0.9988872520571574,
+        "evidence_constrained_ridge": -0.06837058344517744,
+        "oracle_H_nullspace_ridge": 0.0
+      },
+      "analytical_nuisance_residual_coefficients": {
+        "raw": 1.0,
+        "AP_ridge": 0.0011127479428425513,
+        "evidence_constrained_ridge": 0.9316294165548226,
+        "oracle_H_nullspace_ridge": 1.0
+      }
+    },
+    {
+      "scenario": "mixed_inseparable",
+      "seed": 33,
+      "fit_budget_logit": 0.13947390724229802,
+      "fit_cf_matrix_rank": 16,
+      "constrained_solver": {
+        "success": true,
+        "iterations": 11,
+        "max_fit_constraint_violation": 0.0,
+        "message": "Optimization terminated successfully"
+      },
+      "weights": {
+        "raw": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "AP_ridge": [
+          -0.9984297585550523,
+          0.01357460997787395,
+          0.01644614488413934,
+          0.00882795482773703,
+          0.02739114485269153,
+          -0.008627033259556618,
+          0.01653157901951899,
+          0.024496610649826518,
+          0.026812421495498645,
+          -0.00717162514812656,
+          -0.001566193308850392,
+          -0.01780367240181769,
+          -0.012292680318063449,
+          0.013657869319231632,
+          0.0135071227044491,
+          -0.007452267763513179
+        ],
+        "evidence_constrained_ridge": [
+          -0.06771075659334855,
+          -0.023419350028164417,
+          -0.0029553220268279724,
+          -0.007339204565367444,
+          -0.01385041260923191,
+          0.011214072259185007,
+          0.017221227495442967,
+          0.028582593691237043,
+          -0.011097912803986159,
+          -0.003215446850464683,
+          -0.013339434325513676,
+          -0.008767742226611714,
+          0.013210050743468043,
+          -0.021327994938430656,
+          0.020296002011525018,
+          0.0006233156394708166
+        ],
+        "oracle_H_nullspace_ridge": [
+          0.0,
+          -0.056942717159129054,
+          0.2708608105551106,
+          0.0758732909556533,
+          0.5417273285872147,
+          -0.01941531980387231,
+          -0.5110306383665932,
+          0.2012421769924357,
+          0.18769271878256946,
+          0.40466419721479197,
+          0.33190768266278353,
+          1.0596813883793355,
+          -0.25717763432217944,
+          -0.18937007399018427,
+          0.9971395983032505,
+          -0.15301697381114698
+        ]
+      },
+      "analytical_evidence_coefficients": {
+        "raw": 0.0,
+        "AP_ridge": -0.9984297585550523,
+        "evidence_constrained_ridge": -0.06771075659334855,
+        "oracle_H_nullspace_ridge": 0.0
+      },
+      "analytical_nuisance_residual_coefficients": {
+        "raw": 1.0,
+        "AP_ridge": 0.001570241444947662,
+        "evidence_constrained_ridge": 0.9322892434066514,
+        "oracle_H_nullspace_ridge": 1.0
+      }
+    }
+  ],
+  "test_summary": [
+    {
+      "scenario": "mixed_separable",
+      "method": "raw",
+      "split": "test",
+      "n_seeds": 3,
+      "ap_raw_rms": {
+        "mean": 1.392076632744846,
+        "sample_sd": 0.018676070372076005
+      },
+      "ap_corrected_rms": {
+        "mean": 1.392076632744846,
+        "sample_sd": 0.018676070372076005
+      },
+      "ap_variance_removed_pct": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_mean_evidence_response_retention_pct": {
+        "mean": 100.0,
+        "sample_sd": 0.0
+      },
+      "cf_correction_rms": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_correction_rms_over_ap_raw_rms_pct": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_max_absolute_correction": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_max_absolute_correction_over_budget": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_fraction_within_fit_budget": {
+        "mean": 1.0,
+        "sample_sd": 0.0
+      },
+      "cf_direction_reversals": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "fit_budget_logit": {
+        "mean": 0.14053276489253247,
+        "sample_sd": 0.0009251979440338541
+      },
+      "fit_ap_raw_rms": {
+        "mean": 1.4053276489253246,
+        "sample_sd": 0.009251979440338523
+      }
+    },
+    {
+      "scenario": "mixed_separable",
+      "method": "AP_ridge",
+      "split": "test",
+      "n_seeds": 3,
+      "ap_raw_rms": {
+        "mean": 1.392076632744846,
+        "sample_sd": 0.018676070372076005
+      },
+      "ap_corrected_rms": {
+        "mean": 0.041882108590149014,
+        "sample_sd": 0.0004915918232470257
+      },
+      "ap_variance_removed_pct": {
+        "mean": 99.90941825505253,
+        "sample_sd": 0.0024576834924865797
+      },
+      "cf_mean_evidence_response_retention_pct": {
+        "mean": 60.03164429663621,
+        "sample_sd": 0.832447707640611
+      },
+      "cf_correction_rms": {
+        "mean": 1.5992919733832451,
+        "sample_sd": 0.033256314231794065
+      },
+      "cf_correction_rms_over_ap_raw_rms_pct": {
+        "mean": 114.90986783118603,
+        "sample_sd": 3.4507544318567964
+      },
+      "cf_max_absolute_correction": {
+        "mean": 1.7386414797869343,
+        "sample_sd": 0.02290452513446605
+      },
+      "cf_max_absolute_correction_over_budget": {
+        "mean": 12.371749137794012,
+        "sample_sd": 0.13546188888214553
+      },
+      "cf_fraction_within_fit_budget": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_direction_reversals": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "fit_budget_logit": {
+        "mean": 0.14053276489253247,
+        "sample_sd": 0.0009251979440338541
+      },
+      "fit_ap_raw_rms": {
+        "mean": 1.4053276489253246,
+        "sample_sd": 0.009251979440338523
+      }
+    },
+    {
+      "scenario": "mixed_separable",
+      "method": "evidence_constrained_ridge",
+      "split": "test",
+      "n_seeds": 3,
+      "ap_raw_rms": {
+        "mean": 1.392076632744846,
+        "sample_sd": 0.018676070372076005
+      },
+      "ap_corrected_rms": {
+        "mean": 0.05404945803944138,
+        "sample_sd": 0.0007818291655833454
+      },
+      "ap_variance_removed_pct": {
+        "mean": 99.84916522506813,
+        "sample_sd": 0.0023046761873346967
+      },
+      "cf_mean_evidence_response_retention_pct": {
+        "mean": 99.64582440524225,
+        "sample_sd": 0.2937514731053393
+      },
+      "cf_correction_rms": {
+        "mean": 0.05728309841603022,
+        "sample_sd": 0.0043744289074310475
+      },
+      "cf_correction_rms_over_ap_raw_rms_pct": {
+        "mean": 4.113065772159537,
+        "sample_sd": 0.2711999616690494
+      },
+      "cf_max_absolute_correction": {
+        "mean": 0.19769280419972782,
+        "sample_sd": 0.029116953665643628
+      },
+      "cf_max_absolute_correction_over_budget": {
+        "mean": 1.407265901399435,
+        "sample_sd": 0.2117324898275501
+      },
+      "cf_fraction_within_fit_budget": {
+        "mean": 0.9836666666666667,
+        "sample_sd": 0.007371114795832001
+      },
+      "cf_direction_reversals": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "fit_budget_logit": {
+        "mean": 0.14053276489253247,
+        "sample_sd": 0.0009251979440338541
+      },
+      "fit_ap_raw_rms": {
+        "mean": 1.4053276489253246,
+        "sample_sd": 0.009251979440338523
+      }
+    },
+    {
+      "scenario": "mixed_separable",
+      "method": "oracle_H_nullspace_ridge",
+      "split": "test",
+      "n_seeds": 3,
+      "ap_raw_rms": {
+        "mean": 1.392076632744846,
+        "sample_sd": 0.018676070372076005
+      },
+      "ap_corrected_rms": {
+        "mean": 0.05374160386516841,
+        "sample_sd": 0.0008581440644336495
+      },
+      "ap_variance_removed_pct": {
+        "mean": 99.8508264784635,
+        "sample_sd": 0.005675650778786243
+      },
+      "cf_mean_evidence_response_retention_pct": {
+        "mean": 100.02694935290492,
+        "sample_sd": 0.07272311715160877
+      },
+      "cf_correction_rms": {
+        "mean": 0.05414505921583792,
+        "sample_sd": 0.0018220068621983253
+      },
+      "cf_correction_rms_over_ap_raw_rms_pct": {
+        "mean": 3.8893787684921577,
+        "sample_sd": 0.11403063237100161
+      },
+      "cf_max_absolute_correction": {
+        "mean": 0.18604169965024364,
+        "sample_sd": 0.01863294107792307
+      },
+      "cf_max_absolute_correction_over_budget": {
+        "mean": 1.323805708655989,
+        "sample_sd": 0.13148640368788758
+      },
+      "cf_fraction_within_fit_budget": {
+        "mean": 0.9886666666666666,
+        "sample_sd": 0.007094598884597594
+      },
+      "cf_direction_reversals": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "fit_budget_logit": {
+        "mean": 0.14053276489253247,
+        "sample_sd": 0.0009251979440338541
+      },
+      "fit_ap_raw_rms": {
+        "mean": 1.4053276489253246,
+        "sample_sd": 0.009251979440338523
+      }
+    },
+    {
+      "scenario": "mixed_inseparable",
+      "method": "raw",
+      "split": "test",
+      "n_seeds": 3,
+      "ap_raw_rms": {
+        "mean": 1.392076632744846,
+        "sample_sd": 0.018676070372076005
+      },
+      "ap_corrected_rms": {
+        "mean": 1.392076632744846,
+        "sample_sd": 0.018676070372076005
+      },
+      "ap_variance_removed_pct": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_mean_evidence_response_retention_pct": {
+        "mean": 100.0,
+        "sample_sd": 0.0
+      },
+      "cf_correction_rms": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_correction_rms_over_ap_raw_rms_pct": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_max_absolute_correction": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_max_absolute_correction_over_budget": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_fraction_within_fit_budget": {
+        "mean": 1.0,
+        "sample_sd": 0.0
+      },
+      "cf_direction_reversals": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "fit_budget_logit": {
+        "mean": 0.14053276489253247,
+        "sample_sd": 0.0009251979440338541
+      },
+      "fit_ap_raw_rms": {
+        "mean": 1.4053276489253246,
+        "sample_sd": 0.009251979440338523
+      }
+    },
+    {
+      "scenario": "mixed_inseparable",
+      "method": "AP_ridge",
+      "split": "test",
+      "n_seeds": 3,
+      "ap_raw_rms": {
+        "mean": 1.392076632744846,
+        "sample_sd": 0.018676070372076005
+      },
+      "ap_corrected_rms": {
+        "mean": 0.04188210859014902,
+        "sample_sd": 0.0004915918232470315
+      },
+      "ap_variance_removed_pct": {
+        "mean": 99.90941825505253,
+        "sample_sd": 0.0024576834924865797
+      },
+      "cf_mean_evidence_response_retention_pct": {
+        "mean": 50.07423961271295,
+        "sample_sd": 0.06857246172197971
+      },
+      "cf_correction_rms": {
+        "mean": 1.9974765021214493,
+        "sample_sd": 0.0027270708672009415
+      },
+      "cf_correction_rms_over_ap_raw_rms_pct": {
+        "mean": 143.5074291477451,
+        "sample_sd": 2.0685029949264333
+      },
+      "cf_max_absolute_correction": {
+        "mean": 2.1369376671438647,
+        "sample_sd": 0.014540017290439702
+      },
+      "cf_max_absolute_correction_over_budget": {
+        "mean": 15.20685450641163,
+        "sample_sd": 0.2024326608942441
+      },
+      "cf_fraction_within_fit_budget": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "cf_direction_reversals": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "fit_budget_logit": {
+        "mean": 0.14053276489253247,
+        "sample_sd": 0.0009251979440338541
+      },
+      "fit_ap_raw_rms": {
+        "mean": 1.4053276489253246,
+        "sample_sd": 0.009251979440338523
+      }
+    },
+    {
+      "scenario": "mixed_inseparable",
+      "method": "evidence_constrained_ridge",
+      "split": "test",
+      "n_seeds": 3,
+      "ap_raw_rms": {
+        "mean": 1.392076632744846,
+        "sample_sd": 0.018676070372076005
+      },
+      "ap_corrected_rms": {
+        "mean": 1.2973164724088757,
+        "sample_sd": 0.017157390926555813
+      },
+      "ap_variance_removed_pct": {
+        "mean": 13.150561171711324,
+        "sample_sd": 0.07142781393907374
+      },
+      "cf_mean_evidence_response_retention_pct": {
+        "mean": 96.59782395580925,
+        "sample_sd": 0.018856876763702523
+      },
+      "cf_correction_rms": {
+        "mean": 0.13613136108033524,
+        "sample_sd": 0.000743527982813673
+      },
+      "cf_correction_rms_over_ap_raw_rms_pct": {
+        "mean": 9.780039780539248,
+        "sample_sd": 0.12590010941279864
+      },
+      "cf_max_absolute_correction": {
+        "mean": 0.14754924499667152,
+        "sample_sd": 0.001629044642432514
+      },
+      "cf_max_absolute_correction_over_budget": {
+        "mean": 1.0500087621557608,
+        "sample_sd": 0.018533577786931967
+      },
+      "cf_fraction_within_fit_budget": {
+        "mean": 0.9,
+        "sample_sd": 0.02910326442171052
+      },
+      "cf_direction_reversals": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "fit_budget_logit": {
+        "mean": 0.14053276489253247,
+        "sample_sd": 0.0009251979440338541
+      },
+      "fit_ap_raw_rms": {
+        "mean": 1.4053276489253246,
+        "sample_sd": 0.009251979440338523
+      }
+    },
+    {
+      "scenario": "mixed_inseparable",
+      "method": "oracle_H_nullspace_ridge",
+      "split": "test",
+      "n_seeds": 3,
+      "ap_raw_rms": {
+        "mean": 1.392076632744846,
+        "sample_sd": 0.018676070372076005
+      },
+      "ap_corrected_rms": {
+        "mean": 1.3931682797672842,
+        "sample_sd": 0.018832494810992924
+      },
+      "ap_variance_removed_pct": {
+        "mean": -0.15650704898887424,
+        "sample_sd": 0.26931374553612536
+      },
+      "cf_mean_evidence_response_retention_pct": {
+        "mean": 100.01240060540879,
+        "sample_sd": 0.052449761920533085
+      },
+      "cf_correction_rms": {
+        "mean": 0.06783796398358216,
+        "sample_sd": 0.007125070239860114
+      },
+      "cf_correction_rms_over_ap_raw_rms_pct": {
+        "mean": 4.87132752110911,
+        "sample_sd": 0.4846719953888084
+      },
+      "cf_max_absolute_correction": {
+        "mean": 0.24083012957294372,
+        "sample_sd": 0.03434462422331386
+      },
+      "cf_max_absolute_correction_over_budget": {
+        "mean": 1.7143864049681767,
+        "sample_sd": 0.25075919373686995
+      },
+      "cf_fraction_within_fit_budget": {
+        "mean": 0.963,
+        "sample_sd": 0.01951922129594315
+      },
+      "cf_direction_reversals": {
+        "mean": 0.0,
+        "sample_sd": 0.0
+      },
+      "fit_budget_logit": {
+        "mean": 0.14053276489253247,
+        "sample_sd": 0.0009251979440338541
+      },
+      "fit_ap_raw_rms": {
+        "mean": 1.4053276489253246,
+        "sample_sd": 0.009251979440338523
+      }
+    }
+  ],
+  "runtime_seconds": 0.11103469715453684
+}
