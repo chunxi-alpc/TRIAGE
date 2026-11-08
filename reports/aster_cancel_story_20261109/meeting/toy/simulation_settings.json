@@ -1,0 +1,18 @@
+{
+  "data_origin": "simplified simulation, not clinical results",
+  "seed": 20261109,
+  "angles": [
+    15,
+    30,
+    45,
+    60
+  ],
+  "fit_pairs": 512,
+  "test_pairs": 4096,
+  "sigma_x": 0.05,
+  "sigma_y": 0.25,
+  "ridge_penalty_per_fit_pair": 0.02,
+  "model": "h=(e+cos(theta)*nu+eps_x, sin(theta)*nu+eps_y); score=h[0]; trace=h[1]",
+  "same_truth_pairs": "same e, independent nu and observation noise; no labels used to fit coefficient",
+  "evidence_test": "change e from -1 to +1 with nu and noise fixed; response retention is output coefficient on e"
+}

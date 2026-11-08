@@ -1,0 +1,52 @@
+import json,csv,difflib
+from pathlib import Path
+OUT=Path('/home/gcx/aster_cancel_story_20261109/clinical')
+DATA=Path('/home/gcx/aster_cr_repair_v2_run_20261108/data')
+records=[json.loads(line) for line in (OUT/'review_pairs.jsonl').open(encoding='utf-8')]
+def segment(prompt,start,end=None):
+    if start not in prompt:return ''
+    value=prompt.split(start,1)[1]
+    return value.split(end,1)[0].strip() if end and end in value else value.strip()
+for r in records:
+    for side in ('left','right'):
+        prompt=r[side+'_prompt']
+        r['condition_'+side]=segment(prompt,'\u5f53\u524d\u6761\u4ef6\uff1a','\n')
+        r['patient_'+side]=segment(prompt,'\u75c5\u5386\uff1a','\n\n\u5f53\u524d\u8282\u70b9\uff1a')
+        r['definitions_'+side]=segment(prompt,'\u6307\u5357\u539f\u6587\u5b9a\u4e49\u4e0e\u8bf4\u660e\uff1a','\n\n\u75c5\u5386\uff1a')
+with (OUT/'review_pairs.jsonl').open('w',encoding='utf-8') as f:
+    for r in records:f.write(json.dumps(r,ensure_ascii=False)+'\n')
+csv_fields=[k for k in records[0] if k not in ('left_prompt','right_prompt')]
+with (OUT/'review_sheet.csv').open('w',encoding='utf-8-sig',newline='') as f:
+    writer=csv.DictWriter(f,fieldnames=csv_fields,extrasaction='ignore')
+    writer.writeheader();writer.writerows(records)
+md=['# \u4e34\u5e8a\u62bd\u6837\u6838\u9a8c\u6750\u6599','',
+'\u6570\u636e\uff1arepair-v2\u3002\u6750\u6599\u5c1a\u672a\u7ecf\u8fc7\u533b\u751f\u5ba1\u6838\u3002','',
+'\u62bd\u53d6 A \u7c7b30\u5bf9\uff1afit/dev/test\u540410\u5bf9\uff1b\u5220\u9664\u3001\u66ff\u6362\u4e3a\u4e2d\u6027\u6587\u5b57\u3001\u4ea4\u6362\u5904\u7f6e\u4e09\u79cd\u6539\u5199\u540410\u5bf9\u3002\u53e6\u5305\u542b\u5168\u90e8 P \u7c7b32\u5bf9\uff0c\u517162\u4e2a\u4e0d\u540c\u8282\u70b9\u3002\u62bd\u6837\u79cd\u5b5020261109\uff0c\u672a\u4f7f\u7528\u6a21\u578b\u5206\u6570\u6216\u7ea0\u9519\u7ed3\u679c\u3002A\u7c7b\u6837\u672c\u907f\u5f00P\u7c7b\u8282\u70b9\u3002','',
+'\u8bf7\u9010\u5bf9\u6838\u9a8c\uff1a','',
+'1. \u6839\u636e\u6761\u4ef6\u4e0e\u75c5\u5386\u6458\u5f55\u51b3\u5b9a\u771f\u503c\u7684\u5173\u952e\u4e8b\u5b9e\uff0c\u72ec\u7acb\u586b\u5199\u4e24\u4fa7\u771f\u503c\u3002',
+'2. \u5224\u65ad\u914d\u5bf9\u771f\u503c\u662f\u5426\u5e94\u4fdd\u6301\u4e0d\u53d8\u3002\u5b58\u50a8\u6807\u7b7e\u76f8\u540c\u53ea\u662f\u6784\u9020\u610f\u56fe\uff0c\u4e0d\u80fd\u66ff\u4ee3\u8bed\u4e49\u6838\u9a8c\u3002',
+'3. \u5224\u65ad\u6539\u5199\u5904\u7f6e\u540e\uff0c\u5f53\u524d\u6761\u4ef6\u6240\u9700\u7684\u5b9a\u4e49\u3001\u7981\u5fcc\u8bc1\u6216\u65b9\u6848\u8bf4\u660e\u662f\u5426\u4ecd\u5b8c\u6574\u3002',
+'4. \u5224\u65ad\u4e24\u4fa7\u6587\u672c\u80fd\u5426\u88ab\u4e34\u5e8a\u89e3\u91ca\uff0c\u6ce8\u660e\u4e0d\u81ea\u7136\u3001\u77db\u76fe\u6216\u6697\u542b\u51b3\u5b9a\u6027\u4e8b\u5b9e\u53d8\u5316\u7684\u4f4d\u7f6e\u3002',
+'5. \u5728review_sheet.csv\u586b\u5199\u7a7a\u767d\u5ba1\u6838\u680f\u3002\u53ef\u586b\u662f/\u5426/\u4e0d\u786e\u5b9a\uff1b\u5b9a\u4e49\u4e0d\u6d89\u53ca\u5904\u7f6e\u65f6\u53ef\u586b\u201c\u4e0d\u9002\u7528\u201d\u3002','',
+'A\u7c7b\u5173\u952e\u4e8b\u5b9e\u5f85\u533b\u751f\u6458\u5f55\u3002P\u7c7b\u5982\u6709\u6784\u9020\u65f6\u8bb0\u5f55\u7684decisive_facts\uff0c\u5df2\u539f\u6837\u63d0\u4f9b\uff0c\u4ecd\u9700\u72ec\u7acb\u6838\u9a8c\u3002\u5b58\u50a8\u6807\u7b7e\u548c\u533b\u751f\u6807\u7b7e\u5206\u5f00\u4fdd\u7559\u3002\u6761\u4ef6\u5b9a\u4e49\u88ab\u7834\u574f\u6216\u771f\u503c\u5e94\u6539\u53d8\u7684\u914d\u5bf9\uff0c\u4e0d\u5e94\u4f5c\u4e3a\u5e72\u6270\u4e0d\u53d8\u6027\u8bc1\u636e\u3002','',
+'\u6587\u4ef6\uff1areview_sheet.csv\u662f\u5ba1\u6838\u8868\uff1breview_pairs.jsonl\u5305\u542b\u4e24\u4fa7\u5b8c\u6574\u8f93\u5165\uff1breview_cases.md\u4f9b\u9605\u8bfb\uff1bpair_counts.csv\u4e3a\u5168\u91cf\u914d\u5bf9\u8ba1\u6570\u3002','',
+'\u4e3b\u5f20\u8303\u56f4\uff1a\u6b63\u6587\u4ee5\u201c\u540e\u7eed\u5904\u7f6e\u5f71\u54cd\u5f53\u524d\u6761\u4ef6\u5224\u65ad\u201d\u53ca\u5176\u4fee\u590d\u4e3a\u4e3b\u3002P\u7c7bfit\u4ec518\u5bf9\u3001dev4\u5bf9\u3001test10\u5bf9\uff0c\u5e94\u4f5c\u4e3a\u63a2\u7d22\u6027\u7ed3\u679c\u6309\u7c7b\u578b\u5355\u5217\u3002\u533b\u751f\u6838\u9a8c\u524d\uff0c\u53ea\u80fd\u79f0\u4e3a\u201c\u6309\u6784\u9020\u6807\u7b7e\u4fdd\u6301\u771f\u503c\u7684\u914d\u5bf9\u201d\u3002','']
+(OUT/'README.zh.md').write_text('\n'.join(md),encoding='utf-8')
+cases=['# \u5f85\u533b\u751f\u6838\u9a8c\u7684\u914d\u5bf9','']
+for r in records:
+    cases.extend([
+        f"## {r['review_id']} | {r['kind']} | {r['split']} | {r['subtype']}",'',
+        f"\u914d\u5bf9\uff1a{r['pair_id']}\uff1b\u8282\u70b9\uff1a{r['group_id']}\u3002",'',
+        f"\u539f\u6761\u4ef6\uff1a{r['condition_left']}",'',
+        f"\u75c5\u5386\uff08\u5de6\uff09\uff1a{r['patient_left']}",'',
+        f"\u75c5\u5386\uff08\u53f3\uff09\uff1a{r['patient_right']}",'',
+        f"\u539f\u6709\u5b9a\u4e49\uff1a{r['definitions_left'] or '\u8f93\u5165\u7684\u5b9a\u4e49\u533a\u4e3a\u7a7a\uff1b\u4ecd\u8bf7\u68c0\u67e5\u5904\u7f6e\u4e2d\u662f\u5426\u542b\u6761\u4ef6\u6240\u9700\u4fe1\u606f\u3002'}",'',
+        f"\u6784\u9020\u65f6\u8bb0\u5f55\u7684\u5173\u952e\u4e8b\u5b9e\uff1a{r['decisive_facts_provided']}",'',
+        f"\u5b58\u50a8\u6807\u7b7e\uff1a\u5de6{r['left_label_stored']}\uff0c\u53f3{r['right_label_stored']}\uff081=\u662f\uff0c0=\u5426\uff1b\u5f85\u72ec\u7acb\u6838\u9a8c\uff09\u3002",'',
+        '\u6539\u5199\u5dee\u5f02\uff1a',chr(96)*3+'diff',r['prompt_changes'],chr(96)*3,'',
+        '\u5f85\u586b\uff1a\u5173\u952e\u4e8b\u5b9e\uff1b\u4e24\u4fa7\u771f\u503c\uff1b\u771f\u503c\u662f\u5426\u4fdd\u6301\uff1b\u5b9a\u4e49\u662f\u5426\u4fdd\u7559\uff1b\u4e34\u5e8a\u662f\u5426\u53ef\u89e3\u91ca\uff1b\u63a5\u53d7/\u5254\u9664\u53ca\u539f\u56e0\u3002','',
+        f"\u539f\u6587\u8def\u5f84\uff1a{r['source_document']}",''])
+(OUT/'review_cases.md').write_text('\n'.join(cases),encoding='utf-8')
+summary=json.loads((OUT/'summary.json').read_text())
+print(json.dumps({'sample_counts':summary['sample_counts'],'unique_nodes':summary['unique_nodes'],'nonempty_conditions':sum(bool(r['condition_left']) for r in records),'nonempty_patients':sum(bool(r['patient_left']) for r in records),'readme_chinese_characters':sum('\u4e00'<=c<='\u9fff' for c in (OUT/'README.zh.md').read_text())},ensure_ascii=False))
+

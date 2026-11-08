@@ -1,0 +1,3275 @@
+# 待医生核验的配对
+
+## CR-001 | A | fit | action_neutral
+
+配对：new-1497-G0:A:4574；节点：new-1497-G0。
+
+原条件：恶性肿瘤患者正在接受放射治疗（放疗）？
+
+病历（左）：患者为恶性肿瘤病史，入院后正在接受放射治疗。评估营养风险时，NRS 2002 总分为 4 分，提示存在明确营养风险；进一步行 PG-SGA 评估，评分为 6 分，显示需要尽快开展营养干预。放疗相关毒性评估显示急性放射损伤达重度，RTOG 分级为 3 级。查体与病程记录提示胃肠道功能健全，能够耐受并实施肠内营养支持。在制定营养支持方案时，口服摄入基础上加用口服营养补充（ONS）即可满足当前能量与蛋白需要，故以 ONS 作为主要的营养干预方式并纳入随访评估与动态调整计划。该病例的主要临床关注点为管理。
+
+病历（右）：患者为恶性肿瘤病史，入院后正在接受放射治疗。评估营养风险时，NRS 2002 总分为 4 分，提示存在明确营养风险；进一步行 PG-SGA 评估，评分为 6 分，显示需要尽快开展营养干预。放疗相关毒性评估显示急性放射损伤达重度，RTOG 分级为 3 级。查体与病程记录提示胃肠道功能健全，能够耐受并实施肠内营养支持。在制定营养支持方案时，口服摄入基础上加用口服营养补充（ONS）即可满足当前能量与蛋白需要，故以 ONS 作为主要的营养干预方式并纳入随访评估与动态调整计划。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -31,18 +31,18 @@
+   是 -> L26；否 -> L27
+-L30: 本指南路径适用于恶性肿瘤放疗患者；非放疗患者不适用该路径。
+-L29: NRS 2002 未提示营养风险；继续常规、动态营养风险筛查与营养评估。
+-L28: 不需要对所有放疗患者常规进行营养治疗；继续动态营养评估/监测，并在需要时及时启动营养治疗。
+-L6: 给予口服营养补充（ONS）作为营养治疗。
+-L8: 优先选择 PEG/PEJ 进行管饲肠内营养支持。
+-L9: 首选鼻胃管（NGT）进行管饲肠内营养支持。
+-L11: 需联合部分肠外或全肠外营养（PN）以满足能量与蛋白质需要。
+-L12: 不推荐常规肠外营养；优先通过可行的肠内途径进行营养支持。
+-L14: 给予口服营养补充（ONS）作为首选营养治疗方式。
+-L16: 可考虑放疗前预防性置入营养管，并在无法仅靠 ONS 满足需求时实施管饲肠内营养。
+-L18: 可考虑放疗前预防性置入营养管，并在无法仅靠 ONS 满足需求时实施管饲肠内营养。
+-L20: 可考虑放疗前预防性置入营养管，并在无法仅靠 ONS 满足需求时实施管饲肠内营养。
+-L22: 可考虑放疗前预防性置入营养管，并在无法仅靠 ONS 满足需求时实施管饲肠内营养。
+-L24: 可考虑放疗前预防性置入营养管，并在无法仅靠 ONS 满足需求时实施管饲肠内营养。
+-L26: 可考虑放疗前预防性置入营养管，并在无法仅靠 ONS 满足需求时实施管饲肠内营养。
+-L27: 不推荐放疗前常规预防性置入营养管；在 ONS 不能满足需求时再考虑反应性管饲肠内营养。
++L30: 记录内容。
++L29: 记录内容。
++L28: 记录内容。
++L6: 记录内容。
++L8: 记录内容。
++L9: 记录内容。
++L11: 记录内容。
++L12: 记录内容。
++L14: 记录内容。
++L16: 记录内容。
++L18: 记录内容。
++L20: 记录内容。
++L22: 记录内容。
++L24: 记录内容。
++L26: 记录内容。
++L27: 记录内容。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/8a14f55c5bda85c9bafbacbba927922c/8a14f55c5bda85c9bafbacbba927922c.md
+
+## CR-002 | A | fit | action_neutral
+
+配对：new-1838-G0:A:1803；节点：new-1838-G0。
+
+原条件：患者是否为孕妇？
+
+病历（左）：患者就诊时并非孕妇。既往明确对拟使用的本品存在过敏反应史，提示本次用药过程中需将过敏因素作为首要考虑并予以规避。该病例的主要临床关注点为管理。
+
+病历（右）：患者就诊时并非孕妇。既往明确对拟使用的本品存在过敏反应史，提示本次用药过程中需将过敏因素作为首要考虑并予以规避。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -37,21 +37,21 @@
+   是 -> L35；否 -> L36
+-L1: 孕妇禁用康妇炎胶囊。
+-L3: 对本品过敏者禁用康妇炎胶囊。
+-L5: 月经过多者不宜服用康妇炎胶囊。
+-L7: 便溏者不宜服用康妇炎胶囊。
+-L9: 带下清稀者不宜服用康妇炎胶囊。
+-L11: 过敏体质者慎用康妇炎胶囊。
+-L14: PID：建议康妇炎胶囊联合抗生素静脉滴注治疗；康妇炎胶囊口服每次3粒，每日3次，14日为1个疗程，连服1~2个疗程。
+-L16: PID：建议康妇炎胶囊联合抗生素口服治疗；康妇炎胶囊口服每次3粒，每日3次，14日为1个疗程，连服1~2个疗程。
+-L17: PID：可应用康妇炎胶囊；用法用量为口服每次3粒，每日3次，14日为1个疗程，连服1~2个疗程。
+-L21: SPID：康妇炎胶囊口服每次3粒，每日3次，28日为1个疗程，可连服2~3个疗程；若为PID亚急性期可联合抗生素口服治疗。
+-L22: SPID：康妇炎胶囊口服每次3粒，每日3次，28日为1个疗程，可连服2~3个疗程。
+-L27: SPID：可应用康妇炎胶囊；用法用量为口服每次3粒，每日3次，28日为1个疗程，可连服2~3个疗程。
+-L25: SPID：康妇炎胶囊口服每次3粒，每日3次，28日为1个疗程，可连服2~3个疗程；若PID反复发作可联合抗生素口服治疗。
+-L26: SPID：康妇炎胶囊口服每次3粒，每日3次，28日为1个疗程，可连服2~3个疗程。
+-L30: VVC：建议康妇炎胶囊联合局部抗真菌药物使用；康妇炎胶囊口服1次3粒，1日3次，7日为1个疗程；重度VVC每个月经周期治疗1~2个疗程，可连用3个月经周期。
+-L32: VVC：建议康妇炎胶囊联合局部抗真菌药物使用；康妇炎胶囊口服1次3粒，1日3次，7日为1个疗程；复发性VVC每个月经周期治疗1~2个疗程，可连用3个月经周期。
+-L33: VVC：建议康妇炎胶囊联合局部抗真菌药物使用；康妇炎胶囊口服1次3粒，1日3次，7日为1个疗程，可连服1~2个疗程。
+-L35: BV：建议康妇炎胶囊联合局部抗菌药物（硝基咪唑类）使用；康妇炎胶囊口服1次3粒，1日3次，7日为1个疗程，可连用2个疗程。
+-L36: 本共识仅推荐康妇炎胶囊用于PID、SPID、VVC和BV；如不属于上述情况，则未提供康妇炎胶囊用药推荐。
++L1: 记录内容。
++L3: 记录内容。
++L5: 记录内容。
++L7: 记录内容。
++L9: 记录内容。
++L11: 记录内容。
++L14: 记录内容。
++L16: 记录内容。
++L17: 记录内容。
++L21: 记录内容。
++L22: 记录内容。
++L27: 记录内容。
++L25: 记录内容。
++L26: 记录内容。
++L30: 记录内容。
++L32: 记录内容。
++L33: 记录内容。
++L35: 记录内容。
++L36: 记录内容。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/a64932065649f96350900769eff6023c/a64932065649f96350900769eff6023c.md
+
+## CR-003 | A | fit | action_neutral
+
+配对：new-388-G8:A:4358；节点：new-388-G8。
+
+原条件：血清烟曲霉特异性IgG抗体或沉淀素是否阳性？
+
+病历（左）：患者既往存在基础呼吸系统疾病史，表现为哮喘。此次评估中，烟曲霉致敏证据明确：烟曲霉特异性IgE升高至 **1.2 kUA/L**（>0.35 kUA/L）。在未接受且未停用全身糖皮质激素治疗的情况下，血清总IgE显著升高至 **1500 U/mL**（>1000 U/mL）。外周血嗜酸粒细胞计数亦升高，为 **0.8×10^9/L**（>0.5×10^9/L）。影像学检查方面，胸片或胸部CT未见与ABPA一致的肺部阴影改变，未观察到一过性实变或结节、游走性阴影、牙膏征/手套征、支气管扩张或胸膜肺纤维化等表现。进一步血清学检测提示烟曲霉特异性IgG抗体（或沉淀素）为阳性。最后，该病例的主要临床关注点为诊断。
+
+病历（右）：患者既往存在基础呼吸系统疾病史，表现为哮喘。此次评估中，烟曲霉致敏证据明确：烟曲霉特异性IgE升高至 **1.2 kUA/L**（>0.35 kUA/L）。在未接受且未停用全身糖皮质激素治疗的情况下，血清总IgE显著升高至 **1500 U/mL**（>1000 U/mL）。外周血嗜酸粒细胞计数亦升高，为 **0.8×10^9/L**（>0.5×10^9/L）。影像学检查方面，胸片或胸部CT未见与ABPA一致的肺部阴影改变，未观察到一过性实变或结节、游走性阴影、牙膏征/手套征、支气管扩张或胸膜肺纤维化等表现。进一步血清学检测提示烟曲霉特异性IgG抗体（或沉淀素）为阳性。最后，该病例的主要临床关注点为诊断。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -29,17 +29,17 @@
+   是 -> L25；否 -> L26
+-L28: 患者尚无哮喘、支气管扩张症、慢阻肺、肺囊性纤维化等ABPA相关基础呼吸系统疾病，不符合本共识中ABPA“相关疾病”条件，目前不支持ABPA诊断；如未来出现上述疾病或典型表现，可再次评估ABPA可能性。
+-L6: 诊断为变应性支气管肺曲霉病（ABPA）。若HRCT显示中心性支气管扩张或支气管黏液栓，则分型为支气管扩张型ABPA（ABPA-B）；如无支气管扩张，则为血清型ABPA（ABPA-S）。
+-L7: 满足相关疾病、曲霉致敏、总IgE升高及部分其他条件，考虑ABPA可能性大；可作为ABPA进行诊断或高度怀疑ABPA，建议进一步随访和复查相关指标（包括烟曲霉sIgG/沉淀素、影像学和嗜酸粒细胞）以巩固诊断。
+-L9: 在存在相关疾病、曲霉致敏、总IgE显著升高和嗜酸粒细胞升高的基础上，且烟曲霉sIgG或沉淀素阳性，即使目前影像学未典型，仍高度怀疑ABPA；建议密切随访，重复影像学检查以明确诊断。
+-L10: 已存在相关疾病及曲霉致敏和总IgE>1000 U/ml及嗜酸粒细胞增多，但缺乏影像学和血清sIgG/沉淀素支持，尚不能明确ABPA；需定期随访，监测影像学、嗜酸粒细胞及曲霉sIgG/沉淀素，以便早期发现ABPA发展。
+-L13: 在存在相关疾病、曲霉致敏、总IgE>1000 U/ml及典型影像学改变和烟曲霉sIgG/沉淀素阳性的基础上，即使外周血嗜酸粒细胞未升高（或因激素治疗被掩盖），仍可诊断为ABPA，并根据有无支气管扩张进行ABPA-B或ABPA-S分型。
+-L14: 存在相关疾病、曲霉致敏、总IgE>1000 U/ml及与ABPA一致的影像学表现，但嗜酸粒细胞和烟曲霉sIgG/沉淀素未升高，考虑ABPA可能性大，需结合既往嗜酸粒细胞记录及重复血清学和影像学随访以确认诊断。
+-L16: 符合真菌致敏且血清总IgE<1000 U/ml并缺乏肺部浸润和支气管扩张的重症哮喘表现，倾向于真菌致敏性重症哮喘（SAFS）而非ABPA。
+-L17: 虽然存在相关基础疾病和曲霉致敏及总IgE>1000 U/ml，但缺乏嗜酸粒细胞增多和典型影像学及sIgG/沉淀素等支持，也不符合SAFS特征，目前不能明确ABPA或SAFS；建议继续随访并完善检查。
+-L19: 在存在相关疾病与曲霉致敏的情况下，如在未接受全身激素治疗时血清总IgE仍处于正常范围，一般可除外活动性ABPA；需考虑其他与真菌致敏相关的疾病，如SAFS或单纯真菌致敏。
+-L21: 虽然血清总IgE≤1000 U/ml，但在存在相关疾病及曲霉致敏的基础上，若同时具备影像学与ABPA一致的肺部阴影、嗜酸粒细胞升高、烟曲霉sIgG或沉淀素阳性等其他条件中的至少两项，仍可考虑诊断为ABPA，并根据HRCT是否存在支气管扩张/黏液栓进行ABPA-B或ABPA-S分型。
+-L22: 存在相关疾病及曲霉致敏，但血清总IgE≤1000 U/ml且尚未同时具备足够其他ABPA诊断条件，未能满足ABPA诊断标准；建议定期随访TIgE、影像学、嗜酸粒细胞和烟曲霉sIgG/沉淀素，以便在早期发现和诊断ABPA。
+-L27: 在存在哮喘等相关疾病但未检测到烟曲霉或其他真菌致敏时，不符合ABPA诊断必需条件，目前不支持ABPA诊断；如临床高度怀疑ABPA，建议在停用可能干扰皮试/IgE检测的药物后复查相关检测或转至有条件的医院进一步评估。
+-L25: 患者存在相关基础疾病和曲霉或其他真菌致敏（ABPM谱系），且总IgE>1000 U/ml，应高度怀疑ABPA或ABPM，建议按ABPA诊断流程进一步完成胸部CT、嗜酸粒细胞计数及特异性IgG/沉淀素等检查，以明确是否符合ABPA诊断标准。
+-L26: 患者存在真菌致敏但总IgE未>1000 U/ml，目前不足以诊断ABPA；需警惕ABPM或SAFS等其他真菌相关疾病，并随访IgE及影像学改变。
++L28: 记录内容。
++L6: 记录内容。
++L7: 记录内容。
++L9: 记录内容。
++L10: 记录内容。
++L13: 记录内容。
++L14: 记录内容。
++L16: 记录内容。
++L17: 记录内容。
++L19: 记录内容。
++L21: 记录内容。
++L22: 记录内容。
++L27: 记录内容。
++L25: 记录内容。
++L26: 记录内容。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/22797520e9af82c1d30a1132411cc8b3/22797520e9af82c1d30a1132411cc8b3.md
+
+## CR-004 | A | fit | action_presence
+
+配对：new-1080-G4:A:5534；节点：new-1080-G4。
+
+原条件：是否计划采用皮肤定向治疗（SDT）？
+
+病历（左）：患者处于妊娠期，就诊时评估为早期MF，临床分期符合ⅠA～ⅡA期范围。经讨论后未选择暂停治疗并仅观察病情变化，而是制定了以皮肤定向治疗（SDT）为主的处理方案，并计划在SDT中采用UVB光疗作为拟实施的治疗措施。管理为主要临床关注点。
+
+病历（右）：患者处于妊娠期，就诊时评估为早期MF，临床分期符合ⅠA～ⅡA期范围。经讨论后未选择暂停治疗并仅观察病情变化，而是制定了以皮肤定向治疗（SDT）为主的处理方案，并计划在SDT中采用UVB光疗作为拟实施的治疗措施。管理为主要临床关注点。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -75,40 +75,40 @@
+   是 -> L70；否 -> L71
+-L23: 指南未提供妊娠期晚期MF（ⅡB～ⅣB期）分期分层治疗路径；仅明确妊娠期应避免维A酸、氮芥、PUVA、TSEBT及化疗，且IFN-α妊娠期安全性缺乏对照研究证实。
+-L3: 建议暂停治疗，观察病情变化。
+-L22: 妊娠期早期MF：可选择暂停治疗观察；如需治疗，优先考虑SDT中的局部外用糖皮质激素或UVB，并避免维A酸、氮芥、PUVA、TSEBT及化疗。
+-L6: 妊娠期早期MF：可选择UVB作为皮肤定向治疗。
+-L8: 妊娠期早期MF：可选择局部外用糖皮质激素作为皮肤定向治疗。
+-L10: 妊娠期应避免使用维A酸（外用或系统使用）。
+-L12: 妊娠期应避免使用氮芥。
+-L14: 妊娠期应避免使用PUVA。
+-L16: 妊娠期应避免使用TSEBT。
+-L18: 妊娠期应避免使用化疗。
+-L20: 妊娠期MF：已有IFN-α治疗报道，但缺乏对照研究验证妊娠期用药安全性。
+-L21: 妊娠期早期MF：在可选方案中优先考虑暂停治疗观察，或选择局部外用糖皮质激素/UVB等SDT，并避免维A酸、氮芥、PUVA、TSEBT及化疗。
+-L27: T1a（ⅠA期，仅有斑片）：可采用“观察随诊”，但必须密切随访并告知可能进展风险。
+-L28: T1a（ⅠA期，仅有斑片）：如不选择观察随诊，指南未在该段落中给出替代路径的强制性结论（仅说明其他ⅠA期患者应采用SDT）。
+-L48: ⅠA期（非T1a）：指南建议应采用SDT；若不进行SDT，指南未给出替代推荐结论。
+-L32: ⅠA期（非T1a）应采用SDT；局部外用糖皮质激素为一线方案。
+-L35: ⅠA期（非T1a）：外用糖皮质激素疗效不佳者可选光疗（NB-UVB或PUVA）。
+-L37: ⅠA期（非T1a）：治疗效果不佳者可使用局部放疗。
+-L44: ⅠA期（非T1a）：应采用SDT；若一项SDT未完全缓解或无法耐受，应尝试其他SDT方案。
+-L40: ⅠA期难治性病变：可使用局部化疗（外用氮芥或卡莫司汀）。
+-L42: ⅠA期难治性病变：可使用贝沙罗汀或咪喹莫特。
+-L43: ⅠA期难治性病变：指南提示可选局部化疗（外用氮芥/卡莫司汀）或贝沙罗汀/咪喹莫特；若均不选，指南未提供进一步升级路径。
+-L46: ⅠA期：若某种SDT无法耐受，应尝试其他SDT方案。
+-L47: ⅠA期：继续SDT作为主要治疗策略（优先局部外用糖皮质激素）。
+-L57: 非妊娠且非早期MF（ⅠA～ⅡA期）：请进入晚期MF（ⅡB～ⅣB期）路径。
+-L52: ⅠB期或ⅡA期且疾病快速进展或皮损广泛者：除光疗、外用药物外，还可以选择TSEBT。
+-L53: ⅠB期或ⅡA期且疾病快速进展者：除光疗、外用药物外，还可以选择TSEBT。
+-L55: ⅠB期或ⅡA期且进展缓慢者：SDT仍为一线治疗（外用药物、光疗、局部放疗）。
+-L56: ⅠB期或ⅡA期：指南按“进展缓慢”与“快速进展/皮损广泛”分层给出方案；若无法归类，需结合临床情况选择SDT或考虑TSEBT。
+-L74: 无法依据指南进入分期驱动的MF治疗路径：需先完成TNMB分期/临床分期评估后再按分期选择治疗。
+-L61: ⅡB期且肿瘤皮损局限（<10%BSA）：建议局部放疗；同时存在斑片/斑块者予SDT。
+-L63: ⅡB期且肿瘤皮损泛发（≥10%BSA）：建议系统治疗或TSEBT；系统治疗优先考虑干扰素、维A酸、低剂量MTX，其次HDACi及靶向治疗药物（维布妥昔单抗、莫格利珠单抗），难治性可考虑系统化疗；系统治疗均可与SDT联用以减轻症状。
+-L64: ⅡB期：指南以肿瘤累及<10%BSA与≥10%BSA分层；若无法界定，需补充BSA评估后再选局部放疗或系统治疗/TSEBT路径。
++L23: [处置已删除]
++L3: [处置已删除]
++L22: [处置已删除]
++L6: [处置已删除]
++L8: [处置已删除]
++L10: [处置已删除]
++L12: [处置已删除]
++L14: [处置已删除]
++L16: [处置已删除]
++L18: [处置已删除]
++L20: [处置已删除]
++L21: [处置已删除]
++L27: [处置已删除]
++L28: [处置已删除]
++L48: [处置已删除]
++L32: [处置已删除]
++L35: [处置已删除]
++L37: [处置已删除]
++L44: [处置已删除]
++L40: [处置已删除]
++L42: [处置已删除]
++L43: [处置已删除]
++L46: [处置已删除]
++L47: [处置已删除]
++L57: [处置已删除]
++L52: [处置已删除]
++L53: [处置已删除]
++L55: [处置已删除]
++L56: [处置已删除]
++L74: [处置已删除]
++L61: [处置已删除]
++L63: [处置已删除]
++L64: [处置已删除]
+ L73: 指南将晚期MF定义为ⅡB期至ⅣB期；若不在该范围内，请重新核对TNMB与临床分期。
+-L72: ⅢA期至ⅣB期且不伴皮肤外受累者：可采用系统治疗联合SDT；系统治疗选择原则同ⅡB期肿瘤泛发分支，效果不佳者可使用联合治疗。
+-L68: ⅢA期至ⅣB期且伴血液受累者：如条件允许，可首先考虑ECP；ECP可与光疗、干扰素、维A酸等SDT或系统治疗联合应用。
+-L70: ⅢA期至ⅣB期且伴淋巴结或内脏受累者：可尝试HDACi、维布妥昔单抗、莫格利珠单抗或系统化疗，可联合放疗以控制局部淋巴结或内脏病变；多种治疗方案无效或病情侵袭性进展者，可考虑HSCT。
+-L71: ⅢA期至ⅣB期且伴皮肤外受累但未明确血液/淋巴结/内脏受累类型：指南未给出更细分路径，需进一步评估受累部位后按相应分支处理。
++L72: [处置已删除]
++L68: [处置已删除]
++L70: [处置已删除]
++L71: [处置已删除]
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/621f81e0a0dd81fd83dbde792e060344/621f81e0a0dd81fd83dbde792e060344.md
+
+## CR-005 | A | fit | action_presence
+
+配对：new-1126-G23:A:2082；节点：new-1126-G23。
+
+原条件：是否存在主动脉瘤？
+
+病历（左）：患者既往行冠状动脉造影/冠状动脉CT血管成像提示中度至重度冠状动脉狭窄。经规范药物治疗并接受过再血管化治疗（PCI和/或CABG）后，仍反复出现心绞痛发作；同时评估认为不适宜进一步行PCI或CABG，或患者明确表示不愿接受此类治疗。症状程度达到CCS心绞痛分级Ⅱ级及以上。心功能评估为NYHAⅡ级，未达到NYHAⅣ级。负荷超声心动图和/或负荷心肌灌注显像提示存在可逆性心肌缺血的客观证据。就诊及评估过程中血流动力学稳定，未见左心室收缩功能受损并伴血流动力学不稳定的情况。
+
+同时排除多项可能影响处置的合并症或禁忌：未见急性心肌炎、心包炎及中量或大量心包积液证据；未提示感染性心内膜炎；未发现深静脉血栓形成、心腔内血栓或肺栓塞；未见严重主动脉瓣狭窄、主动脉瘤、胸主动脉夹层或胸主动脉瘤；并非心脏移植术后或心脏金属瓣膜置换术后；冠脉评估未提示无保护的严重左主干病变。超声检查声窗良好，不符合慢性阻塞性肺疾病、肺大疱、假体置入术后等导致声窗差的情况。另合并胸部恶性肿瘤。
+
+本病例的主要临床关注点为管理。
+
+病历（右）：患者既往行冠状动脉造影/冠状动脉CT血管成像提示中度至重度冠状动脉狭窄。经规范药物治疗并接受过再血管化治疗（PCI和/或CABG）后，仍反复出现心绞痛发作；同时评估认为不适宜进一步行PCI或CABG，或患者明确表示不愿接受此类治疗。症状程度达到CCS心绞痛分级Ⅱ级及以上。心功能评估为NYHAⅡ级，未达到NYHAⅣ级。负荷超声心动图和/或负荷心肌灌注显像提示存在可逆性心肌缺血的客观证据。就诊及评估过程中血流动力学稳定，未见左心室收缩功能受损并伴血流动力学不稳定的情况。
+
+同时排除多项可能影响处置的合并症或禁忌：未见急性心肌炎、心包炎及中量或大量心包积液证据；未提示感染性心内膜炎；未发现深静脉血栓形成、心腔内血栓或肺栓塞；未见严重主动脉瓣狭窄、主动脉瘤、胸主动脉夹层或胸主动脉瘤；并非心脏移植术后或心脏金属瓣膜置换术后；冠脉评估未提示无保护的严重左主干病变。超声检查声窗良好，不符合慢性阻塞性肺疾病、肺大疱、假体置入术后等导致声窗差的情况。另合并胸部恶性肿瘤。
+
+本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -55,30 +55,30 @@
+   是 -> L46；否 -> L47
+-L54: 不符合CSWT适应证：影像未提示中度至重度冠状动脉狭窄，不能按适应证实施CSWT。
+-L53: 不符合CSWT适应证：经标准药物及再血管化治疗后无持续心绞痛，不能按适应证实施CSWT。
+-L52: 不符合CSWT适应证：适宜且愿意接受PCI/CABG者不属于该适应证表述所涵盖人群，不能按适应证实施CSWT。
+-L51: 不符合CSWT适应证：CCS心绞痛分级未达Ⅱ级，不能按适应证实施CSWT。
+-L50: 不符合CSWT适应证：NYHA心功能分级不在I～Ⅲ级范围内，不能按适应证实施CSWT。
+-L49: 不符合CSWT适应证：缺乏可逆性心肌缺血的客观影像学证据，不能按适应证实施CSWT。
+-L48: 不符合CSWT适应证：血流动力学不稳定，不能按适应证实施CSWT。
+-L8: CSWT禁忌：NYHA心功能分级Ⅳ级，不应实施CSWT。
+-L10: CSWT禁忌：合并急性心肌炎，不应实施CSWT。
+-L12: CSWT禁忌：合并心包炎，不应实施CSWT。
+-L14: CSWT禁忌：中量或大量心包积液，不应实施CSWT。
+-L16: CSWT禁忌：感染性心内膜炎，不应实施CSWT。
+-L18: CSWT禁忌：深静脉血栓形成，不应实施CSWT。
+-L20: CSWT禁忌：心腔内血栓，不应实施CSWT。
+-L22: CSWT禁忌：严重主动脉瓣狭窄，不应实施CSWT。
+-L24: CSWT禁忌：主动脉瘤，不应实施CSWT。
+-L26: CSWT禁忌：胸主动脉夹层，不应实施CSWT。
+-L28: CSWT禁忌：胸主动脉瘤，不应实施CSWT。
+-L30: CSWT禁忌：心脏移植术后，不应实施CSWT。
+-L32: CSWT禁忌：心脏金属瓣膜置换术后，不应实施CSWT。
+-L34: CSWT禁忌：肺栓塞，不应实施CSWT。
+-L36: CSWT相对禁忌：无保护的严重左主干病变，原则上不推荐CSWT（需谨慎评估）。
+-L38: CSWT相对禁忌：左心室收缩功能受损且伴血流动力学不稳定，原则上不推荐CSWT（需谨慎评估）。
+-L40: CSWT相对禁忌：超声检查声窗差，原则上不推荐CSWT（需谨慎评估）。
+-L42: CSWT相对禁忌：合并胸部恶性肿瘤，原则上不推荐CSWT（需谨慎评估）。
+-L44: CSWT相对禁忌：妊娠，原则上不推荐CSWT（需谨慎评估）。
+-L46: CSWT相对禁忌：治疗区域皮肤破溃或感染，原则上不推荐CSWT（需谨慎评估）。
+-L47: 符合CSWT适应证且无禁忌/相对禁忌：可选择实施CSWT（按规范方案执行，并在治疗前后进行评估与监测）。
++L54: [处置已删除]
++L53: [处置已删除]
++L52: [处置已删除]
++L51: [处置已删除]
++L50: [处置已删除]
++L49: [处置已删除]
++L48: [处置已删除]
++L8: [处置已删除]
++L10: [处置已删除]
++L12: [处置已删除]
++L14: [处置已删除]
++L16: [处置已删除]
++L18: [处置已删除]
++L20: [处置已删除]
++L22: [处置已删除]
++L24: [处置已删除]
++L26: [处置已删除]
++L28: [处置已删除]
++L30: [处置已删除]
++L32: [处置已删除]
++L34: [处置已删除]
++L36: [处置已删除]
++L38: [处置已删除]
++L40: [处置已删除]
++L42: [处置已删除]
++L44: [处置已删除]
++L46: [处置已删除]
++L47: [处置已删除]
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/66d7bfb7497251d902c39fdc29eeffe6/66d7bfb7497251d902c39fdc29eeffe6.md
+
+## CR-006 | A | fit | action_presence
+
+配对：new-2002-G18:A:2234；节点：new-2002-G18。
+
+原条件：Is enthesitis present?
+
+病历（左）：An adult with psoriatic arthritis was evaluated after having an inadequate response or intolerance to prior disease-modifying antirheumatic drug therapy. At presentation, the inflammatory arthritis was moderately active. There was no evidence of axial involvement. No comorbidities were present that would specifically favor selecting apremilast ahead of biologic therapies, such as cardiometabolic comorbidity. Cutaneous psoriasis did not involve difficult sites, with no nail, scalp, palmar, or plantar involvement. Enthesitis was not present on examination. Dactylitis was present, with a swollen “sausage” digit noted clinically. The primary clinical focus was management.
+
+病历（右）：An adult with psoriatic arthritis was evaluated after having an inadequate response or intolerance to prior disease-modifying antirheumatic drug therapy. At presentation, the inflammatory arthritis was moderately active. There was no evidence of axial involvement. No comorbidities were present that would specifically favor selecting apremilast ahead of biologic therapies, such as cardiometabolic comorbidity. Cutaneous psoriasis did not involve difficult sites, with no nail, scalp, palmar, or plantar involvement. Enthesitis was not present on examination. Dactylitis was present, with a swollen “sausage” digit noted clinically. The primary clinical focus was management.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -31,18 +31,18 @@
+   是 -> L27；否 -> L28
+-L30: Guideline indication for apremilast use is not met: apremilast is approved for adult PsA patients who had an inadequate response or intolerance to previous DMARD treatment.
+-L3: Apremilast is not considered appropriate when axial involvement is a key factor driving treatment choice (expert consensus: axial involvement does not positively influence choosing apremilast).
+-L6: Prefer apremilast (can be considered a safer option than biologic therapies in patients with recurrent/chronic/active infections).
+-L8: Prefer apremilast (can be considered a safer option than biologic therapies in active malignancy or malignancy within <5 years).
+-L10: Consider apremilast as an appropriate therapeutic option before biologic therapies in PsA with cardiometabolic comorbidities.
+-L12: Consider apremilast as an appropriate option (advantages vs other conventional synthetic treatments in hepatic impairment).
+-L14: Consider apremilast as an appropriate option with advantages over biologic therapies in patients with congestive heart failure.
+-L15: Consider apremilast as an appropriate option before biologic therapies in moderately active PsA after DMARD failure/contraindication, particularly when comorbidity profile favors it.
+-L17: Consider apremilast an appropriate option before biologic therapies for PsA with nail/scalp/palm/sole involvement.
+-L19: Enthesitis positively supports choosing apremilast; apremilast is an appropriate option for enthesitis/dactylitis before biologic therapies.
+-L21: Dactylitis positively supports choosing apremilast; apremilast is an appropriate option for enthesitis/dactylitis before biologic therapies.
+-L23: Apremilast is an appropriate option in mildly disabling disease or moderate activity with no radiographic progression factors.
+-L24: Guideline-derived criteria for apremilast appropriateness are not met or not specified for this profile; consider alternative PsA management pathways.
+-L29: Apremilast positioning is not specified by this guideline for non-moderately-active and non-mildly-disabling PsA.
+-L27: Apremilast is an appropriate option in mildly disabling disease (or moderate activity) without radiographic progression factors.
+-L28: Apremilast appropriateness not established by this guideline when radiographic progression factors are present.
++L30: [处置已删除]
++L3: [处置已删除]
++L6: [处置已删除]
++L8: [处置已删除]
++L10: [处置已删除]
++L12: [处置已删除]
++L14: [处置已删除]
++L15: [处置已删除]
++L17: [处置已删除]
++L19: [处置已删除]
++L21: [处置已删除]
++L23: [处置已删除]
++L24: [处置已删除]
++L29: [处置已删除]
++L27: [处置已删除]
++L28: [处置已删除]
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/b61a69410078135dbaa93ee6aa162f79/b61a69410078135dbaa93ee6aa162f79.md
+
+## CR-007 | A | fit | action_presence
+
+配对：new-2246-G19:A:304；节点：new-2246-G19。
+
+原条件：Is the patient older than 28 days?
+
+病历（左）：A 4-month-old infant (>28 days but <6 months) was admitted to the ICU following surgery. Postoperative pain complaints and observed discomfort were consistent with the expected surgical site and postoperative time course, and were not accompanied by vital sign instability, respiratory distress, or fever. There was no discrepancy between family-reported pain and the care team’s bedside observations. No chest tubes were in place, and the surgical approach had not been a thoracotomy. Extubation was not anticipated within 3 hours of ICU admission. Pain was assessed using a validated, age-appropriate tool with reassessments documenting response to interventions. The patient did not require IV opioid administration with suitability for patient-controlled analgesia. A single weight-based morphine dose was ordered at 0.1 mg/kg, not exceeding 0.2 mg/kg, and renal dysfunction was not present. The primary clinical focus was management.
+
+病历（右）：A 4-month-old infant (>28 days but <6 months) was admitted to the ICU following surgery. Postoperative pain complaints and observed discomfort were consistent with the expected surgical site and postoperative time course, and were not accompanied by vital sign instability, respiratory distress, or fever. There was no discrepancy between family-reported pain and the care team’s bedside observations. No chest tubes were in place, and the surgical approach had not been a thoracotomy. Extubation was not anticipated within 3 hours of ICU admission. Pain was assessed using a validated, age-appropriate tool with reassessments documenting response to interventions. The patient did not require IV opioid administration with suitability for patient-controlled analgesia. A single weight-based morphine dose was ordered at 0.1 mg/kg, not exceeding 0.2 mg/kg, and renal dysfunction was not present. The primary clinical focus was management.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -25,15 +25,15 @@
+   是 -> L21；否 -> L22
+-L1: Prompt evaluation and consider new diagnoses (e.g., wound dehiscence, sepsis, tight dressings, ileus).
+-L3: Perform further evaluation to address discrepancy between reported pain and observed pain.
+-L5: Continue scheduled analgesics (higher levels of analgesia may be required while chest tubes remain in place).
+-L7: Provide additional consideration for analgesia (thoracotomy may be more painful than sternotomy).
+-L10: Avoid continuous opioid and/or benzodiazepine infusions; instead use scheduled acetaminophen and IV ketorolac.
+-L11: Use scheduled acetaminophen and IV ketorolac as an opioid-sparing approach for patients anticipated to extubate within 3 hours.
+-L24: Assess pain using a validated, age-appropriate tool and regularly reassess response to intervention, acknowledging underlying cardiac disease when selecting agents.
+-L14: Consider PCA for IV opioid administration (insufficient evidence to recommend for or against adding a continuous infusion with PCA).
+-L16: Reduce morphine dose so it does not exceed 0.2 mg/kg (doses >0.2 mg/kg are not incrementally effective).
+-L18: Consider limiting morphine use due to risk of accumulation of toxic metabolites.
+-L23: Use acetaminophen early in the postoperative period to facilitate pain management and reduce overall opioid exposure.
+-L21: Routinely utilize NSAIDs for pain management (in patients without additional risk factors) to reduce opioid exposure.
+-L22: Consider NSAIDs (including in complex CHD) to reduce opioid exposure (in patients without additional risk factors).
++L1: [处置已删除]
++L3: [处置已删除]
++L5: [处置已删除]
++L7: [处置已删除]
++L10: [处置已删除]
++L11: [处置已删除]
++L24: [处置已删除]
++L14: [处置已删除]
++L16: [处置已删除]
++L18: [处置已删除]
++L23: [处置已删除]
++L21: [处置已删除]
++L22: [处置已删除]
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/ce2912b947f94e8bad0d4b95f2c21e2e/ce2912b947f94e8bad0d4b95f2c21e2e.md
+
+## CR-008 | A | fit | action_swap
+
+配对：new-1128-G4:A:1565；节点：new-1128-G4。
+
+原条件：Does the patient have refractory ascites?
+
+病历（左）：The patient was scheduled for an emergent, non-elective surgical procedure in the setting of a certain diagnosis of acute cholecystitis. Preoperative assessment indicated that liver disease severity was not consistent with Child–Turcotte–Pugh class C, and there was no evidence of refractory ascites on examination or recent clinical course. The primary clinical focus was management.
+
+病历（右）：The patient was scheduled for an emergent, non-elective surgical procedure in the setting of a certain diagnosis of acute cholecystitis. Preoperative assessment indicated that liver disease severity was not consistent with Child–Turcotte–Pugh class C, and there was no evidence of refractory ascites on examination or recent clinical course. The primary clinical focus was management.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -54,28 +54,28 @@
+ L3: Avoid cholecystectomy due to significant risk of complications (manage in an experienced center; consider alternatives via multidisciplinary team).
+-L5: Avoid cholecystectomy due to significant risk of complications (manage in an experienced center; consider alternatives via multidisciplinary team).
+-L6: Refer to a center with experience in ACLD for management of cholecystitis and proceed with multidisciplinary assessment of best therapeutic option.
+-L8: Proceed with emergent hernia repair recognizing substantially higher risk than elective repair; perform in an experienced center with multidisciplinary assessment.
+-L9: Emergent surgery in ACLD carries higher risk than elective; perform in an experienced center and ensure multidisciplinary assessment of best therapeutic option and alternatives.
+-L52: No suspicion of ACLD: proceed with standard perioperative care (guideline pathway for ACLD not activated).
+-L14: Do not perform bariatric procedures in the presence of CSPH.
+-L16: Do not perform liver resection when CSPH is present; CSPH should be excluded before liver resection.
+-L18: Avoid elective surgery in decompensated patients; pursue preoperative optimization and multidisciplinary planning (including portal hypertension prophylaxis, nutritional optimization, and treatment of decompensations).
+-L23: Proceed with elective surgery planning with ACLD optimization (treat underlying etiology; nutritional optimization; treat ascites/HE; portal-hypertension prophylaxis as indicated) and prefer minimally invasive approaches when feasible.
+-L21: Recommend endoscopic variceal ligation to prevent variceal bleeding (even though it does not reduce decompensation risk).
+-L22: Start NSBB (carvedilol preferred in compensated ACLD if no contraindication; propranolol alternative if carvedilol not tolerated) to reduce HVPG and prevent decompensation.
+-L26: Do not perform liver resection when CSPH is present; CSPH should be excluded before liver resection.
+-L28: Do not perform bariatric procedures in the presence of CSPH.
+-L29: Manage as CSPH present for perioperative planning: pursue portal-hypertension prophylaxis (NSBB if no contraindication; EBL if high-risk varices with NSBB intolerance/contraindication) and multidisciplinary optimization before elective surgery.
+-L35: Do not perform liver resection when CSPH is present (HVPG ≥ 10 mmHg implies CSPH not excluded); avoid due to risk of decompensation and mortality.
+-L33: Liver resection may be performed (good prognosis selection); prefer laparoscopic approach when feasible to reduce complications.
+-L34: Good liver function (MELD < 9) is recommended before liver resection; optimize/consider alternatives if MELD is not < 9.
+-L41: For patients with clinical ascites, perform preoperative large-volume paracentesis with albumin 8 g per liter removed to reduce perioperative risk; limit IV fluids/blood products perioperatively in CSPH to avoid worsening ascites/bleeding risk.
+-L39: Elective abdominal hernia repair may proceed with intensive diuretic treatment before and after intervention and large-volume paracentesis to reduce recurrence and postoperative complications.
+-L40: Avoid elective abdominal hernia surgery when ascites are not controlled medically due to risk of dehiscence and peritonitis; optimize ascites control first.
+-L46: Proceed with elective surgery with multidisciplinary planning and validated surgical-risk tools; prefer laparoscopic/robotic approaches when feasible to reduce postoperative complications.
+-L44: Perform preoperative liver transplant evaluation.
+-L45: Evaluate for liver transplantation in higher-risk patients (CTP class C or MELD > 20), while recognizing surgical risk is continuous with no absolute exclusion cut-offs.
++L5: Refer to a center with experience in ACLD for management of cholecystitis and proceed with multidisciplinary assessment of best therapeutic option.
++L6: Proceed with emergent hernia repair recognizing substantially higher risk than elective repair; perform in an experienced center with multidisciplinary assessment.
++L8: Emergent surgery in ACLD carries higher risk than elective; perform in an experienced center and ensure multidisciplinary assessment of best therapeutic option and alternatives.
++L9: No suspicion of ACLD: proceed with standard perioperative care (guideline pathway for ACLD not activated).
++L52: Do not perform bariatric procedures in the presence of CSPH.
++L14: Do not perform liver resection when CSPH is present; CSPH should be excluded before liver resection.
++L16: Avoid elective surgery in decompensated patients; pursue preoperative optimization and multidisciplinary planning (including portal hypertension prophylaxis, nutritional optimization, and treatment of decompensations).
++L18: Proceed with elective surgery planning with ACLD optimization (treat underlying etiology; nutritional optimization; treat ascites/HE; portal-hypertension prophylaxis as indicated) and prefer minimally invasive approaches when feasible.
++L23: Recommend endoscopic variceal ligation to prevent variceal bleeding (even though it does not reduce decompensation risk).
++L21: Start NSBB (carvedilol preferred in compensated ACLD if no contraindication; propranolol alternative if carvedilol not tolerated) to reduce HVPG and prevent decompensation.
++L22: Do not perform liver resection when CSPH is present; CSPH should be excluded before liver resection.
++L26: Do not perform bariatric procedures in the presence of CSPH.
++L28: Manage as CSPH present for perioperative planning: pursue portal-hypertension prophylaxis (NSBB if no contraindication; EBL if high-risk varices with NSBB intolerance/contraindication) and multidisciplinary optimization before elective surgery.
++L29: Do not perform liver resection when CSPH is present (HVPG ≥ 10 mmHg implies CSPH not excluded); avoid due to risk of decompensation and mortality.
++L35: Liver resection may be performed (good prognosis selection); prefer laparoscopic approach when feasible to reduce complications.
++L33: Good liver function (MELD < 9) is recommended before liver resection; optimize/consider alternatives if MELD is not < 9.
++L34: For patients with clinical ascites, perform preoperative large-volume paracentesis with albumin 8 g per liter removed to reduce perioperative risk; limit IV fluids/blood products perioperatively in CSPH to avoid worsening ascites/bleeding risk.
++L41: Elective abdominal hernia repair may proceed with intensive diuretic treatment before and after intervention and large-volume paracentesis to reduce recurrence and postoperative complications.
++L39: Avoid elective abdominal hernia surgery when ascites are not controlled medically due to risk of dehiscence and peritonitis; optimize ascites control first.
++L40: Proceed with elective surgery with multidisciplinary planning and validated surgical-risk tools; prefer laparoscopic/robotic approaches when feasible to reduce postoperative complications.
++L46: Perform preoperative liver transplant evaluation.
++L44: Evaluate for liver transplantation in higher-risk patients (CTP class C or MELD > 20), while recognizing surgical risk is continuous with no absolute exclusion cut-offs.
++L45: Cirrhosis/ACLD is suggested by non-invasive testing; refer to hepatology to evaluate for CSPH before surgical procedures.
+ L48: Cirrhosis/ACLD is suggested by non-invasive testing; refer to hepatology to evaluate for CSPH before surgical procedures.
+-L50: Cirrhosis/ACLD is suggested by non-invasive testing; refer to hepatology to evaluate for CSPH before surgical procedures.
+-L51: ACLD not supported by the specified non-invasive cut-offs in this guideline pathway; proceed with standard perioperative care, and reassess if clinical suspicion persists.
++L50: ACLD not supported by the specified non-invasive cut-offs in this guideline pathway; proceed with standard perioperative care, and reassess if clinical suspicion persists.
++L51: Avoid cholecystectomy due to significant risk of complications (manage in an experienced center; consider alternatives via multidisciplinary team).
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/66ecb7ee01f40f57246432c9f92a84bd/66ecb7ee01f40f57246432c9f92a84bd.md
+
+## CR-009 | A | fit | action_swap
+
+配对：new-304-G77:A:6897；节点：new-304-G77。
+
+原条件：患者是否存在HBsAg阳性或HBV-DNA阳性等慢性乙肝或HBV既往感染，需要在回输当天开始口服核苷类似物（如恩替卡韦、TDF或TAF）预防HBV再激活？
+
+病历（左）：患者为18–65岁成人，既往临床过程符合复发/难治急性B淋巴细胞白血病（R/R B-ALL），并非经过二线及以上治疗的成人大B细胞淋巴瘤（LBCL）范畴疾病，也不符合既往经至少3线治疗后进展的多发性骨髓瘤且曾使用蛋白酶体抑制剂与免疫调节剂的情况。入院后已完成CAR-T治疗前常规评估：完善病史与体格检查、ECOG体能评分评估，并在实验室方面完成血/尿/便常规、凝血功能、生化全项、LDH、β2微球蛋白，以及乙肝/丙肝/梅毒/HIV/EBV筛查；同时检测了细胞因子、铁蛋白与CRP，并行心电图、心脏超声、胸部CT及必要的中枢神经系统影像学评估。进一步已完成骨髓穿刺与活检，流式细胞术明确表达CD19靶点；同时对是否存在CNS或其他髓外病变累及进行了系统评估，并已完成相关检查流程。
+
+治疗准备阶段已完成单个核细胞采集；在CAR-T制备周期内，结合肿瘤负荷与进展风险，已对是否需要桥接治疗以降低疾病负荷并减少免疫毒性进行了充分评估与安排。清淋预处理前，CAR-T细胞产品已制备成功，且当时未见严重感染证据，也未出现导致无法耐受预处理的器官功能障碍。随后拟采用FC清淋预处理方案：氟达拉滨28 mg/m²·d（d1–3）联合环磷酰胺300 mg/m²·d（d1–3），并计划在预处理结束后第2–7天窗口内进行CAR-T细胞回输。回输当日计划在回输前给予抗组胺药物苯海拉明12.5 mg，并同时给予左乙拉西坦500 mg每12小时一次以进行癫痫预防。病毒学方面，乙肝相关检查提示存在HBsAg阳性或HBV-DNA阳性（例如HBV-DNA 2.5×10³ IU/mL），因此计划在回输当天开始口服核苷（酸）类似物（如恩替卡韦或TDF/TAF）以预防HBV再激活。最后，本病例主要临床关注点为管理。
+
+病历（右）：患者为18–65岁成人，既往临床过程符合复发/难治急性B淋巴细胞白血病（R/R B-ALL），并非经过二线及以上治疗的成人大B细胞淋巴瘤（LBCL）范畴疾病，也不符合既往经至少3线治疗后进展的多发性骨髓瘤且曾使用蛋白酶体抑制剂与免疫调节剂的情况。入院后已完成CAR-T治疗前常规评估：完善病史与体格检查、ECOG体能评分评估，并在实验室方面完成血/尿/便常规、凝血功能、生化全项、LDH、β2微球蛋白，以及乙肝/丙肝/梅毒/HIV/EBV筛查；同时检测了细胞因子、铁蛋白与CRP，并行心电图、心脏超声、胸部CT及必要的中枢神经系统影像学评估。进一步已完成骨髓穿刺与活检，流式细胞术明确表达CD19靶点；同时对是否存在CNS或其他髓外病变累及进行了系统评估，并已完成相关检查流程。
+
+治疗准备阶段已完成单个核细胞采集；在CAR-T制备周期内，结合肿瘤负荷与进展风险，已对是否需要桥接治疗以降低疾病负荷并减少免疫毒性进行了充分评估与安排。清淋预处理前，CAR-T细胞产品已制备成功，且当时未见严重感染证据，也未出现导致无法耐受预处理的器官功能障碍。随后拟采用FC清淋预处理方案：氟达拉滨28 mg/m²·d（d1–3）联合环磷酰胺300 mg/m²·d（d1–3），并计划在预处理结束后第2–7天窗口内进行CAR-T细胞回输。回输当日计划在回输前给予抗组胺药物苯海拉明12.5 mg，并同时给予左乙拉西坦500 mg每12小时一次以进行癫痫预防。病毒学方面，乙肝相关检查提示存在HBsAg阳性或HBV-DNA阳性（例如HBV-DNA 2.5×10³ IU/mL），因此计划在回输当天开始口服核苷（酸）类似物（如恩替卡韦或TDF/TAF）以预防HBV再激活。最后，本病例主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -87,46 +87,46 @@
+   是 -> L78；否 -> L79
+-L46: 尽管为成人大B细胞淋巴瘤，但目前既往治疗情况不属于对标准一线含CD20单抗和蒽环类方案原发耐药或12个月内复发的LBCL，本指南将其作为主要获益人群之一，需结合是否经二线及以上治疗等其他适应证条款综合评估CD19 CAR-T治疗的适用性。
+-L45: 在未完成完整病史采集、体格检查以及B症状和ECOG体能状态评估前，不宜启动CD19 CAR-T治疗流程，应先全面评估患者一般情况。
+-L44: 尚未完成血尿便常规、生化全项、凝血功能、β2微球蛋白及乙肝/丙肝/梅毒/HIV等感染筛查，或未排除/控制活动性感染，不符合启动CD19 CAR-T治疗前评估要求，应先完善实验室检查和感染控制。
+-L43: 未完成18F-FDG PET/CT或全身增强CT及必要的中枢神经系统和胃肠道影像学检查，无法全面了解病灶分布和负荷，不应进入后续清淋化疗与CD19 CAR-T回输环节，需先完善影像学评估。
+-L42: 尚未进行或完成骨髓穿刺涂片和病理活检，无法明确骨髓受累情况及基线病情，需先行骨髓学评估后再决定CD19 CAR-T治疗与随访策略。
+-L41: 尚未完成病理学确诊或未能原则性确认CD19靶点，不能按本指南路径实施CD19 CAR-T治疗，应先完善病理及靶点检测明确诊断与靶向基础。
+-L40: 育龄期女性妊娠试验为阳性时，不宜按本指南常规流程实施CD19 CAR-T细胞治疗，应先进行妊娠相关风险评估与处理后再另行决策。
+-L39: 尚未充分完成对CNS或胃肠道等特殊受累部位的评估（如头颅MRI、胃肠内镜等），无法全面评估CAR-T相关神经毒性或出血穿孔风险，应先完善相关专科检查和风险评估，再决定是否继续推进CD19 CAR-T治疗流程。
+-L38: 患者外周血淋巴细胞绝对计数＜0.1×10^9/L或存在活动性感染，难以保证足够质量的单个核细胞采集且存在安全风险，应先纠正感染、提高ALC（优选>0.5×10^9/L）后再考虑采集和后续CD19 CAR-T治疗。
+-L37: 外周血单个核细胞采集前未充分停用淋巴细胞毒性药物、G-CSF或大剂量糖皮质激素以满足洗脱期，或ALC＜0.1×10^9/L且/或存在活动性感染，需先完成药物洗脱和感染控制并在ALC提高后再行单个核细胞采集。
+-L36: 目前CAR-T细胞产品尚未制备成功，不能启动淋巴细胞清除化疗和回输流程，应等待制备成功或考虑其他治疗方案。
+-L35: 患者CAR-T制备期间肿瘤侵袭性或负荷尚可，临床医师认为可在无桥接治疗的情况下直接进入淋巴细胞清除化疗及后续CD19 CAR-T细胞回输流程。
+-L34: 尽管存在高侵袭或高负荷疾病，但尚未制定或完成适当强度且与预处理化疗有足够间隔的桥接治疗，建议根据既往疗效选择化疗、靶向、免疫或放疗等桥接方案控制病情后，再进入淋巴清除化疗和CD19 CAR-T细胞回输流程。
+-L33: 当前患者一般状况或ECOG评分提示难以耐受淋巴细胞清除化疗，需在改善体能状态及生命体征稳定后再考虑实施预处理化疗及后续CD19 CAR-T细胞回输。
+-L32: 在完成血尿便常规、生化全项、凝血功能、CRP及必要BNP等评估并排除或控制活动性感染之前，不应开始淋巴细胞清除化疗，应先完善实验室检查和感染控制。
+-L31: 患者不适合或尚未准备好接受标准FC淋巴细胞清除化疗方案（或等效调整方案），在未完成适当淋巴清除预处理前不应回输CD19 CAR-T细胞，应先根据年龄、肾功能及合并症调整并完成预处理化疗。
+-L30: 清淋化疗与计划回输时间间隔未达到至少2天或已超过建议间隔且白细胞计数恢复过高，应调整回输时间或在必要时重新进行淋巴细胞清除化疗后再行CD19 CAR-T细胞回输。
+-L29: 存在活动性感染或需要升压药维持血压的低血压，为CAR-T细胞回输禁忌，需延期回输并优先控制感染及血流动力学，待上述情况完全纠正或稳定后再考虑回输CD19 CAR-T细胞。
+-L28: 由于回输当日评估存在活动性感染或器官功能异常（如不稳定生命体征等），需推迟CD19 CAR-T细胞回输，先行感染控制和器官功能优化，待纠正后再重新评估是否可回输。
+-L27: 暂不宜立即回输CAR-T细胞，应在完善回输前预处理（对乙酰氨基酚类及抗组胺药物、必要时左乙拉西坦预防癫痫）后，再行CD19 CAR-T细胞回输。
+-L26: 为复发/难治成人大B细胞淋巴瘤且对一线治疗原发耐药或12个月内复发，已完成必要评估、外周血单个核细胞采集、适宜桥接及淋巴清除化疗，并在无活动性感染和血流动力学稳定情况下进行充分预处理（含癫痫预防）后，可按产品说明书剂量和回输规范实施CD19 CAR-T细胞回输治疗并进入标准化监测与管理流程。
+-L24: 为复发/难治成人大B细胞淋巴瘤且对一线治疗原发耐药或12个月内复发，已完成必要评估、外周血单个核细胞采集、适宜桥接及淋巴清除化疗，并在无活动性感染和血流动力学稳定情况下进行充分预处理（含癫痫预防和HBV再激活预防）后，可按产品说明书剂量和回输规范实施CD19 CAR-T细胞回输治疗并进入标准化监测与管理流程。
+-L25: 为复发/难治成人大B细胞淋巴瘤且对一线治疗原发耐药或12个月内复发，已完成必要评估、外周血单个核细胞采集、适宜桥接及淋巴清除化疗，并在无活动性感染和血流动力学稳定情况下进行充分预处理（含癫痫预防）后，可按产品说明书剂量和回输规范实施CD19 CAR-T细胞回输治疗并进入标准化监测与管理流程；HBV预防不适用或无需实施。
+-L48: 患者为经过二线及以上治疗的1–3a级滤泡性淋巴瘤，符合本指南中CD19 CAR-T治疗的Ⅱ级推荐适应证之一，可参照大B细胞淋巴瘤的同一管理流程（治疗前评估、单个核细胞采集、桥接、清淋化疗、回输及随访）实施CD19 CAR-T细胞治疗。
+-L50: 患者为经过二线及以上治疗（包括BTK抑制剂）的套细胞淋巴瘤，符合本指南基于ZUMA-2研究所述的CD19 CAR-T治疗证据，可考虑CD19 CAR-T细胞治疗并参照本指南的外周血单个核细胞采集、桥接治疗、淋巴细胞清除化疗、回输及随访等管理流程。
+-L51: 患者虽为成人B细胞非霍奇金淋巴瘤，但不属于本指南推荐的主要CD19 CAR-T适应证人群（经二线及以上治疗的LBCL、1–3a级滤泡性淋巴瘤或经BTK抑制剂治疗的套细胞淋巴瘤），现阶段不建议按本指南路径实施CD19 CAR-T治疗，应考虑其他标准治疗或临床试验。
+-L69: 尚未完成作为BCMA CAR-T治疗前必须的病史、体格、实验室、骨髓学和影像学全面评估，不应直接实施CAR-T治疗，应先按指南要求系统评估多发性骨髓瘤疾病状态和全身情况。
+-L68: 尚未通过骨髓活检和/或髓外病灶病理检测明确多发性骨髓瘤诊断或未完成BCMA靶点检测，不符合本指南对BCMA CAR-T治疗前病理和靶点确认的要求，应先完善相关检查。
+-L67: 患者预计生存期≤12周和/或ECOG体能状态严重受损，不符合本指南推荐的BCMA CAR-T基本条件之一，应慎重权衡获益与风险或考虑其他治疗路径。
+-L66: 综合肾功能、心功能及髓外病变评估后，认为患者暂不适合承受BCMA CAR-T治疗全过程，应先优化器官功能或选择其他治疗策略。
+-L65: 尚未按指南要求完成外周血单个核细胞采集及必要的桥接治疗安排，或桥接方案未由临床医师根据病情个体化决定，应先完成上述步骤再考虑BCMA CAR-T预处理和回输。
+-L64: CAR-T产品尚未制备成功或淋巴清除化疗前评估不完整，不能启动淋巴细胞清除化疗和回输，应等待产品制备完成并完善实验室及影像学评估后再进行。
+-L63: 尚未制定或实施推荐的氟达拉滨联合环磷酰胺淋巴清除预处理方案及相关ICANS和感染预防措施，在完成适当预处理前不应进行BCMA CAR-T细胞回输。
+-L61: 患者为既往经至少3线治疗且使用过蛋白酶体抑制剂和免疫调节剂后进展的多发性骨髓瘤，经完善疾病评估、靶点确认及器官功能评估，并完成/计划完成氟达拉滨+环磷酰胺预处理和相应感染与ICANS预防后，可按产品说明书剂量在预处理结束1–2天内输注抗BCMA CAR-T细胞并进入标准化监测、疗效评估和长期随访流程。
+-L62: 目前淋巴清除化疗后患者一般状况或实验室指标不适合立即进行BCMA CAR-T细胞回输，应先优化生命体征和器官功能、控制感染或其他并发症，必要时调整回输时间或重新评估治疗方案。
+-L86: 患者不属于本指南重点覆盖的CD19或BCMA CAR-T治疗适应证人群（复发/难治LBCL/FL/MCL、多发性骨髓瘤或18–65岁复发/难治B-ALL），在本指南框架下暂不建议实施相应CAR-T治疗，应考虑其他标准治疗或参加相关临床试验。
+-L85: 尚未完成R/R B-ALL CAR-T治疗前必要的全身评估，包括GVHD活动性、感染状态、心功能和CNS累及等，不应直接进入预处理或回输，应先完善评估。
+-L84: 尚未通过骨髓检查和流式明确R/R B-ALL诊断和CD19靶点情况，也未系统评估CNS/髓外累及，不符合本指南对CD19 CAR-T治疗前疾病确认与分布评估的要求，应先完成相关检查。
+-L83: 尚未完成或合理安排单个核细胞采集和桥接治疗（对于高侵袭B-ALL尤为重要），不宜直接进入预处理和回输阶段，应先根据肿瘤负荷、累及部位和既往反应制定适当桥接方案。
+-L82: CAR-T产品尚未制备成功或清淋前患者存在严重感染/器官功能障碍，暂不宜进行预处理和回输，应先等待产品制备完成并优化感染与器官功能后重新评估。
+-L81: 未按指南推荐采用FC预处理方案或等效替代方案，且未计划在清淋结束后2–7天内回输CAR-T细胞，不符合标准化治疗路径，应先制定并实施合适的预处理及时间安排。
+-L80: 尚未在回输前安排抗组胺药物和左乙拉西坦等癫痫预防用药，不符合本指南对B-ALL CAR-T回输前预防性处理的建议，应先补充相应预防后再进行回输。
+-L78: 患者为18–65岁的复发/难治急性B淋巴细胞白血病，经完善疾病部位和靶点评估、单个核细胞采集、必要桥接和FC预处理，在回输前完成抗组胺、癫痫预防及HBV再激活预防后，可按推荐剂量范围（如纳基奥仑赛0.25–0.5×10^8 CAR-T活细胞）实施CD19 CAR-T回输，并进入本指南规定的治疗后监测和不良反应管理流程。
+-L79: 患者为18–65岁的复发/难治急性B淋巴细胞白血病，经完善评估、单采、必要桥接和FC预处理，在回输前完成抗组胺和癫痫预防且无HBV再激活预防指征时，可按推荐剂量范围实施CD19 CAR-T回输，并进入指南规定的监测和毒性管理流程。
++L46: 在未完成完整病史采集、体格检查以及B症状和ECOG体能状态评估前，不宜启动CD19 CAR-T治疗流程，应先全面评估患者一般情况。
++L45: 尚未完成血尿便常规、生化全项、凝血功能、β2微球蛋白及乙肝/丙肝/梅毒/HIV等感染筛查，或未排除/控制活动性感染，不符合启动CD19 CAR-T治疗前评估要求，应先完善实验室检查和感染控制。
++L44: 未完成18F-FDG PET/CT或全身增强CT及必要的中枢神经系统和胃肠道影像学检查，无法全面了解病灶分布和负荷，不应进入后续清淋化疗与CD19 CAR-T回输环节，需先完善影像学评估。
++L43: 尚未进行或完成骨髓穿刺涂片和病理活检，无法明确骨髓受累情况及基线病情，需先行骨髓学评估后再决定CD19 CAR-T治疗与随访策略。
++L42: 尚未完成病理学确诊或未能原则性确认CD19靶点，不能按本指南路径实施CD19 CAR-T治疗，应先完善病理及靶点检测明确诊断与靶向基础。
++L41: 育龄期女性妊娠试验为阳性时，不宜按本指南常规流程实施CD19 CAR-T细胞治疗，应先进行妊娠相关风险评估与处理后再另行决策。
++L40: 尚未充分完成对CNS或胃肠道等特殊受累部位的评估（如头颅MRI、胃肠内镜等），无法全面评估CAR-T相关神经毒性或出血穿孔风险，应先完善相关专科检查和风险评估，再决定是否继续推进CD19 CAR-T治疗流程。
++L39: 患者外周血淋巴细胞绝对计数＜0.1×10^9/L或存在活动性感染，难以保证足够质量的单个核细胞采集且存在安全风险，应先纠正感染、提高ALC（优选>0.5×10^9/L）后再考虑采集和后续CD19 CAR-T治疗。
++L38: 外周血单个核细胞采集前未充分停用淋巴细胞毒性药物、G-CSF或大剂量糖皮质激素以满足洗脱期，或ALC＜0.1×10^9/L且/或存在活动性感染，需先完成药物洗脱和感染控制并在ALC提高后再行单个核细胞采集。
++L37: 目前CAR-T细胞产品尚未制备成功，不能启动淋巴细胞清除化疗和回输流程，应等待制备成功或考虑其他治疗方案。
++L36: 患者CAR-T制备期间肿瘤侵袭性或负荷尚可，临床医师认为可在无桥接治疗的情况下直接进入淋巴细胞清除化疗及后续CD19 CAR-T细胞回输流程。
++L35: 尽管存在高侵袭或高负荷疾病，但尚未制定或完成适当强度且与预处理化疗有足够间隔的桥接治疗，建议根据既往疗效选择化疗、靶向、免疫或放疗等桥接方案控制病情后，再进入淋巴清除化疗和CD19 CAR-T细胞回输流程。
++L34: 当前患者一般状况或ECOG评分提示难以耐受淋巴细胞清除化疗，需在改善体能状态及生命体征稳定后再考虑实施预处理化疗及后续CD19 CAR-T细胞回输。
++L33: 在完成血尿便常规、生化全项、凝血功能、CRP及必要BNP等评估并排除或控制活动性感染之前，不应开始淋巴细胞清除化疗，应先完善实验室检查和感染控制。
++L32: 患者不适合或尚未准备好接受标准FC淋巴细胞清除化疗方案（或等效调整方案），在未完成适当淋巴清除预处理前不应回输CD19 CAR-T细胞，应先根据年龄、肾功能及合并症调整并完成预处理化疗。
++L31: 清淋化疗与计划回输时间间隔未达到至少2天或已超过建议间隔且白细胞计数恢复过高，应调整回输时间或在必要时重新进行淋巴细胞清除化疗后再行CD19 CAR-T细胞回输。
++L30: 存在活动性感染或需要升压药维持血压的低血压，为CAR-T细胞回输禁忌，需延期回输并优先控制感染及血流动力学，待上述情况完全纠正或稳定后再考虑回输CD19 CAR-T细胞。
++L29: 由于回输当日评估存在活动性感染或器官功能异常（如不稳定生命体征等），需推迟CD19 CAR-T细胞回输，先行感染控制和器官功能优化，待纠正后再重新评估是否可回输。
++L28: 暂不宜立即回输CAR-T细胞，应在完善回输前预处理（对乙酰氨基酚类及抗组胺药物、必要时左乙拉西坦预防癫痫）后，再行CD19 CAR-T细胞回输。
++L27: 为复发/难治成人大B细胞淋巴瘤且对一线治疗原发耐药或12个月内复发，已完成必要评估、外周血单个核细胞采集、适宜桥接及淋巴清除化疗，并在无活动性感染和血流动力学稳定情况下进行充分预处理（含癫痫预防）后，可按产品说明书剂量和回输规范实施CD19 CAR-T细胞回输治疗并进入标准化监测与管理流程。
++L26: 为复发/难治成人大B细胞淋巴瘤且对一线治疗原发耐药或12个月内复发，已完成必要评估、外周血单个核细胞采集、适宜桥接及淋巴清除化疗，并在无活动性感染和血流动力学稳定情况下进行充分预处理（含癫痫预防和HBV再激活预防）后，可按产品说明书剂量和回输规范实施CD19 CAR-T细胞回输治疗并进入标准化监测与管理流程。
++L24: 为复发/难治成人大B细胞淋巴瘤且对一线治疗原发耐药或12个月内复发，已完成必要评估、外周血单个核细胞采集、适宜桥接及淋巴清除化疗，并在无活动性感染和血流动力学稳定情况下进行充分预处理（含癫痫预防）后，可按产品说明书剂量和回输规范实施CD19 CAR-T细胞回输治疗并进入标准化监测与管理流程；HBV预防不适用或无需实施。
++L25: 患者为经过二线及以上治疗的1–3a级滤泡性淋巴瘤，符合本指南中CD19 CAR-T治疗的Ⅱ级推荐适应证之一，可参照大B细胞淋巴瘤的同一管理流程（治疗前评估、单个核细胞采集、桥接、清淋化疗、回输及随访）实施CD19 CAR-T细胞治疗。
++L48: 患者为经过二线及以上治疗（包括BTK抑制剂）的套细胞淋巴瘤，符合本指南基于ZUMA-2研究所述的CD19 CAR-T治疗证据，可考虑CD19 CAR-T细胞治疗并参照本指南的外周血单个核细胞采集、桥接治疗、淋巴细胞清除化疗、回输及随访等管理流程。
++L50: 患者虽为成人B细胞非霍奇金淋巴瘤，但不属于本指南推荐的主要CD19 CAR-T适应证人群（经二线及以上治疗的LBCL、1–3a级滤泡性淋巴瘤或经BTK抑制剂治疗的套细胞淋巴瘤），现阶段不建议按本指南路径实施CD19 CAR-T治疗，应考虑其他标准治疗或临床试验。
++L51: 尚未完成作为BCMA CAR-T治疗前必须的病史、体格、实验室、骨髓学和影像学全面评估，不应直接实施CAR-T治疗，应先按指南要求系统评估多发性骨髓瘤疾病状态和全身情况。
++L69: 尚未通过骨髓活检和/或髓外病灶病理检测明确多发性骨髓瘤诊断或未完成BCMA靶点检测，不符合本指南对BCMA CAR-T治疗前病理和靶点确认的要求，应先完善相关检查。
++L68: 患者预计生存期≤12周和/或ECOG体能状态严重受损，不符合本指南推荐的BCMA CAR-T基本条件之一，应慎重权衡获益与风险或考虑其他治疗路径。
++L67: 综合肾功能、心功能及髓外病变评估后，认为患者暂不适合承受BCMA CAR-T治疗全过程，应先优化器官功能或选择其他治疗策略。
++L66: 尚未按指南要求完成外周血单个核细胞采集及必要的桥接治疗安排，或桥接方案未由临床医师根据病情个体化决定，应先完成上述步骤再考虑BCMA CAR-T预处理和回输。
++L65: CAR-T产品尚未制备成功或淋巴清除化疗前评估不完整，不能启动淋巴细胞清除化疗和回输，应等待产品制备完成并完善实验室及影像学评估后再进行。
++L64: 尚未制定或实施推荐的氟达拉滨联合环磷酰胺淋巴清除预处理方案及相关ICANS和感染预防措施，在完成适当预处理前不应进行BCMA CAR-T细胞回输。
++L63: 患者为既往经至少3线治疗且使用过蛋白酶体抑制剂和免疫调节剂后进展的多发性骨髓瘤，经完善疾病评估、靶点确认及器官功能评估，并完成/计划完成氟达拉滨+环磷酰胺预处理和相应感染与ICANS预防后，可按产品说明书剂量在预处理结束1–2天内输注抗BCMA CAR-T细胞并进入标准化监测、疗效评估和长期随访流程。
++L61: 目前淋巴清除化疗后患者一般状况或实验室指标不适合立即进行BCMA CAR-T细胞回输，应先优化生命体征和器官功能、控制感染或其他并发症，必要时调整回输时间或重新评估治疗方案。
++L62: 患者不属于本指南重点覆盖的CD19或BCMA CAR-T治疗适应证人群（复发/难治LBCL/FL/MCL、多发性骨髓瘤或18–65岁复发/难治B-ALL），在本指南框架下暂不建议实施相应CAR-T治疗，应考虑其他标准治疗或参加相关临床试验。
++L86: 尚未完成R/R B-ALL CAR-T治疗前必要的全身评估，包括GVHD活动性、感染状态、心功能和CNS累及等，不应直接进入预处理或回输，应先完善评估。
++L85: 尚未通过骨髓检查和流式明确R/R B-ALL诊断和CD19靶点情况，也未系统评估CNS/髓外累及，不符合本指南对CD19 CAR-T治疗前疾病确认与分布评估的要求，应先完成相关检查。
++L84: 尚未完成或合理安排单个核细胞采集和桥接治疗（对于高侵袭B-ALL尤为重要），不宜直接进入预处理和回输阶段，应先根据肿瘤负荷、累及部位和既往反应制定适当桥接方案。
++L83: CAR-T产品尚未制备成功或清淋前患者存在严重感染/器官功能障碍，暂不宜进行预处理和回输，应先等待产品制备完成并优化感染与器官功能后重新评估。
++L82: 未按指南推荐采用FC预处理方案或等效替代方案，且未计划在清淋结束后2–7天内回输CAR-T细胞，不符合标准化治疗路径，应先制定并实施合适的预处理及时间安排。
++L81: 尚未在回输前安排抗组胺药物和左乙拉西坦等癫痫预防用药，不符合本指南对B-ALL CAR-T回输前预防性处理的建议，应先补充相应预防后再进行回输。
++L80: 患者为18–65岁的复发/难治急性B淋巴细胞白血病，经完善疾病部位和靶点评估、单个核细胞采集、必要桥接和FC预处理，在回输前完成抗组胺、癫痫预防及HBV再激活预防后，可按推荐剂量范围（如纳基奥仑赛0.25–0.5×10^8 CAR-T活细胞）实施CD19 CAR-T回输，并进入本指南规定的治疗后监测和不良反应管理流程。
++L78: 患者为18–65岁的复发/难治急性B淋巴细胞白血病，经完善评估、单采、必要桥接和FC预处理，在回输前完成抗组胺和癫痫预防且无HBV再激活预防指征时，可按推荐剂量范围实施CD19 CAR-T回输，并进入指南规定的监测和毒性管理流程。
++L79: 尽管为成人大B细胞淋巴瘤，但目前既往治疗情况不属于对标准一线含CD20单抗和蒽环类方案原发耐药或12个月内复发的LBCL，本指南将其作为主要获益人群之一，需结合是否经二线及以上治疗等其他适应证条款综合评估CD19 CAR-T治疗的适用性。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/1a9e47ac94202d52b8826a731cf200a0/1a9e47ac94202d52b8826a731cf200a0.md
+
+## CR-010 | A | fit | action_swap
+
+配对：new-811-G1:A:23；节点：new-811-G1。
+
+原条件：是否在首诊（或入院时）已进行 VTE 风险评估（手术患者使用 Caprini 评分，非手术患者使用 Padua 评分）？
+
+病历（左）：患者入院时年龄为82岁，预计需长期卧床超过3天。首诊（入院）即完成了VTE风险评估（非手术患者采用Padua评分），结果提示为高危，Padua评分为4分。同时完成了出血风险评估（采用IMPROVE出血评分），IMPROVE出血评分为6分，且未见活动性出血、既往大出血、严重肝肾功能不全或血小板减少等明显出血高危因素。然而，临床仍判断存在抗凝治疗的绝对禁忌证（如严重未控制的出血性疾病等情形），因此未能实施药物抗凝预防；此外，在不存在机械预防禁忌证的前提下，患者仍无法佩戴间歇充气加压装置（IPCD）或梯度压力弹力袜（GCS）。本病例的主要临床关注点为管理。
+
+病历（右）：患者入院时年龄为82岁，预计需长期卧床超过3天。首诊（入院）即完成了VTE风险评估（非手术患者采用Padua评分），结果提示为高危，Padua评分为4分。同时完成了出血风险评估（采用IMPROVE出血评分），IMPROVE出血评分为6分，且未见活动性出血、既往大出血、严重肝肾功能不全或血小板减少等明显出血高危因素。然而，临床仍判断存在抗凝治疗的绝对禁忌证（如严重未控制的出血性疾病等情形），因此未能实施药物抗凝预防；此外，在不存在机械预防禁忌证的前提下，患者仍无法佩戴间歇充气加压装置（IPCD）或梯度压力弹力袜（GCS）。本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -43,24 +43,24 @@
+   是 -> L37；否 -> L38
+-L19: 立即对预期卧床超过 3 d 的高龄患者进行 VTE 风险评估（手术患者用 Caprini 评分，内科患者用 Padua 评分）并同时进行出血风险评估，以指导个体化 VTE 预防和防治方案。
+-L18: VTE 风险评估结果未达高危，但患者为≥80 岁长期卧床，应至少实施早期床上或离床活动和下肢锻炼，并根据实际 Padua/Caprini 分数及病情变化动态复评，必要时增加机械预防。
+-L17: 先进行出血风险评估（围术期大出血危险因素和/或 IMPROVE 出血评分），再根据 VTE 高危和出血风险结果，决定机械预防、药物预防或联合预防方案。
+-L9: 暂不使用抗凝药物和机械预防联合策略，应先评估并处理机械预防禁忌或不耐受原因，再根据情况重新评估预防方案。
+-L7: 启动低剂量抗凝药物联合机械预防（IPCD/GCS/LEX），并尽早离床或床上活动，作为 VTE 高危且高出血风险高龄卧床患者的联合预防策略。
+-L8: 仅采用机械预防（首选 IPCD、GCS，推荐结合 LEX 辅助装置）并尽早进行床上或离床活动，作为 VTE 高危且出血高危但不能使用抗凝药物的高龄卧床患者的预防措施。
+-L12: 不使用抗凝药物，首选 IPCD、GCS 等机械预防，并结合床上或离床活动，作为 VTE 高危且存在抗凝绝对禁忌的高龄卧床患者的主要预防措施。
+-L13: 暂无法使用抗凝药物和常规机械预防，应强化早期床上/离床活动、下肢功能锻炼，并密切监测 VTE 相关症状和体征。
+-L15: 在无高出血风险且 eGFR＜30 ml/(min·1.73 m²) 的 VTE 高危高龄卧床患者中，优先选择减量 LMWH 以达肝素预防 VTE，可采用预防剂量减半方案，并避免使用所有 DOAC 和磺达肝癸钠。
+-L16: 在无高出血风险且 eGFR≥30 ml/(min·1.73 m²) 的 VTE 高危高龄卧床患者中，优先采用标准预防剂量减半的 LMWH（如依诺肝素 20–40 mg 1 次/d 等）或适当剂量 DOAC 进行药物预防，可结合机械预防和早期活动。
+-L42: 患者既非≥80 岁长期卧床 VTE 高危人群，也非当前疑诊 VTE，本共识的具体 VTE 高龄卧床防治流程不直接适用，应根据其他指南进行管理。
+-L41: 对疑诊 VTE 的患者，首诊医生应立即进行简化 Wells 评分的检测前概率评估，用于初步判断 VTE 发生可能程度并指导后续 D-二聚体和影像学检查。
+-L27: 对简化 Wells 评分＜2 分的疑诊 VTE 患者，应尽快进行年龄校正 D-二聚体检测，用于辅助排除 VTE。
+-L25: 可基本排除 VTE 诊断，无需常规抗凝治疗，但继续根据临床情况随访。
+-L26: 不能仅凭 D-二聚体阳性确诊 VTE，应根据疑诊类型进一步行彩色多普勒超声（疑诊 DVT）或 CTPA / 其他影像学检查（疑诊 PE）以明确诊断。
+-L40: 简化 Wells 评分结果不明确或未按两分法解释时，应重新按简化 Wells 评分标准进行分类（＜2 分或≥2 分），再进入相应 VTE 诊断流程。
+-L31: 确诊（或高度怀疑）DVT，应根据高龄和出血风险尽早启动抗凝治疗，并考虑是否存在溶栓或腔内治疗指征。
+-L33: 彩超明确阴性但简化 Wells 评分≥2 分，应在 5～7 d 后复查下肢静脉超声以排除进展性 DVT。
+-L34: 彩超结果不明确或存在疑问，应考虑进一步行 CTV、MRV 或静脉造影以明确是否存在近端 DVT。
+-L39: 简化 Wells 评分≥2 分提示 VTE 可能性高，但未区分 DVT 或 PE 类型，应根据临床表现区分病变部位并选择相应的超声或 CT 影像学诊断路径。
+-L37: 对简化 Wells 评分≥2 分且疑诊 PE 的患者，应行 CTPA 检查；若结果阳性，按急性 PE 进行抗凝±溶栓/介入治疗；若结果不确定，可再行 V/Q 扫描或肺血管造影。
+-L38: 对不能接受 CTPA 的疑诊 PE 患者，应选择床旁超声心动图、V/Q 扫描或经导管肺血管造影等其他影像学检查，综合判断是否存在 PE。
++L19: VTE 风险评估结果未达高危，但患者为≥80 岁长期卧床，应至少实施早期床上或离床活动和下肢锻炼，并根据实际 Padua/Caprini 分数及病情变化动态复评，必要时增加机械预防。
++L18: 先进行出血风险评估（围术期大出血危险因素和/或 IMPROVE 出血评分），再根据 VTE 高危和出血风险结果，决定机械预防、药物预防或联合预防方案。
++L17: 暂不使用抗凝药物和机械预防联合策略，应先评估并处理机械预防禁忌或不耐受原因，再根据情况重新评估预防方案。
++L9: 启动低剂量抗凝药物联合机械预防（IPCD/GCS/LEX），并尽早离床或床上活动，作为 VTE 高危且高出血风险高龄卧床患者的联合预防策略。
++L7: 仅采用机械预防（首选 IPCD、GCS，推荐结合 LEX 辅助装置）并尽早进行床上或离床活动，作为 VTE 高危且出血高危但不能使用抗凝药物的高龄卧床患者的预防措施。
++L8: 不使用抗凝药物，首选 IPCD、GCS 等机械预防，并结合床上或离床活动，作为 VTE 高危且存在抗凝绝对禁忌的高龄卧床患者的主要预防措施。
++L12: 暂无法使用抗凝药物和常规机械预防，应强化早期床上/离床活动、下肢功能锻炼，并密切监测 VTE 相关症状和体征。
++L13: 在无高出血风险且 eGFR＜30 ml/(min·1.73 m²) 的 VTE 高危高龄卧床患者中，优先选择减量 LMWH 以达肝素预防 VTE，可采用预防剂量减半方案，并避免使用所有 DOAC 和磺达肝癸钠。
++L15: 在无高出血风险且 eGFR≥30 ml/(min·1.73 m²) 的 VTE 高危高龄卧床患者中，优先采用标准预防剂量减半的 LMWH（如依诺肝素 20–40 mg 1 次/d 等）或适当剂量 DOAC 进行药物预防，可结合机械预防和早期活动。
++L16: 患者既非≥80 岁长期卧床 VTE 高危人群，也非当前疑诊 VTE，本共识的具体 VTE 高龄卧床防治流程不直接适用，应根据其他指南进行管理。
++L42: 对疑诊 VTE 的患者，首诊医生应立即进行简化 Wells 评分的检测前概率评估，用于初步判断 VTE 发生可能程度并指导后续 D-二聚体和影像学检查。
++L41: 对简化 Wells 评分＜2 分的疑诊 VTE 患者，应尽快进行年龄校正 D-二聚体检测，用于辅助排除 VTE。
++L27: 可基本排除 VTE 诊断，无需常规抗凝治疗，但继续根据临床情况随访。
++L25: 不能仅凭 D-二聚体阳性确诊 VTE，应根据疑诊类型进一步行彩色多普勒超声（疑诊 DVT）或 CTPA / 其他影像学检查（疑诊 PE）以明确诊断。
++L26: 简化 Wells 评分结果不明确或未按两分法解释时，应重新按简化 Wells 评分标准进行分类（＜2 分或≥2 分），再进入相应 VTE 诊断流程。
++L40: 确诊（或高度怀疑）DVT，应根据高龄和出血风险尽早启动抗凝治疗，并考虑是否存在溶栓或腔内治疗指征。
++L31: 彩超明确阴性但简化 Wells 评分≥2 分，应在 5～7 d 后复查下肢静脉超声以排除进展性 DVT。
++L33: 彩超结果不明确或存在疑问，应考虑进一步行 CTV、MRV 或静脉造影以明确是否存在近端 DVT。
++L34: 简化 Wells 评分≥2 分提示 VTE 可能性高，但未区分 DVT 或 PE 类型，应根据临床表现区分病变部位并选择相应的超声或 CT 影像学诊断路径。
++L39: 对简化 Wells 评分≥2 分且疑诊 PE 的患者，应行 CTPA 检查；若结果阳性，按急性 PE 进行抗凝±溶栓/介入治疗；若结果不确定，可再行 V/Q 扫描或肺血管造影。
++L37: 对不能接受 CTPA 的疑诊 PE 患者，应选择床旁超声心动图、V/Q 扫描或经导管肺血管造影等其他影像学检查，综合判断是否存在 PE。
++L38: 立即对预期卧床超过 3 d 的高龄患者进行 VTE 风险评估（手术患者用 Caprini 评分，内科患者用 Padua 评分）并同时进行出血风险评估，以指导个体化 VTE 预防和防治方案。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/480d741bb2ca4167011f244dbb62609e/480d741bb2ca4167011f244dbb62609e.md
+
+## CR-011 | A | dev | action_neutral
+
+配对：new-1780-G9:A:2891；节点：new-1780-G9。
+
+原条件：是否为难治性重症系统性红斑狼疮，且为顽固性狼疮肾炎和/或血液系统受累患者？
+
+病历（左）：患者既往并非肾病患者，也未表现出需要以“降低尿蛋白”为主要目标的治疗需求；病史中亦不符合白塞病（贝赫切特综合征）的诊断。随后在风湿免疫评估中，患者被明确诊断为系统性红斑狼疮（SLE）。在病程回顾中，患者不符合难治性重症SLE的特征，未见顽固性狼疮肾炎及/或明显血液系统受累所致的难治表现；同时亦未出现“存在狼疮肾炎且对糖皮质激素疗效不佳或出现严重不良反应”的情况。总体而言，患者的SLE表现为轻至中度，且未累及肝脏与肾脏等重要脏器。该病例小结的主要临床关注点为管理。
+
+病历（右）：患者既往并非肾病患者，也未表现出需要以“降低尿蛋白”为主要目标的治疗需求；病史中亦不符合白塞病（贝赫切特综合征）的诊断。随后在风湿免疫评估中，患者被明确诊断为系统性红斑狼疮（SLE）。在病程回顾中，患者不符合难治性重症SLE的特征，未见顽固性狼疮肾炎及/或明显血液系统受累所致的难治表现；同时亦未出现“存在狼疮肾炎且对糖皮质激素疗效不佳或出现严重不良反应”的情况。总体而言，患者的SLE表现为轻至中度，且未累及肝脏与肾脏等重要脏器。该病例小结的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -21,13 +21,13 @@
+   是 -> L19；否 -> L20
+-L2: 在耐受性范围内上调 ACEI 类药物（如卡托普利）用于肾病患者降尿蛋白（超说明书用药）。
+-L4: 在耐受性范围内上调 ARB 类药物（如缬沙坦）用于肾病患者降尿蛋白（超说明书用药）。
+-L5: 不建议为“肾病患者降尿蛋白”目的进行 ACEI/ARB 的剂量上调超说明书用药；需按有关要求规范管理并权衡风险获益。
+-L7: 可使用环孢素 3~5 mg/(kg·d) 治疗白塞病（超说明书用药；推荐）。
+-L10: 可使用利妥昔单抗 375 mg/m^2 每周1次共4周；或 1000 mg，2周后重复1次，用于难治性重症SLE（顽固性狼疮肾炎和血液系统受累）（超说明书用药；某些情况下推荐）。
+-L12: 可使用他克莫司用于狼疮肾炎（类固醇药物疗效不佳或不良反应严重时使用）（超说明书用药；推荐）。
+-L14: 可使用甲氨蝶呤用于轻中度非肝肾受累的系统性红斑狼疮（超说明书用药；某些情况下推荐）。
+-L15: 本共识所示文本未提供与该患者当前情况直接匹配的肾内及风湿免疫类药物超说明书用药推荐结论；需按有关要求规范管理并参考完整目录。
+-L17: 可使用吗替麦考酚酯用于肾病综合征，具体用法“参见指南”（超说明书用药；大多数情况下推荐）。
+-L19: 可使用托珠单抗治疗巨细胞动脉炎，具体用法“见FDA药品说明书”（超说明书用药；推荐）。
+-L20: 本共识所示文本未覆盖该患者疾病对应的明确超说明书用药推荐；需参考完整目录并按有关要求规范管理。
++L2: 记录内容。
++L4: 记录内容。
++L5: 记录内容。
++L7: 记录内容。
++L10: 记录内容。
++L12: 记录内容。
++L14: 记录内容。
++L15: 记录内容。
++L17: 记录内容。
++L19: 记录内容。
++L20: 记录内容。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/a19140ceab372662997b886cdee01ea5/a19140ceab372662997b886cdee01ea5.md
+
+## CR-012 | A | dev | action_neutral
+
+配对：new-1891-G29:A:2714；节点：new-1891-G29。
+
+原条件：患者是否意识不清或缺乏沟通能力，无法正确理解自控镇痛含义？
+
+病历（左）：患者就诊时主诉癌痛明显加重，疼痛数字评分（NRS）为8分，符合需要快速滴定的重度疼痛表现。既往未见吞咽困难，也无消化道梗阻、水肿或出血表现，未提示胃肠道瘘，亦未出现肿瘤治疗相关的严重恶心呕吐，整体未见消化道给药困难或胃肠道消化吸收功能障碍。病程回顾中，患者并不符合“经规范WHO三阶梯药物治疗1~2周后疼痛缓解仍不满意”的难治性癌痛情形；同样未出现“经规范WHO三阶梯药物治疗1~2周后发生不可耐受药物不良反应且仍为中重度疼痛”的情况。查体与交流过程中患者意识清楚，沟通能力完整，能够正确理解自控镇痛相关含义；同时对实施PCIA并无拒绝意愿。以上病情信息用于管理。
+
+病历（右）：患者就诊时主诉癌痛明显加重，疼痛数字评分（NRS）为8分，符合需要快速滴定的重度疼痛表现。既往未见吞咽困难，也无消化道梗阻、水肿或出血表现，未提示胃肠道瘘，亦未出现肿瘤治疗相关的严重恶心呕吐，整体未见消化道给药困难或胃肠道消化吸收功能障碍。病程回顾中，患者并不符合“经规范WHO三阶梯药物治疗1~2周后疼痛缓解仍不满意”的难治性癌痛情形；同样未出现“经规范WHO三阶梯药物治疗1~2周后发生不可耐受药物不良反应且仍为中重度疼痛”的情况。查体与交流过程中患者意识清楚，沟通能力完整，能够正确理解自控镇痛相关含义；同时对实施PCIA并无拒绝意愿。以上病情信息用于管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -41,23 +41,23 @@
+   是 -> L38；否 -> L39
+-L2: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L4: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L6: PCIA相对禁忌证：可在医护人员指导下由家属/陪护人员依据患者需求代操作。
+-L8: 符合PCIA适应证：可用于癌痛患者的滴定、转换以及维持治疗。
+-L10: 符合PCIA适应证：可用于癌痛患者的滴定、转换以及维持治疗。
+-L12: 符合PCIA适应证：可用于重度癌痛的快速滴定。
+-L14: 符合PCIA适应证：可用于爆发痛频繁患者的滴定/维持治疗。
+-L15: 未满足本共识列出的PCIA主要适应证：不建议常规选择PCIA（需结合其他镇痛途径/方案）。
+-L18: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L20: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L21: 符合PCIA适应证：可用于难治性癌痛患者的滴定、转换以及维持治疗。
+-L24: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L26: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L27: 符合PCIA适应证：可用于难治性癌痛患者的滴定、转换以及维持治疗。
+-L30: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L32: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L33: 符合PCIA适应证：可用于重度癌痛的快速滴定。
+-L40: 未满足本共识列出的PCIA主要适应证：不建议常规选择PCIA（需结合其他镇痛途径/方案）。
+-L36: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L38: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L39: 符合PCIA适应证：可用于爆发痛频繁患者的滴定/维持治疗。
++L2: 记录内容。
++L4: 记录内容。
++L6: 记录内容。
++L8: 记录内容。
++L10: 记录内容。
++L12: 记录内容。
++L14: 记录内容。
++L15: 记录内容。
++L18: 记录内容。
++L20: 记录内容。
++L21: 记录内容。
++L24: 记录内容。
++L26: 记录内容。
++L27: 记录内容。
++L30: 记录内容。
++L32: 记录内容。
++L33: 记录内容。
++L40: 记录内容。
++L36: 记录内容。
++L38: 记录内容。
++L39: 记录内容。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/ab09095cdb1e089c2dc1c82474e9c776/ab09095cdb1e089c2dc1c82474e9c776.md
+
+## CR-013 | A | dev | action_neutral
+
+配对：new-379-G35:A:7018；节点：new-379-G35。
+
+原条件：是否出现不成比例或无法解释的气促/呼吸困难，或体检闻及新出现的病理性杂音？
+
+病历（左）：患者处于妊娠相关时期（妊娠期或胎儿娩出后6周内）就诊。就诊过程中未发生心搏骤停。于医疗机构测得血压为 118/76 mmHg，未达到妊娠期高血压标准（收缩压≥140 mmHg和/或舒张压≥90 mmHg）。但临床上出现了不成比例且难以用现有情况解释的气促/呼吸困难，体格检查时还闻及新出现的病理性杂音。
+
+本病例的主要临床关注点是管理。
+
+病历（右）：患者处于妊娠相关时期（妊娠期或胎儿娩出后6周内）就诊。就诊过程中未发生心搏骤停。于医疗机构测得血压为 118/76 mmHg，未达到妊娠期高血压标准（收缩压≥140 mmHg和/或舒张压≥90 mmHg）。但临床上出现了不成比例且难以用现有情况解释的气促/呼吸困难，体格检查时还闻及新出现的病理性杂音。
+
+本病例的主要临床关注点是管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -39,22 +39,22 @@
+   是 -> L36；否 -> L37
+-L38: 不适用本指南所述孕产妇（妊娠期至产后6周内）心搏骤停防治救路径。
+-L17: 尽早电除颤（双相波120–200 J；能量同一般成人，无需提高；即使在妊娠任何阶段也安全；不要因移除胎儿监护仪而延迟除颤）。
+-L16: 除颤后无需评估应立即继续CPR（与非孕成人相同）。
+-L15: 立即在平卧位实施手动左推子宫（MLUD）以最大限度避免主动脉和下腔静脉受压，同时继续标准徒手CPR与ALS气道管理。
+-L7: 不必考虑紧急剖宫产（PMCD）；直接按成人BLS参数实施徒手CPR，并按ALS步骤进行气道管理与100%吸氧（15 L/min），必要时气管插管。
+-L9: 考虑实施PMCD以提高母体复苏成功（该胎龄段胎儿不可能存活，目的主要为母体复苏）；同时继续标准CPR/ALS。
+-L11: 考虑实施PMCD以同时抢救母婴；必要时可同时行紧急子宫切除术；并持续标准CPR/ALS。
+-L13: 启动PMCD：应在复苏失败4分钟后开始，目标是在复苏努力开始后5分钟内分娩；建议床旁实施CPR与PMCD（不转运手术室）。
+-L14: 继续标准徒手CPR（按压通气30:2、频率100–120次/min、深度5–6 cm并确保回弹），按ALS步骤进行气道管理与100%吸氧（15 L/min），必要时气管插管。
+-L20: 按孕期大出血指南尽快成分输血/转运至可输血医院或监护室；在出血3小时内静注氨甲环酸1 g以降低产后出血死亡率。
+-L21: 按孕期大出血指南尽快成分输血或转运至可输血医院/监护室。
+-L23: 在CPR过程中设法寻找并处理可逆原因：4Hs（低氧血症、低血容量、高/低血钾及其他电解质紊乱、低体温）与4Ts（血栓形成、心包填塞、张力性气胸、中毒）。
+-L24: 继续按孕妇CA复苏流程实施BLS/ALS：徒手CPR（30:2、100–120次/min、5–6 cm、确保回弹）并按ALS步骤进行100%吸氧（15 L/min）与规范气道管理，必要时气管插管。
+-L28: 属于紧急情况需住院治疗；可开始静注拉贝他洛尔、口服甲基多巴或硝苯地平治疗（ACEI/ARB/直接肾素抑制剂禁用）。
+-L29: 重度高血压：严密监测并给予降压治疗（可选静注拉贝他洛尔、口服甲基多巴或硝苯地平；ACEI/ARB/直接肾素抑制剂禁用）。
+-L31: 建议开始药物治疗：首选甲基多巴、β受体阻滞剂（如拉贝他洛）和钙拮抗剂（如硝苯地平）；ACEI/ARB/直接肾素抑制剂禁用。
+-L33: 建议开始药物治疗：首选甲基多巴、β受体阻滞剂（如拉贝他洛）和钙拮抗剂（如硝苯地平）；ACEI/ARB/直接肾素抑制剂禁用。
+-L34: 继续严密监测血压并评估是否出现先兆子痫相关症状/实验室异常。
+-L36: 需要及时进行相关客观检查（如超声心动图），并建议由在心血管疾病诊断领域足够经验的医生参与诊断。
+-L37: 按指南建议进行孕期风险评估与监测（如心脏病患者监测母体血压和心率，必要时脉搏血氧饱和度测量与持续心电监测），并在每次孕前检查时重新评估风险。
++L38: 记录内容。
++L17: 记录内容。
++L16: 记录内容。
++L15: 记录内容。
++L7: 记录内容。
++L9: 记录内容。
++L11: 记录内容。
++L13: 记录内容。
++L14: 记录内容。
++L20: 记录内容。
++L21: 记录内容。
++L23: 记录内容。
++L24: 记录内容。
++L28: 记录内容。
++L29: 记录内容。
++L31: 记录内容。
++L33: 记录内容。
++L34: 记录内容。
++L36: 记录内容。
++L37: 记录内容。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/219eb9becc21f9048b01e92d5957f0a2/219eb9becc21f9048b01e92d5957f0a2.md
+
+## CR-014 | A | dev | action_neutral
+
+配对：new-546-G64:A:7140；节点：new-546-G64。
+
+原条件：是否存在残存肿瘤？
+
+病历（左）：患者被考虑为子宫内膜样腺癌相关病例，但既往并未完成全面的手术分期，且属于未全面分期手术或手术不充分后的情况。后续评估中，临床分期并不符合ⅠA期、ⅠB期或Ⅱ期的表现；相反，临床分期已达到至少ⅢA期水平。同时，检查提示体内仍存在残存肿瘤灶，未能达到无肉眼或影像学残留的状态。最终需要围绕该未充分分期且至少ⅢA期并伴残存肿瘤的情境来进行管理。
+
+病历（右）：患者被考虑为子宫内膜样腺癌相关病例，但既往并未完成全面的手术分期，且属于未全面分期手术或手术不充分后的情况。后续评估中，临床分期并不符合ⅠA期、ⅠB期或Ⅱ期的表现；相反，临床分期已达到至少ⅢA期水平。同时，检查提示体内仍存在残存肿瘤灶，未能达到无肉眼或影像学残留的状态。最终需要围绕该未充分分期且至少ⅢA期并伴残存肿瘤的情境来进行管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -69,37 +69,37 @@
+   是 -> L65；否 -> L66
+-L4: 推荐术后辅助阴道近距离放疗。
+-L6: 推荐术后辅助阴道近距离放疗。
+-L7: 推荐术后观察随访。
+-L14: 无法依据本指南片段完成该分支的术后辅助治疗决策（分级信息不足）。
+-L13: 推荐术后辅助阴道近距离放疗。
+-L11: 推荐术后辅助阴道近距离放疗。
+-L12: 可考虑术后观察随访。
+-L18: 推荐术后辅助阴道近距离放疗；也可考虑盆腔体外放疗。
+-L20: 推荐术后辅助阴道近距离放疗。
+-L21: 可考虑术后观察随访。
+-L23: 推荐术后辅助盆腔体外放疗。
+-L24: 无法依据本指南片段完成该分支的术后辅助治疗决策（分级信息不足）。
+-L26: 推荐术后辅助盆腔体外放疗±阴道近距离放疗。
+-L28: 推荐术后辅助系统治疗±体外放疗±阴道近距离放疗。
+-L30: 推荐术后辅助系统治疗。
+-L31: 无法依据本指南片段完成该分支的术后辅助治疗决策（分期信息不足或不在表内）。
+-L68: 无法依据本指南片段生成进一步临床决策路径（既非“完全分期后的子宫内膜样腺癌术后辅助治疗”，亦非“未全面分期/手术不充分后的处理”）。
+-L39: 推荐补充全面分期手术+辅助治疗；也可选择直接辅助治疗。
+-L37: 推荐观察。
+-L38: 无法依据本指南片段完成该分支处理决策（该组合未在表内明确）。
+-L50: 无法依据本指南片段完成该分支处理决策（分级信息不足）。
+-L49: 推荐补充全面分期手术+辅助治疗；也可选择直接辅助治疗。
+-L48: 无法依据本指南片段完成该分支处理决策（该组合未在表内明确）。
+-L44: 推荐观察。
+-L46: 推荐阴道近距离放疗。
+-L47: 无法依据本指南片段完成该分支处理决策（年龄分层不明确）。
+-L57: 推荐补充全面分期手术+辅助治疗；也可选择直接辅助治疗。
+-L55: 推荐阴道近距离放疗。
+-L56: 无法依据本指南片段完成该分支处理决策（该组合未在表内明确）。
+-L59: 推荐补充全面分期手术+辅助治疗；也可选择直接辅助治疗。
+-L60: 无法依据本指南片段完成该分支处理决策（分级信息不足）。
+-L62: 推荐补充全面分期手术+辅助治疗；也可选择直接辅助治疗。
+-L67: 无法依据本指南片段完成该分支处理决策（分期信息不足）。
+-L65: 推荐补充减瘤手术+辅助治疗；若评估初次手术达不到理想减瘤，可行全身新辅助治疗后评估是否可行手术。
+-L66: 推荐直接辅助治疗。
++L4: 记录内容。
++L6: 记录内容。
++L7: 记录内容。
++L14: 记录内容。
++L13: 记录内容。
++L11: 记录内容。
++L12: 记录内容。
++L18: 记录内容。
++L20: 记录内容。
++L21: 记录内容。
++L23: 记录内容。
++L24: 记录内容。
++L26: 记录内容。
++L28: 记录内容。
++L30: 记录内容。
++L31: 记录内容。
++L68: 记录内容。
++L39: 记录内容。
++L37: 记录内容。
++L38: 记录内容。
++L50: 记录内容。
++L49: 记录内容。
++L48: 记录内容。
++L44: 记录内容。
++L46: 记录内容。
++L47: 记录内容。
++L57: 记录内容。
++L55: 记录内容。
++L56: 记录内容。
++L59: 记录内容。
++L60: 记录内容。
++L62: 记录内容。
++L67: 记录内容。
++L65: 记录内容。
++L66: 记录内容。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/30624ca2c56f2c9f9c0e5f4de0504a39/30624ca2c56f2c9f9c0e5f4de0504a39.md
+
+## CR-015 | A | dev | action_presence
+
+配对：new-1891-G31:A:2725；节点：new-1891-G31。
+
+原条件：患者是否不愿意行PCIA？
+
+病历（左）：患者就诊时主诉癌痛明显加重，疼痛数字评分（NRS）为8分，符合需要快速滴定的重度疼痛表现。既往未见吞咽困难，也无消化道梗阻、水肿或出血表现，未提示胃肠道瘘，亦未出现肿瘤治疗相关的严重恶心呕吐，整体未见消化道给药困难或胃肠道消化吸收功能障碍。病程回顾中，患者并不符合“经规范WHO三阶梯药物治疗1~2周后疼痛缓解仍不满意”的难治性癌痛情形；同样未出现“经规范WHO三阶梯药物治疗1~2周后发生不可耐受药物不良反应且仍为中重度疼痛”的情况。查体与交流过程中患者意识清楚，沟通能力完整，能够正确理解自控镇痛相关含义；同时对实施PCIA并无拒绝意愿。以上病情信息用于管理。
+
+病历（右）：患者就诊时主诉癌痛明显加重，疼痛数字评分（NRS）为8分，符合需要快速滴定的重度疼痛表现。既往未见吞咽困难，也无消化道梗阻、水肿或出血表现，未提示胃肠道瘘，亦未出现肿瘤治疗相关的严重恶心呕吐，整体未见消化道给药困难或胃肠道消化吸收功能障碍。病程回顾中，患者并不符合“经规范WHO三阶梯药物治疗1~2周后疼痛缓解仍不满意”的难治性癌痛情形；同样未出现“经规范WHO三阶梯药物治疗1~2周后发生不可耐受药物不良反应且仍为中重度疼痛”的情况。查体与交流过程中患者意识清楚，沟通能力完整，能够正确理解自控镇痛相关含义；同时对实施PCIA并无拒绝意愿。以上病情信息用于管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -41,23 +41,23 @@
+   是 -> L38；否 -> L39
+-L2: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L4: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L6: PCIA相对禁忌证：可在医护人员指导下由家属/陪护人员依据患者需求代操作。
+-L8: 符合PCIA适应证：可用于癌痛患者的滴定、转换以及维持治疗。
+-L10: 符合PCIA适应证：可用于癌痛患者的滴定、转换以及维持治疗。
+-L12: 符合PCIA适应证：可用于重度癌痛的快速滴定。
+-L14: 符合PCIA适应证：可用于爆发痛频繁患者的滴定/维持治疗。
+-L15: 未满足本共识列出的PCIA主要适应证：不建议常规选择PCIA（需结合其他镇痛途径/方案）。
+-L18: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L20: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L21: 符合PCIA适应证：可用于难治性癌痛患者的滴定、转换以及维持治疗。
+-L24: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L26: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L27: 符合PCIA适应证：可用于难治性癌痛患者的滴定、转换以及维持治疗。
+-L30: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L32: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L33: 符合PCIA适应证：可用于重度癌痛的快速滴定。
+-L40: 未满足本共识列出的PCIA主要适应证：不建议常规选择PCIA（需结合其他镇痛途径/方案）。
+-L36: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L38: 存在PCIA绝对禁忌证：不应实施PCIA。
+-L39: 符合PCIA适应证：可用于爆发痛频繁患者的滴定/维持治疗。
++L2: [处置已删除]
++L4: [处置已删除]
++L6: [处置已删除]
++L8: [处置已删除]
++L10: [处置已删除]
++L12: [处置已删除]
++L14: [处置已删除]
++L15: [处置已删除]
++L18: [处置已删除]
++L20: [处置已删除]
++L21: [处置已删除]
++L24: [处置已删除]
++L26: [处置已删除]
++L27: [处置已删除]
++L30: [处置已删除]
++L32: [处置已删除]
++L33: [处置已删除]
++L40: [处置已删除]
++L36: [处置已删除]
++L38: [处置已删除]
++L39: [处置已删除]
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/ab09095cdb1e089c2dc1c82474e9c776/ab09095cdb1e089c2dc1c82474e9c776.md
+
+## CR-016 | A | dev | action_presence
+
+配对：new-2420-G4:A:7412；节点：new-2420-G4。
+
+原条件：患者是否存在重度贫血（必要时需输注红细胞）？
+
+病历（左）：患者既往接受过盆腔放射治疗后，出现以出血为主要表现的迟发性放射性膀胱损伤，临床以肉眼血尿为突出症状。本次就诊时血尿量在短期内明显增多，达到需要密切监测生命体征的程度。尽管出血较多，但当时未见血容量不足或休克风险的表现，生命体征相对稳定，无需口服或静脉补液治疗。实验室检查提示存在重度贫血，血红蛋白为 62 g/L，达到必要时需输注红细胞的程度。该病例的主要临床关注点为管理。
+
+病历（右）：患者既往接受过盆腔放射治疗后，出现以出血为主要表现的迟发性放射性膀胱损伤，临床以肉眼血尿为突出症状。本次就诊时血尿量在短期内明显增多，达到需要密切监测生命体征的程度。尽管出血较多，但当时未见血容量不足或休克风险的表现，生命体征相对稳定，无需口服或静脉补液治疗。实验室检查提示存在重度贫血，血红蛋白为 62 g/L，达到必要时需输注红细胞的程度。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -29,17 +29,17 @@
+   是 -> L27；否 -> L28
+-L3: 给予初始治疗：对症止血（如氨甲环酸等）+补液（口服或静脉）±输血（必要时）±膀胱冲洗；并密切监测生命体征。
+-L5: 给予初始治疗：对症止血（如氨甲环酸等）+必要时输注红细胞±膀胱冲洗，并根据情况补液。
+-L7: 给予初始治疗：对症止血（如氨甲环酸等）+插尿管并间断或持续膀胱冲洗以处理/预防血凝块潴留，必要时补液/输血。
+-L8: 给予初始治疗：对症止血（如氨甲环酸等）±补液（必要时）±输血（必要时），嘱多饮水保证尿量，可考虑膀胱冲洗以预防较大血凝块产生。
+-L10: 在出血初始治疗基础上，积极抗感染治疗。
+-L11: 给予初始治疗：对症止血±补液（必要时）±输血（必要时）±膀胱冲洗。
+-L14: 观察随访；急性放射性膀胱损伤通常自限，放疗结束或暂停后可自行缓解。
+-L16: 给予抗胆碱能药物（如奥昔布宁、特罗苯胺等）对症治疗。
+-L18: 给予α1受体阻滞剂（如坦索洛辛等）对症治疗。
+-L20: 给予对症止痛治疗；多数患者非甾体抗炎药物效果良好。
+-L22: 必要时暂停或停止放疗。
+-L24: 给予抗生素对症治疗。
+-L25: 以对症治疗为主；急性放射性膀胱损伤通常自限，放疗结束或暂停后可逐渐缓解。
+-L27: 参照急性放射性膀胱损伤进行对症治疗。
+-L28: 指南未提供除“急性管理”与“迟发（炎症为主/出血为主）管理”之外的明确治疗路径。
++L3: [处置已删除]
++L5: [处置已删除]
++L7: [处置已删除]
++L8: [处置已删除]
++L10: [处置已删除]
++L11: [处置已删除]
++L14: [处置已删除]
++L16: [处置已删除]
++L18: [处置已删除]
++L20: [处置已删除]
++L22: [处置已删除]
++L24: [处置已删除]
++L25: [处置已删除]
++L27: [处置已删除]
++L28: [处置已删除]
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/dd68755cc278aa86fa8c21509f96f7d0/dd68755cc278aa86fa8c21509f96f7d0.md
+
+## CR-017 | A | dev | action_presence
+
+配对：new-546-G58:A:7130；节点：new-546-G58。
+
+原条件：组织学分级是否为G3？
+
+病历（左）：患者既往病理提示子宫内膜样腺癌，但当时未完成全面手术分期，属于分期手术不充分后的情况。后续临床评估显示并非ⅠA期，而更符合ⅠB期表现；病理组织学分级不在G1–2范围内，而被判定为G3。管理。
+
+病历（右）：患者既往病理提示子宫内膜样腺癌，但当时未完成全面手术分期，属于分期手术不充分后的情况。后续临床评估显示并非ⅠA期，而更符合ⅠB期表现；病理组织学分级不在G1–2范围内，而被判定为G3。管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -69,37 +69,37 @@
+   是 -> L65；否 -> L66
+-L4: 推荐术后辅助阴道近距离放疗。
+-L6: 推荐术后辅助阴道近距离放疗。
+-L7: 推荐术后观察随访。
+-L14: 无法依据本指南片段完成该分支的术后辅助治疗决策（分级信息不足）。
+-L13: 推荐术后辅助阴道近距离放疗。
+-L11: 推荐术后辅助阴道近距离放疗。
+-L12: 可考虑术后观察随访。
+-L18: 推荐术后辅助阴道近距离放疗；也可考虑盆腔体外放疗。
+-L20: 推荐术后辅助阴道近距离放疗。
+-L21: 可考虑术后观察随访。
+-L23: 推荐术后辅助盆腔体外放疗。
+-L24: 无法依据本指南片段完成该分支的术后辅助治疗决策（分级信息不足）。
+-L26: 推荐术后辅助盆腔体外放疗±阴道近距离放疗。
+-L28: 推荐术后辅助系统治疗±体外放疗±阴道近距离放疗。
+-L30: 推荐术后辅助系统治疗。
+-L31: 无法依据本指南片段完成该分支的术后辅助治疗决策（分期信息不足或不在表内）。
+-L68: 无法依据本指南片段生成进一步临床决策路径（既非“完全分期后的子宫内膜样腺癌术后辅助治疗”，亦非“未全面分期/手术不充分后的处理”）。
+-L39: 推荐补充全面分期手术+辅助治疗；也可选择直接辅助治疗。
+-L37: 推荐观察。
+-L38: 无法依据本指南片段完成该分支处理决策（该组合未在表内明确）。
+-L50: 无法依据本指南片段完成该分支处理决策（分级信息不足）。
+-L49: 推荐补充全面分期手术+辅助治疗；也可选择直接辅助治疗。
+-L48: 无法依据本指南片段完成该分支处理决策（该组合未在表内明确）。
+-L44: 推荐观察。
+-L46: 推荐阴道近距离放疗。
+-L47: 无法依据本指南片段完成该分支处理决策（年龄分层不明确）。
+-L57: 推荐补充全面分期手术+辅助治疗；也可选择直接辅助治疗。
+-L55: 推荐阴道近距离放疗。
+-L56: 无法依据本指南片段完成该分支处理决策（该组合未在表内明确）。
+-L59: 推荐补充全面分期手术+辅助治疗；也可选择直接辅助治疗。
+-L60: 无法依据本指南片段完成该分支处理决策（分级信息不足）。
+-L62: 推荐补充全面分期手术+辅助治疗；也可选择直接辅助治疗。
+-L67: 无法依据本指南片段完成该分支处理决策（分期信息不足）。
+-L65: 推荐补充减瘤手术+辅助治疗；若评估初次手术达不到理想减瘤，可行全身新辅助治疗后评估是否可行手术。
+-L66: 推荐直接辅助治疗。
++L4: [处置已删除]
++L6: [处置已删除]
++L7: [处置已删除]
++L14: [处置已删除]
++L13: [处置已删除]
++L11: [处置已删除]
++L12: [处置已删除]
++L18: [处置已删除]
++L20: [处置已删除]
++L21: [处置已删除]
++L23: [处置已删除]
++L24: [处置已删除]
++L26: [处置已删除]
++L28: [处置已删除]
++L30: [处置已删除]
++L31: [处置已删除]
++L68: [处置已删除]
++L39: [处置已删除]
++L37: [处置已删除]
++L38: [处置已删除]
++L50: [处置已删除]
++L49: [处置已删除]
++L48: [处置已删除]
++L44: [处置已删除]
++L46: [处置已删除]
++L47: [处置已删除]
++L57: [处置已删除]
++L55: [处置已删除]
++L56: [处置已删除]
++L59: [处置已删除]
++L60: [处置已删除]
++L62: [处置已删除]
++L67: [处置已删除]
++L65: [处置已删除]
++L66: [处置已删除]
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/30624ca2c56f2c9f9c0e5f4de0504a39/30624ca2c56f2c9f9c0e5f4de0504a39.md
+
+## CR-018 | A | dev | action_swap
+
+配对：new-1322-G20:A:6974；节点：new-1322-G20。
+
+原条件：膳食钙摄入量是否<600 mg/d？
+
+病历（左）：患者就诊时未出现妊娠期或分娩后6周内的心搏骤停情况。孕期未诉胸痛，也未发生不成比例或无法解释的气促/呼吸困难。体格检查未闻及新出现的病理性心脏杂音。评估时亦不符合高危或中度子痫前期风险人群，且当时妊娠周数不在12周至36–37周范围内（例如为10周）。饮食评估提示膳食钙摄入不足，日均约500 mg/d（<600 mg/d）。
+
+本病例的主要临床关注点为管理。
+
+病历（右）：患者就诊时未出现妊娠期或分娩后6周内的心搏骤停情况。孕期未诉胸痛，也未发生不成比例或无法解释的气促/呼吸困难。体格检查未闻及新出现的病理性心脏杂音。评估时亦不符合高危或中度子痫前期风险人群，且当时妊娠周数不在12周至36–37周范围内（例如为10周）。饮食评估提示膳食钙摄入不足，日均约500 mg/d（<600 mg/d）。
+
+本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -33,19 +33,19 @@
+   是 -> L30；否 -> L31
+-L2: 不必考虑紧急/濒死剖宫产（PMCD），直接行CPR（按同龄非孕成人BLS参数）。
+-L4: 实施PMCD主要目的为提高母体复苏成功率（该胎龄胎儿不可能存活）。
+-L6: 实施PMCD以同时抢救母婴；在部分情形下甚至需要同时行紧急子宫切除术。
+-L8: 启动PMCD：应在复苏失败4分钟后开始，目标在复苏努力开始后5分钟内分娩（越快越好）。
+-L10: 在CPR中实施手动左推子宫（MLUD）以最大限度避免主动脉和下腔静脉受压，并按成人BLS参数持续CPR。
+-L11: 按成人BLS参数持续CPR（30:2，按压频率100~120次/min，按压深度5~6cm，按压部位胸骨中下段），并进行ALS气道管理（100%吸氧，必要时气管插管）。
+-L13: 应考虑主动脉夹层（AD）的可能，并进行相应评估。
++L2: 实施PMCD主要目的为提高母体复苏成功率（该胎龄胎儿不可能存活）。
++L4: 实施PMCD以同时抢救母婴；在部分情形下甚至需要同时行紧急子宫切除术。
++L6: 启动PMCD：应在复苏失败4分钟后开始，目标在复苏努力开始后5分钟内分娩（越快越好）。
++L8: 在CPR中实施手动左推子宫（MLUD）以最大限度避免主动脉和下腔静脉受压，并按成人BLS参数持续CPR。
++L10: 按成人BLS参数持续CPR（30:2，按压频率100~120次/min，按压深度5~6cm，按压部位胸骨中下段），并进行ALS气道管理（100%吸氧，必要时气管插管）。
++L11: 应考虑主动脉夹层（AD）的可能，并进行相应评估。
++L13: 需要及时进行客观检查（如超声心动图），并建议由心血管疾病诊断领域有足够经验的医生参与诊断。
+ L15: 需要及时进行客观检查（如超声心动图），并建议由心血管疾病诊断领域有足够经验的医生参与诊断。
+-L17: 需要及时进行客观检查（如超声心动图），并建议由心血管疾病诊断领域有足够经验的医生参与诊断。
+-L19: 建议每日口服阿司匹林100~150 mg以预防先兆子痫。
+-L21: 建议从第一次产前诊断开始补充钙1.5~2.0 g/d（口服）以预防先兆子痫。
+-L23: 属于紧急情况：需要住院治疗，并开始静注拉贝他洛尔、口服甲基多巴或奈夫地平等降压治疗（ACEI/ARB/直接肾素抑制剂禁用）。
+-L25: 按重度高血压进行严密监测与处理（重度阈值为≥160/110 mmHg）。
+-L27: 分类为妊娠期高血压（仅基于在医疗机构的SBP≥140 mmHg和/或DBP≥90 mmHg）。
+-L32: 按指南建议持续进行孕期风险评估与监测（如对心脏病患者监测血压、心率，必要时脉搏血氧饱和度与持续心电监测；并在每次孕前检查时重新评估风险）。
+-L30: 停止针对疑似DVT/PE的治疗性抗凝（LMWH仅在未排除前使用）。
+-L31: 在排除诊断前给予治疗性剂量LMWH，并进行客观检查以排除/确诊（治疗剂量按孕前体重计算，如依诺肝素1 mg/kg每日2次；目标4~6h抗Xa峰值0.6~1.2 kU/L）。
++L17: 建议每日口服阿司匹林100~150 mg以预防先兆子痫。
++L19: 建议从第一次产前诊断开始补充钙1.5~2.0 g/d（口服）以预防先兆子痫。
++L21: 属于紧急情况：需要住院治疗，并开始静注拉贝他洛尔、口服甲基多巴或奈夫地平等降压治疗（ACEI/ARB/直接肾素抑制剂禁用）。
++L23: 按重度高血压进行严密监测与处理（重度阈值为≥160/110 mmHg）。
++L25: 分类为妊娠期高血压（仅基于在医疗机构的SBP≥140 mmHg和/或DBP≥90 mmHg）。
++L27: 按指南建议持续进行孕期风险评估与监测（如对心脏病患者监测血压、心率，必要时脉搏血氧饱和度与持续心电监测；并在每次孕前检查时重新评估风险）。
++L32: 停止针对疑似DVT/PE的治疗性抗凝（LMWH仅在未排除前使用）。
++L30: 在排除诊断前给予治疗性剂量LMWH，并进行客观检查以排除/确诊（治疗剂量按孕前体重计算，如依诺肝素1 mg/kg每日2次；目标4~6h抗Xa峰值0.6~1.2 kU/L）。
++L31: 不必考虑紧急/濒死剖宫产（PMCD），直接行CPR（按同龄非孕成人BLS参数）。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/78e54d28e62084b62e4de950dfbbf83b/78e54d28e62084b62e4de950dfbbf83b.md
+
+## CR-019 | A | dev | action_swap
+
+配对：new-1780-G1:A:2907；节点：new-1780-G1。
+
+原条件：患者是否可耐受 ACEI 类药物（如卡托普利）剂量上调？
+
+病历（左）：患者既往为肾病患者，临床评估提示存在尿蛋白升高，因而有明确的降低尿蛋白治疗需求。为进行蛋白尿控制的药物管理调整时，曾尝试将 ACEI 类药物（如卡托普利）逐步上调剂量，但患者在剂量上调过程中表现为不能耐受，未能继续增加剂量。随后评估并采取 ARB 类药物（如缬沙坦）的剂量优化策略，患者在上调过程中耐受良好，可继续按计划进行剂量上调以配合蛋白尿控制。该病例小结的主要临床关注点为管理。
+
+病历（右）：患者既往为肾病患者，临床评估提示存在尿蛋白升高，因而有明确的降低尿蛋白治疗需求。为进行蛋白尿控制的药物管理调整时，曾尝试将 ACEI 类药物（如卡托普利）逐步上调剂量，但患者在剂量上调过程中表现为不能耐受，未能继续增加剂量。随后评估并采取 ARB 类药物（如缬沙坦）的剂量优化策略，患者在上调过程中耐受良好，可继续按计划进行剂量上调以配合蛋白尿控制。该病例小结的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -21,13 +21,13 @@
+   是 -> L19；否 -> L20
+-L2: 在耐受性范围内上调 ACEI 类药物（如卡托普利）用于肾病患者降尿蛋白（超说明书用药）。
+-L4: 在耐受性范围内上调 ARB 类药物（如缬沙坦）用于肾病患者降尿蛋白（超说明书用药）。
+-L5: 不建议为“肾病患者降尿蛋白”目的进行 ACEI/ARB 的剂量上调超说明书用药；需按有关要求规范管理并权衡风险获益。
+-L7: 可使用环孢素 3~5 mg/(kg·d) 治疗白塞病（超说明书用药；推荐）。
+-L10: 可使用利妥昔单抗 375 mg/m^2 每周1次共4周；或 1000 mg，2周后重复1次，用于难治性重症SLE（顽固性狼疮肾炎和血液系统受累）（超说明书用药；某些情况下推荐）。
+-L12: 可使用他克莫司用于狼疮肾炎（类固醇药物疗效不佳或不良反应严重时使用）（超说明书用药；推荐）。
+-L14: 可使用甲氨蝶呤用于轻中度非肝肾受累的系统性红斑狼疮（超说明书用药；某些情况下推荐）。
+-L15: 本共识所示文本未提供与该患者当前情况直接匹配的肾内及风湿免疫类药物超说明书用药推荐结论；需按有关要求规范管理并参考完整目录。
+-L17: 可使用吗替麦考酚酯用于肾病综合征，具体用法“参见指南”（超说明书用药；大多数情况下推荐）。
+-L19: 可使用托珠单抗治疗巨细胞动脉炎，具体用法“见FDA药品说明书”（超说明书用药；推荐）。
+-L20: 本共识所示文本未覆盖该患者疾病对应的明确超说明书用药推荐；需参考完整目录并按有关要求规范管理。
++L2: 在耐受性范围内上调 ARB 类药物（如缬沙坦）用于肾病患者降尿蛋白（超说明书用药）。
++L4: 不建议为“肾病患者降尿蛋白”目的进行 ACEI/ARB 的剂量上调超说明书用药；需按有关要求规范管理并权衡风险获益。
++L5: 可使用环孢素 3~5 mg/(kg·d) 治疗白塞病（超说明书用药；推荐）。
++L7: 可使用利妥昔单抗 375 mg/m^2 每周1次共4周；或 1000 mg，2周后重复1次，用于难治性重症SLE（顽固性狼疮肾炎和血液系统受累）（超说明书用药；某些情况下推荐）。
++L10: 可使用他克莫司用于狼疮肾炎（类固醇药物疗效不佳或不良反应严重时使用）（超说明书用药；推荐）。
++L12: 可使用甲氨蝶呤用于轻中度非肝肾受累的系统性红斑狼疮（超说明书用药；某些情况下推荐）。
++L14: 本共识所示文本未提供与该患者当前情况直接匹配的肾内及风湿免疫类药物超说明书用药推荐结论；需按有关要求规范管理并参考完整目录。
++L15: 可使用吗替麦考酚酯用于肾病综合征，具体用法“参见指南”（超说明书用药；大多数情况下推荐）。
++L17: 可使用托珠单抗治疗巨细胞动脉炎，具体用法“见FDA药品说明书”（超说明书用药；推荐）。
++L19: 本共识所示文本未覆盖该患者疾病对应的明确超说明书用药推荐；需参考完整目录并按有关要求规范管理。
++L20: 在耐受性范围内上调 ACEI 类药物（如卡托普利）用于肾病患者降尿蛋白（超说明书用药）。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/a19140ceab372662997b886cdee01ea5/a19140ceab372662997b886cdee01ea5.md
+
+## CR-020 | A | dev | action_swap
+
+配对：new-2072-G43:A:7277；节点：new-2072-G43。
+
+原条件：Is the infant a preterm infant with GA <37+0 weeks for whom the treating neonatologist considers the infant at risk of developing ROP due to relevant comorbidities?
+
+病历（左）：A preterm infant was assessed in the neonatal unit with a reliably documented gestational age of 34+2 weeks, confirming that birth had not occurred before 31+0 weeks’ gestation. Despite being born at less than 37+0 weeks, the treating neonatologist considered the infant to be at risk for developing retinopathy of prematurity because of relevant comorbidities, and the clinical course was therefore approached with heightened vigilance for ROP. The primary clinical focus was screening.
+
+病历（右）：A preterm infant was assessed in the neonatal unit with a reliably documented gestational age of 34+2 weeks, confirming that birth had not occurred before 31+0 weeks’ gestation. Despite being born at less than 37+0 weeks, the treating neonatologist considered the infant to be at risk for developing retinopathy of prematurity because of relevant comorbidities, and the clinical course was therefore approached with heightened vigilance for ROP. The primary clinical focus was screening.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -53,29 +53,29 @@
+   是 -> L51；否 -> L52
+-L41: Schedule the first examination in the 6th postnatal week (day 36–42 of life), ensuring it is not before PMA 31+0 weeks.
+-L40: Defer initial examination until PMA is at least 31+0 weeks (do not examine earlier than PMA 31+0 weeks).
+-L15: Arrange prompt postoperative follow-up after intravitreal anti-VEGF injection to exclude injection-related complications (particularly endophthalmitis).
+-L7: Discontinue follow-up after anti-VEGF therapy (retina fully vascularized).
+-L10: Continue post–anti-VEGF follow-up and manage as active disease (late recurrence/additional treatment may be needed).
+-L11: Discontinue follow-up after anti-VEGF therapy (residual avascularity lasered; no plus disease/proliferation).
+-L13: Discontinue follow-up after anti-VEGF therapy (months of residual avascularity without pathological vascular activity).
+-L14: Continue post–anti-VEGF follow-up (late recurrences may occur well beyond calculated date of birth).
+-L22: Follow-up after treatment is required; follow-up approach depends on treatment modality (laser vs anti-VEGF).
+-L21: Perform at least weekly follow-up after laser therapy until regression is reliable and all avascular areas are sufficiently lasered.
+-L19: Extend follow-up intervals after laser therapy (complete peripheral vascularization is not expected).
+-L20: Continue at least weekly follow-up after laser therapy until regression and stability (no proliferation/traction/plus disease).
+-L24: Schedule follow-up examinations at least weekly (ROP with plus disease requires closer follow-up than 2-week intervals).
++L41: Defer initial examination until PMA is at least 31+0 weeks (do not examine earlier than PMA 31+0 weeks).
++L40: Arrange prompt postoperative follow-up after intravitreal anti-VEGF injection to exclude injection-related complications (particularly endophthalmitis).
++L15: Discontinue follow-up after anti-VEGF therapy (retina fully vascularized).
++L7: Continue post–anti-VEGF follow-up and manage as active disease (late recurrence/additional treatment may be needed).
++L10: Discontinue follow-up after anti-VEGF therapy (residual avascularity lasered; no plus disease/proliferation).
++L11: Discontinue follow-up after anti-VEGF therapy (months of residual avascularity without pathological vascular activity).
++L13: Continue post–anti-VEGF follow-up (late recurrences may occur well beyond calculated date of birth).
++L14: Follow-up after treatment is required; follow-up approach depends on treatment modality (laser vs anti-VEGF).
++L22: Perform at least weekly follow-up after laser therapy until regression is reliable and all avascular areas are sufficiently lasered.
++L21: Extend follow-up intervals after laser therapy (complete peripheral vascularization is not expected).
++L19: Continue at least weekly follow-up after laser therapy until regression and stability (no proliferation/traction/plus disease).
++L20: Schedule follow-up examinations at least weekly (ROP with plus disease requires closer follow-up than 2-week intervals).
++L24: Schedule follow-up examinations at 1-week intervals (or less if rapid progression/very immature retina).
+ L26: Schedule follow-up examinations at 1-week intervals (or less if rapid progression/very immature retina).
+-L28: Schedule follow-up examinations at 1-week intervals (or less if rapid progression/very immature retina).
+-L30: Schedule follow-up examinations at 1-week intervals.
+-L32: Extend the follow-up interval to 3-week intervals.
+-L34: Discontinue screening for acute ROP (no treatment performed; retina fully vascularized circumferentially).
+-L39: Continue screening at the basic 2-week interval (unless criteria for shorter/longer intervals are met).
+-L37: Discontinue screening for acute ROP (regression documented and calculated date of birth passed).
+-L38: Continue screening until the calculated date of birth has been passed despite regression.
+-L44: ROP screening is indicated (preterm infant deemed at risk by neonatologist due to comorbidities).
+-L46: ROP screening is indicated (oxygen >5 days).
+-L48: ROP screening is indicated (ECMO therapy).
+-L49: Routine ROP screening is not indicated based on the criteria stated in this guideline excerpt; consider individualized assessment per neonatologist discretion.
+-L51: ROP screening is indicated (birth weight <1500 g when GA not reliably known).
+-L52: Routine ROP screening is not indicated based on the criteria stated in this guideline excerpt.
++L28: Schedule follow-up examinations at 1-week intervals.
++L30: Extend the follow-up interval to 3-week intervals.
++L32: Discontinue screening for acute ROP (no treatment performed; retina fully vascularized circumferentially).
++L34: Continue screening at the basic 2-week interval (unless criteria for shorter/longer intervals are met).
++L39: Discontinue screening for acute ROP (regression documented and calculated date of birth passed).
++L37: Continue screening until the calculated date of birth has been passed despite regression.
++L38: ROP screening is indicated (preterm infant deemed at risk by neonatologist due to comorbidities).
++L44: ROP screening is indicated (oxygen >5 days).
++L46: ROP screening is indicated (ECMO therapy).
++L48: Routine ROP screening is not indicated based on the criteria stated in this guideline excerpt; consider individualized assessment per neonatologist discretion.
++L49: ROP screening is indicated (birth weight <1500 g when GA not reliably known).
++L51: Routine ROP screening is not indicated based on the criteria stated in this guideline excerpt.
++L52: Schedule the first examination in the 6th postnatal week (day 36–42 of life), ensuring it is not before PMA 31+0 weeks.
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/be15b090784f37d0838b8b3049dda76c/be15b090784f37d0838b8b3049dda76c.md
+
+## CR-021 | A | test | action_neutral
+
+配对：new-2058-G10:A:3989；节点：new-2058-G10。
+
+原条件：Does the patient have pre-existing congestive heart failure?
+
+病历（左）：A patient with established cardiovascular disease and known metabolic (dysfunction)-associated fatty liver disease presented for ongoing metabolic care in the setting of type 2 diabetes mellitus. The history confirmed complete abstinence from alcohol, with no alcohol consumption of any type or amount. Despite the presence of diabetes, a GLP-1 receptor agonist was neither in use nor being planned, and an SGLT-2 inhibitor was also neither in use nor being planned. In this context, pioglitazone was being used or actively considered as part of the diabetes regimen. There was no history of pre-existing congestive heart failure. The primary clinical focus was management.
+
+病历（右）：A patient with established cardiovascular disease and known metabolic (dysfunction)-associated fatty liver disease presented for ongoing metabolic care in the setting of type 2 diabetes mellitus. The history confirmed complete abstinence from alcohol, with no alcohol consumption of any type or amount. Despite the presence of diabetes, a GLP-1 receptor agonist was neither in use nor being planned, and an SGLT-2 inhibitor was also neither in use nor being planned. In this context, pioglitazone was being used or actively considered as part of the diabetes regimen. There was no history of pre-existing congestive heart failure. The primary clinical focus was management.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -31,18 +31,18 @@
+   是 -> L28；否 -> L29
+-L25: Consider screening for MAFLD in most patients with CVD (recognizing non-invasive vs invasive test tradeoffs and that relying on transaminase elevation alone can miss MAFLD).
+-L3: Advise abstinence/alcohol avoidance in this patient with MAFLD and CVD.
+-L6: GLP-1RA therapy is beneficial in MAFLD with coexisting T2DM and may reduce CVD outcomes (continue/consider as appropriate).
+-L8: SGLT-2 inhibitor therapy is beneficial in MAFLD with coexisting T2DM and may reduce CVD outcomes (continue/consider as appropriate).
+-L11: Pioglitazone may be beneficial in MAFLD and may reduce CVD outcomes, but keep in mind potential adverse effects including edema and worsening of pre-existing congestive heart failure.
+-L12: Pioglitazone may be beneficial in MAFLD and may reduce CVD outcomes; keep in mind potential adverse effects (e.g., weight gain and edema).
+-L15: Prescribe statins as indicated for dyslipidemia/CVD risk reduction even with modest liver enzyme elevation (<3× ULN) in MAFLD.
+-L16: Consider statins for CVD risk reduction in MAFLD when required for dyslipidemia/CVD risk reduction; the guideline only explicitly addresses safety for modest enzyme elevation (<3× ULN).
+-L21: Target cardiometabolic risk factors and implement lifestyle intervention (healthy dietary pattern, weight loss, regular physical exercise) to improve both MAFLD and CVD.
+-L19: Bariatric surgery can reduce CVD risk and improve liver histology in appropriately selected severely obese MAFLD patients; the guideline emphasizes consideration particularly in those without evidence of portal hypertension.
+-L20: Consider bariatric surgery (if required for obesity reduction) in selected severely obese MAFLD patients without evidence of portal hypertension; it improves liver histology and reduces CVD risk.
+-L23: Target cardiometabolic risk factors (overweight/obesity, diabetes, dyslipidemia, hypertension) and implement lifestyle intervention (healthy dietary pattern, weight loss, regular physical exercise) to improve both MAFLD and CVD.
+-L24: Implement lifestyle intervention (healthy dietary pattern, weight loss, regular physical exercise) as it is associated with improvement in both MAFLD and CVD.
+-L30: This consensus pathway applies to patients with MAFLD and/or CVD; if neither is present, follow standard care outside this guideline.
+-L28: Consider carotid ultrasonography in most patients with MAFLD to improve CVD risk assessment.
+-L29: In CVD risk assessment, consider MAFLD as a CVD risk factor; current CVD risk scores may underestimate true risk in advanced MAFLD.
++L25: Administrative information.
++L3: Administrative information.
++L6: Administrative information.
++L8: Administrative information.
++L11: Administrative information.
++L12: Administrative information.
++L15: Administrative information.
++L16: Administrative information.
++L21: Administrative information.
++L19: Administrative information.
++L20: Administrative information.
++L23: Administrative information.
++L24: Administrative information.
++L30: Administrative information.
++L28: Administrative information.
++L29: Administrative information.
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/bcc325199aa20c37fdd8e585aa8487e1/bcc325199aa20c37fdd8e585aa8487e1.md
+
+## CR-022 | A | test | action_neutral
+
+配对：new-2619-G30:A:8716；节点：new-2619-G30。
+
+原条件：是否为II型子宫内膜癌（浆液性腺癌、透明细胞癌或癌肉瘤）？
+
+病历（左）：患者既往评估中未提示林奇综合征。病程中并非绝经后女性阴道流血；亦不符合“绝经前不规则阴道出血或血性分泌物（且已排除宫颈病变）”这一子宫内膜活检指征。既往不符合多年无排卵性不孕症表现，也未出现持续阴道排液。影像学检查未见子宫内膜异常增厚或宫腔赘生物，子宫内膜厚度约 4 mm；同时未发现可导致较高雌激素水平的卵巢肿瘤（如颗粒细胞瘤等）。
+
+随后经子宫内膜组织病理学检查明确为子宫内膜癌。患者无保留生育功能需求，且综合评估可耐受手术，并不属于“晚期无法手术”情况。进一步病理类型为II型子宫内膜癌，符合浆液性腺癌/透明细胞癌/癌肉瘤谱系。
+
+本病例的主要临床关注点为管理。
+
+病历（右）：患者既往评估中未提示林奇综合征。病程中并非绝经后女性阴道流血；亦不符合“绝经前不规则阴道出血或血性分泌物（且已排除宫颈病变）”这一子宫内膜活检指征。既往不符合多年无排卵性不孕症表现，也未出现持续阴道排液。影像学检查未见子宫内膜异常增厚或宫腔赘生物，子宫内膜厚度约 4 mm；同时未发现可导致较高雌激素水平的卵巢肿瘤（如颗粒细胞瘤等）。
+
+随后经子宫内膜组织病理学检查明确为子宫内膜癌。患者无保留生育功能需求，且综合评估可耐受手术，并不属于“晚期无法手术”情况。进一步病理类型为II型子宫内膜癌，符合浆液性腺癌/透明细胞癌/癌肉瘤谱系。
+
+本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -45,25 +45,25 @@
+   是 -> L41；否 -> L42
+-L2: 建议可在分娩完成后甚至更早行预防性全子宫切除术/双侧输卵管卵巢切除术，并建议每年行子宫内膜活检评估是否有癌症。
+-L3: 建议每年行子宫内膜活检评估是否有癌症，并在50岁以前进行筛查，建议进行基因检测和遗传咨询。
+-L6: 应对子宫内膜厚度>5mm的绝经后患者进行子宫内膜活检。
+-L7: 绝经后内膜厚度<5mm者阴性预测值高（可达96%）；可优先考虑随诊/进一步评估由临床结合具体情况决定。
+-L9: 应行子宫内膜活检（可行分段诊刮或宫腔镜直视下活检）。
+-L11: 应行子宫内膜活检（可行分段诊刮或宫腔镜直视下活检）。
+-L13: 应行子宫内膜活检（可行分段诊刮或宫腔镜直视下活检）。
+-L15: 应行子宫内膜活检（可行分段诊刮或宫腔镜直视下活检）。
+-L17: 应常规/应行子宫内膜活检。
+-L44: 尚未达到病理学金标准确诊：需获取子宫内膜组织或转移灶组织进行病理学检查以明确诊断。
+-L28: 保留生育功能只适用于子宫内膜样腺癌且需为G1级；不满足则按标准治疗处理：以手术为主的综合治疗，能耐受手术者行全面分期手术。
+-L27: 不符合保留生育功能治疗条件；应行全子宫+双附件切除+全面分期手术（除不能耐受手术或无法手术者外）。
+-L26: 不符合保留生育功能治疗条件；应行全子宫+双附件切除+全面分期手术（除不能耐受手术或无法手术者外）。
+-L24: 可保留生育功能：选择孕激素治疗（甲地孕酮、醋酸甲羟孕酮或左炔诺孕酮宫内缓释系统），治疗期间每3~6个月分段诊刮或子宫内膜活检；若持续存在6~12个月则行全子宫+双附件切除+手术病理分期；若6个月完全缓解则鼓励受孕并继续每3~6个月取样随访；完成生育后或发现进展即行全子宫+双附件切除+手术病理分期。
+-L25: 不符合保留生育功能治疗条件；应行全子宫+双附件切除+全面分期手术（除不能耐受手术或无法手术者外）。
+-L43: 不宜或不能手术者：可采用放疗和药物治疗；不能手术的子宫内膜癌可行根治性放疗（体外放疗联合近距离放疗）。
+-L31: 应行全面手术分期（腹/盆腔冲洗液细胞学检查、全子宫双附件切除、盆腔及腹主动脉旁淋巴结切除/清扫、大网膜切除术及腹膜多点活检；晚期行肿瘤细胞减灭术），术后依据分期与病理选择系统治疗/放疗等辅助治疗。
+-L33: 可选择筋膜外子宫切除/改良广泛子宫切除术+双侧附件切除术+盆腔及腹主动脉旁淋巴结切除术。
+-L35: 基本手术方式为全子宫+双附件切除术并进行淋巴结评估；病变局限于子宫体且无淋巴结异常者，淋巴结切除术为分期手术的重要组成部分；并可考虑前哨淋巴结活检。
+-L37: 应行肿瘤细胞减灭术（包括子宫+双附件切除在内，尽可能切除肉眼可见肿瘤，争取无肉眼残存肿瘤）；也可考虑新辅助化疗后再手术。
+-L39: 可行外照射治疗和（或）阴道近距离放疗±全身治疗；也可单纯化疗后再次评估是否可手术治疗，或根据疗效选择放疗。
+-L41: 可行化疗和（或）外照射治疗和（或）激素治疗，也可考虑姑息性子宫+双附件切除术。
+-L42: 指南未提供更进一步的明确分支；需结合患者具体情况进行个体化综合治疗决策。
++L2: 记录内容。
++L3: 记录内容。
++L6: 记录内容。
++L7: 记录内容。
++L9: 记录内容。
++L11: 记录内容。
++L13: 记录内容。
++L15: 记录内容。
++L17: 记录内容。
++L44: 记录内容。
++L28: 记录内容。
++L27: 记录内容。
++L26: 记录内容。
++L24: 记录内容。
++L25: 记录内容。
++L43: 记录内容。
++L31: 记录内容。
++L33: 记录内容。
++L35: 记录内容。
++L37: 记录内容。
++L39: 记录内容。
++L41: 记录内容。
++L42: 记录内容。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/ef07f340bd534079541b1d7161ad019c/ef07f340bd534079541b1d7161ad019c.md
+
+## CR-023 | A | test | action_neutral
+
+配对：new-579-G32:A:7736；节点：new-579-G32。
+
+原条件：Has the patient had prior lumbar surgery consistent with failed back surgery syndrome (FBSS)?
+
+病历（左）：The patient presented with long-standing chronic pain of a type supported for dorsal root ganglion (DRG) stimulation consideration in guideline-based practice, characterized primarily as chronic low back pain in the setting of failed back surgery syndrome. The pain pattern was not focal or dermatomal in distribution and instead was described as diffuse and non-dermatomal rather than confined to one or a small number of dermatomes or a single well-defined joint/region. The clinical history included prior lumbar surgery consistent with FBSS, and the dominant complaint following discectomy and/or fusion was axial low back pain, with leg pain present only as a secondary component rather than isolated radiculopathy. The primary clinical focus was management.
+
+病历（右）：The patient presented with long-standing chronic pain of a type supported for dorsal root ganglion (DRG) stimulation consideration in guideline-based practice, characterized primarily as chronic low back pain in the setting of failed back surgery syndrome. The pain pattern was not focal or dermatomal in distribution and instead was described as diffuse and non-dermatomal rather than confined to one or a small number of dermatomes or a single well-defined joint/region. The clinical history included prior lumbar surgery consistent with FBSS, and the dominant complaint following discectomy and/or fusion was axial low back pain, with leg pain present only as a secondary component rather than isolated radiculopathy. The primary clinical focus was management.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -45,25 +45,25 @@
+   是 -> L43；否 -> L44
+-L6: Offer DRG stimulation as first-line neuromodulation, with primary S1 (often single S1) lead placement for distal foot neuropathic CRPS/causalgia.
+-L7: Offer DRG stimulation as first-line neuromodulation with leads targeting S1 plus additional lumbar levels (e.g., L4/L5/S1) as needed to cover ankle/distal leg dermatomes.
+-L9: Offer DRG stimulation as preferred neuromodulatory option for refractory post-surgical/CRPS knee pain with leads at ipsilateral L2–L4 (most commonly L3 and L4).
+-L11: Offer DRG stimulation as a reasonable first-line neuromodulatory option for intractable groin/post-herniorrhaphy or anterior abdominal wall neuropathic pain with leads primarily at L1 and L2 (± T12).
+-L12: Offer DRG stimulation for lower-extremity CRPS/causalgia localized to other focal dermatomes, targeting the DRG at the affected dermatomal level(s) as per Table-5 patterns (e.g., hip: T12/L1, L4, S1; buttock/SI: T12/S1).
+-L14: Offer DRG stimulation (off-label above T10 in some regions) for refractory upper extremity or thoracic CRPS/causalgia with leads at cervical (C5–C8 for hand/elbow) or upper thoracic (T3–T7 for breast/thoracic) DRG, using awake/IONM-guided placement due to spinal cord and vertebral artery proximity.
+-L15: Offer DRG stimulation for focal CRPS/causalgia in other regions by placing leads at the DRG corresponding to the affected dermatomal level(s), using it as first-line neuromodulation over t-SCS.
+-L18: Offer DRG stimulation (Grade B, moderate certainty for post-hernia repair; Grade C for ACNES) targeting L1 (± T12, L2) DRG as first-line neuromodulatory therapy for intractable post-herniorrhaphy or anterior abdominal wall entrapment-type pain.
+-L20: Offer DRG stimulation (authors’ preferred option) for refractory post-joint surgery/causalgia with leads at L3–L4 for knee and T12/L1, L4, S1 or L1–L3/L5–S1 for hip, depending on reported pain distribution.
+-L22: Consider DRG stimulation (evidence grade I/low certainty) for post-amputation phantom or stump pain, using RF sensory mapping or periradicular infiltration to select DRG levels corresponding to the painful phantom/stump distribution.
+-L23: Offer DRG stimulation for other focal PSPS/causalgia (e.g., post-thoracotomy, post-mastectomy, post-Roux-en-Y) targeting DRG at dermatomes covering the painful area (e.g., T3–T7 for breast/thoracic; T11–T12 for upper abdominal pain).
+-L25: Offer DRG stimulation (Grade C, low certainty) for chronic pelvic, perineal, coccygeal, or genital pain with bilateral L1 and S2 (for pelvic/genital/pudendal distributions) or S3 DRG (for perineal pain), tailoring lead levels to symptom topography.
+-L27: Consider DRG stimulation (Grade C, low certainty) for painful peripheral neuropathy of the lower extremities with leads at lower lumbar and sacral DRG (typically L4–S1, with emphasis on S1; bilateral L5/S1 often used), aiming for >50% pain relief and improved mood/quality of life.
+-L29: Consider DRG stimulation only in selected, refractory PHN or subacute herpes zoster cases (evidence insufficient, low certainty), targeting the DRG at or adjacent to the affected dermatome (including possible Gasserian ganglion DRG-S for trigeminal pain), with expectation of variable and often limited benefit.
+-L30: Consider DRG stimulation for other focal dermatomal neuropathic or mixed pain syndromes listed (e.g., erythromelalgia of the feet, post-stroke focal leg pain, peripheral vascular disease-related ischemic foot pain), targeting DRG levels specified for the involved region (often S1 or lower lumbar) and leveraging sympathetic effects where relevant.
+-L34: Consider DRG stimulation (Grade C, low certainty) as second-line or post-SCS option for FBSS with predominant axial low back pain, using T12 or L2/L3 DRG leads (often combined with S1 for radicular/leg or SI pain) to achieve substantial VAS, ODI, and EQ-5D improvements.
+-L35: Consider DRG stimulation for FBSS with mixed axial and radicular pain, placing leads at DRG corresponding to LBP (T12 or L2/L3) and at lumbar/sacral levels for radicular symptoms, particularly when t-SCS is ineffective or has lost efficacy.
+-L37: Offer DRG stimulation (Grade C, low certainty) for refractory discogenic non-surgical low back pain with bilateral L2 DRG stimulation, expecting ~60–70% NRS reduction and substantial functional/mood gains.
+-L38: Consider DRG stimulation for non-discogenic NSLBP (including cases with mixed nociceptive/neuropathic components) using T12 DRG leads (often with S1 for SI/radicular pain), particularly when t-SCS fails or when broader functional/psychological improvements are sought.
+-L40: Consider DRG stimulation in selected sympathetically mediated or vascular conditions (e.g., peripheral vascular disease with ischemic foot ulcers, erythromelalgia, hypertension with elevated MSNA), targeting pathology-specific levels (often lower lumbar/sacral or thoracic DRG) to reduce sympathetic outflow, improve tissue perfusion, and relieve pain.
+-L41: Consider DRG stimulation as salvage neuromodulation in patients with chronic neuropathic or mixed pain who have failed or lost efficacy with t-SCS/burst/HF-SCS, using DRG lead levels matched to pain topography (e.g., T12 and S1 for CRPS or FBSS), given demonstrated clinically meaningful improvements and low explant rates.
+-L43: Do not routinely offer DRG stimulation based on this guideline; consider enrollment in research or alternative therapies, as evidence for DRG-S in non-dermatomal or unsupported conditions is currently insufficient.
+-L44: DRG stimulation is not indicated per this guideline; pursue other diagnostic or therapeutic options.
++L6: Administrative information.
++L7: Administrative information.
++L9: Administrative information.
++L11: Administrative information.
++L12: Administrative information.
++L14: Administrative information.
++L15: Administrative information.
++L18: Administrative information.
++L20: Administrative information.
++L22: Administrative information.
++L23: Administrative information.
++L25: Administrative information.
++L27: Administrative information.
++L29: Administrative information.
++L30: Administrative information.
++L34: Administrative information.
++L35: Administrative information.
++L37: Administrative information.
++L38: Administrative information.
++L40: Administrative information.
++L41: Administrative information.
++L43: Administrative information.
++L44: Administrative information.
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/333fa2b532c43bbf96cb266da7271bc0/333fa2b532c43bbf96cb266da7271bc0.md
+
+## CR-024 | A | test | action_presence
+
+配对：new-1536-G1:A:4037；节点：new-1536-G1。
+
+原条件：Is there an abnormal finding on hip physical examination (hip instability) indicating early ultrasound despite age <6 weeks?
+
+病历（左）：A 4-week-old infant presented for routine well-child care and was within the first 6 weeks of life. The hip physical examination was not abnormal, with no evidence of hip instability on assessment. The primary clinical focus was screening.
+
+病历（右）：A 4-week-old infant presented for routine well-child care and was within the first 6 weeks of life. The hip physical examination was not abnormal, with no evidence of hip instability on assessment. The primary clinical focus was screening.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -23,14 +23,14 @@
+   是 -> L21；否 -> L22
+-L2: Perform diagnostic ultrasound examination of both hips for DDH now (early ultrasound indicated due to abnormal physical exam).
+-L3: Do not usually perform hip sonography before 6 weeks of age (defer unless other clinical indication arises).
+-L5: Perform ultrasound of the infant hip for detection/assessment of DDH.
+-L7: Perform ultrasound of the infant hip for detection/assessment of DDH.
+-L9: Perform ultrasound of the infant hip for detection/assessment of DDH.
+-L11: Perform ultrasound of the infant hip for detection/assessment of DDH.
+-L13: Perform ultrasound for monitoring during DDH treatment.
+-L15: Consider ultrasound of the infant hip (relative indication) for detection/assessment of DDH.
+-L17: Consider ultrasound of the infant hip (relative indication) for detection/assessment of DDH.
+-L19: Consider ultrasound of the infant hip (relative indication) for detection/assessment of DDH.
+-L21: Consider ultrasound of the infant hip (relative indication) for detection/assessment of DDH.
+-L22: No guideline-listed indication for infant hip ultrasound for DDH is present; selective screening criteria not met.
++L2: [处置已删除]
++L3: [处置已删除]
++L5: [处置已删除]
++L7: [处置已删除]
++L9: [处置已删除]
++L11: [处置已删除]
++L13: [处置已删除]
++L15: [处置已删除]
++L17: [处置已删除]
++L19: [处置已删除]
++L21: [处置已删除]
++L22: [处置已删除]
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/8da0c37bc7990517c612821d06824cb8/8da0c37bc7990517c612821d06824cb8.md
+
+## CR-025 | A | test | action_presence
+
+配对：new-559-G9:A:7696；节点：new-559-G9。
+
+原条件：为预防和处理穿孔、腹腔胀气等并发症，是否需要更好气道控制？
+
+病历（左）：患者拟行内镜黏膜下剥离术（ESD），该手术并非上消化道ESD，而是计划在下消化道实施。术前评估认为本次下消化道ESD预期手术时间较长，预计约为180分钟；同时预期创伤程度较大，操作范围及黏膜下剥离量均较多。鉴于上述特点，团队在围术期重点考虑可能出现的穿孔及由气体进入腹腔导致的腹腔胀气等并发症，并判断为便于预防与处理这些情况，需要获得更可靠的气道控制以保障通气与处理突发事件的可行性。最后，本病例的主要临床关注点为管理。
+
+病历（右）：患者拟行内镜黏膜下剥离术（ESD），该手术并非上消化道ESD，而是计划在下消化道实施。术前评估认为本次下消化道ESD预期手术时间较长，预计约为180分钟；同时预期创伤程度较大，操作范围及黏膜下剥离量均较多。鉴于上述特点，团队在围术期重点考虑可能出现的穿孔及由气体进入腹腔导致的腹腔胀气等并发症，并判断为便于预防与处理这些情况，需要获得更可靠的气道控制以保障通气与处理突发事件的可行性。最后，本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -31,18 +31,18 @@
+   是 -> L26；否 -> L27
+-L5: 应首选气管插管全身麻醉进行上消化道 ESD。
+-L3: 选择气管插管全身麻醉进行上消化道 ESD，以降低误吸风险。
+-L4: 可在中度镇静下由有经验的医师完成上消化道 ESD。
+-L13: 下消化道 ESD 一般可在深度镇静/麻醉或中度镇静下完成。
+-L12: 下消化道 ESD 一般可在深度镇静/麻醉或中度镇静下完成。
+-L10: 在下消化道 ESD 中可酌情使用喉罩或行气管插管全身麻醉。
+-L11: 下消化道 ESD 一般在深度镇静/麻醉或中度镇静下完成，如无需更好气道控制可继续采用镇静方案。
+-L30: 当前未计划实施 ESD，暂不进入 ESD 麻醉管理决策流程。
+-L18: 采用消化内镜专用面罩、鼻罩、鼻咽通气道给氧或正压通气，以减少低氧血症发生率并提高安全性。
+-L19: 必要时改为气管内插管控制呼吸，以预防或处理呼吸抑制和低氧血症。
+-L21: 在发生反流与误吸时，应行气管内插管，在纤维支气管镜引导下吸净误吸液体及异物，必要时对固体食物误吸行肺灌洗，并采用机械通气以改善低氧血症。
+-L22: 继续非气管插管 ESD 并密切监测呼吸频率和幅度，必要时准备气管插管干预。
+-L29: 未进行气管插管或镇静方案未明确，需根据 ESD 部位和术式特点参照上、下消化道 ESD 麻醉原则进行选择和调整。
+-L28: 继续在气管插管下进行 ESD，并推荐行 PETCO2 监测，常规监测 NIBP、ECG、SpO2，危重患者监测有创动脉血压。
+-L26: 在上述处理无效的喉痉挛时，给予肌肉松弛药后行气管插管全身麻醉。
+-L27: 通过加深麻醉、退出内镜、面罩加压给纯氧及吸引气道分泌物等措施处理喉痉挛，无需追加肌松药。
++L5: [处置已删除]
++L3: [处置已删除]
++L4: [处置已删除]
++L13: [处置已删除]
++L12: [处置已删除]
++L10: [处置已删除]
++L11: [处置已删除]
++L30: [处置已删除]
++L18: [处置已删除]
++L19: [处置已删除]
++L21: [处置已删除]
++L22: [处置已删除]
++L29: [处置已删除]
++L28: [处置已删除]
++L26: [处置已删除]
++L27: [处置已删除]
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/31edc8ba7c617a4f51f65959b3bca4ef/31edc8ba7c617a4f51f65959b3bca4ef.md
+
+## CR-026 | A | test | action_presence
+
+配对：new-888-G29:A:8546；节点：new-888-G29。
+
+原条件：Can standard-dose iodinated contrast be administered (e.g., 50–100 mL bolus) while aiming to keep volume as low as reasonably possible per guideline recommendations?
+
+病历（左）：The patient was being prepared for a pre-procedural CT angiography evaluation and had no contraindication to iodinated contrast material and no other stated contraindication to CTA. There was no significant concern for impaired baseline renal function or chronic kidney disease. Standard-dose iodinated contrast was administered as a single bolus of 75 mL, with efforts to keep the contrast volume as low as reasonably possible. On the available ≥64-slice scanner, an ECG-gated CTA acquisition of the aortic root and heart was technically achievable and was performed. The protocol was designed to obtain imaging from the subclavian arteries through the common femoral arteries in a single examination, using an ECG-gated cardiac/aortic root acquisition followed by an ungated abdominal acquisition. The primary clinical focus was management.
+
+病历（右）：The patient was being prepared for a pre-procedural CT angiography evaluation and had no contraindication to iodinated contrast material and no other stated contraindication to CTA. There was no significant concern for impaired baseline renal function or chronic kidney disease. Standard-dose iodinated contrast was administered as a single bolus of 75 mL, with efforts to keep the contrast volume as low as reasonably possible. On the available ≥64-slice scanner, an ECG-gated CTA acquisition of the aortic root and heart was technically achievable and was performed. The protocol was designed to obtain imaging from the subclavian arteries through the common femoral arteries in a single examination, using an ECG-gated cardiac/aortic root acquisition followed by an ungated abdominal acquisition. The primary clinical focus was management.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -53,29 +53,29 @@
+   是 -> L47；否 -> L48
+-L28: CTA is feasible but low- or ultra-low-dose contrast protocols compatible with adequate imaging cannot be used; the guideline’s recommendation to keep contrast volume as low as possible cannot be followed under current technical constraints.
+-L27: ECG-gated CTA of the aortic root/heart cannot be adequately performed on the available scanner; guideline-standard CT assessment of annulus and root for TAVI is not achievable.
+-L26: CTA protocol does not cover the necessary arterial range from subclavian to common femoral arteries; CT does not fulfil guideline requirements for full pre-TAVI assessment of access and aorta.
+-L22: CT acquisition did not yield acceptable standard annulus/root measurements with appropriate oblique/orthogonal reconstructions; CT-based TAVI sizing cannot be considered adequate per the guideline.
+-L21: CT-derived annulus and aortic root sizing for TAVI planning is available without quantitative aortic valve calcium scoring.
+-L20: CT-derived anatomical assessment (annulus and root measurements) for TAVI planning is available; aortic valve calcium scoring was not performed or not used for confirming severe aortic stenosis.
+-L19: Aortic valve calcium score does not meet the guideline’s threshold to confirm severe aortic stenosis in the context of discordant echocardiographic parameters.
+-L12: High risk of coronary occlusion in valve-in-valve TAVI; this anatomy should be recognized and managed as high coronary occlusion risk.
+-L13: Valve-in-valve anatomy without CT evidence of very short VTC (< 4 mm); coronary occlusion risk from VTC is not categorized as high by this criterion.
+-L18: Severe aortic valve/LVOT calcification is present in a non–native, non–valve-in-valve context; this anatomy should still be recognized as higher risk for peri-procedural and post-procedural complications (e.g. regurgitation, annular rupture) during TAVI planning.
+-L16: Anatomical features indicate increased risk of coronary obstruction in native-valve TAVI; high-risk anatomy should be recognized in pre-procedural planning.
+-L17: No high-risk combination of coronary ostial height, sinus dimensions, and leaflet/calcification pattern is identified for coronary obstruction in native-valve TAVI.
+-L24: Annulus and aortic root measurements are obtained in diastole due to better image quality; CT-based TAVI sizing uses diastolic images acknowledging potential risk of prosthesis undersizing.
+-L25: Neither systolic nor diastolic phases provide adequate image quality for annulus measurement; CT-based sizing for TAVI is inadequate with current acquisition.
+-L35: Although renal function is not impaired, standard-dose iodinated contrast cannot be used (e.g., other contraindication); CTA cannot be performed as recommended.
+-L34: CTA is performed without adequate ECG-gated imaging of the aortic root; CT-based annular sizing does not fully meet guideline standards.
+-L32: Guideline-standard ECG-gated CTA covering aortic annulus/root and full arterial access range is performed before TAVI using standard-dose contrast.
+-L33: CTA is performed but does not include the complete arterial range from subclavian to common femoral arteries as recommended for pre-TAVI assessment.
+-L41: Both iodinated contrast CTA and gadolinium-enhanced CMR are contraindicated or not feasible; guideline-recommended cross-sectional imaging for pre-TAVI planning cannot be performed.
+-L39: Pre-procedural non-contrast CMR is used as an alternative to CT for evaluation of aortic root, thoraco-abdominal aorta and peripheral arterial access before TAVI.
+-L40: CMR is feasible but non-contrast MR angiographic coverage of aortic root and access vessels cannot be adequately obtained; guideline-aligned alternative to CT for full pre-TAVI anatomical assessment is not achieved.
+-L52: CTA is contraindicated and contrast-enhanced CMR is not feasible; cross-sectional imaging options for guideline-based TAVI planning are very limited.
+-L51: Contrast-enhanced CMR is diagnostic but does not include full coverage from aortic arch to proximal femoral arteries; it does not fully replace CT for complete pre-TAVI aortic and peripheral access evaluation.
+-L50: Contrast-enhanced CMR is performed but does not yield adequate annulus/aortic root measurements or coronary ostial height assessment for TAVI planning per guideline description.
+-L49: Contrast-enhanced CMR provides an alternative to CT for anatomical pre-TAVI assessment (root and access), but myocardial tissue characterization (LGE/mapping) is not performed and ATTR-CA screening information is not obtained.
+-L47: CMR suggests subclinical transthyretin cardiac amyloidosis in a TAVI candidate; this dual pathology is identified in pre-procedural screening and has unfavorable prognostic implications.
+-L48: CMR myocardial tissue characterization does not show findings suggestive of subclinical transthyretin cardiac amyloidosis in the TAVI candidate.
++L28: [处置已删除]
++L27: [处置已删除]
++L26: [处置已删除]
++L22: [处置已删除]
++L21: [处置已删除]
++L20: [处置已删除]
++L19: [处置已删除]
++L12: [处置已删除]
++L13: [处置已删除]
++L18: [处置已删除]
++L16: [处置已删除]
++L17: [处置已删除]
++L24: [处置已删除]
++L25: [处置已删除]
++L35: [处置已删除]
++L34: [处置已删除]
++L32: [处置已删除]
++L33: [处置已删除]
++L41: [处置已删除]
++L39: [处置已删除]
++L40: [处置已删除]
++L52: [处置已删除]
++L51: [处置已删除]
++L50: [处置已删除]
++L49: [处置已删除]
++L47: [处置已删除]
++L48: [处置已删除]
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/4f7c3d1e471e865f09ce1239280b1f67/4f7c3d1e471e865f09ce1239280b1f67.md
+
+## CR-027 | A | test | action_swap
+
+配对：new-1286-G8:A:7987；节点：new-1286-G8。
+
+原条件：患者的面神经功能障碍属于功能抑制型（临床表现为面瘫）？
+
+病历（左）：患者就诊时表现为面神经功能障碍，临床为功能抑制型改变，出现面瘫体征；查体及评估未提示面神经离断性损伤。进一步病史与相关检查未能明确单一可针对的病因，因此未发现需要同时进行对因治疗的明确病因线索。拟行穿刺相关操作前评估显示，计划穿刺部位未见局部感染体征，亦无严重全身感染表现；同时未见严重凝血功能障碍证据。基于上述情况，临床团队计划采用脉冲射频方式进行干预，以调节并促进面神经功能恢复，作为本次就诊的管理重点。
+
+病历（右）：患者就诊时表现为面神经功能障碍，临床为功能抑制型改变，出现面瘫体征；查体及评估未提示面神经离断性损伤。进一步病史与相关检查未能明确单一可针对的病因，因此未发现需要同时进行对因治疗的明确病因线索。拟行穿刺相关操作前评估显示，计划穿刺部位未见局部感染体征，亦无严重全身感染表现；同时未见严重凝血功能障碍证据。基于上述情况，临床团队计划采用脉冲射频方式进行干预，以调节并促进面神经功能恢复，作为本次就诊的管理重点。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -35,20 +35,20 @@
+   是 -> L29；否 -> L30
+-L1: 不适合实施面神经阻滞（面神经阻滞适应证不包括面神经离断性损伤）。
+-L3: 可实施面神经阻滞，但需同时进行对因治疗。
+-L5: 面神经阻滞禁忌（感染相关禁忌证）。
+-L7: 面神经阻滞禁忌（凝血功能严重障碍）。
+-L10: 实施面神经脉冲射频：温度42℃，电压30~40V，频率2Hz，脉宽20ms，射频时间300s；或高电压长时程脉冲射频：温度42~50℃，脉宽20ms，电压40~80V，射频时间900s；脉冲射频后仍可辅以狭义面神经药物阻滞。
+-L19: 对于功能抑制型患者，本共识建议宜采用狭义神经阻滞技术或脉冲射频来调整或促进面神经功能恢复；如不采用上述方式，则未提供其他推荐路径。
++L1: 可实施面神经阻滞，但需同时进行对因治疗。
++L3: 面神经阻滞禁忌（感染相关禁忌证）。
++L5: 面神经阻滞禁忌（凝血功能严重障碍）。
++L7: 实施面神经脉冲射频：温度42℃，电压30~40V，频率2Hz，脉宽20ms，射频时间300s；或高电压长时程脉冲射频：温度42~50℃，脉宽20ms，电压40~80V，射频时间900s；脉冲射频后仍可辅以狭义面神经药物阻滞。
++L10: 对于功能抑制型患者，本共识建议宜采用狭义神经阻滞技术或脉冲射频来调整或促进面神经功能恢复；如不采用上述方式，则未提供其他推荐路径。
++L19: 糖皮质激素宜禁用或酌情减量；避免短期内反复应用糖皮质激素。
+ L13: 糖皮质激素宜禁用或酌情减量；避免短期内反复应用糖皮质激素。
+ L15: 糖皮质激素宜禁用或酌情减量；避免短期内反复应用糖皮质激素。
+-L17: 糖皮质激素宜禁用或酌情减量；避免短期内反复应用糖皮质激素。
+-L18: 实施狭义面神经阻滞：注入混合液共3ml（方倍他米松磷酸钠0.5~1.0ml + 2%利多卡因1ml + 维生素B12 1ml）。糖皮质激素不宜短期内反复应用。
+-L34: 本共识将面神经疾患分为功能抑制型（面瘫）与功能亢进型（表情肌痉挛）；若两者均不符合，则本共识未给出面神经阻滞决策路径。
+-L33: 调整射频针尖位置重新电刺激测试，直至出现阳性结果（0.8mA以下诱发节律性抽动）才能进行标准连续射频。
+-L23: 立即结束标准连续射频治疗（防止对面神经传导功能过分毁损）。
+-L32: 出现鼓腮轻度漏气或闭眼不紧时结束射频治疗（60℃阶段即可达到停止点）。
+-L31: 出现鼓腮轻度漏气或闭眼不紧时结束射频治疗（65℃阶段即可达到停止点）。
+-L27: 结束标准连续射频治疗（以出现鼓腮轻度漏气或闭眼不紧为停止点）。
+-L29: 再次调整针尖或更换穿刺路径后再行测试和射频治疗。
+-L30: 继续采用阶跃式升温（每次上调5℃、时间30s不变），并在出现鼓腮轻度漏气或闭眼不紧时结束射频。
++L17: 实施狭义面神经阻滞：注入混合液共3ml（方倍他米松磷酸钠0.5~1.0ml + 2%利多卡因1ml + 维生素B12 1ml）。糖皮质激素不宜短期内反复应用。
++L18: 本共识将面神经疾患分为功能抑制型（面瘫）与功能亢进型（表情肌痉挛）；若两者均不符合，则本共识未给出面神经阻滞决策路径。
++L34: 调整射频针尖位置重新电刺激测试，直至出现阳性结果（0.8mA以下诱发节律性抽动）才能进行标准连续射频。
++L33: 立即结束标准连续射频治疗（防止对面神经传导功能过分毁损）。
++L23: 出现鼓腮轻度漏气或闭眼不紧时结束射频治疗（60℃阶段即可达到停止点）。
++L32: 出现鼓腮轻度漏气或闭眼不紧时结束射频治疗（65℃阶段即可达到停止点）。
++L31: 结束标准连续射频治疗（以出现鼓腮轻度漏气或闭眼不紧为停止点）。
++L27: 再次调整针尖或更换穿刺路径后再行测试和射频治疗。
++L29: 继续采用阶跃式升温（每次上调5℃、时间30s不变），并在出现鼓腮轻度漏气或闭眼不紧时结束射频。
++L30: 不适合实施面神经阻滞（面神经阻滞适应证不包括面神经离断性损伤）。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/74f50f49eed52bd7da4f7e7f8ee0d52f/74f50f49eed52bd7da4f7e7f8ee0d52f.md
+
+## CR-028 | A | test | action_swap
+
+配对：new-2058-G4:A:3996；节点：new-2058-G4。
+
+原条件：Does the patient have type 2 diabetes mellitus (T2DM)?
+
+病历（左）：The patient had established cardiovascular disease and metabolic (dysfunction)-associated fatty liver disease in the setting of type 2 diabetes mellitus. The patient reported no alcohol consumption. At the time of diabetes care, a GLP-1 receptor agonist was not being used or planned, and an SGLT-2 inhibitor was also not being used or planned; pioglitazone was not being used or considered. There was no dyslipidemia and no current need for cardiovascular risk reduction requiring statin therapy. The patient was severely obese with a body mass index of 38 kg/m². On evaluation, there was no evidence of portal hypertension. The primary clinical focus was management.
+
+病历（右）：The patient had established cardiovascular disease and metabolic (dysfunction)-associated fatty liver disease in the setting of type 2 diabetes mellitus. The patient reported no alcohol consumption. At the time of diabetes care, a GLP-1 receptor agonist was not being used or planned, and an SGLT-2 inhibitor was also not being used or planned; pioglitazone was not being used or considered. There was no dyslipidemia and no current need for cardiovascular risk reduction requiring statin therapy. The patient was severely obese with a body mass index of 38 kg/m². On evaluation, there was no evidence of portal hypertension. The primary clinical focus was management.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -31,18 +31,18 @@
+   是 -> L28；否 -> L29
+-L25: Consider screening for MAFLD in most patients with CVD (recognizing non-invasive vs invasive test tradeoffs and that relying on transaminase elevation alone can miss MAFLD).
+-L3: Advise abstinence/alcohol avoidance in this patient with MAFLD and CVD.
+-L6: GLP-1RA therapy is beneficial in MAFLD with coexisting T2DM and may reduce CVD outcomes (continue/consider as appropriate).
+-L8: SGLT-2 inhibitor therapy is beneficial in MAFLD with coexisting T2DM and may reduce CVD outcomes (continue/consider as appropriate).
+-L11: Pioglitazone may be beneficial in MAFLD and may reduce CVD outcomes, but keep in mind potential adverse effects including edema and worsening of pre-existing congestive heart failure.
+-L12: Pioglitazone may be beneficial in MAFLD and may reduce CVD outcomes; keep in mind potential adverse effects (e.g., weight gain and edema).
+-L15: Prescribe statins as indicated for dyslipidemia/CVD risk reduction even with modest liver enzyme elevation (<3× ULN) in MAFLD.
+-L16: Consider statins for CVD risk reduction in MAFLD when required for dyslipidemia/CVD risk reduction; the guideline only explicitly addresses safety for modest enzyme elevation (<3× ULN).
+-L21: Target cardiometabolic risk factors and implement lifestyle intervention (healthy dietary pattern, weight loss, regular physical exercise) to improve both MAFLD and CVD.
+-L19: Bariatric surgery can reduce CVD risk and improve liver histology in appropriately selected severely obese MAFLD patients; the guideline emphasizes consideration particularly in those without evidence of portal hypertension.
+-L20: Consider bariatric surgery (if required for obesity reduction) in selected severely obese MAFLD patients without evidence of portal hypertension; it improves liver histology and reduces CVD risk.
+-L23: Target cardiometabolic risk factors (overweight/obesity, diabetes, dyslipidemia, hypertension) and implement lifestyle intervention (healthy dietary pattern, weight loss, regular physical exercise) to improve both MAFLD and CVD.
+-L24: Implement lifestyle intervention (healthy dietary pattern, weight loss, regular physical exercise) as it is associated with improvement in both MAFLD and CVD.
+-L30: This consensus pathway applies to patients with MAFLD and/or CVD; if neither is present, follow standard care outside this guideline.
+-L28: Consider carotid ultrasonography in most patients with MAFLD to improve CVD risk assessment.
+-L29: In CVD risk assessment, consider MAFLD as a CVD risk factor; current CVD risk scores may underestimate true risk in advanced MAFLD.
++L25: Advise abstinence/alcohol avoidance in this patient with MAFLD and CVD.
++L3: GLP-1RA therapy is beneficial in MAFLD with coexisting T2DM and may reduce CVD outcomes (continue/consider as appropriate).
++L6: SGLT-2 inhibitor therapy is beneficial in MAFLD with coexisting T2DM and may reduce CVD outcomes (continue/consider as appropriate).
++L8: Pioglitazone may be beneficial in MAFLD and may reduce CVD outcomes, but keep in mind potential adverse effects including edema and worsening of pre-existing congestive heart failure.
++L11: Pioglitazone may be beneficial in MAFLD and may reduce CVD outcomes; keep in mind potential adverse effects (e.g., weight gain and edema).
++L12: Prescribe statins as indicated for dyslipidemia/CVD risk reduction even with modest liver enzyme elevation (<3× ULN) in MAFLD.
++L15: Consider statins for CVD risk reduction in MAFLD when required for dyslipidemia/CVD risk reduction; the guideline only explicitly addresses safety for modest enzyme elevation (<3× ULN).
++L16: Target cardiometabolic risk factors and implement lifestyle intervention (healthy dietary pattern, weight loss, regular physical exercise) to improve both MAFLD and CVD.
++L21: Bariatric surgery can reduce CVD risk and improve liver histology in appropriately selected severely obese MAFLD patients; the guideline emphasizes consideration particularly in those without evidence of portal hypertension.
++L19: Consider bariatric surgery (if required for obesity reduction) in selected severely obese MAFLD patients without evidence of portal hypertension; it improves liver histology and reduces CVD risk.
++L20: Target cardiometabolic risk factors (overweight/obesity, diabetes, dyslipidemia, hypertension) and implement lifestyle intervention (healthy dietary pattern, weight loss, regular physical exercise) to improve both MAFLD and CVD.
++L23: Implement lifestyle intervention (healthy dietary pattern, weight loss, regular physical exercise) as it is associated with improvement in both MAFLD and CVD.
++L24: This consensus pathway applies to patients with MAFLD and/or CVD; if neither is present, follow standard care outside this guideline.
++L30: Consider carotid ultrasonography in most patients with MAFLD to improve CVD risk assessment.
++L28: In CVD risk assessment, consider MAFLD as a CVD risk factor; current CVD risk scores may underestimate true risk in advanced MAFLD.
++L29: Consider screening for MAFLD in most patients with CVD (recognizing non-invasive vs invasive test tradeoffs and that relying on transaminase elevation alone can miss MAFLD).
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/bcc325199aa20c37fdd8e585aa8487e1/bcc325199aa20c37fdd8e585aa8487e1.md
+
+## CR-029 | A | test | action_swap
+
+配对：new-2608-G2:A:3841；节点：new-2608-G2。
+
+原条件：RSV核酸检测结果是否为阳性？
+
+病历（左）：在RSV流行季期间，一名患儿因出现符合毛细支气管炎的临床表现就诊。就诊过程中已完成基于PCR的RSV核酸检测（包括快速核酸检测/mPOCT），结果并未检出RSV核酸，为阴性。随后检测策略改为进行RSV抗原检测（RADTs/DFAs）而非继续核酸检测，抗原检测结果同样为阴性。该病例的主要临床关注点为管理。
+
+病历（右）：在RSV流行季期间，一名患儿因出现符合毛细支气管炎的临床表现就诊。就诊过程中已完成基于PCR的RSV核酸检测（包括快速核酸检测/mPOCT），结果并未检出RSV核酸，为阴性。随后检测策略改为进行RSV抗原检测（RADTs/DFAs）而非继续核酸检测，抗原检测结果同样为阴性。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -33,19 +33,19 @@
+   是 -> L31；否 -> L32
+-L21: 本路径中检出RSV，但未满足“需住院管理的LRTI”的前提；应依据临床状况进行管理，并监测是否出现快速变化（指南文本未提供针对非住院情境的特异性治疗算法）。
+-L10: 给予低流量吸氧（鼻塞法给氧最高2~3 L/min，或面罩给氧最高15 L/min）并监测。
+-L8: 应选择气管插管提供呼吸支持，而非HFNC或nCPAP；可能需要重症监护/机械通气。
+-L9: 升级呼吸支持：首选HFNC或nCPAP；必要时行气管插管。
+-L12: 当血氧饱和度持续90%~92%时可考虑启动氧疗（专家建议）；在医疗资源有限的情况下推荐以90%作为初始氧疗阈值。
+-L13: 基于上述阈值目前不提示需氧疗；继续对症支持治疗与监测。
+-L20: 给予门急诊/院外对症支持治疗与监测；强调警惕病情快速变化（如喘憋/呼吸困难、呼吸暂停、低氧血症及肺外并发症）。
+-L19: 给予对症支持治疗，重点在改善气道通畅性与监测；因条件限制不应用3%高渗盐水雾化。
+-L17: 因可能出现一过性气道痉挛性咳嗽，3%高渗盐水雾化仅建议在观察室或住院期间、在监护/观察下应用。
+-L18: 推荐对住院RSV相关LRTI患儿应用3%高渗盐水雾化，以改善临床症状并降低住院率/缩短住院时间。
+-L26: 此情境下未进行RSV检测；指南建议在RSV流行季且出现毛细支气管炎表现时完善病原学检测以明确诊断。
+-L24: 由于抗原检测敏感性较低，阴性标本应采用其他方法（如基于PCR的核酸检测）进行验证（如条件允许）。
+-L25: 抗原检测结果并非阴性（如为阳性）；解读时需认识到可能存在假阳性/假阴性，并根据临床状态按RSV相关管理进行处理。
+-L28: 建议在发病4天内采集鼻咽拭子以获得最佳灵敏度，并进行RSV核酸检测（主流方法）。
+-L29: 如采样延迟（>4天）或不具备条件，应在解读结果时综合考虑采样时间、患儿年龄、免疫状态及所用检测方法；选择最可获得的合适标本/方法进行检测与处置。
+-L31: 建议在第一个RSV流行季前或期间单次注射尼塞韦单抗，以预防RSV感染。
+-L32: 在RSV流行季以非药物干预措施作为主要预防策略（如标准手卫生、减少外出次数、保持社交距离、密切接触者佩戴口罩；婴幼儿居家或远离人群）。
++L21: 给予低流量吸氧（鼻塞法给氧最高2~3 L/min，或面罩给氧最高15 L/min）并监测。
++L10: 应选择气管插管提供呼吸支持，而非HFNC或nCPAP；可能需要重症监护/机械通气。
++L8: 升级呼吸支持：首选HFNC或nCPAP；必要时行气管插管。
++L9: 当血氧饱和度持续90%~92%时可考虑启动氧疗（专家建议）；在医疗资源有限的情况下推荐以90%作为初始氧疗阈值。
++L12: 基于上述阈值目前不提示需氧疗；继续对症支持治疗与监测。
++L13: 给予门急诊/院外对症支持治疗与监测；强调警惕病情快速变化（如喘憋/呼吸困难、呼吸暂停、低氧血症及肺外并发症）。
++L20: 给予对症支持治疗，重点在改善气道通畅性与监测；因条件限制不应用3%高渗盐水雾化。
++L19: 因可能出现一过性气道痉挛性咳嗽，3%高渗盐水雾化仅建议在观察室或住院期间、在监护/观察下应用。
++L17: 推荐对住院RSV相关LRTI患儿应用3%高渗盐水雾化，以改善临床症状并降低住院率/缩短住院时间。
++L18: 此情境下未进行RSV检测；指南建议在RSV流行季且出现毛细支气管炎表现时完善病原学检测以明确诊断。
++L26: 由于抗原检测敏感性较低，阴性标本应采用其他方法（如基于PCR的核酸检测）进行验证（如条件允许）。
++L24: 抗原检测结果并非阴性（如为阳性）；解读时需认识到可能存在假阳性/假阴性，并根据临床状态按RSV相关管理进行处理。
++L25: 建议在发病4天内采集鼻咽拭子以获得最佳灵敏度，并进行RSV核酸检测（主流方法）。
++L28: 如采样延迟（>4天）或不具备条件，应在解读结果时综合考虑采样时间、患儿年龄、免疫状态及所用检测方法；选择最可获得的合适标本/方法进行检测与处置。
++L29: 建议在第一个RSV流行季前或期间单次注射尼塞韦单抗，以预防RSV感染。
++L31: 在RSV流行季以非药物干预措施作为主要预防策略（如标准手卫生、减少外出次数、保持社交距离、密切接触者佩戴口罩；婴幼儿居家或远离人群）。
++L32: 本路径中检出RSV，但未满足“需住院管理的LRTI”的前提；应依据临床状况进行管理，并监测是否出现快速变化（指南文本未提供针对非住院情境的特异性治疗算法）。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/ee0b1264483865e67d4292acc261a4e8/ee0b1264483865e67d4292acc261a4e8.md
+
+## CR-030 | A | test | action_swap
+
+配对：new-888-G46:A:4018；节点：new-888-G46。
+
+原条件：Do CMR tissue characterization findings (e.g., global transmural LGE with difficulty nulling myocardium; very high native T1 and ECV > 50%) suggest subclinical transthyretin cardiac amyloidosis (ATTR-CA) in a patient with severe aortic stenosis?
+
+病历（左）：Pre-procedural CT angiography was not feasible because iodinated contrast material could not be administered. Gadolinium-enhanced cardiovascular magnetic resonance (CMR), however, was not contraindicated, with preserved renal function (eGFR 62 mL/min/1.73 m²) and no history of gadolinium allergy. The contrast-enhanced CMR study was technically feasible, as there was no unsafe implanted device, no severe claustrophobia, and adequate patient cooperation during scanning.
+
+Contrast-enhanced MR angiography was successfully acquired from the aortic arch through the proximal femoral arteries, allowing assessment of the aortic root and thoraco-abdominal aorta as well as evaluation of peripheral arterial access. Cine CMR with dedicated valve and aortic root views provided annular and root measurements and enabled coronary ostial height assessment with sufficient accuracy despite anticipated calcification-related signal voids. Late gadolinium enhancement (LGE) imaging and quantitative tissue characterization with native T1 mapping and extracellular volume (ECV) assessment were performed as part of the pre-TAVI CMR protocol. The myocardial tissue findings did not suggest subclinical transthyretin cardiac amyloidosis, with no global transmural LGE or difficulty nulling the myocardium, and with native T1 of 1,040 ms and ECV 28%.
+
+Primary clinical focus: management.
+
+病历（右）：Pre-procedural CT angiography was not feasible because iodinated contrast material could not be administered. Gadolinium-enhanced cardiovascular magnetic resonance (CMR), however, was not contraindicated, with preserved renal function (eGFR 62 mL/min/1.73 m²) and no history of gadolinium allergy. The contrast-enhanced CMR study was technically feasible, as there was no unsafe implanted device, no severe claustrophobia, and adequate patient cooperation during scanning.
+
+Contrast-enhanced MR angiography was successfully acquired from the aortic arch through the proximal femoral arteries, allowing assessment of the aortic root and thoraco-abdominal aorta as well as evaluation of peripheral arterial access. Cine CMR with dedicated valve and aortic root views provided annular and root measurements and enabled coronary ostial height assessment with sufficient accuracy despite anticipated calcification-related signal voids. Late gadolinium enhancement (LGE) imaging and quantitative tissue characterization with native T1 mapping and extracellular volume (ECV) assessment were performed as part of the pre-TAVI CMR protocol. The myocardial tissue findings did not suggest subclinical transthyretin cardiac amyloidosis, with no global transmural LGE or difficulty nulling the myocardium, and with native T1 of 1,040 ms and ECV 28%.
+
+Primary clinical focus: management.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -53,29 +53,29 @@
+   是 -> L47；否 -> L48
+-L28: CTA is feasible but low- or ultra-low-dose contrast protocols compatible with adequate imaging cannot be used; the guideline’s recommendation to keep contrast volume as low as possible cannot be followed under current technical constraints.
+-L27: ECG-gated CTA of the aortic root/heart cannot be adequately performed on the available scanner; guideline-standard CT assessment of annulus and root for TAVI is not achievable.
+-L26: CTA protocol does not cover the necessary arterial range from subclavian to common femoral arteries; CT does not fulfil guideline requirements for full pre-TAVI assessment of access and aorta.
+-L22: CT acquisition did not yield acceptable standard annulus/root measurements with appropriate oblique/orthogonal reconstructions; CT-based TAVI sizing cannot be considered adequate per the guideline.
+-L21: CT-derived annulus and aortic root sizing for TAVI planning is available without quantitative aortic valve calcium scoring.
+-L20: CT-derived anatomical assessment (annulus and root measurements) for TAVI planning is available; aortic valve calcium scoring was not performed or not used for confirming severe aortic stenosis.
+-L19: Aortic valve calcium score does not meet the guideline’s threshold to confirm severe aortic stenosis in the context of discordant echocardiographic parameters.
+-L12: High risk of coronary occlusion in valve-in-valve TAVI; this anatomy should be recognized and managed as high coronary occlusion risk.
+-L13: Valve-in-valve anatomy without CT evidence of very short VTC (< 4 mm); coronary occlusion risk from VTC is not categorized as high by this criterion.
+-L18: Severe aortic valve/LVOT calcification is present in a non–native, non–valve-in-valve context; this anatomy should still be recognized as higher risk for peri-procedural and post-procedural complications (e.g. regurgitation, annular rupture) during TAVI planning.
+-L16: Anatomical features indicate increased risk of coronary obstruction in native-valve TAVI; high-risk anatomy should be recognized in pre-procedural planning.
+-L17: No high-risk combination of coronary ostial height, sinus dimensions, and leaflet/calcification pattern is identified for coronary obstruction in native-valve TAVI.
+-L24: Annulus and aortic root measurements are obtained in diastole due to better image quality; CT-based TAVI sizing uses diastolic images acknowledging potential risk of prosthesis undersizing.
+-L25: Neither systolic nor diastolic phases provide adequate image quality for annulus measurement; CT-based sizing for TAVI is inadequate with current acquisition.
+-L35: Although renal function is not impaired, standard-dose iodinated contrast cannot be used (e.g., other contraindication); CTA cannot be performed as recommended.
+-L34: CTA is performed without adequate ECG-gated imaging of the aortic root; CT-based annular sizing does not fully meet guideline standards.
+-L32: Guideline-standard ECG-gated CTA covering aortic annulus/root and full arterial access range is performed before TAVI using standard-dose contrast.
+-L33: CTA is performed but does not include the complete arterial range from subclavian to common femoral arteries as recommended for pre-TAVI assessment.
+-L41: Both iodinated contrast CTA and gadolinium-enhanced CMR are contraindicated or not feasible; guideline-recommended cross-sectional imaging for pre-TAVI planning cannot be performed.
+-L39: Pre-procedural non-contrast CMR is used as an alternative to CT for evaluation of aortic root, thoraco-abdominal aorta and peripheral arterial access before TAVI.
+-L40: CMR is feasible but non-contrast MR angiographic coverage of aortic root and access vessels cannot be adequately obtained; guideline-aligned alternative to CT for full pre-TAVI anatomical assessment is not achieved.
+-L52: CTA is contraindicated and contrast-enhanced CMR is not feasible; cross-sectional imaging options for guideline-based TAVI planning are very limited.
+-L51: Contrast-enhanced CMR is diagnostic but does not include full coverage from aortic arch to proximal femoral arteries; it does not fully replace CT for complete pre-TAVI aortic and peripheral access evaluation.
+-L50: Contrast-enhanced CMR is performed but does not yield adequate annulus/aortic root measurements or coronary ostial height assessment for TAVI planning per guideline description.
+-L49: Contrast-enhanced CMR provides an alternative to CT for anatomical pre-TAVI assessment (root and access), but myocardial tissue characterization (LGE/mapping) is not performed and ATTR-CA screening information is not obtained.
+-L47: CMR suggests subclinical transthyretin cardiac amyloidosis in a TAVI candidate; this dual pathology is identified in pre-procedural screening and has unfavorable prognostic implications.
+-L48: CMR myocardial tissue characterization does not show findings suggestive of subclinical transthyretin cardiac amyloidosis in the TAVI candidate.
++L28: ECG-gated CTA of the aortic root/heart cannot be adequately performed on the available scanner; guideline-standard CT assessment of annulus and root for TAVI is not achievable.
++L27: CTA protocol does not cover the necessary arterial range from subclavian to common femoral arteries; CT does not fulfil guideline requirements for full pre-TAVI assessment of access and aorta.
++L26: CT acquisition did not yield acceptable standard annulus/root measurements with appropriate oblique/orthogonal reconstructions; CT-based TAVI sizing cannot be considered adequate per the guideline.
++L22: CT-derived annulus and aortic root sizing for TAVI planning is available without quantitative aortic valve calcium scoring.
++L21: CT-derived anatomical assessment (annulus and root measurements) for TAVI planning is available; aortic valve calcium scoring was not performed or not used for confirming severe aortic stenosis.
++L20: Aortic valve calcium score does not meet the guideline’s threshold to confirm severe aortic stenosis in the context of discordant echocardiographic parameters.
++L19: High risk of coronary occlusion in valve-in-valve TAVI; this anatomy should be recognized and managed as high coronary occlusion risk.
++L12: Valve-in-valve anatomy without CT evidence of very short VTC (< 4 mm); coronary occlusion risk from VTC is not categorized as high by this criterion.
++L13: Severe aortic valve/LVOT calcification is present in a non–native, non–valve-in-valve context; this anatomy should still be recognized as higher risk for peri-procedural and post-procedural complications (e.g. regurgitation, annular rupture) during TAVI planning.
++L18: Anatomical features indicate increased risk of coronary obstruction in native-valve TAVI; high-risk anatomy should be recognized in pre-procedural planning.
++L16: No high-risk combination of coronary ostial height, sinus dimensions, and leaflet/calcification pattern is identified for coronary obstruction in native-valve TAVI.
++L17: Annulus and aortic root measurements are obtained in diastole due to better image quality; CT-based TAVI sizing uses diastolic images acknowledging potential risk of prosthesis undersizing.
++L24: Neither systolic nor diastolic phases provide adequate image quality for annulus measurement; CT-based sizing for TAVI is inadequate with current acquisition.
++L25: Although renal function is not impaired, standard-dose iodinated contrast cannot be used (e.g., other contraindication); CTA cannot be performed as recommended.
++L35: CTA is performed without adequate ECG-gated imaging of the aortic root; CT-based annular sizing does not fully meet guideline standards.
++L34: Guideline-standard ECG-gated CTA covering aortic annulus/root and full arterial access range is performed before TAVI using standard-dose contrast.
++L32: CTA is performed but does not include the complete arterial range from subclavian to common femoral arteries as recommended for pre-TAVI assessment.
++L33: Both iodinated contrast CTA and gadolinium-enhanced CMR are contraindicated or not feasible; guideline-recommended cross-sectional imaging for pre-TAVI planning cannot be performed.
++L41: Pre-procedural non-contrast CMR is used as an alternative to CT for evaluation of aortic root, thoraco-abdominal aorta and peripheral arterial access before TAVI.
++L39: CMR is feasible but non-contrast MR angiographic coverage of aortic root and access vessels cannot be adequately obtained; guideline-aligned alternative to CT for full pre-TAVI anatomical assessment is not achieved.
++L40: CTA is contraindicated and contrast-enhanced CMR is not feasible; cross-sectional imaging options for guideline-based TAVI planning are very limited.
++L52: Contrast-enhanced CMR is diagnostic but does not include full coverage from aortic arch to proximal femoral arteries; it does not fully replace CT for complete pre-TAVI aortic and peripheral access evaluation.
++L51: Contrast-enhanced CMR is performed but does not yield adequate annulus/aortic root measurements or coronary ostial height assessment for TAVI planning per guideline description.
++L50: Contrast-enhanced CMR provides an alternative to CT for anatomical pre-TAVI assessment (root and access), but myocardial tissue characterization (LGE/mapping) is not performed and ATTR-CA screening information is not obtained.
++L49: CMR suggests subclinical transthyretin cardiac amyloidosis in a TAVI candidate; this dual pathology is identified in pre-procedural screening and has unfavorable prognostic implications.
++L47: CMR myocardial tissue characterization does not show findings suggestive of subclinical transthyretin cardiac amyloidosis in the TAVI candidate.
++L48: CTA is feasible but low- or ultra-low-dose contrast protocols compatible with adequate imaging cannot be used; the guideline’s recommendation to keep contrast volume as low as possible cannot be followed under current technical constraints.
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/4f7c3d1e471e865f09ce1239280b1f67/4f7c3d1e471e865f09ce1239280b1f67.md
+
+## CR-031 | P | dev | background
+
+配对：new-1831-G36:P:7491；节点：new-1831-G36。
+
+原条件：患者腹部及腹股沟区是否存在腹股沟疝等疾病，或外科手术后3周内切口尚未愈合？
+
+病历（左）：患者拟接受经动脉穿刺相关介入操作的围术期管理评估。既往并无需要为未来建立透析通路而保留上肢血管系统的指征，也未进行透析，亦不存在需要特别避免损伤桡动脉-头静脉通路的肾功能不全情况。术前测得双上肢收缩压差为10 mmHg，未超过20 mmHg；血管超声未见同侧锁骨下动脉明确动脉粥样硬化斑块及狭窄。拟穿刺桡动脉超声测得内径为2.4 mm，并未小于2.0 mm。患者未接受抗凝治疗，亦无凝血功能异常；体态并非重度肥胖，股动脉搏动可扪及，预计股动脉穿刺置鞘不构成技术性困难；亦无因腹压增高而难以压迫止血的情况。患者不属于因高龄或特殊疾病/体态异常而无法耐受术后长时间卧床者，且经术前训练后可完成卧床排尿、排便。双下肢股动脉局部无破溃或感染征象，未提示穿刺继发感染风险升高；亦无先天发育异常、术后或外伤导致的双下肢解剖结构异常或胸主动脉至腹主动脉路径迂曲而影响股动脉通路建立的情况；既往未行双侧股动脉、髂动脉或胸腹主动脉支架置入或其他外科手术干预；也不存在妊娠期、儿童或其他需减少腹部/盆腔/生殖器官X射线照射量的情况。查体与病史提示腹股沟区存在腹股沟疝，构成腹股沟区域相关并发风险的管理要点。最后，本病例的主要临床关注点为管理。
+
+病历（右）：患者拟接受经动脉穿刺相关介入操作的围术期管理评估，且无腹股沟疝等疾病。既往并无需要为未来建立透析通路而保留上肢血管系统的指征，也未进行透析，亦不存在需要特别避免损伤桡动脉-头静脉通路的肾功能不全情况。术前测得双上肢收缩压差为10 mmHg，未超过20 mmHg；血管超声未见同侧锁骨下动脉明确动脉粥样硬化斑块及狭窄。拟穿刺桡动脉超声测得内径为2.4 mm，并未小于2.0 mm。患者未接受抗凝治疗，亦无凝血功能异常；体态并非重度肥胖，股动脉搏动可扪及，预计股动脉穿刺置鞘不构成技术性困难；亦无因腹压增高而难以压迫止血的情况。患者不属于因高龄或特殊疾病/体态异常而无法耐受术后长时间卧床者，且经术前训练后可完成卧床排尿、排便。双下肢股动脉局部无破溃或感染征象，未提示穿刺继发感染风险升高；亦无先天发育异常、术后或外伤导致的双下肢解剖结构异常或胸主动脉至腹主动脉路径迂曲而影响股动脉通路建立的情况；既往未行双侧股动脉、髂动脉或胸腹主动脉支架置入或其他外科手术干预；也不存在妊娠期、儿童或其他需减少腹部/盆腔/生殖器官X射线照射量的情况。查体与病史提示腹股沟区存在腹股沟疝，构成腹股沟区域相关并发风险的管理要点。最后，本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"腹股沟疝等疾病": true, "外科手术后3周内切口尚未愈合": null}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -67,3 +67,3 @@
+ 病历：
+-患者拟接受经动脉穿刺相关介入操作的围术期管理评估。既往并无需要为未来建立透析通路而保留上肢血管系统的指征，也未进行透析，亦不存在需要特别避免损伤桡动脉-头静脉通路的肾功能不全情况。术前测得双上肢收缩压差为10 mmHg，未超过20 mmHg；血管超声未见同侧锁骨下动脉明确动脉粥样硬化斑块及狭窄。拟穿刺桡动脉超声测得内径为2.4 mm，并未小于2.0 mm。患者未接受抗凝治疗，亦无凝血功能异常；体态并非重度肥胖，股动脉搏动可扪及，预计股动脉穿刺置鞘不构成技术性困难；亦无因腹压增高而难以压迫止血的情况。患者不属于因高龄或特殊疾病/体态异常而无法耐受术后长时间卧床者，且经术前训练后可完成卧床排尿、排便。双下肢股动脉局部无破溃或感染征象，未提示穿刺继发感染风险升高；亦无先天发育异常、术后或外伤导致的双下肢解剖结构异常或胸主动脉至腹主动脉路径迂曲而影响股动脉通路建立的情况；既往未行双侧股动脉、髂动脉或胸腹主动脉支架置入或其他外科手术干预；也不存在妊娠期、儿童或其他需减少腹部/盆腔/生殖器官X射线照射量的情况。查体与病史提示腹股沟区存在腹股沟疝，构成腹股沟区域相关并发风险的管理要点。最后，本病例的主要临床关注点为管理。
++患者拟接受经动脉穿刺相关介入操作的围术期管理评估，且无腹股沟疝等疾病。既往并无需要为未来建立透析通路而保留上肢血管系统的指征，也未进行透析，亦不存在需要特别避免损伤桡动脉-头静脉通路的肾功能不全情况。术前测得双上肢收缩压差为10 mmHg，未超过20 mmHg；血管超声未见同侧锁骨下动脉明确动脉粥样硬化斑块及狭窄。拟穿刺桡动脉超声测得内径为2.4 mm，并未小于2.0 mm。患者未接受抗凝治疗，亦无凝血功能异常；体态并非重度肥胖，股动脉搏动可扪及，预计股动脉穿刺置鞘不构成技术性困难；亦无因腹压增高而难以压迫止血的情况。患者不属于因高龄或特殊疾病/体态异常而无法耐受术后长时间卧床者，且经术前训练后可完成卧床排尿、排便。双下肢股动脉局部无破溃或感染征象，未提示穿刺继发感染风险升高；亦无先天发育异常、术后或外伤导致的双下肢解剖结构异常或胸主动脉至腹主动脉路径迂曲而影响股动脉通路建立的情况；既往未行双侧股动脉、髂动脉或胸腹主动脉支架置入或其他外科手术干预；也不存在妊娠期、儿童或其他需减少腹部/盆腔/生殖器官X射线照射量的情况。查体与病史提示腹股沟区存在腹股沟疝，构成腹股沟区域相关并发风险的管理要点。最后，本病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/a5cbca7e2df71300e62eb0ce09f6d7b4/a5cbca7e2df71300e62eb0ce09f6d7b4.md
+
+## CR-032 | P | dev | background
+
+配对：new-2420-G12:P:2868；节点：new-2420-G12。
+
+原条件：患者是否为急性放射性膀胱损伤？（放疗开始3个月内）
+
+病历（左）：患者在接受放射治疗后3个月内出现泌尿系统不适，临床表现不符合“以出血为主”的迟发性放射性膀胱损伤特征，未见以血尿为主要症状的表现。起病时间符合急性放射性膀胱损伤的时间窗，但整体症状并不轻微，未能仅以观察随访处理。病史中未诉尿频、尿急、尿失禁或夜尿增多等储尿期症状，相反以排尿困难、排尿不畅为主要表现，提示存在排尿受阻相关的症状负担。该病例的主要临床关注点为管理。
+
+病历（右）：患者在接受放射治疗后3个月内出现泌尿系统不适，但未见以血尿为主要症状的表现，临床表现不符合“以出血为主”的迟发性放射性膀胱损伤特征，未见以血尿为主要症状的表现。起病时间符合急性放射性膀胱损伤的时间窗，但整体症状并不轻微，未能仅以观察随访处理。病史中未诉尿频、尿急、尿失禁或夜尿增多等储尿期症状，相反以排尿困难、排尿不畅为主要表现，提示存在排尿受阻相关的症状负担。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"急性放射性膀胱损伤": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -49,3 +49,3 @@
+ 病历：
+-患者在接受放射治疗后3个月内出现泌尿系统不适，临床表现不符合“以出血为主”的迟发性放射性膀胱损伤特征，未见以血尿为主要症状的表现。起病时间符合急性放射性膀胱损伤的时间窗，但整体症状并不轻微，未能仅以观察随访处理。病史中未诉尿频、尿急、尿失禁或夜尿增多等储尿期症状，相反以排尿困难、排尿不畅为主要表现，提示存在排尿受阻相关的症状负担。该病例的主要临床关注点为管理。
++患者在接受放射治疗后3个月内出现泌尿系统不适，但未见以血尿为主要症状的表现，临床表现不符合“以出血为主”的迟发性放射性膀胱损伤特征，未见以血尿为主要症状的表现。起病时间符合急性放射性膀胱损伤的时间窗，但整体症状并不轻微，未能仅以观察随访处理。病史中未诉尿频、尿急、尿失禁或夜尿增多等储尿期症状，相反以排尿困难、排尿不畅为主要表现，提示存在排尿受阻相关的症状负担。该病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/dd68755cc278aa86fa8c21509f96f7d0/dd68755cc278aa86fa8c21509f96f7d0.md
+
+## CR-033 | P | dev | background
+
+配对：new-2420-G17:P:7418；节点：new-2420-G17。
+
+原条件：是否存在排尿困难/排尿不畅？
+
+病历（左）：患者在接受放射治疗后3个月内出现泌尿系统不适，临床表现不符合“以出血为主”的迟发性放射性膀胱损伤特征，未见以血尿为主要症状的表现。起病时间符合急性放射性膀胱损伤的时间窗，但整体症状并不轻微，未能仅以观察随访处理。病史中未诉尿频、尿急、尿失禁或夜尿增多等储尿期症状，相反以排尿困难、排尿不畅为主要表现，提示存在排尿受阻相关的症状负担。该病例的主要临床关注点为管理。
+
+病历（右）：患者在接受放射治疗后3个月内出现泌尿系统不适，且未见以血尿为主要症状的表现，临床表现不符合“以出血为主”的迟发性放射性膀胱损伤特征，未见以血尿为主要症状的表现。起病时间符合急性放射性膀胱损伤的时间窗，但整体症状并不轻微，未能仅以观察随访处理。病史中未诉尿频、尿急、尿失禁或夜尿增多等储尿期症状，相反以排尿困难、排尿不畅为主要表现，提示存在排尿受阻相关的症状负担。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"排尿困难/排尿不畅": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -49,3 +49,3 @@
+ 病历：
+-患者在接受放射治疗后3个月内出现泌尿系统不适，临床表现不符合“以出血为主”的迟发性放射性膀胱损伤特征，未见以血尿为主要症状的表现。起病时间符合急性放射性膀胱损伤的时间窗，但整体症状并不轻微，未能仅以观察随访处理。病史中未诉尿频、尿急、尿失禁或夜尿增多等储尿期症状，相反以排尿困难、排尿不畅为主要表现，提示存在排尿受阻相关的症状负担。该病例的主要临床关注点为管理。
++患者在接受放射治疗后3个月内出现泌尿系统不适，且未见以血尿为主要症状的表现，临床表现不符合“以出血为主”的迟发性放射性膀胱损伤特征，未见以血尿为主要症状的表现。起病时间符合急性放射性膀胱损伤的时间窗，但整体症状并不轻微，未能仅以观察随访处理。病史中未诉尿频、尿急、尿失禁或夜尿增多等储尿期症状，相反以排尿困难、排尿不畅为主要表现，提示存在排尿受阻相关的症状负担。该病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/dd68755cc278aa86fa8c21509f96f7d0/dd68755cc278aa86fa8c21509f96f7d0.md
+
+## CR-034 | P | dev | background
+
+配对：new-2420-G6:P:2851；节点：new-2420-G6。
+
+原条件：膀胱内是否出现血凝块？
+
+病历（左）：患者既往接受盆腔放射治疗后，随后出现以出血为主的迟发性放射性膀胱损伤表现，主要临床症状为肉眼血尿。就诊时血尿量在短期内明显增多，程度已需要密切监测生命体征。尽管出血较多，患者当时生命体征相对平稳，收缩压约118 mmHg、心率约86次/分，未见血容量不足或休克风险，因此未需要口服或静脉补液治疗。实验室检查提示血红蛋白约108 g/L，未达到重度贫血程度，因而未提示需要输注红细胞。评估膀胱内情况时未发现血凝块形成。该病例的主要临床关注点为管理。
+
+病历（右）：患者既往接受盆腔放射治疗后，随后出现以出血为主的迟发性放射性膀胱损伤表现，主要临床症状为肉眼血尿。就诊时血尿量在短期内明显增多，程度已需要密切监测生命体征。尽管出血较多，患者当时生命体征相对平稳，收缩压约119 mmHg、心率约86次/分，未见血容量不足或休克风险，因此未需要口服或静脉补液治疗。实验室检查提示血红蛋白约108 g/L，未达到重度贫血程度，因而未提示需要输注红细胞。评估膀胱内情况时未发现血凝块形成。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -49,3 +49,3 @@
+ 病历：
+-患者既往接受盆腔放射治疗后，随后出现以出血为主的迟发性放射性膀胱损伤表现，主要临床症状为肉眼血尿。就诊时血尿量在短期内明显增多，程度已需要密切监测生命体征。尽管出血较多，患者当时生命体征相对平稳，收缩压约118 mmHg、心率约86次/分，未见血容量不足或休克风险，因此未需要口服或静脉补液治疗。实验室检查提示血红蛋白约108 g/L，未达到重度贫血程度，因而未提示需要输注红细胞。评估膀胱内情况时未发现血凝块形成。该病例的主要临床关注点为管理。
++患者既往接受盆腔放射治疗后，随后出现以出血为主的迟发性放射性膀胱损伤表现，主要临床症状为肉眼血尿。就诊时血尿量在短期内明显增多，程度已需要密切监测生命体征。尽管出血较多，患者当时生命体征相对平稳，收缩压约119 mmHg、心率约86次/分，未见血容量不足或休克风险，因此未需要口服或静脉补液治疗。实验室检查提示血红蛋白约108 g/L，未达到重度贫血程度，因而未提示需要输注红细胞。评估膀胱内情况时未发现血凝块形成。该病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/dd68755cc278aa86fa8c21509f96f7d0/dd68755cc278aa86fa8c21509f96f7d0.md
+
+## CR-035 | P | fit | background
+
+配对：new-1080-G15:P:5552；节点：new-1080-G15。
+
+原条件：是否拟使用TSEBT？
+
+病历（左）：患者就诊时处于妊娠期，既往评估提示为早期MF，临床分期处于ⅠA～ⅡA期范围内。就管理策略而言，当时未选择暂停治疗并仅予观察随访，而是计划采取以皮肤为靶向的治疗（SDT）。在SDT方案讨论与拟定过程中，未将UVB纳入治疗计划；亦未计划使用局部外用糖皮质激素；未拟采用维A酸治疗（无论外用或系统用药）；未考虑使用氮芥；同时未计划实施PUVA。综合妊娠背景及治疗意向，最终拟行全皮肤电子束治疗（TSEBT）作为皮肤定向治疗的一部分。最后，本病例的主要临床关注点为管理。
+
+病历（右）：患者就诊时处于妊娠期，既往评估提示为早期MF，临床分期处于ⅠA～ⅡA期范围内。就管理策略而言，当时未选择暂停治疗并仅予观察随访，而是计划采取以皮肤为靶向的治疗（SDT），而是计划采取以皮肤为靶向的治疗（SDT）。在SDT方案讨论与拟定过程中，未将UVB纳入治疗计划；亦未计划使用局部外用糖皮质激素；未拟采用维A酸治疗（无论外用或系统用药）；未考虑使用氮芥；同时未计划实施PUVA。综合妊娠背景及治疗意向，最终拟行全皮肤电子束治疗（TSEBT）作为皮肤定向治疗的一部分。最后，本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"拟使用TSEBT": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -118,3 +118,3 @@
+ 病历：
+-患者就诊时处于妊娠期，既往评估提示为早期MF，临床分期处于ⅠA～ⅡA期范围内。就管理策略而言，当时未选择暂停治疗并仅予观察随访，而是计划采取以皮肤为靶向的治疗（SDT）。在SDT方案讨论与拟定过程中，未将UVB纳入治疗计划；亦未计划使用局部外用糖皮质激素；未拟采用维A酸治疗（无论外用或系统用药）；未考虑使用氮芥；同时未计划实施PUVA。综合妊娠背景及治疗意向，最终拟行全皮肤电子束治疗（TSEBT）作为皮肤定向治疗的一部分。最后，本病例的主要临床关注点为管理。
++患者就诊时处于妊娠期，既往评估提示为早期MF，临床分期处于ⅠA～ⅡA期范围内。就管理策略而言，当时未选择暂停治疗并仅予观察随访，而是计划采取以皮肤为靶向的治疗（SDT），而是计划采取以皮肤为靶向的治疗（SDT）。在SDT方案讨论与拟定过程中，未将UVB纳入治疗计划；亦未计划使用局部外用糖皮质激素；未拟采用维A酸治疗（无论外用或系统用药）；未考虑使用氮芥；同时未计划实施PUVA。综合妊娠背景及治疗意向，最终拟行全皮肤电子束治疗（TSEBT）作为皮肤定向治疗的一部分。最后，本病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/621f81e0a0dd81fd83dbde792e060344/621f81e0a0dd81fd83dbde792e060344.md
+
+## CR-036 | P | fit | background
+
+配对：new-110-G97:P:5341；节点：new-110-G97。
+
+原条件：是否为胆囊癌高危人群，且已接受腹部超声初筛？
+
+病历（左）：患者既往未被确诊为胆道恶性肿瘤（胆囊癌或胆管癌）。临床评估时提示属于胆囊癌或胆管癌高危人群：既往存在胆囊结石并伴慢性炎症，同时影像学曾记录胆囊息肉最大直径约 1.2 cm。基于上述风险因素，患者已接受腹部超声作为初步筛查检查。该次超声检查显示胆囊内可见可疑肿块样回声，同时血清肿瘤标志物检查提示CA19-9升高至 62 U/mL。管理。
+
+病历（右）：患者既往未被确诊为胆道恶性肿瘤（胆囊癌或胆管癌），但存在胆囊结石合并慢性炎症及胆囊息肉最大直径约 1.2 cm。临床评估时提示属于胆囊癌或胆管癌高危人群：既往存在胆囊结石并伴慢性炎症，同时影像学曾记录胆囊息肉最大直径约 1.2 cm。基于上述风险因素，患者已接受腹部超声作为初步筛查检查。该次超声检查显示胆囊内可见可疑肿块样回声，同时血清肿瘤标志物检查提示CA19-9升高至 62 U/mL。管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"是否为胆囊癌高危人群": true, "已接受腹部超声初筛": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -169,3 +169,3 @@
+ 病历：
+-患者既往未被确诊为胆道恶性肿瘤（胆囊癌或胆管癌）。临床评估时提示属于胆囊癌或胆管癌高危人群：既往存在胆囊结石并伴慢性炎症，同时影像学曾记录胆囊息肉最大直径约 1.2 cm。基于上述风险因素，患者已接受腹部超声作为初步筛查检查。该次超声检查显示胆囊内可见可疑肿块样回声，同时血清肿瘤标志物检查提示CA19-9升高至 62 U/mL。管理。
++患者既往未被确诊为胆道恶性肿瘤（胆囊癌或胆管癌），但存在胆囊结石合并慢性炎症及胆囊息肉最大直径约 1.2 cm。临床评估时提示属于胆囊癌或胆管癌高危人群：既往存在胆囊结石并伴慢性炎症，同时影像学曾记录胆囊息肉最大直径约 1.2 cm。基于上述风险因素，患者已接受腹部超声作为初步筛查检查。该次超声检查显示胆囊内可见可疑肿块样回声，同时血清肿瘤标志物检查提示CA19-9升高至 62 U/mL。管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/090da9473ef60f01375e8893189815ea/090da9473ef60f01375e8893189815ea.md
+
+## CR-037 | P | fit | background
+
+配对：new-1164-G0:P:2075；节点：new-1164-G0。
+
+原条件：慢性心衰患者前后2次评估比较时，原有心衰症状和(或)体征是否再现或加重？
+
+病历（左）：患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为85 mmHg，符合低血压范围（<90 mmHg）。
+
+本病例的主要临床关注点为管理。
+
+病历（右）：患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为86 mmHg，符合低血压范围（<90 mmHg）。
+
+本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -40,3 +40,3 @@
+ 病历：
+-患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为85 mmHg，符合低血压范围（<90 mmHg）。
++患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为86 mmHg，符合低血压范围（<90 mmHg）。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/6a18aa3954818b705e8678c012b6b76e/6a18aa3954818b705e8678c012b6b76e.md
+
+## CR-038 | P | fit | background
+
+配对：new-1164-G2:P:2055；节点：new-1164-G2。
+
+原条件：患者是否存在低灌注表现？
+
+病历（左）：患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为85 mmHg，符合低血压范围（<90 mmHg）。
+
+本病例的主要临床关注点为管理。
+
+病历（右）：患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为86 mmHg，符合低血压范围（<90 mmHg）。
+
+本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"低灌注表现": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -40,3 +40,3 @@
+ 病历：
+-患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为85 mmHg，符合低血压范围（<90 mmHg）。
++患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为86 mmHg，符合低血压范围（<90 mmHg）。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/6a18aa3954818b705e8678c012b6b76e/6a18aa3954818b705e8678c012b6b76e.md
+
+## CR-039 | P | fit | background
+
+配对：new-1164-G3:P:2062；节点：new-1164-G3。
+
+原条件：低灌注是否已被纠正？
+
+病历（左）：患者既往为慢性心力衰竭，在前后两次随访评估对比中，原有心衰相关症状和（或）体征再次出现并较前加重。此次加重过程中可见液体潴留的证据，表现为符合液体潴留的症状与体征，同时伴随低灌注表现。经及时处置后，低灌注状态已得到纠正。随后病情以突发急性肺水肿形式表现，测得收缩压为105 mmHg，仍高于90 mmHg。以上病例经过用于指导管理。
+
+病历（右）：患者既往为慢性心力衰竭，在前后两次随访评估对比中，原有心衰相关症状和（或）体征再次出现并较前加重。此次加重过程中可见液体潴留的证据，表现为符合液体潴留的症状与体征，同时伴随低灌注表现。经及时处置后，低灌注状态已得到纠正。随后病情以突发急性肺水肿形式表现，测得收缩压为106 mmHg，仍高于90 mmHg。以上病例经过用于指导管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -40,3 +40,3 @@
+ 病历：
+-患者既往为慢性心力衰竭，在前后两次随访评估对比中，原有心衰相关症状和（或）体征再次出现并较前加重。此次加重过程中可见液体潴留的证据，表现为符合液体潴留的症状与体征，同时伴随低灌注表现。经及时处置后，低灌注状态已得到纠正。随后病情以突发急性肺水肿形式表现，测得收缩压为105 mmHg，仍高于90 mmHg。以上病例经过用于指导管理。
++患者既往为慢性心力衰竭，在前后两次随访评估对比中，原有心衰相关症状和（或）体征再次出现并较前加重。此次加重过程中可见液体潴留的证据，表现为符合液体潴留的症状与体征，同时伴随低灌注表现。经及时处置后，低灌注状态已得到纠正。随后病情以突发急性肺水肿形式表现，测得收缩压为106 mmHg，仍高于90 mmHg。以上病例经过用于指导管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/6a18aa3954818b705e8678c012b6b76e/6a18aa3954818b705e8678c012b6b76e.md
+
+## CR-040 | P | fit | background
+
+配对：new-1164-G4:P:2041；节点：new-1164-G4。
+
+原条件：患者是否为突发急性肺水肿？
+
+病历（左）：患者既往为慢性心力衰竭，前后两次随访评估比较时，原有心衰相关症状和（或）体征再次出现并较前加重。此次加重过程中可见明确的液体潴留证据，表现为液体潴留相关的症状与体征并存。同时一度出现低灌注表现，但经处理后低灌注已被纠正。随后病情突发进展为急性肺水肿发作，就诊时收缩压为 85 mmHg，未达到 >90 mmHg 的水平。以上病程记录用于管理。
+
+病历（右）：患者既往为慢性心力衰竭，前后两次随访评估比较时，原有心衰相关症状和（或）体征再次出现并较前加重。此次加重过程中可见明确的液体潴留证据，表现为液体潴留相关的症状与体征并存。同时一度出现低灌注表现，但经处理后低灌注已被纠正。随后病情突发进展为急性肺水肿发作，就诊时收缩压为 86 mmHg，未达到 >90 mmHg 的水平。以上病程记录用于管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"突发急性肺水肿": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -40,3 +40,3 @@
+ 病历：
+-患者既往为慢性心力衰竭，前后两次随访评估比较时，原有心衰相关症状和（或）体征再次出现并较前加重。此次加重过程中可见明确的液体潴留证据，表现为液体潴留相关的症状与体征并存。同时一度出现低灌注表现，但经处理后低灌注已被纠正。随后病情突发进展为急性肺水肿发作，就诊时收缩压为 85 mmHg，未达到 >90 mmHg 的水平。以上病程记录用于管理。
++患者既往为慢性心力衰竭，前后两次随访评估比较时，原有心衰相关症状和（或）体征再次出现并较前加重。此次加重过程中可见明确的液体潴留证据，表现为液体潴留相关的症状与体征并存。同时一度出现低灌注表现，但经处理后低灌注已被纠正。随后病情突发进展为急性肺水肿发作，就诊时收缩压为 86 mmHg，未达到 >90 mmHg 的水平。以上病程记录用于管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/6a18aa3954818b705e8678c012b6b76e/6a18aa3954818b705e8678c012b6b76e.md
+
+## CR-041 | P | fit | background
+
+配对：new-1164-G8:P:6328；节点：new-1164-G8。
+
+原条件：患者是否存在外周低灌注？
+
+病历（左）：患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为85 mmHg，符合低血压范围（<90 mmHg）。
+
+本病例的主要临床关注点为管理。
+
+病历（右）：患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为86 mmHg，符合低血压范围（<90 mmHg）。
+
+本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"外周低灌注": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -40,3 +40,3 @@
+ 病历：
+-患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为85 mmHg，符合低血压范围（<90 mmHg）。
++患者为慢性心力衰竭病史者，在前后两次随访评估对比时，既往心衰相关症状和/或体征再次出现并较前加重。就诊时可见液体潴留的证据，表现为容量负荷增加相关的症状与体征，同时出现低灌注表现。经处理后，低灌注状态已得到纠正；但此次发作并非突发的急性肺水肿。尽管如此，仍可观察到外周低灌注的表现，并测得收缩压为86 mmHg，符合低血压范围（<90 mmHg）。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/6a18aa3954818b705e8678c012b6b76e/6a18aa3954818b705e8678c012b6b76e.md
+
+## CR-042 | P | fit | background
+
+配对：new-1177-G6:P:698；节点：new-1177-G6。
+
+原条件：患者年龄是否>40岁？
+
+病历（左）：患者因急性神经系统事件就诊时神志受损，但入院评估格拉斯哥昏迷评分为10分，未达到≤8分的深昏迷程度；在紧密观察过程中，GCS在短时间内未出现超过2分的快速下降。头颅CT检查未见异常，未发现颅内血肿、脑挫伤、弥漫性肿胀、脑疝表现或环池受压征象。患者年龄为35岁，不超过40岁。查体可见去大脑皮质状态，表现为双侧异常伸展姿势。循环方面收缩压为110 mmHg，并未出现<90 mmHg的低血压情况。以上经过用于管理。
+
+病历（右）：患者因急性神经系统事件就诊时神志受损，但入院评估格拉斯哥昏迷评分为10分，未达到≤8分的深昏迷程度；在紧密观察过程中，GCS在短时间内未出现超过2分的快速下降。头颅CT检查未见异常，未发现颅内血肿、脑挫伤、弥漫性肿胀、脑疝表现或环池受压征象。患者年龄为35岁，不超过40岁。查体可见去大脑皮质状态，表现为双侧异常伸展姿势。循环方面收缩压为111 mmHg，并未出现<90 mmHg的低血压情况。以上经过用于管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"年龄": 35}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -34,3 +34,3 @@
+ 病历：
+-患者因急性神经系统事件就诊时神志受损，但入院评估格拉斯哥昏迷评分为10分，未达到≤8分的深昏迷程度；在紧密观察过程中，GCS在短时间内未出现超过2分的快速下降。头颅CT检查未见异常，未发现颅内血肿、脑挫伤、弥漫性肿胀、脑疝表现或环池受压征象。患者年龄为35岁，不超过40岁。查体可见去大脑皮质状态，表现为双侧异常伸展姿势。循环方面收缩压为110 mmHg，并未出现<90 mmHg的低血压情况。以上经过用于管理。
++患者因急性神经系统事件就诊时神志受损，但入院评估格拉斯哥昏迷评分为10分，未达到≤8分的深昏迷程度；在紧密观察过程中，GCS在短时间内未出现超过2分的快速下降。头颅CT检查未见异常，未发现颅内血肿、脑挫伤、弥漫性肿胀、脑疝表现或环池受压征象。患者年龄为35岁，不超过40岁。查体可见去大脑皮质状态，表现为双侧异常伸展姿势。循环方面收缩压为111 mmHg，并未出现<90 mmHg的低血压情况。以上经过用于管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/6b55319b8681403306b8c9b3310af27b/6b55319b8681403306b8c9b3310af27b.md
+
+## CR-043 | P | fit | background
+
+配对：new-1177-G7:P:681；节点：new-1177-G7。
+
+原条件：是否存在单侧或双侧去大脑皮质状态？
+
+病历（左）：患者因急性神经系统事件就诊，入院查体时格拉斯哥昏迷评分为9分，未达到≤8分；在短时间内复测GCS仍为9分，未出现超过2分的快速下降。头颅CT检查未见异常表现，未发现颅内血肿、脑挫伤、脑肿胀、脑疝或环池受压征象。患者年龄为56岁。体格检查提示存在去大脑皮质状态表现，可见双侧伸肌强直样姿势异常。生命体征方面，收缩压测得为82 mmHg，低于90 mmHg。管理。
+
+病历（右）：患者因急性神经系统事件就诊，入院查体时格拉斯哥昏迷评分为9分，未达到≤8分；在短时间内复测GCS仍为9分，未出现超过2分的快速下降。头颅CT检查未见异常表现，未发现颅内血肿、脑挫伤、脑肿胀、脑疝或环池受压征象。患者年龄为56岁。体格检查提示存在去大脑皮质状态表现，可见双侧伸肌强直样姿势异常。生命体征方面，收缩压测得为83 mmHg，低于90 mmHg。管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -34,3 +34,3 @@
+ 病历：
+-患者因急性神经系统事件就诊，入院查体时格拉斯哥昏迷评分为9分，未达到≤8分；在短时间内复测GCS仍为9分，未出现超过2分的快速下降。头颅CT检查未见异常表现，未发现颅内血肿、脑挫伤、脑肿胀、脑疝或环池受压征象。患者年龄为56岁。体格检查提示存在去大脑皮质状态表现，可见双侧伸肌强直样姿势异常。生命体征方面，收缩压测得为82 mmHg，低于90 mmHg。管理。
++患者因急性神经系统事件就诊，入院查体时格拉斯哥昏迷评分为9分，未达到≤8分；在短时间内复测GCS仍为9分，未出现超过2分的快速下降。头颅CT检查未见异常表现，未发现颅内血肿、脑挫伤、脑肿胀、脑疝或环池受压征象。患者年龄为56岁。体格检查提示存在去大脑皮质状态表现，可见双侧伸肌强直样姿势异常。生命体征方面，收缩压测得为83 mmHg，低于90 mmHg。管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/6b55319b8681403306b8c9b3310af27b/6b55319b8681403306b8c9b3310af27b.md
+
+## CR-044 | P | fit | background
+
+配对：new-1497-G21:P:379；节点：new-1497-G21。
+
+原条件：是否存在严重吞咽梗阻或吞咽疼痛？
+
+病历（左）：患者为恶性肿瘤，正在接受放射治疗。营养风险筛查提示存在明显营养风险，NRS 2002 总分为 4 分；进一步评估显示 PG-SGA 评分为 5 分，提示需要进行营养干预。放疗相关急性损伤方面，RTOG 急性放射损伤分级为 2 级，未达到重度（≥3级）。尽管患者已使用口服营养补充（ONS），但目前仍不能满足整体营养需求。
+
+在放疗前评估预防性置管指征时，患者近 1 个月体重丢失为 3%，未超过 5%；近 6 个月体重丢失为 6%，未超过 10%；BMI 为 21.0 kg/m²，并未低于 18.5 kg/m²。临床症状方面，未见严重吞咽梗阻或明显吞咽疼痛，也未表现为严重厌食。患者正在接受头颈部或胸部肿瘤放疗，且预计将出现严重放射性口腔或食管黏膜炎。该病例的主要临床关注点为管理。
+
+病历（右）：患者为恶性肿瘤，正在接受放射治疗。营养风险筛查提示存在明显营养风险，NRS 2002 总分为 4 分；进一步评估显示 PG-SGA 评分为 5 分，提示需要进行营养干预。放疗相关急性损伤方面，RTOG 急性放射损伤分级为 2 级，未达到重度（≥3级）。尽管患者已使用口服营养补充（ONS），但目前仍不能满足整体营养需求。
+
+在放疗前评估预防性置管指征时，患者近 1 个月体重丢失为 3%，未超过 5%；近 6 个月体重丢失为 6%，未超过 10%；BMI 为 21.0 kg/m²，并未低于 18.5 kg/m²。临床症状方面，未见严重吞咽梗阻或明显吞咽疼痛，也未表现为严重厌食。患者正在接受头颈部或胸部肿瘤放疗，且预计将出现严重放射性口腔或食管黏膜炎，且预计将出现严重放射性口腔或食管黏膜炎。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"是否存在严重吞咽梗阻或吞咽疼痛": false}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -54,3 +54,3 @@
+ 
+-在放疗前评估预防性置管指征时，患者近 1 个月体重丢失为 3%，未超过 5%；近 6 个月体重丢失为 6%，未超过 10%；BMI 为 21.0 kg/m²，并未低于 18.5 kg/m²。临床症状方面，未见严重吞咽梗阻或明显吞咽疼痛，也未表现为严重厌食。患者正在接受头颈部或胸部肿瘤放疗，且预计将出现严重放射性口腔或食管黏膜炎。该病例的主要临床关注点为管理。
++在放疗前评估预防性置管指征时，患者近 1 个月体重丢失为 3%，未超过 5%；近 6 个月体重丢失为 6%，未超过 10%；BMI 为 21.0 kg/m²，并未低于 18.5 kg/m²。临床症状方面，未见严重吞咽梗阻或明显吞咽疼痛，也未表现为严重厌食。患者正在接受头颈部或胸部肿瘤放疗，且预计将出现严重放射性口腔或食管黏膜炎，且预计将出现严重放射性口腔或食管黏膜炎。该病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/8a14f55c5bda85c9bafbacbba927922c/8a14f55c5bda85c9bafbacbba927922c.md
+
+## CR-045 | P | fit | background
+
+配对：new-15-G3:P:4308；节点：new-15-G3。
+
+原条件：是否存在中性粒细胞缺乏（绝对中性粒细胞计数ANC＜1.0×10^9/L）？
+
+病历（左）：患者因B细胞非霍奇金淋巴瘤计划并已接受CD19 CAR‑T细胞治疗，处于CAR‑T回输后急性期，回输后第10天出现发热，体温最高达39.0℃。同期血常规提示中性粒细胞缺乏，绝对中性粒细胞计数（ANC）为0.4×10^9/L。发热表现符合中性粒细胞减少性发热的标准：在ANC 0.4×10^9/L的背景下，单次体温超过38.3℃（记录为39.0℃）。临床过程中出现血流动力学不稳定，测得血压降至85/50 mmHg，并需要使用升压药以维持灌注。
+
+本病例的主要临床关注点为管理。
+
+病历（右）：患者因B细胞非霍奇金淋巴瘤计划并已接受CD19 CAR‑T细胞治疗，处于CAR‑T回输后急性期，回输后第10天出现发热，体温最高达39.0℃，且血常规提示中性粒细胞缺乏。同期血常规提示中性粒细胞缺乏，绝对中性粒细胞计数（ANC）为0.4×10^9/L。发热表现符合中性粒细胞减少性发热的标准：在ANC 0.4×10^9/L的背景下，单次体温超过38.3℃（记录为39.0℃）。临床过程中出现血流动力学不稳定，测得血压降至85/50 mmHg，并需要使用升压药以维持灌注。
+
+本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"是否存在中性粒细胞缺乏（绝对中性粒细胞计数ANC＜1.0×10^9/L）？": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -85,3 +85,3 @@
+ 病历：
+-患者因B细胞非霍奇金淋巴瘤计划并已接受CD19 CAR‑T细胞治疗，处于CAR‑T回输后急性期，回输后第10天出现发热，体温最高达39.0℃。同期血常规提示中性粒细胞缺乏，绝对中性粒细胞计数（ANC）为0.4×10^9/L。发热表现符合中性粒细胞减少性发热的标准：在ANC 0.4×10^9/L的背景下，单次体温超过38.3℃（记录为39.0℃）。临床过程中出现血流动力学不稳定，测得血压降至85/50 mmHg，并需要使用升压药以维持灌注。
++患者因B细胞非霍奇金淋巴瘤计划并已接受CD19 CAR‑T细胞治疗，处于CAR‑T回输后急性期，回输后第10天出现发热，体温最高达39.0℃，且血常规提示中性粒细胞缺乏。同期血常规提示中性粒细胞缺乏，绝对中性粒细胞计数（ANC）为0.4×10^9/L。发热表现符合中性粒细胞减少性发热的标准：在ANC 0.4×10^9/L的背景下，单次体温超过38.3℃（记录为39.0℃）。临床过程中出现血流动力学不稳定，测得血压降至85/50 mmHg，并需要使用升压药以维持灌注。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/010beb78c0b81b994deaf1b1a06bbc28/010beb78c0b81b994deaf1b1a06bbc28.md
+
+## CR-046 | P | fit | background
+
+配对：new-1838-G19:P:6064；节点：new-1838-G19。
+
+原条件：患者是否处于盆腔炎性疾病亚急性期？
+
+病历（左）：患者就诊时并非孕期状态，既往亦未提示对拟用药物成分过敏，也不属于过敏体质。问诊中否认月经过多，未见便溏表现，亦否认带下清稀。既往病史中未被诊断为盆腔炎性疾病（PID），但临床记录提示符合盆腔炎性疾病后遗症（SPID）的情况，且当时处于盆腔炎性疾病的亚急性期。在处理过程中，评估认为可在口服方案中联合抗生素进行治疗。该病例的主要临床关注点为管理。
+
+病历（右）：患者就诊时为非孕期状态，既往亦未提示对拟用药物成分过敏，也不属于过敏体质。问诊中否认月经过多，未见便溏表现，亦否认带下清稀。既往病史中未被诊断为盆腔炎性疾病（PID），但临床记录提示符合盆腔炎性疾病后遗症（SPID）的情况，且当时处于盆腔炎性疾病的亚急性期。在处理过程中，评估认为可在口服方案中联合抗生素进行治疗。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"处于盆腔炎性疾病亚急性期": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -61,3 +61,3 @@
+ 病历：
+-患者就诊时并非孕期状态，既往亦未提示对拟用药物成分过敏，也不属于过敏体质。问诊中否认月经过多，未见便溏表现，亦否认带下清稀。既往病史中未被诊断为盆腔炎性疾病（PID），但临床记录提示符合盆腔炎性疾病后遗症（SPID）的情况，且当时处于盆腔炎性疾病的亚急性期。在处理过程中，评估认为可在口服方案中联合抗生素进行治疗。该病例的主要临床关注点为管理。
++患者就诊时为非孕期状态，既往亦未提示对拟用药物成分过敏，也不属于过敏体质。问诊中否认月经过多，未见便溏表现，亦否认带下清稀。既往病史中未被诊断为盆腔炎性疾病（PID），但临床记录提示符合盆腔炎性疾病后遗症（SPID）的情况，且当时处于盆腔炎性疾病的亚急性期。在处理过程中，评估认为可在口服方案中联合抗生素进行治疗。该病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/a64932065649f96350900769eff6023c/a64932065649f96350900769eff6023c.md
+
+## CR-047 | P | fit | background
+
+配对：new-1838-G24:P:1817；节点：new-1838-G24。
+
+原条件：是否可联合抗生素口服治疗？
+
+病历（左）：患者就诊时已排除妊娠状态。既往及本次用药史中未提示对该药物成分过敏，也不属于过敏体质。病史回顾中未见月经过多表现；消化道症状方面无便溏；妇科分泌物方面未见带下清稀。当前评估未符合盆腔炎性疾病（PID）的诊断情形，且临床表现亦不支持处于盆腔炎性疾病亚急性期；但既往病程提示存在盆腔炎性疾病后遗症（SPID），并呈反复发作特点。综合用药可行性评估后，本次未选择与口服抗生素联合治疗。管理重点为围绕盆腔炎性疾病后遗症（SPID）反复发作情形制定用药与治疗方案的管理。
+
+病历（右）：患者就诊时已排除妊娠状态，且无过敏史。既往及本次用药史中未提示对该药物成分过敏，也不属于过敏体质。病史回顾中未见月经过多表现；消化道症状方面无便溏；妇科分泌物方面未见带下清稀。当前评估未符合盆腔炎性疾病（PID）的诊断情形，且临床表现亦不支持处于盆腔炎性疾病亚急性期；但既往病程提示存在盆腔炎性疾病后遗症（SPID），并呈反复发作特点。综合用药可行性评估后，本次未选择与口服抗生素联合治疗。管理重点为围绕盆腔炎性疾病后遗症（SPID）反复发作情形制定用药与治疗方案的管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"可联合抗生素口服治疗": false}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -61,3 +61,3 @@
+ 病历：
+-患者就诊时已排除妊娠状态。既往及本次用药史中未提示对该药物成分过敏，也不属于过敏体质。病史回顾中未见月经过多表现；消化道症状方面无便溏；妇科分泌物方面未见带下清稀。当前评估未符合盆腔炎性疾病（PID）的诊断情形，且临床表现亦不支持处于盆腔炎性疾病亚急性期；但既往病程提示存在盆腔炎性疾病后遗症（SPID），并呈反复发作特点。综合用药可行性评估后，本次未选择与口服抗生素联合治疗。管理重点为围绕盆腔炎性疾病后遗症（SPID）反复发作情形制定用药与治疗方案的管理。
++患者就诊时已排除妊娠状态，且无过敏史。既往及本次用药史中未提示对该药物成分过敏，也不属于过敏体质。病史回顾中未见月经过多表现；消化道症状方面无便溏；妇科分泌物方面未见带下清稀。当前评估未符合盆腔炎性疾病（PID）的诊断情形，且临床表现亦不支持处于盆腔炎性疾病亚急性期；但既往病程提示存在盆腔炎性疾病后遗症（SPID），并呈反复发作特点。综合用药可行性评估后，本次未选择与口服抗生素联合治疗。管理重点为围绕盆腔炎性疾病后遗症（SPID）反复发作情形制定用药与治疗方案的管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/a64932065649f96350900769eff6023c/a64932065649f96350900769eff6023c.md
+
+## CR-048 | P | fit | background
+
+配对：new-2423-G38:P:6302；节点：new-2423-G38。
+
+原条件：患者是否为儿童？
+
+病历（左）：患者就诊期间未出现呼吸衰竭，呼吸状态稳定且不需要机械通气；循环方面亦未见休克表现，未进入低灌注状态。病程中未合并其他器官功能衰竭，因此不需要ICU监护治疗。患者并非成人，而为儿童。入院时体温测得为40.2 ℃，并且高热持续超过3天。该病例的主要临床关注点为管理。
+
+病历（右）：患者就诊期间未出现呼吸衰竭，呼吸状态稳定且不需要机械通气；循环方面亦未见休克表现，未进入低灌注状态。病程中未合并其他器官功能衰竭，因此不需要ICU监护治疗。患者并非成人，而为儿童。入院时体温测得为40.3 ℃，并且高热持续超过3天。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"儿童": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -100,3 +100,3 @@
+ 病历：
+-患者就诊期间未出现呼吸衰竭，呼吸状态稳定且不需要机械通气；循环方面亦未见休克表现，未进入低灌注状态。病程中未合并其他器官功能衰竭，因此不需要ICU监护治疗。患者并非成人，而为儿童。入院时体温测得为40.2 ℃，并且高热持续超过3天。该病例的主要临床关注点为管理。
++患者就诊期间未出现呼吸衰竭，呼吸状态稳定且不需要机械通气；循环方面亦未见休克表现，未进入低灌注状态。病程中未合并其他器官功能衰竭，因此不需要ICU监护治疗。患者并非成人，而为儿童。入院时体温测得为40.3 ℃，并且高热持续超过3天。该病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/ddcca3a4b6cccc5bba0867d2bf541296/ddcca3a4b6cccc5bba0867d2bf541296.md
+
+## CR-049 | P | fit | background
+
+配对：new-304-G0:P:2404；节点：new-304-G0。
+
+原条件：患者是否为经过二线及以上治疗的成人大B细胞淋巴瘤（包括弥漫大B细胞淋巴瘤非特指型，滤泡性淋巴瘤转化的大B细胞淋巴瘤，原发纵隔大B细胞淋巴瘤，高级别B细胞淋巴瘤等LBCL范畴）？
+
+病历（左）：患者为成人大B细胞淋巴瘤（LBCL）范畴病例，既往已接受二线及以上系统治疗；对含CD20单抗与蒽环类药物的标准一线方案表现为原发耐药，且在完成治疗后约9个月即出现复发。入院评估时未见明显活动性感染，预计生存期≥6周。
+
+为拟行CAR-T治疗，既往史与系统体格检查已完成，包含一般情况评估、全身皮肤、浅表淋巴结、韦氏环及肝脾查体，并记录B症状与ECOG体能状态。实验室检查已完善（血/尿/便常规、生化全项、凝血功能、β2微球蛋白以及乙肝/丙肝/梅毒/HIV筛查），并已排除或控制活动性感染。影像学评估已完成18F-FDG PET/CT和/或全身增强CT；并根据特殊部位风险完成相应评估，包含头颅增强MRI以评估中枢神经系统受累风险，以及胃肠道内镜用于评估胃肠道受累风险，同时行心电图与超声心动图评估心功能。既往治疗前如骨髓为阳性者，已完成骨髓穿刺涂片及病理活检以复评骨髓受累情况。病理已明确为B细胞淋巴瘤，且原则上确认存在CD19靶点。患者按育龄期女性管理完成妊娠试验，结果为阴性。
+
+外周血单个核细胞采集前，患者仍无活动性感染，外周血淋巴细胞绝对计数满足采集要求（ALC 0.3×10^9/L）；同时已按推荐洗脱期停用具有淋巴毒性的化疗药物，并停用G-CSF及治疗剂量糖皮质激素。CAR-T细胞产品已制备成功并可按计划回输。等待制备期间因疾病高度侵袭、肿瘤负荷高且病情进展明显，已实施并完成强度适宜且与后续预处理化疗间隔充分的桥接治疗以控制进展。
+
+进入淋巴细胞清除化疗前复评时生命体征基本稳定，无持续高热，血压平稳且无低氧血症，ECOG评分允许接受化疗；同时已复查血/尿/便常规、生化全项、凝血功能、CRP，必要时BNP，并再次排除或控制活动性感染。预处理计划采用推荐的FC清淋方案：氟达拉滨30 mg/m²·d（d1–3）联合环磷酰胺500 mg/m²·d（d1–3）。清淋结束后至计划回输的间隔为4天，满足≥2天且未超过约3周。
+
+计划回输当日复核显示无活动性感染，且无需要升压药维持的低血压；生命体征复评为体温36.8℃、血压118/72 mmHg、血氧饱和度98%、心率82次/分，结合ECOG及当日实验室检查（血/尿/便常规、生化、凝血、CRP、铁蛋白、免疫球蛋白）判断器官功能可耐受回输。然而，回输前30–60分钟未能给予预防性用药（对乙酰氨基酚及抗组胺药），且亦未能在无禁忌前提下完成左乙拉西坦的癫痫预防用药。
+
+本病例的主要临床关注点为管理。
+
+病历（右）：患者为成人大B细胞淋巴瘤（LBCL）范畴病例，既往已接受二线及以上系统治疗；对含CD20单抗与蒽环类药物的标准一线方案表现为原发耐药，且在完成治疗后约9个月即出现复发。入院评估时未见明显活动性感染，预计生存期≥6周。
+
+为拟行CAR-T治疗，既往史与系统体格检查已完成，包含一般情况评估、全身皮肤、浅表淋巴结、韦氏环及肝脾查体，并记录B症状与ECOG体能状态。实验室检查已完善（血/尿/便常规、生化全项、凝血功能、β2微球蛋白以及乙肝/丙肝/梅毒/HIV筛查），并已排除或控制活动性感染。影像学评估已完成18F-FDG PET/CT和/或全身增强CT；并根据特殊部位风险完成相应评估，包含头颅增强MRI以评估中枢神经系统受累风险，以及胃肠道内镜用于评估胃肠道受累风险，同时行心电图与超声心动图评估心功能。既往治疗前如骨髓为阳性者，已完成骨髓穿刺涂片及病理活检以复评骨髓受累情况。病理已明确为B细胞淋巴瘤，且原则上确认存在CD19靶点。患者按育龄期女性管理完成妊娠试验，结果为阴性。
+
+外周血单个核细胞采集前，患者仍无活动性感染，外周血淋巴细胞绝对计数满足采集要求（ALC 0.3×10^9/L）；同时已按推荐洗脱期停用具有淋巴毒性的化疗药物，并停用G-CSF及治疗剂量糖皮质激素。CAR-T细胞产品已制备成功并可按计划回输。等待制备期间因疾病高度侵袭、肿瘤负荷高且病情进展明显，已实施并完成强度适宜且与后续预处理化疗间隔充分的桥接治疗以控制进展。
+
+进入淋巴细胞清除化疗前复评时生命体征基本稳定，无持续高热，血压平稳且无低氧血症，ECOG评分允许接受化疗；同时已复查血/尿/便常规、生化全项、凝血功能、CRP，必要时BNP，并再次排除或控制活动性感染。预处理计划采用推荐的FC清淋方案：氟达拉滨30 mg/m²·d（d1–3）联合环磷酰胺500 mg/m²·d（d1–3）。清淋结束后至计划回输的间隔为4天，满足≥2天且未超过约3周。
+
+计划回输当日复核显示无活动性感染，且无需要升压药维持的低血压；生命体征复评为体温36.8℃、血压118/72 mmHg、血氧饱和度98%、心率83次/分，结合ECOG及当日实验室检查（血/尿/便常规、生化、凝血、CRP、铁蛋白、免疫球蛋白）判断器官功能可耐受回输。然而，回输前30–60分钟未能给予预防性用药（对乙酰氨基酚及抗组胺药），且亦未能在无禁忌前提下完成左乙拉西坦的癫痫预防用药。
+
+本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -144,3 +144,3 @@
+ 
+-计划回输当日复核显示无活动性感染，且无需要升压药维持的低血压；生命体征复评为体温36.8℃、血压118/72 mmHg、血氧饱和度98%、心率82次/分，结合ECOG及当日实验室检查（血/尿/便常规、生化、凝血、CRP、铁蛋白、免疫球蛋白）判断器官功能可耐受回输。然而，回输前30–60分钟未能给予预防性用药（对乙酰氨基酚及抗组胺药），且亦未能在无禁忌前提下完成左乙拉西坦的癫痫预防用药。
++计划回输当日复核显示无活动性感染，且无需要升压药维持的低血压；生命体征复评为体温36.8℃、血压118/72 mmHg、血氧饱和度98%、心率83次/分，结合ECOG及当日实验室检查（血/尿/便常规、生化、凝血、CRP、铁蛋白、免疫球蛋白）判断器官功能可耐受回输。然而，回输前30–60分钟未能给予预防性用药（对乙酰氨基酚及抗组胺药），且亦未能在无禁忌前提下完成左乙拉西坦的癫痫预防用药。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/1a9e47ac94202d52b8826a731cf200a0/1a9e47ac94202d52b8826a731cf200a0.md
+
+## CR-050 | P | fit | background
+
+配对：new-304-G18:P:2420；节点：new-304-G18。
+
+原条件：清淋化疗结束后至计划回输时间间隔是否≥2天且不超过约3周？（若>3周且白细胞>1.0×10^9/L则需考虑再次清淋）
+
+病历（左）：患者为成人大B细胞淋巴瘤（LBCL）范畴病例，既往已接受二线及以上系统治疗；对含CD20单抗与蒽环类药物的标准一线方案表现为原发耐药，且在完成治疗后约9个月即出现复发。入院评估时未见明显活动性感染，预计生存期≥6周。
+
+为拟行CAR-T治疗，既往史与系统体格检查已完成，包含一般情况评估、全身皮肤、浅表淋巴结、韦氏环及肝脾查体，并记录B症状与ECOG体能状态。实验室检查已完善（血/尿/便常规、生化全项、凝血功能、β2微球蛋白以及乙肝/丙肝/梅毒/HIV筛查），并已排除或控制活动性感染。影像学评估已完成18F-FDG PET/CT和/或全身增强CT；并根据特殊部位风险完成相应评估，包含头颅增强MRI以评估中枢神经系统受累风险，以及胃肠道内镜用于评估胃肠道受累风险，同时行心电图与超声心动图评估心功能。既往治疗前如骨髓为阳性者，已完成骨髓穿刺涂片及病理活检以复评骨髓受累情况。病理已明确为B细胞淋巴瘤，且原则上确认存在CD19靶点。患者按育龄期女性管理完成妊娠试验，结果为阴性。
+
+外周血单个核细胞采集前，患者仍无活动性感染，外周血淋巴细胞绝对计数满足采集要求（ALC 0.3×10^9/L）；同时已按推荐洗脱期停用具有淋巴毒性的化疗药物，并停用G-CSF及治疗剂量糖皮质激素。CAR-T细胞产品已制备成功并可按计划回输。等待制备期间因疾病高度侵袭、肿瘤负荷高且病情进展明显，已实施并完成强度适宜且与后续预处理化疗间隔充分的桥接治疗以控制进展。
+
+进入淋巴细胞清除化疗前复评时生命体征基本稳定，无持续高热，血压平稳且无低氧血症，ECOG评分允许接受化疗；同时已复查血/尿/便常规、生化全项、凝血功能、CRP，必要时BNP，并再次排除或控制活动性感染。预处理计划采用推荐的FC清淋方案：氟达拉滨30 mg/m²·d（d1–3）联合环磷酰胺500 mg/m²·d（d1–3）。清淋结束后至计划回输的间隔为4天，满足≥2天且未超过约3周。
+
+计划回输当日复核显示无活动性感染，且无需要升压药维持的低血压；生命体征复评为体温36.8℃、血压118/72 mmHg、血氧饱和度98%、心率82次/分，结合ECOG及当日实验室检查（血/尿/便常规、生化、凝血、CRP、铁蛋白、免疫球蛋白）判断器官功能可耐受回输。然而，回输前30–60分钟未能给予预防性用药（对乙酰氨基酚及抗组胺药），且亦未能在无禁忌前提下完成左乙拉西坦的癫痫预防用药。
+
+本病例的主要临床关注点为管理。
+
+病历（右）：患者为成人大B细胞淋巴瘤（LBCL）范畴病例，既往已接受二线及以上系统治疗；对含CD20单抗与蒽环类药物的标准一线方案表现为原发耐药，且在完成治疗后约9个月即出现复发。入院评估时未见明显活动性感染，预计生存期≥6周。
+
+为拟行CAR-T治疗，既往史与系统体格检查已完成，包含一般情况评估、全身皮肤、浅表淋巴结、韦氏环及肝脾查体，并记录B症状与ECOG体能状态。实验室检查已完善（血/尿/便常规、生化全项、凝血功能、β2微球蛋白以及乙肝/丙肝/梅毒/HIV筛查），并已排除或控制活动性感染。影像学评估已完成18F-FDG PET/CT和/或全身增强CT；并根据特殊部位风险完成相应评估，包含头颅增强MRI以评估中枢神经系统受累风险，以及胃肠道内镜用于评估胃肠道受累风险，同时行心电图与超声心动图评估心功能。既往治疗前如骨髓为阳性者，已完成骨髓穿刺涂片及病理活检以复评骨髓受累情况。病理已明确为B细胞淋巴瘤，且原则上确认存在CD19靶点。患者按育龄期女性管理完成妊娠试验，结果为阴性。
+
+外周血单个核细胞采集前，患者仍无活动性感染，外周血淋巴细胞绝对计数满足采集要求（ALC 0.3×10^9/L）；同时已按推荐洗脱期停用具有淋巴毒性的化疗药物，并停用G-CSF及治疗剂量糖皮质激素。CAR-T细胞产品已制备成功并可按计划回输。等待制备期间因疾病高度侵袭、肿瘤负荷高且病情进展明显，已实施并完成强度适宜且与后续预处理化疗间隔充分的桥接治疗以控制进展。
+
+进入淋巴细胞清除化疗前复评时生命体征基本稳定，无持续高热，血压平稳且无低氧血症，ECOG评分允许接受化疗；同时已复查血/尿/便常规、生化全项、凝血功能、CRP，必要时BNP，并再次排除或控制活动性感染。预处理计划采用推荐的FC清淋方案：氟达拉滨30 mg/m²·d（d1–3）联合环磷酰胺500 mg/m²·d（d1–3）。清淋结束后至计划回输的间隔为4天，满足≥2天且未超过约3周。
+
+计划回输当日复核显示无活动性感染，且无需要升压药维持的低血压；生命体征复评为体温36.8℃、血压118/72 mmHg、血氧饱和度98%、心率83次/分，结合ECOG及当日实验室检查（血/尿/便常规、生化、凝血、CRP、铁蛋白、免疫球蛋白）判断器官功能可耐受回输。然而，回输前30–60分钟未能给予预防性用药（对乙酰氨基酚及抗组胺药），且亦未能在无禁忌前提下完成左乙拉西坦的癫痫预防用药。
+
+本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -144,3 +144,3 @@
+ 
+-计划回输当日复核显示无活动性感染，且无需要升压药维持的低血压；生命体征复评为体温36.8℃、血压118/72 mmHg、血氧饱和度98%、心率82次/分，结合ECOG及当日实验室检查（血/尿/便常规、生化、凝血、CRP、铁蛋白、免疫球蛋白）判断器官功能可耐受回输。然而，回输前30–60分钟未能给予预防性用药（对乙酰氨基酚及抗组胺药），且亦未能在无禁忌前提下完成左乙拉西坦的癫痫预防用药。
++计划回输当日复核显示无活动性感染，且无需要升压药维持的低血压；生命体征复评为体温36.8℃、血压118/72 mmHg、血氧饱和度98%、心率83次/分，结合ECOG及当日实验室检查（血/尿/便常规、生化、凝血、CRP、铁蛋白、免疫球蛋白）判断器官功能可耐受回输。然而，回输前30–60分钟未能给予预防性用药（对乙酰氨基酚及抗组胺药），且亦未能在无禁忌前提下完成左乙拉西坦的癫痫预防用药。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/1a9e47ac94202d52b8826a731cf200a0/1a9e47ac94202d52b8826a731cf200a0.md
+
+## CR-051 | P | fit | background
+
+配对：new-304-G1:P:6801；节点：new-304-G1。
+
+原条件：该成人大B细胞淋巴瘤患者是否为对标准一线治疗原发耐药或在治疗后12个月内复发的LBCL？（标准一线治疗含CD20单抗及蒽环类药物）
+
+病历（左）：患者为成人大B细胞淋巴瘤（LBCL）个体，既往已接受二线及以上治疗；对含CD20单抗及蒽环类药物的标准一线治疗表现为原发耐药或在治疗后12个月内复发。入院评估时无明显活动性感染，预计生存期≥6周。CAR‑T治疗前已完成完整病史采集与体格检查，涵盖一般情况、全身皮肤、浅表淋巴结、韦氏环及肝脾触诊，并评估了B症状及ECOG体能状态。
+
+治疗准备阶段已完成血、尿、便常规及生化全项、凝血功能、β2微球蛋白检测，并进行了乙肝/丙肝/梅毒/HIV筛查，未见未控制的活动性感染证据。影像学方面已行18F‑FDG PET/CT和/或全身增强CT；对中枢神经系统与胃肠道等特殊部位受累进行了评估并完成相应风险评估：在怀疑CNS受累时完成头颅增强MRI，在怀疑胃肠道受累时完成胃肠内镜，同时已完成心电图与超声心动图评估。既往若治疗前骨髓提示阳性，本次亦已完成骨髓穿刺涂片及病理活检以复核骨髓受累情况。病理诊断明确为B细胞淋巴瘤，并原则上确认存在CD19靶点。若为育龄期女性，妊娠试验结果为阴性。
+
+进入外周血单个核细胞采集前，患者仍无活动性感染，外周血淋巴细胞绝对计数为0.35×10^9/L（≥0.1×10^9/L），并已按推荐洗脱期停用具有淋巴毒性的化疗药物，同时停用G‑CSF及治疗剂量糖皮质激素。随后CAR‑T细胞产品制备成功，可在计划时间内回输。因制备期间疾病表现为高度侵袭、肿瘤负荷高并出现明显进展倾向，实施了强度适宜且与后续预处理化疗间隔充分的桥接治疗，并已完成桥接方案以控制病情。
+
+拟行淋巴细胞清除化疗前复评时，生命体征基本稳定，体温为36.8℃且无持续高热，血压稳定且无需升压药，静息血氧饱和度为97%无低氧血症，ECOG评分评估后允许接受化疗；同时复查血尿便常规、生化全项、凝血功能、CRP及必要时BNP，并排除或控制活动性感染。预处理计划采用推荐的FC清淋方案：氟达拉滨25–30 mg/m²·d（d1–3）联合环磷酰胺250–500 mg/m²·d（d1–3），并根据患者年龄、肾功能及合并症进行剂量调整。清淋结束后至计划回输的时间间隔为5天（≥2天且未超过约3周），因此未考虑再次清淋。
+
+回输当日复评未见活动性感染，也不存在需要升压药治疗的低血压；再次测量体温、血压、血氧与心率，并复评ECOG，同时复查血尿便常规、生化、凝血、CRP、铁蛋白及免疫球蛋白，综合判断器官功能可耐受回输。回输前30–60分钟给予对乙酰氨基酚类解热镇痛药与抗组胺药（如氯苯那敏或苯海拉明），并在无禁忌情况下给予左乙拉西坦进行癫痫预防。
+
+感染相关管理方面，筛查提示存在慢性乙型肝炎或HBsAg阴性/HBcAb阳性等HBV既往感染情况，已在预处理前启动口服核苷（酸）类似物（如恩替卡韦、TDF或TAF），并计划在治疗相关高风险期持续用药以进行HBV再激活预防。最后，本病例的主要临床关注点为管理。
+
+病历（右）：患者为成人大B细胞淋巴瘤（LBCL）个体，既往已接受二线及以上治疗；对含CD20单抗及蒽环类药物的标准一线治疗表现为原发耐药或在治疗后12个月内复发。入院评估时无明显活动性感染，预计生存期≥6周。CAR‑T治疗前已完成完整病史采集与体格检查，涵盖一般情况、全身皮肤、浅表淋巴结、韦氏环及肝脾触诊，并评估了B症状及ECOG体能状态。
+
+治疗准备阶段已完成血、尿、便常规及生化全项、凝血功能、β2微球蛋白检测，并进行了乙肝/丙肝/梅毒/HIV筛查，未见未控制的活动性感染证据。影像学方面已行18F‑FDG PET/CT和/或全身增强CT；对中枢神经系统与胃肠道等特殊部位受累进行了评估并完成相应风险评估：在怀疑CNS受累时完成头颅增强MRI，在怀疑胃肠道受累时完成胃肠内镜，同时已完成心电图与超声心动图评估。既往若治疗前骨髓提示阳性，本次亦已完成骨髓穿刺涂片及病理活检以复核骨髓受累情况。病理诊断明确为B细胞淋巴瘤，并原则上确认存在CD19靶点。若为育龄期女性，妊娠试验结果为阴性。
+
+进入外周血单个核细胞采集前，患者仍无活动性感染，外周血淋巴细胞绝对计数为0.35×10^9/L（≥0.1×10^9/L），并已按推荐洗脱期停用具有淋巴毒性的化疗药物，同时停用G‑CSF及治疗剂量糖皮质激素。随后CAR‑T细胞产品制备成功，可在计划时间内回输。因制备期间疾病表现为高度侵袭、肿瘤负荷高并出现明显进展倾向，实施了强度适宜且与后续预处理化疗间隔充分的桥接治疗，并已完成桥接方案以控制病情。
+
+拟行淋巴细胞清除化疗前复评时，生命体征基本稳定，体温为36.9℃且无持续高热，血压稳定且无需升压药，静息血氧饱和度为97%无低氧血症，ECOG评分评估后允许接受化疗；同时复查血尿便常规、生化全项、凝血功能、CRP及必要时BNP，并排除或控制活动性感染。预处理计划采用推荐的FC清淋方案：氟达拉滨25–30 mg/m²·d（d1–3）联合环磷酰胺250–500 mg/m²·d（d1–3），并根据患者年龄、肾功能及合并症进行剂量调整。清淋结束后至计划回输的时间间隔为5天（≥2天且未超过约3周），因此未考虑再次清淋。
+
+回输当日复评未见活动性感染，也不存在需要升压药治疗的低血压；再次测量体温、血压、血氧与心率，并复评ECOG，同时复查血尿便常规、生化、凝血、CRP、铁蛋白及免疫球蛋白，综合判断器官功能可耐受回输。回输前30–60分钟给予对乙酰氨基酚类解热镇痛药与抗组胺药（如氯苯那敏或苯海拉明），并在无禁忌情况下给予左乙拉西坦进行癫痫预防。
+
+感染相关管理方面，筛查提示存在慢性乙型肝炎或HBsAg阴性/HBcAb阳性等HBV既往感染情况，已在预处理前启动口服核苷（酸）类似物（如恩替卡韦、TDF或TAF），并计划在治疗相关高风险期持续用药以进行HBV再激活预防。最后，本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -142,3 +142,3 @@
+ 
+-拟行淋巴细胞清除化疗前复评时，生命体征基本稳定，体温为36.8℃且无持续高热，血压稳定且无需升压药，静息血氧饱和度为97%无低氧血症，ECOG评分评估后允许接受化疗；同时复查血尿便常规、生化全项、凝血功能、CRP及必要时BNP，并排除或控制活动性感染。预处理计划采用推荐的FC清淋方案：氟达拉滨25–30 mg/m²·d（d1–3）联合环磷酰胺250–500 mg/m²·d（d1–3），并根据患者年龄、肾功能及合并症进行剂量调整。清淋结束后至计划回输的时间间隔为5天（≥2天且未超过约3周），因此未考虑再次清淋。
++拟行淋巴细胞清除化疗前复评时，生命体征基本稳定，体温为36.9℃且无持续高热，血压稳定且无需升压药，静息血氧饱和度为97%无低氧血症，ECOG评分评估后允许接受化疗；同时复查血尿便常规、生化全项、凝血功能、CRP及必要时BNP，并排除或控制活动性感染。预处理计划采用推荐的FC清淋方案：氟达拉滨25–30 mg/m²·d（d1–3）联合环磷酰胺250–500 mg/m²·d（d1–3），并根据患者年龄、肾功能及合并症进行剂量调整。清淋结束后至计划回输的时间间隔为5天（≥2天且未超过约3周），因此未考虑再次清淋。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/1a9e47ac94202d52b8826a731cf200a0/1a9e47ac94202d52b8826a731cf200a0.md
+
+## CR-052 | P | fit | background
+
+配对：new-78-G16:P:6131；节点：new-78-G16。
+
+原条件：患者是否存在抗生素使用时间较长或住院时间较长？
+
+病历（左）：患者为成年人（≥18岁），因脑卒中后合并呼吸系统感染入住医院，入院时处于卒中发病后7 d内。入院后4 h内即在床旁采用改良容积-黏度测试或类似工具完成吞咽筛查，结果提示存在吞咽障碍；随后又在入院后24～72 h内完成了更为详细的吞咽功能评估。围绕吞咽困难，患者已尽早接受行为治疗，包括吞咽练习、进食环境调整及饮食质地/黏稠度调整，同时安排了物理刺激为主的康复训练（如电刺激与口腔肌肉训练等）。
+
+营养支持方面，患者在医嘱下已开始肠内营养支持，且当时仍在经口进食。进食时采取了半坐卧位，床头抬高约40°以减少误吸风险，但进食过程中仍观察到误吸表现；现场即刻进行了咽部或气管吸引，尽快清除误吸进入气道的液体与颗粒物。
+
+患者整体病情相对稳定，但存在呼吸功能较差的情况，已据此开展个体化呼吸功能训练（包括腹式呼吸、缩唇呼吸及使用呼吸训练器具等）。同时给予氧气吸入，并按计划定时翻身、拍背、变换体位以促进体位引流排痰，结合吸痰（必要时配合排痰机辅助排痰）。为降低口咽部细菌负荷与相关并发症风险，已每6～8 h进行1次口腔护理，使用生理盐水、氯己定或聚维酮碘含漱液冲洗，并刷洗牙齿及舌面。考虑到患者存在抗生素使用时间较长或住院时间较长的情况，护理与观察中持续关注痰液性状，并已留取痰培养标本以供后续调整用药与护理策略参考。另见患者因舌后坠、颈短或肥胖因素出现上气道阻塞倾向，提示需在体位与气道管理中提高警惕。
+
+本病例的主要临床关注点为管理。
+
+病历（右）：患者为成年人（≥18岁），且抗生素使用时间14天，住院时间14天，因脑卒中后合并呼吸系统感染入住医院，入院时处于卒中发病后7 d内。入院后4 h内即在床旁采用改良容积-黏度测试或类似工具完成吞咽筛查，结果提示存在吞咽障碍；随后又在入院后24～72 h内完成了更为详细的吞咽功能评估。围绕吞咽困难，患者已尽早接受行为治疗，包括吞咽练习、进食环境调整及饮食质地/黏稠度调整，同时安排了物理刺激为主的康复训练（如电刺激与口腔肌肉训练等）。
+
+营养支持方面，患者在医嘱下已开始肠内营养支持，且当时仍在经口进食。进食时采取了半坐卧位，床头抬高约40°以减少误吸风险，但进食过程中仍观察到误吸表现；现场即刻进行了咽部或气管吸引，尽快清除误吸进入气道的液体与颗粒物。
+
+患者整体病情相对稳定，但存在呼吸功能较差的情况，已据此开展个体化呼吸功能训练（包括腹式呼吸、缩唇呼吸及使用呼吸训练器具等）。同时给予氧气吸入，并按计划定时翻身、拍背、变换体位以促进体位引流排痰，结合吸痰（必要时配合排痰机辅助排痰）。为降低口咽部细菌负荷与相关并发症风险，已每6～8 h进行1次口腔护理，使用生理盐水、氯己定或聚维酮碘含漱液冲洗，并刷洗牙齿及舌面。考虑到患者存在抗生素使用时间较长或住院时间较长的情况，护理与观察中持续关注痰液性状，并已留取痰培养标本以供后续调整用药与护理策略参考。另见患者因舌后坠、颈短或肥胖因素出现上气道阻塞倾向，提示需在体位与气道管理中提高警惕。
+
+本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"抗生素使用时间": "较长", "住院时间": "较长"}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -70,3 +70,3 @@
+ 病历：
+-患者为成年人（≥18岁），因脑卒中后合并呼吸系统感染入住医院，入院时处于卒中发病后7 d内。入院后4 h内即在床旁采用改良容积-黏度测试或类似工具完成吞咽筛查，结果提示存在吞咽障碍；随后又在入院后24～72 h内完成了更为详细的吞咽功能评估。围绕吞咽困难，患者已尽早接受行为治疗，包括吞咽练习、进食环境调整及饮食质地/黏稠度调整，同时安排了物理刺激为主的康复训练（如电刺激与口腔肌肉训练等）。
++患者为成年人（≥18岁），且抗生素使用时间14天，住院时间14天，因脑卒中后合并呼吸系统感染入住医院，入院时处于卒中发病后7 d内。入院后4 h内即在床旁采用改良容积-黏度测试或类似工具完成吞咽筛查，结果提示存在吞咽障碍；随后又在入院后24～72 h内完成了更为详细的吞咽功能评估。围绕吞咽困难，患者已尽早接受行为治疗，包括吞咽练习、进食环境调整及饮食质地/黏稠度调整，同时安排了物理刺激为主的康复训练（如电刺激与口腔肌肉训练等）。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/06ea02c4626d04c6f47a493d4668e419/06ea02c4626d04c6f47a493d4668e419.md
+
+## CR-053 | P | test | background
+
+配对：new-1514-G14:P:8660；节点：new-1514-G14。
+
+原条件：患者是否为“无出血风险”？
+
+病历（左）：患者在接受肾脏替代治疗期间一般情况相对平稳，评估时未见肝衰竭表现。既往与本次治疗过程中均未提示肝素诱导的血小板减少（HIT）。入院及治疗当时未出现活动性出血，也未被认为存在重度出血风险；同样亦不符合轻至中度出血风险情形，整体评估为无出血风险。本次所采用的肾脏替代治疗模式为间歇性血液透析（IHD）。本病例的主要临床关注点为管理。
+
+病历（右）：患者在接受肾脏替代治疗期间一般情况相对平稳，评估时未见肝衰竭表现。既往与本次治疗过程中均未提示肝素诱导的血小板减少（HIT）。入院及治疗当时未出现活动性出血，也未被认为存在重度出血风险；同样亦不符合轻至中度出血风险情形，整体评估为无出血风险。本次所采用的肾脏替代治疗模式为间歇性血液透析（IHD），且未出现任何与出血相关的临床表现。本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"“无出血风险”": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -37,3 +37,3 @@
+ 病历：
+-患者在接受肾脏替代治疗期间一般情况相对平稳，评估时未见肝衰竭表现。既往与本次治疗过程中均未提示肝素诱导的血小板减少（HIT）。入院及治疗当时未出现活动性出血，也未被认为存在重度出血风险；同样亦不符合轻至中度出血风险情形，整体评估为无出血风险。本次所采用的肾脏替代治疗模式为间歇性血液透析（IHD）。本病例的主要临床关注点为管理。
++患者在接受肾脏替代治疗期间一般情况相对平稳，评估时未见肝衰竭表现。既往与本次治疗过程中均未提示肝素诱导的血小板减少（HIT）。入院及治疗当时未出现活动性出血，也未被认为存在重度出血风险；同样亦不符合轻至中度出血风险情形，整体评估为无出血风险。本次所采用的肾脏替代治疗模式为间歇性血液透析（IHD），且未出现任何与出血相关的临床表现。本病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/8baaa293b32d3bc832754c118477db43/8baaa293b32d3bc832754c118477db43.md
+
+## CR-054 | P | test | background
+
+配对：new-1626-G10:P:3079；节点：new-1626-G10。
+
+原条件：患者是否正在使用利伐沙班？
+
+病历（左）：患者为成年，年龄52岁。因出现轻至中度COVID-19相关症状就诊，起病至就诊为第3天，病程在5天以内；同时合并存在进展为重症的高风险因素。患者并非无症状的SARS‑CoV‑2感染者。实验室评估提示肾功能尚可，eGFR为78 mL/min（≥60 mL/min）；肝功能分级方面并非Child‑Pugh C级，为Child‑Pugh B级。用药史显示未使用胺碘酮，但正在使用利伐沙班。基于以上信息，本病例的主要临床关注点为管理。
+
+病历（右）：患者为成年，年龄52岁，且正在使用利伐沙班。因出现轻至中度COVID-19相关症状就诊，起病至就诊为第3天，病程在5天以内；同时合并存在进展为重症的高风险因素。患者并非无症状的SARS‑CoV‑2感染者。实验室评估提示肾功能尚可，eGFR为78 mL/min（≥60 mL/min）；肝功能分级方面并非Child‑Pugh C级，为Child‑Pugh B级。用药史显示未使用胺碘酮，但正在使用利伐沙班。基于以上信息，本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"正在使用利伐沙班": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -46,3 +46,3 @@
+ 病历：
+-患者为成年，年龄52岁。因出现轻至中度COVID-19相关症状就诊，起病至就诊为第3天，病程在5天以内；同时合并存在进展为重症的高风险因素。患者并非无症状的SARS‑CoV‑2感染者。实验室评估提示肾功能尚可，eGFR为78 mL/min（≥60 mL/min）；肝功能分级方面并非Child‑Pugh C级，为Child‑Pugh B级。用药史显示未使用胺碘酮，但正在使用利伐沙班。基于以上信息，本病例的主要临床关注点为管理。
++患者为成年，年龄52岁，且正在使用利伐沙班。因出现轻至中度COVID-19相关症状就诊，起病至就诊为第3天，病程在5天以内；同时合并存在进展为重症的高风险因素。患者并非无症状的SARS‑CoV‑2感染者。实验室评估提示肾功能尚可，eGFR为78 mL/min（≥60 mL/min）；肝功能分级方面并非Child‑Pugh C级，为Child‑Pugh B级。用药史显示未使用胺碘酮，但正在使用利伐沙班。基于以上信息，本病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/94bd80c74209dfba6fe56a3b58bb6fdb/94bd80c74209dfba6fe56a3b58bb6fdb.md
+
+## CR-055 | P | test | background
+
+配对：new-1626-G16:P:3104；节点：new-1626-G16。
+
+原条件：患者是否正在使用胺碘酮？
+
+病历（左）：患者为成年人，年龄42岁。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
+
+病历（右）：患者为成年人，年龄42岁，未使用胺碘酮。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"正在使用胺碘酮": false}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -46,3 +46,3 @@
+ 病历：
+-患者为成年人，年龄42岁。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
++患者为成年人，年龄42岁，未使用胺碘酮。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/94bd80c74209dfba6fe56a3b58bb6fdb/94bd80c74209dfba6fe56a3b58bb6fdb.md
+
+## CR-056 | P | test | background
+
+配对：new-1626-G18:P:3093；节点：new-1626-G18。
+
+原条件：患者是否正在使用利伐沙班？
+
+病历（左）：患者为成年人，年龄42岁。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
+
+病历（右）：患者为成年人，年龄42岁，未使用利伐沙班。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"正在使用利伐沙班": false}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -46,3 +46,3 @@
+ 病历：
+-患者为成年人，年龄42岁。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
++患者为成年人，年龄42岁，未使用利伐沙班。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/94bd80c74209dfba6fe56a3b58bb6fdb/94bd80c74209dfba6fe56a3b58bb6fdb.md
+
+## CR-057 | P | test | background
+
+配对：new-1626-G2:P:3072；节点：new-1626-G2。
+
+原条件：患者是否有进展为重症的高风险因素？
+
+病历（左）：患者为成年人，年龄42岁。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
+
+病历（右）：患者为成年人，年龄42岁，无进展为重症的高风险因素。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"进展为重症的高风险因素": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -46,3 +46,3 @@
+ 病历：
+-患者为成年人，年龄42岁。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
++患者为成年人，年龄42岁，无进展为重症的高风险因素。因新近出现呼吸道症状就诊，SARS‑CoV‑2检测阳性，起病至就诊为第3天，临床表现符合轻/中型COVID‑19而非无症状感染。病史提示存在进展为重症的高风险因素。肾功能评估显示eGFR为45 mL/min，未达到≥60 mL/min，但处于30–59 mL/min范围内。肝功能分级未达Child‑Pugh C级。用药核对显示未使用胺碘酮，也未使用利伐沙班。该病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/94bd80c74209dfba6fe56a3b58bb6fdb/94bd80c74209dfba6fe56a3b58bb6fdb.md
+
+## CR-058 | P | test | background
+
+配对：new-1626-G8:P:3100；节点：new-1626-G8。
+
+原条件：患者是否正在使用胺碘酮？
+
+病历（左）：患者为成年人，年龄32岁。近5天内出现新近发病的轻/中型COVID-19临床表现，病程计4天，符合早期感染阶段；同时合并存在进展为重症的高风险因素。患者并非无症状的SARS‑CoV‑2感染者。肾功能评估显示eGFR为78 mL/min（≥60 mL/min）。肝功能评估未达Child‑Pugh C级。用药核对显示未使用胺碘酮，亦未使用利伐沙班。以上信息用于COVID‑19的管理。
+
+病历（右）：患者为成年人，年龄32岁，未使用胺碘酮。近5天内出现新近发病的轻/中型COVID-19临床表现，病程计4天，符合早期感染阶段；同时合并存在进展为重症的高风险因素。患者并非无症状的SARS‑CoV‑2感染者。肾功能评估显示eGFR为78 mL/min（≥60 mL/min）。肝功能评估未达Child‑Pugh C级。用药核对显示未使用胺碘酮，亦未使用利伐沙班。以上信息用于COVID‑19的管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"正在使用胺碘酮": false}
+
+存储标签：左0，右0（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -46,3 +46,3 @@
+ 病历：
+-患者为成年人，年龄32岁。近5天内出现新近发病的轻/中型COVID-19临床表现，病程计4天，符合早期感染阶段；同时合并存在进展为重症的高风险因素。患者并非无症状的SARS‑CoV‑2感染者。肾功能评估显示eGFR为78 mL/min（≥60 mL/min）。肝功能评估未达Child‑Pugh C级。用药核对显示未使用胺碘酮，亦未使用利伐沙班。以上信息用于COVID‑19的管理。
++患者为成年人，年龄32岁，未使用胺碘酮。近5天内出现新近发病的轻/中型COVID-19临床表现，病程计4天，符合早期感染阶段；同时合并存在进展为重症的高风险因素。患者并非无症状的SARS‑CoV‑2感染者。肾功能评估显示eGFR为78 mL/min（≥60 mL/min）。肝功能评估未达Child‑Pugh C级。用药核对显示未使用胺碘酮，亦未使用利伐沙班。以上信息用于COVID‑19的管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/94bd80c74209dfba6fe56a3b58bb6fdb/94bd80c74209dfba6fe56a3b58bb6fdb.md
+
+## CR-059 | P | test | background
+
+配对：new-2058-G22:P:8512；节点：new-2058-G22。
+
+原条件：Does the patient have overweight/obesity, dyslipidemia, diabetes, or hypertension (cardiometabolic risk factors) requiring targeting?
+
+病历（左）：The patient had established cardiovascular disease and was also known to have metabolic (dysfunction)-associated fatty liver disease. The history did not reveal any alcohol consumption, with reported intake of 0 standard drinks per week. Type 2 diabetes mellitus was not present, with a hemoglobin A1c of 5.4%. Despite the absence of diabetes, there were cardiometabolic risk factors requiring active targeting, including obesity (BMI 33 kg/m²), dyslipidemia (LDL-C 162 mg/dL), and hypertension (blood pressure 152/94 mmHg) in the setting of concurrent CVD and MAFLD. The primary clinical focus was management.
+
+病历（右）：The patient had established cardiovascular disease and was also known to have metabolic (dysfunction)-associated fatty liver disease. The history did not reveal any alcohol consumption, with reported intake of 0 standard drinks per week. Type 2 diabetes mellitus was not present, with a hemoglobin A1c of 5.4%. Despite the absence of diabetes, there were cardiometabolic risk factors requiring active targeting, including obesity (BMI 34 kg/m²), dyslipidemia (LDL-C 162 mg/dL), and hypertension (blood pressure 152/94 mmHg) in the setting of concurrent CVD and MAFLD. The primary clinical focus was management.
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -52,3 +52,3 @@
+ 病历：
+-The patient had established cardiovascular disease and was also known to have metabolic (dysfunction)-associated fatty liver disease. The history did not reveal any alcohol consumption, with reported intake of 0 standard drinks per week. Type 2 diabetes mellitus was not present, with a hemoglobin A1c of 5.4%. Despite the absence of diabetes, there were cardiometabolic risk factors requiring active targeting, including obesity (BMI 33 kg/m²), dyslipidemia (LDL-C 162 mg/dL), and hypertension (blood pressure 152/94 mmHg) in the setting of concurrent CVD and MAFLD. The primary clinical focus was management.
++The patient had established cardiovascular disease and was also known to have metabolic (dysfunction)-associated fatty liver disease. The history did not reveal any alcohol consumption, with reported intake of 0 standard drinks per week. Type 2 diabetes mellitus was not present, with a hemoglobin A1c of 5.4%. Despite the absence of diabetes, there were cardiometabolic risk factors requiring active targeting, including obesity (BMI 34 kg/m²), dyslipidemia (LDL-C 162 mg/dL), and hypertension (blood pressure 152/94 mmHg) in the setting of concurrent CVD and MAFLD. The primary clinical focus was management.
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/bcc325199aa20c37fdd8e585aa8487e1/bcc325199aa20c37fdd8e585aa8487e1.md
+
+## CR-060 | P | test | background
+
+配对：new-404-G18:P:4160；节点：new-404-G18。
+
+原条件：患者是否为无出血风险？
+
+病历（左）：患者在接受肾脏替代治疗期间评估凝血与出血相关情况时，并未出现肝衰竭表现；亦无肝素诱导的血小板减少发生的证据。临床上未见活动性出血，亦不符合重度出血高风险状态；同时也不符合轻中度出血风险情形，整体评估为无出血风险。治疗方式方面，当时所采用的肾脏替代治疗并非连续性肾脏替代治疗（CRRT），而是间歇性血液透析（IHD）。本病例的主要临床关注点为管理。
+
+病历（右）：患者在接受肾脏替代治疗期间评估凝血与出血相关情况时，并未出现肝衰竭表现；亦无肝素诱导的血小板减少发生的证据。临床上未见活动性出血，亦不符合重度出血高风险状态；同时也不符合轻中度出血风险情形，整体评估为无出血风险。治疗方式方面，当时所采用的肾脏替代治疗为间歇性血液透析（IHD）。本病例的主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"无出血风险": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -43,3 +43,3 @@
+ 病历：
+-患者在接受肾脏替代治疗期间评估凝血与出血相关情况时，并未出现肝衰竭表现；亦无肝素诱导的血小板减少发生的证据。临床上未见活动性出血，亦不符合重度出血高风险状态；同时也不符合轻中度出血风险情形，整体评估为无出血风险。治疗方式方面，当时所采用的肾脏替代治疗并非连续性肾脏替代治疗（CRRT），而是间歇性血液透析（IHD）。本病例的主要临床关注点为管理。
++患者在接受肾脏替代治疗期间评估凝血与出血相关情况时，并未出现肝衰竭表现；亦无肝素诱导的血小板减少发生的证据。临床上未见活动性出血，亦不符合重度出血高风险状态；同时也不符合轻中度出血风险情形，整体评估为无出血风险。治疗方式方面，当时所采用的肾脏替代治疗为间歇性血液透析（IHD）。本病例的主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/23b3423465c8c5b49e897d30781f804e/23b3423465c8c5b49e897d30781f804e.md
+
+## CR-061 | P | test | background
+
+配对：new-896-G0:P:3325；节点：new-896-G0。
+
+原条件：是否为拟接受脊柱结核手术的患者？
+
+病历（左）：患者因脊柱结核拟行手术治疗入院，既往评估提示为非耐药性脊柱结核。入院后已接受规范术前抗结核药物治疗共3周。复查时未见明显全身中毒症状，未诉低热、乏力或盗汗；测得体温为37.2℃。但患者仍主诉局部疼痛未明显缓解，影响日常活动与体位耐受。该病例主要临床关注点为管理。
+
+病历（右）：患者因脊柱结核拟行手术治疗入院，既往评估提示为非耐药性脊柱结核。入院后已接受规范术前抗结核药物治疗共3周。复查时未见明显全身中毒症状，未诉低热、乏力或盗汗；测得体温为37.3℃。但患者仍主诉局部疼痛未明显缓解，影响日常活动与体位耐受。该病例主要临床关注点为管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"拟接受脊柱结核手术的患者": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -34,3 +34,3 @@
+ 病历：
+-患者因脊柱结核拟行手术治疗入院，既往评估提示为非耐药性脊柱结核。入院后已接受规范术前抗结核药物治疗共3周。复查时未见明显全身中毒症状，未诉低热、乏力或盗汗；测得体温为37.2℃。但患者仍主诉局部疼痛未明显缓解，影响日常活动与体位耐受。该病例主要临床关注点为管理。
++患者因脊柱结核拟行手术治疗入院，既往评估提示为非耐药性脊柱结核。入院后已接受规范术前抗结核药物治疗共3周。复查时未见明显全身中毒症状，未诉低热、乏力或盗汗；测得体温为37.3℃。但患者仍主诉局部疼痛未明显缓解，影响日常活动与体位耐受。该病例主要临床关注点为管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/506805d35a0c5bc3a7daa1f467b2b863/506805d35a0c5bc3a7daa1f467b2b863.md
+
+## CR-062 | P | test | background
+
+配对：new-942-G7:P:8030；节点：new-942-G7。
+
+原条件：患者是否为高麻醉风险的糖尿病足等危重状态，需要在避免全身麻醉的同时完成足部手术？
+
+病历（左）：患者因臀部向下肢放射性疼痛需要镇痛处理，同时拟行下肢手术并需获得术中麻醉及术后镇痛支持。术前评估未见拟注射部位皮肤或深部感染、局部蜂窝织炎或全身性血流感染表现；凝血功能未提示障碍，凝血酶原时间约 12.0 s，血小板计数约 210×10^9/L，亦无出血、血肿病史；查体未发现注射部位远端既存的感觉或运动功能缺损，且患者神志清楚、能够配合操作。进一步评估亦未提示相对禁忌证：无出血倾向、无稳定的中枢神经系统疾病、无局部神经损伤史，亦不属于过敏体质或肥胖状态。围术期计划满足下肢手术的术中麻醉需求，拟实施的手术部位位于膝关节以下，为足部手术。患者合并糖尿病足且整体麻醉风险较高，为在避免全身麻醉的前提下完成足部手术，围术期管理重点放在采用区域神经阻滞方案以满足术中麻醉与镇痛需求的管理。
+
+病历（右）：患者因臀部向下肢放射性疼痛需要镇痛处理，且合并糖尿病足，同时拟行下肢手术并需获得术中麻醉及术后镇痛支持。术前评估未见拟注射部位皮肤或深部感染、局部蜂窝织炎或全身性血流感染表现；凝血功能未提示障碍，凝血酶原时间约 12.0 s，血小板计数约 210×10^9/L，亦无出血、血肿病史；查体未发现注射部位远端既存的感觉或运动功能缺损，且患者神志清楚、能够配合操作。进一步评估亦未提示相对禁忌证：无出血倾向、无稳定的中枢神经系统疾病、无局部神经损伤史，亦不属于过敏体质或肥胖状态。围术期计划满足下肢手术的术中麻醉需求，拟实施的手术部位位于膝关节以下，为足部手术。患者合并糖尿病足且整体麻醉风险较高，为在避免全身麻醉的前提下完成足部手术，围术期管理重点放在采用区域神经阻滞方案以满足术中麻醉与镇痛需求的管理。
+
+原有定义：输入的定义区为空；仍请检查处置中是否含条件所需信息。
+
+构造时记录的关键事实：{"高麻醉风险的糖尿病足等危重状态，需要在避免全身麻醉的同时完成足部手术": true}
+
+存储标签：左1，右1（1=是，0=否；待独立核验）。
+
+改写差异：
+```diff
+--- left
++++ right
+@@ -76,3 +76,3 @@
+ 病历：
+-患者因臀部向下肢放射性疼痛需要镇痛处理，同时拟行下肢手术并需获得术中麻醉及术后镇痛支持。术前评估未见拟注射部位皮肤或深部感染、局部蜂窝织炎或全身性血流感染表现；凝血功能未提示障碍，凝血酶原时间约 12.0 s，血小板计数约 210×10^9/L，亦无出血、血肿病史；查体未发现注射部位远端既存的感觉或运动功能缺损，且患者神志清楚、能够配合操作。进一步评估亦未提示相对禁忌证：无出血倾向、无稳定的中枢神经系统疾病、无局部神经损伤史，亦不属于过敏体质或肥胖状态。围术期计划满足下肢手术的术中麻醉需求，拟实施的手术部位位于膝关节以下，为足部手术。患者合并糖尿病足且整体麻醉风险较高，为在避免全身麻醉的前提下完成足部手术，围术期管理重点放在采用区域神经阻滞方案以满足术中麻醉与镇痛需求的管理。
++患者因臀部向下肢放射性疼痛需要镇痛处理，且合并糖尿病足，同时拟行下肢手术并需获得术中麻醉及术后镇痛支持。术前评估未见拟注射部位皮肤或深部感染、局部蜂窝织炎或全身性血流感染表现；凝血功能未提示障碍，凝血酶原时间约 12.0 s，血小板计数约 210×10^9/L，亦无出血、血肿病史；查体未发现注射部位远端既存的感觉或运动功能缺损，且患者神志清楚、能够配合操作。进一步评估亦未提示相对禁忌证：无出血倾向、无稳定的中枢神经系统疾病、无局部神经损伤史，亦不属于过敏体质或肥胖状态。围术期计划满足下肢手术的术中麻醉需求，拟实施的手术部位位于膝关节以下，为足部手术。患者合并糖尿病足且整体麻醉风险较高，为在避免全身麻醉的前提下完成足部手术，围术期管理重点放在采用区域神经阻滞方案以满足术中麻醉与镇痛需求的管理。
+ 
+```
+
+待填：关键事实；两侧真值；真值是否保持；定义是否保留；临床是否可解释；接受/剔除及原因。
+
+原文路径：/home/gcx/TRIAGE/data/MEGA-CDP/train_val/guideline_md/55d0603473a9f4cf16cc530756aa48c8/55d0603473a9f4cf16cc530756aa48c8.md
