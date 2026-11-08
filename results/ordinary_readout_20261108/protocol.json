@@ -1,0 +1,41 @@
+{
+  "model": "Qwen3-8B",
+  "input": "unchanged full tree, patient, current node; existing CR score protocol",
+  "representation": "last transformer block output at final decision token, before final RMSNorm",
+  "training": "761 original selected fit nodes, released labels only",
+  "rank": 64,
+  "transform": "fit-only coordinate standardization and whitened PCA",
+  "formula": "corrected_logit = original_logit + intercept + PCA(residual) @ weights",
+  "regularization": [
+    0.01,
+    0.1,
+    1.0
+  ],
+  "loss": "mean binary cross entropy plus lambda/2 times squared weight norm; intercept unpenalized",
+  "calibration": [
+    "bias",
+    "nonnegative-slope logistic"
+  ],
+  "selection": "development autonomous path accuracy, then original-node accuracy; ties: larger regularization for linear, fewer parameters for calibration",
+  "seed": 20261108,
+  "gpus": [
+    0,
+    1,
+    6
+  ],
+  "node_denominators": {
+    "fit": 761,
+    "dev": 199,
+    "test": 372
+  },
+  "path_denominators": {
+    "dev": 420,
+    "test": 806
+  },
+  "original_inputs_only": true,
+  "pair_data_used": false,
+  "head_selection": false,
+  "backbone_training": false,
+  "test_used_for_selection": false,
+  "old_m3": "historical context only, different test denominator; not a matched comparison"
+}

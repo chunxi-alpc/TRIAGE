@@ -1,0 +1,38 @@
+{
+  "source": "/home/gcx/aster_cr_20261108",
+  "full_inputs_identical": 1332,
+  "counts": {
+    "qwen": {
+      "fit_full_scores": 761,
+      "fit_path_features": 0,
+      "dev_full_scores": 199,
+      "dev_path_features": 8312,
+      "test_full_scores": 0,
+      "test_path_features": 0
+    },
+    "medgemma": {
+      "fit_full_scores": 0,
+      "fit_path_features": 0,
+      "dev_full_scores": 0,
+      "dev_path_features": 0,
+      "test_full_scores": 0,
+      "test_path_features": 0
+    }
+  },
+  "protocol": "BF16 backbone, native immutable prefix cache, FP32 output label projection; no legacy/full-forward score mixing",
+  "engine": "experiments.aster_cr.engine.Engine (unchanged)",
+  "models": {
+    "qwen": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+    "medgemma": "/home/gcx/TRIAGE/models/modelscope/medgemma-27b-text-it"
+  },
+  "recompute": [
+    "changed scores and features",
+    "localization",
+    "P0",
+    "H2/H3",
+    "readouts",
+    "training controls",
+    "development selection"
+  ],
+  "old_markers_copied": false
+}

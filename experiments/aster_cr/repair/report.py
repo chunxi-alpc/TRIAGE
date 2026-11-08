@@ -1,0 +1,15 @@
+from .core import *
+def report():
+ manifest=read(ROOT/'manifest.json');pilot=read(ROOT/'pilot/review_summary.json');ext=read(ROOT/'external/summary.json');summary=read(ROOT/'bulk/built/summary.json');state=read(ROOT/'status.json')
+ out=['# MEGA 构造修复与外部数据接入','', '状态：'+state.get('state','pilot_complete')+'。下游训练、选参和模型评分保持暂停。','', '## 数据范围','',f"冻结来源候选节点：{manifest.get('nodes')}。原始节点分母：{manifest.get('original_nodes')}。原始路径分母：{manifest.get('paths')}。",'', '原始输入及旧结果保留。新增受控节点单独计数；不增加原始节点准确率或路径评价的分母。', '', '## 修复内容','', '- 当前规则只读取当前条件和必要定义，按树节点缓存；明确阈值、比较符、单位、区间先用程序解析。','- 事实读取所需变量和编号病例句子，程序截取证据；明确否定与未知分别表示。','- A、P、C、F 分别构造；规则或事实失败不丢弃 A，P 不以全规则可执行为前提。','- C 修改原条件的对应位置，保留原病例；F 使用固定网格，修改重复事实并检查涉及变动的祖先。','- P 使用已定位的真实背景测量，检查当前与祖先条件的相关变量，不使用任务结尾文字。','- 本次标签不一致记录归入抽取复核；不直接认定原标签错误。', '', '## 30 节点小批验证','',f"已逐条检查 {pilot.get('reviewed_nodes')} 个 fit 节点，覆盖数值、区间、列表、逻辑和明确事实。修正 {pilot.get('corrected_rules')} 个规则解释。",'', '逐条原条件、病例、规则、事实和判断见 pilot/review.jsonl。复核由 Codex 对照原文完成，不标为临床专家审核。', '', '18 项回归测试通过；覆盖示例照抄、条件混入、未知与否定、重复事实漏改、祖先变化、类别独立，以及外部数据标签和多选评分。完整日志见 logs/tests_recovery.log。', '', '|类别|配对数|独立节点|来源数|','|---|---:|---:|---:|']
+ for k,v in pilot.get('counts',{}).items():out.append(f"|{k}|{v['pairs']}|{v['nodes']}|{v['sources']}|")
+ out+=['','P、C 按探索性结果报告；数量不足不会用无关文本补足。小批仍有明确的抽取困难，详见 pilot/review_summary.json。','', '## 冻结来源全量构造','']
+ if summary:
+  out+=['|划分|类别|配对数|独立节点|来源数|','|---|---|---:|---:|---:|']
+  for sp in ['fit','dev','test']:
+   for k,v in summary[sp].items():out.append(f"|{sp}|{k}|{v['pairs']}|{v['nodes']}|{v['sources']}|")
+  out+=['','各类失败原因见 bulk/built/summary.json 和 data/unavailable.jsonl。评分前固定记录见 data/frozen.json。']
+ else:out+=['全量任务完成后自动填入成功数量、独立节点数、来源数和失败原因。完成前不声称全量修复结束。']
+ out+=['','## 外部数据','',f"NLI4CT：{ext.get('nli4ct',{}).get('originals')} 条原题、{ext.get('nli4ct',{}).get('pairs')} 对；标签保持 4,136 对，改变 864 对。数值矛盾类型 276 条仅 114 条实际翻转。按发布标签和原题关系计算。",'', '[NLI4CT 官方论文](https://arxiv.org/html/2404.04963v1)。本地输入为 /home/gcx/TRIAGE/data/NLI4CT-2024，试验报告正文已接入每题输入。','', 'MedPIC：467 道原始多选题，183 道反事实题；90 个核对组、181 道可配对题、92 对，其中 89 个双成员组和 1 个三成员组。另 2 题没有同病例对应题，保留原题任务。选项重排通过选项文字对应，不按字母直接比较。','', '[MedPIC 官方数据](https://huggingface.co/datasets/TIM0927/MedPIC-Bench)。本地输入为 /home/gcx/TRIAGE/data/MedPIC-Bench。配对依据和病例差异保存在 external/medpic/pairs.jsonl。','', '两套外部数据均为独立验证，不进入 MEGA 训练、选参或 A/P/C/F 宏平均，不替代临床路径正确率。没有生成模型成绩；评分器仅用测试构造的预测验证。MedGUIDE 原结果保留，MedCalc 本轮不扩展。', '', '## 运行与复用','', 'GPU 0、1、6；Qwen3-8B 分片抽取，小批峰值约 16–18 GB/卡。全量初次运行时 GPU 1、6 在编辑阶段因失败规则缺少字段退出，已修复并复用缓存恢复三卡运行；恢复预计 20–30 GB/卡、15–30 分钟，实际耗时完成后见 runtime.json。恢复记录见 recovery.json。规则与事实已完成；恢复时剩余编辑候选按 143/142/142 分给 GPU 0/1/6，复用已完成缓存。稳定启动后不持续监控。', '', '全量完成自动构造、汇总并固定数据；不启动训练或模型评分。原 Full 输入直接比较一致性后列入 cache_reuse.json，不做哈希检查。变化输入及依赖它们的定位、训练、选参需要重新计算。','', '代码目录：/home/gcx/TRIAGE-worktrees/aster-cr-20261108/experiments/aster_cr/repair。','']
+ (ROOT/'REPORT.zh.md').write_text('\n'.join(out))
+if __name__=='__main__':report()

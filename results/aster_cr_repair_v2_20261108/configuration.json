@@ -1,0 +1,55 @@
+{
+  "seed": 20261108,
+  "gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "models": {
+    "qwen": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+    "medgemma": "/home/gcx/TRIAGE/models/modelscope/medgemma-27b-text-it"
+  },
+  "source_targets": {
+    "fit": 80,
+    "dev": 20,
+    "test": 40
+  },
+  "node_target_per_source": 10,
+  "bootstrap": 2000,
+  "ranks": [
+    4,
+    8,
+    16,
+    "full"
+  ],
+  "regularization": [
+    0.001,
+    0.01,
+    0.1
+  ],
+  "loss_weights": [
+    0.1,
+    1.0,
+    10.0
+  ],
+  "h2": {
+    "require_r2_above": 0.0,
+    "maximum_leakage_rms_ratio": 0.1
+  },
+  "dev_path_max_drop": 0.005,
+  "test_path_noninferiority_margin": 0.005,
+  "score_protocol": "BF16 backbone, native immutable prefix cache, FP32 output label projection; no legacy/full-forward score mixing",
+  "grid": [
+    -2,
+    -1,
+    -0.5,
+    0,
+    0.5,
+    1,
+    2
+  ],
+  "test_policy": "No test model scoring before development configuration is frozen",
+  "history_policy": "Reuse evidence and checkpoints; recompute only new input/template/model combinations",
+  "data_version": "repair-v2"
+}

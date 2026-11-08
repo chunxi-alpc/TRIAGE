@@ -73,3 +73,10 @@ P0–P3分支为`codex/aster-m3-p0-p3-20261107`，本次合入其`ca90006`及祖
 新结果形成后，更新本页状态、主稿第7–8节和首页摘要，并保留检查点名称、方法名与原分母。方法公式随实际实现变化更新；历史公式和数值继续留在[版本演变](versions.zh.md)。M1诊断进入机制分析；更早单层表示方法和CARE等仍由[历史索引](archive/README.md)进入。
 
 [历史总分析](../../reports/aster_synthesis_20261106/ANALYSIS.zh.md)与[30阶段、60份报告索引](../../reports/aster_synthesis_20261106/EXPERIMENTS.zh.md)继续保留。其“30阶段”不代表30次独立验证。
+
+
+## repair-v2 与普通读出（2026-11-08）
+
+[分析报告](../../reports/aster_cr_repair_v2_20261108/ANALYSIS.zh.md)和[阶段快照](../../results/aster_cr_repair_v2_20261108/README.md)汇总本次数据修复、Qwen P0/H2/H3、读出和消融。使用 2,782 个候选节点、8,730 对变体；原始节点分母保持 761/199/372，原始路径分母保持 1,712/420/806。四类训练对照、修复版 test、MedGemma 正式确认与外部模型评价尚未完成。
+
+[独立普通读出](../../results/ordinary_readout_20261108/REPORT.zh.md)已经完成。仅用原始节点监督，测试路径 Full 768/806，偏置校准和线性读出均为 767/806，二者逐例预测一致。它与修复版开发集配对实验分别列出。

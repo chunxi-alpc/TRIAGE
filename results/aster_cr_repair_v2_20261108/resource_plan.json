@@ -1,0 +1,102 @@
+{
+  "gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "qwen_feature_gib_per_gpu": [
+    20,
+    30
+  ],
+  "qwen_training_gib_per_gpu": [
+    25,
+    50
+  ],
+  "medgemma_primary_gpu": 6,
+  "medgemma_gib_per_gpu": [
+    55,
+    70
+  ],
+  "external_gpu_schedule": {
+    "nli4ct": 0,
+    "medpic": 1
+  },
+  "nodes": 2782,
+  "views": 11512,
+  "pairs": 8730,
+  "training_methods": [
+    "loreft",
+    "lofit",
+    "lora",
+    "last_layer"
+  ],
+  "learning_rates": [
+    0.0001,
+    0.001,
+    0.01
+  ],
+  "estimated_total_hours": [
+    30,
+    60
+  ],
+  "estimate_basis": "two authorized GPUs, 4 methods x 3 learning rates, expanded repaired training inputs and historical per-step costs",
+  "monitoring": "stop interactive monitoring after stable initial throughput",
+  "data_extraction": "not repeated",
+  "test_policy": "freeze repaired development configuration before test forwards",
+  "startup_observation": {
+    "stable": true,
+    "phase": "qwen_fit_batch0",
+    "checked_at": "2026-11-08 04:41:58",
+    "workers": [
+      {
+        "gpu": 0,
+        "fresh_forwards": 182,
+        "forward_per_second": 3.681251569152199,
+        "completed_views": 563,
+        "total_views": 3358,
+        "peak_gib": 16.279024600982666,
+        "fit_remaining_minutes": 12.654210791701363
+      },
+      {
+        "gpu": 1,
+        "fresh_forwards": 177,
+        "forward_per_second": 3.590077992355168,
+        "completed_views": 557,
+        "total_views": 3369,
+        "peak_gib": 16.286612510681152,
+        "fit_remaining_minutes": 13.054498193762395
+      }
+    ],
+    "interactive_monitoring": "stopped after stable startup",
+    "controller_continues": true
+  },
+  "qwen_fit_remaining_minutes_estimate": 13.054498193762395,
+  "estimate_note": "Initial feature throughput measured; training and MedGemma dominate total runtime, so overall range retained until their stage costs are recorded.",
+  "estimated_remaining_hours": [
+    20,
+    40
+  ],
+  "gpu_expansion": {
+    "time": "2026-11-08 07:10:47",
+    "previous_controller": 3187874,
+    "existing_workers": [
+      {
+        "pid": 3193428,
+        "gpu": 0
+      },
+      {
+        "pid": 3193434,
+        "gpu": 1
+      }
+    ],
+    "gpus": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "resume_stage": "qwen_training",
+    "worker_restart": false
+  }
+}
