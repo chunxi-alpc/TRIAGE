@@ -1,24 +1,21 @@
-# ASTER文档
+# ASTER 文档
 
-## 新增实验（2026-11-08）
+[仓库主页](../../README.md)
 
-[repair-v2 开发结果与分析](../../reports/aster_cr_repair_v2_20261108/ANALYSIS.zh.md) · [机器可读结果](../../results/aster_cr_repair_v2_20261108/README.md) · [独立普通读出测试](../../results/ordinary_readout_20261108/REPORT.zh.md)。修复版训练与后续评价仍在运行，快照明确区分已完成结果与待完成阶段。
-
-
-更新：2026-11-07。当前方法为P0–P3中的`paired_ns`：固定51头和已有基，在NS联合空间上学习映射与门控，使用在线自身参考及配对监督。已实现，正式训练与评测尚未完成。
-
-最新完整结果属于上一阶段辅助参考M3：7,072/7,458（94.82%），完整阅读7,068/7,458（94.77%）；净纠正4例，差值来源区间包含零。实验成绩与方法版本分别标注。
+方法分为**表示编辑**和**分数读出**两条路线。表示编辑从闭式投影发展到可学习 M3 和 N/S/NS 配对编辑；ASTER-CR 使用低维表示修正判断分数，`repair-v2` 标识其数据修复版本。
 
 | 入口 | 内容 |
 |---|---|
-| [中文主稿](manuscript.zh.md) | 摘要、引言、相关工作、任务、最新版方法、设置、结果、分析、参考文献和附录 |
-| [版本演变](versions.zh.md) | 闭式→连续衰减→未筛选方向与参考→可学习M3→P0–P3；动机、公式、结果与继承 |
-| [实验索引](experiments.zh.md) | 各版本分母、完成状态、结果和服务器运行入口 |
-| [模块说明](method-clarifications.zh.md) | 当前M1/M2/M3含义、参考差别和信号保持性质 |
-| [全量M3结果](../../results/aster_learnable_m3_20261106/REPORT.zh.md) | 已完成五方法比较 |
-| [P0–P3阶段报告](../../results/aster_m3_followup_20261107/REPORT.zh.md) | 节点、迁移、选头、N/S/NS；阶段状态 |
-| [M1诊断](../../results/m1_diagnostics_20261106/README.md) | 已完成双模型机制分析及原文基础试测 |
-| [引用说明](references.zh.md) | 当前引用与支持范围 |
-| [历史与快照](archive/README.md) | 闭式理论、旧表示方法、早期协议和整理前原文 |
+| [方法变体](versions.zh.md) | 两条路线的动机、公式、实现差别与结果摘要 |
+| [模块与训练目标](method-clarifications.zh.md) | 表示编辑的 M1/M2/M3、参考方式；CR 的支持空间、读出与损失 |
+| [中文主稿](manuscript.zh.md) | 以 `paired_ns` 为方法的论文稿、实验与分析 |
+| [实验索引](experiments.zh.md) | 数据规模、快照状态、完整结果和运行入口 |
+| [全量 M3 结果](../../results/aster_learnable_m3_20261106/REPORT.zh.md) | 辅助参考、自身参考等五方法的 7,458 例测试 |
+| [P0–P3 阶段报告](../../results/aster_m3_followup_20261107/REPORT.zh.md) | 节点分析、迁移、选头与配对训练 |
+| [CR 开发结果](../../reports/aster_cr_repair_v2_20261108/ANALYSIS.zh.md) | repair-v2 开发比较、类别计数、诊断和消融 |
+| [独立普通读出](../../results/ordinary_readout_20261108/REPORT.zh.md) | 原始节点监督的线性读出与偏置校准测试 |
+| [M1 诊断](../../results/m1_diagnostics_20261106/README.md) | 双模型机制分析及原文基础试测 |
+| [引用说明](references.zh.md) | 引用与支持范围 |
+| [历史与快照](archive/README.md) | 闭式理论、旧表示方法、早期协议及历史首页 |
 
-P0–P3进度以[带时间的状态快照](../../results/aster_documentation_20261107/progress.json)及原实验分支后续报告为准。图表安排和逐章待补项在主稿附录，旧图稿继续保留原路径。
+结果快照：P0–P3 为 **2026-11-07 17:41（北京时间）**；CR 与独立普通读出为 **2026-11-08 07:18:26 UTC**。完成状态统一见[实验索引](experiments.zh.md)。
