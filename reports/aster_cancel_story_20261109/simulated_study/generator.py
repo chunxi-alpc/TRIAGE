@@ -6,7 +6,10 @@ import numpy as np
 
 OUT=Path('/home/gcx/aster_cancel_story_20261109/simulated_study')
 OUT.mkdir(parents=True,exist_ok=True)
-MODELS=['Qwen3-8B','Llama-3.1-8B-Instruct','MedGemma-27B']
+MODELS=['Qwen3-8B','Llama-3.1-8B-Instruct','MedGemma-27B','Gemma-2-9B-IT','Gemma-3-27B-IT']
+MAIN_MODELS=['Qwen3-8B','Llama-3.1-8B-Instruct','Gemma-2-9B-IT']
+SUPPLEMENTARY_MODELS=['MedGemma-27B','Gemma-3-27B-IT']
+MODEL_RANDOM_INDEX={'Qwen3-8B':0,'Llama-3.1-8B-Instruct':1,'MedGemma-27B':2,'Gemma-2-9B-IT':3,'Gemma-3-27B-IT':4}
 TASKS=['MEGA-CDP-style','NLI4CT-style','Syllogism-believability']
 SEEDS=[11,22,33,44,55]
 N_INV,N_FLIP,N_NATIVE=2000,1000,1500
@@ -21,15 +24,21 @@ TASK_CONFIG={
 MODEL_CONFIG={
  'Qwen3-8B':dict(evidence_multiplier=1.,nuisance_multiplier=1.,noise_multiplier=1.),
  'Llama-3.1-8B-Instruct':dict(evidence_multiplier=.92,nuisance_multiplier=1.08,noise_multiplier=1.07),
- 'MedGemma-27B':dict(evidence_multiplier=1.12,nuisance_multiplier=.92,noise_multiplier=.95)}
+ 'MedGemma-27B':dict(evidence_multiplier=1.12,nuisance_multiplier=.92,noise_multiplier=.95),
+ 'Gemma-2-9B-IT':dict(evidence_multiplier=.97,nuisance_multiplier=1.03,noise_multiplier=1.06),
+ 'Gemma-3-27B-IT':dict(evidence_multiplier=1.09,nuisance_multiplier=.97,noise_multiplier=.98)}
 TRACE_Q={
  'Qwen3-8B':[.42,.20,.38],
  'Llama-3.1-8B-Instruct':[.26,.10,.25],
- 'MedGemma-27B':[.50,.18,.22]}
+ 'MedGemma-27B':[.50,.18,.22],
+ 'Gemma-2-9B-IT':[.31,.15,.30],
+ 'Gemma-3-27B-IT':[.46,.23,.27]}
 TRACE_GAMMA={
  'Qwen3-8B':[.120,.050,.025],
  'Llama-3.1-8B-Instruct':[.050,.080,.035],
- 'MedGemma-27B':[.040,.070,.050]}
+ 'MedGemma-27B':[.040,.070,.050],
+ 'Gemma-2-9B-IT':[.070,.065,.045],
+ 'Gemma-3-27B-IT':[.045,.060,.040]}
 def preset(g=1.,a=1.,trace=0.,extra=0.,bias=0.,**kw):
  return dict(g=g,a=a,trace_noise_coefficient=trace,extra_noise_coefficient=extra,bias=bias,**kw)
 BASE={
@@ -166,11 +175,11 @@ def aggregate(rr):
 main_rows=[];abl_rows=[];configs=[]
 for mi,model in enumerate(MODELS):
  for ti,task in enumerate(TASKS):
-  scenario=f'M{mi+1}T{ti+1}';main=condition_config(model,task);abl=ablations(main,task)
+  scenario=f'M{MODEL_RANDOM_INDEX[model]+1}T{ti+1}';main=condition_config(model,task);abl=ablations(main,task)
   configs.append(dict(status='simulated',model=model,task=task,scenario=scenario,
    task_latent=TASK_CONFIG[task],model_latent=MODEL_CONFIG[model],main_methods=main,ablations=abl))
   for seed in SEEDS:
-   rng=np.random.default_rng(20261109+10000*mi+1000*ti+seed)
+   rng=np.random.default_rng(20261109+10000*MODEL_RANDOM_INDEX[model]+1000*ti+seed)
    data=make_data(rng,model,task)
    base=dict(status='simulated',model=model,task=task,scenario=scenario,seed=seed,
     n_invariant=N_INV,n_flip=N_FLIP,n_native=N_NATIVE,
@@ -201,6 +210,10 @@ validation=dict(status='simulated',without_b_difference_metrics_exactly_equal=no
  variance_R2_identity_max_error=identity_error,
  checked_rows=len(main_rows)+len(abl_rows))
 configuration=dict(status='simulated',
+ model_groups=dict(main=MAIN_MODELS,supplementary=SUPPLEMENTARY_MODELS),
+ legacy_random_index=MODEL_RANDOM_INDEX,
+ model_expansion='Gemma-2-9B-IT and Gemma-3-27B-IT have new independent prespecified evidence/nuisance/noise multipliers and trace Q/gamma settings; they are regenerated from their scenario seeds rather than relabeled old table rows.',
+ supplementary_comparison='MedGemma-27B and Gemma-3-27B-IT are generic/medical same-series same-scale model-version labels in this synthetic design. Their differences come from assigned conditions and cannot identify a causal effect of medical training.',
  description='Prespecified score-level transformations. Method names are condition labels inspired by broad algorithm classes, not official implementations or measured baseline outputs.',
  score_equation='score_m = g_m E + a_m N + c_m T + d_m X + B + bias_m; E/N/T/X/B shared by all methods in each scenario and seed.',
  primitive_meaning=dict(E='label-signed evidence score with a fixed low-margin mixture',
@@ -221,6 +234,11 @@ configuration=dict(status='simulated',
 metadata=dict(status='simulated',not_real_model_runs=True,not_official_benchmark_results=True,
  intended_use='Labeled hypothetical result projection and figure layout for discussion; no evidence of empirical method superiority.',
  models_are_condition_labels=MODELS,tasks_are_condition_labels=TASKS,
+ model_groups=dict(main=MAIN_MODELS,supplementary=SUPPLEMENTARY_MODELS),
+ scenario_count=len(MODELS)*len(TASKS),main_scenario_count=len(MAIN_MODELS)*len(TASKS),
+ supplementary_scenario_count=len(SUPPLEMENTARY_MODELS)*len(TASKS),
+ supplementary_comparison_scope='Prespecified same-series/same-scale generic/medical version comparison; not a causal estimate of medical training.',
+ legacy_three_model_parameters_and_random_indices_unchanged=True,
  real_baseline_implementations_executed=False,gpu_used=False,language_models_loaded=False,
  seed_count=5,summary_std='Sample SD across five seeds, ddof=1; not a confidence interval or empirical benchmark uncertainty.',
  metric_definitions={

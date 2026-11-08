@@ -1,3 +1,4 @@
+"""Historical three-model checker. Not used for the current five-model figure update."""
 from pathlib import Path
 import csv,json,collections,math
 import numpy as np

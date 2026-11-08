@@ -1,48 +1,24 @@
-# 模拟研究的独立检查
+# 模拟研究更新说明
 
-本文件检查模拟表格的数学一致性，不证明实际模型、数据集或基线性能。
+所有表格仍为预设分数变换的模拟结果。此次只增加模型条件，没有运行语言模型、真实任务或官方基线。
 
-## 数值检查
+主模型：Qwen3-8B、Llama-3.1-8B-Instruct、Gemma-2-9B-IT。补充模型：MedGemma-27B、Gemma-3-27B-IT。
+补充比较按同系列、同规模的通用与医学版本组织；模拟结果来自预设条件，不能解释为医学训练的因果效应。
 
-通过：main_seed_metrics.csv simulated status；660 rows
-通过：main_seed_metrics.csv finite metrics；all numeric metrics finite
-通过：main_seed_metrics.csv variance bound；VR cannot exceed 1
-通过：main_seed_metrics.csv R2 bound；R2 cannot exceed 1
-通过：main_seed_metrics.csv VR vs R2；same pair residual: VR-R2 is squared residual mean divided by raw variance
-通过：main_seed_metrics.csv probability range；correctness rates in [0,1]
-通过：main_seed_metrics.csv invariant pair probability bound；pair both correct between Frechet bounds from the same two sides
-通过：main_seed_metrics.csv flip pair probability bound；pair both correct between Frechet bounds from the same two sides
-通过：ablation_seed_metrics.csv simulated status；585 rows
-通过：ablation_seed_metrics.csv finite metrics；all numeric metrics finite
-通过：ablation_seed_metrics.csv variance bound；VR cannot exceed 1
-通过：ablation_seed_metrics.csv R2 bound；R2 cannot exceed 1
-通过：ablation_seed_metrics.csv VR vs R2；same pair residual: VR-R2 is squared residual mean divided by raw variance
-通过：ablation_seed_metrics.csv probability range；correctness rates in [0,1]
-通过：ablation_seed_metrics.csv invariant pair probability bound；pair both correct between Frechet bounds from the same two sides
-通过：ablation_seed_metrics.csv flip pair probability bound；pair both correct between Frechet bounds from the same two sides
-通过：main_seed_metrics.csv 5 seeds per cell；132 cells
-通过：main_seed_metrics.csv nine scenarios；9
-通过：ablation_seed_metrics.csv 5 seeds per cell；117 cells
-通过：ablation_seed_metrics.csv nine scenarios；9
-通过：main_seed_metrics.csv VR-R2 exact identity；max absolute error=4.4159554485334596e-16
-通过：main_seed_metrics.csv RMS-variance-mean identity；max absolute error=8.881784197001252e-16
-通过：main_seed_metrics.csv paths only in MEGA scenarios；NLI4CT and syllogism path fields must be blank
-通过：ablation_seed_metrics.csv VR-R2 exact identity；max absolute error=6.76975836499949e-16
-通过：ablation_seed_metrics.csv RMS-variance-mean identity；max absolute error=1.7763568394002505e-15
-通过：ablation_seed_metrics.csv paths only in MEGA scenarios；NLI4CT and syllogism path fields must be blank
-通过：constant b leaves main pair metrics unchanged；max absolute difference=0.0
-通过：without_b leaves ablation pair metrics unchanged；max absolute difference=0.0
-通过：main_summary.csv mean/SD recomputation；max mean diff=0.0; max sample SD diff=0.0
-通过：ablation_summary.csv mean/SD recomputation；max mean diff=0.0; max sample SD diff=0.0
-通过：ours does not win every metric in every cell；{'VR': 0, 'ER_closest_to_one': 0, 'native_accuracy': 0}
+新增 Gemma-2-9B-IT 的证据、干扰、分数噪声倍率为 0.97、1.03、1.06，三个任务的痕迹可预测度假设 Q 为 0.31、0.15、0.30，证据泄漏系数为 0.070、0.065、0.045。
+新增 Gemma-3-27B-IT 的对应倍率为 1.09、0.97、0.98，Q 为 0.46、0.23、0.27，证据泄漏系数为 0.045、0.060、0.040。
+这些数值是明确选择的独立情景参数，不是从模型或文献估计的性能。
+
+## 规模与必要一致性检查
+
+- 五个模型条件 × 三个任务条件 × 五个合成种子，共十五个场景。
+- 主实验：1,100 个种子结果行、220 个汇总行；消融：975 个种子结果行、195 个汇总行。
+- 每个场景每个种子仍使用 2,000 个真值不变配对、1,000 个真值翻转配对和 1,500 个独立原始节点；MEGA 风格另有共享的 200 条长度六合成路径。
+- 原三个模型保持原参数、场景编号和随机数索引；四张表中所有旧行均逐字段保持不变。该结果记录于 validation.json。
+- 去除 b 的全部配对差分指标仍与 full 精确相同；full 与 APF0 的全部指标相同；配对全对率未超过任一侧正确率；方差下降比例与 R² 的均值处理关系保持一致。
+- 每行均含 status=simulated；NLI 与三段论的路径指标不适用。
 
 ## 解释范围
 
-1. 模型名与任务名在此仅对应参数配置。表格与图中所有结果均须标“模拟”，不得写成实际运行benchmark的结论。
-2. 5个seed的标准差只描述生成过程中的随机波动，不是实际模型训练或真实任务抽样的不确定性。
-3. 常数截距b不改变配对差分，但能改变以0为阈值的判断；因此去掉b只应影响阈值相关指标。
-4. VR与R²使用不同的均值处理。相同残差下，VR-R²等于残差均值平方除以原配对差方差；二者不应被无条件写成完全相等。
-5. ER以100%为目标。超过100%说明证据响应放大，并非更好的证据保留。
-6. 模拟中的较纯痕迹与接近100%的ER来自额外设定，不能替代真实开发结果94.64%的ER。
-7. 输出端线性修正也可能由合适的表示编辑实现。模拟可说明给定写回噪声与约束下的权衡，不能证明所有表示编辑都必然差于对消。
-8. NLI与三段论不报告临床指南路径正确率。
+五个种子的标准差只反映合成抽样波动。模型名与任务名是条件标签；预设基线名称不表示执行官方算法。证据响应以接近 100% 为目标，超过 100% 表示放大。
+现有实测锚点仍为 repair-v2 的干扰方差下降 41.01%、证据响应保留 94.64%；本次没有修改任何实测结果。较高纯度情景、trace_leakage_current 和合成路径均不能替代真实实验。

@@ -497,3 +497,5 @@ repair-v2 的 fit 中，A 有 4,869 对，P 仅有 18 对；开发集 A 有 1,19
 - [汇报模拟图](meeting/figures/04_toy_simulation.png) 采用可复现简化模型，单列说明原理，不作为临床或 MEGA-CDP 实验结果。
 
 实验方案补充：[多模型主实验与消融结果草案（模拟）](simulated_study/REPORT.zh.md)。
+
+最新模型方案：主实验采用 Qwen3-8B、Llama-3.1-8B-Instruct、Gemma-2-9B-IT，近似控制规模并覆盖三个家族；补充 MedGemma-27B 与 Gemma-3-27B-IT，比较同系列同规模的医疗/通用条件。Gemma2-9B 不作为医学适配的匹配对照，27B 组也保留后训练差异。三个任务与五个模拟种子保持不变，新增模型数值仍为模拟，原有真实结果不变。详见[模型选择说明](model_selection.zh.md)。

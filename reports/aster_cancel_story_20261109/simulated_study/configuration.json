@@ -1,5 +1,25 @@
 {
   "status": "simulated",
+  "model_groups": {
+    "main": [
+      "Qwen3-8B",
+      "Llama-3.1-8B-Instruct",
+      "Gemma-2-9B-IT"
+    ],
+    "supplementary": [
+      "MedGemma-27B",
+      "Gemma-3-27B-IT"
+    ]
+  },
+  "legacy_random_index": {
+    "Qwen3-8B": 0,
+    "Llama-3.1-8B-Instruct": 1,
+    "MedGemma-27B": 2,
+    "Gemma-2-9B-IT": 3,
+    "Gemma-3-27B-IT": 4
+  },
+  "model_expansion": "Gemma-2-9B-IT and Gemma-3-27B-IT have new independent prespecified evidence/nuisance/noise multipliers and trace Q/gamma settings; they are regenerated from their scenario seeds rather than relabeled old table rows.",
+  "supplementary_comparison": "MedGemma-27B and Gemma-3-27B-IT are generic/medical same-series same-scale model-version labels in this synthetic design. Their differences come from assigned conditions and cannot identify a causal effect of medical training.",
   "description": "Prespecified score-level transformations. Method names are condition labels inspired by broad algorithm classes, not official implementations or measured baseline outputs.",
   "score_equation": "score_m = g_m E + a_m N + c_m T + d_m X + B + bias_m; E/N/T/X/B shared by all methods in each scenario and seed.",
   "primitive_meaning": {
@@ -2583,6 +2603,1710 @@
           "bias": 0.0,
           "trace_predictability_Q": 0.22,
           "evidence_leakage_gamma": 0.24363636363636354
+        }
+      }
+    },
+    {
+      "status": "simulated",
+      "model": "Gemma-2-9B-IT",
+      "task": "MEGA-CDP-style",
+      "scenario": "M4T1",
+      "task_latent": {
+        "evidence_scale": 12.0,
+        "boundary_fraction": 0.14,
+        "boundary_scale": 0.55,
+        "nuisance_sigma": 0.85,
+        "base_noise_sigma": 0.17,
+        "raw_bias": 0.55
+      },
+      "model_latent": {
+        "evidence_multiplier": 0.97,
+        "nuisance_multiplier": 1.03,
+        "noise_multiplier": 1.06
+      },
+      "main_methods": {
+        "context_calibration": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.1,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "pca_readout": {
+          "g": 0.9,
+          "a": 0.63,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.22,
+          "bias": 0.1,
+          "family": "output_readout",
+          "status": "simulated"
+        },
+        "early_closed_form": {
+          "g": 0.93,
+          "a": 0.82,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.8,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "leace": {
+          "g": 0.72,
+          "a": 0.22,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.06,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "inlp": {
+          "g": 0.58,
+          "a": 0.1,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.02,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "iti": {
+          "g": 1.02,
+          "a": 0.78,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": -0.03,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_n": {
+          "g": 0.99,
+          "a": 0.84,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_ns": {
+          "g": 0.78,
+          "a": 0.18,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.4,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "loreft": {
+          "g": 1.08,
+          "a": 0.66,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lofit": {
+          "g": 1.03,
+          "a": 0.57,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lora": {
+          "g": 1.12,
+          "a": 0.45,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.08,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "raw": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.55,
+          "family": "unmodified",
+          "status": "simulated"
+        },
+        "bias": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "aster_cr": {
+          "g": 0.9783,
+          "a": 0.69,
+          "trace_noise_coefficient": -0.46249324319388707,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.31,
+          "evidence_leakage_gamma": 0.07,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "mask_action": {
+          "g": 0.91,
+          "a": 0.07,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.05,
+          "bias": 0.08,
+          "family": "input_processing",
+          "status": "simulated"
+        },
+        "semantic_extract": {
+          "g": 0.99,
+          "a": 0.2,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.05,
+          "family": "input_processing",
+          "status": "simulated"
+        }
+      },
+      "ablations": {
+        "full": {
+          "g": 0.9783,
+          "a": 0.69,
+          "trace_noise_coefficient": -0.46249324319388707,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.31,
+          "evidence_leakage_gamma": 0.07,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "without_w": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "without_b": {
+          "g": 0.9783,
+          "a": 0.69,
+          "trace_noise_coefficient": -0.46249324319388707,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.55,
+          "trace_predictability_Q": 0.31,
+          "evidence_leakage_gamma": 0.07,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "AP_only": {
+          "g": 0.984965,
+          "a": 0.6993,
+          "trace_noise_coefficient": -0.4585624384966566,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.30069999999999997,
+          "evidence_leakage_gamma": 0.05
+        },
+        "APF0": {
+          "g": 0.9783,
+          "a": 0.69,
+          "trace_noise_coefficient": -0.46249324319388707,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.31,
+          "evidence_leakage_gamma": 0.07,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "no_orth_U": {
+          "g": 0.8791,
+          "a": 0.69,
+          "trace_noise_coefficient": -0.46249324319388707,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.31,
+          "evidence_leakage_gamma": 0.39
+        },
+        "signal_only": {
+          "g": 0.78,
+          "a": 0.91,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0
+        },
+        "random_heads": {
+          "g": 0.88,
+          "a": 0.99,
+          "trace_noise_coefficient": 0.35,
+          "extra_noise_coefficient": 0.2,
+          "bias": 0.0
+        },
+        "random_subspace": {
+          "g": 0.55,
+          "a": 0.9,
+          "trace_noise_coefficient": 0.45,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.0
+        },
+        "label_joint": {
+          "g": 1.15,
+          "a": 0.65,
+          "trace_noise_coefficient": 0.1,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.0
+        },
+        "hidden_writeback": {
+          "g": 0.9783,
+          "a": 0.69,
+          "trace_noise_coefficient": -0.46249324319388707,
+          "extra_noise_coefficient": 0.8,
+          "bias": 0.1,
+          "trace_predictability_Q": 0.31,
+          "evidence_leakage_gamma": 0.07,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "rank8": {
+          "g": 0.98942125,
+          "a": 0.7985,
+          "trace_noise_coefficient": -0.4011206177697676,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.2015,
+          "evidence_leakage_gamma": 0.052500000000000005
+        },
+        "trace_leakage_current": {
+          "g": 0.9464,
+          "a": 0.69,
+          "trace_noise_coefficient": -0.46249324319388707,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.31,
+          "evidence_leakage_gamma": 0.17290322580645157
+        }
+      }
+    },
+    {
+      "status": "simulated",
+      "model": "Gemma-2-9B-IT",
+      "task": "NLI4CT-style",
+      "scenario": "M4T2",
+      "task_latent": {
+        "evidence_scale": 4.5,
+        "boundary_fraction": 0.32,
+        "boundary_scale": 0.42,
+        "nuisance_sigma": 1.05,
+        "base_noise_sigma": 0.24,
+        "raw_bias": -0.38
+      },
+      "model_latent": {
+        "evidence_multiplier": 0.97,
+        "nuisance_multiplier": 1.03,
+        "noise_multiplier": 1.06
+      },
+      "main_methods": {
+        "context_calibration": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.1,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "pca_readout": {
+          "g": 0.9,
+          "a": 0.63,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.22,
+          "bias": 0.1,
+          "family": "output_readout",
+          "status": "simulated"
+        },
+        "early_closed_form": {
+          "g": 0.93,
+          "a": 0.82,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.8,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "leace": {
+          "g": 0.72,
+          "a": 0.22,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.06,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "inlp": {
+          "g": 0.58,
+          "a": 0.1,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.02,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "iti": {
+          "g": 1.02,
+          "a": 0.78,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": -0.03,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_n": {
+          "g": 0.99,
+          "a": 0.84,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_ns": {
+          "g": 0.78,
+          "a": 0.18,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.4,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "loreft": {
+          "g": 1.08,
+          "a": 0.66,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lofit": {
+          "g": 1.03,
+          "a": 0.57,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lora": {
+          "g": 1.12,
+          "a": 0.45,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.08,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "raw": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": -0.38,
+          "family": "unmodified",
+          "status": "simulated"
+        },
+        "bias": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "aster_cr": {
+          "g": 0.99025,
+          "a": 0.85,
+          "trace_noise_coefficient": -0.3570714214271425,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.15,
+          "evidence_leakage_gamma": 0.065,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        }
+      },
+      "ablations": {
+        "full": {
+          "g": 0.99025,
+          "a": 0.85,
+          "trace_noise_coefficient": -0.3570714214271425,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.15,
+          "evidence_leakage_gamma": 0.065,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "without_w": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "without_b": {
+          "g": 0.99025,
+          "a": 0.85,
+          "trace_noise_coefficient": -0.3570714214271425,
+          "extra_noise_coefficient": 0.0,
+          "bias": -0.38,
+          "trace_predictability_Q": 0.15,
+          "evidence_leakage_gamma": 0.065,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "AP_only": {
+          "g": 0.9934525,
+          "a": 0.8545,
+          "trace_noise_coefficient": -0.3526042399064424,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.1455,
+          "evidence_leakage_gamma": 0.045
+        },
+        "APF0": {
+          "g": 0.99025,
+          "a": 0.85,
+          "trace_noise_coefficient": -0.3570714214271425,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.15,
+          "evidence_leakage_gamma": 0.065,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "no_orth_U": {
+          "g": 0.94225,
+          "a": 0.85,
+          "trace_noise_coefficient": -0.3570714214271425,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.15,
+          "evidence_leakage_gamma": 0.385
+        },
+        "signal_only": {
+          "g": 0.78,
+          "a": 0.91,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0
+        },
+        "random_heads": {
+          "g": 0.88,
+          "a": 0.99,
+          "trace_noise_coefficient": 0.35,
+          "extra_noise_coefficient": 0.2,
+          "bias": 0.0
+        },
+        "random_subspace": {
+          "g": 0.55,
+          "a": 0.9,
+          "trace_noise_coefficient": 0.45,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.0
+        },
+        "label_joint": {
+          "g": 1.15,
+          "a": 0.65,
+          "trace_noise_coefficient": 0.1,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.0
+        },
+        "hidden_writeback": {
+          "g": 0.99025,
+          "a": 0.85,
+          "trace_noise_coefficient": -0.3570714214271425,
+          "extra_noise_coefficient": 0.8,
+          "bias": 0.1,
+          "trace_predictability_Q": 0.15,
+          "evidence_leakage_gamma": 0.065,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "rank8": {
+          "g": 0.995246875,
+          "a": 0.9025,
+          "trace_noise_coefficient": -0.29663740492392393,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.0975,
+          "evidence_leakage_gamma": 0.04875
+        },
+        "trace_leakage_current": {
+          "g": 0.9464,
+          "a": 0.85,
+          "trace_noise_coefficient": -0.3570714214271425,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.15,
+          "evidence_leakage_gamma": 0.3573333333333332
+        }
+      }
+    },
+    {
+      "status": "simulated",
+      "model": "Gemma-2-9B-IT",
+      "task": "Syllogism-believability",
+      "scenario": "M4T3",
+      "task_latent": {
+        "evidence_scale": 3.0,
+        "boundary_fraction": 0.4,
+        "boundary_scale": 0.38,
+        "nuisance_sigma": 1.15,
+        "base_noise_sigma": 0.2,
+        "raw_bias": 0.45
+      },
+      "model_latent": {
+        "evidence_multiplier": 0.97,
+        "nuisance_multiplier": 1.03,
+        "noise_multiplier": 1.06
+      },
+      "main_methods": {
+        "context_calibration": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.1,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "pca_readout": {
+          "g": 0.9,
+          "a": 0.63,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.22,
+          "bias": 0.1,
+          "family": "output_readout",
+          "status": "simulated"
+        },
+        "early_closed_form": {
+          "g": 0.93,
+          "a": 0.82,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.8,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "leace": {
+          "g": 0.72,
+          "a": 0.22,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.06,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "inlp": {
+          "g": 0.58,
+          "a": 0.1,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.02,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "iti": {
+          "g": 1.02,
+          "a": 0.78,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": -0.03,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_n": {
+          "g": 0.99,
+          "a": 0.84,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_ns": {
+          "g": 0.78,
+          "a": 0.18,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.4,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "loreft": {
+          "g": 1.08,
+          "a": 0.66,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lofit": {
+          "g": 1.03,
+          "a": 0.57,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lora": {
+          "g": 1.12,
+          "a": 0.45,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.08,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "raw": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.45,
+          "family": "unmodified",
+          "status": "simulated"
+        },
+        "bias": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "aster_cr": {
+          "g": 0.9865,
+          "a": 0.7,
+          "trace_noise_coefficient": -0.458257569495584,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.3,
+          "evidence_leakage_gamma": 0.045,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        }
+      },
+      "ablations": {
+        "full": {
+          "g": 0.9865,
+          "a": 0.7,
+          "trace_noise_coefficient": -0.458257569495584,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.3,
+          "evidence_leakage_gamma": 0.045,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "without_w": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "without_b": {
+          "g": 0.9865,
+          "a": 0.7,
+          "trace_noise_coefficient": -0.458257569495584,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.45,
+          "trace_predictability_Q": 0.3,
+          "evidence_leakage_gamma": 0.045,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "AP_only": {
+          "g": 0.992725,
+          "a": 0.7090000000000001,
+          "trace_noise_coefficient": -0.45422351326191823,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.291,
+          "evidence_leakage_gamma": 0.024999999999999998
+        },
+        "APF0": {
+          "g": 0.9865,
+          "a": 0.7,
+          "trace_noise_coefficient": -0.458257569495584,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.3,
+          "evidence_leakage_gamma": 0.045,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "no_orth_U": {
+          "g": 0.8905,
+          "a": 0.7,
+          "trace_noise_coefficient": -0.458257569495584,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.3,
+          "evidence_leakage_gamma": 0.365
+        },
+        "signal_only": {
+          "g": 0.78,
+          "a": 0.91,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0
+        },
+        "random_heads": {
+          "g": 0.88,
+          "a": 0.99,
+          "trace_noise_coefficient": 0.35,
+          "extra_noise_coefficient": 0.2,
+          "bias": 0.0
+        },
+        "random_subspace": {
+          "g": 0.55,
+          "a": 0.9,
+          "trace_noise_coefficient": 0.45,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.0
+        },
+        "label_joint": {
+          "g": 1.15,
+          "a": 0.65,
+          "trace_noise_coefficient": 0.1,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.0
+        },
+        "hidden_writeback": {
+          "g": 0.9865,
+          "a": 0.7,
+          "trace_noise_coefficient": -0.458257569495584,
+          "extra_noise_coefficient": 0.8,
+          "bias": 0.1,
+          "trace_predictability_Q": 0.3,
+          "evidence_leakage_gamma": 0.045,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "rank8": {
+          "g": 0.99341875,
+          "a": 0.8049999999999999,
+          "trace_noise_coefficient": -0.3962007067131506,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.195,
+          "evidence_leakage_gamma": 0.03375
+        },
+        "trace_leakage_current": {
+          "g": 0.9464,
+          "a": 0.7,
+          "trace_noise_coefficient": -0.458257569495584,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.3,
+          "evidence_leakage_gamma": 0.1786666666666666
+        }
+      }
+    },
+    {
+      "status": "simulated",
+      "model": "Gemma-3-27B-IT",
+      "task": "MEGA-CDP-style",
+      "scenario": "M5T1",
+      "task_latent": {
+        "evidence_scale": 12.0,
+        "boundary_fraction": 0.14,
+        "boundary_scale": 0.55,
+        "nuisance_sigma": 0.85,
+        "base_noise_sigma": 0.17,
+        "raw_bias": 0.55
+      },
+      "model_latent": {
+        "evidence_multiplier": 1.09,
+        "nuisance_multiplier": 0.97,
+        "noise_multiplier": 0.98
+      },
+      "main_methods": {
+        "context_calibration": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.1,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "pca_readout": {
+          "g": 0.9,
+          "a": 0.63,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.22,
+          "bias": 0.1,
+          "family": "output_readout",
+          "status": "simulated"
+        },
+        "early_closed_form": {
+          "g": 0.93,
+          "a": 0.82,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.8,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "leace": {
+          "g": 0.72,
+          "a": 0.22,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.06,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "inlp": {
+          "g": 0.58,
+          "a": 0.1,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.02,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "iti": {
+          "g": 1.02,
+          "a": 0.78,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": -0.03,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_n": {
+          "g": 0.99,
+          "a": 0.84,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_ns": {
+          "g": 0.78,
+          "a": 0.18,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.4,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "loreft": {
+          "g": 1.08,
+          "a": 0.66,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lofit": {
+          "g": 1.03,
+          "a": 0.57,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lora": {
+          "g": 1.12,
+          "a": 0.45,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.08,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "raw": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.55,
+          "family": "unmodified",
+          "status": "simulated"
+        },
+        "bias": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "aster_cr": {
+          "g": 0.9793,
+          "a": 0.54,
+          "trace_noise_coefficient": -0.49839743177508455,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.46,
+          "evidence_leakage_gamma": 0.045,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "mask_action": {
+          "g": 0.91,
+          "a": 0.07,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.05,
+          "bias": 0.08,
+          "family": "input_processing",
+          "status": "simulated"
+        },
+        "semantic_extract": {
+          "g": 0.99,
+          "a": 0.2,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.05,
+          "family": "input_processing",
+          "status": "simulated"
+        }
+      },
+      "ablations": {
+        "full": {
+          "g": 0.9793,
+          "a": 0.54,
+          "trace_noise_coefficient": -0.49839743177508455,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.46,
+          "evidence_leakage_gamma": 0.045,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "without_w": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "without_b": {
+          "g": 0.9793,
+          "a": 0.54,
+          "trace_noise_coefficient": -0.49839743177508455,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.55,
+          "trace_predictability_Q": 0.46,
+          "evidence_leakage_gamma": 0.045,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "AP_only": {
+          "g": 0.988845,
+          "a": 0.5538000000000001,
+          "trace_noise_coefficient": -0.4970971333653012,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.4462,
+          "evidence_leakage_gamma": 0.024999999999999998
+        },
+        "APF0": {
+          "g": 0.9793,
+          "a": 0.54,
+          "trace_noise_coefficient": -0.49839743177508455,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.46,
+          "evidence_leakage_gamma": 0.045,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "no_orth_U": {
+          "g": 0.8321000000000001,
+          "a": 0.54,
+          "trace_noise_coefficient": -0.49839743177508455,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.46,
+          "evidence_leakage_gamma": 0.365
+        },
+        "signal_only": {
+          "g": 0.78,
+          "a": 0.91,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0
+        },
+        "random_heads": {
+          "g": 0.88,
+          "a": 0.99,
+          "trace_noise_coefficient": 0.35,
+          "extra_noise_coefficient": 0.2,
+          "bias": 0.0
+        },
+        "random_subspace": {
+          "g": 0.55,
+          "a": 0.9,
+          "trace_noise_coefficient": 0.45,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.0
+        },
+        "label_joint": {
+          "g": 1.15,
+          "a": 0.65,
+          "trace_noise_coefficient": 0.1,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.0
+        },
+        "hidden_writeback": {
+          "g": 0.9793,
+          "a": 0.54,
+          "trace_noise_coefficient": -0.49839743177508455,
+          "extra_noise_coefficient": 0.8,
+          "bias": 0.1,
+          "trace_predictability_Q": 0.46,
+          "evidence_leakage_gamma": 0.045,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "rank8": {
+          "g": 0.98990875,
+          "a": 0.701,
+          "trace_noise_coefficient": -0.4578198335590104,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.29900000000000004,
+          "evidence_leakage_gamma": 0.03375
+        },
+        "trace_leakage_current": {
+          "g": 0.9464,
+          "a": 0.54,
+          "trace_noise_coefficient": -0.49839743177508455,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.46,
+          "evidence_leakage_gamma": 0.11652173913043473
+        }
+      }
+    },
+    {
+      "status": "simulated",
+      "model": "Gemma-3-27B-IT",
+      "task": "NLI4CT-style",
+      "scenario": "M5T2",
+      "task_latent": {
+        "evidence_scale": 4.5,
+        "boundary_fraction": 0.32,
+        "boundary_scale": 0.42,
+        "nuisance_sigma": 1.05,
+        "base_noise_sigma": 0.24,
+        "raw_bias": -0.38
+      },
+      "model_latent": {
+        "evidence_multiplier": 1.09,
+        "nuisance_multiplier": 0.97,
+        "noise_multiplier": 0.98
+      },
+      "main_methods": {
+        "context_calibration": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.1,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "pca_readout": {
+          "g": 0.9,
+          "a": 0.63,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.22,
+          "bias": 0.1,
+          "family": "output_readout",
+          "status": "simulated"
+        },
+        "early_closed_form": {
+          "g": 0.93,
+          "a": 0.82,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.8,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "leace": {
+          "g": 0.72,
+          "a": 0.22,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.06,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "inlp": {
+          "g": 0.58,
+          "a": 0.1,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.02,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "iti": {
+          "g": 1.02,
+          "a": 0.78,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": -0.03,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_n": {
+          "g": 0.99,
+          "a": 0.84,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_ns": {
+          "g": 0.78,
+          "a": 0.18,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.4,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "loreft": {
+          "g": 1.08,
+          "a": 0.66,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lofit": {
+          "g": 1.03,
+          "a": 0.57,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lora": {
+          "g": 1.12,
+          "a": 0.45,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.08,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "raw": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": -0.38,
+          "family": "unmodified",
+          "status": "simulated"
+        },
+        "bias": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "aster_cr": {
+          "g": 0.9862,
+          "a": 0.77,
+          "trace_noise_coefficient": -0.4208325082500163,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.23,
+          "evidence_leakage_gamma": 0.06,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        }
+      },
+      "ablations": {
+        "full": {
+          "g": 0.9862,
+          "a": 0.77,
+          "trace_noise_coefficient": -0.4208325082500163,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.23,
+          "evidence_leakage_gamma": 0.06,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "without_w": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "without_b": {
+          "g": 0.9862,
+          "a": 0.77,
+          "trace_noise_coefficient": -0.4208325082500163,
+          "extra_noise_coefficient": 0.0,
+          "bias": -0.38,
+          "trace_predictability_Q": 0.23,
+          "evidence_leakage_gamma": 0.06,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "AP_only": {
+          "g": 0.991076,
+          "a": 0.7769,
+          "trace_noise_coefficient": -0.41632486113610845,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.2231,
+          "evidence_leakage_gamma": 0.039999999999999994
+        },
+        "APF0": {
+          "g": 0.9862,
+          "a": 0.77,
+          "trace_noise_coefficient": -0.4208325082500163,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.23,
+          "evidence_leakage_gamma": 0.06,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "no_orth_U": {
+          "g": 0.9126,
+          "a": 0.77,
+          "trace_noise_coefficient": -0.4208325082500163,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.23,
+          "evidence_leakage_gamma": 0.38
+        },
+        "signal_only": {
+          "g": 0.78,
+          "a": 0.91,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0
+        },
+        "random_heads": {
+          "g": 0.88,
+          "a": 0.99,
+          "trace_noise_coefficient": 0.35,
+          "extra_noise_coefficient": 0.2,
+          "bias": 0.0
+        },
+        "random_subspace": {
+          "g": 0.55,
+          "a": 0.9,
+          "trace_noise_coefficient": 0.45,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.0
+        },
+        "label_joint": {
+          "g": 1.15,
+          "a": 0.65,
+          "trace_noise_coefficient": 0.1,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.0
+        },
+        "hidden_writeback": {
+          "g": 0.9862,
+          "a": 0.77,
+          "trace_noise_coefficient": -0.4208325082500163,
+          "extra_noise_coefficient": 0.8,
+          "bias": 0.1,
+          "trace_predictability_Q": 0.23,
+          "evidence_leakage_gamma": 0.06,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "rank8": {
+          "g": 0.9932725,
+          "a": 0.8505,
+          "trace_noise_coefficient": -0.3565806360418356,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.14950000000000002,
+          "evidence_leakage_gamma": 0.045
+        },
+        "trace_leakage_current": {
+          "g": 0.9464,
+          "a": 0.77,
+          "trace_noise_coefficient": -0.4208325082500163,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.23,
+          "evidence_leakage_gamma": 0.23304347826086946
+        }
+      }
+    },
+    {
+      "status": "simulated",
+      "model": "Gemma-3-27B-IT",
+      "task": "Syllogism-believability",
+      "scenario": "M5T3",
+      "task_latent": {
+        "evidence_scale": 3.0,
+        "boundary_fraction": 0.4,
+        "boundary_scale": 0.38,
+        "nuisance_sigma": 1.15,
+        "base_noise_sigma": 0.2,
+        "raw_bias": 0.45
+      },
+      "model_latent": {
+        "evidence_multiplier": 1.09,
+        "nuisance_multiplier": 0.97,
+        "noise_multiplier": 0.98
+      },
+      "main_methods": {
+        "context_calibration": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.1,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "pca_readout": {
+          "g": 0.9,
+          "a": 0.63,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.22,
+          "bias": 0.1,
+          "family": "output_readout",
+          "status": "simulated"
+        },
+        "early_closed_form": {
+          "g": 0.93,
+          "a": 0.82,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.8,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "leace": {
+          "g": 0.72,
+          "a": 0.22,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.06,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "inlp": {
+          "g": 0.58,
+          "a": 0.1,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.02,
+          "family": "representation_erasure",
+          "status": "simulated"
+        },
+        "iti": {
+          "g": 1.02,
+          "a": 0.78,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.25,
+          "bias": -0.03,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_n": {
+          "g": 0.99,
+          "a": 0.84,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "paired_ns": {
+          "g": 0.78,
+          "a": 0.18,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.4,
+          "bias": 0.0,
+          "family": "representation_editing",
+          "status": "simulated"
+        },
+        "loreft": {
+          "g": 1.08,
+          "a": 0.66,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.12,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lofit": {
+          "g": 1.03,
+          "a": 0.57,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "lora": {
+          "g": 1.12,
+          "a": 0.45,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.08,
+          "bias": 0.0,
+          "family": "training_adaptation",
+          "status": "simulated"
+        },
+        "raw": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.45,
+          "family": "unmodified",
+          "status": "simulated"
+        },
+        "bias": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "aster_cr": {
+          "g": 0.9892,
+          "a": 0.73,
+          "trace_noise_coefficient": -0.4439594576084623,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.27,
+          "evidence_leakage_gamma": 0.04,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        }
+      },
+      "ablations": {
+        "full": {
+          "g": 0.9892,
+          "a": 0.73,
+          "trace_noise_coefficient": -0.4439594576084623,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.27,
+          "evidence_leakage_gamma": 0.04,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "without_w": {
+          "g": 1.0,
+          "a": 1.0,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "family": "calibration",
+          "status": "simulated"
+        },
+        "without_b": {
+          "g": 0.9892,
+          "a": 0.73,
+          "trace_noise_coefficient": -0.4439594576084623,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.45,
+          "trace_predictability_Q": 0.27,
+          "evidence_leakage_gamma": 0.04,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "AP_only": {
+          "g": 0.994762,
+          "a": 0.7381,
+          "trace_noise_coefficient": -0.4396685001225355,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.2619,
+          "evidence_leakage_gamma": 0.02
+        },
+        "APF0": {
+          "g": 0.9892,
+          "a": 0.73,
+          "trace_noise_coefficient": -0.4439594576084623,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.27,
+          "evidence_leakage_gamma": 0.04,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "no_orth_U": {
+          "g": 0.9028,
+          "a": 0.73,
+          "trace_noise_coefficient": -0.4439594576084623,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.27,
+          "evidence_leakage_gamma": 0.36
+        },
+        "signal_only": {
+          "g": 0.78,
+          "a": 0.91,
+          "trace_noise_coefficient": 0.0,
+          "extra_noise_coefficient": 0.1,
+          "bias": 0.0
+        },
+        "random_heads": {
+          "g": 0.88,
+          "a": 0.99,
+          "trace_noise_coefficient": 0.35,
+          "extra_noise_coefficient": 0.2,
+          "bias": 0.0
+        },
+        "random_subspace": {
+          "g": 0.55,
+          "a": 0.9,
+          "trace_noise_coefficient": 0.45,
+          "extra_noise_coefficient": 0.25,
+          "bias": 0.0
+        },
+        "label_joint": {
+          "g": 1.15,
+          "a": 0.65,
+          "trace_noise_coefficient": 0.1,
+          "extra_noise_coefficient": 0.15,
+          "bias": 0.0
+        },
+        "hidden_writeback": {
+          "g": 0.9892,
+          "a": 0.73,
+          "trace_noise_coefficient": -0.4439594576084623,
+          "extra_noise_coefficient": 0.8,
+          "bias": 0.1,
+          "trace_predictability_Q": 0.27,
+          "evidence_leakage_gamma": 0.04,
+          "trace_purity_scenario": "hypothetical improved-trace-purity target scenario",
+          "assumption": "Fixed trace-quality and residual evidence-leakage assumptions; not estimated from the real ASTER experiment.",
+          "family": "output_cancellation",
+          "status": "simulated"
+        },
+        "rank8": {
+          "g": 0.994735,
+          "a": 0.8245,
+          "trace_noise_coefficient": -0.38039420342586716,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.17550000000000002,
+          "evidence_leakage_gamma": 0.03
+        },
+        "trace_leakage_current": {
+          "g": 0.9464,
+          "a": 0.73,
+          "trace_noise_coefficient": -0.4439594576084623,
+          "extra_noise_coefficient": 0.0,
+          "bias": 0.0,
+          "trace_predictability_Q": 0.27,
+          "evidence_leakage_gamma": 0.19851851851851843
         }
       }
     }

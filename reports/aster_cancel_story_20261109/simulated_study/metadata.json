@@ -6,13 +6,31 @@
   "models_are_condition_labels": [
     "Qwen3-8B",
     "Llama-3.1-8B-Instruct",
-    "MedGemma-27B"
+    "MedGemma-27B",
+    "Gemma-2-9B-IT",
+    "Gemma-3-27B-IT"
   ],
   "tasks_are_condition_labels": [
     "MEGA-CDP-style",
     "NLI4CT-style",
     "Syllogism-believability"
   ],
+  "model_groups": {
+    "main": [
+      "Qwen3-8B",
+      "Llama-3.1-8B-Instruct",
+      "Gemma-2-9B-IT"
+    ],
+    "supplementary": [
+      "MedGemma-27B",
+      "Gemma-3-27B-IT"
+    ]
+  },
+  "scenario_count": 15,
+  "main_scenario_count": 9,
+  "supplementary_scenario_count": 6,
+  "supplementary_comparison_scope": "Prespecified same-series/same-scale generic/medical version comparison; not a causal estimate of medical training.",
+  "legacy_three_model_parameters_and_random_indices_unchanged": true,
   "real_baseline_implementations_executed": false,
   "gpu_used": false,
   "language_models_loaded": false,
@@ -31,8 +49,8 @@
   },
   "recommended_main_direction": "Smaller invariant_rms, larger variance_reduction/R2, evidence_retention closer to 1, smaller cf_correction_over_ap_rms; accuracy is a separate check.",
   "paths": "MEGA-style: 200 fixed synthetic length-six paths sampled with replacement from the same 1500 native nodes; every method uses identical path indices. This does not simulate a real decision-tree controller. NLI/syllogism paths are not applicable.",
-  "main_rows": 660,
-  "ablation_rows": 585,
+  "main_rows": 1100,
+  "ablation_rows": 975,
   "files": [
     "generator.py",
     "configuration.json",

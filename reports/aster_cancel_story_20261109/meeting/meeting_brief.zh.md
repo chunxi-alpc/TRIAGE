@@ -161,4 +161,8 @@ $$
 - [旧版同函数诊断报告](../../aster_h2_alignment_20261108/REPORT.zh.md)
 - [临床核验材料](../clinical/review_cases.md)
 
-实验方案补充：[多模型主实验与消融结果草案（模拟）](../simulated_study/REPORT.zh.md)。
+实验方案补充：[五模型主实验与消融方案（模拟）](../simulated_study/REPORT.zh.md)。
+
+**模型选择讲法**：“主实验用 Qwen3-8B、Llama-3.1-8B-Instruct、Gemma-2-9B-IT，尽量在相近规模比较三个家族。再用 MedGemma-27B 与 Gemma-3-27B-IT 作同系列、同规模的医疗/通用补充比较。它们还有后训练差异，我们会结合证据响应解释。”
+
+三个任务和五个模拟种子保持不变。正式实验统一数据、调参预算与计分，Qwen 固定非思考模式，各模型分别定位和拟合；跨模型比较相对降低与保留指标。新增结果均为模拟，详见[模型选择说明](../model_selection.zh.md)。
