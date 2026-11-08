@@ -1,0 +1,172 @@
+{
+  "status": "simulated_scenario_checks_only",
+  "checks": [
+    {
+      "check": "main_seed_metrics.csv simulated status",
+      "passed": true,
+      "detail": "660 rows"
+    },
+    {
+      "check": "main_seed_metrics.csv finite metrics",
+      "passed": true,
+      "detail": "all numeric metrics finite"
+    },
+    {
+      "check": "main_seed_metrics.csv variance bound",
+      "passed": true,
+      "detail": "VR cannot exceed 1"
+    },
+    {
+      "check": "main_seed_metrics.csv R2 bound",
+      "passed": true,
+      "detail": "R2 cannot exceed 1"
+    },
+    {
+      "check": "main_seed_metrics.csv VR vs R2",
+      "passed": true,
+      "detail": "same pair residual: VR-R2 is squared residual mean divided by raw variance"
+    },
+    {
+      "check": "main_seed_metrics.csv probability range",
+      "passed": true,
+      "detail": "correctness rates in [0,1]"
+    },
+    {
+      "check": "main_seed_metrics.csv invariant pair probability bound",
+      "passed": true,
+      "detail": "pair both correct between Frechet bounds from the same two sides"
+    },
+    {
+      "check": "main_seed_metrics.csv flip pair probability bound",
+      "passed": true,
+      "detail": "pair both correct between Frechet bounds from the same two sides"
+    },
+    {
+      "check": "ablation_seed_metrics.csv simulated status",
+      "passed": true,
+      "detail": "585 rows"
+    },
+    {
+      "check": "ablation_seed_metrics.csv finite metrics",
+      "passed": true,
+      "detail": "all numeric metrics finite"
+    },
+    {
+      "check": "ablation_seed_metrics.csv variance bound",
+      "passed": true,
+      "detail": "VR cannot exceed 1"
+    },
+    {
+      "check": "ablation_seed_metrics.csv R2 bound",
+      "passed": true,
+      "detail": "R2 cannot exceed 1"
+    },
+    {
+      "check": "ablation_seed_metrics.csv VR vs R2",
+      "passed": true,
+      "detail": "same pair residual: VR-R2 is squared residual mean divided by raw variance"
+    },
+    {
+      "check": "ablation_seed_metrics.csv probability range",
+      "passed": true,
+      "detail": "correctness rates in [0,1]"
+    },
+    {
+      "check": "ablation_seed_metrics.csv invariant pair probability bound",
+      "passed": true,
+      "detail": "pair both correct between Frechet bounds from the same two sides"
+    },
+    {
+      "check": "ablation_seed_metrics.csv flip pair probability bound",
+      "passed": true,
+      "detail": "pair both correct between Frechet bounds from the same two sides"
+    },
+    {
+      "check": "main_seed_metrics.csv 5 seeds per cell",
+      "passed": true,
+      "detail": "132 cells"
+    },
+    {
+      "check": "main_seed_metrics.csv nine scenarios",
+      "passed": true,
+      "detail": "9"
+    },
+    {
+      "check": "ablation_seed_metrics.csv 5 seeds per cell",
+      "passed": true,
+      "detail": "117 cells"
+    },
+    {
+      "check": "ablation_seed_metrics.csv nine scenarios",
+      "passed": true,
+      "detail": "9"
+    },
+    {
+      "check": "main_seed_metrics.csv VR-R2 exact identity",
+      "passed": true,
+      "detail": "max absolute error=4.4159554485334596e-16"
+    },
+    {
+      "check": "main_seed_metrics.csv RMS-variance-mean identity",
+      "passed": true,
+      "detail": "max absolute error=8.881784197001252e-16"
+    },
+    {
+      "check": "main_seed_metrics.csv paths only in MEGA scenarios",
+      "passed": true,
+      "detail": "NLI4CT and syllogism path fields must be blank"
+    },
+    {
+      "check": "ablation_seed_metrics.csv VR-R2 exact identity",
+      "passed": true,
+      "detail": "max absolute error=6.76975836499949e-16"
+    },
+    {
+      "check": "ablation_seed_metrics.csv RMS-variance-mean identity",
+      "passed": true,
+      "detail": "max absolute error=1.7763568394002505e-15"
+    },
+    {
+      "check": "ablation_seed_metrics.csv paths only in MEGA scenarios",
+      "passed": true,
+      "detail": "NLI4CT and syllogism path fields must be blank"
+    },
+    {
+      "check": "constant b leaves main pair metrics unchanged",
+      "passed": true,
+      "detail": "max absolute difference=0.0"
+    },
+    {
+      "check": "without_b leaves ablation pair metrics unchanged",
+      "passed": true,
+      "detail": "max absolute difference=0.0"
+    },
+    {
+      "check": "main_summary.csv mean/SD recomputation",
+      "passed": true,
+      "detail": "max mean diff=0.0; max sample SD diff=0.0"
+    },
+    {
+      "check": "ablation_summary.csv mean/SD recomputation",
+      "passed": true,
+      "detail": "max mean diff=0.0; max sample SD diff=0.0"
+    },
+    {
+      "check": "ours does not win every metric in every cell",
+      "passed": true,
+      "detail": {
+        "VR": 0,
+        "ER_closest_to_one": 0,
+        "native_accuracy": 0
+      }
+    }
+  ],
+  "warnings": [],
+  "ours_best_counts": {
+    "VR": 0,
+    "ER_closest_to_one": 0,
+    "native_accuracy": 0
+  },
+  "scenario_count": 9,
+  "failed": []
+}

@@ -496,3 +496,4 @@ repair-v2 的 fit 中，A 有 4,869 对，P 仅有 18 对；开发集 A 有 1,19
 - 已完成固定 A/P/F0 差分拟合与开发集方法比较；独立测试、完整路径、统一数据下剩余预实验及医生核验仍待完成。
 - [汇报模拟图](meeting/figures/04_toy_simulation.png) 采用可复现简化模型，单列说明原理，不作为临床或 MEGA-CDP 实验结果。
 
+实验方案补充：[多模型主实验与消融结果草案（模拟）](simulated_study/REPORT.zh.md)。

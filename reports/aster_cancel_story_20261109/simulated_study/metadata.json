@@ -1,0 +1,46 @@
+{
+  "status": "simulated",
+  "not_real_model_runs": true,
+  "not_official_benchmark_results": true,
+  "intended_use": "Labeled hypothetical result projection and figure layout for discussion; no evidence of empirical method superiority.",
+  "models_are_condition_labels": [
+    "Qwen3-8B",
+    "Llama-3.1-8B-Instruct",
+    "MedGemma-27B"
+  ],
+  "tasks_are_condition_labels": [
+    "MEGA-CDP-style",
+    "NLI4CT-style",
+    "Syllogism-believability"
+  ],
+  "real_baseline_implementations_executed": false,
+  "gpu_used": false,
+  "language_models_loaded": false,
+  "seed_count": 5,
+  "summary_std": "Sample SD across five seeds, ddof=1; not a confidence interval or empirical benchmark uncertainty.",
+  "metric_definitions": {
+    "invariant_rms": "sqrt(mean((score_right-score_left)^2))",
+    "variance_reduction": "1-Var(corrected invariant score difference)/Var(raw invariant score difference)",
+    "r2": "1-sum(corrected invariant difference^2)/sum((raw invariant difference-mean(raw invariant difference))^2)",
+    "evidence_retention": "sum((right_label-left_label)*corrected_flip_difference)/sum((right_label-left_label)*raw_flip_difference); closer to 1 is preferable, not larger without limit",
+    "cf_correction_over_ap_rms": "RMS(corrected_flip_difference-raw_flip_difference)/RMS(raw_invariant_difference)",
+    "native_accuracy": "mean(predicted_label==label) on a separate n=1500 native sample",
+    "path_accuracy": "MEGA-style only: fraction of 200 fixed synthetic length-six paths with all six sampled native nodes correct; not real decision-tree execution",
+    "invariant_pair_accuracy": "fraction with both invariant pair sides correct",
+    "flip_pair_accuracy": "fraction with both truth-flipping pair sides correct"
+  },
+  "recommended_main_direction": "Smaller invariant_rms, larger variance_reduction/R2, evidence_retention closer to 1, smaller cf_correction_over_ap_rms; accuracy is a separate check.",
+  "paths": "MEGA-style: 200 fixed synthetic length-six paths sampled with replacement from the same 1500 native nodes; every method uses identical path indices. This does not simulate a real decision-tree controller. NLI/syllogism paths are not applicable.",
+  "main_rows": 660,
+  "ablation_rows": 585,
+  "files": [
+    "generator.py",
+    "configuration.json",
+    "metadata.json",
+    "main_seed_metrics.csv",
+    "main_summary.csv",
+    "ablation_seed_metrics.csv",
+    "ablation_summary.csv",
+    "validation.json"
+  ]
+}

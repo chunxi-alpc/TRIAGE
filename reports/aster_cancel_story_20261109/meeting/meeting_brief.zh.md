@@ -161,3 +161,4 @@ $$
 - [旧版同函数诊断报告](../../aster_h2_alignment_20261108/REPORT.zh.md)
 - [临床核验材料](../clinical/review_cases.md)
 
+实验方案补充：[多模型主实验与消融结果草案（模拟）](../simulated_study/REPORT.zh.md)。
