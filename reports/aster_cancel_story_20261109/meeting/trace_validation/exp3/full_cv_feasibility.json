@@ -1,0 +1,194 @@
+{
+  "existing_exact_rows": 2816,
+  "existing_exact_pairs": 44,
+  "fold_kind_coverage": [
+    {
+      "fold": 0,
+      "kind": "A",
+      "selected_pairs": 12,
+      "cached_pairs": 7,
+      "missing_pairs": 5,
+      "required_exact_rows": 768,
+      "cached_rows_for_selected_pairs": 448
+    },
+    {
+      "fold": 0,
+      "kind": "P",
+      "selected_pairs": 7,
+      "cached_pairs": 7,
+      "missing_pairs": 0,
+      "required_exact_rows": 448,
+      "cached_rows_for_selected_pairs": 448
+    },
+    {
+      "fold": 0,
+      "kind": "C",
+      "selected_pairs": 12,
+      "cached_pairs": 11,
+      "missing_pairs": 1,
+      "required_exact_rows": 768,
+      "cached_rows_for_selected_pairs": 704
+    },
+    {
+      "fold": 0,
+      "kind": "F",
+      "selected_pairs": 8,
+      "cached_pairs": 8,
+      "missing_pairs": 0,
+      "required_exact_rows": 512,
+      "cached_rows_for_selected_pairs": 512
+    },
+    {
+      "fold": 1,
+      "kind": "A",
+      "selected_pairs": 12,
+      "cached_pairs": 10,
+      "missing_pairs": 2,
+      "required_exact_rows": 768,
+      "cached_rows_for_selected_pairs": 640
+    },
+    {
+      "fold": 1,
+      "kind": "P",
+      "selected_pairs": 8,
+      "cached_pairs": 8,
+      "missing_pairs": 0,
+      "required_exact_rows": 512,
+      "cached_rows_for_selected_pairs": 512
+    },
+    {
+      "fold": 1,
+      "kind": "C",
+      "selected_pairs": 12,
+      "cached_pairs": 9,
+      "missing_pairs": 3,
+      "required_exact_rows": 768,
+      "cached_rows_for_selected_pairs": 576
+    },
+    {
+      "fold": 1,
+      "kind": "F",
+      "selected_pairs": 9,
+      "cached_pairs": 9,
+      "missing_pairs": 0,
+      "required_exact_rows": 576,
+      "cached_rows_for_selected_pairs": 576
+    },
+    {
+      "fold": 2,
+      "kind": "A",
+      "selected_pairs": 12,
+      "cached_pairs": 11,
+      "missing_pairs": 1,
+      "required_exact_rows": 768,
+      "cached_rows_for_selected_pairs": 704
+    },
+    {
+      "fold": 2,
+      "kind": "P",
+      "selected_pairs": 7,
+      "cached_pairs": 7,
+      "missing_pairs": 0,
+      "required_exact_rows": 448,
+      "cached_rows_for_selected_pairs": 448
+    },
+    {
+      "fold": 2,
+      "kind": "C",
+      "selected_pairs": 12,
+      "cached_pairs": 8,
+      "missing_pairs": 4,
+      "required_exact_rows": 768,
+      "cached_rows_for_selected_pairs": 512
+    },
+    {
+      "fold": 2,
+      "kind": "F",
+      "selected_pairs": 7,
+      "cached_pairs": 7,
+      "missing_pairs": 0,
+      "required_exact_rows": 448,
+      "cached_rows_for_selected_pairs": 448
+    },
+    {
+      "fold": 3,
+      "kind": "A",
+      "selected_pairs": 12,
+      "cached_pairs": 10,
+      "missing_pairs": 2,
+      "required_exact_rows": 768,
+      "cached_rows_for_selected_pairs": 640
+    },
+    {
+      "fold": 3,
+      "kind": "P",
+      "selected_pairs": 9,
+      "cached_pairs": 9,
+      "missing_pairs": 0,
+      "required_exact_rows": 576,
+      "cached_rows_for_selected_pairs": 576
+    },
+    {
+      "fold": 3,
+      "kind": "C",
+      "selected_pairs": 12,
+      "cached_pairs": 10,
+      "missing_pairs": 2,
+      "required_exact_rows": 768,
+      "cached_rows_for_selected_pairs": 640
+    },
+    {
+      "fold": 3,
+      "kind": "F",
+      "selected_pairs": 7,
+      "cached_pairs": 7,
+      "missing_pairs": 0,
+      "required_exact_rows": 448,
+      "cached_rows_for_selected_pairs": 448
+    },
+    {
+      "fold": 4,
+      "kind": "A",
+      "selected_pairs": 12,
+      "cached_pairs": 10,
+      "missing_pairs": 2,
+      "required_exact_rows": 768,
+      "cached_rows_for_selected_pairs": 640
+    },
+    {
+      "fold": 4,
+      "kind": "P",
+      "selected_pairs": 9,
+      "cached_pairs": 9,
+      "missing_pairs": 0,
+      "required_exact_rows": 576,
+      "cached_rows_for_selected_pairs": 576
+    },
+    {
+      "fold": 4,
+      "kind": "C",
+      "selected_pairs": 12,
+      "cached_pairs": 10,
+      "missing_pairs": 2,
+      "required_exact_rows": 768,
+      "cached_rows_for_selected_pairs": 640
+    },
+    {
+      "fold": 4,
+      "kind": "F",
+      "selected_pairs": 9,
+      "cached_pairs": 9,
+      "missing_pairs": 0,
+      "required_exact_rows": 576,
+      "cached_rows_for_selected_pairs": 576
+    }
+  ],
+  "full_original_procedure": "Fit weighted gradient attribution on each training source subset; top64 by kind; up to12 source-balanced train pairs per kind; bidirectional exact single-head interventions; alternate A/P and C/F rankings to 51 heads; train-only standardization/subspaces/ridge.",
+  "can_complete_original_five_fold_from_exact_cache_alone": false,
+  "candidate_coverage": "Even if pair cached, fold-specific top64 must be recomputed; an old cached64 list need not contain every new candidate.",
+  "approximate_upper_bound_final_forwards": 30720,
+  "estimated_full_cv_wall_minutes_two_a100": "30-60 (rough estimate from cached original final-token timings; not measured)",
+  "new_sources": "Original preparation inventory had1346 eligible sources and froze140. Remaining sources have no confirmed unused-source activation cache in this workflow. No new-source independent validation claimed.",
+  "test_history": "Original repair-v2 method frozen2026-11-08 16:51:33; test scores and paths already evaluated. meeting/real_completion/metrics.json explicitly says held-out test previously used in legacy evaluations.",
+  "evidence_type": "real_cache_metadata_recomputation"
+}
