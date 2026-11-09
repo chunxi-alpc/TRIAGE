@@ -14,6 +14,6 @@
 
 论文第4.5节为MEGA受控结果，第4.6节是**仅Qwen3-8B**在三个完整任务上的已有结果；第4.7、4.8节分别报告NLI原生指标及MedPIC历史汇总。附录B含完整指标和全量实验协议，附录C含实测、消融及机制验证，附录D单独收纳补充任务与合成／预设模拟。
 
-[旧会议报告](meeting/meeting_brief.zh.md) · [现有受控实验](meeting/real_completion/) · [NLI原生指标复算](meeting/experiment_review_20261109/) · [痕迹机制验证](meeting/trace_validation/) · [五模型合成模拟（非真实结果）](simulated_study/)。
+[旧会议报告](https://github.com/chunxi-alpc/TRIAGE/tree/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/meeting_brief.zh.md) · [现有受控实验](https://github.com/chunxi-alpc/TRIAGE/tree/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/real_completion/) · [NLI原生指标复算](https://github.com/chunxi-alpc/TRIAGE/tree/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/) · [痕迹机制验证](https://github.com/chunxi-alpc/TRIAGE/tree/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/trace_validation/) · [五模型合成模拟（非真实结果）](https://github.com/chunxi-alpc/TRIAGE/tree/aster-cr-20261108/reports/aster_cancel_story_20261109/simulated_study/)。
 
 正确的结果等级是：已执行且可复核的真实模型运行、已有但缺逐例归档的历史总结、数学解析控制、真正拟合的合成机制试验、预设分数模拟。任何比较表都要按此顺序区分来源。
