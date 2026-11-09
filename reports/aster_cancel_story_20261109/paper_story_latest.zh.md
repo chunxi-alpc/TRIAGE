@@ -634,7 +634,7 @@ fit 的 135×16 证据差分矩阵秩为 16，最小奇异值为 5.508；逐对�
 
 **图 3b（实测＋模拟插值）。** 横轴为平均证据响应保留率 ER，纵轴为干扰方差降低率 VR。实心圆为真实开发集重算点；空心菱形为在相邻实测预算之间的模拟插值。圈出的 τ=0.1 为计算前固定的主方法；无约束端点单列。图中连线与模拟点仅用于说明预算位置，不是独立重复实验或统计置信区间。
 
-**复现材料：** [真实锚点与模拟补点 CSV](meeting/evidence_preserving/delta_scan_measured_and_illustrative.csv)。完整生成脚本见本次补充材料。
+**复现材料：** [真实锚点与模拟补点 CSV](meeting/evidence_preserving/delta_scan_measured_and_illustrative.csv)；[插值与绘图复现脚本](meeting/evidence_preserving/reproduce_delta_tradeoff.py)。
 
 **解读边界：** 放松 δ 通常允许更多干扰降低，但同时可能损伤证据；模拟中间点不能替代逐个 δ 的真实重新拟合。本文的真实独立测试预算结果另见第 8.7 节，不能与开发集曲线混为一条实测曲线。
 
