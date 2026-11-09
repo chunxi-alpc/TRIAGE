@@ -1,0 +1,49 @@
+{
+  "model": "Qwen3-8B",
+  "method": "ASTER-CR",
+  "data_version": "repair-v2",
+  "split": "fit",
+  "layers": 36,
+  "query_heads_per_layer": 32,
+  "selected_heads": 51,
+  "exact_records": 2816,
+  "counts": {
+    "A": {
+      "pairs": 12,
+      "sources": 12,
+      "candidate_heads": 64,
+      "measured_selected_heads": 42
+    },
+    "P": {
+      "pairs": 10,
+      "sources": 10,
+      "candidate_heads": 64,
+      "measured_selected_heads": 44
+    },
+    "C": {
+      "pairs": 12,
+      "sources": 12,
+      "candidate_heads": 64,
+      "measured_selected_heads": 41
+    },
+    "F": {
+      "pairs": 10,
+      "sources": 10,
+      "candidate_heads": 64,
+      "measured_selected_heads": 40
+    }
+  },
+  "measured_candidate_union": 103,
+  "shared_signed_color_limit": 0.4179846179434206,
+  "absolute_color_max": 4.238897403081258,
+  "formulas": {
+    "forward": "sum(weight * sign(TE) * IE_forward) / sum(weight * abs(TE))",
+    "reverse": "sum(weight * sign(TE) * (-IE_reverse)) / sum(weight * abs(TE))",
+    "mean": "(forward + reverse) / 2",
+    "absolute": "sum(weight * (abs(IE_forward) + abs(IE_reverse)) / 2) / sum(weight)"
+  },
+  "interpretation": "Mean and directional fractions are new descriptive summaries; absolute effect matches exact candidate ranking. No new model forward or training.",
+  "axes": "36 layers x 32 query heads; zero-based",
+  "missing_cells": "unmeasured, shown in gray; never imputed as zero",
+  "color_scaling": "global full range for each metric; no percentile clipping"
+}

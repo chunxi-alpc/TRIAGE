@@ -28,6 +28,8 @@ ASTER 研究模型如何依据完整指南和患者事实判断当前条件，�
 
 [全量 M3 结果](results/aster_learnable_m3_20261106/README.zh.md) · [P0–P3 阶段结果](results/aster_m3_followup_20261107/REPORT.zh.md) · [CR 开发结果](reports/aster_cr_repair_v2_20261108/ANALYSIS.zh.md) · [独立普通读出结果](results/ordinary_readout_20261108/REPORT.zh.md)
 
+最新可视化：[ASTER-CR 单头双向修补热力图](results/aster_cr_heatmaps_20261109/README.zh.md)（repair-v2 fit 定位数据；正向、反向、平均和绝对效应）。
+
 ## 文档入口
 
 | 内容 | 入口 |
