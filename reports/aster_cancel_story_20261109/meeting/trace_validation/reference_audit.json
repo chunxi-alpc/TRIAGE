@@ -1,0 +1,21 @@
+{
+  "data_kind": "real_cache_recomputation",
+  "source_patch": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/mechanisms/h2_dev.jsonl",
+  "source_prediction": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/reports/aster_h2_alignment_20261108/pair_results.csv",
+  "n": 1194,
+  "heads": 51,
+  "rank": 16,
+  "transmission_rms_ratio": 0.139057012380657,
+  "direct_patch_r2": 0.07859726372784048,
+  "trace_prediction_r2": 0.4063326595932645,
+  "trace_prediction_rmse": 2.991417317164381,
+  "direct_patch_rms": 0.540010752156344,
+  "target_rms": 3.8833766302853494,
+  "archived_script": "reports/aster_cancel_story_20261109/trace/summarize_trace.py",
+  "definitions": {
+    "prediction": "Ridge alpha=0.01, fit_intercept=False; fit A/P=4887 pairs; dev A=1194. R2=1-SSE/sum((y-y.mean())**2). No extra trace feature standardization.",
+    "paired_correction": "The APF0 correction is a different fit. A scalar node-calibration intercept cancels from pair differences.",
+    "direct_patch": "0.0786 compares IE directly with TE using 1-sum((TE-IE)**2)/sum((TE-mean(TE))**2). There is NO fitted IE-to-TE regression and NO intercept. RMS ratio=RMS(IE)/RMS(TE).",
+    "intervention": "One-way left-to-right patch at decision position. A trace predictive association and a direct patch effect are different quantities."
+  }
+}
