@@ -103,6 +103,9 @@ def validate_result(record, spec, job):
             raise ValueError(f'Missing reproducibility field {field}')
     if not isinstance(record.get('seed'), int):
         raise ValueError('Seed must be an integer')
+    source = Path(record.get('input_manifest_file', ''))
+    if not source.is_file() or file_digest(source) != record['input_manifest_sha256']:
+        raise ValueError('Official input manifest missing or SHA-256 mismatch')
     data = next(d for d in spec['datasets'] if d['id'] == job['dataset_id'])
     metrics = record['metrics']
     for key in data['required_metrics']:
@@ -203,14 +206,16 @@ def run_selected(spec, jobs, args):
         raise ValueError('No jobs matched filters')
     if not args.model_root or not args.data_root:
         raise ValueError('--model-root and --data-root required for execution')
-    for job in selected:
+    for original_job in selected:
+        job = dict(original_job, seed=args.seed,
+                   run_id=original_job['run_id'].replace('seed11', f'seed{args.seed}'))
         template = providers.get(job['method_id'])
         if not isinstance(template,list) or not template:
             raise RuntimeError(f'No validated provider command registered for {job["method_id"]}; no fake test will run')
         context = dict(job,model_path=str(args.model_root / job['model_id']),
                        input_path=str(args.data_root / (job['dataset_id'] + '_official_test.jsonl')),
-                       output_dir=str(args.results / job['model_id'] / job['dataset_id'] / job['method_id'] / 'seed11'),
-                       seed='11')
+                       output_dir=str(args.results / job['model_id'] / job['dataset_id'] / job['method_id'] / f'seed{args.seed}'),
+                       seed=str(args.seed))
         if not (Path(context['model_path']) / 'config.json').exists():
             raise FileNotFoundError('Model checkpoint missing: ' + context['model_path'])
         if not Path(context['input_path']).exists():
@@ -237,6 +242,7 @@ def main():
     p.add_argument('--data-root', type=Path)
     p.add_argument('--model');p.add_argument('--dataset');p.add_argument('--method')
     p.add_argument('--dry-run',action='store_true')
+    p.add_argument('--seed',type=int,choices=[11,22,33],default=11)
     args=p.parse_args()
     spec=read_json(args.spec)
     jobs=verify_grid(spec,args.status)
