@@ -1,0 +1,58 @@
+{
+  "protocol": "repair-v2 program action/background rules; fixed first gold node per official path; no model-score selection",
+  "source_manifest": "/home/gcx/aster_next_20261109/inventory/official_all_path_cases.jsonl",
+  "selected": {
+    "paths": 7458,
+    "sources": 418,
+    "independent_tree_nodes": 440,
+    "original_endpoints": 7458,
+    "cached_original_endpoints": 7458,
+    "missing_original_cache": 0,
+    "views": 29911,
+    "pairs": {
+      "A": 22330,
+      "P": 123
+    },
+    "pair_sources": {
+      "A": 417,
+      "P": 32,
+      "C": 0,
+      "F": 0,
+      "F0": 0
+    },
+    "new_forward_upper_bound": 22453
+  },
+  "all_gold_alternative": {
+    "gold_nodes": 45627,
+    "independent_tree_nodes": 7018,
+    "cached_original_endpoints": 44541,
+    "missing_original_cache": 1086,
+    "A_pairs": 136661,
+    "program_P_pairs": 456,
+    "new_forward_upper_bound_A_P": 138203
+  },
+  "original_prompt_matches": 7458,
+  "complete_rule_text_matches": 55,
+  "exact_patient_rule_observation_matches": 0,
+  "new_annotations": false,
+  "new_training": false,
+  "new_gpu_forwards": 0,
+  "CF_F0_status": "Only qualified exact-input existing annotations; no invented values or labels; unavailable categories recorded",
+  "reused_cache_files": [
+    "/home/gcx/aster_next_20261109/primary_results/mega_official_test/shard0/nodes.jsonl",
+    "/home/gcx/aster_next_20261109/primary_results/mega_official_test/shard1/nodes.jsonl",
+    "/home/gcx/aster_next_20261109/primary_results/mega_official_test/shard2/nodes.jsonl",
+    "/home/gcx/aster_next_20261109/primary_results/mega_official_test/shard3/nodes.jsonl",
+    "/home/gcx/aster_next_20261109/results/shard0/nodes.jsonl",
+    "/home/gcx/aster_next_20261109/results/shard1/nodes.jsonl"
+  ],
+  "elapsed_seconds": 15.056279182434082,
+  "files": {
+    "views_cases": "/home/gcx/aster_next_20261109/fidelity/mega_official/views_cases.jsonl",
+    "pairs": "/home/gcx/aster_next_20261109/fidelity/mega_official/pairs.jsonl",
+    "nodes": "/home/gcx/aster_next_20261109/fidelity/mega_official/nodes.jsonl",
+    "groups": "/home/gcx/aster_next_20261109/fidelity/mega_official/groups.jsonl",
+    "unavailable": "/home/gcx/aster_next_20261109/fidelity/mega_official/unavailable.jsonl"
+  },
+  "scoring": "run_primary.py --cases views_cases.jsonl --reuse-root this_directory; postprocess raw numeric scores from nodes/feature using frozen adapters, not dummy binary accuracy"
+}

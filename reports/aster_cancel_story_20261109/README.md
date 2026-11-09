@@ -19,3 +19,7 @@
 <!-- aster-primary-full-readme:start -->
 主方法全量真实任务的已完成结果与待完成阶段见正文第8.12节及 [primary_full](meeting/primary_full/)。NLI为零样本迁移，MEGA train_val保留既有fit/dev/原测试分组；缺少真实数据的三段论仅保留模拟。
 <!-- aster-primary-full-readme:end -->
+
+<!-- aster-faithfulness-readme:start -->
+行为忠实性主指标、配对覆盖与方法局限见正文第8.13节及 [faithfulness](meeting/primary_full/faithfulness/)。既有MEGA配对与NLI原生变体分别报告；官方MEGA首节点A/P按实际覆盖更新，C/F和F0缺项明确保留。
+<!-- aster-faithfulness-readme:end -->
