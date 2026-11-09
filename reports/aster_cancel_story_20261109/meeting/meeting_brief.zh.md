@@ -140,7 +140,7 @@ MEGA-CDP 全集包含 42,353 个生成病例／路径；本轮另评价官方 te
 | 数据集 | 原始划分 | 计划条数 | 主方法结果／状态 |
 |---|---:|---:|---:|
 | MEGA-CDP | official_test | 7,458 | 原模型 7,037/7,458（94.36%）；原16维线性方法 7,034/7,458（94.31%）；平衡配置（fit校准） 7,041/7,458（94.41%） |
-| NLI4CT-2024 | train/dev/practice_test/official_test separately | 9,542 | 待完成 |
+| NLI4CT-2024 | train/dev/practice_test/official_test separately | 9,542 | 原模型 7,041/9,542（73.79%）；原16维线性方法 6,988/9,542（73.23%）；平衡配置（fit校准） 7,014/9,542（73.51%） |
 | MEGA-CDP | train_val; current fit/dev/old_test/remaining cases separately | 34,895 | 待完成 |
 
 NLI为既有MEGA修正函数的零样本迁移：9,542条跨split记录、9,342个原始ID，200条dev也在practice中，按原split分别报告。NLI来源区间按试验编号组合，不代表独立患者；MEGA train_val的fit、dev、原测试和其余来源分项报告。三段论尚无真实数据，既有模拟不算完成的真实测试。完整结果见正文第8.12节。
