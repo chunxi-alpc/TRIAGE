@@ -1,0 +1,88 @@
+{
+  "title": "ASTER-CR fixed positive scaling: analytic control on three datasets",
+  "result_type": "analytic_deduction_from_archived_aggregates__not_new_model_training_or_inference",
+  "date": "2026-11-09",
+  "a": 0.95,
+  "definition": "ell_scaled = 0.95 * ell_base; no intercept; same zero classification threshold and same deterministic set decoder",
+  "algebra": {
+    "paired_difference": "delta_ell_scaled = a * delta_ell_base",
+    "interference_rms": "RMS_I_scaled = a * RMS_I_base",
+    "evidence_correction_rms": "RMS_delta_c_E = (1-a) * RMS_delta_ell_E_base",
+    "variance_reduction_pct": "VR_pct=100*(1-a*a), if base variance nonzero",
+    "evidence_retention_pct": "ER_pct=100*a, if base signed evidence response denominator nonzero",
+    "classification_invariance": "All binary labels and path/set decisions are unchanged for positive scaling without adding an intercept."
+  },
+  "archive_sources": {
+    "mega": {
+      "path": "reports/aster_cancel_story_20261109/meeting/real_completion/metrics.json",
+      "sha": "bd1b0d8d1aad911a5ba3fdff924061a5f1e72510"
+    },
+    "nli_pairs": {
+      "path": "reports/aster_cancel_story_20261109/meeting/primary_full/nli4ct_all/pair_summary/metrics.json",
+      "sha": "eb5e0aab28a965d22405c069bc76bdad7ae31041"
+    },
+    "nli_classification": {
+      "path": "reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/nli_recomputed_metrics.json",
+      "sha": "3a239ab30ba0cc6943ea43f094da907d31de0774"
+    },
+    "medpic": "Only the historical manuscript summary is available; per-example output archive was not verified."
+  },
+  "mega_cdp": {
+    "interference_pairs": 2293,
+    "evidence_pairs": 40,
+    "controlled_paths": 806,
+    "official_paths": 7458,
+    "base_interference_rms": 2.628151983382305,
+    "scaled_interference_rms": 2.4967443842131893,
+    "base_evidence_difference_rms": 36.29733328873824,
+    "scaled_evidence_correction_rms": 1.8148666644369134,
+    "analytic_variance_reduction_pct": 9.750000000000004,
+    "analytic_evidence_retention_pct": 95,
+    "base_controlled_cf_pair_both_correct": 19,
+    "scaled_controlled_cf_pair_both_correct": 19,
+    "base_controlled_path_correct": 768,
+    "scaled_controlled_path_correct": 768,
+    "base_official_path_correct": 7037,
+    "scaled_official_path_correct": 7037
+  },
+  "nli4ct_2024": {
+    "original_statements": 500,
+    "full_official_test_statements": 5500,
+    "preserving_relations": 4136,
+    "altering_relations": 864,
+    "base_preserving_difference_rms": 16.968838096581063,
+    "scaled_preserving_difference_rms": 16.120396191752008,
+    "base_altering_difference_rms": 38.20487714910062,
+    "scaled_altering_difference_rms": 36.29463329164559,
+    "scaled_evidence_correction_rms": 1.9102438574550327,
+    "analytic_evidence_retention_pct": 95,
+    "original_macro_f1": 0.7557498878851945,
+    "scaled_original_macro_f1": 0.7557498878851945,
+    "original_full_test_correct": 4073,
+    "scaled_full_test_correct": 4073,
+    "preserving_consistency_correct": 3241,
+    "scaled_preserving_consistency_correct": 3241,
+    "altering_conditional_correct": 534,
+    "altering_conditional_eligible": 675,
+    "altering_pair_both_correct": 534
+  },
+  "medpic": {
+    "provenance_level": "Historical manuscript summary, per-example scores missing",
+    "questions": 467,
+    "options": 2335,
+    "flipping_option_pairs": 244,
+    "base_set_exact_match_count": 98,
+    "scaled_set_exact_match_count": 98,
+    "base_option_accuracy_pct": 68.65,
+    "scaled_option_accuracy_pct": 68.65,
+    "base_flipping_option_pair_both_correct": 25,
+    "scaled_flipping_option_pair_both_correct": 25,
+    "analytic_evidence_retention_pct": 95,
+    "evidence_correction_rms_formula": "0.05 * base flipping evidence-pair score-difference RMS; absolute value cannot be computed without the archived raw MedPIC scores."
+  },
+  "limitations": [
+    "This record contains mathematical transformations of archived base aggregate metrics, not run results for CC/CAD/LEACE/ITI/LoRA or any new baseline.",
+    "MedPIC native task scores are from manuscript summary and need per-case archive verification.",
+    "The same logits and deterministic decoder are assumed; temperature fitting and task-label calibration were not performed."
+  ]
+}
