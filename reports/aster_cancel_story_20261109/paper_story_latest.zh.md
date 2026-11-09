@@ -74,8 +74,8 @@ LoReFT 学习低秩表示干预，LoFiT 学习局部表示偏移，LoRA 学习�
 输入包括指南决策树、患者病例和当前节点。模型只回答当前条件是否成立：
 
 $$
-\ell(x)=\operatorname{logit}(\text{是}\mid x)
--\operatorname{logit}(\text{否}\mid x),
+\ell(x)=\mathrm{logit}(\text{是}\mid x)
+-\mathrm{logit}(\text{否}\mid x),
 \qquad
 \hat y=\mathbf 1[\ell(x)>0].
 $$
@@ -104,14 +104,14 @@ F0 表示事实数值改变但仍在阈值同侧，属于同真值、不同证�
 **干扰 RMS，单位为 logit：**
 
 $$
-\mathrm{RMS}_I=\sqrt{\mathbb E_I[(\Delta\ell')^2]}.
+\mathrm{RMS}_I=\sqrt{\mathbb{E}_I[(\Delta\ell')^2]}.
 $$
 
 它保留绝对量级。另报告干扰方差降低比例：
 
 $$
-\mathrm{VR}=1-\frac{\operatorname{Var}_I(\Delta\ell')}
-{\operatorname{Var}_I(\Delta\ell)}.
+\mathrm{VR}=1-\frac{\mathrm{Var}_I(\Delta\ell')}
+{\mathrm{Var}_I(\Delta\ell)}.
 $$
 
 **配对预测 R²：**
@@ -137,7 +137,7 @@ ER 描述相对原模型的平均响应：接近 100% 表示平均幅度保持�
 **以干扰为单位的证据修正幅度：**
 
 $$
-\mathrm{扰动单位}=
+\text{扰动单位}=
 \frac{\mathrm{RMS}_E(\Delta c)}
 {\mathrm{RMS}_I(\Delta\ell)}.
 $$
@@ -271,7 +271,7 @@ $$
 以 C/F 差分的前 r 个主方向形成 S，以 A/P 差分的主方向形成 U，再构造
 
 $$
-N=\operatorname{orth}\big((I-SS^\top)U\big),
+N=\mathrm{orth}\big((I-SS^\top)U\big),
 \qquad t(x)=N^\top\tilde h(x).
 $$
 
@@ -301,7 +301,7 @@ $$
 **无证据约束的回归作为消融。** 为了测量新增约束的作用，保留原 A/P 岭回归
 
 $$
-\hat w_{\rm free}=-(X^\top X+\lambda I)^{-1}X^\top y.
+\hat w_{\mathrm{free}}=-(X^\top X+\lambda I)^{-1}X^\top y.
 $$
 
 约束版本是小规模凸二次规划，仍只有 16 个修正系数。它把训练目标从“尽量解释干扰”改为“在证据改动预算内尽量解释干扰”。
@@ -314,7 +314,7 @@ $$
 [\Delta\ell+c_\phi(t_R)-c_\phi(t_L)]^2+\lambda\Omega(\phi),
 \qquad
 |c_\phi(t_R)-c_\phi(t_L)|\leq\delta
-\quad ((L,R)\in C/F_{\rm fit}).
+\quad ((L,R)\in C/F_{\mathrm{fit}}).
 $$
 
 非线性函数仍需以两侧输出之差训练，不能用 cφ(Δt) 替代。线性版本采用凸优化，非线性版本的优化与留出检验单列比较。
@@ -336,10 +336,10 @@ w 通过干扰差分与证据保留约束学习，b 单独使用原始输入标�
 **证据侧。** 令 c(x)=cφ(t(x))，线性实例为 ŵᵀt(x)，对 C/F 配对报告：
 
 $$
-\mathrm{平均证据响应保留率}
+\text{平均证据响应保留率}
 =
-\frac{\mathbb E[d_{ac}\Delta\ell'_{ac}]}
-{\mathbb E[d_{ac}\Delta\ell_{ac}]},
+\frac{\mathbb{E}[d_{ac}\Delta\ell'_{ac}]}
+{\mathbb{E}[d_{ac}\Delta\ell_{ac}]},
 \qquad
 d_{ac}=y_c-y_a\in\{-1,1\}.
 $$
@@ -347,10 +347,10 @@ $$
 同时报告：
 
 $$
-\mathrm{按干扰量级计算的修正幅度}
+\text{按干扰量级计算的修正幅度}
 =
-\frac{\operatorname{RMS}_{C/F}(\Delta c)}
-{\operatorname{RMS}_{A/P}(\Delta\ell)}.
+\frac{\mathrm{RMS}_{C/F}(\Delta c)}
+{\mathrm{RMS}_{A/P}(\Delta\ell)}.
 $$
 
 为了检查平均量是否掩盖个别方向变化，C、F 分别报告上述指标，以及原响应为正、修正后不为正的对数和反向改善对数。逐对 |Δc| 报告中位数、95 分位数、最大值及其干扰单位；另报留出配对超过训练预算的数量。自然节点和配对分类报告纠正及新增错误，第 8 节给出本轮实际汇总。
@@ -432,7 +432,7 @@ $$
 取 Z 为 ker(Hᵀ) 的正交基，则 w=Zα。上述两个条件可同时满足，当且仅当
 
 $$
-\boxed{\gamma\in\operatorname{range}(D^\top Z).}
+\boxed{\gamma\in\mathrm{range}(D^\top Z).}
 $$
 
 证明：Hᵀw=0 等价于 w=Zα；代入干扰条件后，方程 DᵀZα=−γ 可解恰好等价于上述值域条件。最小范数解可写为 w*=−Z(DᵀZ)⁺γ。
@@ -452,13 +452,13 @@ $$
 $$
 R^2=1-\frac{\sum r_i^2}{\sum(z_i-\bar z)^2},
 \qquad
-\mathrm{VR}=1-\frac{\operatorname{Var}(r)}{\operatorname{Var}(z)}.
+\mathrm{VR}=1-\frac{\mathrm{Var}(r)}{\mathrm{Var}(z)}.
 $$
 
 采用一致的总体方差约定时，
 
 $$
-\mathrm{VR}=R^2+\frac{\bar r^2}{\operatorname{Var}(z)}.
+\mathrm{VR}=R^2+\frac{\bar r^2}{\mathrm{Var}(z)}.
 $$
 
 残差均值接近零时两者接近。开发集预测关系在独立测试上保持，才支持对消关系的迁移；同一残差的两种汇总不能作为两份独立机制证据。
