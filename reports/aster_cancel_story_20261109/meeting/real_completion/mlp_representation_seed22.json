@@ -1,0 +1,21 @@
+{
+  "kind": "mlp_representation",
+  "seed": 22,
+  "parameters": 1056,
+  "steps": 600,
+  "learning_rate": 0.001,
+  "ap_batch_pairs": 64,
+  "cf_batch_pairs": 135,
+  "regularizer": ".01 * sum(parameter^2) / n_fit_AP",
+  "evidence_penalty": "100 * mean(relu(abs(delta_CF)-budget)^2)",
+  "budget": 0.2923349027297149,
+  "fit_max_evidence_correction": 0.2021026611328125,
+  "scale": 0.5,
+  "halvings": 1,
+  "zero_correction_max_abs_error": 0.0,
+  "ungrouped_roundoff": 3.814697265625e-06,
+  "bias": -0.07784519042178424,
+  "gpu": 1,
+  "peak_gib": 0.4237804412841797,
+  "seconds": 1.2357890605926514
+}
