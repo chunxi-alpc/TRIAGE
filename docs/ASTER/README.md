@@ -6,7 +6,7 @@
 
 | 入口 | 内容 |
 |---|---|
-| [ASTER-CR 最新中文论文](../../reports/aster_cancel_story_20261109/paper_story_latest.zh.md) | 分数对消及证据保持方法；三项主数据集、四类基线、扩充相关工作与实验协议 |
+| [ASTER-CR 最新中文论文](../../reports/aster_cancel_story_20261109/paper_story_latest.zh.md) | 四类方法、13种外部基线与3种控制；MEGA-CDP、NLI4CT-2024、MedPIC三任务数值表及证据状态 |
 | [方法变体](versions.zh.md) | 两条路线的动机、公式、实现差别与结果摘要 |
 | [模块与训练目标](method-clarifications.zh.md) | 表示编辑的 M1/M2/M3、参考方式；CR 的支持空间、读出与损失 |
 | [中文主稿](manuscript.zh.md) | 以 `paired_ns` 为方法的论文稿、实验与分析 |
