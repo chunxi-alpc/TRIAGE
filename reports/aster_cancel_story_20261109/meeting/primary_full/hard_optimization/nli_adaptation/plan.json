@@ -1,0 +1,46 @@
+{
+  "created_at": "2026-11-09T10:07:37.076923+00:00",
+  "method_name": "NLI training-set supervised residual adaptation",
+  "base_protocol": "MEGA-fitted features remain frozen; this is task-supervised readout adaptation and is not the original MEGA nuisance-constrained method or its zero-shot setting.",
+  "train_manifest": "/home/gcx/aster_next_20261109/inventory/nli4ct_train_cases.jsonl",
+  "dev_manifest": "/home/gcx/aster_next_20261109/inventory/nli4ct_dev_cases.jsonl",
+  "train_records": 1700,
+  "dev_records": 200,
+  "feature_families": [
+    {
+      "name": "trace16",
+      "dimension": 16
+    },
+    {
+      "name": "trace_signal_residual96",
+      "dimension": 96
+    }
+  ],
+  "raw_coefficient": 1.0,
+  "lambdas": [
+    0.001,
+    0.01,
+    0.1
+  ],
+  "fits": 6,
+  "feature_standardization": "mean/std on the1700 NLI train records only; coordinates from the unchanged old FrozenMethods",
+  "objective": "mean BCE(ell+z@w+b,y) + lambda/2*(sum(w^2)+mean((z@w)^2)); b unpenalized; raw coefficient fixed1",
+  "initialization": "w=0,b=0",
+  "optimizer": {
+    "name": "L-BFGS-B",
+    "maxiter": 800,
+    "ftol": 1e-12,
+    "gtol": 1e-08
+  },
+  "selection": "Highest dev classification accuracy, then lowest dev BCE, then fewer coefficients, then larger regularizer. Select exactly one saved model; no threshold sweep.",
+  "historical_official_scores_previously_viewed": true,
+  "official_or_practice_labels_used_in_this_fit_or_selection": false,
+  "no_pseudo_AP_CF": true,
+  "no_original_fit_budget_guarantee": true,
+  "raw_coefficient_note": "Fixing the raw coefficient does not guarantee behavior preservation; a residual can still weaken evidence response. Pair/error diagnostics must be measured after freeze.",
+  "compute": {
+    "device": "CPU",
+    "gpu_memory_gib": 0,
+    "estimated_seconds": 60
+  }
+}

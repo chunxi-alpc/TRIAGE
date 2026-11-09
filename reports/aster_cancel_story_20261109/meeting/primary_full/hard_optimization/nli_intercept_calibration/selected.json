@@ -1,0 +1,46 @@
+{
+  "frozen": true,
+  "saved_at": "2026-11-09T10:15:57.612744+00:00",
+  "method_name": "NLI in-domain intercept calibration",
+  "b": -6.114810633591941,
+  "original_balanced_b": -1.1754912780926952,
+  "intercept_shift": -4.939319355499245,
+  "correction_unchanged": true,
+  "train_n": 1700,
+  "dev_n": 200,
+  "dev_criterion_met": true,
+  "fit_dev_metrics": {
+    "train": {
+      "original_balanced": {
+        "n": 1700,
+        "correct": 1231,
+        "accuracy": 0.7241176470588235,
+        "CE": 4.147322233967153
+      },
+      "intercept_calibrated": {
+        "n": 1700,
+        "correct": 1209,
+        "accuracy": 0.7111764705882353,
+        "CE": 4.010867876738562
+      }
+    },
+    "dev": {
+      "original_balanced": {
+        "n": 200,
+        "correct": 148,
+        "accuracy": 0.74,
+        "CE": 3.4398166297468014
+      },
+      "intercept_calibrated": {
+        "n": 200,
+        "correct": 153,
+        "accuracy": 0.765,
+        "CE": 3.416361506762412
+      }
+    }
+  },
+  "plan": "/home/gcx/aster_hard_optimization_20261109/nli_intercept_calibration/plan.json",
+  "official_or_practice_used_for_fit_or_criterion": false,
+  "prior_official_results_previously_viewed": true,
+  "scope": "Pair differences, variance reductions, response retention, correction differences and direction are algebraically unchanged by this constant intercept. This control cannot claim improved faithfulness."
+}

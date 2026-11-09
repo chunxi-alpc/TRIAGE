@@ -1,0 +1,199 @@
+{
+  "protocol": "NLI training-set supervised residual adaptation",
+  "plan": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/plan.json",
+  "raw": {
+    "train": {
+      "n": 1700,
+      "correct": 1223,
+      "accuracy": 0.7194117647058823,
+      "binary_cross_entropy": 4.210418343671413,
+      "mean_signed_margin": 10.824282858231488
+    },
+    "dev": {
+      "n": 200,
+      "correct": 151,
+      "accuracy": 0.755,
+      "binary_cross_entropy": 3.49110016458304,
+      "mean_signed_margin": 13.496904811859132
+    }
+  },
+  "models": [
+    {
+      "name": "nli_residual_trace16_l0p001",
+      "family": "trace16",
+      "dimension": 16,
+      "lambda_": 0.001,
+      "weights": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/nli_residual_trace16_l0p001.npz",
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "iterations": 35,
+      "objective": 2.0437665588869347,
+      "b": -5.145528447542033,
+      "train": {
+        "n": 1700,
+        "correct": 1168,
+        "accuracy": 0.6870588235294117,
+        "binary_cross_entropy": 1.8567600647164824,
+        "mean_signed_margin": 4.041125639960839
+      },
+      "dev": {
+        "n": 200,
+        "correct": 139,
+        "accuracy": 0.695,
+        "binary_cross_entropy": 1.6870256412584175,
+        "mean_signed_margin": 5.481175831547922
+      },
+      "train_correction_rms": 14.88390645846327,
+      "dev_correction_rms": 14.858095742229118,
+      "seconds": 0.008772134780883789
+    },
+    {
+      "name": "nli_residual_trace16_l0p01",
+      "family": "trace16",
+      "dimension": 16,
+      "lambda_": 0.01,
+      "weights": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/nli_residual_trace16_l0p01.npz",
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "iterations": 21,
+      "objective": 3.1125279677683,
+      "b": -6.9007706030621305,
+      "train": {
+        "n": 1700,
+        "correct": 1213,
+        "accuracy": 0.7135294117647059,
+        "binary_cross_entropy": 2.4312675608953107,
+        "mean_signed_margin": 6.749254740885956
+      },
+      "dev": {
+        "n": 200,
+        "correct": 152,
+        "accuracy": 0.76,
+        "binary_cross_entropy": 2.2554627181819846,
+        "mean_signed_margin": 8.664230785141779
+      },
+      "train_correction_rms": 9.395881740523972,
+      "dev_correction_rms": 9.201461793207349,
+      "seconds": 0.0040683746337890625
+    },
+    {
+      "name": "nli_residual_trace16_l0p1",
+      "family": "trace16",
+      "dimension": 16,
+      "lambda_": 0.1,
+      "weights": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/nli_residual_trace16_l0p1.npz",
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "iterations": 18,
+      "objective": 4.016755621770763,
+      "b": -4.162870063490212,
+      "train": {
+        "n": 1700,
+        "correct": 1215,
+        "accuracy": 0.7147058823529412,
+        "binary_cross_entropy": 3.887336508197051,
+        "mean_signed_margin": 10.291265395421803
+      },
+      "dev": {
+        "n": 200,
+        "correct": 152,
+        "accuracy": 0.76,
+        "binary_cross_entropy": 3.338663288312771,
+        "mean_signed_margin": 12.867286914277024
+      },
+      "train_correction_rms": 1.307189472878552,
+      "dev_correction_rms": 1.244658635261542,
+      "seconds": 0.003966808319091797
+    },
+    {
+      "name": "nli_residual_trace_signal_residual96_l0p001",
+      "family": "trace_signal_residual96",
+      "dimension": 96,
+      "lambda_": 0.001,
+      "weights": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/nli_residual_trace_signal_residual96_l0p001.npz",
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "iterations": 234,
+      "objective": 0.8114769914867531,
+      "b": -3.381554885674758,
+      "train": {
+        "n": 1700,
+        "correct": 1219,
+        "accuracy": 0.7170588235294117,
+        "binary_cross_entropy": 0.5857089791323333,
+        "mean_signed_margin": 1.2988222197361838
+      },
+      "dev": {
+        "n": 200,
+        "correct": 146,
+        "accuracy": 0.73,
+        "binary_cross_entropy": 0.5968877876096012,
+        "mean_signed_margin": 1.5335660838425655
+      },
+      "train_correction_rms": 19.25091328954493,
+      "dev_correction_rms": 20.29681303381825,
+      "seconds": 0.053925514221191406
+    },
+    {
+      "name": "nli_residual_trace_signal_residual96_l0p01",
+      "family": "trace_signal_residual96",
+      "dimension": 96,
+      "lambda_": 0.01,
+      "weights": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/nli_residual_trace_signal_residual96_l0p01.npz",
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "iterations": 64,
+      "objective": 2.185756638111396,
+      "b": -3.616371520463264,
+      "train": {
+        "n": 1700,
+        "correct": 1246,
+        "accuracy": 0.7329411764705882,
+        "binary_cross_entropy": 1.2663085603903528,
+        "mean_signed_margin": 5.103419751630697
+      },
+      "dev": {
+        "n": 200,
+        "correct": 145,
+        "accuracy": 0.725,
+        "binary_cross_entropy": 1.3233159025427994,
+        "mean_signed_margin": 6.6409721957913765
+      },
+      "train_correction_rms": 12.86394971064434,
+      "dev_correction_rms": 12.514054657344397,
+      "seconds": 0.015654325485229492
+    },
+    {
+      "name": "nli_residual_trace_signal_residual96_l0p1",
+      "family": "trace_signal_residual96",
+      "dimension": 96,
+      "lambda_": 0.1,
+      "weights": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/nli_residual_trace_signal_residual96_l0p1.npz",
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "iterations": 33,
+      "objective": 3.799686382964145,
+      "b": -3.6867963839422884,
+      "train": {
+        "n": 1700,
+        "correct": 1219,
+        "accuracy": 0.7170588235294117,
+        "binary_cross_entropy": 3.461171462563264,
+        "mean_signed_margin": 10.084726230174185
+      },
+      "dev": {
+        "n": 200,
+        "correct": 152,
+        "accuracy": 0.76,
+        "binary_cross_entropy": 3.0047881556781033,
+        "mean_signed_margin": 12.686503907920759
+      },
+      "train_correction_rms": 2.40861873536712,
+      "dev_correction_rms": 2.217843592646336,
+      "seconds": 0.009469270706176758
+    }
+  ],
+  "selected_name": "nli_residual_trace16_l0p01",
+  "data_preparation_seconds": 2.523033618927002,
+  "seconds": 2.6509711742401123
+}

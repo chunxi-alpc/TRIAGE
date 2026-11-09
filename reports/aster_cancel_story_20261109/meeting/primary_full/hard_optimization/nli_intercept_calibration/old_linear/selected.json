@@ -1,0 +1,47 @@
+{
+  "frozen": true,
+  "saved_at": "2026-11-09T10:16:58.658871+00:00",
+  "method_name": "NLI in-domain intercept calibration of old_linear",
+  "original_method": "old_linear",
+  "b": -3.727194921029551,
+  "original_b": 2.6057453599732114,
+  "intercept_shift": -6.332940281002763,
+  "train_n": 1700,
+  "dev_n": 200,
+  "dev_criterion_met": true,
+  "fit_dev_metrics": {
+    "train": {
+      "original": {
+        "n": 1700,
+        "correct": 1227,
+        "accuracy": 0.721764705882353,
+        "CE": 4.341833260853127
+      },
+      "intercept_calibrated": {
+        "n": 1700,
+        "correct": 1217,
+        "accuracy": 0.7158823529411765,
+        "CE": 4.124434122052226
+      }
+    },
+    "dev": {
+      "original": {
+        "n": 200,
+        "correct": 150,
+        "accuracy": 0.75,
+        "CE": 3.536825627503072
+      },
+      "intercept_calibrated": {
+        "n": 200,
+        "correct": 152,
+        "accuracy": 0.76,
+        "CE": 3.4854336868823044
+      }
+    }
+  },
+  "fitting_only_train_labels": true,
+  "no_test_labels_for_fitting_or_selection": true,
+  "correction_function_unchanged": true,
+  "pair_differences_unchanged": true,
+  "plan": "/home/gcx/aster_hard_optimization_20261109/nli_intercept_calibration/old_linear/plan.json"
+}

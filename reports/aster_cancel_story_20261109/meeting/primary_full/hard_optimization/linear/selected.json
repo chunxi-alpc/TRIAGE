@@ -1,0 +1,205 @@
+{
+  "method": "balanced_plus_hard_residual_r32",
+  "dimension": 32,
+  "base_method": "optimized_balanced_fit_calibration",
+  "base_frozen_manifest": "/home/gcx/aster_next_20261109/frozen_methods.json",
+  "base_prediction_file": "/home/gcx/aster_optimization_20261109/linear/ensemble_predictions/confirmensemble_combined0031_0p1.npz",
+  "base_gain": 0.4364521237158429,
+  "base_delta_convention": "cached delta times frozen base_gain exactly once; no bias included",
+  "old_natural_n": 761,
+  "old_natural_sources": 80,
+  "new_natural_n": 1720,
+  "new_natural_sources": 12,
+  "natural_group_weight": {
+    "original": 0.5,
+    "augmentation": 0.5
+  },
+  "within_group": "equal source means",
+  "AP_pairs": 4887,
+  "CF_pairs": 135,
+  "AP_weights": "Within-source normalized (1 + fit-base wrong endpoint + abs margin<1 + top fit90% absolute difference)",
+  "fit_tail_cut": 3.3648641252663847,
+  "fit_wrong_pairs": 43,
+  "fit_near_pairs": 4,
+  "fit_tail_pairs": 489,
+  "objective": "source-balanced weighted AP squared residual / fit raw AP RMS^2 + half-group source-balanced natural BCE + .01/nAP coordinate ridge / fit AP RMS^2",
+  "budget": 0.2923349027297149,
+  "base_fit_cf_max": 0.005442717100356931,
+  "final_fit_cf_max": 0.29233490272971563,
+  "calibration": "b fitted only on original 761 fit natural nodes after each fixed residual gain",
+  "solver": "Optimization terminated successfully",
+  "iterations": 26,
+  "selected_amplitude": 0.0,
+  "selected_b": -1.1754912780927214,
+  "model_file": "/home/gcx/aster_hard_optimization_20261109/linear/frozen_model.npz",
+  "dev": {
+    "A": {
+      "n": 1194,
+      "difference_rms": 3.5378755900038805,
+      "correction_rms": 0.5060587683268133,
+      "correction_rms_over_ap_rms": 0.1304492224243381,
+      "paired_correct": 1169,
+      "paired_accuracy": 0.9790619765494137,
+      "variance_reduction": 0.16981289159484447
+    },
+    "P": {
+      "n": 4,
+      "difference_rms": 2.116055571419186,
+      "correction_rms": 0.3134711307082109,
+      "correction_rms_over_ap_rms": 0.08080497328119811,
+      "paired_correct": 4,
+      "paired_accuracy": 1.0,
+      "variance_reduction": 0.2184347271350131
+    },
+    "AP": {
+      "n": 1198,
+      "difference_rms": 3.5340801792952443,
+      "correction_rms": 0.505537826746783,
+      "correction_rms_over_ap_rms": 0.1303149367873791,
+      "paired_correct": 1173,
+      "paired_accuracy": 0.9791318864774624,
+      "variance_reduction": 0.1698751557570518
+    },
+    "C": {
+      "n": 29,
+      "difference_rms": 30.439111692925533,
+      "correction_rms": 0.5295814107588135,
+      "correction_rms_over_ap_rms": 0.13651276801760115,
+      "paired_correct": 10,
+      "paired_accuracy": 0.3448275862068966,
+      "mean_evidence_retention": 0.9889095894899419,
+      "response_direction_degraded": 0
+    },
+    "F": {
+      "n": 31,
+      "difference_rms": 50.5747186196201,
+      "correction_rms": 0.17004712891277485,
+      "correction_rms_over_ap_rms": 0.04383387292251632,
+      "paired_correct": 25,
+      "paired_accuracy": 0.8064516129032258,
+      "mean_evidence_retention": 0.9989336721966569,
+      "response_direction_degraded": 0
+    },
+    "CF": {
+      "n": 60,
+      "difference_rms": 42.06374392237802,
+      "correction_rms": 0.38793544255914053,
+      "correction_rms_over_ap_rms": 0.10000000000000006,
+      "paired_correct": 35,
+      "paired_accuracy": 0.5833333333333334,
+      "mean_evidence_retention": 0.996065869642893,
+      "response_direction_degraded": 0
+    },
+    "F0": {
+      "n": 29,
+      "difference_rms": 4.652788628781947,
+      "correction_rms": 0.022468858280051685,
+      "correction_rms_over_ap_rms": 0.005791906542962064,
+      "paired_correct": 29,
+      "paired_accuracy": 1.0,
+      "variance_reduction": 0.0031355763339201426
+    },
+    "natural": {
+      "n": 199,
+      "correct": 195,
+      "accuracy": 0.9798994974874372
+    },
+    "path": {
+      "n": 420,
+      "correct": 383,
+      "accuracy": 0.9119047619047619
+    }
+  },
+  "fit": {
+    "A": {
+      "n": 4869,
+      "difference_rms": 2.485376208932938,
+      "correction_rms": 0.6879840123153622,
+      "correction_rms_over_ap_rms": 0.23534104408718312,
+      "paired_correct": 4827,
+      "paired_accuracy": 0.9913739987677141,
+      "variance_reduction": 0.2780436405190312
+    },
+    "P": {
+      "n": 18,
+      "difference_rms": 1.2968266215751991,
+      "correction_rms": 0.6300250328649245,
+      "correction_rms_over_ap_rms": 0.21551481775935216,
+      "paired_correct": 17,
+      "paired_accuracy": 0.9444444444444444,
+      "variance_reduction": 0.5425218580086133
+    },
+    "AP": {
+      "n": 4887,
+      "difference_rms": 2.4820430081598635,
+      "correction_rms": 0.6877794971581119,
+      "correction_rms_over_ap_rms": 0.23527108488787418,
+      "paired_correct": 4844,
+      "paired_accuracy": 0.9912011458972785,
+      "variance_reduction": 0.278457319987065
+    },
+    "C": {
+      "n": 66,
+      "difference_rms": 41.31037986674142,
+      "correction_rms": 0.0015700267788717095,
+      "correction_rms_over_ap_rms": 0.0005370644299436645,
+      "paired_correct": 45,
+      "paired_accuracy": 0.6818181818181818,
+      "mean_evidence_retention": 0.9999903039040936,
+      "response_direction_degraded": 0
+    },
+    "F": {
+      "n": 69,
+      "difference_rms": 43.28141425231817,
+      "correction_rms": 0.001541377237933262,
+      "correction_rms_over_ap_rms": 0.0005272641834897075,
+      "paired_correct": 48,
+      "paired_accuracy": 0.6956521739130435,
+      "mean_evidence_retention": 1.0000071502554801,
+      "response_direction_degraded": 0
+    },
+    "CF": {
+      "n": 135,
+      "difference_rms": 42.32926581950291,
+      "correction_rms": 0.001555449610323265,
+      "correction_rms_over_ap_rms": 0.0005320779680424929,
+      "paired_correct": 93,
+      "paired_accuracy": 0.6888888888888889,
+      "mean_evidence_retention": 0.9999991428532254,
+      "response_direction_degraded": 0
+    },
+    "F0": {
+      "n": 82,
+      "difference_rms": 16.42294359367758,
+      "correction_rms": 0.01268269190095596,
+      "correction_rms_over_ap_rms": 0.004338411795009657,
+      "paired_correct": 73,
+      "paired_accuracy": 0.8902439024390244,
+      "variance_reduction": 0.0006772036643613033
+    },
+    "natural": {
+      "n": 761,
+      "correct": 755,
+      "accuracy": 0.9921156373193167
+    }
+  },
+  "fit_augmentation": {
+    "n": 1720,
+    "sources": 12,
+    "correct": 1689,
+    "accuracy": 0.9819767441860465
+  },
+  "scores_file": "/home/gcx/aster_hard_optimization_20261109/linear/scores_a0.0.npz",
+  "selection": "dev CF correction RMS/raw AP RMS <= .1; maximize dev exact path count then AP VR then smaller amplitude; original-fit-only b calibration",
+  "test_used_for_training_or_selection": false,
+  "test_evaluated": false,
+  "seconds": 1.9907360076904297,
+  "kind": "balanced_hard_linear_residual",
+  "feature": "r32",
+  "base_b": -1.1754912780926952,
+  "amplitude": 0.0,
+  "b": -1.1754912780927214,
+  "selected_fit_cf_max": 0.005442717100356931,
+  "nonzero_residual_selected": false,
+  "inference": "Input base_balanced_score already includes ell + frozen gain-scaled base_delta + old_base_b. Output = base_balanced_score - old_base_b + amplitude*((r32-mu)/scale)@w + selected_b."
+}

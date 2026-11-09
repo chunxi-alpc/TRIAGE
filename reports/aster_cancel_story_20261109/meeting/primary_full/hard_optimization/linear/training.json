@@ -1,0 +1,32 @@
+{
+  "method": "balanced_plus_hard_residual_r32",
+  "dimension": 32,
+  "base_method": "optimized_balanced_fit_calibration",
+  "base_frozen_manifest": "/home/gcx/aster_next_20261109/frozen_methods.json",
+  "base_prediction_file": "/home/gcx/aster_optimization_20261109/linear/ensemble_predictions/confirmensemble_combined0031_0p1.npz",
+  "base_gain": 0.4364521237158429,
+  "base_delta_convention": "cached delta times frozen base_gain exactly once; no bias included",
+  "old_natural_n": 761,
+  "old_natural_sources": 80,
+  "new_natural_n": 1720,
+  "new_natural_sources": 12,
+  "natural_group_weight": {
+    "original": 0.5,
+    "augmentation": 0.5
+  },
+  "within_group": "equal source means",
+  "AP_pairs": 4887,
+  "CF_pairs": 135,
+  "AP_weights": "Within-source normalized (1 + fit-base wrong endpoint + abs margin<1 + top fit90% absolute difference)",
+  "fit_tail_cut": 3.3648641252663847,
+  "fit_wrong_pairs": 43,
+  "fit_near_pairs": 4,
+  "fit_tail_pairs": 489,
+  "objective": "source-balanced weighted AP squared residual / fit raw AP RMS^2 + half-group source-balanced natural BCE + .01/nAP coordinate ridge / fit AP RMS^2",
+  "budget": 0.2923349027297149,
+  "base_fit_cf_max": 0.005442717100356931,
+  "final_fit_cf_max": 0.29233490272971563,
+  "calibration": "b fitted only on original 761 fit natural nodes after each fixed residual gain",
+  "solver": "Optimization terminated successfully",
+  "iterations": 26
+}

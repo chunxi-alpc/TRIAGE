@@ -1,0 +1,43 @@
+{
+  "schemes": [
+    "tail_pair",
+    "tail_robust"
+  ],
+  "seeds": [
+    11,
+    22,
+    33
+  ],
+  "runs": 6,
+  "steps": 1200,
+  "lr": 0.0003,
+  "weight_decay": 0.001,
+  "width": 128,
+  "input_dimension": 99,
+  "ap_tail_fraction": 0.2,
+  "cf_tail_fraction": 0.2,
+  "cf_weight": 1000.0,
+  "cf_hinge_weight": 1000.0,
+  "cf_jitter": 0.1,
+  "anchor_weight": 0.01,
+  "ce_weight": 1.0,
+  "ce_pool_weights": {
+    "original_natural": 0.5,
+    "augmented_fit": 0.5
+  },
+  "ce_source_balanced": true,
+  "calibration": "After fixing correction and fit-budget scale, original 761 natural fit CE only",
+  "fit_scale": "min(1, .1*fit_AP_raw_RMS / max_abs_fit_CF_correction)",
+  "initialization": "Corresponding seed old balanced member with its output layer scaled by the frozen ensemble gain",
+  "selection": "No checkpoint, width or hyperparameter search; report both fixed 3-seed ensembles",
+  "gpu": [
+    0,
+    1
+  ],
+  "fit_AP": 4887,
+  "fit_CF": 135,
+  "natural_fit": 761,
+  "extra_fit": 1720,
+  "dev_views": 1685,
+  "dev_cases": 420
+}

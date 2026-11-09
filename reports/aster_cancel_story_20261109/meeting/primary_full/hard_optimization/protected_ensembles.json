@@ -1,0 +1,90 @@
+{
+  "hard_tail_pair_protected_fit_calibration": {
+    "name": "hard_tail_pair_protected_fit_calibration",
+    "kind": "ensemble",
+    "member_count": 3,
+    "gain": 0.0921038990415165,
+    "b": 1.9107233408195012,
+    "fit_ce_b": 1.9107233408195012,
+    "dev_budget_ratio": 0.1,
+    "gain_selection": "min(1,.1*raw_dev_AP_RMS/new_dev_CF_correction_RMS)",
+    "members": [
+      {
+        "name": "tail_pair_seed11",
+        "kind": "scorecond",
+        "model_file": "/home/gcx/aster_hard_optimization_20261109/tail_pair/tail_pair_seed11.pt",
+        "coefficient": 0.3333333333333333,
+        "seed": 11,
+        "fit_scale_already_folded": 1.0
+      },
+      {
+        "name": "tail_pair_seed22",
+        "kind": "scorecond",
+        "model_file": "/home/gcx/aster_hard_optimization_20261109/tail_pair/tail_pair_seed22.pt",
+        "coefficient": 0.3333333333333333,
+        "seed": 22,
+        "fit_scale_already_folded": 1.0
+      },
+      {
+        "name": "tail_pair_seed33",
+        "kind": "scorecond",
+        "model_file": "/home/gcx/aster_hard_optimization_20261109/tail_pair/tail_pair_seed33.pt",
+        "coefficient": 0.3333333333333333,
+        "seed": 33,
+        "fit_scale_already_folded": 1.0
+      }
+    ],
+    "coefficients": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "scheme": "tail_pair",
+    "calibration": "CE intercept on original 761 natural fit only",
+    "prediction_convention": "state_dict output already includes fit-budget scale; equal mean member deltas; score=ell+dev_budget_gain*mean_delta+b"
+  },
+  "hard_tail_robust_protected_fit_calibration": {
+    "name": "hard_tail_robust_protected_fit_calibration",
+    "kind": "ensemble",
+    "member_count": 3,
+    "gain": 0.19178303820455386,
+    "b": 0.14009996256603133,
+    "fit_ce_b": 0.14009996256603133,
+    "dev_budget_ratio": 0.1,
+    "gain_selection": "min(1,.1*raw_dev_AP_RMS/new_dev_CF_correction_RMS)",
+    "members": [
+      {
+        "name": "tail_robust_seed11",
+        "kind": "scorecond",
+        "model_file": "/home/gcx/aster_hard_optimization_20261109/tail_robust/tail_robust_seed11.pt",
+        "coefficient": 0.3333333333333333,
+        "seed": 11,
+        "fit_scale_already_folded": 1.0
+      },
+      {
+        "name": "tail_robust_seed22",
+        "kind": "scorecond",
+        "model_file": "/home/gcx/aster_hard_optimization_20261109/tail_robust/tail_robust_seed22.pt",
+        "coefficient": 0.3333333333333333,
+        "seed": 22,
+        "fit_scale_already_folded": 1.0
+      },
+      {
+        "name": "tail_robust_seed33",
+        "kind": "scorecond",
+        "model_file": "/home/gcx/aster_hard_optimization_20261109/tail_robust/tail_robust_seed33.pt",
+        "coefficient": 0.3333333333333333,
+        "seed": 33,
+        "fit_scale_already_folded": 1.0
+      }
+    ],
+    "coefficients": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "scheme": "tail_robust",
+    "calibration": "CE intercept on original 761 natural fit only",
+    "prediction_convention": "state_dict output already includes fit-budget scale; equal mean member deltas; score=ell+dev_budget_gain*mean_delta+b"
+  }
+}

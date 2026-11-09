@@ -1,0 +1,33 @@
+{
+  "gpus": [
+    0,
+    1
+  ],
+  "methods": [
+    "raw",
+    "old_linear",
+    "optimized_balanced_fit_calibration",
+    "hard_tail_pair_protected_fit_calibration",
+    "hard_tail_robust_protected_fit_calibration"
+  ],
+  "stages": [
+    {
+      "name": "mega_official_test",
+      "cases": "/home/gcx/aster_hard_optimization_20261109/evaluation/mega_official_test_cases.jsonl",
+      "kind": "path",
+      "dataset": "MEGA-CDP",
+      "expected": 424
+    },
+    {
+      "name": "nli4ct_all",
+      "cases": "/home/gcx/aster_hard_optimization_20261109/evaluation/nli4ct_all_cases.jsonl",
+      "kind": "binary",
+      "dataset": "NLI4CT-2024",
+      "expected": 2554
+    }
+  ],
+  "results_root": "/home/gcx/aster_hard_optimization_20261109/evaluation/results",
+  "manifest": "/home/gcx/aster_hard_optimization_20261109/evaluation/evaluation_manifest.json",
+  "additional_backbone_forwards": "Only canonical nodes newly reached inside the fixed MEGA error cases; cache reused everywhere else.",
+  "full_population_new_errors": "Not evaluated for these new methods."
+}

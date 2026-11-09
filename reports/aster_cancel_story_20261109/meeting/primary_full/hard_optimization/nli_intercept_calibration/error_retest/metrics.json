@@ -1,0 +1,178 @@
+{
+  "protocol": "NLI in-domain intercept calibration; train1700 fits one scalar for each of two fixed functions; dev checks only; no threshold sweep",
+  "frozen_controls": {
+    "balanced_NLI_intercept": {
+      "original": "optimized_balanced_fit_calibration",
+      "selected": "/home/gcx/aster_hard_optimization_20261109/nli_intercept_calibration/selected.json",
+      "shift": -4.939319355499245,
+      "b": -6.114810633591941,
+      "saved_at": "2026-11-09T10:15:57.612744+00:00",
+      "fit_dev_metrics": {
+        "train": {
+          "original_balanced": {
+            "n": 1700,
+            "correct": 1231,
+            "accuracy": 0.7241176470588235,
+            "CE": 4.147322233967153
+          },
+          "intercept_calibrated": {
+            "n": 1700,
+            "correct": 1209,
+            "accuracy": 0.7111764705882353,
+            "CE": 4.010867876738562
+          }
+        },
+        "dev": {
+          "original_balanced": {
+            "n": 200,
+            "correct": 148,
+            "accuracy": 0.74,
+            "CE": 3.4398166297468014
+          },
+          "intercept_calibrated": {
+            "n": 200,
+            "correct": 153,
+            "accuracy": 0.765,
+            "CE": 3.416361506762412
+          }
+        }
+      }
+    },
+    "old_linear_NLI_intercept": {
+      "original": "old_linear",
+      "selected": "/home/gcx/aster_hard_optimization_20261109/nli_intercept_calibration/old_linear/selected.json",
+      "shift": -6.332940281002763,
+      "b": -3.727194921029551,
+      "saved_at": "2026-11-09T10:16:58.658871+00:00",
+      "fit_dev_metrics": {
+        "train": {
+          "original": {
+            "n": 1700,
+            "correct": 1227,
+            "accuracy": 0.721764705882353,
+            "CE": 4.341833260853127
+          },
+          "intercept_calibrated": {
+            "n": 1700,
+            "correct": 1217,
+            "accuracy": 0.7158823529411765,
+            "CE": 4.124434122052226
+          }
+        },
+        "dev": {
+          "original": {
+            "n": 200,
+            "correct": 150,
+            "accuracy": 0.75,
+            "CE": 3.536825627503072
+          },
+          "intercept_calibrated": {
+            "n": 200,
+            "correct": 152,
+            "accuracy": 0.76,
+            "CE": 3.4854336868823044
+          }
+        }
+      }
+    }
+  },
+  "case_metrics_by_method": {
+    "balanced_NLI_intercept": {
+      "dev": {
+        "old_error_cases": 50,
+        "repaired": 7,
+        "still_wrong": 43,
+        "conditional_repair_rate": 0.14,
+        "duplicate_dev_native_ids": 50,
+        "shared_dev_families": 50
+      },
+      "practice": {
+        "old_error_cases": 562,
+        "repaired": 67,
+        "still_wrong": 495,
+        "conditional_repair_rate": 0.11921708185053381,
+        "duplicate_dev_native_ids": 50,
+        "shared_dev_families": 562
+      },
+      "test": {
+        "old_error_cases": 1469,
+        "repaired": 214,
+        "still_wrong": 1255,
+        "conditional_repair_rate": 0.1456773315180395,
+        "duplicate_dev_native_ids": 0,
+        "shared_dev_families": 0
+      },
+      "train": {
+        "old_error_cases": 473,
+        "repaired": 50,
+        "still_wrong": 423,
+        "conditional_repair_rate": 0.10570824524312897,
+        "duplicate_dev_native_ids": 0,
+        "shared_dev_families": 0
+      }
+    },
+    "old_linear_NLI_intercept": {
+      "dev": {
+        "old_error_cases": 50,
+        "repaired": 7,
+        "still_wrong": 43,
+        "conditional_repair_rate": 0.14,
+        "duplicate_dev_native_ids": 50,
+        "shared_dev_families": 50
+      },
+      "practice": {
+        "old_error_cases": 562,
+        "repaired": 66,
+        "still_wrong": 496,
+        "conditional_repair_rate": 0.11743772241992882,
+        "duplicate_dev_native_ids": 50,
+        "shared_dev_families": 562
+      },
+      "test": {
+        "old_error_cases": 1469,
+        "repaired": 213,
+        "still_wrong": 1256,
+        "conditional_repair_rate": 0.14499659632402995,
+        "duplicate_dev_native_ids": 0,
+        "shared_dev_families": 0
+      },
+      "train": {
+        "old_error_cases": 473,
+        "repaired": 52,
+        "still_wrong": 421,
+        "conditional_repair_rate": 0.10993657505285412,
+        "duplicate_dev_native_ids": 0,
+        "shared_dev_families": 0
+      }
+    }
+  },
+  "pair_metrics_file": "/home/gcx/aster_hard_optimization_20261109/nli_intercept_calibration/error_retest/pair_metrics.json",
+  "comparison_with_supervised_residual": {
+    "balanced_NLI_intercept": {
+      "new_supervised_weight_repairs": 207,
+      "scalar_control_repairs": 214,
+      "repairs_shared": 119,
+      "supervised_only_repairs": 88,
+      "scalar_only_repairs": 95
+    },
+    "old_linear_NLI_intercept": {
+      "new_supervised_weight_repairs": 207,
+      "scalar_control_repairs": 213,
+      "repairs_shared": 117,
+      "supervised_only_repairs": 90,
+      "scalar_only_repairs": 96
+    }
+  },
+  "old_error_pool_cases": 2554,
+  "old_error_pool_pairs": 2677,
+  "new_scores_required_endpoints": 3753,
+  "full_population_new_errors": null,
+  "net_full_population_benefit": null,
+  "limitations": "The entire old-correct population was not rescored. Conditional fixes are not net benefit. Practice includes dev records and all its base families. No improvement in faithfulness is attributed to an intercept.",
+  "no_new_forward": true,
+  "no_GPU": true,
+  "no_additional_fits": true,
+  "no_parameter_reselection": true,
+  "finished_at": "2026-11-09T10:18:21.565602+00:00",
+  "seconds": 8.74655532836914
+}

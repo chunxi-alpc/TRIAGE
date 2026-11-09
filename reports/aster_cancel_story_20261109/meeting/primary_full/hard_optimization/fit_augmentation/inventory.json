@@ -1,0 +1,120 @@
+{
+  "saved_at": "2026-11-09T10:05:15.768100+00:00",
+  "original_fit_sources": 80,
+  "original_fit_cases": 1712,
+  "cached_fit_gold_nodes": 1816,
+  "cached_fit_cases": 261,
+  "cached_fit_sources": 12,
+  "original_natural_nodes": 761,
+  "overlap_case_gid": 96,
+  "new_supervised_nodes": 1720,
+  "addition_sources": [
+    "train_val:104",
+    "train_val:110",
+    "train_val:130",
+    "train_val:1350",
+    "train_val:15",
+    "train_val:190",
+    "train_val:2",
+    "train_val:2522",
+    "train_val:730",
+    "train_val:78",
+    "train_val:85",
+    "train_val:94"
+  ],
+  "source_counts": {
+    "train_val:104": 37,
+    "train_val:110": 328,
+    "train_val:130": 541,
+    "train_val:15": 133,
+    "train_val:190": 65,
+    "train_val:2522": 43,
+    "train_val:1350": 116,
+    "train_val:730": 59,
+    "train_val:2": 35,
+    "train_val:78": 210,
+    "train_val:85": 55,
+    "train_val:94": 98
+  },
+  "label_counts": {
+    "1": 1259,
+    "0": 461
+  },
+  "additional_wrong_counts": {
+    "raw": 41,
+    "old_linear": 31,
+    "base_balanced": 31
+  },
+  "all_cached_gold_wrong_counts": {
+    "raw_wrong": 41,
+    "old_linear_wrong": 31,
+    "base_balanced_wrong": 31
+  },
+  "coordinate_shapes": {
+    "ids": [
+      1720
+    ],
+    "source_ids": [
+      1720
+    ],
+    "labels": [
+      1720
+    ],
+    "ell": [
+      1720
+    ],
+    "r16": [
+      1720,
+      16
+    ],
+    "r32": [
+      1720,
+      32
+    ],
+    "residual64": [
+      1720,
+      64
+    ],
+    "q": [
+      1720,
+      3
+    ],
+    "combined_score": [
+      1720,
+      99
+    ],
+    "old_linear_score": [
+      1720
+    ],
+    "base_balanced_score": [
+      1720
+    ],
+    "base_balanced_delta": [
+      1720
+    ],
+    "id": [
+      1720
+    ],
+    "source_id": [
+      1720
+    ],
+    "label": [
+      1720
+    ],
+    "base_balanced_b": []
+  },
+  "coordinate_definition": "Exact unnormalized inputs from old FrozenMethods.coordinates: r16, r32, residual64, q=(raw_ell/10,abs(raw_ell)/10,tanh(raw_ell/4)), combined_score=concat(r32,residual64,q).",
+  "base_delta_definition": "base_balanced_delta is final frozen gain-weighted correction before its existing base_balanced_b; base_balanced_score=ell+base_balanced_delta+base_balanced_b.",
+  "deduplication": "Remove existing natural-fit case_id/gid keys only. Rows are supervised case-node pairs; not asserted independent sources.",
+  "no_dev_test_or_unassigned_sources": true,
+  "no_new_model_forward": true,
+  "no_training": true,
+  "source_case_file": "/home/gcx/aster_cr_repair_v2_run_20261108/data/path_cases.jsonl",
+  "source_node_files": [
+    "/home/gcx/aster_next_20261109/primary_results/mega_train_val/shard0/nodes.jsonl",
+    "/home/gcx/aster_next_20261109/primary_results/mega_train_val/shard1/nodes.jsonl",
+    "/home/gcx/aster_next_20261109/primary_results/mega_train_val/shard2/nodes.jsonl",
+    "/home/gcx/aster_next_20261109/primary_results/mega_train_val/shard3/nodes.jsonl"
+  ],
+  "frozen_manifest": "/home/gcx/aster_next_20261109/frozen_methods.json"
+}

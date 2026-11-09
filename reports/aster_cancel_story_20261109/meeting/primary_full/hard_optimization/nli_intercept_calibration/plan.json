@@ -1,0 +1,12 @@
+{
+  "created_at": "2026-11-09T10:15:57.480581+00:00",
+  "method_name": "NLI in-domain intercept calibration",
+  "frozen_correction": "optimized_balanced_fit_calibration correction weights, feature standardization, gain and input template unchanged",
+  "training": "NLI train1700 native binary labels only",
+  "selection": "Evaluate once on NLI dev200; advance only if correct >=148 (the previously frozen balanced dev score). No threshold search.",
+  "objective": "mean BCE(ell+fixed_balanced_delta+b,y), fit b only; replace the original MEGA intercept",
+  "scalar_fits": 1,
+  "official_or_practice_used_for_calibration": false,
+  "difference_metric_note": "Pair differences, variance reductions, response retention, correction differences and direction are algebraically unchanged by this constant intercept. This control cannot claim improved faithfulness.",
+  "retest_scope": "Only existing old_linear error cases and fixed error native pairs/necessary reference endpoints if the predetermined dev criterion holds; no old-correct full-population assessment."
+}

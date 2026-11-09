@@ -23,3 +23,7 @@
 <!-- aster-faithfulness-readme:start -->
 行为忠实性主指标、配对覆盖与方法局限见正文第8.13节及 [faithfulness](meeting/primary_full/faithfulness/)。既有MEGA配对与NLI原生变体分别报告；官方MEGA配对扩测按当前状态记录，未测的C/F和F0明确保留。
 <!-- aster-faithfulness-readme:end -->
+
+<!-- aster-hard-optimization-readme:start -->
+正文8.15及简版补充了针对错因的新训练和原错例条件复测；原正确全集未评价，不能据此推算全量净收益。配置、分项、逐例结果及代码见 [hard_optimization](meeting/primary_full/hard_optimization/)。
+<!-- aster-hard-optimization-readme:end -->

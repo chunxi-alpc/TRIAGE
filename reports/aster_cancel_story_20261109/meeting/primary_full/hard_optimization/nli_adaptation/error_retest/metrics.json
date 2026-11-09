@@ -1,0 +1,70 @@
+{
+  "method_name": "NLI training-set supervised residual adaptation",
+  "model": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/selected_model.npz",
+  "model_frozen_at": "2026-11-09T10:07:39.728532+00:00",
+  "retest_completed_at": "2026-11-09T10:11:56.836768+00:00",
+  "pool_definition": "Previously saved old16-dimensional old_linear incorrect cases only",
+  "case_pool_definition_file": "/home/gcx/aster_next_20261109/error_retest/retest_results.jsonl",
+  "pair_pool_definition_file": "/home/gcx/aster_next_20261109/error_retest/selected_error_pair_scores.csv",
+  "case_metrics_by_split": {
+    "test": {
+      "old_error_cases": 1469,
+      "evaluated": 1469,
+      "missing": 0,
+      "repaired": 207,
+      "still_wrong": 1262,
+      "conditional_repair_rate": 0.14091218515997278,
+      "duplicate_dev_native_ids": 0,
+      "shared_dev_families": 0,
+      "interpretation": "Official old-error subset; not full-population accuracy or a new independent test"
+    },
+    "practice": {
+      "old_error_cases": 562,
+      "evaluated": 562,
+      "missing": 0,
+      "repaired": 71,
+      "still_wrong": 491,
+      "conditional_repair_rate": 0.12633451957295375,
+      "duplicate_dev_native_ids": 50,
+      "shared_dev_families": 562,
+      "interpretation": "Contains the200 dev originals and their native families; not independent of dev selection"
+    },
+    "dev": {
+      "old_error_cases": 50,
+      "evaluated": 50,
+      "missing": 0,
+      "repaired": 7,
+      "still_wrong": 43,
+      "conditional_repair_rate": 0.14,
+      "duplicate_dev_native_ids": 50,
+      "shared_dev_families": 50,
+      "interpretation": "Used for model selection"
+    },
+    "train": {
+      "old_error_cases": 473,
+      "evaluated": 473,
+      "missing": 0,
+      "repaired": 52,
+      "still_wrong": 421,
+      "conditional_repair_rate": 0.10993657505285412,
+      "duplicate_dev_native_ids": 0,
+      "shared_dev_families": 0,
+      "interpretation": "In-sample1700-record supervised fit"
+    }
+  },
+  "total_old_error_cases": 2554,
+  "new_model_case_records_scored": 2554,
+  "case_accuracy_on_full_NLI": null,
+  "full_population_new_errors": null,
+  "explicit_limit": "Conditional repair counts do not determine net full-population benefit. The new model was not evaluated on the whole old-correct population; prior balanced-model regressions must not be reused as this model regression counts.",
+  "fit_dev_protocol": "1700 NLI train records fit the supervised residual;200 NLI dev records select the sole frozen trace16 lambda.01 model. Practice shares dev originals/families. Official test is shown separately; its old-error pool was already diagnosed, so this is a fixed post-hoc error retest.",
+  "coverage": {
+    "required_cached_endpoints": 3753,
+    "cached_endpoints": 3753,
+    "missing": []
+  },
+  "no_refitting_or_new_search": true,
+  "no_new_backbone_forward": true,
+  "device": "CPU",
+  "seconds": 6.901904821395874
+}

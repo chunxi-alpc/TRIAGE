@@ -1,0 +1,57 @@
+{
+  "frozen": true,
+  "saved_at": "2026-11-09T10:07:39.728532+00:00",
+  "method_name": "NLI training-set supervised residual adaptation",
+  "selection_split": "dev",
+  "selected_name": "nli_residual_trace16_l0p01",
+  "family": "trace16",
+  "dimension": 16,
+  "lambda_": 0.01,
+  "raw_coefficient": 1.0,
+  "b": -6.9007706030621305,
+  "model": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/selected_model.npz",
+  "original_model": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/nli_residual_trace16_l0p01.npz",
+  "plan": "/home/gcx/aster_hard_optimization_20261109/nli_adaptation/plan.json",
+  "training": {
+    "split": "NLI train",
+    "n": 1700,
+    "supervision": "native binary labels",
+    "objective": "mean BCE(ell+z@w+b,y) + lambda/2*(sum(w^2)+mean((z@w)^2)); b unpenalized; raw coefficient fixed1"
+  },
+  "selection_criteria": "Highest dev classification accuracy, then lowest dev BCE, then fewer coefficients, then larger regularizer. Select exactly one saved model; no threshold sweep.",
+  "raw_metrics": {
+    "train": {
+      "n": 1700,
+      "correct": 1223,
+      "accuracy": 0.7194117647058823,
+      "binary_cross_entropy": 4.210418343671413,
+      "mean_signed_margin": 10.824282858231488
+    },
+    "dev": {
+      "n": 200,
+      "correct": 151,
+      "accuracy": 0.755,
+      "binary_cross_entropy": 3.49110016458304,
+      "mean_signed_margin": 13.496904811859132
+    }
+  },
+  "selected_fit_dev_metrics": {
+    "train": {
+      "n": 1700,
+      "correct": 1213,
+      "accuracy": 0.7135294117647059,
+      "binary_cross_entropy": 2.4312675608953107,
+      "mean_signed_margin": 6.749254740885956
+    },
+    "dev": {
+      "n": 200,
+      "correct": 152,
+      "accuracy": 0.76,
+      "binary_cross_entropy": 2.2554627181819846,
+      "mean_signed_margin": 8.664230785141779
+    }
+  },
+  "official_practice_used_for_fit_or_selection": false,
+  "test_or_error_pool_evaluation_started": false,
+  "scope": "Different supervised task adaptation; no original MEGA per-fit-C/F hard-bound guarantee; alpha_raw1 is not behavior protection."
+}
