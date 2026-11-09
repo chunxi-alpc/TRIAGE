@@ -57,6 +57,39 @@ def file_digest(path):
     return digest.hexdigest()
 
 
+def verify_predictions(record, expected, primary_correct):
+    """Recount official cases from archived per-case predictions, never from a claimed scalar alone."""
+    required = ('predictions_file', 'predictions_sha256')
+    if any(not record.get(k) for k in required):
+        raise ValueError('Per-case predictions file and SHA-256 are required')
+    p = Path(record['predictions_file'])
+    if not p.is_file() or file_digest(p) != record['predictions_sha256']:
+        raise ValueError('Per-case predictions missing or SHA-256 mismatch')
+    seen = set()
+    n = correct = 0
+    with p.open(encoding='utf-8') as f:
+        for line in f:
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            if 'case_id' not in row or 'gold' not in row or 'prediction' not in row:
+                raise ValueError('Per-case records require case_id/gold/prediction')
+            if row['case_id'] in seen:
+                raise ValueError('Duplicate case_id in predictions')
+            seen.add(row['case_id']); n += 1
+            prediction, gold = row['prediction'], row['gold']
+            if isinstance(prediction, list) and isinstance(gold, list):
+                if record['dataset_id'] == 'medpic':
+                    equal = sorted(prediction) == sorted(gold)
+                else:
+                    equal = prediction == gold
+            else:
+                equal = type(prediction) is type(gold) and prediction == gold
+            correct += int(equal)
+    if n != expected or correct != primary_correct:
+        raise ValueError(f'Per-case recount disagrees: n={n}, correct={correct}')
+
+
 def validate_result(record, spec, job):
     """Validate a newly produced actual run; no invented defaults for missing metrics."""
     for key in ('model_id', 'dataset_id', 'method_id', 'run_id'):
@@ -87,6 +120,7 @@ def validate_result(record, spec, job):
             raise ValueError(f'{k} must be a nonnegative integer')
     if not 0 <= metrics['primary_correct'] <= n:
         raise ValueError('Invalid primary numerator')
+    verify_predictions(record, n, metrics['primary_correct'])
     for k in ('interference_rms', 'evidence_correction_rms'):
         if k in metrics and (not isinstance(metrics[k], (float, int)) or metrics[k] < 0):
             raise ValueError(f'Invalid nonnegative RMS: {k}')
