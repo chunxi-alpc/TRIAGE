@@ -1,29 +1,11 @@
 # 对消，而非擦除
 
-明天汇报看：**[10 分钟汇报稿](meeting/meeting_brief.zh.md)**。
+完整阅读：[六章正文](paper_story_latest.zh.md)。汇报：[10分钟简版](meeting/meeting_brief.zh.md)。
 
-完整阅读看：**[论文正文](paper_story_latest.zh.md)**。
+正文依次为Introduction、Related Work、Method、Experiments、Analysis、Conclusion。实验仅设4.1设置、4.2实测、4.3医学模拟；分析仅设5.1消融与非线性、5.2忠实性与错误。Limitations、Ethical Considerations、References之后接附录A–D。
 
-五模型、三任务的预设模拟主实验与消融已移到**[正文第 10 节](paper_story_latest.zh.md#five-model-simulations)**，全文不再使用模拟附录。第 1 节给出动机、设计与实验的对应表，第 5–6 节解释方法和成立条件，第 7 节分类介绍模型、任务、基线与消融，第 8 节报告真实开发集、留出测试、核心消融与非线性对照，第 9 节为实际合成机制实验。
+忠实性是主要指标，准确率为下游效果。正文保留受控留出、官方测试、固定错误池及已有MedPIC冻结迁移；详细证明放A，数据实现放B，完整实测与历史优化放C，合成机制与新旧预设模拟放D。
 
-当前主方法用 A/P 差分拟合干扰，用 C/F 配对约束证据修正，再单独校准阈值。真实开发集 ER=99.82%、干扰 VR=4.58%；留出测试 ER=99.60%、VR=4.10%，路径 767/806。五模型表仍是旧版无约束分数预设，表旁明确标注，不作为当前方法的真实跨模型成绩。
+七个医学数据集的官方/本地/实测规模、原生划分见4.1。新增五模型、五医学任务、六条件、五种子模拟保存在原[simulated_study](simulated_study/)目录，明确标注预设模拟、待真实评测替换，不覆盖旧结果。
 
-3,100 个留出测试输入、806 条真实路径、核心消融和三种子非线性对照已完成；测试集此前用于旧版方案评价。医生抽样核验仍待完成。其余文件仅保存配套数据、图片与复算材料；有约束拟合与实际结果见 [meeting/evidence_preserving](meeting/evidence_preserving/)。
-
-缓存优化扩展见正文第 8.10 节：平衡配置测试 VR=14.59%、ER=99.77%、证据修正 RMS=0.2403、路径768/806；较强保护配置 VR=8.02%、证据修正 RMS=0.1201。完整搜索、模型和校准消融见 [optimization](meeting/optimization/)。
-
-<!-- aster-official-expansion-readme:start -->
-官方 test 扩展见正文第 8.11 节，覆盖 7,458 条路径。开发集错因、所有固定方法的路径及叶节点结果、来源分组和配对差值区间见 [test_expansion](meeting/test_expansion/)。原 806 条留出测试与模拟结果保留原口径。
-<!-- aster-official-expansion-readme:end -->
-
-<!-- aster-primary-full-readme:start -->
-主方法真实任务的已完成结果与当前覆盖状态见正文第8.12节及 [primary_full](meeting/primary_full/)。NLI为零样本迁移，MEGA train_val保留既有fit/dev/原测试分组；缺少真实数据的三段论仅保留模拟。
-<!-- aster-primary-full-readme:end -->
-
-<!-- aster-faithfulness-readme:start -->
-行为忠实性主指标、配对覆盖与方法局限见正文第8.13节及 [faithfulness](meeting/primary_full/faithfulness/)。既有MEGA配对与NLI原生变体分别报告；官方MEGA配对扩测按当前状态记录，未测的C/F和F0明确保留。
-<!-- aster-faithfulness-readme:end -->
-
-<!-- aster-hard-optimization-readme:start -->
-正文8.15及简版补充了针对错因的新训练和原错例条件复测；原正确全集未评价，不能据此推算全量净收益。配置、分项、逐例结果及代码见 [hard_optimization](meeting/primary_full/hard_optimization/)。
-<!-- aster-hard-optimization-readme:end -->
+本次仅CPU文档与模拟工作，没有运行真实模型或重复MedPIC实测。
