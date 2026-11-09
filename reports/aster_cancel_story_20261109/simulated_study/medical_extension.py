@@ -8,7 +8,7 @@ import numpy as np
 OUT=Path(__file__).resolve().parent
 LABEL="预设模拟，未运行对应模型与数据集，待真实评测替换。"
 CONFIG={
- "status":"prespecified_simulation", "notice":LABEL,
+ "status":"prespecified_simulation", "notice":LABEL, "generation_version":2,
  "seeds":[11,22,33,44,55],
  "models":{
   "Qwen3-8B":{"evidence":1.0,"nuisance":1.0,"noise":1.0,"trace_quality":1.0},
@@ -29,12 +29,16 @@ CONFIG={
   "MedEinst":{"n":5383,"options":49,"evidence_pairs":5383,"margin":3.2,"trap_margin":2.1,"nuisance":0.8},
   "MedGUIDE":{"n":7747,"options":5,"groups":17,"margin":2.3,"nuisance":0.9},
   "TrialGPT":{"n":1000,"unknown":250,"positive_probability":0.65,"margin":1.6,"nuisance":1.0}},
- "equation":"s_m=g_m E + a_eff N + c_m T + d_m X + B + b_m; a_eff=1-(1-a_m)*trace_quality",
+ "equation":"s_m=g_m E + a_eff N + c_m (T+H*E) + d_m (X+J*E) + B + b_m; a_eff=1-(1-a_m)*trace_quality",
+ "evidence_trace_coupling":{"H":"N(0,1)","J":"N(0,1)","rng_version":2,"sharing":"Same H/J across paired views and all methods; separate RNG keeps v1 latent inputs unchanged.","interpretation":"Assumed evidence dependence of score-correction features; not an estimated or trained method."},
  "noise":{"evidence_sd":0.6,"unresolved_sd":0.35,"trace_sd":1.0,"extra_sd":1.0,"addback_sd":0.08},
  "semantics":{
   "methods":"Condition names only, not trained algorithms; no optimizer, search, tuning or ranking filter.",
   "models":"Model labels index assigned coefficients, not empirical estimates.",
-  "draws":"All six conditions share latent evidence/nuisance/noise/labels within a model-task-seed.",
+  "draws":"All six conditions share latent evidence/nuisance/noise/labels and H/J within a model-task-seed.",
+  "direction":"Count original-positive signed responses becoming nonpositive; rate denominator is original-positive responses. MedPIC uses changed option pairs, not case pairs. Zero eligible denominator is undefined.",
+  "placeholder":"All generated values are provisional demonstration values, not predicted measurements. Replace from corresponding real paired scores before submission.",
+  "v1":"Original positive-g-only pairing made sign degradation identically zero; archived in medical_extension_v1 and superseded, not evidence for protection.",
   "multiselect":"Independent yes/no score per option; predicted set is scores>0; exact set equality.",
   "single_choice":"argmax; one shared intercept for all options, hence calibration cannot change ranking.",
   "MedPIC":"92 synthetic paired cases, option identities aligned; 1-2 labels change; unchanged labels are not nuisance interventions.",
@@ -42,7 +46,7 @@ CONFIG={
   "MedEinst":"Shared nuisance favours control label in both sides; trap changes gold class. BTR=P(trap predicts control label | control correct).",
   "TrialGPT":"1000 generated labels include 250 unknown; exclude unknown, retain included/not included and exclusion polarity as criterion satisfaction, not trial eligibility.",
   "no_pairs":"MedGUIDE/TrialGPT intervention metrics and every task path metric are undefined.",
-  "uncertainty":"Mean and sample SD over five generation seeds only, not model training uncertainty or real confidence intervals."}}
+  "uncertainty":"Mean and sample SD over five generation seeds only, not model training uncertainty or real confidence intervals. Undefined direction rates are omitted, defined seed count is recorded; SD needs at least two defined seeds."}}
 def write_csv(path,rows):
  fields=list(dict.fromkeys(k for r in rows for k in r))
  with path.open('w',newline='',encoding='utf-8') as f:
@@ -56,10 +60,23 @@ def balanced_f1(pred,y):
   tp=np.sum((pred==c)&(y==c));fp=np.sum((pred==c)&(y!=c));fn=np.sum((pred!=c)&(y==c))
   f1.append(2*tp/max(2*tp+fp+fn,1))
  return float(ba),float(np.mean(f1)*100)
+def direction_metrics(d0,d,sgn):
+ eligible=sgn*d0>0
+ count=int(np.sum(eligible & (sgn*d<=0)))
+ denom=int(np.sum(eligible))
+ return {"direction_degradation":count,"direction_eligible_n":denom,
+         "direction_pair_n":int(np.size(d0)),
+         "direction_degradation_rate":count/denom*100 if denom else None}
 def generate():
+ # A deterministic counterexample: average ER=100% can conceal a reversed response.
+ counter=direction_metrics(np.array([1.,1.]),np.array([3.,-1.]),np.ones(2))
+ assert counter["direction_degradation"]==1 and counter["direction_degradation_rate"]==50
+ assert direction_metrics(np.array([-1.]),np.array([-2.]),np.ones(1))["direction_degradation_rate"] is None
  rows=[];checks={"raw_vr_zero":True,"raw_er_100":True,"intercept_differences":True,
  "shared_intercept_argmax":True,"paired_accuracy_bounds":True,"unknown_excluded":True,
- "no_invented_interventions":True}
+ "no_invented_interventions":True,"direction_counterexample":True,
+ "zero_direction_denominator_undefined":True,"direction_rate_consistency":True,
+ "raw_calibration_direction_zero":True,"shared_evidence_feature_potential_outcomes":True}
  for mi,(model,mc) in enumerate(CONFIG["models"].items()):
   for ti,(task,tc) in enumerate(CONFIG["tasks"].items()):
    for seed in CONFIG["seeds"]:
@@ -91,10 +108,13 @@ def generate():
      Ep[np.arange(n),yp]+=tc["trap_margin"]*mc["evidence"]
      N[np.arange(n),y]+=.8 # same nuisance on control/trap, no label leakage into a real input
      pair=(q,yp,Ep)
+    # Draw coupling once from a separate stream; never choose it from observed outcomes.
+    coupling_rng=np.random.default_rng(np.random.SeedSequence([seed,mi,ti,20261109,2]))
+    H=coupling_rng.normal(size=shape);J=coupling_rng.normal(size=shape)
     def scores(m,ev=E,nuis=N,sl=None):
      g=m["g"];a=1-(1-m["a"])*mc["trace_quality"]
-     if sl is None:return g*ev+a*nuis+m["c"]*T+m["d"]*X+B+m["b"]
-     return g*ev+a*nuis+m["c"]*T[:sl]+m["d"]*X[:sl]+B[:sl]+m["b"]
+     if sl is None:return g*ev+a*nuis+m["c"]*(T+H*ev)+m["d"]*(X+J*ev)+B+m["b"]
+     return g*ev+a*nuis+m["c"]*(T[:sl]+H[:sl]*ev)+m["d"]*(X[:sl]+J[:sl]*ev)+B[:sl]+m["b"]
     outputs={key:scores(m) for key,m in CONFIG["methods"].items()}
     assert np.allclose(outputs["raw"]-outputs["calibration"],.35)
     if k>1 and task!="MedPIC":assert np.array_equal(outputs["raw"].argmax(1),outputs["calibration"].argmax(1))
@@ -137,7 +157,7 @@ def generate():
       assert joint<=min(left,right)+1e-10
       r.update(evidence_pair_n=q,pair_left_accuracy=left,pair_right_accuracy=right,pair_exact=joint,
        evidence_er=float(np.sum(sgn*d)/np.sum(sgn*d0)*100),evidence_correction_rms=rms(d-d0),
-       direction_degradation=int(np.sum((sgn*d0>0)&(sgn*d<=0))))
+       **direction_metrics(d0,d,sgn))
       if key=="raw":assert np.isclose(r["evidence_er"],100)
      if task=="MedPAIR":
       # Gold-vs-fixed-alternative margin is fixed before deleting any sentences.
@@ -157,26 +177,35 @@ def generate():
        key_addback_signed=float(np.mean(keyback-keydel)),key_addback_rms=rms(keyback-keydel),
        key_restore_error_rms=rms(keyback-full),
        evidence_er=float(np.sum(de)/np.sum(d0e)*100),evidence_correction_rms=rms(de-d0e),
-       direction_degradation=int(np.sum((d0e>0)&(de<=0))))
+       **direction_metrics(d0e,de,np.ones(n)))
       if key=="raw":assert np.isclose(r["vr"],0) and np.isclose(r["evidence_er"],100)
       if key=="calibration":
        assert np.allclose(di,rlow-rf) and np.allclose(de,rf-rkeydel)
      if task in ["MedGUIDE","TrialGPT"]:
       assert not any(z in r for z in ["vr","evidence_er","pair_exact"])
+     if "direction_degradation" in r:
+      assert 0<=r["direction_degradation"]<=r["direction_eligible_n"]<=r["direction_pair_n"]
+      if r["direction_eligible_n"]:
+       assert np.isclose(r["direction_degradation_rate"],100*r["direction_degradation"]/r["direction_eligible_n"])
+      if key in ["raw","calibration"]:assert r["direction_degradation"]==0
      rows.append(r)
  groups={}
  excluded={"seed","generated_n","scored_n","unknown_n","evidence_pair_n","nuisance_pair_n"}
  for r in rows:groups.setdefault((r["model"],r["task"],r["method"]),[]).append(r)
  summary=[]
  for (model,task,method),rr in groups.items():
-  out={k:v for k,v in rr[0].items() if not isinstance(v,(int,float)) and k!="seed"}
+  out={k:v for k,v in rr[0].items() if not isinstance(v,(int,float)) and v is not None and k!="seed"}
   out["generation_seeds"]=len(rr)
-  for k,v in rr[0].items():
+  if "direction_degradation_rate" in rr[0]:
+   out["direction_defined_seeds"]=sum(x["direction_degradation_rate"] is not None for x in rr)
+  keys=dict.fromkeys(k for x in rr for k,v in x.items() if isinstance(v,(int,float)) or v is None)
+  for k in keys:
    if k=="seed":continue
-   if isinstance(v,(int,float)):
-    if k in excluded:out[k]=v
-    else:
-     vals=[x[k] for x in rr];out[k+"_mean"]=float(np.mean(vals));out[k+"_sd"]=float(np.std(vals,ddof=1))
+   if k in excluded:out[k]=rr[0][k]
+   else:
+    vals=[x[k] for x in rr if x.get(k) is not None]
+    out[k+"_mean"]=float(np.mean(vals)) if vals else None
+    out[k+"_sd"]=float(np.std(vals,ddof=1)) if len(vals)>1 else None
   summary.append(out)
  write_csv(OUT/"medical_extension_seed_metrics.csv",rows)
  write_csv(OUT/"medical_extension_summary.csv",summary)

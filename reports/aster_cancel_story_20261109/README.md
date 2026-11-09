@@ -9,3 +9,5 @@
 七个医学数据集的官方/本地/实测规模、原生划分见4.1。新增五模型、五医学任务、六条件、五种子模拟保存在原[simulated_study](simulated_study/)目录，明确标注预设模拟、待真实评测替换，不覆盖旧结果。
 
 本次仅CPU文档与模拟工作，没有运行真实模型或重复MedPIC实测。
+
+方向退化同时报告退化率及原正向响应分母。医学模拟占位采用共享、随证据变化的修正特征，固定原系数及种子计算，不设定退化数量；旧规则及结果归档在[medical_extension_v1](simulated_study/medical_extension_v1/)。CPU模拟及计分验证已完成，真实五模型评测待执行；用[表格同步脚本](simulated_study/render_medical_extension_tables.py)从CSV更新正文、附录和简版。

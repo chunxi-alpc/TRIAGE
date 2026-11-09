@@ -1,0 +1,151 @@
+{
+  "status": "prespecified_simulation",
+  "notice": "预设模拟，未运行对应模型与数据集，待真实评测替换。",
+  "seeds": [
+    11,
+    22,
+    33,
+    44,
+    55
+  ],
+  "models": {
+    "Qwen3-8B": {
+      "evidence": 1.0,
+      "nuisance": 1.0,
+      "noise": 1.0,
+      "trace_quality": 1.0
+    },
+    "Llama-3.1-8B-Instruct": {
+      "evidence": 0.94,
+      "nuisance": 1.08,
+      "noise": 1.06,
+      "trace_quality": 0.85
+    },
+    "Gemma-2-9B-IT": {
+      "evidence": 1.04,
+      "nuisance": 0.92,
+      "noise": 1.08,
+      "trace_quality": 0.9
+    },
+    "Gemma-3-27B-IT": {
+      "evidence": 1.1,
+      "nuisance": 0.97,
+      "noise": 0.98,
+      "trace_quality": 1.05
+    },
+    "MedGemma-27B": {
+      "evidence": 1.12,
+      "nuisance": 1.02,
+      "noise": 1.04,
+      "trace_quality": 0.98
+    }
+  },
+  "methods": {
+    "raw": {
+      "name": "原模型",
+      "g": 1.0,
+      "a": 1.0,
+      "c": 0.0,
+      "d": 0.0,
+      "b": 0.35
+    },
+    "calibration": {
+      "name": "仅校准",
+      "g": 1.0,
+      "a": 1.0,
+      "c": 0.0,
+      "d": 0.0,
+      "b": 0.0
+    },
+    "unconstrained": {
+      "name": "无证据约束",
+      "g": 0.75,
+      "a": 0.3,
+      "c": 0.25,
+      "d": 0.15,
+      "b": 0.0
+    },
+    "linear": {
+      "name": "线性 ASTER-CR",
+      "g": 0.995,
+      "a": 0.95,
+      "c": -0.1,
+      "d": 0.015,
+      "b": 0.0
+    },
+    "balanced_mlp": {
+      "name": "平衡 MLP",
+      "g": 0.97,
+      "a": 0.72,
+      "c": -0.3,
+      "d": 0.1,
+      "b": 0.0
+    },
+    "protected_mlp": {
+      "name": "强保护 MLP",
+      "g": 0.99,
+      "a": 0.86,
+      "c": -0.16,
+      "d": 0.06,
+      "b": 0.0
+    }
+  },
+  "tasks": {
+    "MedPIC": {
+      "n": 467,
+      "options": 5,
+      "evidence_pairs": 92,
+      "margin": 1.6,
+      "nuisance": 0.9
+    },
+    "MedPAIR": {
+      "n": 898,
+      "options": 5,
+      "margin": 2.5,
+      "nuisance": 0.8
+    },
+    "MedEinst": {
+      "n": 5383,
+      "options": 49,
+      "evidence_pairs": 5383,
+      "margin": 3.2,
+      "trap_margin": 2.1,
+      "nuisance": 0.8
+    },
+    "MedGUIDE": {
+      "n": 7747,
+      "options": 5,
+      "groups": 17,
+      "margin": 2.3,
+      "nuisance": 0.9
+    },
+    "TrialGPT": {
+      "n": 1000,
+      "unknown": 250,
+      "positive_probability": 0.65,
+      "margin": 1.6,
+      "nuisance": 1.0
+    }
+  },
+  "equation": "s_m=g_m E + a_eff N + c_m T + d_m X + B + b_m; a_eff=1-(1-a_m)*trace_quality",
+  "noise": {
+    "evidence_sd": 0.6,
+    "unresolved_sd": 0.35,
+    "trace_sd": 1.0,
+    "extra_sd": 1.0,
+    "addback_sd": 0.08
+  },
+  "semantics": {
+    "methods": "Condition names only, not trained algorithms; no optimizer, search, tuning or ranking filter.",
+    "models": "Model labels index assigned coefficients, not empirical estimates.",
+    "draws": "All six conditions share latent evidence/nuisance/noise/labels within a model-task-seed.",
+    "multiselect": "Independent yes/no score per option; predicted set is scores>0; exact set equality.",
+    "single_choice": "argmax; one shared intercept for all options, hence calibration cannot change ranking.",
+    "MedPIC": "92 synthetic paired cases, option identities aligned; 1-2 labels change; unchanged labels are not nuisance interventions.",
+    "MedPAIR": "Low deletion changes nuisance only by assumption. Key deletion attenuates evidence to 25%. Addback restores evidence/nuisance plus shared N(0,.08) context-order noise. Deletion/addback report margin changes, never post-deletion accuracy.",
+    "MedEinst": "Shared nuisance favours control label in both sides; trap changes gold class. BTR=P(trap predicts control label | control correct).",
+    "TrialGPT": "1000 generated labels include 250 unknown; exclude unknown, retain included/not included and exclusion polarity as criterion satisfaction, not trial eligibility.",
+    "no_pairs": "MedGUIDE/TrialGPT intervention metrics and every task path metric are undefined.",
+    "uncertainty": "Mean and sample SD over five generation seeds only, not model training uncertainty or real confidence intervals."
+  }
+}
