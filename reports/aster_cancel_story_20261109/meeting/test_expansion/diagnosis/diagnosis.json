@@ -1,0 +1,864 @@
+{
+  "protocol": "fit/dev diagnosis only; no old held-out test tuning or test metrics read",
+  "methods": {
+    "raw": {
+      "b": 0.0,
+      "fit_natural_mean_correction": 0.0,
+      "effective_bias_after_centering_correction": 0.0
+    },
+    "old_linear": {
+      "b": 2.6057453599732114,
+      "rank": 16,
+      "lambda_": 0.01,
+      "tau": 0.1,
+      "fit_natural_mean_correction": 0.06065730770799911,
+      "effective_bias_after_centering_correction": 2.6664026676812105
+    },
+    "balanced_fit_ce": {
+      "frozen_name": "optimized_balanced_fit_calibration",
+      "b": -1.1754912780926952,
+      "gain": 0.4364521237158429,
+      "prediction_file": "/home/gcx/aster_optimization_20261109/linear/ensemble_predictions/confirmensemble_combined0031_0p1.npz",
+      "kind": "ensemble",
+      "fit_natural_mean_correction": 0.77436345490718,
+      "effective_bias_after_centering_correction": -0.4011278231855152
+    },
+    "strict_fit_ce": {
+      "frozen_name": "optimized_strict_fit_calibration",
+      "b": 0.7733637134256187,
+      "gain": 0.21822606185792146,
+      "prediction_file": "/home/gcx/aster_optimization_20261109/linear/ensemble_predictions/confirmensemble_combined0031_0p05.npz",
+      "kind": "ensemble",
+      "fit_natural_mean_correction": 0.38718172745359,
+      "effective_bias_after_centering_correction": 1.1605454408792086
+    }
+  },
+  "fit_path_cache": {
+    "available": false,
+    "cases_expected": 1712,
+    "node_records": 0,
+    "note": "existing fit path index files are empty; no fit path accuracy inferred"
+  },
+  "dev_path_cache": {
+    "cases": 420,
+    "node_records": 8312,
+    "all_gold_nodes_scored": true
+  },
+  "summary": {
+    "raw": {
+      "paths": 420,
+      "correct_paths": 384,
+      "error_paths": 36,
+      "unique_first_error_source_nodes": 15,
+      "first_error_sources": 11,
+      "source_counts": {
+        "train_val:1322": 3,
+        "train_val:546": 2,
+        "train_val:1887": 3,
+        "train_val:202": 1,
+        "train_val:2072": 19,
+        "train_val:998": 1,
+        "train_val:2612": 1,
+        "train_val:1775": 2,
+        "train_val:247": 1,
+        "train_val:1475": 1,
+        "train_val:2731": 2
+      },
+      "first_error_margin_bins": {
+        "abs_raw_gt_5": 34,
+        "abs_raw_1_to_3": 2
+      },
+      "first_error_gold_labels": {
+        "1": 32,
+        "0": 4
+      },
+      "gold_node_error_instances": 36,
+      "unique_gold_error_source_nodes": 15,
+      "first_error_repeated_nodes": [
+        {
+          "source_id": "train_val:2072",
+          "gid": "G2",
+          "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+          "paths": 19
+        },
+        {
+          "source_id": "train_val:1322",
+          "gid": "G4",
+          "condition": "是否已在除颤后不间断立即继续CPR（无需评估）？",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:546",
+          "gid": "G51",
+          "condition": "临床分期是否为ⅠB期？",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:1775",
+          "gid": "G8",
+          "condition": "Does the child/adolescent with asthma have ABPA?",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:1322",
+          "gid": "G28",
+          "condition": "是否疑似DVT或PE？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G11",
+          "condition": "Does the individual have at least 2 minor criteria for NF2-related schwannomatosis?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G10",
+          "condition": "Does the individual have at least 1 major criterion for NF2-related schwannomatosis?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G23",
+          "condition": "In unaffected tissue such as blood or skin, is there a pathogenic variant in SMARCB1 or LZTR1?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:202",
+          "gid": "G0",
+          "condition": "当前分离的革兰阴性菌株是否为碳青霉烯类耐药革兰阴性菌（CRO），即对亚胺培南、美罗培南、厄他培南或多利培南中任一种药物药敏试验结果为耐药，或检测到产生碳青霉烯酶？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:998",
+          "gid": "G0",
+          "condition": "儿童是否存在维生素A或维生素D缺乏的高危疾病或营养状态（反复呼吸道感染RRTIs、慢性腹泻、缺铁性贫血或铁缺乏高危、营养不良等慢性病、维生素D缺乏性佝偻病）？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2612",
+          "gid": "G25",
+          "condition": "Is the planned statin co-therapy pravastatin at a dose >40 mg/day?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:247",
+          "gid": "G23",
+          "condition": "Is the patient currently free of neurological symptoms but at risk for HE due to decompensated cirrhosis or prior covert HE?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1475",
+          "gid": "G0",
+          "condition": "Is a causative (disease-causing) gene identified for the patient's condition?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2731",
+          "gid": "G9",
+          "condition": "Is eGFR <30 ml/min/1.73 m² AND does the patient have a mutation consistent with pyridoxine responsiveness?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2731",
+          "gid": "G37",
+          "condition": "Is there no ongoing clinical disease (no ongoing stone disease/nephrocalcinosis/renal impairment)?",
+          "paths": 1
+        }
+      ],
+      "raw_wrong_with_correct_AP_endpoint_first_errors": 4,
+      "first_error_AP_covered": 7
+    },
+    "old_linear": {
+      "paths": 420,
+      "correct_paths": 384,
+      "error_paths": 36,
+      "unique_first_error_source_nodes": 15,
+      "first_error_sources": 11,
+      "source_counts": {
+        "train_val:1322": 3,
+        "train_val:546": 2,
+        "train_val:1887": 3,
+        "train_val:202": 1,
+        "train_val:2072": 19,
+        "train_val:998": 1,
+        "train_val:2612": 1,
+        "train_val:1775": 2,
+        "train_val:247": 1,
+        "train_val:1475": 1,
+        "train_val:2731": 2
+      },
+      "first_error_margin_bins": {
+        "abs_raw_gt_5": 34,
+        "abs_raw_1_to_3": 1,
+        "abs_raw_le_1": 1
+      },
+      "first_error_gold_labels": {
+        "1": 31,
+        "0": 5
+      },
+      "gold_node_error_instances": 36,
+      "unique_gold_error_source_nodes": 15,
+      "first_error_repeated_nodes": [
+        {
+          "source_id": "train_val:2072",
+          "gid": "G2",
+          "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+          "paths": 19
+        },
+        {
+          "source_id": "train_val:1322",
+          "gid": "G4",
+          "condition": "是否已在除颤后不间断立即继续CPR（无需评估）？",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:546",
+          "gid": "G51",
+          "condition": "临床分期是否为ⅠB期？",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:1775",
+          "gid": "G8",
+          "condition": "Does the child/adolescent with asthma have ABPA?",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:1322",
+          "gid": "G28",
+          "condition": "是否疑似DVT或PE？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G11",
+          "condition": "Does the individual have at least 2 minor criteria for NF2-related schwannomatosis?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G10",
+          "condition": "Does the individual have at least 1 major criterion for NF2-related schwannomatosis?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G19",
+          "condition": "Does testing of unaffected tissue and at least 2 anatomically distinct tumors fail to reveal a pathogenic variant in known schwannomatosis-related genes?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:202",
+          "gid": "G0",
+          "condition": "当前分离的革兰阴性菌株是否为碳青霉烯类耐药革兰阴性菌（CRO），即对亚胺培南、美罗培南、厄他培南或多利培南中任一种药物药敏试验结果为耐药，或检测到产生碳青霉烯酶？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:998",
+          "gid": "G0",
+          "condition": "儿童是否存在维生素A或维生素D缺乏的高危疾病或营养状态（反复呼吸道感染RRTIs、慢性腹泻、缺铁性贫血或铁缺乏高危、营养不良等慢性病、维生素D缺乏性佝偻病）？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2612",
+          "gid": "G25",
+          "condition": "Is the planned statin co-therapy pravastatin at a dose >40 mg/day?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:247",
+          "gid": "G23",
+          "condition": "Is the patient currently free of neurological symptoms but at risk for HE due to decompensated cirrhosis or prior covert HE?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1475",
+          "gid": "G0",
+          "condition": "Is a causative (disease-causing) gene identified for the patient's condition?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2731",
+          "gid": "G9",
+          "condition": "Is eGFR <30 ml/min/1.73 m² AND does the patient have a mutation consistent with pyridoxine responsiveness?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2731",
+          "gid": "G37",
+          "condition": "Is there no ongoing clinical disease (no ongoing stone disease/nephrocalcinosis/renal impairment)?",
+          "paths": 1
+        }
+      ],
+      "raw_wrong_with_correct_AP_endpoint_first_errors": 3,
+      "first_error_AP_covered": 6
+    },
+    "balanced_fit_ce": {
+      "paths": 420,
+      "correct_paths": 383,
+      "error_paths": 37,
+      "unique_first_error_source_nodes": 16,
+      "first_error_sources": 11,
+      "source_counts": {
+        "train_val:1322": 3,
+        "train_val:546": 2,
+        "train_val:1887": 4,
+        "train_val:202": 1,
+        "train_val:2072": 19,
+        "train_val:998": 1,
+        "train_val:2612": 1,
+        "train_val:1775": 2,
+        "train_val:247": 1,
+        "train_val:1475": 1,
+        "train_val:2731": 2
+      },
+      "first_error_margin_bins": {
+        "abs_raw_gt_5": 34,
+        "abs_raw_1_to_3": 2,
+        "abs_raw_le_1": 1
+      },
+      "first_error_gold_labels": {
+        "1": 32,
+        "0": 5
+      },
+      "gold_node_error_instances": 37,
+      "unique_gold_error_source_nodes": 16,
+      "first_error_repeated_nodes": [
+        {
+          "source_id": "train_val:2072",
+          "gid": "G2",
+          "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+          "paths": 19
+        },
+        {
+          "source_id": "train_val:1322",
+          "gid": "G4",
+          "condition": "是否已在除颤后不间断立即继续CPR（无需评估）？",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:546",
+          "gid": "G51",
+          "condition": "临床分期是否为ⅠB期？",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:1775",
+          "gid": "G8",
+          "condition": "Does the child/adolescent with asthma have ABPA?",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:1322",
+          "gid": "G28",
+          "condition": "是否疑似DVT或PE？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G11",
+          "condition": "Does the individual have at least 2 minor criteria for NF2-related schwannomatosis?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G10",
+          "condition": "Does the individual have at least 1 major criterion for NF2-related schwannomatosis?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G23",
+          "condition": "In unaffected tissue such as blood or skin, is there a pathogenic variant in SMARCB1 or LZTR1?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G19",
+          "condition": "Does testing of unaffected tissue and at least 2 anatomically distinct tumors fail to reveal a pathogenic variant in known schwannomatosis-related genes?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:202",
+          "gid": "G0",
+          "condition": "当前分离的革兰阴性菌株是否为碳青霉烯类耐药革兰阴性菌（CRO），即对亚胺培南、美罗培南、厄他培南或多利培南中任一种药物药敏试验结果为耐药，或检测到产生碳青霉烯酶？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:998",
+          "gid": "G0",
+          "condition": "儿童是否存在维生素A或维生素D缺乏的高危疾病或营养状态（反复呼吸道感染RRTIs、慢性腹泻、缺铁性贫血或铁缺乏高危、营养不良等慢性病、维生素D缺乏性佝偻病）？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2612",
+          "gid": "G25",
+          "condition": "Is the planned statin co-therapy pravastatin at a dose >40 mg/day?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:247",
+          "gid": "G23",
+          "condition": "Is the patient currently free of neurological symptoms but at risk for HE due to decompensated cirrhosis or prior covert HE?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1475",
+          "gid": "G0",
+          "condition": "Is a causative (disease-causing) gene identified for the patient's condition?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2731",
+          "gid": "G9",
+          "condition": "Is eGFR <30 ml/min/1.73 m² AND does the patient have a mutation consistent with pyridoxine responsiveness?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2731",
+          "gid": "G37",
+          "condition": "Is there no ongoing clinical disease (no ongoing stone disease/nephrocalcinosis/renal impairment)?",
+          "paths": 1
+        }
+      ],
+      "raw_wrong_with_correct_AP_endpoint_first_errors": 4,
+      "first_error_AP_covered": 7
+    },
+    "strict_fit_ce": {
+      "paths": 420,
+      "correct_paths": 383,
+      "error_paths": 37,
+      "unique_first_error_source_nodes": 16,
+      "first_error_sources": 11,
+      "source_counts": {
+        "train_val:1322": 3,
+        "train_val:546": 2,
+        "train_val:1887": 4,
+        "train_val:202": 1,
+        "train_val:2072": 19,
+        "train_val:998": 1,
+        "train_val:2612": 1,
+        "train_val:1775": 2,
+        "train_val:247": 1,
+        "train_val:1475": 1,
+        "train_val:2731": 2
+      },
+      "first_error_margin_bins": {
+        "abs_raw_gt_5": 34,
+        "abs_raw_1_to_3": 2,
+        "abs_raw_le_1": 1
+      },
+      "first_error_gold_labels": {
+        "1": 32,
+        "0": 5
+      },
+      "gold_node_error_instances": 37,
+      "unique_gold_error_source_nodes": 16,
+      "first_error_repeated_nodes": [
+        {
+          "source_id": "train_val:2072",
+          "gid": "G2",
+          "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+          "paths": 19
+        },
+        {
+          "source_id": "train_val:1322",
+          "gid": "G4",
+          "condition": "是否已在除颤后不间断立即继续CPR（无需评估）？",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:546",
+          "gid": "G51",
+          "condition": "临床分期是否为ⅠB期？",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:1775",
+          "gid": "G8",
+          "condition": "Does the child/adolescent with asthma have ABPA?",
+          "paths": 2
+        },
+        {
+          "source_id": "train_val:1322",
+          "gid": "G28",
+          "condition": "是否疑似DVT或PE？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G11",
+          "condition": "Does the individual have at least 2 minor criteria for NF2-related schwannomatosis?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G10",
+          "condition": "Does the individual have at least 1 major criterion for NF2-related schwannomatosis?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G23",
+          "condition": "In unaffected tissue such as blood or skin, is there a pathogenic variant in SMARCB1 or LZTR1?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1887",
+          "gid": "G19",
+          "condition": "Does testing of unaffected tissue and at least 2 anatomically distinct tumors fail to reveal a pathogenic variant in known schwannomatosis-related genes?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:202",
+          "gid": "G0",
+          "condition": "当前分离的革兰阴性菌株是否为碳青霉烯类耐药革兰阴性菌（CRO），即对亚胺培南、美罗培南、厄他培南或多利培南中任一种药物药敏试验结果为耐药，或检测到产生碳青霉烯酶？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:998",
+          "gid": "G0",
+          "condition": "儿童是否存在维生素A或维生素D缺乏的高危疾病或营养状态（反复呼吸道感染RRTIs、慢性腹泻、缺铁性贫血或铁缺乏高危、营养不良等慢性病、维生素D缺乏性佝偻病）？",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2612",
+          "gid": "G25",
+          "condition": "Is the planned statin co-therapy pravastatin at a dose >40 mg/day?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:247",
+          "gid": "G23",
+          "condition": "Is the patient currently free of neurological symptoms but at risk for HE due to decompensated cirrhosis or prior covert HE?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:1475",
+          "gid": "G0",
+          "condition": "Is a causative (disease-causing) gene identified for the patient's condition?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2731",
+          "gid": "G9",
+          "condition": "Is eGFR <30 ml/min/1.73 m² AND does the patient have a mutation consistent with pyridoxine responsiveness?",
+          "paths": 1
+        },
+        {
+          "source_id": "train_val:2731",
+          "gid": "G37",
+          "condition": "Is there no ongoing clinical disease (no ongoing stone disease/nephrocalcinosis/renal impairment)?",
+          "paths": 1
+        }
+      ],
+      "raw_wrong_with_correct_AP_endpoint_first_errors": 4,
+      "first_error_AP_covered": 7
+    }
+  },
+  "case_transitions_vs_raw": {
+    "old_linear": {
+      "corrected_cases": [
+        "mega:train_val:918:11"
+      ],
+      "new_error_cases": [
+        "mega:train_val:918:15"
+      ],
+      "same_error_cases": [
+        "mega:train_val:1322:15",
+        "mega:train_val:379:5",
+        "mega:train_val:379:6",
+        "mega:train_val:546:28",
+        "mega:train_val:546:29",
+        "mega:train_val:918:6",
+        "mega:train_val:918:7",
+        "mega:train_val:202:9",
+        "mega:train_val:2072:1",
+        "mega:train_val:2072:2",
+        "mega:train_val:2072:3",
+        "mega:train_val:2072:4",
+        "mega:train_val:2072:5",
+        "mega:train_val:2072:6",
+        "mega:train_val:2072:7",
+        "mega:train_val:2072:8",
+        "mega:train_val:2072:9",
+        "mega:train_val:2072:10",
+        "mega:train_val:2072:11",
+        "mega:train_val:2072:12",
+        "mega:train_val:2072:13",
+        "mega:train_val:2072:14",
+        "mega:train_val:2072:15",
+        "mega:train_val:2072:16",
+        "mega:train_val:2072:17",
+        "mega:train_val:2072:18",
+        "mega:train_val:2072:19",
+        "mega:train_val:998:14",
+        "mega:train_val:2612:13",
+        "mega:train_val:1775:12",
+        "mega:train_val:1775:13",
+        "mega:train_val:247:16",
+        "mega:train_val:1475:10",
+        "mega:train_val:2731:4",
+        "mega:train_val:2731:17"
+      ]
+    },
+    "balanced_fit_ce": {
+      "corrected_cases": [],
+      "new_error_cases": [
+        "mega:train_val:918:15"
+      ],
+      "same_error_cases": [
+        "mega:train_val:1322:15",
+        "mega:train_val:379:5",
+        "mega:train_val:379:6",
+        "mega:train_val:546:28",
+        "mega:train_val:546:29",
+        "mega:train_val:918:6",
+        "mega:train_val:918:7",
+        "mega:train_val:918:11",
+        "mega:train_val:202:9",
+        "mega:train_val:2072:1",
+        "mega:train_val:2072:2",
+        "mega:train_val:2072:3",
+        "mega:train_val:2072:4",
+        "mega:train_val:2072:5",
+        "mega:train_val:2072:6",
+        "mega:train_val:2072:7",
+        "mega:train_val:2072:8",
+        "mega:train_val:2072:9",
+        "mega:train_val:2072:10",
+        "mega:train_val:2072:11",
+        "mega:train_val:2072:12",
+        "mega:train_val:2072:13",
+        "mega:train_val:2072:14",
+        "mega:train_val:2072:15",
+        "mega:train_val:2072:16",
+        "mega:train_val:2072:17",
+        "mega:train_val:2072:18",
+        "mega:train_val:2072:19",
+        "mega:train_val:998:14",
+        "mega:train_val:2612:13",
+        "mega:train_val:1775:12",
+        "mega:train_val:1775:13",
+        "mega:train_val:247:16",
+        "mega:train_val:1475:10",
+        "mega:train_val:2731:4",
+        "mega:train_val:2731:17"
+      ]
+    },
+    "strict_fit_ce": {
+      "corrected_cases": [],
+      "new_error_cases": [
+        "mega:train_val:918:15"
+      ],
+      "same_error_cases": [
+        "mega:train_val:1322:15",
+        "mega:train_val:379:5",
+        "mega:train_val:379:6",
+        "mega:train_val:546:28",
+        "mega:train_val:546:29",
+        "mega:train_val:918:6",
+        "mega:train_val:918:7",
+        "mega:train_val:918:11",
+        "mega:train_val:202:9",
+        "mega:train_val:2072:1",
+        "mega:train_val:2072:2",
+        "mega:train_val:2072:3",
+        "mega:train_val:2072:4",
+        "mega:train_val:2072:5",
+        "mega:train_val:2072:6",
+        "mega:train_val:2072:7",
+        "mega:train_val:2072:8",
+        "mega:train_val:2072:9",
+        "mega:train_val:2072:10",
+        "mega:train_val:2072:11",
+        "mega:train_val:2072:12",
+        "mega:train_val:2072:13",
+        "mega:train_val:2072:14",
+        "mega:train_val:2072:15",
+        "mega:train_val:2072:16",
+        "mega:train_val:2072:17",
+        "mega:train_val:2072:18",
+        "mega:train_val:2072:19",
+        "mega:train_val:998:14",
+        "mega:train_val:2612:13",
+        "mega:train_val:1775:12",
+        "mega:train_val:1775:13",
+        "mega:train_val:247:16",
+        "mega:train_val:1475:10",
+        "mega:train_val:2731:4",
+        "mega:train_val:2731:17"
+      ]
+    }
+  },
+  "observations": {
+    "all_gold_node_instances": 2568,
+    "gold_node_error_union": 37,
+    "all_four_wrong_gold_instances": 35,
+    "all_four_wrong_unique_source_nodes": 14
+  },
+  "semantic_labeling_note": "Tags report only observed scores, exact-input A/P experiments, and quoted existing data. They do not claim an internal reading failure or validated clinical cause.",
+  "seconds": 3.404829740524292,
+  "fit_dev_natural_nodes": {
+    "fit": {
+      "raw": {
+        "n": 761,
+        "correct": 754,
+        "error_count": 7,
+        "error_view_ids": [
+          "new-388-G15:full",
+          "new-721-G13:full",
+          "new-2744-G3:full",
+          "new-1716-G33:full",
+          "new-2528-G34:full",
+          "new-1080-G30:full",
+          "new-1838-G24:full"
+        ]
+      },
+      "old_linear": {
+        "n": 761,
+        "correct": 755,
+        "error_count": 6,
+        "error_view_ids": [
+          "new-388-G15:full",
+          "new-721-G13:full",
+          "new-2744-G3:full",
+          "new-2528-G34:full",
+          "new-1080-G30:full",
+          "new-1838-G24:full"
+        ]
+      },
+      "balanced_fit_ce": {
+        "n": 761,
+        "correct": 755,
+        "error_count": 6,
+        "error_view_ids": [
+          "new-388-G15:full",
+          "new-721-G13:full",
+          "new-2744-G3:full",
+          "new-2528-G34:full",
+          "new-1080-G30:full",
+          "new-1838-G24:full"
+        ]
+      },
+      "strict_fit_ce": {
+        "n": 761,
+        "correct": 755,
+        "error_count": 6,
+        "error_view_ids": [
+          "new-388-G15:full",
+          "new-721-G13:full",
+          "new-2744-G3:full",
+          "new-2528-G34:full",
+          "new-1080-G30:full",
+          "new-1838-G24:full"
+        ]
+      }
+    },
+    "dev": {
+      "raw": {
+        "n": 199,
+        "correct": 195,
+        "error_count": 4,
+        "error_view_ids": [
+          "new-1322-G28:full",
+          "new-918-G23:full",
+          "new-1775-G8:full",
+          "new-247-G23:full"
+        ]
+      },
+      "old_linear": {
+        "n": 199,
+        "correct": 196,
+        "error_count": 3,
+        "error_view_ids": [
+          "new-1322-G28:full",
+          "new-1775-G8:full",
+          "new-247-G23:full"
+        ]
+      },
+      "balanced_fit_ce": {
+        "n": 199,
+        "correct": 195,
+        "error_count": 4,
+        "error_view_ids": [
+          "new-1322-G28:full",
+          "new-918-G23:full",
+          "new-1775-G8:full",
+          "new-247-G23:full"
+        ]
+      },
+      "strict_fit_ce": {
+        "n": 199,
+        "correct": 195,
+        "error_count": 4,
+        "error_view_ids": [
+          "new-1322-G28:full",
+          "new-918-G23:full",
+          "new-1775-G8:full",
+          "new-247-G23:full"
+        ]
+      }
+    }
+  },
+  "supported_raw_first_error_partition": {
+    "confident_error_without_observed_AP_repair": 31,
+    "near_threshold_without_observed_AP_repair": 1,
+    "same_evidence_AP_prediction_change_observed": 4
+  },
+  "dominant_supported_error_family": {
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "error_paths": 19,
+    "share_of_raw_error_paths": 0.5277777777777778,
+    "question": "PMA at initial examination >=31+0weeks",
+    "explicit_PMA_min_weeks": 34.142857142857146,
+    "explicit_PMA_max_weeks": 35.857142857142854,
+    "all_literal_values_meet_threshold": true
+  },
+  "reference_wording_review_examples": [
+    {
+      "case_id": "mega:train_val:1475:10",
+      "view_id": null,
+      "category": "reference_text_mismatch_requires_review",
+      "quote": "the finding was not consistent with a disease-causing gene for a monogenic disorder",
+      "note": "The reference label is yes for a causative gene, while this clause rejects a disease-causing monogenic finding. Flag for source/reference review; do not count it as proven evidence-reading failure."
+    },
+    {
+      "case_id": "mega:train_val:1322:15",
+      "view_id": null,
+      "category": "temporal_status_requires_review",
+      "quote": "临床上曾一度怀疑存在深静脉血栓形成或肺栓塞的可能，但随后已通过客观检测将DVT/PE诊断排除。",
+      "note": "The condition asks whether DVT/PE is suspected; the patient states prior suspicion followed by exclusion. The intended time point needs review."
+    },
+    {
+      "case_id": "mega:train_val:2731:17",
+      "view_id": null,
+      "category": "explicit_text_contradiction_requires_review",
+      "quote": "There were no features of an active clinical phenotype, with no ongoing stone disease, nephrocalcinosis, or renal impairment documented, and it was also not the case that there was no ongoing clinical disease.",
+      "note": "The same sentence asserts no ongoing manifestations and then negates no ongoing disease. Flag the input/reference wording before attributing the error to the model."
+    },
+    {
+      "case_id": null,
+      "view_id": "new-388-G15:full",
+      "category": "reference_text_mismatch_requires_review",
+      "quote": "血清总IgE并未低于 1000 U/mL（仍为 1280 U/mL），因此不符合",
+      "note": "The saved label is yes, but1280 is not below1000 and the text explicitly says the condition is not met. This is a direct arithmetic/reference conflict requiring review. No label changed here."
+    }
+  ],
+  "minimal_next_step": {
+    "method": "evidence_alignment_v1",
+    "candidate_count": 1,
+    "implementation": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment.py",
+    "manifest": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.dev_full_gold.jsonl",
+    "full_dev_gold_nodes": 2568,
+    "fit_natural_nodes": 761,
+    "construction": "Before the original answer cue, copy the top1 lexical-match patient sentence and insert one fixed general instruction to align variable, time point, units/threshold and negation. Entire original rule/patient/condition remains; no gold or facts annotations are injected.",
+    "gpu_execution_owner": "/root/neural_search",
+    "gpu_experiments_started_by_diagnosis": false,
+    "supporting_CPU_result": "Separate verbatim retrieval prototype found explicit postmenstrual-age evidence as top1 for19/19 dominant-family errors. No classification gain inferred from retrieval.",
+    "restrictions": "Do not alter already frozen expanded-test configurations based on old held-out results; verify the single candidate on all dev gold nodes and fit calibration first.",
+    "finalized_before_GPU_candidate_scoring": true
+  }
+}

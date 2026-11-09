@@ -11,3 +11,11 @@
 3,100 个留出测试输入、806 条真实路径、核心消融和三种子非线性对照已完成；测试集此前用于旧版方案评价。医生抽样核验仍待完成。其余文件仅保存配套数据、图片与复算材料；有约束拟合与实际结果见 [meeting/evidence_preserving](meeting/evidence_preserving/)。
 
 缓存优化扩展见正文第 8.10 节：平衡配置测试 VR=14.59%、ER=99.77%、证据修正 RMS=0.2403、路径768/806；较强保护配置 VR=8.02%、证据修正 RMS=0.1201。完整搜索、模型和校准消融见 [optimization](meeting/optimization/)。
+
+<!-- aster-official-expansion-readme:start -->
+官方 test 扩展见正文第 8.11 节，覆盖 7,458 条路径。开发集错因、所有固定方法的路径及叶节点结果、来源分组和配对差值区间见 [test_expansion](meeting/test_expansion/)。原 806 条留出测试与模拟结果保留原口径。
+<!-- aster-official-expansion-readme:end -->
+
+<!-- aster-primary-full-readme:start -->
+主方法全量真实任务的已完成结果与待完成阶段见正文第8.12节及 [primary_full](meeting/primary_full/)。NLI为零样本迁移，MEGA train_val保留既有fit/dev/原测试分组；缺少真实数据的三段论仅保留模拟。
+<!-- aster-primary-full-readme:end -->

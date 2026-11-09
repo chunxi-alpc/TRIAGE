@@ -1,0 +1,67 @@
+{
+  "created_utc": "2026-11-09 08:48:01",
+  "request": "Prioritize main methods; complete all prepared paper datasets and labeled splits",
+  "gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "expected_memory_gib_per_gpu": [
+    16,
+    20
+  ],
+  "expected_runtime_hours": [
+    3,
+    8
+  ],
+  "results_root": "/home/gcx/aster_next_20261109/primary_results",
+  "frozen_manifest": "/home/gcx/aster_next_20261109/frozen_methods.json",
+  "new_training": false,
+  "extra_prompt_control": "paused; earlier partial records retained",
+  "methods": [
+    "raw",
+    "old_linear",
+    "optimized_balanced_fit_calibration",
+    "fit_bias_only",
+    "optimized_strict_fit_calibration",
+    "trace_only_balanced_fit_calibration"
+  ],
+  "stages": [
+    {
+      "name": "mega_official_test",
+      "dataset": "MEGA-CDP",
+      "split": "official_test",
+      "kind": "path",
+      "cases": "/home/gcx/aster_next_20261109/inventory/official_all_path_cases.jsonl",
+      "expected": 7458,
+      "fit_status": "held-out"
+    },
+    {
+      "name": "nli4ct_all",
+      "dataset": "NLI4CT-2024",
+      "split": "train/dev/practice_test/official_test separately",
+      "kind": "binary",
+      "cases": "/home/gcx/aster_next_20261109/inventory/nli4ct_all_cases.jsonl",
+      "expected": 9542,
+      "fit_status": "zero-shot transfer of MEGA-CDP-fitted correction"
+    },
+    {
+      "name": "mega_train_val",
+      "dataset": "MEGA-CDP",
+      "split": "train_val; current fit/dev/old_test/remaining cases separately",
+      "kind": "path",
+      "cases": "/home/gcx/aster_next_20261109/inventory/train_val_path_cases.jsonl",
+      "expected": 34895,
+      "fit_status": "contains previously used fit/dev; not a new held-out test"
+    }
+  ],
+  "total_records": 51895,
+  "missing_data": [
+    {
+      "dataset": "syllogism validity",
+      "reason": "Only existing simulated results found; no prepared real dataset located"
+    }
+  ],
+  "nli4ct_note": "9542 labeled records; 9342 unique native IDs; 200 dev IDs also occur in practice. Report splits separately."
+}

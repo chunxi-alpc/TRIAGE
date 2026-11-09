@@ -1,0 +1,36 @@
+{
+  "method": "evidence_alignment_v1",
+  "candidate_count": 1,
+  "instruction": "请在作答前逐项核对当前条件与病例中的对应证据：\n1. 对齐变量名称。不要将名称相近但含义不同的指标相互替代。\n2. 对齐时间点。区分出生时、既往、当前、初次检查和复查；使用当前条件指定时间点的证据。\n3. 对齐单位与比较关系。核对数值、单位、阈值及大于、小于、包含端点等关系。\n4. 核对复合条件与否定。分别核对各分句，再按“并且”“或者”“不”“未”等原有关系判断；不要忽略否定的作用范围。\n5. 当前判断依据是当前条件、相关定义和病例事实。后续处置或其他节点的结论不能代替这些证据。\n保留原任务的答案标签，只输出“是”或“否”。",
+  "retrieval": {
+    "topk": 1,
+    "method": "fixed per-input lexical TF-IDF with English unigrams/bigrams and Chinese character bigrams",
+    "quotes": "exact patient substrings"
+  },
+  "construction": "Before the answer cue, insert one patient sentence selected by fixed lexical TF-IDF matching to the current condition plus the fixed alignment instruction. The entire original guideline, definitions, patient and condition remain. No gold/facts annotation or model score enters construction",
+  "selection_scope": "fit/dev only; focused dev nodes were identified in the development error diagnosis",
+  "manifests": {
+    "fit_natural": {
+      "path": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.fit_natural.jsonl",
+      "rows": 761
+    },
+    "dev_natural": {
+      "path": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.dev_natural.jsonl",
+      "rows": 199
+    },
+    "dev_focus": {
+      "path": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.dev_focus.jsonl",
+      "rows": 19
+    },
+    "dev_short": {
+      "path": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.dev_short.jsonl",
+      "rows": 218
+    },
+    "dev_full_gold": {
+      "path": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.dev_full_gold.jsonl",
+      "rows": 2568
+    }
+  },
+  "run_scope": "Single final candidate updated before any GPU candidate scoring; neural_search confirmed no candidate run had started. No GPU/model forward executed by this builder.",
+  "evaluation_note": "Report natural and diagnostic-focus results separately; full path accuracy requires scoring all dev gold nodes or all reachable nodes. Short-list accuracy is not path accuracy."
+}

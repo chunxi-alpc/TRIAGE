@@ -1,0 +1,234 @@
+{
+  "scope": "Paper tasks are MEGA-CDP, NLI4CT (available 2024 version), and syllogism validity; other local datasets are inventory, not claimed completed main-method evaluations.",
+  "records": [
+    {
+      "name": "MEGA-CDP",
+      "splits": {
+        "train_val": 34895,
+        "official_test": 7458
+      },
+      "unit": "generated case/reference path",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/experiments/aster_cr/paths.py:execute; current frozen inference/run.py",
+      "missing": [],
+      "paper_task": true,
+      "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--nchennnn--MEGA-CDP/snapshots/8f058c88ce1ed43693785b435ad0ff99907a2890",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "NLI4CT-2024",
+      "splits": {
+        "train": 1700,
+        "dev": 200,
+        "test": 5500,
+        "practice_test": 2142
+      },
+      "unit": "NLI statement",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/experiments/aster_cr/repair/external.py:nli4ct/evaluate_external; binary zero-shot adapter being prepared",
+      "missing": [
+        "Current main method must be reported as zero-shot transfer, not a new NLI fit."
+      ],
+      "paper_task": true,
+      "path": "/home/gcx/TRIAGE/data/NLI4CT-2024",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "NLI4CT",
+      "splits": {},
+      "unit": "legacy 2023 version",
+      "ready": false,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "Legacy download is partial/skipped; NLI4CT-2024 is complete and substitutes the native task."
+      ],
+      "paper_task": false,
+      "path": null,
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "MedGUIDE",
+      "splits": {
+        "train": 7747
+      },
+      "unit": "multiple-choice question",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "No currently frozen native multiple-choice output adapter for the main binary correction."
+      ],
+      "paper_task": false,
+      "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--MedGUIDE--MedGUIDE-MCQA-8K/snapshots/1460ec478280a7295040b92f7eb985327f77dcbe",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "MedCalc-Bench",
+      "splits": {
+        "train": 10543,
+        "test": 1100
+      },
+      "unit": "numeric calculation question",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "Requires native numeric-answer scoring/tolerance; no direct path or NLI binary evaluation."
+      ],
+      "paper_task": false,
+      "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--ncbi--MedCalc-Bench/snapshots/83a1a56d6b53f8d4c0e03f0ba9699becf524a595",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "MedPIC-Bench",
+      "splits": {
+        "test": 467
+      },
+      "unit": "multi-select question",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/experiments/aster_cr/repair/external.py:medpic/evaluate_external",
+      "missing": [
+        "Prepared native items/pairs exist, but current main correction needs native multi-select output adaptation."
+      ],
+      "paper_task": false,
+      "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--TIM0927--MedPIC-Bench/snapshots/9ef6db4f13865b14fc2e6be3f94dcfaf3a0cf983",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "FaithEval-inconsistent",
+      "splits": {
+        "test": 1500
+      },
+      "unit": "contextual QA item",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "Text-answer task, no current main-method native QA output adapter."
+      ],
+      "paper_task": false,
+      "path": "/home/gcx/TRIAGE/data/FaithEval-inconsistent",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "FaithEval-counterfactual",
+      "splits": {
+        "test": 1000
+      },
+      "unit": "contextual QA item",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "Text-answer task, no current main-method native QA output adapter."
+      ],
+      "paper_task": false,
+      "path": "/home/gcx/TRIAGE/data/FaithEval-counterfactual",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "FaithEval-unanswerable",
+      "splits": {
+        "test": 2492
+      },
+      "unit": "contextual QA item",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "Answerability/text-output scoring must be adapted explicitly."
+      ],
+      "paper_task": false,
+      "path": "/home/gcx/TRIAGE/data/FaithEval-unanswerable",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "ConflictMedQA",
+      "splits": {
+        "original": 4290,
+        "v2": 4290
+      },
+      "unit": "QA version record",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "Original/v2 are versions, not automatically 8580 independent cases; native answer adapter absent."
+      ],
+      "paper_task": false,
+      "path": "/home/gcx/TRIAGE/data/.hf_cache/datasets--RDBH--DriftMed/snapshots/5dcfe380f49c6f17f3c6ba5e25e0e958f9642f0e",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "MedChangeQA",
+      "splits": {
+        "test": 512
+      },
+      "unit": "QA row",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "Native newest-answer scoring needed; no current main-method output adapter."
+      ],
+      "paper_task": false,
+      "path": "/home/gcx/TRIAGE/data/MedChangeQA",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "ClashEval",
+      "splits": {
+        "test": 10179
+      },
+      "unit": "contextual QA row",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "Native original/modified-answer scoring needed; no current main-method output adapter."
+      ],
+      "paper_task": false,
+      "path": "/home/gcx/TRIAGE/data/ClashEval",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "ConFiQA",
+      "splits": {
+        "MC": 6000,
+        "MR": 6000,
+        "QA": 6000
+      },
+      "unit": "task-format record",
+      "ready": true,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "Three task formats are not assumed independent cases; native output adapter needed."
+      ],
+      "paper_task": false,
+      "path": "/home/gcx/TRIAGE/data/ConFiQA",
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "syllogism_validity",
+      "splits": {},
+      "unit": "logical validity example",
+      "ready": false,
+      "direct_evaluation": null,
+      "missing": [
+        "Only paper simulations found; no released real syllogism dataset or real evaluation manifest present."
+      ],
+      "paper_task": true,
+      "path": null,
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    },
+    {
+      "name": "MedNLI",
+      "splits": {},
+      "unit": "NLI statement",
+      "ready": false,
+      "direct_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset",
+      "missing": [
+        "No local dataset; existing download config marks credentialed access as skipped."
+      ],
+      "paper_task": false,
+      "path": null,
+      "reader": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/src/data_loader.py:load_dataset"
+    }
+  ],
+  "counts_source": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/configs/datasets.json",
+  "prepared_external_root": "/home/gcx/aster_cr_repair_v2_run_20261108/external",
+  "no_accuracy_files_read": true,
+  "no_new_datasets_downloaded": true
+}

@@ -1,0 +1,88 @@
+{
+  "dataset": "MEGA-CDP",
+  "raw_dataset_root": "/home/gcx/TRIAGE/data/MEGA-CDP",
+  "description": "Generated case vignettes paired with guideline reference paths, not independently sampled real patients",
+  "totals": {
+    "train_val": {
+      "trees": 1834,
+      "cases": 34895,
+      "reference_paths": 34895,
+      "source_clusters": 1524
+    },
+    "test": {
+      "trees": 440,
+      "cases": 7458,
+      "reference_paths": 7458,
+      "source_clusters": 418
+    }
+  },
+  "all_trees": 2274,
+  "all_cases": 42353,
+  "all_reference_paths": 42353,
+  "all_source_clusters": 1898,
+  "current_paths": {
+    "fit": 1712,
+    "dev": 420,
+    "test": 806
+  },
+  "official_manifest": {
+    "path": "/home/gcx/aster_next_20261109/inventory/path_cases.jsonl",
+    "cases": 7458,
+    "trees": 440,
+    "source_clusters": 418,
+    "current_role_sources": {
+      "none": 418
+    },
+    "history_cases": {
+      "no_recorded_input_use": 7286,
+      "earlier_recorded_source": 172
+    },
+    "history_source_clusters": {
+      "no_recorded_input_use": 410,
+      "earlier_recorded_source": 8
+    },
+    "gold_decision_nodes": 45627,
+    "all_reachable_case_node_contexts": 152066,
+    "conversion_errors": []
+  },
+  "extra_trainval_without_recorded_prior_or_current_source_use": {
+    "source_clusters": 1206,
+    "trees": 1342,
+    "cases": 25430
+  },
+  "historical_notes": [
+    "Earlier source history uses existing history_usage.json; official_test_clusters declaration alone is not counted as actual earlier input use.",
+    "No current fit/dev/old-test source overlaps are hidden: current_source_role is recorded per case and source.",
+    "No new review of every historical directory; no claim that no_recorded_input_use means never seen anywhere.",
+    "The total counts describe benchmark vignettes and paths; no independent real-patient sample count is provided."
+  ],
+  "generator": "/home/gcx/aster_next_20261109/inventory/prepare_official.py",
+  "seconds": 3.8861770629882812,
+  "published_tree_complete_path_enumeration": {
+    "train_val": {
+      "root_to_leaf_paths": 34895,
+      "decision_nodes_per_tree_sum": 33061
+    },
+    "test": {
+      "root_to_leaf_paths": 7458,
+      "decision_nodes_per_tree_sum": 7018
+    }
+  },
+  "all_theoretical_root_to_leaf_paths_in_published_trees": 42353,
+  "theory_scope": "Only finite root-to-leaf paths in released trees. Multiple newly generated vignettes for the same path do not create new independent guideline paths or patients.",
+  "medical_independent_sample_count": "Not provided: released cases are generated vignettes. 1898 source clusters are provenance grouping, not a count of independent clinical patients.",
+  "execution_entrypoints": {
+    "manifest_generator": "/home/gcx/gcx261014/bin/python /home/gcx/aster_next_20261109/inventory/prepare_official.py",
+    "compatible_tree_parser": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/experiments/aster_representation/tree.py:tree_guideline",
+    "prompt": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/experiments/aster_closed_form/data.py:prompt",
+    "backbone": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/experiments/aster_cr/engine.py:Engine.score",
+    "full_cache_collector": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/experiments/aster_cr/paths.py:collect",
+    "full_cache_example": "ASTER_CR_ROOT=<new_run_root> ASTER_CR_GPUS=0,1 CUDA_VISIBLE_DEVICES=0 python -m experiments.aster_cr.paths --model qwen --split test --shard 0 --shards 2",
+    "collector_prerequisites": [
+      "new_run_root/data/path_cases.jsonl from inventory manifest",
+      "new_run_root/qwen/frozen.json with frozen=true",
+      "Root frozen_methods.json is the new selected-method manifest; original collect only produces raw features, not new neural readouts."
+    ],
+    "exact_path_evaluation": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/experiments/aster_cr/paths.py:execute"
+  }
+}

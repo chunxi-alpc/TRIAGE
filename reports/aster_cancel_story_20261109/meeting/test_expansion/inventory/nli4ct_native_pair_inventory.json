@@ -1,0 +1,73 @@
+{
+  "pairs": 6942,
+  "splits": {
+    "test": {
+      "pairs": 5000,
+      "relations": {
+        "preserving": 4136,
+        "changing": 864
+      },
+      "by_intervention": {
+        "Contradiction": {
+          "preserving": 750,
+          "changing": 750
+        },
+        "Numerical_contradiction": {
+          "preserving": 162,
+          "changing": 114
+        },
+        "Numerical_paraphrase": {
+          "preserving": 224
+        },
+        "Paraphrase": {
+          "preserving": 1500
+        },
+        "Text_appended": {
+          "preserving": 1500
+        }
+      }
+    },
+    "practice": {
+      "pairs": 1942,
+      "relations": {
+        "changing": 336,
+        "preserving": 1606
+      },
+      "by_intervention": {
+        "Contradiction": {
+          "changing": 300,
+          "preserving": 300
+        },
+        "Numerical_contradiction": {
+          "preserving": 42,
+          "changing": 36
+        },
+        "Numerical_paraphrase": {
+          "preserving": 64
+        },
+        "Paraphrase": {
+          "preserving": 600
+        },
+        "Text_appended": {
+          "preserving": 600
+        }
+      }
+    },
+    "dev": {
+      "pairs": 0,
+      "relations": {},
+      "by_intervention": {}
+    },
+    "train": {
+      "pairs": 0,
+      "relations": {},
+      "by_intervention": {}
+    }
+  },
+  "missing_bases": [],
+  "no_new_forward_required": true,
+  "no_new_annotations": true,
+  "index_file": "/home/gcx/aster_next_20261109/inventory/nli4ct_native_pairs.jsonl",
+  "analysis_scheme": "Join each frozen-method case score by left/right case_id, then summarize same-label difference/variance for preserving pairs and signed response retention/correction for changing pairs, separately by split and intervention. This is native NLI variation, not newly named A/P/C/F supervision.",
+  "caution": "Contradiction and Numerical_contradiction are native intervention names; some retain the original truth label, so label-changing responses use actual released label differences."
+}

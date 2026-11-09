@@ -1,0 +1,57 @@
+{
+  "started": "2026-11-09 07:01:28",
+  "jobs": {
+    "dev_full_gold": {
+      "pid": 26846,
+      "gpu": 0,
+      "manifest": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.dev_full_gold.jsonl",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster_next_20261109/inference/prompt_run.py",
+        "--manifest",
+        "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.dev_full_gold.jsonl",
+        "--gpu",
+        "0",
+        "--tag",
+        "dev_full_gold"
+      ],
+      "done": "/home/gcx/aster_next_20261109/prompt_results/dev_full_gold.done.json"
+    },
+    "fit_natural": {
+      "pid": 26847,
+      "gpu": 1,
+      "manifest": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.fit_natural.jsonl",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster_next_20261109/inference/prompt_run.py",
+        "--manifest",
+        "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.fit_natural.jsonl",
+        "--gpu",
+        "1",
+        "--tag",
+        "fit_natural"
+      ],
+      "done": "/home/gcx/aster_next_20261109/prompt_results/fit_natural.done.json"
+    },
+    "dev_pairs": {
+      "pid": 29410,
+      "gpu": 1,
+      "manifest": "/home/gcx/aster_next_20261109/inference/evidence_alignment_v1.dev_pairs.jsonl",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster_next_20261109/inference/prompt_run.py",
+        "--manifest",
+        "/home/gcx/aster_next_20261109/inference/evidence_alignment_v1.dev_pairs.jsonl",
+        "--gpu",
+        "1",
+        "--tag",
+        "dev_pairs",
+        "--reuse",
+        "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.dev_full_gold.jsonl::/home/gcx/aster_next_20261109/prompt_results/dev_full_gold.jsonl",
+        "--reuse",
+        "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.fit_natural.jsonl::/home/gcx/aster_next_20261109/prompt_results/fit_natural.jsonl"
+      ],
+      "done": "/home/gcx/aster_next_20261109/prompt_results/dev_pairs.done.json"
+    }
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "frozen": true,
+  "saved_at": "2026-11-09T07:10:54.946301+00:00",
+  "method": "evidence_alignment_v1",
+  "prompt_metadata": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment_v1.json",
+  "prompt_construction_module": "/home/gcx/aster_next_20261109/diagnosis/evidence_alignment.py",
+  "retrieval_module": "/home/gcx/aster_next_20261109/diagnosis/evidence_retrieval.py",
+  "candidate_count": 1,
+  "selection_split": "dev",
+  "selected_variant": "prompt_zero",
+  "recommended_b": 0.0,
+  "fit_ce_b": -2.047771622926113,
+  "calibration": {
+    "fit_n": 761,
+    "fit_labels_only": true,
+    "dev_threshold_search": false,
+    "fit_record": "/home/gcx/aster_next_20261109/diagnosis/alignment_fit_calibration.json"
+  },
+  "acceptance": {
+    "variant": "prompt_zero",
+    "b": 0.0,
+    "status": "candidate_accepted",
+    "eligible_variants": [
+      "prompt_zero"
+    ]
+  },
+  "fit_dev_metrics": {
+    "raw": {
+      "b": 0.0,
+      "fit_natural": {
+        "n": 761,
+        "correct": 754,
+        "accuracy": 0.9908015768725361
+      },
+      "dev_paths": {
+        "n": 420,
+        "correct": 384,
+        "accuracy": 0.9142857142857143
+      },
+      "dev_gold_nodes": {
+        "n": 2568,
+        "correct": 2532,
+        "accuracy": 0.985981308411215
+      },
+      "dev_natural": {
+        "n": 199,
+        "correct": 195,
+        "accuracy": 0.9798994974874372
+      },
+      "dev_PMA_diagnostic_family": {
+        "n": 19,
+        "correct": 0,
+        "accuracy": 0.0,
+        "sources": 1,
+        "interpretation": "Previously identified dev diagnostic family; descriptive only, not an independent test."
+      }
+    },
+    "prompt_zero": {
+      "b": 0.0,
+      "fit_natural": {
+        "n": 761,
+        "correct": 756,
+        "accuracy": 0.9934296977660972
+      },
+      "dev_paths": {
+        "n": 420,
+        "correct": 385,
+        "accuracy": 0.9166666666666666
+      },
+      "dev_gold_nodes": {
+        "n": 2568,
+        "correct": 2532,
+        "accuracy": 0.985981308411215
+      },
+      "dev_natural": {
+        "n": 199,
+        "correct": 196,
+        "accuracy": 0.9849246231155779
+      },
+      "dev_PMA_diagnostic_family": {
+        "n": 19,
+        "correct": 1,
+        "accuracy": 0.05263157894736842,
+        "sources": 1,
+        "interpretation": "Previously identified dev diagnostic family; descriptive only, not an independent test."
+      }
+    },
+    "prompt_fit_ce": {
+      "b": -2.047771622926113,
+      "fit_natural": {
+        "n": 761,
+        "correct": 757,
+        "accuracy": 0.9947437582128777
+      },
+      "dev_paths": {
+        "n": 420,
+        "correct": 383,
+        "accuracy": 0.9119047619047619
+      },
+      "dev_gold_nodes": {
+        "n": 2568,
+        "correct": 2529,
+        "accuracy": 0.9848130841121495
+      },
+      "dev_natural": {
+        "n": 199,
+        "correct": 196,
+        "accuracy": 0.9849246231155779
+      },
+      "dev_PMA_diagnostic_family": {
+        "n": 19,
+        "correct": 1,
+        "accuracy": 0.05263157894736842,
+        "sources": 1,
+        "interpretation": "Previously identified dev diagnostic family; descriptive only, not an independent test."
+      }
+    }
+  },
+  "source_bootstrap": {
+    "raw": {
+      "path": {
+        "accuracy": 0.9142857142857143,
+        "ci": [
+          0.8239437547424332,
+          0.9707317073170731
+        ]
+      },
+      "gold_nodes": {
+        "accuracy": 0.985981308411215,
+        "ci": [
+          0.9707840216803375,
+          0.9952750239279081
+        ]
+      },
+      "natural": {
+        "accuracy": 0.9798994974874372,
+        "ci": [
+          0.96,
+          0.995
+        ]
+      }
+    },
+    "prompt_zero": {
+      "path": {
+        "accuracy": 0.9166666666666666,
+        "ci": [
+          0.8212324501811594,
+          0.9769887819144394
+        ],
+        "difference_vs_raw": 0.0023809523809523725,
+        "difference_vs_raw_ci": [
+          -0.02290516735173217,
+          0.020710444418401693
+        ]
+      },
+      "gold_nodes": {
+        "accuracy": 0.985981308411215,
+        "ci": [
+          0.9704478528274496,
+          0.9960436899669168
+        ],
+        "difference_vs_raw": 0.0,
+        "difference_vs_raw_ci": [
+          -0.004105843673284743,
+          0.003034982606131472
+        ]
+      },
+      "natural": {
+        "accuracy": 0.9849246231155779,
+        "ci": [
+          0.9695431472081218,
+          1.0
+        ],
+        "difference_vs_raw": 0.005025125628140725,
+        "difference_vs_raw_ci": [
+          0.0,
+          0.015151515151515138
+        ]
+      }
+    },
+    "prompt_fit_ce": {
+      "path": {
+        "accuracy": 0.9119047619047619,
+        "ci": [
+          0.8170373334325913,
+          0.9720812182741116
+        ],
+        "difference_vs_raw": -0.0023809523809523725,
+        "difference_vs_raw_ci": [
+          -0.02639980449657867,
+          0.015730779439086958
+        ]
+      },
+      "gold_nodes": {
+        "accuracy": 0.9848130841121495,
+        "ci": [
+          0.9695565096448265,
+          0.9950008424973394
+        ],
+        "difference_vs_raw": -0.00116822429906549,
+        "difference_vs_raw_ci": [
+          -0.005464768599721026,
+          0.001914407424817265
+        ]
+      },
+      "natural": {
+        "accuracy": 0.9849246231155779,
+        "ci": [
+          0.9695431472081218,
+          1.0
+        ],
+        "difference_vs_raw": 0.005025125628140725,
+        "difference_vs_raw_ci": [
+          0.0,
+          0.015151515151515138
+        ]
+      }
+    }
+  },
+  "official_or_old_test_used": false,
+  "prompt_changed_after_scoring": false,
+  "summary_path": "/home/gcx/aster_next_20261109/diagnosis/alignment_summary.json"
+}

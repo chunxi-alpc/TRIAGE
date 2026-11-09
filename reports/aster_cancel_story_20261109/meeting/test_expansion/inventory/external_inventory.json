@@ -1,0 +1,37 @@
+{
+  "primary_prepared": "NLI4CT-2024",
+  "inventory": "/home/gcx/aster_next_20261109/inventory/nli4ct_inventory.json",
+  "syllogism": {
+    "status": "not_located_in_provided_resources",
+    "real_data_records": 0,
+    "existing_simulation_directory": "/home/gcx/aster_cancel_story_20261109/simulated_study",
+    "action": "Keep existing simulations labeled as simulated; do not generate or substitute new syllogisms."
+  },
+  "other_existing_resources": {
+    "MedGUIDE": {
+      "path": "/home/gcx/TRIAGE/data/MedGUIDE/data/train-00000-of-00001.parquet",
+      "records": 7747,
+      "task": "native multiple-choice clinical guideline questions; no directly provided binary tree/gold path schema",
+      "legacy_subset_cases": 800,
+      "legacy_input_path": "/home/gcx/three_dataset_analysis_20261105/data/medguide_scores_and_inputs.jsonl",
+      "action": "Inventory only; no new task conversion or manifest generated."
+    },
+    "MedPAIR": {
+      "legacy_cases": 180,
+      "legacy_split": {
+        "dev": 91,
+        "test": 89
+      },
+      "task": "multiple-choice clinical questions",
+      "action": "Inventory only."
+    },
+    "MedEinst": {
+      "legacy_pair_analysis": {
+        "train_pairs": 10244,
+        "test_pairs": 5372
+      },
+      "task": "paired clinical diagnostic multiple-choice cases",
+      "action": "Inventory only."
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "started": "2026-11-09 07:15:52",
+  "jobs": {
+    "dev_short": {
+      "pid": 30590,
+      "gpu": 0,
+      "manifest": "/home/gcx/aster_next_20261109/diagnosis/condition_only_v1.dev_short.jsonl",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster_next_20261109/inference/prompt_run.py",
+        "--manifest",
+        "/home/gcx/aster_next_20261109/diagnosis/condition_only_v1.dev_short.jsonl",
+        "--gpu",
+        "0",
+        "--tag",
+        "dev_short",
+        "--candidate",
+        "condition_only_v1",
+        "--outdir",
+        "/home/gcx/aster_next_20261109/condition_only_results"
+      ],
+      "done": "/home/gcx/aster_next_20261109/condition_only_results/dev_short.done.json"
+    },
+    "fit_natural": {
+      "pid": 30591,
+      "gpu": 1,
+      "manifest": "/home/gcx/aster_next_20261109/diagnosis/condition_only_v1.fit_natural.jsonl",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster_next_20261109/inference/prompt_run.py",
+        "--manifest",
+        "/home/gcx/aster_next_20261109/diagnosis/condition_only_v1.fit_natural.jsonl",
+        "--gpu",
+        "1",
+        "--tag",
+        "fit_natural",
+        "--candidate",
+        "condition_only_v1",
+        "--outdir",
+        "/home/gcx/aster_next_20261109/condition_only_results"
+      ],
+      "done": "/home/gcx/aster_next_20261109/condition_only_results/fit_natural.done.json"
+    },
+    "dev_full_gold": {
+      "pid": 31585,
+      "gpu": 0,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster_next_20261109/inference/prompt_run.py",
+        "--manifest",
+        "/home/gcx/aster_next_20261109/diagnosis/condition_only_v1.dev_full_gold.jsonl",
+        "--gpu",
+        "0",
+        "--tag",
+        "dev_full_gold",
+        "--candidate",
+        "condition_only_v1",
+        "--outdir",
+        "/home/gcx/aster_next_20261109/condition_only_results",
+        "--reuse",
+        "/home/gcx/aster_next_20261109/diagnosis/condition_only_v1.dev_short.jsonl::/home/gcx/aster_next_20261109/condition_only_results/dev_short.jsonl"
+      ],
+      "done": "/home/gcx/aster_next_20261109/condition_only_results/dev_full_gold.done.json"
+    },
+    "dev_pairs": {
+      "pid": 32318,
+      "gpu": 1,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster_next_20261109/inference/prompt_run.py",
+        "--manifest",
+        "/home/gcx/aster_next_20261109/inference/condition_only_v1.dev_pairs.jsonl",
+        "--gpu",
+        "1",
+        "--tag",
+        "dev_pairs",
+        "--candidate",
+        "condition_only_v1",
+        "--outdir",
+        "/home/gcx/aster_next_20261109/condition_only_results",
+        "--reuse",
+        "/home/gcx/aster_next_20261109/diagnosis/condition_only_v1.dev_full_gold.jsonl::/home/gcx/aster_next_20261109/condition_only_results/dev_full_gold.jsonl",
+        "--reuse",
+        "/home/gcx/aster_next_20261109/diagnosis/condition_only_v1.dev_short.jsonl::/home/gcx/aster_next_20261109/condition_only_results/dev_short.jsonl"
+      ],
+      "done": "/home/gcx/aster_next_20261109/condition_only_results/dev_pairs.done.json"
+    }
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "dataset": "NLI4CT-2024",
+  "prepared_at": "2026-11-09T08:50:53.154222+00:00",
+  "records": 9542,
+  "labeled_records": 9542,
+  "unique_native_record_ids": 9342,
+  "case_ids_unique": true,
+  "official_splits_preserved": true,
+  "execution_order": [
+    "test",
+    "practice",
+    "dev",
+    "train"
+  ],
+  "counts": {
+    "train": {
+      "records": 1700,
+      "labeled": 1700,
+      "ready": 1700,
+      "missing_input": 0,
+      "native_labels": {
+        "Contradiction": 850,
+        "Entailment": 850
+      },
+      "native_types": {
+        "Comparison": 665,
+        "Single": 1035
+      },
+      "native_interventions": {
+        "original": 1700
+      },
+      "native_base_families": 1700,
+      "unique_trial_ids": 851,
+      "prompt_characters": {
+        "min": 286,
+        "max": 11952,
+        "mean": 1932.265294117647
+      },
+      "manifest": "/home/gcx/aster_next_20261109/inventory/nli4ct_train_cases.jsonl"
+    },
+    "dev": {
+      "records": 200,
+      "labeled": 200,
+      "ready": 200,
+      "missing_input": 0,
+      "native_labels": {
+        "Contradiction": 100,
+        "Entailment": 100
+      },
+      "native_types": {
+        "Single": 140,
+        "Comparison": 60
+      },
+      "native_interventions": {
+        "original": 200
+      },
+      "native_base_families": 200,
+      "unique_trial_ids": 100,
+      "prompt_characters": {
+        "min": 249,
+        "max": 9508,
+        "mean": 1809.745
+      },
+      "manifest": "/home/gcx/aster_next_20261109/inventory/nli4ct_dev_cases.jsonl"
+    },
+    "practice": {
+      "records": 2142,
+      "labeled": 2142,
+      "ready": 2142,
+      "missing_input": 0,
+      "native_labels": {
+        "Contradiction": 1412,
+        "Entailment": 730
+      },
+      "native_types": {
+        "Single": 1526,
+        "Comparison": 616
+      },
+      "native_interventions": {
+        "Contradiction": 600,
+        "Paraphrase": 600,
+        "Text_appended": 600,
+        "Numerical_contradiction": 78,
+        "original": 200,
+        "Numerical_paraphrase": 64
+      },
+      "native_base_families": 200,
+      "unique_trial_ids": 100,
+      "prompt_characters": {
+        "min": 249,
+        "max": 9652,
+        "mean": 1856.4183006535948
+      },
+      "manifest": "/home/gcx/aster_next_20261109/inventory/nli4ct_practice_cases.jsonl"
+    },
+    "test": {
+      "records": 5500,
+      "labeled": 5500,
+      "ready": 5500,
+      "missing_input": 0,
+      "native_labels": {
+        "Entailment": 1841,
+        "Contradiction": 3659
+      },
+      "native_types": {
+        "Single": 2553,
+        "Comparison": 2947
+      },
+      "native_interventions": {
+        "original": 500,
+        "Paraphrase": 1500,
+        "Contradiction": 1500,
+        "Text_appended": 1500,
+        "Numerical_paraphrase": 224,
+        "Numerical_contradiction": 276
+      },
+      "native_base_families": 500,
+      "unique_trial_ids": 249,
+      "prompt_characters": {
+        "min": 258,
+        "max": 14003,
+        "mean": 2104.2974545454545
+      },
+      "manifest": "/home/gcx/aster_next_20261109/inventory/nli4ct_test_cases.jsonl"
+    }
+  },
+  "split_overlap": {
+    "dev__train": {
+      "native_record_ids": 0,
+      "clinical_trial_ids": 100
+    },
+    "dev__practice": {
+      "native_record_ids": 200,
+      "clinical_trial_ids": 100
+    },
+    "dev__test": {
+      "native_record_ids": 0,
+      "clinical_trial_ids": 0
+    },
+    "practice__train": {
+      "native_record_ids": 0,
+      "clinical_trial_ids": 100
+    },
+    "practice__test": {
+      "native_record_ids": 0,
+      "clinical_trial_ids": 0
+    },
+    "test__train": {
+      "native_record_ids": 0,
+      "clinical_trial_ids": 101
+    }
+  },
+  "native_pair_index": "/home/gcx/aster_next_20261109/inventory/nli4ct_native_pairs.jsonl",
+  "native_pair_inventory": "/home/gcx/aster_next_20261109/inventory/nli4ct_native_pair_inventory.json",
+  "clinical_trial_files_available": 999,
+  "missing_input_records": [],
+  "labeled_vs_public_inputs": {
+    "train": {
+      "records_missing_from_public": 0,
+      "input_field_differences": 0
+    },
+    "dev": {
+      "records_missing_from_public": 0,
+      "input_field_differences": 0
+    },
+    "practice": {
+      "records_missing_from_public": 0,
+      "input_field_differences": 0
+    },
+    "test": {
+      "records_missing_from_public": 0,
+      "input_field_differences": 0
+    }
+  },
+  "manifest": "/home/gcx/aster_next_20261109/inventory/nli4ct_all_cases.jsonl",
+  "evaluator_compatibility": {
+    "task": "standard binary clinical-trial textual entailment",
+    "labels": "Entailment=1/yes; Contradiction=0/no",
+    "prompt_field": "prompt_text",
+    "node": "G0",
+    "positive_leaf": "L1",
+    "negative_leaf": "L0",
+    "materials": "Every sentence of the dataset-selected Section_id from the primary and optional secondary trial, with original ordering and wording. No gold evidence selection.",
+    "native_annotation_use": "Label is evaluation metadata only. Intervention/Causal_type/base_id are copied as metadata and are absent from model prompts."
+  },
+  "transfer_protocol": "Zero-shot transfer of frozen MEGA-trained raw/linear/balanced readouts; NLI train/dev are evaluation groups and are not used for fitting or parameter selection.",
+  "no_new_data_or_annotations": true,
+  "no_training": true,
+  "no_test_selection": true,
+  "count_note": "9542 is the number of supplied split records, not independent examples. The200 original dev IDs also appear in the practice set. Derived variants preserve native family/base_id metadata.",
+  "syllogism": {
+    "status": "not_located_in_provided_resources",
+    "real_data_records": 0,
+    "existing_simulation_directory": "/home/gcx/aster_cancel_story_20261109/simulated_study",
+    "action": "Keep existing simulations labeled as simulated; do not generate or substitute new syllogisms."
+  },
+  "other_existing_resources": {
+    "MedGUIDE": {
+      "path": "/home/gcx/TRIAGE/data/MedGUIDE/data/train-00000-of-00001.parquet",
+      "records": 7747,
+      "task": "native multiple-choice clinical guideline questions; no directly provided binary tree/gold path schema",
+      "legacy_subset_cases": 800,
+      "legacy_input_path": "/home/gcx/three_dataset_analysis_20261105/data/medguide_scores_and_inputs.jsonl",
+      "action": "Inventory only; no new task conversion or manifest generated."
+    },
+    "MedPAIR": {
+      "legacy_cases": 180,
+      "legacy_split": {
+        "dev": 91,
+        "test": 89
+      },
+      "task": "multiple-choice clinical questions",
+      "action": "Inventory only."
+    },
+    "MedEinst": {
+      "legacy_pair_analysis": {
+        "train_pairs": 10244,
+        "test_pairs": 5372
+      },
+      "task": "paired clinical diagnostic multiple-choice cases",
+      "action": "Inventory only."
+    }
+  }
+}

@@ -1,0 +1,4801 @@
+[
+  {
+    "case_id": "mega:train_val:1322:15",
+    "source_id": "train_val:1322",
+    "gid": "G28",
+    "gold_order": 9,
+    "gold_label": 1,
+    "condition": "是否疑似DVT或PE？",
+    "raw_score": -24.218196868896484,
+    "old_linear_score": -21.028539526575287,
+    "balanced_score": -22.102775883377582,
+    "strict_score": -21.799377023665066,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [
+      "new-1322-G28:full"
+    ],
+    "observed_AP_pairs": 3,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": true,
+    "balanced_input_correction_centered": 2.516548808704419,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "患者在妊娠期或产后6周内均未发生心搏骤停。孕期未诉胸痛，也未出现不成比例或无法解释的气促/呼吸困难；体格检查未闻及新出现的病理性杂音。就子痫前期预防相关评估而言，患者不属于妊娠12周至36–37周期间的高危或中度风险人群；膳食钙摄入并不低于600 mg/d，约为800 mg/d。就血压情况而言，未出现SBP≥170 mmHg或DBP≥110 mmHg；多次测量血压均未达到重度高血压阈值，且在医疗机构测得血压为128/78 mmHg，未满足妊娠期高血压的定义。\n\n临床上曾一度怀疑存在深静脉血栓形成或肺栓塞的可能，但随后已通过客观检测将DVT/PE诊断排除。管理。",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G12",
+        "label": 0
+      },
+      {
+        "gid": "G14",
+        "label": 0
+      },
+      {
+        "gid": "G16",
+        "label": 0
+      },
+      {
+        "gid": "G18",
+        "label": 0
+      },
+      {
+        "gid": "G20",
+        "label": 0
+      },
+      {
+        "gid": "G22",
+        "label": 0
+      },
+      {
+        "gid": "G24",
+        "label": 0
+      },
+      {
+        "gid": "G26",
+        "label": 0
+      },
+      {
+        "gid": "G28",
+        "label": 1
+      },
+      {
+        "gid": "G29",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "all_available_same_evidence_AP_endpoints_wrong",
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 19.69478988647461,
+        "pair_details": [
+          {
+            "pair_id": "new-1322-G28:A:2475",
+            "kind": "A",
+            "left_score": -24.218196868896484,
+            "right_score": -6.013954162597656,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 18.204242706298828
+          },
+          {
+            "pair_id": "new-1322-G28:A:2476",
+            "kind": "A",
+            "left_score": -24.218196868896484,
+            "right_score": -4.523406982421875,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 19.69478988647461
+          },
+          {
+            "pair_id": "new-1322-G28:A:2477",
+            "kind": "A",
+            "left_score": -24.218196868896484,
+            "right_score": -24.545183181762695,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -0.32698631286621094
+          }
+        ]
+      },
+      "old_linear": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 19.5437070524671,
+        "pair_details": [
+          {
+            "pair_id": "new-1322-G28:A:2475",
+            "kind": "A",
+            "left_score": -21.028539526575287,
+            "right_score": -3.059065494151142,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 17.969474032424145
+          },
+          {
+            "pair_id": "new-1322-G28:A:2476",
+            "kind": "A",
+            "left_score": -21.028539526575287,
+            "right_score": -1.4848324741081869,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 19.5437070524671
+          },
+          {
+            "pair_id": "new-1322-G28:A:2477",
+            "kind": "A",
+            "left_score": -21.028539526575287,
+            "right_score": -21.295866469381465,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -0.26732694280617864
+          }
+        ]
+      },
+      "balanced_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 18.007478490655974,
+        "pair_details": [
+          {
+            "pair_id": "new-1322-G28:A:2475",
+            "kind": "A",
+            "left_score": -22.102775883377582,
+            "right_score": -5.887214391933226,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 16.215561491444355
+          },
+          {
+            "pair_id": "new-1322-G28:A:2476",
+            "kind": "A",
+            "left_score": -22.102775883377582,
+            "right_score": -4.0952973927216085,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 18.007478490655974
+          },
+          {
+            "pair_id": "new-1322-G28:A:2477",
+            "kind": "A",
+            "left_score": -22.102775883377582,
+            "right_score": -22.558483070478328,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -0.45570718710074587
+          }
+        ]
+      },
+      "strict_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 18.85113418856529,
+        "pair_details": [
+          {
+            "pair_id": "new-1322-G28:A:2475",
+            "kind": "A",
+            "left_score": -21.799377023665066,
+            "right_score": -4.589474924793475,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 17.20990209887159
+          },
+          {
+            "pair_id": "new-1322-G28:A:2476",
+            "kind": "A",
+            "left_score": -21.799377023665066,
+            "right_score": -2.948242835099775,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 18.85113418856529
+          },
+          {
+            "pair_id": "new-1322-G28:A:2477",
+            "kind": "A",
+            "left_score": -21.799377023665066,
+            "right_score": -22.190723773648546,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -0.3913467499834802
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:379:5",
+    "source_id": "train_val:1322",
+    "gid": "G4",
+    "gold_order": 4,
+    "gold_label": 1,
+    "condition": "是否已在除颤后不间断立即继续CPR（无需评估）？",
+    "raw_score": -2.8857154846191406,
+    "old_linear_score": -0.356476173598661,
+    "balanced_score": -1.1624390863328808,
+    "strict_score": -0.6629679330040444,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_1_to_3",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 2.124404221471775,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "患者处于妊娠相关时期（为胎儿娩出后4周的围产期阶段）时突发心搏骤停。现场/急诊评估提示为可电击心律，监护显示心室颤动伴无可触及脉搏。团队已尽早实施电除颤，采用双相波能量200 J，随后在除颤后未进行节律或脉搏重新评估即立即不间断继续心肺复苏。复苏过程中患者保持平卧位，并已行手动左推子宫以减轻主动脉/下腔静脉受压。根据产科评估，胎龄约26周，因此不符合胎龄＜20周、20–23周或24–25周的情况。持续复苏过程中在第3分钟仍未达到“复苏失败满4分钟”的时间节点。最后一句：本病例叙述的主要临床关注点为管理。",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 1
+      },
+      {
+        "gid": "G5",
+        "label": 1
+      },
+      {
+        "gid": "G6",
+        "label": 0
+      },
+      {
+        "gid": "G8",
+        "label": 0
+      },
+      {
+        "gid": "G10",
+        "label": 0
+      },
+      {
+        "gid": "G12",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "near_original_decision_threshold_abs_score_le_3"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:379:6",
+    "source_id": "train_val:1322",
+    "gid": "G4",
+    "gold_order": 4,
+    "gold_label": 1,
+    "condition": "是否已在除颤后不间断立即继续CPR（无需评估）？",
+    "raw_score": -8.634971618652344,
+    "old_linear_score": -6.107961400492169,
+    "balanced_score": -8.08618628306516,
+    "strict_score": -6.999469598386785,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 0.9499131587726991,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "患者处于妊娠相关时期（胎儿娩出后约4周内）时突发意识丧失并发生心搏骤停。初始心律为可电击节律，表现为心室颤动/无脉性室性心动过速。抢救过程中已尽早给予电除颤，采用双相波能量200 J（按一般成人能量，无需提高）。除颤完成后，团队未中断而是立即不间断继续实施心肺复苏，未先行停顿评估。现场体位处理方面，患者当时未保持平卧位，且未实施手动左推子宫以减少主动脉/下腔静脉受压。最后：该病例的主要临床关注点为管理。",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 1
+      },
+      {
+        "gid": "G5",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:546:28",
+    "source_id": "train_val:546",
+    "gid": "G51",
+    "gold_order": 3,
+    "gold_label": 1,
+    "condition": "临床分期是否为ⅠB期？",
+    "raw_score": -9.305404663085938,
+    "old_linear_score": -6.080801938014021,
+    "balanced_score": -7.00934735677194,
+    "strict_score": -6.796266657456973,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 2.6971851294995126,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "患者为子宫内膜样腺癌，但既往未完成全面手术分期，属于未全面分期手术或手术不充分后的情况。术后临床评估分期不符合ⅠA期，而更符合ⅠB期；病理组织学分级为G2（符合G1–2）。同时可见淋巴血管间隙侵犯（LVSI）阳性，未达到LVSI阴性的标准。基于以上情况，本病例的主要临床关注点为管理。",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G32",
+        "label": 1
+      },
+      {
+        "gid": "G33",
+        "label": 0
+      },
+      {
+        "gid": "G51",
+        "label": 1
+      },
+      {
+        "gid": "G52",
+        "label": 1
+      },
+      {
+        "gid": "G53",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:546:29",
+    "source_id": "train_val:546",
+    "gid": "G51",
+    "gold_order": 3,
+    "gold_label": 1,
+    "condition": "临床分期是否为ⅠB期？",
+    "raw_score": -7.3199920654296875,
+    "old_linear_score": -4.102868640500409,
+    "balanced_score": -4.6887797090332795,
+    "strict_score": -4.643276534759517,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 3.032340179581923,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "患者既往病理提示子宫内膜样腺癌，但当时未完成全面手术分期，属于分期手术不充分后的情况。后续临床评估显示并非ⅠA期，而更符合ⅠB期表现；病理组织学分级不在G1–2范围内，而被判定为G3。管理。",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G32",
+        "label": 1
+      },
+      {
+        "gid": "G33",
+        "label": 0
+      },
+      {
+        "gid": "G51",
+        "label": 1
+      },
+      {
+        "gid": "G52",
+        "label": 0
+      },
+      {
+        "gid": "G58",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:918:6",
+    "source_id": "train_val:1887",
+    "gid": "G11",
+    "gold_order": 4,
+    "gold_label": 1,
+    "condition": "Does the individual have at least 2 minor criteria for NF2-related schwannomatosis?",
+    "raw_score": -6.256206512451172,
+    "old_linear_score": -3.1835228082095024,
+    "balanced_score": -6.20364161044461,
+    "strict_score": -4.868814708975925,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [
+      "new-918-G11:full"
+    ],
+    "observed_AP_pairs": 3,
+    "raw_AP_prediction_changing_pairs": 2,
+    "raw_wrong_with_correct_AP_endpoint": true,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 0.4536927251920774,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The patient underwent appropriate cranial imaging, which did not demonstrate bilateral vestibular schwannomas. Molecular comparison across anatomically distinct NF2-related tumors failed to identify an identical NF2 pathogenic variant in two separate tumors. The clinical features did not satisfy at least two major criteria for NF2-related schwannomatosis; however, at least one major criterion was present, and at least two minor criteria were also documented. Testing of unaffected tissue (peripheral blood) detected an NF2 pathogenic variant at a variant allele fraction of 18%, clearly below 50%. The primary clinical focus was diagnosis.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G2",
+        "label": 0
+      },
+      {
+        "gid": "G6",
+        "label": 0
+      },
+      {
+        "gid": "G10",
+        "label": 1
+      },
+      {
+        "gid": "G11",
+        "label": 1
+      },
+      {
+        "gid": "G12",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "observed_same_evidence_AP_variant_can_change_wrong_to_correct",
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 3,
+        "prediction_changing_pairs": 2,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 27.485504150390625,
+        "pair_details": [
+          {
+            "pair_id": "new-918-G11:A:7185",
+            "kind": "A",
+            "left_score": -6.256206512451172,
+            "right_score": 20.081161499023438,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 26.33736801147461
+          },
+          {
+            "pair_id": "new-918-G11:A:7186",
+            "kind": "A",
+            "left_score": -6.256206512451172,
+            "right_score": 21.229297637939453,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 27.485504150390625
+          },
+          {
+            "pair_id": "new-918-G11:A:7187",
+            "kind": "A",
+            "left_score": -6.256206512451172,
+            "right_score": -1.8548011779785156,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 4.401405334472656
+          }
+        ]
+      },
+      "old_linear": {
+        "pairs": 3,
+        "prediction_changing_pairs": 3,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 27.304575481429183,
+        "pair_details": [
+          {
+            "pair_id": "new-918-G11:A:7185",
+            "kind": "A",
+            "left_score": -3.183523013811381,
+            "right_score": 22.98223931067482,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 26.165762324486202
+          },
+          {
+            "pair_id": "new-918-G11:A:7186",
+            "kind": "A",
+            "left_score": -3.183523013811381,
+            "right_score": 24.1210524676178,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 27.304575481429183
+          },
+          {
+            "pair_id": "new-918-G11:A:7187",
+            "kind": "A",
+            "left_score": -3.183523013811381,
+            "right_score": 1.1754114000613223,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 4.358934413872703
+          }
+        ]
+      },
+      "balanced_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 2,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 26.221932412386998,
+        "pair_details": [
+          {
+            "pair_id": "new-918-G11:A:7185",
+            "kind": "A",
+            "left_score": -6.2036426163414635,
+            "right_score": 18.9237968399299,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 25.12743945627136
+          },
+          {
+            "pair_id": "new-918-G11:A:7186",
+            "kind": "A",
+            "left_score": -6.2036426163414635,
+            "right_score": 20.018289796045536,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 26.221932412386998
+          },
+          {
+            "pair_id": "new-918-G11:A:7187",
+            "kind": "A",
+            "left_score": -6.2036426163414635,
+            "right_score": -2.0541494939332385,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 4.149493122408225
+          }
+        ]
+      },
+      "strict_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 2,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 26.853718281388815,
+        "pair_details": [
+          {
+            "pair_id": "new-918-G11:A:7185",
+            "kind": "A",
+            "left_score": -4.8688152119243515,
+            "right_score": 20.863588521948635,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 25.732403733872985
+          },
+          {
+            "pair_id": "new-918-G11:A:7186",
+            "kind": "A",
+            "left_score": -4.8688152119243515,
+            "right_score": 21.984903069464462,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 26.853718281388815
+          },
+          {
+            "pair_id": "new-918-G11:A:7187",
+            "kind": "A",
+            "left_score": -4.8688152119243515,
+            "right_score": -0.5933659834839108,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 4.275449228440441
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:918:7",
+    "source_id": "train_val:1887",
+    "gid": "G10",
+    "gold_order": 3,
+    "gold_label": 1,
+    "condition": "Does the individual have at least 1 major criterion for NF2-related schwannomatosis?",
+    "raw_score": -23.137662887573242,
+    "old_linear_score": -20.089005778880235,
+    "balanced_score": -22.243286564852024,
+    "strict_score": -21.329365373740668,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 1.295504145906734,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The patient underwent appropriate neuroimaging that did not demonstrate bilateral vestibular schwannomas. Molecular evaluation of multiple anatomically distinct NF2-related tumors failed to identify the same NF2 pathogenic variant in at least two separate lesions. The overall clinical picture did not satisfy at least two major criteria for NF2-related schwannomatosis; however, the patient did meet one major criterion and also fulfilled at least two minor criteria for NF2-related schwannomatosis. Testing of unaffected tissue (blood or skin) did not reveal any NF2 pathogenic variant with a variant allele fraction clearly below 50%. The primary clinical focus was diagnosis.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G2",
+        "label": 0
+      },
+      {
+        "gid": "G6",
+        "label": 0
+      },
+      {
+        "gid": "G10",
+        "label": 1
+      },
+      {
+        "gid": "G11",
+        "label": 1
+      },
+      {
+        "gid": "G12",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:918:11",
+    "source_id": "train_val:1887",
+    "gid": "G23",
+    "gold_order": 9,
+    "gold_label": 1,
+    "condition": "In unaffected tissue such as blood or skin, is there a pathogenic variant in SMARCB1 or LZTR1?",
+    "raw_score": -2.304126739501953,
+    "old_linear_score": 0.8295843468559752,
+    "balanced_score": -1.2375617565051202,
+    "strict_score": -0.4097348955315704,
+    "raw_correct": false,
+    "old_linear_correct": true,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_1_to_3",
+    "all_four_wrong": false,
+    "same_exact_prompt_views": [
+      "new-918-G23:full"
+    ],
+    "observed_AP_pairs": 3,
+    "raw_AP_prediction_changing_pairs": 2,
+    "raw_wrong_with_correct_AP_endpoint": true,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 1.467692806182348,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": false,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The patient underwent appropriate neuroimaging that did not demonstrate bilateral vestibular schwannomas. Molecular analysis across anatomically distinct NF2-related tumors did not identify an identical NF2 pathogenic variant shared by at least two tumors, and the overall clinical picture did not satisfy at least two major criteria for NF2-related schwannomatosis, nor even a single major criterion.\n\nDespite this, imaging revealed multiple peripheral nerve sheath lesions, with at least two lesions consistent with non-intradermal schwannomas. Pathology from one resected lesion confirmed a schwannoma. Comprehensive molecular genetic testing was performed on unaffected tissue (blood) and on at least two anatomically distinct tumors for known schwannomatosis-related genes, and this testing did not fail to reveal a pathogenic variant because a pathogenic LZTR1 variant was detected. The same LZTR1 pathogenic variant was also identified in two separate schwannomas, and in blood the variant allele fraction was clearly below heterozygous range at 22%, rather than near 50%. No pathogenic NF2 variant with a variant allele fraction clearly below 50% was identified in unaffected tissue.\n\nPrimary clinical focus: diagnosis.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G2",
+        "label": 0
+      },
+      {
+        "gid": "G6",
+        "label": 0
+      },
+      {
+        "gid": "G10",
+        "label": 0
+      },
+      {
+        "gid": "G16",
+        "label": 1
+      },
+      {
+        "gid": "G17",
+        "label": 1
+      },
+      {
+        "gid": "G18",
+        "label": 1
+      },
+      {
+        "gid": "G19",
+        "label": 0
+      },
+      {
+        "gid": "G21",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 1
+      },
+      {
+        "gid": "G24",
+        "label": 1
+      },
+      {
+        "gid": "G25",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "observed_same_evidence_AP_variant_can_change_wrong_to_correct",
+      "near_original_decision_threshold_abs_score_le_3"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 3,
+        "prediction_changing_pairs": 2,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 23.81781005859375,
+        "pair_details": [
+          {
+            "pair_id": "new-918-G23:A:2601",
+            "kind": "A",
+            "left_score": -2.304126739501953,
+            "right_score": 21.513683319091797,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 23.81781005859375
+          },
+          {
+            "pair_id": "new-918-G23:A:2602",
+            "kind": "A",
+            "left_score": -2.304126739501953,
+            "right_score": 19.94335174560547,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 22.247478485107422
+          },
+          {
+            "pair_id": "new-918-G23:A:2603",
+            "kind": "A",
+            "left_score": -2.304126739501953,
+            "right_score": -4.038600921630859,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -1.7344741821289062
+          }
+        ]
+      },
+      "old_linear": {
+        "pairs": 3,
+        "prediction_changing_pairs": 1,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 23.212744642850517,
+        "pair_details": [
+          {
+            "pair_id": "new-918-G23:A:2601",
+            "kind": "A",
+            "left_score": 0.8295843468559752,
+            "right_score": 24.04232898970649,
+            "left_correct": true,
+            "right_correct": true,
+            "delta_score": 23.212744642850517
+          },
+          {
+            "pair_id": "new-918-G23:A:2602",
+            "kind": "A",
+            "left_score": 0.8295843468559752,
+            "right_score": 22.67665080817225,
+            "left_correct": true,
+            "right_correct": true,
+            "delta_score": 21.847066461316277
+          },
+          {
+            "pair_id": "new-918-G23:A:2603",
+            "kind": "A",
+            "left_score": 0.8295843468559752,
+            "right_score": -0.9204319842417714,
+            "left_correct": true,
+            "right_correct": false,
+            "delta_score": -1.7500163310977466
+          }
+        ]
+      },
+      "balanced_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 2,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 21.40336744597869,
+        "pair_details": [
+          {
+            "pair_id": "new-918-G23:A:2601",
+            "kind": "A",
+            "left_score": -1.2375617565051202,
+            "right_score": 20.165805689473572,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 21.40336744597869
+          },
+          {
+            "pair_id": "new-918-G23:A:2602",
+            "kind": "A",
+            "left_score": -1.2375617565051202,
+            "right_score": 18.685734160910872,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 19.92329591741599
+          },
+          {
+            "pair_id": "new-918-G23:A:2603",
+            "kind": "A",
+            "left_score": -1.2375617565051202,
+            "right_score": -2.603155178849888,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -1.3655934223447677
+          }
+        ]
+      },
+      "strict_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 2,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 22.61058875228622,
+        "pair_details": [
+          {
+            "pair_id": "new-918-G23:A:2601",
+            "kind": "A",
+            "left_score": -0.4097348955315704,
+            "right_score": 22.200853856754648,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 22.61058875228622
+          },
+          {
+            "pair_id": "new-918-G23:A:2602",
+            "kind": "A",
+            "left_score": -0.4097348955315704,
+            "right_score": 20.675652305730136,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 21.085387201261707
+          },
+          {
+            "pair_id": "new-918-G23:A:2603",
+            "kind": "A",
+            "left_score": -0.4097348955315704,
+            "right_score": -1.959768697768407,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -1.5500338022368365
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:918:15",
+    "source_id": "train_val:1887",
+    "gid": "G19",
+    "gold_order": 7,
+    "gold_label": 0,
+    "condition": "Does testing of unaffected tissue and at least 2 anatomically distinct tumors fail to reveal a pathogenic variant in known schwannomatosis-related genes?",
+    "raw_score": -0.832061767578125,
+    "old_linear_score": 2.5243801673423594,
+    "balanced_score": 2.120883090032945,
+    "strict_score": 2.0055200136993765,
+    "raw_correct": true,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_le_1",
+    "all_four_wrong": false,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 3.3540726807965853,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": false,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The patient underwent appropriate imaging that did not demonstrate bilateral vestibular schwannomas. Molecular analysis of anatomically distinct NF2-related tumors did not identify an identical NF2 pathogenic variant shared across at least two separate tumors. Clinical evaluation did not fulfill at least two major criteria for NF2-related schwannomatosis, and no single major criterion for NF2-related schwannomatosis was present.\n\nDespite this, imaging showed multiple peripheral nerve sheath lesions, with at least two lesions consistent with non-intradermal schwannomas. One lesion was surgically sampled, and pathology confirmed a schwannoma. Molecular genetic testing was performed on unaffected tissue (blood) and on at least two anatomically distinct tumors, targeting known schwannomatosis-related genes; this testing did not show an absence of pathogenic variants across known genes. In unaffected tissue, no pathogenic NF2 variant with a clearly low mosaic allele fraction was detected (NF2 variant allele fraction measured at 52%), and no pathogenic variant in SMARCB1 or LZTR1 was identified. Evaluation of at least two schwannomas did not reveal a 22q-related schwannomatosis pattern, with no evidence of chromosome 22q loss of heterozygosity or partial 22q loss accompanied by tumor-specific NF2 pathogenic variants.\n\nPrimary clinical focus: diagnosis.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G2",
+        "label": 0
+      },
+      {
+        "gid": "G6",
+        "label": 0
+      },
+      {
+        "gid": "G10",
+        "label": 0
+      },
+      {
+        "gid": "G16",
+        "label": 1
+      },
+      {
+        "gid": "G17",
+        "label": 1
+      },
+      {
+        "gid": "G18",
+        "label": 1
+      },
+      {
+        "gid": "G19",
+        "label": 0
+      },
+      {
+        "gid": "G21",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      },
+      {
+        "gid": "G29",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "near_original_decision_threshold_abs_score_le_3",
+      "balanced_introduced_gold_node_error"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:202:9",
+    "source_id": "train_val:202",
+    "gid": "G0",
+    "gold_order": 0,
+    "gold_label": 1,
+    "condition": "当前分离的革兰阴性菌株是否为碳青霉烯类耐药革兰阴性菌（CRO），即对亚胺培南、美罗培南、厄他培南或多利培南中任一种药物药敏试验结果为耐药，或检测到产生碳青霉烯酶？",
+    "raw_score": -7.766151428222656,
+    "old_linear_score": -5.392419851484517,
+    "balanced_score": -8.984772636750785,
+    "strict_score": -7.014352680014754,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.8174933853426138,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "患者在住院期间送检标本分离出革兰阴性菌株。药敏试验提示该菌株对碳青霉烯类不敏感：例如对美罗培南的结果为耐药。进一步鉴定显示该菌株为铜绿假单胞菌，未符合碳青霉烯类耐药肠杆菌目细菌的特征。针对碳青霉烯类耐药铜绿假单胞菌的可选新型或替代抗菌药物进行药敏评估时，结果显示对头孢他啶-阿维巴坦、头孢洛扎-他唑巴坦、美罗培南-韦博巴坦、亚胺培南-瑞来巴坦及氨曲尔均未见敏感。与此同时，上述药物在该患者就诊环境中因药物不可获得而无法用于临床。继续评估其他可能可用的单药治疗选项时，单药药敏试验亦未显示多黏菌素（多黏菌素B或黏菌素）、氨基糖苷类、磷霉素、碳青霉烯类、氟喹诺酮类或氨曲南中任一种对该菌株达到敏感或中介。最后，本病例的主要临床关注点为管理。",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 0
+      },
+      {
+        "gid": "G13",
+        "label": 1
+      },
+      {
+        "gid": "G14",
+        "label": 0
+      },
+      {
+        "gid": "G16",
+        "label": 1
+      },
+      {
+        "gid": "G17",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:1",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -24.418685913085938,
+    "old_linear_score": -21.652321303045333,
+    "balanced_score": -25.823232426385673,
+    "strict_score": -23.75984981726384,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [
+      "new-2072-G2:full"
+    ],
+    "observed_AP_pairs": 3,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": true,
+    "balanced_input_correction_centered": -1.00341869011422,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The infant was born extremely preterm at a gestational age of 29+4 weeks. The initial retinopathy of prematurity (ROP) eye examination was performed during the sixth postnatal week, on day 38 of life, at a postmenstrual age of 35+0 weeks. The infant had previously received ROP treatment, specifically an intravitreal anti-VEGF injection. Following the injection, prompt postoperative follow-up was completed to exclude injection-related complications, including endophthalmitis. On subsequent examination after anti-VEGF therapy, the retina was noted to be fully vascularized. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 1
+      },
+      {
+        "gid": "G5",
+        "label": 1
+      },
+      {
+        "gid": "G6",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "all_available_same_evidence_AP_endpoints_wrong",
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [
+      {
+        "group_id": "new-2072-G2",
+        "source_id": "train_val:2072",
+        "split": "dev",
+        "case_id": "mega:train_val:2072:1",
+        "cohort": "main",
+        "construction_version": "repair-v2",
+        "predicate": {
+          "op": ">=",
+          "name": "postmenstrual age",
+          "source": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+          "value": 31.0,
+          "unit": "weeks",
+          "field": "postmenstrual age",
+          "number_source": "31",
+          "comparator_source": "≥"
+        },
+        "facts": {
+          "postmenstrual age": 35.0
+        },
+        "observations": {
+          "postmenstrual age": {
+            "value": 35.0,
+            "state": "observed",
+            "sentence_ids": [
+              0
+            ],
+            "evidence": [
+              {
+                "id": 0,
+                "start": 0,
+                "end": 619,
+                "text": "The infant was born extremely preterm at a gestational age of 29+4 weeks. The initial retinopathy of prematurity (ROP) eye examination was performed during the sixth postnatal week, on day 38 of life, at a postmenstrual age of 35+0 weeks. The infant had previously received ROP treatment, specifically an intravitreal anti-VEGF injection. Following the injection, prompt postoperative follow-up was completed to exclude injection-related complications, including endophthalmitis. On subsequent examination after anti-VEGF therapy, the retina was noted to be fully vascularized. The primary clinical focus was screening."
+              }
+            ]
+          }
+        },
+        "original_condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+        "program_label": 1,
+        "original_label": 1,
+        "method": "model-source-grounded"
+      }
+    ],
+    "AP_details": {
+      "raw": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 4.9145965576171875,
+        "pair_details": [
+          {
+            "pair_id": "new-2072-G2:A:7239",
+            "kind": "A",
+            "left_score": -24.418685913085938,
+            "right_score": -19.50408935546875,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 4.9145965576171875
+          },
+          {
+            "pair_id": "new-2072-G2:A:7240",
+            "kind": "A",
+            "left_score": -24.418685913085938,
+            "right_score": -20.31396484375,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 4.1047210693359375
+          },
+          {
+            "pair_id": "new-2072-G2:A:7241",
+            "kind": "A",
+            "left_score": -24.418685913085938,
+            "right_score": -24.908811569213867,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -0.4901256561279297
+          }
+        ]
+      },
+      "old_linear": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 5.002072490188663,
+        "pair_details": [
+          {
+            "pair_id": "new-2072-G2:A:7239",
+            "kind": "A",
+            "left_score": -21.652321096383346,
+            "right_score": -16.650248606194683,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 5.002072490188663
+          },
+          {
+            "pair_id": "new-2072-G2:A:7240",
+            "kind": "A",
+            "left_score": -21.652321096383346,
+            "right_score": -17.474275579628213,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 4.178045516755134
+          },
+          {
+            "pair_id": "new-2072-G2:A:7241",
+            "kind": "A",
+            "left_score": -21.652321096383346,
+            "right_score": -22.03963464250624,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -0.38731354612289337
+          }
+        ]
+      },
+      "balanced_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 5.077072412284732,
+        "pair_details": [
+          {
+            "pair_id": "new-2072-G2:A:7239",
+            "kind": "A",
+            "left_score": -25.823232409042625,
+            "right_score": -20.746159996757893,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 5.077072412284732
+          },
+          {
+            "pair_id": "new-2072-G2:A:7240",
+            "kind": "A",
+            "left_score": -25.823232409042625,
+            "right_score": -21.664895966485695,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 4.15833644255693
+          },
+          {
+            "pair_id": "new-2072-G2:A:7241",
+            "kind": "A",
+            "left_score": -25.823232409042625,
+            "right_score": -26.295382397903726,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -0.4721499888611014
+          }
+        ]
+      },
+      "strict_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 4.9958344849509615,
+        "pair_details": [
+          {
+            "pair_id": "new-2072-G2:A:7239",
+            "kind": "A",
+            "left_score": -23.759849808592318,
+            "right_score": -18.764015323641356,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 4.9958344849509615
+          },
+          {
+            "pair_id": "new-2072-G2:A:7240",
+            "kind": "A",
+            "left_score": -23.759849808592318,
+            "right_score": -19.628321052645884,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 4.131528755946434
+          },
+          {
+            "pair_id": "new-2072-G2:A:7241",
+            "kind": "A",
+            "left_score": -23.759849808592318,
+            "right_score": -24.24098763108683,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -0.48113782249451376
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:2",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -22.972217559814453,
+    "old_linear_score": -20.14883408482288,
+    "balanced_score": -24.346976163433318,
+    "strict_score": -22.298487509151922,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.9736307804333495,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The infant was born very preterm at a gestational age of 29+4 weeks. An initial retinopathy of prematurity (ROP) eye examination was performed in the sixth postnatal week on day 38 of life, at which time the postmenstrual age was 35+0 weeks. The infant had previously received ROP treatment, specifically an intravitreal anti-VEGF injection, and prompt postoperative follow-up was completed to exclude injection-related complications such as endophthalmitis. Despite anti-VEGF therapy, the retina was not fully vascularized, with persistent peripheral avascular retina noted; these residual avascular areas were subsequently fully treated with additional laser photocoagulation. Following the additional laser therapy, ongoing vascular activity was still present, with plus disease and proliferative changes observed that suggested continued activity requiring treatment. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 1
+      },
+      {
+        "gid": "G5",
+        "label": 1
+      },
+      {
+        "gid": "G6",
+        "label": 0
+      },
+      {
+        "gid": "G8",
+        "label": 1
+      },
+      {
+        "gid": "G9",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:3",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -16.932544708251953,
+    "old_linear_score": -14.045602155875278,
+    "balanced_score": -18.38663637623544,
+    "strict_score": -16.29848118977173,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -1.0529638447979721,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "An infant born very preterm at a gestational age of 30+2 weeks underwent retinopathy of prematurity (ROP) screening. The initial ROP eye examination was performed at 40 days of life (within the 6th postnatal week), when the postmenstrual age was 35+6 weeks. The infant had previously received ROP treatment, specifically an intravitreal anti-VEGF injection, and prompt postoperative follow-up was completed to exclude injection-related complications such as endophthalmitis. Despite anti-VEGF therapy, the retina was not yet fully vascularized, and residual peripheral avascular areas were subsequently treated with additional laser therapy. After the additional laser treatment, there were no signs of ongoing vascular activity requiring further treatment, with no plus disease and no proliferative changes noted. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 1
+      },
+      {
+        "gid": "G5",
+        "label": 1
+      },
+      {
+        "gid": "G6",
+        "label": 0
+      },
+      {
+        "gid": "G8",
+        "label": 1
+      },
+      {
+        "gid": "G9",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:4",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -20.110435485839844,
+    "old_linear_score": -17.156071003756473,
+    "balanced_score": -21.509143491977735,
+    "strict_score": -19.448680136436824,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.9975801829523754,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "An infant born very preterm at 29+4 weeks’ gestational age underwent an initial retinopathy of prematurity (ROP) eye examination during the sixth postnatal week on day 40 of life, at which time the postmenstrual age was 35+2 weeks. The infant had previously received ROP treatment, specifically an intravitreal anti-VEGF injection. Prompt postoperative follow-up after the injection was completed to exclude injection-related complications, including endophthalmitis. On subsequent ophthalmic examinations, the retina was not yet fully vascularized, with persistent peripheral avascular retina, and these residual avascular areas had not been completely treated with additional laser therapy. Over the ensuing months, serial assessments continued to demonstrate residual avascular peripheral retina without evidence of pathological vascular activity. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 1
+      },
+      {
+        "gid": "G5",
+        "label": 1
+      },
+      {
+        "gid": "G6",
+        "label": 0
+      },
+      {
+        "gid": "G8",
+        "label": 0
+      },
+      {
+        "gid": "G12",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:5",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -20.134544372558594,
+    "old_linear_score": -17.31645989054037,
+    "balanced_score": -21.551966209494765,
+    "strict_score": -19.482145938554712,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -1.0162940137506535,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "A premature infant was born at 29+2 weeks’ gestation. The initial retinopathy of prematurity (ROP) screening eye examination was performed in the sixth postnatal week on day 40 of life, at which time the postmenstrual age was 35+0 weeks. The infant had previously undergone ROP treatment, specifically with an intravitreal anti-VEGF injection, and prompt postoperative follow-up was completed to exclude injection-related complications such as endophthalmitis. On subsequent assessment after anti-VEGF therapy, the retina was not fully vascularized, with persistent peripheral avascular retina. These residual avascular peripheral areas had not been fully treated with additional laser therapy. Over the ensuing months, examinations did not demonstrate a stable picture of residual avascularity without pathological vascular activity. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 1
+      },
+      {
+        "gid": "G5",
+        "label": 1
+      },
+      {
+        "gid": "G6",
+        "label": 0
+      },
+      {
+        "gid": "G8",
+        "label": 0
+      },
+      {
+        "gid": "G12",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:6",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -25.660728454589844,
+    "old_linear_score": -22.797450055566653,
+    "balanced_score": -27.110995182445123,
+    "strict_score": -25.02475246604552,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -1.0491389046697635,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "A preterm infant was born at a gestational age of 29+4 weeks. The initial retinopathy of prematurity (ROP) eye examination was performed in the sixth postnatal week on day 40 of life, at which time the postmenstrual age was 35+2 weeks. The infant had previously received ROP treatment, specifically intravitreal anti-VEGF therapy. After the intravitreal injection, prompt postoperative follow-up to exclude injection-related complications, particularly endophthalmitis, had not been performed. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 1
+      },
+      {
+        "gid": "G5",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:7",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -15.76266860961914,
+    "old_linear_score": -12.836555496240678,
+    "balanced_score": -17.115244438746625,
+    "strict_score": -15.077847171710916,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.9514480059419679,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The infant had been born extremely preterm at 29+2 weeks’ gestation. An initial retinopathy of prematurity (ROP) eye examination was performed in the 6th postnatal week on day 38 of life, at which time the postmenstrual age was 34+5 weeks. The infant had previously undergone ROP treatment, and this prior therapy had been retinal laser photocoagulation rather than intravitreal anti-VEGF injection. After laser treatment, follow-up examinations had been conducted at least weekly until disease activity was judged to have reliably regressed and until all avascular retinal areas were confirmed to have been sufficiently treated. On the current assessment, the retinal findings were stable, with no active proliferation, no active retinal traction, and no plus disease. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 0
+      },
+      {
+        "gid": "G16",
+        "label": 1
+      },
+      {
+        "gid": "G17",
+        "label": 1
+      },
+      {
+        "gid": "G18",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:8",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -20.99509048461914,
+    "old_linear_score": -18.085041618291424,
+    "balanced_score": -22.38697669774215,
+    "strict_score": -20.32992423870868,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.9907583899374934,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The infant had been born very preterm at a gestational age of 29+2 weeks. Retinopathy of prematurity screening was initiated with an initial eye examination performed during the sixth postnatal week, on day of life 38, at which time the postmenstrual age was 34+5 weeks. The infant had previously undergone treatment for ROP, specifically with laser photocoagulation rather than intravitreal anti-VEGF therapy. After laser treatment, ophthalmic follow-up had been conducted at least weekly until disease activity was considered reliably regressed and to confirm that all avascular retinal areas had been sufficiently lasered. On the most recent examination, the retina was not fully stable, with persistent active findings such that there was ongoing disease activity with evidence of at least one of the following: active proliferation, active retinal traction, or plus disease. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 0
+      },
+      {
+        "gid": "G16",
+        "label": 1
+      },
+      {
+        "gid": "G17",
+        "label": 1
+      },
+      {
+        "gid": "G18",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:9",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -24.464553833007812,
+    "old_linear_score": -21.652742501947156,
+    "balanced_score": -25.88960090572749,
+    "strict_score": -23.815968016895685,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -1.0239192495341618,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "An infant born extremely preterm at a gestational age of 30+2 weeks underwent retinopathy of prematurity screening. The initial ROP eye examination was performed in the sixth postnatal week on day 38 of life, when the postmenstrual age was 35+5 weeks. The infant had previously received ROP treatment, which had been laser photocoagulation rather than intravitreal anti-VEGF therapy. However, after the laser treatment, follow-up examinations had not been performed at least weekly to confirm reliable regression of disease activity and to ensure that all avascular retinal areas had been adequately lasered. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 0
+      },
+      {
+        "gid": "G16",
+        "label": 1
+      },
+      {
+        "gid": "G17",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:10",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -8.373775482177734,
+    "old_linear_score": -5.419836436807525,
+    "balanced_score": -9.743507614884258,
+    "strict_score": -7.697532196059029,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.9686043095210083,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "A premature infant was born at 29 + 2 weeks’ gestation. An initial retinopathy of prematurity (ROP) eye examination was performed during the sixth postnatal week at 38 days of life, when the postmenstrual age was 34 + 5 weeks. The infant had previously received ROP treatment; however, this prior treatment had not been intravitreal anti-VEGF therapy and had not been laser therapy. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 0
+      },
+      {
+        "gid": "G16",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:11",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -25.253494262695312,
+    "old_linear_score": -22.435102869558698,
+    "balanced_score": -26.68381105559961,
+    "strict_score": -24.607543306675495,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -1.0291889697187782,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "A preterm infant was born at a gestational age of 30+2 weeks. The initial retinopathy of prematurity (ROP) eye examination was performed in the sixth postnatal week on day 38 of life, at which time the postmenstrual age was 35+5 weeks. The infant had not previously received any ROP treatment such as laser therapy or intravitreal anti-VEGF injection. On dilated fundus examination, plus disease was present, with vascular dilatation and tortuosity at the posterior pole involving at least two quadrants. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:12",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -20.919334411621094,
+    "old_linear_score": -18.074730627661104,
+    "balanced_score": -22.346084502399723,
+    "strict_score": -20.271600104538443,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -1.0256222675931135,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The infant was born extremely preterm at a gestational age of 29+2 weeks. A first retinopathy of prematurity (ROP) screening examination was performed in the 6th postnatal week on day 38 of life, at which time the postmenstrual age was 34+5 weeks. The infant had not previously undergone any ROP treatment such as retinal laser photocoagulation or intravitreal anti-VEGF therapy. On fundus examination, plus disease was not present, with no vascular dilatation and tortuosity at the posterior pole in at least two quadrants. The leading edge of retinal vascularization was located in zone I. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      },
+      {
+        "gid": "G25",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:13",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -22.323036193847656,
+    "old_linear_score": -19.44164355444591,
+    "balanced_score": -23.721026488244863,
+    "strict_score": -21.660921988574295,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.9968624712116922,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "An infant born very preterm at a gestational age of 29+4 weeks underwent an initial retinopathy of prematurity (ROP) eye examination during the 6th postnatal week on day 38 of life, at which time the postmenstrual age was 35+0 weeks. There was no history of prior ROP treatment such as laser therapy or intravitreal anti-VEGF injection. On dilated fundus examination, plus disease was not present, with no vascular dilatation and tortuosity at the posterior pole in at least two quadrants. The border of retinal vascularization was not located in zone I, but it was identified in posterior zone II. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      },
+      {
+        "gid": "G25",
+        "label": 0
+      },
+      {
+        "gid": "G27",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:14",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -20.257057189941406,
+    "old_linear_score": -17.3598430368553,
+    "balanced_score": -21.714541271077653,
+    "strict_score": -19.624689878037564,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -1.0563562579507313,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The infant had been born very preterm at a gestational age of 30 + 2 weeks. As part of retinopathy of prematurity surveillance, the initial ophthalmologic examination was performed during the 6th postnatal week on day 40 of life, at which time the postmenstrual age was 35 + 6 weeks. The infant had not previously received any ROP treatment such as laser photocoagulation or intravitreal anti-VEGF therapy. On fundus examination, plus disease was not present, with no vascular dilatation and tortuosity at the posterior pole in two or more quadrants. The border of vascularization was not located in zone I and was not in posterior zone II; instead, it was situated in anterior zone II with stage 2 ROP. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      },
+      {
+        "gid": "G25",
+        "label": 0
+      },
+      {
+        "gid": "G27",
+        "label": 0
+      },
+      {
+        "gid": "G29",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:15",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -24.212892532348633,
+    "old_linear_score": -21.343806307186426,
+    "balanced_score": -25.637345796406855,
+    "strict_score": -23.564009811905777,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -1.0233254408727046,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The infant was born very preterm at a gestational age of 28+4 weeks. A first retinopathy of prematurity (ROP) screening examination was performed during the sixth postnatal week on day 39 of life, at which time the postmenstrual age was 34+1 weeks. There had been no prior ROP treatment with laser therapy or intravitreal anti-VEGF. On dilated fundus examination, plus disease was not present, with no posterior pole vascular dilatation or tortuosity in at least two quadrants. The vascularization border was not located in zone I or in posterior zone II, and it was not in anterior zone II with stage 2 or stage 3 ROP. Instead, retinal vascularization had progressed into zone III, and no ROP was identified. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      },
+      {
+        "gid": "G25",
+        "label": 0
+      },
+      {
+        "gid": "G27",
+        "label": 0
+      },
+      {
+        "gid": "G29",
+        "label": 0
+      },
+      {
+        "gid": "G31",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:16",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -23.03814125061035,
+    "old_linear_score": -20.155498561596737,
+    "balanced_score": -24.4207029820041,
+    "strict_score": -22.368312763835263,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.981433908208234,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The infant was born very preterm at a gestational age of 29+4 weeks. An initial retinopathy of prematurity (ROP) screening examination was performed in the sixth postnatal week on day 38 of life, at which time the postmenstrual age was 35+0 weeks. No prior ROP treatment (laser or intravitreal anti-VEGF) had been administered. On funduscopic examination, plus disease was not present, with no posterior pole vascular dilatation and tortuosity in at least two quadrants. The border of vascularization was not located in zone I, was not in posterior zone II, and was not in anterior zone II with stage 2 or stage 3 ROP. The findings were also not consistent with a situation in which the border of vascularization was in zone III with absent ROP. Instead, the peripheral retina was noted to be fully vascularized circumferentially. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      },
+      {
+        "gid": "G25",
+        "label": 0
+      },
+      {
+        "gid": "G27",
+        "label": 0
+      },
+      {
+        "gid": "G29",
+        "label": 0
+      },
+      {
+        "gid": "G31",
+        "label": 0
+      },
+      {
+        "gid": "G33",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:17",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -10.174732208251953,
+    "old_linear_score": -7.13782087537364,
+    "balanced_score": -11.585852344204085,
+    "strict_score": -9.519182923756052,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -1.0099923127666168,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The infant had been born very preterm at 29+2 weeks’ gestation. An initial retinopathy of prematurity (ROP) eye examination was performed in the 6th postnatal week on day 40 of life, at which time the postmenstrual age was 35+0 weeks. There had been no prior ROP treatment such as laser photocoagulation or intravitreal anti-VEGF therapy. On examination, plus disease was not present, with no posterior pole vascular dilatation and tortuosity meeting criteria in two or more quadrants. The vascularization border was not located in zone I and was not in posterior zone II; instead, it lay more peripherally without meeting criteria for anterior zone II stage 2 or stage 3 ROP. The findings were not consistent with fully mature zone III vascularization with absent ROP, and the peripheral retina was not yet fully vascularized circumferentially. However, there was clear regression of peripheral retinal changes associated with acute ROP. The calculated due date had already passed at the time of this assessment. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      },
+      {
+        "gid": "G25",
+        "label": 0
+      },
+      {
+        "gid": "G27",
+        "label": 0
+      },
+      {
+        "gid": "G29",
+        "label": 0
+      },
+      {
+        "gid": "G31",
+        "label": 0
+      },
+      {
+        "gid": "G33",
+        "label": 0
+      },
+      {
+        "gid": "G35",
+        "label": 1
+      },
+      {
+        "gid": "G36",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:18",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -21.232952117919922,
+    "old_linear_score": -18.32427702723735,
+    "balanced_score": -22.65975892914095,
+    "strict_score": -20.585246171058472,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -1.0256789880355124,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The infant had been born very preterm at a gestational age of 29+2 weeks. An initial retinopathy of prematurity (ROP) screening examination was performed in the sixth postnatal week on day 40 of life, at which time the postmenstrual age was 35+0 weeks. There had been no prior ROP treatment such as laser photocoagulation or intravitreal anti-VEGF therapy. On fundus examination, plus disease was not present, with no posterior pole vascular dilatation and tortuosity in at least two quadrants. The vascularization border was not located in zone I, not in posterior zone II, and not in anterior zone II with stage 2 or stage 3 ROP. The findings were also not consistent with zone III vascularization with complete absence of ROP, and the peripheral retina was not yet fully vascularized circumferentially. Nonetheless, a clear regression of peripheral retinal changes associated with acute ROP was observed. At the time of this examination, the calculated date of birth had not yet been reached. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      },
+      {
+        "gid": "G25",
+        "label": 0
+      },
+      {
+        "gid": "G27",
+        "label": 0
+      },
+      {
+        "gid": "G29",
+        "label": 0
+      },
+      {
+        "gid": "G31",
+        "label": 0
+      },
+      {
+        "gid": "G33",
+        "label": 0
+      },
+      {
+        "gid": "G35",
+        "label": 1
+      },
+      {
+        "gid": "G36",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2072:19",
+    "source_id": "train_val:2072",
+    "gid": "G2",
+    "gold_order": 2,
+    "gold_label": 1,
+    "condition": "At the time of the initial examination, is postmenstrual age (PMA) ≥31+0 weeks?",
+    "raw_score": -24.851783752441406,
+    "old_linear_score": -21.9563141558942,
+    "balanced_score": -26.14181420294415,
+    "strict_score": -24.135689625220813,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.8889026273172275,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "A preterm infant was born at a gestational age of 29+4 weeks. The initial retinopathy of prematurity (ROP) screening examination was performed in the sixth postnatal week, on day 38 of life, when the postmenstrual age was 35+0 weeks. There had been no prior ROP treatment such as laser photocoagulation or intravitreal anti-VEGF therapy. On funduscopic assessment, plus disease was not present, as posterior pole vascular dilation and tortuosity were not seen in at least two quadrants. The vascularization border was not located in zone I and was not in posterior zone II. The vascularization border was also not described as being in anterior zone II with stage 2 or stage 3 ROP. The findings were not consistent with zone III vascularization in the absence of ROP. The peripheral retina was not yet fully vascularized circumferentially, and there was no clear evidence of regression of peripheral retinal changes associated with acute ROP. The primary clinical focus was screening.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      },
+      {
+        "gid": "G25",
+        "label": 0
+      },
+      {
+        "gid": "G27",
+        "label": 0
+      },
+      {
+        "gid": "G29",
+        "label": 0
+      },
+      {
+        "gid": "G31",
+        "label": 0
+      },
+      {
+        "gid": "G33",
+        "label": 0
+      },
+      {
+        "gid": "G35",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:998:14",
+    "source_id": "train_val:998",
+    "gid": "G0",
+    "gold_order": 0,
+    "gold_label": 0,
+    "condition": "儿童是否存在维生素A或维生素D缺乏的高危疾病或营养状态（反复呼吸道感染RRTIs、慢性腹泻、缺铁性贫血或铁缺乏高危、营养不良等慢性病、维生素D缺乏性佝偻病）？",
+    "raw_score": 14.700157165527344,
+    "old_linear_score": 17.267642841594554,
+    "balanced_score": 13.798379517681669,
+    "strict_score": 15.610377694076472,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.5006498246601601,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "患儿就诊时既往未提示存在维生素A或维生素D缺乏的高危疾病或营养状态，包括未见反复呼吸道感染、慢性腹泻、缺铁性贫血或铁缺乏高危因素、营养不良等慢性病史，也不符合维生素D缺乏性佝偻病的临床背景。患儿年龄为6个月，属于0～＜1岁婴儿期。出生史提示为早产并伴低出生体重，且为多胎儿之一。基于以上情况，临床主要关注点为管理。",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G26",
+        "label": 1
+      },
+      {
+        "gid": "G27",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2612:13",
+    "source_id": "train_val:2612",
+    "gid": "G25",
+    "gold_order": 6,
+    "gold_label": 1,
+    "condition": "Is the planned statin co-therapy pravastatin at a dose >40 mg/day?",
+    "raw_score": -21.846759796142578,
+    "old_linear_score": -19.477976044192072,
+    "balanced_score": -22.53349915597409,
+    "strict_score": -20.82902012358637,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [
+      "new-2612-G25:full"
+    ],
+    "observed_AP_pairs": 3,
+    "raw_AP_prediction_changing_pairs": 1,
+    "raw_wrong_with_correct_AP_endpoint": true,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": -0.28561153664599753,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The patient had no history suggestive of complete statin intolerance and also denied partial statin intolerance, having previously tolerated statin therapy without recurrent limiting adverse effects. There was no established atherosclerotic cardiovascular disease documented. A diagnosis of heterozygous familial hypercholesterolaemia had been present. Despite ongoing statin therapy in combination with other lipid-lowering drugs, LDL-C treatment targets were not met, with an LDL-C value of 160 mg/dL on the current regimen. In planning ongoing lipid-lowering management, simvastatin was not selected at a dose above 20 mg/day, while pravastatin was planned at 80 mg/day. The primary clinical focus was management.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G4",
+        "label": 0
+      },
+      {
+        "gid": "G10",
+        "label": 0
+      },
+      {
+        "gid": "G20",
+        "label": 1
+      },
+      {
+        "gid": "G21",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      },
+      {
+        "gid": "G25",
+        "label": 1
+      }
+    ],
+    "direct_observation_tags": [
+      "observed_same_evidence_AP_variant_can_change_wrong_to_correct",
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [
+      {
+        "group_id": "new-2612-G25",
+        "source_id": "train_val:2612",
+        "split": "dev",
+        "case_id": "mega:train_val:2612:13",
+        "cohort": "main",
+        "construction_version": "repair-v2",
+        "predicate": {
+          "op": ">",
+          "name": "Is the planned statin co-therapy pravastatin at a dose",
+          "field": "Is the planned statin co-therapy pravastatin at a dose",
+          "value": 40.0,
+          "source": "Is the planned statin co-therapy pravastatin at a dose >40 mg/day?",
+          "unit": "mg/day",
+          "number_source": "40",
+          "comparator_source": ">"
+        },
+        "facts": {
+          "Is the planned statin co-therapy pravastatin at a dose": 80
+        },
+        "observations": {
+          "Is the planned statin co-therapy pravastatin at a dose": {
+            "value": 80,
+            "state": "observed",
+            "sentence_ids": [
+              0
+            ],
+            "evidence": [
+              {
+                "id": 0,
+                "start": 0,
+                "end": 716,
+                "text": "The patient had no history suggestive of complete statin intolerance and also denied partial statin intolerance, having previously tolerated statin therapy without recurrent limiting adverse effects. There was no established atherosclerotic cardiovascular disease documented. A diagnosis of heterozygous familial hypercholesterolaemia had been present. Despite ongoing statin therapy in combination with other lipid-lowering drugs, LDL-C treatment targets were not met, with an LDL-C value of 160 mg/dL on the current regimen. In planning ongoing lipid-lowering management, simvastatin was not selected at a dose above 20 mg/day, while pravastatin was planned at 80 mg/day. The primary clinical focus was management."
+              }
+            ]
+          }
+        },
+        "original_condition": "Is the planned statin co-therapy pravastatin at a dose >40 mg/day?",
+        "program_label": 1,
+        "original_label": 1,
+        "method": "program"
+      }
+    ],
+    "AP_details": {
+      "raw": {
+        "pairs": 3,
+        "prediction_changing_pairs": 1,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 29.303363800048828,
+        "pair_details": [
+          {
+            "pair_id": "new-2612-G25:A:7364",
+            "kind": "A",
+            "left_score": -21.846759796142578,
+            "right_score": 7.45660400390625,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 29.303363800048828
+          },
+          {
+            "pair_id": "new-2612-G25:A:7365",
+            "kind": "A",
+            "left_score": -21.846759796142578,
+            "right_score": -7.653980255126953,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 14.192779541015625
+          },
+          {
+            "pair_id": "new-2612-G25:A:7366",
+            "kind": "A",
+            "left_score": -21.846759796142578,
+            "right_score": -16.14632797241211,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 5.700431823730469
+          }
+        ]
+      },
+      "old_linear": {
+        "pairs": 3,
+        "prediction_changing_pairs": 1,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 28.93941850502904,
+        "pair_details": [
+          {
+            "pair_id": "new-2612-G25:A:7364",
+            "kind": "A",
+            "left_score": -19.477975964239878,
+            "right_score": 9.461442540789161,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 28.93941850502904
+          },
+          {
+            "pair_id": "new-2612-G25:A:7365",
+            "kind": "A",
+            "left_score": -19.477975964239878,
+            "right_score": -5.548094736026487,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 13.929881228213391
+          },
+          {
+            "pair_id": "new-2612-G25:A:7366",
+            "kind": "A",
+            "left_score": -19.477975964239878,
+            "right_score": -13.76710386072107,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 5.710872103518808
+          }
+        ]
+      },
+      "balanced_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 1,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 28.727446503464222,
+        "pair_details": [
+          {
+            "pair_id": "new-2612-G25:A:7364",
+            "kind": "A",
+            "left_score": -22.533499043244273,
+            "right_score": 6.193947460219951,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 28.727446503464222
+          },
+          {
+            "pair_id": "new-2612-G25:A:7365",
+            "kind": "A",
+            "left_score": -22.533499043244273,
+            "right_score": -8.738246517786875,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 13.795252525457398
+          },
+          {
+            "pair_id": "new-2612-G25:A:7366",
+            "kind": "A",
+            "left_score": -22.533499043244273,
+            "right_score": -17.09858609859202,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 5.434912944652254
+          }
+        ]
+      },
+      "strict_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 1,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 29.015405151756525,
+        "pair_details": [
+          {
+            "pair_id": "new-2612-G25:A:7364",
+            "kind": "A",
+            "left_score": -20.82902006722146,
+            "right_score": 8.186385084535067,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 29.015405151756525
+          },
+          {
+            "pair_id": "new-2612-G25:A:7365",
+            "kind": "A",
+            "left_score": -20.82902006722146,
+            "right_score": -6.835004033984948,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 13.994016033236512
+          },
+          {
+            "pair_id": "new-2612-G25:A:7366",
+            "kind": "A",
+            "left_score": -20.82902006722146,
+            "right_score": -15.261347683030097,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 5.567672384191363
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:1775:12",
+    "source_id": "train_val:1775",
+    "gid": "G8",
+    "gold_order": 1,
+    "gold_label": 1,
+    "condition": "Does the child/adolescent with asthma have ABPA?",
+    "raw_score": -9.585952758789062,
+    "old_linear_score": -5.792714545738772,
+    "balanced_score": -7.287534022896397,
+    "strict_score": -7.075634038370763,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [
+      "new-1775-G8:full"
+    ],
+    "observed_AP_pairs": 3,
+    "raw_AP_prediction_changing_pairs": 2,
+    "raw_wrong_with_correct_AP_endpoint": true,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 2.699546559078181,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "A child with asthma was evaluated and did not appear to have poorly controlled disease, as symptoms were controlled on appropriate therapy with moderate- to high-dose inhaled corticosteroids plus a long-acting beta-agonist, with the diagnosis considered correct, adherence and inhaler technique adequate, comorbidities appropriately managed, and environmental triggers addressed. Despite this, the clinical course was consistent with allergic bronchopulmonary aspergillosis (ABPA). The patient had not previously received systemic glucocorticoid therapy specifically for ABPA and was therefore treatment-naïve. When systemic corticosteroid treatment was planned, the overall oral steroid course was not intended to extend beyond 16 weeks including tapering. The initial regimen was not started as a low-dose prednisolone/prednisone-equivalent 0.5 mg/kg/day for the first 2 weeks; instead, an initial dose of 0.75 mg/kg/day was used. Management.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G8",
+        "label": 1
+      },
+      {
+        "gid": "G9",
+        "label": 1
+      },
+      {
+        "gid": "G10",
+        "label": 0
+      },
+      {
+        "gid": "G12",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "observed_same_evidence_AP_variant_can_change_wrong_to_correct",
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [
+      {
+        "group_id": "new-1775-G8",
+        "source_id": "train_val:1775",
+        "split": "dev",
+        "case_id": "mega:train_val:1775:12",
+        "cohort": "main",
+        "construction_version": "repair-v2",
+        "predicate": {
+          "op": "==",
+          "name": "ABPA",
+          "source": "Does the child/adolescent with asthma have ABPA?",
+          "value": true,
+          "unit": "",
+          "field": "ABPA"
+        },
+        "facts": {
+          "ABPA": true
+        },
+        "observations": {
+          "ABPA": {
+            "value": true,
+            "state": "observed",
+            "sentence_ids": [
+              0
+            ],
+            "evidence": [
+              {
+                "id": 0,
+                "start": 0,
+                "end": 944,
+                "text": "A child with asthma was evaluated and did not appear to have poorly controlled disease, as symptoms were controlled on appropriate therapy with moderate- to high-dose inhaled corticosteroids plus a long-acting beta-agonist, with the diagnosis considered correct, adherence and inhaler technique adequate, comorbidities appropriately managed, and environmental triggers addressed. Despite this, the clinical course was consistent with allergic bronchopulmonary aspergillosis (ABPA). The patient had not previously received systemic glucocorticoid therapy specifically for ABPA and was therefore treatment-naïve. When systemic corticosteroid treatment was planned, the overall oral steroid course was not intended to extend beyond 16 weeks including tapering. The initial regimen was not started as a low-dose prednisolone/prednisone-equivalent 0.5 mg/kg/day for the first 2 weeks; instead, an initial dose of 0.75 mg/kg/day was used. Management."
+              }
+            ]
+          }
+        },
+        "original_condition": "Does the child/adolescent with asthma have ABPA?",
+        "program_label": 1,
+        "original_label": 1,
+        "method": "model-source-grounded"
+      }
+    ],
+    "AP_details": {
+      "raw": {
+        "pairs": 3,
+        "prediction_changing_pairs": 2,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 28.692626953125,
+        "pair_details": [
+          {
+            "pair_id": "new-1775-G8:A:2782",
+            "kind": "A",
+            "left_score": -9.585952758789062,
+            "right_score": 19.106674194335938,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 28.692626953125
+          },
+          {
+            "pair_id": "new-1775-G8:A:2783",
+            "kind": "A",
+            "left_score": -9.585952758789062,
+            "right_score": 18.970054626464844,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 28.556007385253906
+          },
+          {
+            "pair_id": "new-1775-G8:A:2784",
+            "kind": "A",
+            "left_score": -9.585952758789062,
+            "right_score": -7.537040710449219,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 2.0489120483398438
+          }
+        ]
+      },
+      "old_linear": {
+        "pairs": 3,
+        "prediction_changing_pairs": 2,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 27.72120389430693,
+        "pair_details": [
+          {
+            "pair_id": "new-1775-G8:A:2782",
+            "kind": "A",
+            "left_score": -5.792714545738772,
+            "right_score": 21.92848934856816,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 27.72120389430693
+          },
+          {
+            "pair_id": "new-1775-G8:A:2783",
+            "kind": "A",
+            "left_score": -5.792714545738772,
+            "right_score": 21.741287536238723,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 27.534002081977494
+          },
+          {
+            "pair_id": "new-1775-G8:A:2784",
+            "kind": "A",
+            "left_score": -5.792714545738772,
+            "right_score": -3.706656286012865,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 2.0860582597259065
+          }
+        ]
+      },
+      "balanced_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 2,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 25.65494484324394,
+        "pair_details": [
+          {
+            "pair_id": "new-1775-G8:A:2782",
+            "kind": "A",
+            "left_score": -7.287534022896397,
+            "right_score": 18.36741082034754,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 25.65494484324394
+          },
+          {
+            "pair_id": "new-1775-G8:A:2783",
+            "kind": "A",
+            "left_score": -7.287534022896397,
+            "right_score": 18.081935835203748,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 25.369469858100146
+          },
+          {
+            "pair_id": "new-1775-G8:A:2784",
+            "kind": "A",
+            "left_score": -7.287534022896397,
+            "right_score": -4.812906030760034,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 2.4746279921363623
+          }
+        ]
+      },
+      "strict_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 2,
+        "any_correct_endpoint": true,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": 27.17378589818447,
+        "pair_details": [
+          {
+            "pair_id": "new-1775-G8:A:2782",
+            "kind": "A",
+            "left_score": -7.075634038370763,
+            "right_score": 20.098151859813704,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 27.17378589818447
+          },
+          {
+            "pair_id": "new-1775-G8:A:2783",
+            "kind": "A",
+            "left_score": -7.075634038370763,
+            "right_score": 19.88710458330626,
+            "left_correct": false,
+            "right_correct": true,
+            "delta_score": 26.962738621677026
+          },
+          {
+            "pair_id": "new-1775-G8:A:2784",
+            "kind": "A",
+            "left_score": -7.075634038370763,
+            "right_score": -4.81386401813266,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": 2.261770020238103
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:1775:13",
+    "source_id": "train_val:1775",
+    "gid": "G8",
+    "gold_order": 1,
+    "gold_label": 1,
+    "condition": "Does the child/adolescent with asthma have ABPA?",
+    "raw_score": -11.009693145751953,
+    "old_linear_score": -7.459002124213365,
+    "balanced_score": -8.996652550091525,
+    "strict_score": -8.642063495449774,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 2.4141684188459425,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "A child/adolescent with asthma was followed in clinic and did not have evidence of poorly controlled disease, with symptoms remaining controlled on appropriate moderate-to-high dose inhaled corticosteroids plus a long-acting beta-agonist in the setting of a correct asthma diagnosis, adequate adherence, correct inhalation technique, appropriate comorbidity management, and appropriate environmental control measures. Despite this, the clinical picture was consistent with allergic bronchopulmonary aspergillosis (ABPA). The patient was not treatment-naïve for ABPA steroid therapy, having previously received systemic corticosteroids for ABPA. The primary clinical focus was management.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 0
+      },
+      {
+        "gid": "G8",
+        "label": 1
+      },
+      {
+        "gid": "G9",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:247:16",
+    "source_id": "train_val:247",
+    "gid": "G23",
+    "gold_order": 2,
+    "gold_label": 0,
+    "condition": "Is the patient currently free of neurological symptoms but at risk for HE due to decompensated cirrhosis or prior covert HE?",
+    "raw_score": 27.087074279785156,
+    "old_linear_score": 29.161679502830847,
+    "balanced_score": 25.372581480103715,
+    "strict_score": 27.5909372324164,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [
+      "new-247-G23:full"
+    ],
+    "observed_AP_pairs": 3,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": true,
+    "balanced_input_correction_centered": -1.313364976495924,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "An adult patient with known cirrhosis was evaluated in the outpatient setting. At the time of assessment, there were no neurological or neuropsychiatric abnormalities suggestive of hepatic encephalopathy: the patient denied confusion, psychomotor slowing, and sleep–wake inversion, and there was no temporospatial disorientation, impaired consciousness, or cognitive/behavioral change reported by the patient or relatives. The patient was not asymptomatic yet considered at elevated risk for hepatic encephalopathy, as there was no evidence presented of decompensated cirrhosis or prior covert hepatic encephalopathy. The primary clinical focus was management.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 0
+      },
+      {
+        "gid": "G23",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "all_available_same_evidence_AP_endpoints_wrong",
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 2.645252227783203,
+        "pair_details": [
+          {
+            "pair_id": "new-247-G23:A:2806",
+            "kind": "A",
+            "left_score": 27.087074279785156,
+            "right_score": 24.441822052001953,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -2.645252227783203
+          },
+          {
+            "pair_id": "new-247-G23:A:2807",
+            "kind": "A",
+            "left_score": 27.087074279785156,
+            "right_score": 24.846412658691406,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -2.24066162109375
+          },
+          {
+            "pair_id": "new-247-G23:A:2808",
+            "kind": "A",
+            "left_score": 27.087074279785156,
+            "right_score": 25.559906005859375,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -1.5271682739257812
+          }
+        ]
+      },
+      "old_linear": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 2.4937630787158334,
+        "pair_details": [
+          {
+            "pair_id": "new-247-G23:A:2806",
+            "kind": "A",
+            "left_score": 29.161679502830847,
+            "right_score": 26.667916424115013,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -2.4937630787158334
+          },
+          {
+            "pair_id": "new-247-G23:A:2807",
+            "kind": "A",
+            "left_score": 29.161679502830847,
+            "right_score": 27.205993097528438,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -1.9556864053024086
+          },
+          {
+            "pair_id": "new-247-G23:A:2808",
+            "kind": "A",
+            "left_score": 29.161679502830847,
+            "right_score": 27.74949395103804,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -1.4121855517928061
+          }
+        ]
+      },
+      "balanced_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 2.1627855150983883,
+        "pair_details": [
+          {
+            "pair_id": "new-247-G23:A:2806",
+            "kind": "A",
+            "left_score": 25.372581480103715,
+            "right_score": 23.209795965005327,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -2.1627855150983883
+          },
+          {
+            "pair_id": "new-247-G23:A:2807",
+            "kind": "A",
+            "left_score": 25.372581480103715,
+            "right_score": 23.45282433801953,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -1.9197571420841868
+          },
+          {
+            "pair_id": "new-247-G23:A:2808",
+            "kind": "A",
+            "left_score": 25.372581480103715,
+            "right_score": 23.991201201696775,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -1.3813802784069402
+          }
+        ]
+      },
+      "strict_fit_ce": {
+        "pairs": 3,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": true,
+        "max_abs_difference": 2.4040188714407975,
+        "pair_details": [
+          {
+            "pair_id": "new-247-G23:A:2806",
+            "kind": "A",
+            "left_score": 27.5909372324164,
+            "right_score": 25.186918360975604,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -2.4040188714407975
+          },
+          {
+            "pair_id": "new-247-G23:A:2807",
+            "kind": "A",
+            "left_score": 27.5909372324164,
+            "right_score": 25.510727850827433,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -2.0802093815889684
+          },
+          {
+            "pair_id": "new-247-G23:A:2808",
+            "kind": "A",
+            "left_score": 27.5909372324164,
+            "right_score": 26.136662956250042,
+            "left_correct": false,
+            "right_correct": false,
+            "delta_score": -1.454274276166359
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:1475:10",
+    "source_id": "train_val:1475",
+    "gid": "G0",
+    "gold_order": 0,
+    "gold_label": 1,
+    "condition": "Is a causative (disease-causing) gene identified for the patient's condition?",
+    "raw_score": -24.574237823486328,
+    "old_linear_score": -21.64951480470932,
+    "balanced_score": -24.735599485354303,
+    "strict_score": -23.29380930194835,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 0.23976616131754314,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "Genetic evaluation identified a variant in a gene thought to be related to the patient’s clinical condition. However, the finding was not consistent with a disease-causing gene for a monogenic disorder and instead represented a genetic risk factor rather than a clearly pathogenic, single-gene cause. The primary clinical focus was classification.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2731:4",
+    "source_id": "train_val:2731",
+    "gid": "G9",
+    "gold_order": 8,
+    "gold_label": 0,
+    "condition": "Is eGFR <30 ml/min/1.73 m² AND does the patient have a mutation consistent with pyridoxine responsiveness?",
+    "raw_score": 13.241069793701172,
+    "old_linear_score": 16.308844613801533,
+    "balanced_score": 13.567611064478564,
+    "strict_score": 14.765449781561834,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 0.7276690939629077,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The patient presented with clinical and biochemical features raising suspicion for primary hyperoxaluria. Kidney function was markedly reduced, with an estimated GFR of 22 mL/min/1.73 m², consistent with advanced chronic kidney disease (stage 4). Because of suspected primary hyperoxaluria in the setting of eGFR <30 mL/min/1.73 m², genetic testing for primary hyperoxaluria types 1–3 was obtained within 30 days of presentation, and plasma oxalate was also measured given the presence of CKD stage 4 or higher.\n\nGenetic testing established primary hyperoxaluria type 1. The patient was treated with pyridoxine, and biochemical assessment of pyridoxine responsiveness was performed; however, there was not full pyridoxine responsiveness, as urinary oxalate remained above the upper reference limit of normal at 62 mg/24 h while on pyridoxine. Despite eGFR remaining <30 mL/min/1.73 m², the identified genotype was not consistent with pyridoxine responsiveness and was also not consistent with pyridoxine unresponsiveness.\n\nThe primary clinical focus was management.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 1
+      },
+      {
+        "gid": "G2",
+        "label": 1
+      },
+      {
+        "gid": "G3",
+        "label": 1
+      },
+      {
+        "gid": "G4",
+        "label": 1
+      },
+      {
+        "gid": "G5",
+        "label": 1
+      },
+      {
+        "gid": "G6",
+        "label": 1
+      },
+      {
+        "gid": "G7",
+        "label": 0
+      },
+      {
+        "gid": "G9",
+        "label": 0
+      },
+      {
+        "gid": "G11",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  },
+  {
+    "case_id": "mega:train_val:2731:17",
+    "source_id": "train_val:2731",
+    "gid": "G37",
+    "gold_order": 10,
+    "gold_label": 0,
+    "condition": "Is there no ongoing clinical disease (no ongoing stone disease/nephrocalcinosis/renal impairment)?",
+    "raw_score": 12.020545959472656,
+    "old_linear_score": 14.799151918075633,
+    "balanced_score": 13.385293525296092,
+    "strict_score": 14.064029094856341,
+    "raw_correct": false,
+    "old_linear_correct": false,
+    "balanced_correct": false,
+    "strict_correct": false,
+    "threshold_bin": "abs_raw_gt_5",
+    "all_four_wrong": true,
+    "same_exact_prompt_views": [],
+    "observed_AP_pairs": 0,
+    "raw_AP_prediction_changing_pairs": 0,
+    "raw_wrong_with_correct_AP_endpoint": false,
+    "all_observed_AP_endpoints_wrong": false,
+    "balanced_input_correction_centered": 1.7658753890089507,
+    "balanced_effective_bias": -0.4011278231855152,
+    "first_error_for": {
+      "raw": true,
+      "old_linear": true,
+      "balanced_fit_ce": true,
+      "strict_fit_ce": true
+    },
+    "patient": "The patient was evaluated for suspected primary hyperoxaluria on clinical and biochemical grounds. Kidney function was preserved, with an estimated GFR of 72 mL/min/1.73 m². Two separate 24-hour urine collections demonstrated hyperoxaluria, with oxalate excretion of 75 mg/day and 78 mg/day (upper reference limit 40 mg/day). Enteric and other secondary causes were excluded, with no evidence of fat malabsorption or an enteric source to explain the elevated oxalate.\n\nGenetic testing was performed and confirmed primary hyperoxaluria type 1 (PH1). Pyridoxine responsiveness was then assessed with repeat urinary oxalate measurements after more than 2 weeks of pyridoxine; oxalate decreased from a mean of 76.5 mg/day pre-treatment to a mean of 52 mg/day on pyridoxine, representing a reduction of approximately 32%, but urinary oxalate did not normalize and remained above the upper reference limit. Urinary oxalate excretion remained markedly elevated at 1.9 times the upper reference limit. There were no features of an active clinical phenotype, with no ongoing stone disease, nephrocalcinosis, or renal impairment documented, and it was also not the case that there was no ongoing clinical disease.\n\nPrimary clinical focus: management.",
+    "definitions": [],
+    "gold_path": [
+      {
+        "gid": "G0",
+        "label": 1
+      },
+      {
+        "gid": "G1",
+        "label": 0
+      },
+      {
+        "gid": "G27",
+        "label": 1
+      },
+      {
+        "gid": "G28",
+        "label": 1
+      },
+      {
+        "gid": "G29",
+        "label": 1
+      },
+      {
+        "gid": "G30",
+        "label": 1
+      },
+      {
+        "gid": "G31",
+        "label": 1
+      },
+      {
+        "gid": "G32",
+        "label": 0
+      },
+      {
+        "gid": "G34",
+        "label": 1
+      },
+      {
+        "gid": "G35",
+        "label": 0
+      },
+      {
+        "gid": "G37",
+        "label": 0
+      }
+    ],
+    "direct_observation_tags": [
+      "confident_error_persists_across_all_four_methods"
+    ],
+    "semantic_cause": "requires inspection; no automatic causal label",
+    "existing_rule_extractions": [],
+    "AP_details": {
+      "raw": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "old_linear": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "balanced_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      },
+      "strict_fit_ce": {
+        "pairs": 0,
+        "prediction_changing_pairs": 0,
+        "any_correct_endpoint": false,
+        "all_endpoints_wrong": false,
+        "max_abs_difference": null,
+        "pair_details": []
+      }
+    }
+  }
+]
