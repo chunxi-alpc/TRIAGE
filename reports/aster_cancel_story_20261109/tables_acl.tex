@@ -1,0 +1,352 @@
+% ACL-compatible main-result table sources.
+% Required packages: booktabs, tabularx, array.
+% Figures, tables and captions must be checked in the assembled ACL PDF.
+% No corresponding real model runs were performed for simulated Tables 13--17.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrrrrr@{}}
+\toprule
+Method & \shortstack{$\mathrm{VR}_{I}$\\ (\%) $\uparrow$} & \shortstack{$\mathrm{ER}_{E}$\\ (\%) $\approx$100} & \shortstack{$\mathrm{RMS}_{\Delta c}$\\ (logit) $\downarrow$} & \shortstack{DU\\ (\%) $\downarrow$} & \shortstack{Dir. Deg.\\ (\#) $\downarrow$} & \shortstack{Pair Correct\\ (I) (n/N) $\uparrow$} & \shortstack{Node Correct\\ (n/N) $\uparrow$} & \shortstack{Path Correct\\ (n/N) $\uparrow$} \\
+\midrule
+Base Model & 0.00 & 100.00 & 0.0000 & 0.00 & 0 & 2258/2293 & 368/372 & 768/806 \\
+Bias Calibration & 0.00 & 100.00 & 0.0000 & 0.00 & 0 & 2267/2293 & 368/372 & 767/806 \\
+ASTER-CR (Linear) & 4.10 & 99.60 & 0.2539 & 9.66 & 0 & 2266/2293 & 368/372 & 767/806 \\
+ASTER-CR (MLP Ensemble, Strong Protection) & 8.02 & 99.88 & 0.1201 & 4.57 & 0 & 2267/2293 & 368/372 & 767/806 \\
+ASTER-CR (MLP Ensemble, Balanced) & 14.59 & 99.77 & 0.2403 & 9.14 & 0 & 2262/2293 & 368/372 & 768/806 \\
+MLP Ensemble (High VR) & 18.17 & 98.97 & 0.3953 & 15.04 & 0 & 2262/2293 & 368/372 & 767/806 \\
+MLP (Large Correction) & 25.74 & 97.93 & 0.8593 & 32.70 & 0 & 2262/2293 & 368/372 & 769/806 \\
+MLP (Max. Dev VR) & 25.85 & 99.07 & 0.9425 & 35.86 & 2 & 2263/2293 & 369/372 & 765/806 \\
+MLP (Dev Path Selection) & 17.85 & 98.85 & 0.5410 & 20.58 & 0 & 2264/2293 & 368/372 & 768/806 \\
+Trace-only MLP & 10.56 & 99.44 & 0.2191 & 8.34 & 0 & 2262/2293 & 368/372 & 766/806 \\
+Score-only MLP & 3.89 & 99.30 & 0.3113 & 11.85 & 0 & 2267/2293 & 368/372 & 767/806 \\
+ASTER-CR (Expanded Linear) & 9.92 & 99.68 & 0.3831 & 14.58 & 0 & 2266/2293 & 368/372 & 768/806 \\
+\bottomrule
+\end{tabularx}
+\caption{Controlled held-out results with Qwen3-8B: 2,293 interference pairs, 40 evidence pairs, 372 natural nodes and 806 paths. RMS values are in logits; DU is a percentage. Dir. Deg. reports counts, not conditional rates. Expanded configurations are evaluated using their frozen outputs.}
+\label{tab:aster-main-03}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrrrr@{}}
+\toprule
+Method & \shortstack{Path Correct\\ (n/N) $\uparrow$} & \shortstack{Path Acc.\\ (\%) $\uparrow$} & \shortstack{95\% Cluster CI\\ (\%)} & \shortstack{Leaf Acc.\\ (\%) $\uparrow$} & \shortstack{Fixed / New Errors\\ (\#)} & \shortstack{$\Delta$Acc.\\ (pp)} & \shortstack{95\% CI of $\Delta$\\ (pp)} \\
+\midrule
+Base Model & 7,037/7,458 & 94.36 & [93.44, 95.20] & 94.36 & — & — & — \\
+Bias Calibration & 7,038/7,458 & 94.37 & [93.45, 95.21] & 94.37 & 45/44 & 0.01 & [-0.31, 0.31] \\
+ASTER-CR (Linear) & 7,034/7,458 & 94.31 & [93.39, 95.18] & 94.31 & 43/46 & -0.04 & [-0.34, 0.24] \\
+ASTER-CR (MLP Ensemble, Strong Protection) & 7,037/7,458 & 94.36 & [93.46, 95.21] & 94.36 & 26/26 & 0.00 & [-0.21, 0.20] \\
+ASTER-CR (MLP Ensemble, Balanced) & 7,041/7,458 & 94.41 & [93.51, 95.24] & 94.41 & 20/16 & 0.05 & [-0.11, 0.21] \\
+Trace-only MLP & 7,044/7,458 & 94.45 & [93.55, 95.28] & 94.45 & 23/16 & 0.09 & [-0.09, 0.27] \\
+\bottomrule
+\end{tabularx}
+\caption{Official MEGA-CDP test results on 7,458 dynamic paths. Intervals are 95\% paired cluster-bootstrap intervals; accuracy differences are percentage points relative to the Base Model. Fixed/New Errors use the same evaluated cases.}
+\label{tab:aster-main-04}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.16\textwidth}r>{\raggedright\arraybackslash}Xrr@{}}
+\toprule
+Subset & Expected N & Method & \shortstack{Correct\\ (n/N) $\uparrow$} & \shortstack{Acc.\\ (\%) $\uparrow$} \\
+\midrule
+Official test (zero-shot) & 5,500 & Base Model & 4,073/5,500 & 74.05 \\
+Official test (zero-shot) & 5,500 & ASTER-CR (Linear) & 4,031/5,500 & 73.29 \\
+Official test (zero-shot) & 5,500 & ASTER-CR (MLP Ensemble, Balanced) & 4,048/5,500 & 73.60 \\
+Official test (zero-shot) & 5,500 & Bias Calibration & 4,033/5,500 & 73.33 \\
+Official test (zero-shot) & 5,500 & ASTER-CR (MLP Ensemble, Strong Protection) & 4,042/5,500 & 73.49 \\
+Official test (zero-shot) & 5,500 & Trace-only MLP & 4,040/5,500 & 73.45 \\
+\bottomrule
+\end{tabularx}
+\caption{Official NLI4CT-2024 test results on 5,500 statements. Correction functions and biases are frozen after fitting on MEGA; this is zero-shot transfer.}
+\label{tab:aster-main-05}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrr@{}}
+\toprule
+Method & \shortstack{$\mathrm{RMS}_{\mathrm{pres}}$\\ (logit)} & \shortstack{$\mathrm{ER}_{E}$\\ (\%) $\approx$100} & \shortstack{Pair Acc.\\ (E) (\%) $\uparrow$} & \shortstack{Correct Direction\\ (n/N) $\uparrow$} \\
+\midrule
+Base Model & 16.9688 & 100.00 & 61.81 & 749/864 \\
+ASTER-CR (Linear) & 16.8750 & 99.48 & 61.11 & 748/864 \\
+ASTER-CR (MLP Ensemble, Balanced) & 16.5619 & 97.38 & 61.46 & 750/864 \\
+\bottomrule
+\end{tabularx}
+\caption{Native NLI intervention responses. RMS uses 4,136 label-preserving pairs, whereas ER, paired accuracy and correct-direction counts use 864 label-changing pairs. The last column uses all changing pairs, not the eligible denominator of direction degradation. RMS is in logits.}
+\label{tab:aster-main-06}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrrr@{}}
+\toprule
+Method & \shortstack{Repaired / Retested\\ (n/N) $\uparrow$} & \shortstack{Remaining Errors\\ (\#)} & \shortstack{$\mathrm{VR}_{A,\mathrm{err}}$\\ (\%) $\uparrow$} & \shortstack{$\mathrm{ER}_{E,\mathrm{err}}$\\ (\%) $\approx$100} & \shortstack{Dir. Deg.\\ (\#) $\downarrow$} & \shortstack{Error-pair Correct\\ (E) (n/N) $\uparrow$} \\
+\midrule
+Base Model & 46/424 & 378 & 0.00 & 100.00 & 0 & 0/21 \\
+ASTER-CR (Linear; MEGA Calibration) & 0/424 & 424 & 3.05 & 100.07 & 0 & 0/21 \\
+ASTER-CR (MLP Ensemble, Balanced; MEGA Calibration) & 39/424 & 385 & 0.47 & 98.23 & 0 & 0/21 \\
+MLP (Hard-pair Training; Dev Scaling) & 7/424 & 417 & -0.36 & 97.64 & 0 & 0/21 \\
+MLP (Robust Loss; Dev Scaling) & 29/424 & 395 & 0.04 & 97.50 & 0 & 0/21 \\
+\bottomrule
+\end{tabularx}
+\caption{Retesting a fixed pool of 424 original MEGA error paths. Faithfulness is measured separately on 27 previously used interference error pairs and 21 evidence error pairs. Full-set net gains cannot be inferred.}
+\label{tab:aster-main-07}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrrr@{}}
+\toprule
+Method & \shortstack{Repaired / Retested\\ (n/N) $\uparrow$} & \shortstack{Remaining Errors\\ (\#)} & \shortstack{$\mathrm{VR}_{\mathrm{pres,err}}$\\ (\%) $\uparrow$} & \shortstack{$\mathrm{ER}_{\mathrm{chg,err}}$\\ (\%) $\approx$100} & \shortstack{Dir. Deg.\\ (\#) $\downarrow$} & \shortstack{Error-pair Correct\\ (E) (n/N) $\uparrow$} \\
+\midrule
+Base Model & 98/1,469 & 1,371 & 0.00 & 100.00 & 0 & 24/336 \\
+ASTER-CR (Linear; MEGA Calibration) & 0/1,469 & 1,469 & 0.86 & 98.24 & 2 & 0/336 \\
+ASTER-CR (MLP Ensemble, Balanced; MEGA Calibration) & 47/1,469 & 1,422 & 3.91 & 87.49 & 1 & 14/336 \\
+MLP (Hard-pair Training; Dev Scaling) & 8/1,469 & 1,461 & 5.76 & 93.41 & 1 & 1/336 \\
+MLP (Robust Loss; Dev Scaling) & 35/1,469 & 1,434 & 6.21 & 90.32 & 2 & 9/336 \\
+Supervised Residual Adaptation (NLI) & 207/1,469 & 1,262 & 55.79 & 40.10 & 18 & 37/336 \\
+ASTER-CR (Linear) + NLI Calibration & 213/1,469 & 1,256 & 0.86 & 98.24 & 2 & 50/336 \\
+ASTER-CR (MLP Ensemble, Balanced) + NLI Calibration & 214/1,469 & 1,255 & 3.91 & 87.49 & 1 & 46/336 \\
+\bottomrule
+\end{tabularx}
+\caption{Retesting 1,469 original NLI errors, with faithfulness on 1,606 preserving and 336 changing error pairs. Target-task supervised and NLI-bias adaptation use NLI training labels; frozen transfer methods are reported separately.}
+\label{tab:aster-main-08}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrrr@{}}
+\toprule
+Method & \shortstack{$\mathrm{ER}_{E}$\\ (\%) $\approx$100} & \shortstack{$\mathrm{RMS}_{\Delta c}$\\ (logit) $\downarrow$} & \shortstack{Dir. Deg.\\ (\#) $\downarrow$} & \shortstack{Option-pair Correct\\ (E) (n/N) $\uparrow$} & \shortstack{Option Acc.\\ (\%) $\uparrow$} & \shortstack{Set EM, n/N\\ (\%) $\uparrow$} \\
+\midrule
+Base Model & 100.00\% & 0.0000 & 0 & 25/244 & 68.65\% & 98/467 (20.99\%) \\
+ASTER-CR (Linear) & 100.45\% & 0.1179 & 0 & 31/244 & 65.82\% & 70/467 (14.99\%) \\
+ASTER-CR (MLP Ensemble, Balanced) & 93.82\% & 0.9937 & 0 & 32/244 & 67.02\% & 78/467 (16.70\%) \\
+ASTER-CR (MLP Ensemble, Strong Protection) & 96.91\% & 0.4968 & 0 & 33/244 & 66.85\% & 78/467 (16.70\%) \\
+\bottomrule
+\end{tabularx}
+\caption{Frozen MedPIC evaluation on 467 questions, 2,335 options and 244 changing option pairs. Set EM requires the complete answer set to match. RMS is in logits and direction degradation is a count.}
+\label{tab:aster-main-09}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrr@{}}
+\toprule
+Method & \shortstack{$\mathrm{RMS}_{\mathrm{base}}$\\ (logit)} & \shortstack{$\mathrm{RMS}_{m}$\\ (logit)} & \shortstack{$\mathrm{RMS}_{\Delta c}$\\ (logit) $\downarrow$} & \shortstack{Pair Correct\\ (n/N) $\uparrow$} \\
+\midrule
+Base Model & 4.5870 & 4.5870 & 0.0000 & 163/216 \\
+ASTER-CR (Linear) & 4.5870 & 4.6249 & 0.0996 & 145/216 \\
+ASTER-CR (MLP Ensemble, Balanced) & 4.5870 & 4.4393 & 0.5752 & 156/216 \\
+ASTER-CR (MLP Ensemble, Strong Protection) & 4.5870 & 4.5046 & 0.2876 & 152/216 \\
+\bottomrule
+\end{tabularx}
+\caption{Results for 216 label-preserving MedPIC option pairs. Patient facts still change, so these pairs are not assumed to be pure interference. RMS values refer to base, edited and correction differences, in logits.}
+\label{tab:aster-main-10}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrr@{}}
+\toprule
+Method & \shortstack{Independent Set Correct\\ (n/N) $\uparrow$} & \shortstack{Legal-Set Correct\\ (n/N) $\uparrow$} & \shortstack{Calibrated Set Correct\\ (n/N) $\uparrow$} & \shortstack{Calibration Fixed / New Errors\\ (\#)} & \shortstack{Fitted Bias\\ (logit)} \\
+\midrule
+Base Model & 26/324 & 96/324 & 96/324 & 2/2 & -4.9716 \\
+ASTER-CR (Linear) & 0/324 & 90/324 & 96/324 & 10/4 & -6.2211 \\
+ASTER-CR (MLP Ensemble, Balanced) & 9/324 & 93/324 & 99/324 & 9/3 & -8.5298 \\
+ASTER-CR (MLP Ensemble, Strong Protection) & 8/324 & 90/324 & 96/324 & 9/3 & -6.7534 \\
+\bottomrule
+\end{tabularx}
+\caption{Legal-set decoding and bias adaptation on 324 fixed MedPIC error questions. Each bias is fitted on 93 separate development questions. Counts are subset results rather than full-test accuracy.}
+\label{tab:aster-main-11}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrr@{}}
+\toprule
+Method & \shortstack{Legal-Set Pair Correct\\ (n/N) $\uparrow$} & \shortstack{Calibrated Pair Correct\\ (n/N) $\uparrow$} & \shortstack{ER\\ (\%) $\approx$100} & \shortstack{$\mathrm{RMS}_{\Delta c}$\\ (logit) $\downarrow$} & \shortstack{Dir. Deg.\\ (\#) $\downarrow$} \\
+\midrule
+Base Model & 28/177 & 21/177 & 100.00\% & 0.0000 & 0 \\
+ASTER-CR (Linear) & 37/177 & 21/177 & 100.26\% & 0.1092 & 0 \\
+ASTER-CR (MLP Ensemble, Balanced) & 37/177 & 21/177 & 91.95\% & 0.9281 & 0 \\
+ASTER-CR (MLP Ensemble, Strong Protection) & 37/177 & 21/177 & 95.97\% & 0.4640 & 0 \\
+\bottomrule
+\end{tabularx}
+\caption{Legal-set paired accuracy on 177 fixed changing MedPIC error pairs, before and after bias adaptation. ER, correction RMS and direction counts use continuous scores; a shared bias cancels in paired differences.}
+\label{tab:aster-main-12}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrr@{}}
+\toprule
+Method & \multicolumn{3}{c}{Faithfulness} & \multicolumn{2}{c}{Downstream Performance} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}
+ & \shortstack{ER\\ (\%) $\approx$100} & \shortstack{$\mathrm{RMS}_{\Delta c}$\\ (score) $\downarrow$} & \shortstack{Dir. Deg.\\ (\%) $\downarrow$} & \shortstack{Pair EM\\ (\%) $\uparrow$} & \shortstack{Set EM\\ (\%) $\uparrow$} \\
+\midrule
+Base Model & 100.00 & 0.00 & 0.000 & 49.96 & 57.87 \\
+Bias Calibration & 100.00 & 0.00 & 0.000 & 54.17 & 63.73 \\
+ASTER-CR w/o Evidence Constraints & 74.94 & 1.39 & 0.464 & 57.52 & 66.49 \\
+ASTER-CR (Linear) & 99.47 & 0.37 & 0.000 & 55.70 & 64.84 \\
+ASTER-CR (MLP, Balanced) & 96.87 & 1.16 & 0.087 & 55.91 & 64.34 \\
+ASTER-CR (MLP, Strong Protection) & 98.92 & 0.62 & 0.000 & 57.96 & 66.70 \\
+\bottomrule
+\end{tabularx}
+\caption{MedPIC score simulation, averaged equally over five models after five-seed averaging within each model. Pair EM uses 92 synthetic case pairs, Set EM uses 467 questions, and direction degradation uses eligible changing option pairs. RMS is in synthetic score units. \textbf{Prespecified simulation; the corresponding models and datasets were not evaluated. Replace with measured results.}}
+\label{tab:aster-main-13}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrr@{}}
+\toprule
+Method & \multicolumn{4}{c}{Faithfulness} & \multicolumn{1}{c}{Downstream Performance} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-6}
+ & \shortstack{$\mathrm{VR}_{\mathrm{low}}$\\ (\%) $\uparrow$} & \shortstack{Key-Del. Ret.\\ (\%) $\approx$100} & \shortstack{$\mathrm{RMS}_{\Delta c}$\\ (score) $\downarrow$} & \shortstack{Dir. Deg.\\ (\%) $\downarrow$} & \shortstack{Original Acc.\\ (\%) $\uparrow$} \\
+\midrule
+Base Model & 0.00 & 100.00 & 0.00 & 0.000 & 86.71 \\
+Bias Calibration & 0.00 & 100.00 & 0.00 & 0.000 & 86.71 \\
+ASTER-CR w/o Evidence Constraints & 88.81 & 75.12 & 0.79 & 1.945 & 85.05 \\
+ASTER-CR (Linear) & 9.33 & 99.53 & 0.21 & 0.076 & 87.17 \\
+ASTER-CR (MLP, Balanced) & 46.33 & 97.17 & 0.65 & 1.008 & 84.93 \\
+ASTER-CR (MLP, Strong Protection) & 24.97 & 99.10 & 0.35 & 0.205 & 87.69 \\
+\bottomrule
+\end{tabularx}
+\caption{MedPAIR score simulation, averaged equally over five models and five generation seeds. Key-Del. Ret. measures fixed-margin deletion sensitivity rather than label-changing ER. Accuracy is evaluated only on 898 complete original questions; RMS is in score units. \textbf{Prespecified simulation; the corresponding models and datasets were not evaluated. Replace with measured results.}}
+\label{tab:aster-main-14}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrr@{}}
+\toprule
+Method & \multicolumn{3}{c}{Faithfulness} & \multicolumn{2}{c}{Downstream Performance} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-6}
+ & \shortstack{ER\\ (\%) $\approx$100} & \shortstack{$\mathrm{RMS}_{\Delta c}$\\ (score) $\downarrow$} & \shortstack{Dir. Deg.\\ (\%) $\downarrow$} & \shortstack{Pair Acc.\\ (\%) $\uparrow$} & \shortstack{BTR\\ (\%) $\downarrow$} \\
+\midrule
+Base Model & 100.00 & 0.00 & 0.000 & 38.85 & 5.97 \\
+Bias Calibration & 100.00 & 0.00 & 0.000 & 38.85 & 5.97 \\
+ASTER-CR w/o Evidence Constraints & 75.05 & 1.86 & 0.038 & 36.63 & 2.94 \\
+ASTER-CR (Linear) & 99.48 & 0.42 & 0.000 & 39.63 & 5.61 \\
+ASTER-CR (MLP, Balanced) & 96.94 & 1.33 & 0.009 & 37.29 & 4.42 \\
+ASTER-CR (MLP, Strong Protection) & 98.97 & 0.71 & 0.001 & 40.97 & 5.06 \\
+\bottomrule
+\end{tabularx}
+\caption{MedEinst score simulation on 5,383 synthetic control/trap pairs per seed. Results average five models and five generation seeds. Direction degradation conditions on originally positive responses; BTR conditions on correct control predictions. RMS is in score units. \textbf{Prespecified simulation; the corresponding models and datasets were not evaluated. Replace with measured results.}}
+\label{tab:aster-main-15}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrr@{}}
+\toprule
+Method & \multicolumn{2}{c}{Faithfulness} & \multicolumn{2}{c}{Downstream Performance} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+ & \shortstack{ER\\ (\%) $\approx$100} & \shortstack{Dir. Deg.\\ (\%) $\downarrow$} & \shortstack{Acc.\\ (\%) $\uparrow$} & \shortstack{Disease Macro Acc.\\ (\%) $\uparrow$} \\
+\midrule
+Base Model & — & — & 80.18 & 80.28 \\
+Bias Calibration & — & — & 80.18 & 80.28 \\
+ASTER-CR w/o Evidence Constraints & — & — & 81.23 & 81.30 \\
+ASTER-CR (Linear) & — & — & 80.65 & 80.82 \\
+ASTER-CR (MLP, Balanced) & — & — & 80.00 & 80.14 \\
+ASTER-CR (MLP, Strong Protection) & — & — & 81.67 & 81.84 \\
+\bottomrule
+\end{tabularx}
+\caption{MedGUIDE score simulation on 7,747 questions and 17 unequal disease groups per seed. Disease Macro Acc. weights groups equally. Undefined intervention metrics are shown as dashes. \textbf{Prespecified simulation; the corresponding models and datasets were not evaluated. Replace with measured results.}}
+\label{tab:aster-main-16}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrr@{}}
+\toprule
+Method & \multicolumn{2}{c}{Faithfulness} & \multicolumn{2}{c}{Downstream Performance} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+ & \shortstack{ER\\ (\%) $\approx$100} & \shortstack{Dir. Deg.\\ (\%) $\downarrow$} & \shortstack{Balanced Acc.\\ (\%) $\uparrow$} & \shortstack{Macro-F1\\ (\%) $\uparrow$} \\
+\midrule
+Base Model & — & — & 88.54 & 88.97 \\
+Bias Calibration & — & — & 89.32 & 88.48 \\
+ASTER-CR w/o Evidence Constraints & — & — & 90.85 & 90.10 \\
+ASTER-CR (Linear) & — & — & 89.53 & 88.72 \\
+ASTER-CR (MLP, Balanced) & — & — & 89.93 & 89.07 \\
+ASTER-CR (MLP, Strong Protection) & — & — & 90.19 & 89.41 \\
+\bottomrule
+\end{tabularx}
+\caption{TrialGPT score simulation on 750 known labels after excluding 250 unknown labels. Results average five models and five generation seeds. Undefined intervention metrics are shown as dashes. \textbf{Prespecified simulation; the corresponding models and datasets were not evaluated. Replace with measured results.}}
+\label{tab:aster-main-17}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrr@{}}
+\toprule
+Ablation & \shortstack{$\mathrm{VR}_{I}$\\ (\%) $\uparrow$} & \shortstack{$\mathrm{ER}_{E}$\\ (\%) $\approx$100} & \shortstack{$\mathrm{RMS}_{\Delta c,E}$\\ (logit) $\downarrow$} & \shortstack{Node Correct\\ (n/N) $\uparrow$} & \shortstack{Path Correct\\ (n/N) $\uparrow$} \\
+\midrule
+w/o Input-dependent Correction & 0.00 & 100.00 & 0.0000 & 368/372 & 767/806 \\
+ASTER-CR (Linear) & 4.10 & 99.60 & 0.2539 & 368/372 & 767/806 \\
+w/o Bias Calibration & 4.10 & 99.60 & 0.2539 & 368/372 & 769/806 \\
+w/o Evidence Constraints & 30.61 & 91.67 & 3.3240 & 368/372 & 769/806 \\
+w/o Evidence Projection & 2.16 & 100.10 & 0.1826 & 368/372 & 767/806 \\
+Evidence Subspace Only & 1.37 & 99.97 & 0.0858 & 368/372 & 767/806 \\
+Random Subspace (Seed 11) & 1.53 & 99.80 & 0.1506 & 368/372 & 767/806 \\
+Trace Dimension 8 & 3.34 & 99.76 & 0.1681 & 368/372 & 767/806 \\
+Trace + Evidence Coordinates (32-d) & 4.03 & 99.56 & 0.2740 & 368/372 & 767/806 \\
+32-d w/o Evidence Constraints & 84.74 & 9.33 & 33.9492 & 315/372 & 460/806 \\
+\bottomrule
+\end{tabularx}
+\caption{Ablations on the controlled held-out data. Rows vary the evidence constraint, trace dimension and subspace. RMS is in logits; node and path counts retain their own denominators.}
+\label{tab:aster-main-18}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}Xrrrrrrr@{}}
+\toprule
+Method & \# Coefficients & \shortstack{$\mathrm{VR}_{I}$\\ (\%) $\uparrow$} & \shortstack{$\mathrm{ER}_{E}$\\ (\%) $\approx$100} & \shortstack{$\mathrm{RMS}_{\Delta c,E}$\\ (logit) $\downarrow$} & \shortstack{DU\\ (\%) $\downarrow$} & \shortstack{Node Acc.\\ (\%) $\uparrow$} & \shortstack{Path Acc.\\ (\%) $\uparrow$} \\
+\midrule
+ASTER-CR (Linear) & 16+b & 4.10 & 99.60 & 0.2539 & 9.66 & 98.92 & 95.16 \\
+ASTER-CR (MLP, 16-d) & 576+b & 14.59$\pm$0.24 & 98.49$\pm$0.17 & 0.6491$\pm$0.0479 & 24.70$\pm$1.82 & 98.92$\pm$0.00 & 95.62$\pm$0.07 \\
+Linear Representation Editing & 256+b & 3.48$\pm$1.11 & 99.69$\pm$0.11 & 0.1642$\pm$0.0576 & 6.25$\pm$2.19 & 98.92$\pm$0.00 & 95.16$\pm$0.00 \\
+MLP Representation Editing & 1056+b & 13.12$\pm$0.17 & 98.43$\pm$0.20 & 0.6704$\pm$0.0783 & 25.51$\pm$2.98 & 98.92$\pm$0.00 & 95.37$\pm$0.07 \\
+\bottomrule
+\end{tabularx}
+\caption{Correction function and intervention-location comparisons using the same 16-dimensional trace. Nonlinear and representation methods report mean and sample standard deviation across three training seeds. Coefficients include the separately fitted bias; RMS is in logits.}
+\label{tab:aster-main-19}
+\end{table*}

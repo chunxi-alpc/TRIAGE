@@ -5,14 +5,16 @@ from pathlib import Path
 import csv
 import math
 import re
+import runpy
 from statistics import mean
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent
+PAPER_STYLE=runpy.run_path(str(ROOT/"format_paper_tables.py"))
 ROWS=list(csv.DictReader((HERE/"medical_extension_summary.csv").open(encoding="utf-8")))
 MODELS=list(dict.fromkeys(r["model"] for r in ROWS))
 METHODS=list(dict.fromkeys(r["method"] for r in ROWS))
-NAMES={r["method"]:r["method_name"] for r in ROWS}
+NAMES={r["method"]:PAPER_STYLE["ALIASES"].get(r["method_name"],r["method_name"]) for r in ROWS}
 LOOKUP={(r["task"],r["model"],r["method"]):r for r in ROWS}
 
 def fmt(value, digits=2):
@@ -32,8 +34,7 @@ def cell(row,key,sd=False):
     return val+"±"+fmt(row.get(key+"_sd"),digits) if sd else val
 
 def table(headers,rows):
-    return "\n".join(["| "+" | ".join(headers)+" |",
-                      "|"+ "---|"*len(headers)]+["| "+" | ".join(row)+" |" for row in rows])
+    return PAPER_STYLE["table"](headers,rows,simulation=True)
 
 MAIN=[
  ("MedPIC",[("ER%","evidence_er"),("证据修正 RMS","evidence_correction_rms"),("方向退化%","direction_degradation_rate"),("配对集合全对%","pair_exact"),("答案集合全对%","answer_set_exact")]),
@@ -95,5 +96,6 @@ def render():
     s=brief.read_text(encoding="utf-8")
     s=replace_tables(s,"### 4.3 Medical Task Simulations","## 5 Analysis",main_tables())
     brief.write_text(s,encoding="utf-8")
+    PAPER_STYLE["export_acl_tables"]()
 
 if __name__=="__main__":render()

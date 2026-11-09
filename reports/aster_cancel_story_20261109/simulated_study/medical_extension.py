@@ -46,6 +46,7 @@ CONFIG={
   "MedEinst":"Shared nuisance favours control label in both sides; trap changes gold class. BTR=P(trap predicts control label | control correct).",
   "TrialGPT":"1000 generated labels include 250 unknown; exclude unknown, retain included/not included and exclusion polarity as criterion satisfaction, not trial eligibility.",
   "no_pairs":"MedGUIDE/TrialGPT intervention metrics and every task path metric are undefined.",
+  "units":"Real model score differences use logits; this generator uses synthetic score units. BTR is undefined with zero correct control predictions.",
   "uncertainty":"Mean and sample SD over five generation seeds only, not model training uncertainty or real confidence intervals. Undefined direction rates are omitted, defined seed count is recorded; SD needs at least two defined seeds."}}
 def write_csv(path,rows):
  fields=list(dict.fromkeys(k for r in rows for k in r))
@@ -151,8 +152,8 @@ def generate():
        # One fixed contrast for both members: trap gold versus control gold.
        d0=(rp[ix,yp]-rp[ix,y])-(raw[ix,yp]-raw[ix,y])
        d=(sp[ix,yp]-sp[ix,y])-(s[ix,yp]-s[ix,y]);sgn=np.ones(q)
-       btr=np.sum(ok1&(sp.argmax(1)==y))/max(np.sum(ok1),1)*100
-       r.update(control_accuracy=float(ok1.mean()*100),trap_accuracy=float(ok2.mean()*100),bias_trap_rate=float(btr))
+       denom=int(np.sum(ok1));btr=float(np.sum(ok1&(sp.argmax(1)==y))/denom*100) if denom else None
+       r.update(control_accuracy=float(ok1.mean()*100),trap_accuracy=float(ok2.mean()*100),bias_trap_rate=btr)
       joint=float((ok1&ok2).mean()*100);left=float(ok1.mean()*100);right=float(ok2.mean()*100)
       assert joint<=min(left,right)+1e-10
       r.update(evidence_pair_n=q,pair_left_accuracy=left,pair_right_accuracy=right,pair_exact=joint,
