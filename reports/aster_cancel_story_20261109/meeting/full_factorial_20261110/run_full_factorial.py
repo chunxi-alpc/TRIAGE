@@ -88,6 +88,7 @@ def verify_predictions(record, expected, primary_correct):
             correct += int(equal)
     if n != expected or correct != primary_correct:
         raise ValueError(f'Per-case recount disagrees: n={n}, correct={correct}')
+    return seen
 
 
 def validate_result(record, spec, job):
@@ -101,8 +102,8 @@ def validate_result(record, spec, job):
                   'fit_source_id', 'dev_source_id', 'score_protocol', 'metrics'):
         if not record.get(field):
             raise ValueError(f'Missing reproducibility field {field}')
-    if not isinstance(record.get('seed'), int):
-        raise ValueError('Seed must be an integer')
+    if type(record.get('seed')) is not int or record['seed'] != job['seed']:
+        raise ValueError('Training seed does not match the registered job')
     source = Path(record.get('input_manifest_file', ''))
     if not source.is_file() or file_digest(source) != record['input_manifest_sha256']:
         raise ValueError('Official input manifest missing or SHA-256 mismatch')
@@ -123,7 +124,11 @@ def validate_result(record, spec, job):
             raise ValueError(f'{k} must be a nonnegative integer')
     if not 0 <= metrics['primary_correct'] <= n:
         raise ValueError('Invalid primary numerator')
-    verify_predictions(record, n, metrics['primary_correct'])
+    seen = verify_predictions(record, n, metrics['primary_correct'])
+    with source.open(encoding='utf-8') as f:
+        official_ids = [json.loads(line)['case_id'] for line in f if line.strip()]
+    if len(official_ids) != n or len(set(official_ids)) != n or set(official_ids) != seen:
+        raise ValueError('Official input case IDs and scored prediction case IDs disagree')
     for k in ('interference_rms', 'evidence_correction_rms'):
         if k in metrics and (not isinstance(metrics[k], (float, int)) or metrics[k] < 0):
             raise ValueError(f'Invalid nonnegative RMS: {k}')
