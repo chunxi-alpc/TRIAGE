@@ -11,7 +11,7 @@ ASTER 研究模型如何依据完整指南和患者事实判断当前条件，�
 
 `repair-v2` 是 ASTER-CR 使用的数据修复版本。P0–P3 是表示编辑路线的实验安排：节点分析、迁移、选头对照和配对训练。
 
-[方法变体与公式](docs/ASTER/versions.zh.md) · [模块与训练目标](docs/ASTER/method-clarifications.zh.md) · [中文论文](docs/ASTER/manuscript.zh.md)
+[方法变体与公式](docs/ASTER/versions.zh.md) · [模块与训练目标](docs/ASTER/method-clarifications.zh.md) · [中文论文](docs/ASTER/manuscript.zh.md) · **[ASTER-CR 最新中文论文](reports/aster_cancel_story_20261109/paper_story_latest.zh.md)**
 
 ## 结果摘要
 
@@ -32,6 +32,7 @@ ASTER 研究模型如何依据完整指南和患者事实判断当前条件，�
 
 | 内容 | 入口 |
 |---|---|
+| ASTER-CR 中文新稿 | [对消与证据保持：最新论文](reports/aster_cancel_story_20261109/paper_story_latest.zh.md)（含扩充相关工作、基线与复现实验设计） |
 | 方法 | [变体对照](docs/ASTER/versions.zh.md)、[模块说明](docs/ASTER/method-clarifications.zh.md)、[中文论文](docs/ASTER/manuscript.zh.md) |
 | 运行与进度 | [实验索引](docs/ASTER/experiments.zh.md)、[配对编辑运行说明](experiments/aster_m3_followup/README.zh.md)、[CR 运行说明](experiments/aster_cr/README.zh.md) |
 | 数据与结果 | [CR 数据修复](reports/aster_cr_repair_v2_20261108/DATA_REPAIR.zh.md)、[CR 结果与逐例明细](results/aster_cr_repair_v2_20261108/README.md)、[历史实验总索引](reports/aster_synthesis_20261106/EXPERIMENTS.zh.md) |
