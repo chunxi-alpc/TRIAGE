@@ -1,0 +1,61 @@
+{
+  "primary_pipeline_status.json": {
+    "phase": "stopped_for_error_retesting",
+    "utc": "2026-11-09 09:30:45",
+    "gpus": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "stage": "mega_train_val",
+    "expected": 34895,
+    "completed_stages": [
+      "mega_official_test",
+      "nli4ct_all"
+    ],
+    "reason": "User requested only optimized error-case retesting; completed caches preserved.",
+    "stopped_worker_pids": [
+      38757,
+      38758,
+      38759,
+      38760
+    ],
+    "partial_progress": [
+      {
+        "shard": "0",
+        "completed": 803,
+        "total": 8724
+      },
+      {
+        "shard": "1",
+        "completed": 798,
+        "total": 8724
+      },
+      {
+        "shard": "2",
+        "completed": 803,
+        "total": 8724
+      },
+      {
+        "shard": "3",
+        "completed": 807,
+        "total": 8723
+      }
+    ]
+  },
+  "faithfulness_pipeline_status.json": {
+    "phase": "cancelled_before_start",
+    "utc": "2026-11-09 09:22:30",
+    "gpus": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "primary_pid": 36283,
+    "expected_views": 29911,
+    "expected_pairs": 22453,
+    "reason": "User narrowed subsequent work to optimized error-case retesting; no new paired GPU forwards started."
+  }
+}

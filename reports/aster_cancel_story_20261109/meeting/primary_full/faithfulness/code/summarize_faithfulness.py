@@ -174,14 +174,17 @@ def official_mega_metrics(path):
  inventory_path=Path(plan.get('inventory',str(BASE/'fidelity/mega_official/inventory.json')))
  inventory=load(inventory_path) if inventory_path.exists() else {}
  selected=inventory.get('selected',{})
- planned=dict(plan=str(plan_path),queue_state='queued_or_running_until_summary',selected=selected,
+ queue_status_path=BASE/'faithfulness_pipeline_status.json'
+ queue_status=load(queue_status_path) if queue_status_path.exists() else {}
+ cancelled=queue_status.get('phase') in ('cancelled_before_start','cancelled','stopped_for_error_retesting')
+ planned=dict(plan=str(plan_path),queue_state=queue_status.get('phase','queued_or_running_until_summary'),selected=selected,
   gpus=plan.get('gpus'),expected_views=plan.get('expected_views'),
   expected_pairs=plan.get('expected_pairs'),new_forward_upper_bound=plan.get('new_forward_upper_bound'))
  if not path.exists():
-  return dict(status='scheduled',input=str(path),dataset='MEGA-CDP',dataset_split='official_test',
+  return dict(status='cancelled' if cancelled else 'scheduled',input=str(path),dataset='MEGA-CDP',dataset_split='official_test',
    scope='Planned first gold decision node of each of 7458 official reference paths; controlled node A/P evaluation only',planned_collection=planned,
    planned_original_endpoints=7458,planned_groups=['A','P','AP'],missing_evidence_groups=['C','F','CF','F0'],
-   reason='Official first-node A/P forward collection is queued; no new metric is filled before results exist. C/F/F0 pairs are not prepared.'),[]
+   reason=('User stopped expanded paired testing before start; official C/F/F0 remain unmeasured.' if cancelled else 'Official first-node A/P forward collection is queued; no new metric is filled before results exist. C/F/F0 pairs are not prepared.')),[]
  src=load(path);groups={};flat=[];aliases={'old_linear':'linear_output'}
  for key,item in src.get('groups',{}).items():
   target=dict(expected_pairs=item.get('expected_pairs'),unavailable_reason=item.get('unavailable_reason'),methods={})

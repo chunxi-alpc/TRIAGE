@@ -59,13 +59,15 @@ def method_names(methods,plan):
 def display(name):
  if name.startswith(('condition_only','condition_prompt')):return '当前条件提示（对照）'
  return LABELS.get(name,name)
-def collect(plan,root):
- stages=[]
+def collect(plan,root,run_status=None):
+ stages=[];run_status=run_status or {}
+ stopped=run_status.get('phase') in ('stopped_for_error_retesting','cancelled','cancelled_before_start')
+
  for spec in plan.get('stages',[]):
   path=root/spec['name']/'summary/metrics.json';metrics=load(path)
   overall=(metrics or {}).get('groups',{}).get('all',{})
   ready=bool(overall.get('methods'))
-  if not ready:state='待完成'
+  if not ready:state='本轮未继续（转为错误复测）' if stopped else '待完成'
   elif any(m.get('missing',0) or m.get('failed',0) for m in overall['methods'].values()):state='已汇总，含不可用项'
   else:state='已汇总'
   stages.append(dict(spec=spec,path=path,metrics=metrics,overall=overall,ready=ready,state=state))
@@ -169,7 +171,9 @@ def section(plan,stages):
   spec=stage['spec'];unit='完整路径' if spec.get('kind')=='path' else '二元声明'
   text+='**'+spec['dataset']+'：'+spec.get('split',spec['name'])+'。** '
   if not stage['ready']:
-   text+='计划 '+count(spec.get('expected'))+' 条'+unit+'，待完成；尚无汇总结果，不填写正确数或正确率。\n\n'
+   text+='原计划 '+count(spec.get('expected'))+' 条'+unit+'，'+stage['state']+'；尚无全量汇总，不填写全量正确数或正确率。'
+   if '未继续' in stage['state']:text+='现有缓存保留，本轮不承诺自动续跑。'
+   text+='\n\n'
    continue
   overall=stage['overall']
   text+='预期 '+count(overall.get('case_count',spec.get('expected')))+' 条，覆盖 '+count(overall.get('source_count'))+' 个来源分组。\n\n'
@@ -197,13 +201,16 @@ def section(plan,stages):
   text+='**尚无真实数据的任务。**\n\n'
   text+=table(['任务','状态'],[[item.get('dataset','未知任务'),item.get('reason','尚无可用真实数据')] for item in plan['missing_data']])+'\n'
   text+='三段论的既有模拟继续标为模拟，未列为完成的真实实验。\n\n'
- text+='各阶段状态和预计规模来自 primary_plan.json；尚未完成的阶段在后续汇总时更新本节。\n'
+ text+='各阶段规模来自 primary_plan.json，执行状态结合实际调度记录。'
+ if any('未继续' in item['state'] for item in stages):text+='本轮未继续的范围保留现有缓存，后续仅开展已明确安排的错误复测，不承诺恢复全量运行。'
+ else:text+='尚未完成的阶段只按已安排的任务更新。'
+ text+='\n'
  return text
 def short_text(plan,stages):
  rows=[]
  for stage in stages:
   spec=stage['spec']
-  if not stage['ready']:rows.append([spec['dataset'],spec.get('split','—'),count(spec.get('expected')),'待完成']);continue
+  if not stage['ready']:rows.append([spec['dataset'],spec.get('split','—'),count(spec.get('expected')),stage['state']]);continue
   parts=[]
   for method in ['raw','old_linear','optimized_balanced_fit_calibration']:
    item=stage['overall'].get('methods',{}).get(method)
@@ -250,7 +257,7 @@ def main():
  parser.add_argument('--dry-run',action='store_true')
  args=parser.parse_args();plan=load(args.manifest)
  if not isinstance(plan,dict) or not isinstance(plan.get('stages'),list):raise ValueError('Manifest requires stages list')
- stages=collect(plan,args.results_root)
+ stages=collect(plan,args.results_root,load(args.manifest.parent/'primary_pipeline_status.json',{}))
  for stage in stages:
   if stage['ready'] and stage['spec'].get('kind')=='binary':
    stage['pair_metrics']=nli_pair_summary(plan,stage,args.results_root,args.manifest,execute=not args.dry_run)
@@ -259,7 +266,7 @@ def main():
  texts={
   FILES[0]:insert(originals[FILES[0]],'aster-primary-full-section',section(plan,stages),r'^## 9\.[^\n]*'),
   FILES[1]:insert(originals[FILES[1]],'aster-primary-full-brief',short_text(plan,stages),r'^## 4\.[^\n]*'),
-  FILES[2]:insert(originals[FILES[2]],'aster-primary-full-readme','主方法全量真实任务的已完成结果与待完成阶段见正文第8.12节及 [primary_full](meeting/primary_full/)。NLI为零样本迁移，MEGA train_val保留既有fit/dev/原测试分组；缺少真实数据的三段论仅保留模拟。')}
+  FILES[2]:insert(originals[FILES[2]],'aster-primary-full-readme','主方法真实任务的已完成结果与当前覆盖状态见正文第8.12节及 [primary_full](meeting/primary_full/)。NLI为零样本迁移，MEGA train_val保留既有fit/dev/原测试分组；缺少真实数据的三段论仅保留模拟。')}
  if args.dry_run:
   print(json.dumps(dict(dry_run=True,stages={s['spec']['name']:s['state'] for s in stages},targets=[str(report_root/p) for p in FILES]),ensure_ascii=False));return
  for rel,value in texts.items():

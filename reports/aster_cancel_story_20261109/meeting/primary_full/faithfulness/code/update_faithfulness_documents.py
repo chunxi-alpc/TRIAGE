@@ -39,8 +39,19 @@ def mega_table(methods,groups):
     pc(m.get('correction_rms_over_ap_rms')),n(m.get('response_direction_degraded')) if kind in ('C','F','CF') else '—',
     pc(m.get('paired_accuracy'))])
  return table(['类型','方法','配对数','分数差RMS','VR%','R²%','ER%','修正RMS','修正／原A/P RMS%','方向退化','配对全对率%'],rows)
+
+def official_pair_stopped(data):
+ item=data.get('official_mega_pair_evaluation',data)
+ path=BASE/'faithfulness_pipeline_status.json'
+ current=load(path) if path.exists() else {}
+ return item.get('status')=='cancelled' or current.get('phase') in ('cancelled_before_start','cancelled','stopped_for_error_retesting')
+
+
 def official_section(official):
  text='**官方 MEGA-CDP 的新增配对范围。** '
+ if official_pair_stopped(official) and official.get('status')!='available_partial_scope':
+  return text+('按最新安排，本轮已停止扩测，官方首节点A/P队列未启动，不再安排自动续跑；'
+   '官方C/F及F0仍未测。此前已完成的路径与NLI原生变体结果继续保留，不以路径正确率代替配对评价。\n\n')
  if official.get('status')!='available_partial_scope':
   plan=official.get('planned_collection',{});selected=plan.get('selected',{})
   pairs=selected.get('pairs',{});sources=selected.get('pair_sources',{})
@@ -179,10 +190,11 @@ def brief(data):
    text+='**NLI官方test原生变体。** 同标签4,136对，真实翻转864对。\n\n'
    text+=table(['方法','同标签RMS','翻转ER%','翻转全对率%','翻转正确方向／总对数'],nr)+'\n'
  else:text+='NLI原生配对指标尚未汇总。\n\n'
+ official_note=('本轮已停止官方MEGA配对扩测，C/F及F0仍未测，不承诺自动续跑。'
+                if official_pair_stopped(data) else
+                '官方MEGA新增首节点A/P按可用结果更新，C/F及F0缺项继续保留。')
  return text+('NLI按原生干预和真实标签关系报告鲁棒性与响应；'
-  '均值和方差同步下降不能单独当作忠实性改善，需结合翻转响应、正确方向数及全对率。'
-  '官方MEGA新增首节点A/P按可用结果更新，C/F及F0缺项继续保留。完整结果和局限见第8.13节。\n')
-
+  '均值和方差同步下降不能单独当作忠实性改善，需结合翻转响应、正确方向数及全对率。')+official_note+'完整结果和局限见第8.13节。\n'
 
 def main():
  p=argparse.ArgumentParser(description=__doc__)
@@ -195,9 +207,9 @@ def main():
  texts={paper:marked(paper.read_text(encoding='utf-8'),'aster-faithfulness-main',section(data),r'^## 9\.[^\n]*'),
   meeting:marked(meeting.read_text(encoding='utf-8'),'aster-faithfulness-brief',brief(data),r'^## 4\.[^\n]*'),
   report/'README.md':marked((report/'README.md').read_text(encoding='utf-8'),'aster-faithfulness-readme',
-   '行为忠实性主指标、配对覆盖与方法局限见正文第8.13节及 [faithfulness](meeting/primary_full/faithfulness/)。既有MEGA配对与NLI原生变体分别报告；官方MEGA首节点A/P按实际覆盖更新，C/F和F0缺项明确保留。')}
+   '行为忠实性主指标、配对覆盖与方法局限见正文第8.13节及 [faithfulness](meeting/primary_full/faithfulness/)。既有MEGA配对与NLI原生变体分别报告；官方MEGA配对扩测按当前状态记录，未测的C/F和F0明确保留。')}
  if a.dry_run:
-  print(json.dumps(dict(dry_run=True,targets=[str(p) for p in texts],official_scope=data.get('official_mega_pair_evaluation',{}).get('status')),ensure_ascii=False));return
+  print(json.dumps(dict(dry_run=True,targets=[str(p) for p in texts],official_scope=('cancelled' if official_pair_stopped(data) else data.get('official_mega_pair_evaluation',{}).get('status'))),ensure_ascii=False));return
  for path,value in texts.items():
   atomic(path,value);atomic(a.standalone_root/path.relative_to(report),value)
  packet=report/'meeting/primary_full/faithfulness';packet.mkdir(parents=True,exist_ok=True)
