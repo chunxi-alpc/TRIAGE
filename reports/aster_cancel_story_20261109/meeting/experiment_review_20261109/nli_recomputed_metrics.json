@@ -1,0 +1,369 @@
+{
+  "status": "recomputed_from_archived_predictions_no_inference_no_fitting",
+  "official_metadata": {
+    "source_repository": "ai-systems/Task-2-SemEval-2024",
+    "source_path": "gold_test.json",
+    "source_blob_sha": "38de30f1e7b83fc9668a086a18ea0e05a38959a8"
+  },
+  "archive": {
+    "repository": "chunxi-alpc/TRIAGE",
+    "revision": "742e6b32c59fade4ddd2639314785209e85f1006",
+    "directory": "reports/aster_cancel_story_20261109/meeting/primary_full/nli4ct_all",
+    "files": [
+      {
+        "name": "path_results_shard0.jsonl.gz",
+        "blob_sha": "b91a9d15d17fd55a963b51d259b6052dad6712b2",
+        "bytes": 179706
+      },
+      {
+        "name": "path_results_shard1.jsonl.gz",
+        "blob_sha": "9830a24b81d5e7d221988c5d426e7063b0baa2e7",
+        "bytes": 179497
+      },
+      {
+        "name": "path_results_shard2.jsonl.gz",
+        "blob_sha": "d5b515ba91243728ebdb889e280ff53ea96d6da1",
+        "bytes": 179790
+      },
+      {
+        "name": "path_results_shard3.jsonl.gz",
+        "blob_sha": "3117bec24f1c0c306b5f85eb30fa611d621e2cc2",
+        "bytes": 179924
+      }
+    ]
+  },
+  "coverage": {
+    "all_cached_records": 57252,
+    "test_records_per_method": 5500,
+    "methods": 6,
+    "original_statements": 500,
+    "preserving_relations": 4136,
+    "altering_relations": 864,
+    "test_status_counts": {
+      "ok": 33000
+    }
+  },
+  "definitions": {
+    "original_macro_f1": "Unweighted mean of F1 for Contradiction and Entailment on the 500 original statements.",
+    "consistency": "Fraction of 4136 label-preserving relations with equal predictions on original and variant; not conditioned on correctness.",
+    "faithfulness": "Among label-altering relations whose original is correctly answered by this method, fraction with a changed prediction; denominator is method-specific.",
+    "pair_accuracy": "Fraction of all 864 label-altering relations with both endpoints correct.",
+    "qualification": "These explicitly defined metrics are recomputed from archived predictions; not a claim that the current official evaluate.py was executed.",
+    "units": "All stored metric values are fractions; multiply by 100 for percentages.",
+    "uncertainty": "Point estimates and integer counts only; no newly estimated confidence intervals or claims of significance."
+  },
+  "methods": {
+    "fit_bias_only": {
+      "full_test_accuracy": {
+        "numerator": 4033,
+        "denominator": 5500,
+        "value": 0.7332727272727273
+      },
+      "original_accuracy": {
+        "numerator": 372,
+        "denominator": 500,
+        "value": 0.744
+      },
+      "original_macro_f1": {
+        "value": 0.7426659804426146,
+        "per_class": {
+          "0": {
+            "true_positive": 168,
+            "false_positive": 46,
+            "false_negative": 82,
+            "support": 250,
+            "f1": 0.7241379310344828
+          },
+          "1": {
+            "true_positive": 204,
+            "false_positive": 82,
+            "false_negative": 46,
+            "support": 250,
+            "f1": 0.7611940298507462
+          }
+        }
+      },
+      "preserving_prediction_consistency": {
+        "numerator": 3207,
+        "denominator": 4136,
+        "value": 0.7753868471953579
+      },
+      "altering_faithfulness_given_original_correct": {
+        "numerator": 528,
+        "denominator": 696,
+        "value": 0.7586206896551724
+      },
+      "altering_unconditional_prediction_change": {
+        "numerator": 566,
+        "denominator": 864,
+        "value": 0.6550925925925926
+      },
+      "altering_pair_accuracy": {
+        "numerator": 528,
+        "denominator": 864,
+        "value": 0.6111111111111112
+      },
+      "eligible_originals_for_conditional_faithfulness": 204
+    },
+    "old_linear": {
+      "full_test_accuracy": {
+        "numerator": 4031,
+        "denominator": 5500,
+        "value": 0.732909090909091
+      },
+      "original_accuracy": {
+        "numerator": 372,
+        "denominator": 500,
+        "value": 0.744
+      },
+      "original_macro_f1": {
+        "value": 0.7426659804426146,
+        "per_class": {
+          "0": {
+            "true_positive": 168,
+            "false_positive": 46,
+            "false_negative": 82,
+            "support": 250,
+            "f1": 0.7241379310344828
+          },
+          "1": {
+            "true_positive": 204,
+            "false_positive": 82,
+            "false_negative": 46,
+            "support": 250,
+            "f1": 0.7611940298507462
+          }
+        }
+      },
+      "preserving_prediction_consistency": {
+        "numerator": 3204,
+        "denominator": 4136,
+        "value": 0.7746615087040619
+      },
+      "altering_faithfulness_given_original_correct": {
+        "numerator": 528,
+        "denominator": 696,
+        "value": 0.7586206896551724
+      },
+      "altering_unconditional_prediction_change": {
+        "numerator": 565,
+        "denominator": 864,
+        "value": 0.6539351851851852
+      },
+      "altering_pair_accuracy": {
+        "numerator": 528,
+        "denominator": 864,
+        "value": 0.6111111111111112
+      },
+      "eligible_originals_for_conditional_faithfulness": 204
+    },
+    "optimized_balanced_fit_calibration": {
+      "full_test_accuracy": {
+        "numerator": 4048,
+        "denominator": 5500,
+        "value": 0.736
+      },
+      "original_accuracy": {
+        "numerator": 376,
+        "denominator": 500,
+        "value": 0.752
+      },
+      "original_macro_f1": {
+        "value": 0.751427288472641,
+        "per_class": {
+          "0": {
+            "true_positive": 176,
+            "false_positive": 50,
+            "false_negative": 74,
+            "support": 250,
+            "f1": 0.7394957983193278
+          },
+          "1": {
+            "true_positive": 200,
+            "false_positive": 74,
+            "false_negative": 50,
+            "support": 250,
+            "f1": 0.7633587786259542
+          }
+        }
+      },
+      "preserving_prediction_consistency": {
+        "numerator": 3241,
+        "denominator": 4136,
+        "value": 0.7836073500967118
+      },
+      "altering_faithfulness_given_original_correct": {
+        "numerator": 531,
+        "denominator": 684,
+        "value": 0.7763157894736842
+      },
+      "altering_unconditional_prediction_change": {
+        "numerator": 567,
+        "denominator": 864,
+        "value": 0.65625
+      },
+      "altering_pair_accuracy": {
+        "numerator": 531,
+        "denominator": 864,
+        "value": 0.6145833333333334
+      },
+      "eligible_originals_for_conditional_faithfulness": 200
+    },
+    "optimized_strict_fit_calibration": {
+      "full_test_accuracy": {
+        "numerator": 4042,
+        "denominator": 5500,
+        "value": 0.734909090909091
+      },
+      "original_accuracy": {
+        "numerator": 375,
+        "denominator": 500,
+        "value": 0.75
+      },
+      "original_macro_f1": {
+        "value": 0.7492688680191438,
+        "per_class": {
+          "0": {
+            "true_positive": 174,
+            "false_positive": 49,
+            "false_negative": 76,
+            "support": 250,
+            "f1": 0.7357293868921776
+          },
+          "1": {
+            "true_positive": 201,
+            "false_positive": 76,
+            "false_negative": 49,
+            "support": 250,
+            "f1": 0.7628083491461101
+          }
+        }
+      },
+      "preserving_prediction_consistency": {
+        "numerator": 3243,
+        "denominator": 4136,
+        "value": 0.7840909090909091
+      },
+      "altering_faithfulness_given_original_correct": {
+        "numerator": 527,
+        "denominator": 687,
+        "value": 0.7671033478893741
+      },
+      "altering_unconditional_prediction_change": {
+        "numerator": 563,
+        "denominator": 864,
+        "value": 0.6516203703703703
+      },
+      "altering_pair_accuracy": {
+        "numerator": 527,
+        "denominator": 864,
+        "value": 0.6099537037037037
+      },
+      "eligible_originals_for_conditional_faithfulness": 201
+    },
+    "raw": {
+      "full_test_accuracy": {
+        "numerator": 4073,
+        "denominator": 5500,
+        "value": 0.7405454545454545
+      },
+      "original_accuracy": {
+        "numerator": 378,
+        "denominator": 500,
+        "value": 0.756
+      },
+      "original_macro_f1": {
+        "value": 0.7557498878851945,
+        "per_class": {
+          "0": {
+            "true_positive": 181,
+            "false_positive": 53,
+            "false_negative": 69,
+            "support": 250,
+            "f1": 0.7479338842975206
+          },
+          "1": {
+            "true_positive": 197,
+            "false_positive": 69,
+            "false_negative": 53,
+            "support": 250,
+            "f1": 0.7635658914728682
+          }
+        }
+      },
+      "preserving_prediction_consistency": {
+        "numerator": 3241,
+        "denominator": 4136,
+        "value": 0.7836073500967118
+      },
+      "altering_faithfulness_given_original_correct": {
+        "numerator": 534,
+        "denominator": 675,
+        "value": 0.7911111111111111
+      },
+      "altering_unconditional_prediction_change": {
+        "numerator": 570,
+        "denominator": 864,
+        "value": 0.6597222222222222
+      },
+      "altering_pair_accuracy": {
+        "numerator": 534,
+        "denominator": 864,
+        "value": 0.6180555555555556
+      },
+      "eligible_originals_for_conditional_faithfulness": 197
+    },
+    "trace_only_balanced_fit_calibration": {
+      "full_test_accuracy": {
+        "numerator": 4040,
+        "denominator": 5500,
+        "value": 0.7345454545454545
+      },
+      "original_accuracy": {
+        "numerator": 375,
+        "denominator": 500,
+        "value": 0.75
+      },
+      "original_macro_f1": {
+        "value": 0.7492688680191438,
+        "per_class": {
+          "0": {
+            "true_positive": 174,
+            "false_positive": 49,
+            "false_negative": 76,
+            "support": 250,
+            "f1": 0.7357293868921776
+          },
+          "1": {
+            "true_positive": 201,
+            "false_positive": 76,
+            "false_negative": 49,
+            "support": 250,
+            "f1": 0.7628083491461101
+          }
+        }
+      },
+      "preserving_prediction_consistency": {
+        "numerator": 3241,
+        "denominator": 4136,
+        "value": 0.7836073500967118
+      },
+      "altering_faithfulness_given_original_correct": {
+        "numerator": 527,
+        "denominator": 687,
+        "value": 0.7671033478893741
+      },
+      "altering_unconditional_prediction_change": {
+        "numerator": 563,
+        "denominator": 864,
+        "value": 0.6516203703703703
+      },
+      "altering_pair_accuracy": {
+        "numerator": 527,
+        "denominator": 864,
+        "value": 0.6099537037037037
+      },
+      "eligible_originals_for_conditional_faithfulness": 201
+    }
+  }
+}
