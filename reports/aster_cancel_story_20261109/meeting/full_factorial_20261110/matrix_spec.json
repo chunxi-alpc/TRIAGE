@@ -1,0 +1,253 @@
+{
+  "schema_version": "1.0",
+  "created_date": "2026-11-10",
+  "type": "mandatory_full_factorial_actual_experiment_protocol",
+  "not_a_result": "No newly trained model or baseline was executed in this request; missing results must remain missing.",
+  "source_branches": [
+    "main",
+    "aster-cr-20261108"
+  ],
+  "models": [
+    {
+      "key": "qwen3_8b",
+      "name": "Qwen3-8B",
+      "hf_id": "Qwen/Qwen3-8B",
+      "source_models_config": "downloaded_in_archived_config"
+    },
+    {
+      "key": "llama3_1_8b_instruct",
+      "name": "Llama-3.1-8B-Instruct",
+      "hf_id": "meta-llama/Llama-3.1-8B-Instruct",
+      "source_models_config": "downloaded_in_archived_config"
+    },
+    {
+      "key": "gemma2_9b_it",
+      "name": "Gemma-2-9B-IT",
+      "hf_id": "google/gemma-2-9b-it",
+      "source_models_config": "not_listed_in_archived_config"
+    },
+    {
+      "key": "gemma3_27b_it",
+      "name": "Gemma-3-27B-IT",
+      "hf_id": "google/gemma-3-27b-it",
+      "source_models_config": "not_listed_in_archived_config"
+    },
+    {
+      "key": "medgemma_27b_text_it",
+      "name": "MedGemma-27B-Text-IT",
+      "hf_id": "google/medgemma-27b-text-it",
+      "source_models_config": "downloaded_in_archived_config"
+    }
+  ],
+  "datasets": [
+    {
+      "id": "mega_cdp",
+      "name": "MEGA-CDP",
+      "primary_split": "official_test",
+      "n": 7458,
+      "unit": "dynamic_path",
+      "additional_holdout": {
+        "ap_pairs": 2293,
+        "cf_pairs": 40,
+        "paths": 806
+      },
+      "required_metrics": [
+        "primary_correct",
+        "primary_total",
+        "interference_rms",
+        "evidence_correction_rms",
+        "evidence_pair_both_correct",
+        "evidence_pair_total"
+      ]
+    },
+    {
+      "id": "nli4ct_2024",
+      "name": "NLI4CT-2024",
+      "primary_split": "official_test",
+      "n": 5500,
+      "unit": "statement",
+      "native": {
+        "original": 500,
+        "preserving": 4136,
+        "flipping": 864
+      },
+      "required_metrics": [
+        "primary_correct",
+        "primary_total",
+        "original_macro_f1",
+        "preserving_consistency_correct",
+        "preserving_consistency_total",
+        "flipping_pair_both_correct",
+        "flipping_pair_total",
+        "conditional_faithful_correct",
+        "conditional_faithful_eligible"
+      ]
+    },
+    {
+      "id": "medpic",
+      "name": "MedPIC",
+      "primary_split": "official_test",
+      "n": 467,
+      "unit": "question",
+      "native": {
+        "options": 2335,
+        "flipping_option_pairs_local_unverified": 244,
+        "preserving_option_pairs_local_unverified": 216
+      },
+      "required_metrics": [
+        "primary_correct",
+        "primary_total",
+        "option_correct",
+        "option_total",
+        "flipping_pair_both_correct",
+        "flipping_pair_total"
+      ]
+    }
+  ],
+  "families": {
+    "I": "输出校准、监督读出与对比解码",
+    "II": "概念擦除",
+    "III": "表示干预与表示微调",
+    "IV": "参数高效权重微调",
+    "C": "通用控制",
+    "P": "本文方法或原模型"
+  },
+  "methods": [
+    {
+      "id": "cc",
+      "family": "I",
+      "name": "上下文校准",
+      "requirement": "content_free_reference"
+    },
+    {
+      "id": "cad",
+      "family": "I",
+      "name": "上下文感知解码",
+      "requirement": "two_forward_context_contrast"
+    },
+    {
+      "id": "leace",
+      "family": "II",
+      "name": "LEACE",
+      "requirement": "frozen_discrete_nuisance_concept"
+    },
+    {
+      "id": "rlace",
+      "family": "II",
+      "name": "R-LACE",
+      "requirement": "frozen_discrete_nuisance_concept"
+    },
+    {
+      "id": "nonlinear_leopard",
+      "family": "II",
+      "name": "非线性LEOPARD",
+      "requirement": "frozen_discrete_nuisance_concept"
+    },
+    {
+      "id": "iti",
+      "family": "III",
+      "name": "ITI",
+      "requirement": "learned_activation_directions"
+    },
+    {
+      "id": "caa",
+      "family": "III",
+      "name": "CAA",
+      "requirement": "correct_vs_incorrect_behavior_pair"
+    },
+    {
+      "id": "cast",
+      "family": "III",
+      "name": "CAST",
+      "requirement": "behavior_pair_and_train_only_condition"
+    },
+    {
+      "id": "lofit",
+      "family": "III",
+      "name": "LoFiT",
+      "requirement": "representation_training"
+    },
+    {
+      "id": "loreft",
+      "family": "III",
+      "name": "LoReFT",
+      "requirement": "representation_training_and_adapter_effect_check"
+    },
+    {
+      "id": "lora",
+      "family": "IV",
+      "name": "LoRA",
+      "requirement": "weight_training"
+    },
+    {
+      "id": "dora",
+      "family": "IV",
+      "name": "DoRA",
+      "requirement": "weight_training"
+    },
+    {
+      "id": "fourierft",
+      "family": "IV",
+      "name": "FourierFT",
+      "requirement": "weight_training"
+    },
+    {
+      "id": "bias_only",
+      "family": "C",
+      "name": "仅截距校准",
+      "requirement": "fitted_intercept"
+    },
+    {
+      "id": "temperature",
+      "family": "C",
+      "name": "温度缩放",
+      "requirement": "calibration_on_source_natural_labels"
+    },
+    {
+      "id": "supervised_linear_readout",
+      "family": "C",
+      "name": "普通监督线性读出",
+      "requirement": "source_labels_frozen_representation"
+    },
+    {
+      "id": "base",
+      "family": "P",
+      "name": "原模型",
+      "requirement": "frozen_model_no_update"
+    },
+    {
+      "id": "aster_cr_linear",
+      "family": "P",
+      "name": "ASTER-CR线性",
+      "requirement": "source_AP_fit_CF_budget"
+    },
+    {
+      "id": "aster_cr_mlp",
+      "family": "P",
+      "name": "ASTER-CR非线性",
+      "requirement": "source_AP_fit_CF_budget"
+    }
+  ],
+  "design": {
+    "core_baseline_cells": 240,
+    "method_cells_including_base_and_aster_cr": 285,
+    "train_source": "MEGA-CDP fit80 sources (A/P 4887, C/F 135); all five backbone models trained/selected separately",
+    "selection_source": "MEGA-CDP dev20 sources only; no target test data for tuning",
+    "transfer": "Frozen trained method per model to NLI4CT-2024 and MedPIC, with fixed target task prompts and no target test labels/batch statistics for fitting",
+    "mega_test": "official 7458 dynamic paths plus separate controlled 2293 interference, 40 evidence pairs and 806 paths",
+    "nli_test": "official 5500, original 500 macro-F1, preserving 4136 prediction consistency, flipping 864 pair and conditional faithfulness",
+    "medpic_test": "official 467 questions, 2335 options; optional patient-pair analyses only after local mapping and per-case scores independently validated",
+    "model_scoring": "Official model-specific chat template; correct judgment label verbalizer log probabilities including multiple tokens; no shared Qwen head indices; source-fitted calibration.",
+    "search_budget": "Up to 12 complete dev configurations per method and model; all search counted, pre-defined evidence-cost tiers 0.05,0.10,0.25; seeds 11,22,33 for selected stochastic configurations",
+    "safety": "Pretrain and dev splits by source; don't mix MEGA 806 controlled and 7458 official; NLI preserving pairs are not guaranteed nuisance-only; do not use MedPIC official test to fit any baseline.",
+    "comparability": "Native objectives plus optional pair-adapted variants reported separately; compare interference at matched evidence costs and native task utility, not raw logits across models.",
+    "response": "All rows must have per-example scored outputs, model checkpoint revision, method code revision, split manifest hash, fit/dev provenance and exact denominator to count completed."
+  },
+  "source_status": {
+    "qwen_megacdp_legacy": "Existing Qwen3-8B MEGA controlled (806 paths) for selected methods; nonuniform supervision, not sufficient for full 5x3 matrix.",
+    "qwen_nli_legacy": "Qwen3-8B NLI native scores and frozen ASTER-CR variants; external baseline suite not executed on the official 5500.",
+    "medpic_legacy": "Historical Qwen3-8B ASTER-CR summary only; per-case files absent from GitHub.",
+    "other_model_legacy": "Model download status in configs/models.json is historical, not evidence of new evaluation.",
+    "runtime": "This ChatGPT runtime has CPU-only torch, no CUDA and no model weights; no repository GitHub Actions workflows found."
+  }
+}
