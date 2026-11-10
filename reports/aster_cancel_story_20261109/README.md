@@ -10,6 +10,8 @@
 
 当前只有Qwen3-8B部分真实结果及其既有复算；**尚未完成240个同协议基线实测**。未运行方法不能填写猜测值、文献异协议数字或预设模拟结果。MedPIC逐例记录尚未完整归档。
 
+**示例填值与真实运行必须分开。** [论文附录D.5](paper_story_latest.zh.md#d5-五模型与四类基线的预设填表示例非模型实测)已直接预填三项主任务的五模型×19方法数值表；[全部十张预填表](meeting/full_factorial_20261110/prefill_example_tables.zh.md)、[285条预设示例数据](meeting/full_factorial_20261110/prefill_example_285_long.csv)和[假设参数](meeting/full_factorial_20261110/prefill_scenario_parameters.json)仅用于版式和指标检查，均**不是新增实测**。待运行状态以独立的[matrix_status_285.csv](meeting/full_factorial_20261110/matrix_status_285.csv)为准。
+
 ## 结果入口
 
 论文第4.5节为MEGA受控结果，第4.6节是**仅Qwen3-8B**在三个完整任务上的已有结果；第4.7、4.8节分别报告NLI原生指标及MedPIC历史汇总。附录B含完整指标和全量实验协议，附录C含实测、消融及机制验证，附录D单独收纳补充任务与合成／预设模拟。
