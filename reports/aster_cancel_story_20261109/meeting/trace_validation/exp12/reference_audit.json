@@ -1,0 +1,31 @@
+{
+  "data_origin": "real_cache_recomputation",
+  "patch_source": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/mechanisms/h2_dev.jsonl",
+  "prediction_source": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/reports/aster_h2_alignment_20261108/pair_results.csv",
+  "calculation_source": "/home/gcx/TRIAGE-worktrees/aster-cr-20261108/reports/aster_cancel_story_20261109/trace/summarize_trace.py",
+  "n": 1194,
+  "sources": 20,
+  "support": {
+    "heads": 51,
+    "rank": 16,
+    "raw_dimension": 6528
+  },
+  "patch_rms": 0.540010752156344,
+  "total_rms": 3.8833766302853494,
+  "patch_rms_ratio": 0.139057012380657,
+  "patch_as_prediction_r2": 0.07859726372784048,
+  "coordinate_prediction_r2": 0.4063326595932645,
+  "prediction_rmse": 2.991417317164381,
+  "reference_definitions": {
+    "target": "Original total logit difference ell(right)-ell(left), not the selected-head intervention effect",
+    "ridge": "Fit A/P 4887 pairs, alpha=.01, fit_intercept=False; dev A1194 primary and AP1198 secondary",
+    "patch": "One-way left-to-right trace-direction patch at the decision position",
+    "r2": "1 - sum((target-prediction)^2)/sum((target-mean(target))^2)",
+    "rms_ratio": "RMS(trace patch effect) / RMS(total effect)",
+    "intercept": "No paired regression intercept. Independent node calibration b disappears in pair differences.",
+    "legacy_mechanisms": "mechanisms.h2 uses Ridge(alpha=.01) with default fit_intercept=True; historical h2_alignment changes to no intercept",
+    "paired_fit": "Paired_AP_only reproduces .40633266 on A. Paired_APF0 trains 4969 A/P/F0 pairs and produces .40925484 on A; these are distinct estimators.",
+    "normalization": "Fit full views estimate coordinate mu/scale; fit A/P determines nuisance basis, fit C/F signal basis; nuisance orthogonalized against signal",
+    "archive": "The .07859726 reference is already present in trace/metrics.json as transmission_r2; not solely an unarchived prose result"
+  }
+}

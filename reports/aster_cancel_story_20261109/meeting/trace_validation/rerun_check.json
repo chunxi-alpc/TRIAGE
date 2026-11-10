@@ -1,0 +1,161 @@
+{
+  "command": "bash reports/aster_cancel_story_20261109/meeting/trace_validation/run_all.sh --full",
+  "exit_code": 0,
+  "verification": "CPU cache preparation, reference audit, all 50-seed controls, dimension experiments, neural fits, source diagnostics, repair fits/evaluation, and report generation re-executed successfully. Completed GPU folds were skipped; five full folds were separately re-estimated using cached exact interventions without new model forwards.",
+  "exp12_replay": {
+    "status": "passed",
+    "data_origin": "real_cache_parameter_replay",
+    "checks": [
+      {
+        "method": "selected_N16",
+        "seed": "",
+        "dev_pairs": 1198,
+        "max_absolute_error": 0.0,
+        "A": {
+          "n": 1194,
+          "r2": 0.4063325966225597,
+          "rmse": 2.991417475815227
+        }
+      },
+      {
+        "method": "random_subspace16",
+        "seed": "11",
+        "dev_pairs": 1198,
+        "max_absolute_error": 0.0,
+        "A": {
+          "n": 1194,
+          "r2": 0.25167696425251895,
+          "rmse": 3.3585357987596645
+        }
+      },
+      {
+        "method": "random_heads51",
+        "seed": "11",
+        "dev_pairs": 1198,
+        "max_absolute_error": 0.0,
+        "A": {
+          "n": 1194,
+          "r2": 0.03066484918937351,
+          "rmse": 3.8224552124823585
+        }
+      },
+      {
+        "method": "mlp16",
+        "seed": "11",
+        "dev_pairs": 1198,
+        "max_absolute_error": 0.0,
+        "A": {
+          "n": 1194,
+          "r2": 0.45240696210041387,
+          "rmse": 2.8729917809548695
+        }
+      },
+      {
+        "method": "mlp16",
+        "seed": "22",
+        "dev_pairs": 1198,
+        "max_absolute_error": 0.0,
+        "A": {
+          "n": 1194,
+          "r2": 0.4431130014596001,
+          "rmse": 2.897269963059275
+        }
+      },
+      {
+        "method": "mlp16",
+        "seed": "33",
+        "dev_pairs": 1198,
+        "max_absolute_error": 0.0,
+        "A": {
+          "n": 1194,
+          "r2": 0.4503032494532856,
+          "rmse": 2.878505141263553
+        }
+      }
+    ],
+    "requirement": "Saved chosen16, random-projection seed11, random-head seed11 and all three neural models reproduce saved development pair predictions.",
+    "tolerance": {
+      "relative": 1e-05,
+      "absolute": 1e-05
+    },
+    "refit_required": false
+  },
+  "exp3_replay": {
+    "folds": [
+      {
+        "fold": 0,
+        "pairs": 964,
+        "pair_order_equal": true,
+        "heads_equal": true,
+        "maximum_prediction_difference": 0.0,
+        "replay_new_final_forwards": 0
+      },
+      {
+        "fold": 1,
+        "pairs": 954,
+        "pair_order_equal": true,
+        "heads_equal": true,
+        "maximum_prediction_difference": 0.0,
+        "replay_new_final_forwards": 0
+      },
+      {
+        "fold": 2,
+        "pairs": 993,
+        "pair_order_equal": true,
+        "heads_equal": true,
+        "maximum_prediction_difference": 0.0,
+        "replay_new_final_forwards": 0
+      },
+      {
+        "fold": 3,
+        "pairs": 1048,
+        "pair_order_equal": true,
+        "heads_equal": true,
+        "maximum_prediction_difference": 0.0,
+        "replay_new_final_forwards": 0
+      },
+      {
+        "fold": 4,
+        "pairs": 928,
+        "pair_order_equal": true,
+        "heads_equal": true,
+        "maximum_prediction_difference": 0.0,
+        "replay_new_final_forwards": 0
+      }
+    ],
+    "passed": true,
+    "evidence_type": "cached_cpu_replay_no_model_forwards"
+  },
+  "exp4_replay": {
+    "mode": "Saved parameter replay only; no retraining, no new model forwards",
+    "checks": {
+      "nodes": {
+        "n": 22021,
+        "max_abs_difference": 7.105427357601002e-15,
+        "pass_tolerance_1e_6": true
+      },
+      "pairs": {
+        "n": 68894,
+        "max_abs_difference": 7.105427357601002e-15,
+        "pass_tolerance_1e_6": true
+      },
+      "paths_dev": {
+        "n": 157928,
+        "max_abs_difference": 7.105427357601002e-15,
+        "pass_tolerance_1e_6": true
+      },
+      "paths_test": {
+        "n": 316806,
+        "max_abs_difference": 7.105427357601002e-15,
+        "pass_tolerance_1e_6": true
+      },
+      "fit_pairs_export": {
+        "n": 96976,
+        "pass_tolerance_1e_6": true,
+        "status": "saved from frozen parameters"
+      }
+    },
+    "all_available_checks_passed": true
+  },
+  "completed_server_time": "2026-11-09 14:25:22"
+}

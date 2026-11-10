@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "data_origin": "real_cache_parameter_replay",
+  "checks": [
+    {
+      "method": "selected_N16",
+      "seed": "",
+      "dev_pairs": 1198,
+      "max_absolute_error": 0.0,
+      "A": {
+        "n": 1194,
+        "r2": 0.4063325966225597,
+        "rmse": 2.991417475815227
+      }
+    },
+    {
+      "method": "random_subspace16",
+      "seed": "11",
+      "dev_pairs": 1198,
+      "max_absolute_error": 0.0,
+      "A": {
+        "n": 1194,
+        "r2": 0.25167696425251895,
+        "rmse": 3.3585357987596645
+      }
+    },
+    {
+      "method": "random_heads51",
+      "seed": "11",
+      "dev_pairs": 1198,
+      "max_absolute_error": 0.0,
+      "A": {
+        "n": 1194,
+        "r2": 0.03066484918937351,
+        "rmse": 3.8224552124823585
+      }
+    },
+    {
+      "method": "mlp16",
+      "seed": "11",
+      "dev_pairs": 1198,
+      "max_absolute_error": 0.0,
+      "A": {
+        "n": 1194,
+        "r2": 0.45240696210041387,
+        "rmse": 2.8729917809548695
+      }
+    },
+    {
+      "method": "mlp16",
+      "seed": "22",
+      "dev_pairs": 1198,
+      "max_absolute_error": 0.0,
+      "A": {
+        "n": 1194,
+        "r2": 0.4431130014596001,
+        "rmse": 2.897269963059275
+      }
+    },
+    {
+      "method": "mlp16",
+      "seed": "33",
+      "dev_pairs": 1198,
+      "max_absolute_error": 0.0,
+      "A": {
+        "n": 1194,
+        "r2": 0.4503032494532856,
+        "rmse": 2.878505141263553
+      }
+    }
+  ],
+  "requirement": "Saved chosen16, random-projection seed11, random-head seed11 and all three neural models reproduce saved development pair predictions.",
+  "tolerance": {
+    "relative": 1e-05,
+    "absolute": 1e-05
+  },
+  "refit_required": false
+}
