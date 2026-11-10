@@ -10,6 +10,8 @@
 
 当前已有Qwen3-8B全量与受控结果，以及五模型在MEGA、NLI4CT和程序生成三段论上的15组旧实验；它们与上述统一协议的任务、拟合方式和基线范围不同，**尚未完成240个同协议基线实测及285项完整矩阵**。MedPIC全467题逐例结果已补入[迁移研究归档](../../results/aster_cr_transfer_20261110.zip)，包含四种方法各467条整题记录、2,335条选项分数及配对结果。全部状态见[实验总表](../../docs/ASTER/experiments.zh.md)。
 
+**示例填值与真实运行必须分开。** [论文附录D.5](paper_story_latest.zh.md#d5-五模型与四类基线的预设填表示例非模型实测)已直接预填三项主任务的五模型×19方法数值表；[全部十张预填表](meeting/full_factorial_20261110/prefill_example_tables.zh.md)、[285条预设示例数据](meeting/full_factorial_20261110/prefill_example_285_long.csv)和[假设参数](meeting/full_factorial_20261110/prefill_scenario_parameters.json)仅用于版式和指标检查，均**不是新增实测**。待运行状态以独立的[matrix_status_285.csv](meeting/full_factorial_20261110/matrix_status_285.csv)为准。
+
 ## 结果入口
 
 论文第4.5节为MEGA受控结果，第4.6节是**仅Qwen3-8B**在三个完整任务上的已有结果；第4.7、4.8节分别报告NLI原生指标及MedPIC既有结果，MedPIC逐例文件此次已补录。附录B含完整指标和全量实验协议，附录C含实测、消融及机制验证，附录D单独收纳补充任务与合成／预设模拟。
