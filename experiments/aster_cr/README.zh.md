@@ -1,5 +1,7 @@
 # ASTER-CR：repair-v2 后续实验
 
+> 本页保留repair-v2原阶段的运行配置。后续正式测试、优化、五模型和迁移的最新状态及归档见[实验总表](../../docs/ASTER/experiments.zh.md)，不沿用本页旧进度。
+
 使用已完成的 repair-v2 数据：2,782 个候选节点、11,512 个输入、8,730 对变体。当前使用 GPU 0、1、5、6；MedGemma 主流程接续使用 GPU 6。服务器环境为 `/home/gcx/gcx261014`。
 
 [结果与分析](../../reports/aster_cr_repair_v2_20261108/ANALYSIS.zh.md) · [结果快照](../../results/aster_cr_repair_v2_20261108/README.md) · [数据修复方法](repair/README.zh.md) · [独立普通读出](../../results/ordinary_readout_20261108/REPORT.zh.md)

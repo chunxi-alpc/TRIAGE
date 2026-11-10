@@ -1,5 +1,5 @@
 # 仓库状态入口
 
-当前方法与模块编号以 [ASTER 主稿](ASTER/manuscript.zh.md)为准；实际已实现范围只维护于[代码说明](../src/aster/README.md)。版本沿革、旧检查与历史结果统一见[归档入口](ASTER/archive/README.md)。
+方法、已完成实验、运行快照及尚未完成事项统一维护在[方法与实验总表](ASTER/experiments.zh.md)。研究概况见[项目首页](../README.md)，实现差别见[方法说明](ASTER/versions.zh.md)。
 
-本页保留兼容链接，不再重复维护另一套研究状态。
+本页保留兼容入口，不另维护进度表。

@@ -1,81 +1,20 @@
-# 历史实验索引
+# 实验代码入口
 
-## ASTER近期方法与实验（2026-11-07）
+**[方法与实验总表](../docs/ASTER/experiments.zh.md)**统一记录全部探索的规模、结论、状态和归档。
 
-[按版本实验索引](../docs/ASTER/experiments.zh.md) · [版本演变](../docs/ASTER/versions.zh.md) · [中文论文](../docs/ASTER/manuscript.zh.md)。
+| 方向 | 代码与说明 |
+|---|---|
+| 闭式、连续衰减与参考对照 | [aster_closed_form](aster_closed_form/SYNTHESIS.zh.md) |
+| 可学习M3五方法全量实验 | [aster_learnable_m3](aster_learnable_m3/README.zh.md) |
+| 节点、迁移、选头及N/S/NS | [aster_m3_followup](aster_m3_followup/README.zh.md)；9配置训练与200题迁移完成，主测试未完成 |
+| CR / repair-v2基础实现 | [aster_cr](aster_cr/README.zh.md) |
+| CR优化、证据保护、机制验证及模拟 | [源码和结果归档](../results/aster_cr_research_20261109.zip) |
+| 五模型、MedPIC和跨任务适配 | [源码和结果归档](../results/aster_cr_transfer_20261110.zip) |
+| 新痕迹修复（未完成） | [代码和状态快照](aster_cr/trace_repair_20261110.zip) |
+| 普通读出、M1及Gemma对照 | [普通读出](ordinary_readout.py)、[M1](m1_diagnostics/README.zh.md)、[Gemma](gemma3_head_pilot/README.md) |
+| 遮挡与三数据集补充 | [遮挡](semantic_masking_followup_20261105/README.md)、[三数据集](three_dataset_analysis_20261105/README.md) |
+| CARE既有实现 | [V4](care_module1_v4/README.md)、[V5](care_module1_v5/README.zh.md)、[V6](care_module1_v6/README.md)、[A1](care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md)、[有符号诊断](care_module2_signed_20261019/README.md) |
+| 早期CARE、适用性及SEKA支线 | [缺失源码和原报告归档](legacy_research_20261110.zip) |
+| ACRE | [方案、结果与停止结论](../docs/ACRE/README.md) |
 
-辅助参考／自身参考M3已完成五方法全量测试，辅助参考正确7,072/7,458；[代码](aster_learnable_m3/README.zh.md)与[完整结果](../results/aster_learnable_m3_20261106/REPORT.zh.md)已合入。最新P0–P3实现和阶段结果见[运行入口](aster_m3_followup/README.zh.md)，paired_ns正式训练与评测尚未完成。M1双模型诊断已完成，作为[机制分析](../results/m1_diagnostics_20261106/README.md)引用。
-
-## ASTER 三轮闭式实验与全历史整合（2026-11-06）
-
-[运行与 CPU 复算](aster_closed_form/SYNTHESIS.zh.md) · [总分析](../reports/aster_synthesis_20261106/ANALYSIS.zh.md)。包含硬筛选、连续衰减、全局均值／同事实参考；固定数据与基，保留全部正负结果。
-
-## ASTER 闭式现成数据实验（2026-11-06，已完成）
-
-[代码与 CPU 复算](aster_closed_form/EXISTING_DATA.zh.md) · [结果与问题分析](../reports/aster_existing_data_20261106/ANALYSIS.zh.md) · [输入、分数和固定算子](../results/aster_existing_data_20261106/README.md)。200 节点、1,290 输入、1,053 配对及 432 例路径全部完成。主配对宏平均提高 0.51 个百分点，完整路径减少 3 例正确；没有稳定整体优势。
-
-## 修订遮挡与关键事实预实验（2026-11-05，已完成）
-
-[代码与 CPU 复算入口](semantic_masking_followup_20261105/README.md) · [结果分析](../reports/semantic_masking_followup_20261105/ANALYSIS.zh.md) · [完整输入与分数快照](../results/semantic_masking_followup_20261105/README.md)。修正指定删除、完整条件标签和开发集融合选择；2,994 条评分齐全，21 项服务器测试通过。主关键事实测试 28 对，固定预测的配对融合分析单列补充；未训练内部干预模块。
-
-## 三数据集补充分析（2026-11-05，已完成）
-
-[代码与复现入口](three_dataset_analysis_20261105/README.md) · [实验说明](../reports/three_dataset_analysis_20261105/EXPERIMENTS.zh.md) · [四张主表与分析](../reports/three_dataset_analysis_20261105/README.md)。本轮复用已有标注与历史结果，仅补 MedPAIR 缺失候选评分，新增 538 个唯一输入；不训练内部干预模块。
-
-> **2026-10-26 主线说明：** 当前研究主线为 [ASTER](../docs/ASTER/README.md)。下列既有内容保留原实验阶段含义，其中“当前”“默认”不定义新版 ASTER。实验数字和实现不得未经核验迁入新论文。完整旧主线见[归档分支](https://github.com/chunxi-alpc/TRIAGE/tree/archive/pre-aster-main-20261026)。
-
-[项目首页](../README.md) · [模块一](../src/module1/README.md) · [模块二](../src/module2/README.md) · [模块三](../src/module3/README.md)
-
-本目录保存独立实验的代码、协议与结果。当前模块实现及其接口见 `src/`；实验结论按原模型、数据、筛选条件和运行阶段解读。
-
-**模块一研究信号已冻结为 [语义 A1](care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md)**。这里保存提示、固定示例、批量运行和 A1→模块二信号导出入口；完整历史 GPU 输出仍在 PR #12 的来源分支，不在当前主线重复导入。旧 V6 CLI 和流水线继续保留历史契约。
-
-## ASTER 反事实预实验代码（2026-10-22）
-
-已新增 [ASTER MedGUIDE 三版本实验](aster_medguide_20261022/README.md)，包含严格同父兄弟路径与三真实动作的 A/B/C 生成器、Llama-3.1-8B-Instruct 注意力分数干预运行器、成对准确率、错误归因及强度分析。**本次新增的是可执行代码，尚无真实 GPU 结果**；不可把历史 Qwen 的结果替代为 ASTER 新实验成绩。本目录与关闭未合并的 MedGUIDE 全量 PR #19 相互独立。
-
-## 当前优先入口
-
-| 方向 | 最新入口 | 样本与模型 | 已存结论 |
-| --- | --- | --- | --- |
-| 模块一（研究默认） | [A1 冻结与接口](care_module1_semantic_v8/MODULE1_A1_FREEZE.zh.md) · [原研究 PR #12](https://github.com/chunxi-alpc/TRIAGE/pull/12) | Phi-4＋TrialMatchAI LoRA、三个固定 few-shot、直接 T/F/U | 作为模块二固定信号源，U 不编辑，不用金标挑选样本；不声称已具临床准确性 |
-| 模块一（旧 V6） | [CARE V6](care_module1_v6/README.md) | 旧 192 条离线重算；新增 100 条；Phi-4 + TrialMatchAI LoRA、BioLinkBERT-MedNLI | 原有适用性与证据门控接口保留用于复现，78.65% / 73.00% 是旧样本结果 |
-| 模块二研究 | [有符号诊断](care_module2_signed_20261019/README.md) | 384 个模拟病例、192 对、12 个规则家族；Qwen3-4B-Base | 尚未建立学习方向优于直接分数偏置的证据 |
-
-模块一指标来自 [V6 指标文件](care_module1_v6/data/v6_metrics.json)。模块二结论来自 [保存结果](care_module2_signed_20261019/results/analysis/README.md)。两者的样本和评价目标不同，不能相互替代或合并为端到端结果。
-
-## 模块一版本链
-
-| 阶段 | 入口 | 保留目的 |
-| --- | --- | --- |
-| V4：结构化证据修复 | [目录说明](care_module1_v4/README.md) · [原报告](care_module1_v4/REPORT.zh.txt) | Qwen3-8B 三组对照，保留改善与新增错误 |
-| V5：模型组合 | [目录说明](care_module1_v5/README.md) · [初始报告](care_module1_v5/REPORT.zh.md) | 保留初始解析失败、组合退化与错误分析 |
-| V5：解析器 V2 | [解析器复评](care_module1_v5/PARSER_V2_REPORT.zh.md) | 对缓存的 492 条输出做离线解析修复 |
-| V5：解析器 V3 | [失败条件重生成报告](care_module1_v5/runs/v5_20261018/parser_v3_retry/RETRY_REPORT.zh.md) | 仅重生成仍失败的 69 条条件，保留其余原输出 |
-| V6：证据定位与真假判定分离 | [目录说明](care_module1_v6/README.md) · [原报告](care_module1_v6/REPORT.zh.md) | V6 历史入口；旧样本离线重算与新增样本运行分别保存 |
-
-V4/V5 为历史比较。V5 解析成功率提升并未证明组合判定有效；不要只引用修复后覆盖率而省略组合方案的退化。V6 保留主判定，将 BioLinkBERT 用于证据定位与干预门控；实际门控限制见 [当前模块说明](../src/module1/README.md)。
-
-## CARE 三项观察与模块二后续
-
-| 阶段 | 入口 | 研究范围 |
-| --- | --- | --- |
-| 2026-10-16：三项观察 | [实验目录](care_qwen3_4b_base_20261016/README.md) · [更新报告](care_qwen3_4b_base_20261016/results/observations_summary.md) | 临床来源规则与模拟患者的 O1；虚构规则的 O2/O3 |
-| 2026-10-17：O2 二次统计复核 | [头选择复核](care_qwen3_4b_base_20261016/results/module2_o2_reanalysis/README.md) | 读取既有逐头统计，检查选择规则与数值混杂；没有新模型前向 |
-| 2026-10-17：B1–B4 后续 | [完整报告](care_qwen3_4b_base_20261016/results/module2_followup/README.md) | 家族留出对照、随机投影、直接分数偏置与因果干预诊断 |
-| 2026-10-19：有符号适用性诊断 | [目录说明](care_module2_signed_20261019/README.md) · [原协议](care_module2_signed_20261019/PROTOCOL.md) | 用参考适用性标签比较原始 B4、有符号 B4、均值位移和直接偏置 |
-
-后两轮结果没有建立可靠的学习子空间优势。可解码性、注意力分数变化和最终决策改善是不同问题。使用参考适用性标签的诊断不包含模块一预测错误，也不是完整流水线的可部署性能。
-
-## 其他历史研究
-
-| 内容 | 入口 |
-| --- | --- |
-| TRIAGE 原三模块集成与 24 例诊断 | [结果索引](../results/README.md) · [历史最小实现](../TRIAGE_MVP.md) |
-| ACRE 先导、同源参考对照与停止结论 | [文档索引](../docs/ACRE/README.md) · [诊断产物](../results/acre_pilot/oracle_switch_diagnostic/README.md) |
-
-## 保存与复现约定
-
-每轮保留协议、数据来源及划分、模型版本、参数、预测、指标、失败样本和校验清单。后续运行使用新目录；原始结果与哈希清单原样保留。目录名表示实验阶段，后续补充不应被误读为同一次运行。
-
-能够从已保存预测重新计算统计量，不等于能够在任意机器重新运行模型。受限原文、模型权重和部分大张量保留在既有服务器或对应归档中；具体依赖见各实验说明和 [运行说明](../docs/RUNNING.md)。
+包内保留源码结构、参数、已有结果及来源说明；大模型权重和大缓存使用原服务器路径。[运行环境](../docs/RUNNING.md)，src模块接口见各自README。

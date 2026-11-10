@@ -8,12 +8,12 @@
 
 [五模型全量方案与运行核查](meeting/full_factorial_20261110/README.zh.md) · [完整285单元状态表](meeting/full_factorial_20261110/matrix_status_285.csv) · [结构化方法与指标](meeting/full_factorial_20261110/matrix_spec.json) · [模型清单与比较目的](model_selection.zh.md)
 
-当前只有Qwen3-8B部分真实结果及其既有复算；**尚未完成240个同协议基线实测**。未运行方法不能填写猜测值、文献异协议数字或预设模拟结果。MedPIC逐例记录尚未完整归档。
+当前已有Qwen3-8B全量与受控结果，以及五模型在MEGA、NLI4CT和程序生成三段论上的15组旧实验；它们与上述统一协议的任务、拟合方式和基线范围不同，**尚未完成240个同协议基线实测及285项完整矩阵**。MedPIC全467题逐例结果已补入[迁移研究归档](../../results/aster_cr_transfer_20261110.zip)，包含四种方法各467条整题记录、2,335条选项分数及配对结果。全部状态见[实验总表](../../docs/ASTER/experiments.zh.md)。
 
 ## 结果入口
 
-论文第4.5节为MEGA受控结果，第4.6节是**仅Qwen3-8B**在三个完整任务上的已有结果；第4.7、4.8节分别报告NLI原生指标及MedPIC历史汇总。附录B含完整指标和全量实验协议，附录C含实测、消融及机制验证，附录D单独收纳补充任务与合成／预设模拟。
+论文第4.5节为MEGA受控结果，第4.6节是**仅Qwen3-8B**在三个完整任务上的已有结果；第4.7、4.8节分别报告NLI原生指标及MedPIC既有结果，MedPIC逐例文件此次已补录。附录B含完整指标和全量实验协议，附录C含实测、消融及机制验证，附录D单独收纳补充任务与合成／预设模拟。
 
 [旧会议报告](https://github.com/chunxi-alpc/TRIAGE/tree/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/meeting_brief.zh.md) · [现有受控实验](https://github.com/chunxi-alpc/TRIAGE/tree/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/real_completion/) · [NLI原生指标复算](https://github.com/chunxi-alpc/TRIAGE/tree/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/) · [痕迹机制验证](https://github.com/chunxi-alpc/TRIAGE/tree/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/trace_validation/) · [五模型合成模拟（非真实结果）](https://github.com/chunxi-alpc/TRIAGE/tree/aster-cr-20261108/reports/aster_cancel_story_20261109/simulated_study/)。
 
-正确的结果等级是：已执行且可复核的真实模型运行、已有但缺逐例归档的历史总结、数学解析控制、真正拟合的合成机制试验、预设分数模拟。任何比较表都要按此顺序区分来源。
+结果分别保留真实模型运行、数学解析控制、实际拟合的合成机制试验和预设分数模拟的来源。MedPIC历史全量结果的逐例文件已补录；部分历史子集探索仍按各自评价范围记录。
