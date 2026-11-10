@@ -1,33 +1,33 @@
-# TRIAGE · ASTER
+# TRIAGE · ASTER 研究仓库
 
-ASTER 研究模型如何根据完整指南和患者事实判断当前条件，再由程序沿指南树执行路径。**最新方案保留三模块：M1 复用已选的 51 个头，M2 沿用此前选定的子空间及全部 244 个未筛选干扰方向，M3 改为可训练映射与门控。** Qwen3-8B 和 M1/M2 保持冻结，仅训练 M3。
+本分支包含**两条不同的方法研究线**。此前容易混淆，是因为根目录 README 主要介绍 M1/M2/M3 表示编辑，而 ASTER-CR 的论文和实验放在 reports 子目录；两者使用相近名称，但算法、训练目标和实验结果不同。
 
-**状态：可学习 M3 已完成实现、两种参考版本各 3 轮训练、开发选轮和 7,458 例官方测试。** 两种版本均选第 1 轮，共保存 37,290 条方法路径预测。P0–P3 后续实验已实现，训练与评测尚未完成；其结果与本轮已完成结果分别报告。
+## 研究线 A：ASTER-CR（本次讨论的输出端分数修正方法）
 
-|方法|完整路径正确/总数|准确率|相对完整阅读：纠正/新增错误|
-|---|---:|---:|---:|
-|完整阅读（full）|7,068/7,458|94.77%|—|
-|原闭式 ASTER（aster）|7,045/7,458|94.46%|22/45|
-|M3＋辅助参考（learned_reference）|7,072/7,458|94.82%|6/2|
-|M3＋自身参考（learned_self）|7,068/7,458|94.77%|3/3|
-|直接读取参考（direct_reference）|6,445/7,458|86.42%|137/760|
+ASTER-CR 读取模型内部痕迹，估计干扰对当前判断分数的贡献；用 A/P 配对学习需要抵消的变化，用 C/F 配对限制有效证据响应的改动。
 
-辅助参考相对完整阅读净增 4 例，差值为 +0.054 个百分点；来源重采样 95% 区间为 [−0.014, +0.130] 个百分点，来源配对置换和病例级精确 McNemar 检验均为 p=0.289。结果支持其减少旧闭式编辑的损伤，尚未证明相对完整阅读有稳定纠错收益。
+- [ASTER-CR 当前论文](reports/aster_cancel_story_20261109/paper_story_latest.zh.md)
+- [ASTER-CR 实验总索引：已完成、结果、待完成](reports/aster_cancel_story_20261109/EXPERIMENT_INDEX.zh.md)
+- [ASTER-CR 项目入口](reports/aster_cancel_story_20261109/README.md)
+- [Codex 剩余实验清单](reports/aster_cancel_story_20261109/meeting/EXPERIMENT_PLAN_CODEX_20261111.zh.md)
 
-[已完成 M3 报告](results/aster_learnable_m3_20261106/REPORT.zh.md) · [P0 直接配对统计](results/aster_m3_followup_20261107/p0/REPORT.zh.md) · [P0–P3 后续状态](results/aster_m3_followup_20261107/REPORT.zh.md)
+**当前证据摘要（Qwen3-8B）：**
+- 痕迹预测：开发集 16 维 R²=0.4063；完整五折来源验证 AP R²=0.3454，62/80 个来源内 R² 为正。
+- 受约束修复：既有留出干扰方差降低 4.10%，证据响应保留 99.60%。
+- MEGA 官方测试：原模型 7,037/7,458；trace-only 扩展 7,044/7,458，来源簇置信区间包含零，尚未证明路径准确率提升。
+- NLI4CT、MedPIC 冻结迁移未显示稳定的整体准确率收益。
+- 当前只剩两项重点实验：同证据代价下的特征比较，以及四个其他模型上的 MEGA 复现。
 
-旧版 **89.21%（6,653／7,458）** 属于不同冻结配置，仍单列为历史结果。
+## 研究线 B：ASTER M1/M2/M3（内部表示编辑）
 
-- [最新方法正文：三模块、M3 公式与实验安排](docs/ASTER/manuscript.zh.md)
-- [本次修订与 M2 历史调整说明](docs/ASTER/method-clarifications.zh.md)
-- [全部实验结果与模块分析](reports/aster_synthesis_20261106/ANALYSIS.zh.md)
-- [原闭式方法与理论快照](docs/ASTER/manuscript-closed-form.zh.md)
-- [旧版可学习表示方法及结果](docs/ASTER/manuscript-representation.zh.md) · [旧版实现](experiments/aster_representation/)
-- [数据集与使用状态](#数据集与使用状态)
+下方原有 M1/M2/M3 记录属于另一条表示编辑路线：M1 定位干扰通路，M2 估计子空间，M3 学习表示编辑。其模型、方法、训练目标和结果均独立于 ASTER-CR。
 
+**不要将 M1/M2/M3 的路径准确率与 ASTER-CR 的分数修正结果合并，也不要把它们当作 ASTER-CR 的历史版本。** 该路线的正文、代码和结果仍保留在 docs/ASTER、experiments/aster_* 与 results/aster_* 中。
+
+以下内容保留原有 M1/M2/M3 研究记录，便于复现历史实验。
 
 <!-- m1-diagnostics:start -->
-## 冻结 M1 诊断与原文试测（2026-11-07，已完成）
+### 冻结 M1 诊断与原文试测（2026-11-07，已完成）
 
 两模型各完成64对头修补、64对层内外贡献诊断、12对残差扫描，以及MedGUIDE和MEGA-CDP各200例发布原文试测。
 
@@ -43,7 +43,7 @@ ASTER 研究模型如何根据完整指南和患者事实判断当前条件，�
 实验完成后自动合并上传本仓库主分支。入口为 `python -m experiments.m1_diagnostics.publish`；完整实验的报告阶段已接入该入口。仅提交本实验代码、汇总和压缩明细，保留已有结果及README其他章节。上传失败会保留本地结果并写入状态文件，可重试；模型权重、激活缓存、原始数据和运行日志留在服务器。后续实验沿用这一完成即上传要求。
 <!-- m1-diagnostics:end -->
 
-## ASTER 三个模块与本轮改动
+### ASTER M1/M2/M3 三个模块与本轮改动
 
 | 模块 | 已有工作 | 最新安排 |
 |---|---|---|
