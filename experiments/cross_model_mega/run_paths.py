@@ -71,7 +71,9 @@ def run(model,gpu,shard=0,shards=1,limit=None):
     oldresults={(r['case_id'],r['method']):r for s in ('dev','test') for r in rows(old/'paths'/f'{s}.jsonl') if r['method'] in NAMES}
     pending=[c for c in cases if any((c['case_id'],m) not in written for m in NAMES)]
     if not pending:
-        dump(work/'done.json',dict(state='complete',model=model,cases=len(cases),new_forwards=0,already_complete=True));return
+        
+        if not (work/'done.json').exists():dump(work/'done.json',dict(state='complete',model=model,cases=len(cases),new_forwards=0,already_complete=True))
+        return
     engine=None;new_forwards=0;reused=0;start=time.time();natural_written={r['id'] for r in rows(work/'natural_nodes.jsonl')}
     completed=0;validated=False
     for case in pending:
@@ -158,7 +160,14 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--model',required=True);p.add_argument('--gpu',type=int,required=True)
     p.add_argument('--shard',type=int,default=0);p.add_argument('--shards',type=int,default=1);p.add_argument('--limit',type=int)
     a=p.parse_args()
-    try:run(a.model,a.gpu,a.shard,a.shards,a.limit)
+    try:
+        # Concurrent controllers/resumes share a per-model lock; only one may write this shard.
+        import fcntl
+        lockroot=Path('/home/gcx/aster_cross_model_mega_20261111')/a.model
+        lockroot.mkdir(parents=True,exist_ok=True)
+        with (lockroot/'.execution.lock').open('w') as execution_lock:
+            fcntl.flock(execution_lock,fcntl.LOCK_EX)
+            run(a.model,a.gpu,a.shard,a.shards,a.limit)
     except BaseException as exc:
         out=OUT/a.model;out.mkdir(parents=True,exist_ok=True)
         dump(out/('failed_shard'+str(a.shard)+'.json'),dict(state='failed',error=str(exc),traceback=traceback.format_exc()))

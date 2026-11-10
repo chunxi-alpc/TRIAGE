@@ -7,6 +7,6 @@
 
 A 未新增模型前向；fit/dev/test 为 80/20/40 来源。仅根据开发集实际 C/F RMS 选择约 0.20 logit 的预算，冻结后评价既有留出。完整结果见 [matched_cost_feature_analysis](matched_cost_feature_analysis/) 和 [RESULTS_SUMMARY.md](RESULTS_SUMMARY.md)。
 
-B 已确认四模型权重可用。GPU 0 队列为 Llama-3.1-8B-Instruct → Gemma-3-27B-IT；GPU 1 为 Gemma-2-9B-IT → MedGemma-27B-Text-IT。GPU 均为 A100 80GB。正式启动前已向用户报告每个 8B/9B 模型预计 20–30GB、27B 模型 55–70GB，整体约 5–10 小时。仅补缺失推理；真实逐例数据随执行保存，最终统计将在完成后归档。
+B 已确认四模型权重可用。现按用户追加授权使用四卡：GPU 0 为 Llama-3.1-8B-Instruct，GPU 1 为 Gemma-2-9B-IT，GPU 5 为 Gemma-3-27B-IT，GPU 6 为 MedGemma-27B-Text-IT。原 0/1 顺序队列已通过进程锁与完成标记避免重复执行 27B。GPU 均为 A100 80GB。正式启动前已向用户报告每个 8B/9B 模型预计 20–30GB、27B 模型 55–70GB，初始两卡整体约 5–10 小时；追加 GPU 5/6 前已报告四卡并行估计约 4–8 小时，实际随输入长度变化。仅补缺失推理；真实逐例数据随执行保存，四模型受控结果已经归档，官方路径最终统计将在完成后归档。
 
 本轮不重跑既有 Qwen 主实验、来源五折、维度/MLP 比较、新来源监督扩展或迁移实验；不运行 285 项矩阵，不扩展 NLI/MedPIC，不按测试表现修改预算，不使用模拟结果。
