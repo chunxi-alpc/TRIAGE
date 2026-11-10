@@ -1,0 +1,441 @@
+{
+  "schema_version": "1.0",
+  "generated_for": "Scientific table layout and replacement workflow; NOT for empirical reporting",
+  "record_status": "illustrative_only__not_executed",
+  "seed": "deterministic hand-specified scenario, no model sampling or inference",
+  "created_date": "2026-11-10",
+  "calibration_note": "Qwen base and ASTER result ranges align with some historical archived summaries; all unverified/full-factorial entries in resulting tables remain illustrative. Other model ranges are informed by a different 2026-11-09 three-task pilot (MEGA controlled and NLI originals); that old pilot is NOT equivalent to the specified official 5x3 evaluation.",
+  "source_old_five_model_csv": "results/aster_five_models_20261109.csv (different setup; never reuse as full-factorial empirical evidence)",
+  "models": {
+    "qwen3_8b": {
+      "mega_path": 7037,
+      "mega_ap_rms": 2.628151983382305,
+      "mega_cf_rms": 36.29733328873824,
+      "mega_cf_pairs": 19,
+      "nli_full": 4073,
+      "nli_tp0": 181,
+      "nli_tp1": 197,
+      "nli_pres": 3241,
+      "nli_eligible": 675,
+      "nli_flip": 534,
+      "med_set": 98,
+      "med_option": 1603,
+      "med_flip": 25,
+      "med_pres": 163
+    },
+    "llama3_1_8b_instruct": {
+      "mega_path": 5817,
+      "mega_ap_rms": 3.825,
+      "mega_cf_rms": 28.2,
+      "mega_cf_pairs": 14,
+      "nli_full": 3820,
+      "nli_tp0": 166,
+      "nli_tp1": 181,
+      "nli_pres": 2988,
+      "nli_eligible": 614,
+      "nli_flip": 451,
+      "med_set": 74,
+      "med_option": 1500,
+      "med_flip": 22,
+      "med_pres": 146
+    },
+    "gemma2_9b_it": {
+      "mega_path": 7042,
+      "mega_ap_rms": 2.46,
+      "mega_cf_rms": 31.5,
+      "mega_cf_pairs": 20,
+      "nli_full": 3998,
+      "nli_tp0": 171,
+      "nli_tp1": 188,
+      "nli_pres": 3097,
+      "nli_eligible": 640,
+      "nli_flip": 484,
+      "med_set": 98,
+      "med_option": 1579,
+      "med_flip": 27,
+      "med_pres": 158
+    },
+    "gemma3_27b_it": {
+      "mega_path": 7283,
+      "mega_ap_rms": 1.95,
+      "mega_cf_rms": 42.3,
+      "mega_cf_pairs": 27,
+      "nli_full": 4128,
+      "nli_tp0": 180,
+      "nli_tp1": 194,
+      "nli_pres": 3250,
+      "nli_eligible": 670,
+      "nli_flip": 546,
+      "med_set": 135,
+      "med_option": 1713,
+      "med_flip": 43,
+      "med_pres": 177
+    },
+    "medgemma_27b_text_it": {
+      "mega_path": 7153,
+      "mega_ap_rms": 2.78,
+      "mega_cf_rms": 39.4,
+      "mega_cf_pairs": 23,
+      "nli_full": 4029,
+      "nli_tp0": 176,
+      "nli_tp1": 188,
+      "nli_pres": 3147,
+      "nli_eligible": 656,
+      "nli_flip": 520,
+      "med_set": 151,
+      "med_option": 1772,
+      "med_flip": 50,
+      "med_pres": 183
+    }
+  },
+  "method_effects": {
+    "base": {
+      "mega": 0,
+      "nli": 0,
+      "med": 0,
+      "orig": 0,
+      "pres": 0,
+      "eligible": 0,
+      "flip": 0,
+      "opt": 0,
+      "medflip": 0,
+      "medpres": 0,
+      "vr": 0,
+      "cf_ratio": 0
+    },
+    "bias_only": {
+      "mega": 1,
+      "nli": -40,
+      "med": -3,
+      "orig": -6,
+      "pres": -34,
+      "eligible": 21,
+      "flip": -6,
+      "opt": -10,
+      "medflip": -1,
+      "medpres": -6,
+      "vr": 0,
+      "cf_ratio": 0
+    },
+    "temperature": {
+      "mega": 0,
+      "nli": 0,
+      "med": 0,
+      "orig": 0,
+      "pres": 0,
+      "eligible": 0,
+      "flip": 0,
+      "opt": 0,
+      "medflip": 0,
+      "medpres": 0,
+      "vr": 0.0975,
+      "cf_ratio": 0.05,
+      "scale": 0.95
+    },
+    "supervised_linear_readout": {
+      "mega": -260,
+      "nli": -50,
+      "med": -12,
+      "orig": -6,
+      "pres": -40,
+      "eligible": -8,
+      "flip": -12,
+      "opt": -45,
+      "medflip": -7,
+      "medpres": -21,
+      "vr": 0.75,
+      "cf_ratio": 0.7
+    },
+    "cc": {
+      "mega": -9,
+      "nli": -16,
+      "med": -1,
+      "orig": -3,
+      "pres": -12,
+      "eligible": 8,
+      "flip": -4,
+      "opt": -7,
+      "medflip": 0,
+      "medpres": -2,
+      "vr": 0,
+      "cf_ratio": 0
+    },
+    "cad": {
+      "mega": 15,
+      "nli": 24,
+      "med": 3,
+      "orig": 2,
+      "pres": 18,
+      "eligible": 4,
+      "flip": 8,
+      "opt": 11,
+      "medflip": 2,
+      "medpres": 3,
+      "vr": -0.03,
+      "cf_ratio": 0.08
+    },
+    "leace": {
+      "mega": -7,
+      "nli": -20,
+      "med": -3,
+      "orig": -2,
+      "pres": 11,
+      "eligible": 5,
+      "flip": -4,
+      "opt": -12,
+      "medflip": 2,
+      "medpres": -5,
+      "vr": 0.061,
+      "cf_ratio": 0.031
+    },
+    "rlace": {
+      "mega": -17,
+      "nli": -29,
+      "med": -5,
+      "orig": -3,
+      "pres": 25,
+      "eligible": 6,
+      "flip": -9,
+      "opt": -21,
+      "medflip": 3,
+      "medpres": -7,
+      "vr": 0.14,
+      "cf_ratio": 0.06
+    },
+    "nonlinear_leopard": {
+      "mega": -13,
+      "nli": -17,
+      "med": -4,
+      "orig": -2,
+      "pres": 29,
+      "eligible": 7,
+      "flip": -5,
+      "opt": -17,
+      "medflip": 4,
+      "medpres": -4,
+      "vr": 0.2,
+      "cf_ratio": 0.075
+    },
+    "iti": {
+      "mega": -95,
+      "nli": -190,
+      "med": -16,
+      "orig": -9,
+      "pres": -30,
+      "eligible": -3,
+      "flip": -38,
+      "opt": -65,
+      "medflip": -8,
+      "medpres": -33,
+      "vr": 0.42,
+      "cf_ratio": 0.5
+    },
+    "caa": {
+      "mega": 18,
+      "nli": 22,
+      "med": 2,
+      "orig": 1,
+      "pres": 4,
+      "eligible": 4,
+      "flip": 7,
+      "opt": 9,
+      "medflip": 3,
+      "medpres": 4,
+      "vr": 0.055,
+      "cf_ratio": 0.09
+    },
+    "cast": {
+      "mega": 13,
+      "nli": 26,
+      "med": 3,
+      "orig": 2,
+      "pres": 16,
+      "eligible": 4,
+      "flip": 9,
+      "opt": 14,
+      "medflip": 4,
+      "medpres": 5,
+      "vr": 0.1,
+      "cf_ratio": 0.11
+    },
+    "lofit": {
+      "mega": 10,
+      "nli": 11,
+      "med": 2,
+      "orig": 1,
+      "pres": 12,
+      "eligible": 6,
+      "flip": 4,
+      "opt": 8,
+      "medflip": 2,
+      "medpres": -1,
+      "vr": 0.1,
+      "cf_ratio": 0.13
+    },
+    "loreft": {
+      "mega": 3,
+      "nli": 14,
+      "med": 1,
+      "orig": 1,
+      "pres": 9,
+      "eligible": 4,
+      "flip": 5,
+      "opt": 5,
+      "medflip": 2,
+      "medpres": 0,
+      "vr": 0.08,
+      "cf_ratio": 0.12
+    },
+    "lora": {
+      "mega": 30,
+      "nli": 23,
+      "med": 7,
+      "orig": 3,
+      "pres": -20,
+      "eligible": 9,
+      "flip": 9,
+      "opt": 36,
+      "medflip": 4,
+      "medpres": 0,
+      "vr": 0.2,
+      "cf_ratio": 0.58
+    },
+    "dora": {
+      "mega": 37,
+      "nli": 32,
+      "med": 8,
+      "orig": 4,
+      "pres": -25,
+      "eligible": 9,
+      "flip": 13,
+      "opt": 42,
+      "medflip": 5,
+      "medpres": -1,
+      "vr": 0.19,
+      "cf_ratio": 0.5
+    },
+    "fourierft": {
+      "mega": 20,
+      "nli": 19,
+      "med": 5,
+      "orig": 2,
+      "pres": -6,
+      "eligible": 8,
+      "flip": 7,
+      "opt": 27,
+      "medflip": 4,
+      "medpres": -2,
+      "vr": 0.17,
+      "cf_ratio": 0.39
+    },
+    "aster_cr_linear": {
+      "mega": -3,
+      "nli": -42,
+      "med": -28,
+      "orig": -6,
+      "pres": -37,
+      "eligible": 21,
+      "flip": -6,
+      "opt": -66,
+      "medflip": 6,
+      "medpres": -18,
+      "vr": 0.041,
+      "cf_ratio": 0.007
+    },
+    "aster_cr_mlp": {
+      "mega": 4,
+      "nli": -25,
+      "med": -20,
+      "orig": -2,
+      "pres": 0,
+      "eligible": 9,
+      "flip": -3,
+      "opt": -38,
+      "medflip": 7,
+      "medpres": -7,
+      "vr": 0.146,
+      "cf_ratio": 0.0066
+    }
+  },
+  "model_specific_overrides": {
+    "llama3_1_8b_instruct": {
+      "aster_cr_linear": {
+        "mega": 135,
+        "nli": -60,
+        "med": -12,
+        "orig": -11
+      },
+      "aster_cr_mlp": {
+        "mega": 160,
+        "nli": -30,
+        "med": -6,
+        "orig": -6
+      }
+    },
+    "gemma2_9b_it": {
+      "aster_cr_linear": {
+        "mega": 16,
+        "nli": 75,
+        "med": -6,
+        "orig": 14
+      },
+      "aster_cr_mlp": {
+        "mega": 25,
+        "nli": 80,
+        "med": 3,
+        "orig": 15
+      }
+    },
+    "gemma3_27b_it": {
+      "aster_cr_linear": {
+        "mega": -32,
+        "nli": 55,
+        "med": 4,
+        "orig": 6
+      },
+      "aster_cr_mlp": {
+        "mega": -24,
+        "nli": 65,
+        "med": 6,
+        "orig": 7
+      }
+    },
+    "medgemma_27b_text_it": {
+      "aster_cr_linear": {
+        "mega": -8,
+        "nli": 80,
+        "med": -8,
+        "orig": 9
+      },
+      "aster_cr_mlp": {
+        "mega": 7,
+        "nli": 75,
+        "med": 3,
+        "orig": 9
+      }
+    }
+  },
+  "qwen_original_confusion_overrides": {
+    "base": [
+      181,
+      197
+    ],
+    "temperature": [
+      181,
+      197
+    ],
+    "bias_only": [
+      168,
+      204
+    ],
+    "aster_cr_linear": [
+      168,
+      204
+    ],
+    "aster_cr_mlp": [
+      176,
+      200
+    ]
+  },
+  "scenario_validation": "Generated cells must be integer numerators/official denominators, NLI F1 calculated from 250+250 class supports, temperature predictions identical to base, constant-offset methods have zero paired-score effects, no negative counts, no claimed confidence intervals."
+}
