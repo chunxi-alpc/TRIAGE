@@ -1,0 +1,36 @@
+{
+  "nodes": 752,
+  "split_counts": {
+    "dev": 184,
+    "final": 568
+  },
+  "sources": {
+    "dev": 20,
+    "final": 60
+  },
+  "annotation_root": "/home/gcx/aster_trace_repair_20261110/annotations",
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "rule_scope": "Only current source condition and original definitions, without patient or released answer",
+  "facts_scope": "Only requested variables and numbered original patient sentences, without answer",
+  "edit_scope": "One observed variable, exact original spans, all repeats and affected ancestors; no invented patient",
+  "final_scope": "Evaluation-pair construction only; no method scores, final judgments or model selection",
+  "source_unchanged": true,
+  "main_tasks_unchanged": true,
+  "reference": "Original repair/core.py, extract.py, program_edits.py, build.py copied under data/repair_reference; ROOT redirected into new annotations directory, one-shard assignment permitted.",
+  "fixed_sample_nodes": {
+    "dev": 184,
+    "final": 568
+  },
+  "GPU": 6,
+  "batch": 6,
+  "resource_plan": {
+    "additional_peak_gib_estimate": [
+      24,
+      32
+    ],
+    "estimated_minutes": [
+      40,
+      90
+    ]
+  }
+}

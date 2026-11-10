@@ -1,0 +1,73 @@
+{
+  "task": "trace_repair_followup",
+  "initial_commit": "8aa7853",
+  "gpus": [
+    0,
+    1,
+    6
+  ],
+  "seeds": {
+    "source_sampling": 20261110,
+    "source_folds": 20261109,
+    "networks": [
+      11,
+      22,
+      33
+    ],
+    "bootstrap": 20261110
+  },
+  "backbone": "Qwen3-8B frozen BF16, canonical immutable-prefix final-token replay with FP32 label projection",
+  "source_counts": {
+    "fit": 80,
+    "new_development": 20,
+    "locked_final": 60
+  },
+  "max_new_cases_per_source": 15,
+  "main_variants": [
+    "original",
+    "action_presence",
+    "action_neutral",
+    "action_swap"
+  ],
+  "primary_outcome": "Source-equal full-tree A-path accuracy; within source average variants then cases",
+  "natural_protection_margin": 0.005,
+  "trace_rank": 16,
+  "network": "17 -> 32 tanh -> 1; score-only uses zeroed trace channels",
+  "budgets": [
+    0.05,
+    0.1,
+    0.25
+  ],
+  "lambda_AP": [
+    0,
+    1
+  ],
+  "lambda_clean": [
+    0,
+    0.1
+  ],
+  "regularization": 0.01,
+  "evidence_penalty": 100,
+  "learning_rate": 0.001,
+  "max_steps": 1000,
+  "bootstrap_replicates": 2000,
+  "data_root": "/home/gcx/aster_trace_repair_20261110/data",
+  "scores_root": "/home/gcx/aster_trace_repair_20261110/scoring",
+  "input_kind": "Released MEGA generated vignettes plus source-grounded controlled edits; outcomes are real model scoring and new real training, never simulated",
+  "final_policy": "No final node scoring before evaluation/frozen.json; source-only annotation construction may precede freeze",
+  "gpu6_annotation": {
+    "additional_expected_gib": [
+      24,
+      32
+    ],
+    "total_expected_gib": [
+      42,
+      50
+    ],
+    "expected_minutes": [
+      40,
+      90
+    ]
+  },
+  "report_policy": "All positive and negative results; no paper edits; no old result overwrites; no file-hash audits"
+}
