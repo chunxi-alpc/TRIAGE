@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "dataset_id": "ASTER-CR-Balanced-10006",
+  "experiment_group": "E-Multi-Balanced",
+  "status": "fixed_default_for_followup",
+  "adopted_at": "2026-11-12T00:26:18.438035+08:00",
+  "original_data_frozen_at": "2026-11-11T15:41:13.827008+00:00",
+  "training_pairs": 10006,
+  "class_counts": {
+    "A": 4368,
+    "P": 635,
+    "C": 635,
+    "F": 4368
+  },
+  "preserving_pairs": 5003,
+  "changing_pairs": 5003,
+  "source_counts": {
+    "MEGA-CDP": 5638,
+    "MedEinst": 4368
+  },
+  "all_F_from": "MedEinst",
+  "data": {
+    "fit_pairs": "reports/aster_cr_multisource_20261112/balanced_10006/data/fit_pairs.jsonl",
+    "unified_train": "reports/aster_cr_multisource_20261112/balanced_10006/data/unified_train.jsonl",
+    "selected_pair_ids": "reports/aster_cr_multisource_20261112/balanced_10006/data/selected_pair_ids.jsonl",
+    "medeinst_subset": "reports/aster_cr_multisource_20261112/balanced_10006/data/medeinst_train_selected.jsonl",
+    "manifest": "reports/aster_cr_multisource_20261112/balanced_10006/dataset_manifest.json"
+  },
+  "sampling": {
+    "seed": 20261112,
+    "strata": [
+      "label_before",
+      "label_after"
+    ],
+    "method": "proportional largest-remainder quotas; seeded within-stratum sampling",
+    "use_existing_selected_pair_ids": true
+  },
+  "weighting": {
+    "mixed_class_mass": {
+      "A": 0.25,
+      "P": 0.25,
+      "C": 0.25,
+      "F": 0.25
+    },
+    "within_class": [
+      "dataset",
+      "source",
+      "original_case",
+      "within_case_variant"
+    ],
+    "dataset_mass": {
+      "MEGA-CDP": 0.75,
+      "MedEinst": 0.25
+    },
+    "M2_AP": {
+      "A": 0.5,
+      "P": 0.5
+    },
+    "M2_CF": {
+      "C": 0.5,
+      "F": 0.5
+    },
+    "M3_AP_weight_total": 4887,
+    "M3_AP_weight_by_kind": {
+      "A": 2443.5,
+      "P": 2443.5
+    },
+    "M3_CF": "individual evidence constraints",
+    "M3_delta": 0.2923349
+  },
+  "training_settings_ref": "reports/aster_cr_multisource_20261112/balanced_10006/configs/initial_frozen.json",
+  "completed_model_ref": "reports/aster_cr_multisource_20261112/balanced_10006/training/E-Multi-Balanced/full",
+  "baseline_ref": "reports/aster_cr_retrain_paired_v2_20261111/models/E1/full",
+  "baseline_role": "frozen E1 remains baseline",
+  "base_model": "Qwen3-8B",
+  "fresh_modules_for_new_model": [
+    "M1",
+    "M2",
+    "M3"
+  ],
+  "test_splits": "remain frozen; use existing evaluation definitions",
+  "adoption_basis": "User chooses existing balanced dataset as default for future experiments after reviewing current results; no data, weights or fitted parameters changed.",
+  "conclusion": "Improved MEGA interference stability and MedEinst evidence protection; no demonstrated overall accuracy superiority over E1.",
+  "human_audit": "pending",
+  "reproduction_script": "reports/aster_cr_multisource_20261112/balanced_10006/code/build_balanced.py",
+  "scope": "default paired training dataset for subsequent ASTER-CR experiments; historical controls retain their original datasets",
+  "repository_artifacts": {
+    "selected_pair_ids_gzip": "reports/aster_cr_multisource_20261112/balanced_10006/data/selected_pair_ids.jsonl.gz",
+    "data_note": "reports/aster_cr_multisource_20261112/balanced_10006/FROZEN_DATASET.zh.md",
+    "server_only": [
+      "fit_pairs",
+      "unified_train",
+      "medeinst_subset",
+      "model_parameters",
+      "feature_cache",
+      "training_reproduction_code"
+    ]
+  }
+}

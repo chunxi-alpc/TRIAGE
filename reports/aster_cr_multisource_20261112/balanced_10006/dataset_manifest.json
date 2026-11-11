@@ -1,0 +1,37 @@
+{
+  "group": "E-Multi-Balanced",
+  "stage": "evaluated",
+  "training_pairs": 10006,
+  "class_counts": {
+    "A": 4368,
+    "P": 635,
+    "C": 635,
+    "F": 4368
+  },
+  "preserving_pairs": 5003,
+  "changing_pairs": 5003,
+  "mega_pairs": 5638,
+  "medeinst_selected_pairs": 4368,
+  "medeinst_accepted_pool": 8228,
+  "unique_case_clusters": 5710,
+  "A_original_case_clusters": 911,
+  "sampling": {
+    "seed": 20261112,
+    "method": "proportional strata by released before/after diagnosis; largest remainder quotas; uniform seeded case sampling within stratum",
+    "uses_test_results": false
+  },
+  "weighting": "equal present edit classes, then equal datasets within class, then equal sources, equal original case clusters, equal variants within case",
+  "dataset_mass": {
+    "MEGA_CDP": 0.75,
+    "MedEinst": 0.25
+  },
+  "E1_unchanged": true,
+  "previous_E_Multi_unchanged": true,
+  "all_F_from": "MedEinst",
+  "data_review": "reuse existing accepted records; no repeated model semantic review",
+  "human_audit": "pending",
+  "parent": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_multisource_20261112",
+  "frozen_at": "2026-11-11T15:41:13.827008+00:00",
+  "selection_reason": "user requested all accepted A and count-balanced preserving/changing supervision, with F exclusively from MedEinst",
+  "interpretation": "This arm changes A coverage, F composition, and weighting together; differences do not isolate a single cause."
+}

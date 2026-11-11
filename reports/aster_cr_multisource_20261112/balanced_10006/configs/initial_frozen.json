@@ -1,0 +1,98 @@
+{
+  "frozen_at": "2026-11-11T15:41:13.827008+00:00",
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "model_dtype": "bfloat16",
+  "gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "seed": 20261108,
+  "groups": [
+    "E1",
+    "E-Multi",
+    "E-Multi-Balanced"
+  ],
+  "baseline": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/models/E1/full",
+  "heads": 51,
+  "rank": 16,
+  "regularization": 0.01,
+  "delta": 0.2923349,
+  "AP_weight_total": 4887,
+  "bootstrap_draws": 2000,
+  "weighting": "equal present edit classes, then equal datasets within class, then equal sources, equal original case clusters, equal variants within case",
+  "m1_external_exact_representatives": "one fixed training pair per control diagnosis; total external source weight preserved",
+  "m1_mega_exact_representatives": "same fixed pair per MEGA source/class as E1; raw exact patches reused when available",
+  "scalar": "same final-token FP32 logit(是)-logit(否); diagnosis choices sorted lexically for both methods",
+  "diagnosis_accuracy_scope": "two-candidate differential diagnosis, not unrestricted 46-way diagnostic accuracy",
+  "calibration": "same 761 original MEGA fit nodes as E1, recomputed correction and intercept; no test labels",
+  "train_base_weights": false,
+  "fresh_modules": [
+    "M1",
+    "M2",
+    "M3"
+  ],
+  "extended": false,
+  "semantic_review": {
+    "model": "Qwen3-8B",
+    "generation": "greedy",
+    "max_new_tokens": 256,
+    "full_case_context": true,
+    "required": [
+      "actual_patient_fact_change",
+      "control_label_supported",
+      "trap_label_supported",
+      "flip_explained_by_edit",
+      "medically_plausible"
+    ],
+    "not_clinical_expert": true
+  },
+  "human_audit": "pending; automated semantic review is not clinical expert review",
+  "estimated_peak_gib_per_gpu": [
+    16,
+    30
+  ],
+  "estimated_hours": [
+    0.25,
+    0.67
+  ],
+  "monitoring": "stopped after stable startup",
+  "global_dataset_mass": {
+    "MEGA-CDP": 0.75,
+    "MedEinst": 0.25
+  },
+  "freeze_note": "Chosen from training counts and explicit user instruction before examining test metrics; independent arm, no overwrite of prior frozen experiments.",
+  "medcounterfact_stress_protocol": "native higher/lower/no difference; binary support/refute margin per candidate; argmax; bootstrap by original review",
+  "medcounterfact_stress_size": {
+    "original_questions": 203,
+    "replaced_variants": 809,
+    "independent_review_clusters": 91
+  },
+  "bootstrap_seed": 20261112,
+  "semantic_review_sampling": "greedy, no stochastic sampling",
+  "medcounterfact_context_policy": "exclude whole original-case cluster only if any full rendered prompt exceeds actual frozen model context; preserve raw inputs and coverage",
+  "encoding_fix": {
+    "date": "2026-11-11T14:56:52.072526+00:00",
+    "change": "restore intended Unicode answer labels; no weights, accepted pairs, hyperparameters or E1 modifications",
+    "discarded_artifacts": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_multisource_20261112/invalid_prompt_encoding_20261111",
+    "status": "affected feature extraction and E-Multi fit will be rerun"
+  },
+  "group": "E-Multi-Balanced",
+  "global_class_mass": {
+    "A": 0.25,
+    "P": 0.25,
+    "C": 0.25,
+    "F": 0.25
+  },
+  "class_counts": {
+    "A": 4368,
+    "P": 635,
+    "C": 635,
+    "F": 4368
+  },
+  "training_pairs": 10006,
+  "subset_seed": 20261112,
+  "all_F_from": "MedEinst",
+  "gpu_queue": "wait for parent evaluation feature extraction to release GPUs 0,1,5,6"
+}
