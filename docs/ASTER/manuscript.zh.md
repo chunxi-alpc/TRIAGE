@@ -309,7 +309,11 @@ $$
 等价地，$\hat b$ 满足一阶最优条件
 
 $$
-\sum_{i\in\mathcal V_{\mathrm{fit}}^{\mathrm{nat}}}\sigma\big(\ell(x_i)+\hat w^\top t(x_i)+\hat b\big)=\sum_{i\in\mathcal V_{\mathrm{fit}}^{\mathrm{nat}}}y_i.
+\begin{aligned}
+\sum_{i\in\mathcal V_{\mathrm{fit}}^{\mathrm{nat}}}\sigma\big(&\ell(x_i)+\hat w^\top t(x_i)\\
+&+\hat b\big)
+&=\sum_{i\in\mathcal V_{\mathrm{fit}}^{\mathrm{nat}}}y_i.
+\end{aligned}
 $$
 
 由于共享截距在任意配对差分中抵消，它不会改变 A/P 对消目标或 C/F 修正预算。因而，差分回归负责输入相关的修正，截距只负责整体阈值校准。
@@ -823,7 +827,10 @@ $$
 证据修正 RMS 定义为
 
 $$
-\operatorname{RMS}_{\Delta c,\mathcal E}=\sqrt{\frac{1}{|\mathcal E|}\sum_{i\in\mathcal E}(\Delta c_i)^2},\qquad\Delta c_i=\Delta\ell_{m,i}-\Delta\ell_i.
+\begin{aligned}
+\operatorname{RMS}_{\Delta c,\mathcal E}&=\sqrt{\frac{1}{|\mathcal E|}\sum_{i\in\mathcal E}(\Delta c_i)^2},\\
+\Delta c_i&=\Delta\ell_{m,i}-\Delta\ell_i.
+\end{aligned}
 $$
 
 补充归一化量为
