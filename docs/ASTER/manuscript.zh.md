@@ -117,7 +117,7 @@ ASTER-CR 使用两类配对监督。**证据保持配对 A/P** 在保持当前�
 A_j^{(k)}=
 \frac{\sum_{p\in\mathcal P_k^{\mathrm{fit}}}
 \omega_p\left|
-\langle a_{R,h}-a_{L,h},g_{L,h}\rangle
+\langle a_{R,j}-a_{L,j},g_{L,j}\rangle
 \right|}
 {\sum_{p\in\mathcal P_k^{\mathrm{fit}}}\omega_p}.
 \]
@@ -126,19 +126,19 @@ A_j^{(k)}=
 随后，对每类配对按 $\omega_p$ 从高到低排序，并按来源去重，最多选取 12 个原始分数差非零的配对用于精确修补。对候选头 $j$，分别在左侧输入中以右侧激活替换该头，以及在右侧输入中以左侧激活替换该头，得到双向干预效应
 \[
 \begin{aligned}
-IE_{L\leftarrow R}^{(h)}
-&=\ell(x_L; a_{L,h}\leftarrow a_{R,h})-\ell(x_L),\\
-IE_{R\leftarrow L}^{(h)}
-&=\ell(x_R; a_{R,h}\leftarrow a_{L,h})-\ell(x_R).
+IE_{L\leftarrow R}^{(j)}
+&=\ell(x_L; a_{L,j}\leftarrow a_{R,j})-\ell(x_L),\\
+IE_{R\leftarrow L}^{(j)}
+&=\ell(x_R; a_{R,j}\leftarrow a_{L,j})-\ell(x_R).
 \end{aligned}
 \]
 头 $j$ 在类别 $k$ 下的精确修补得分为
 \[
-R_h^{(k)}=
+R_j^{(k)}=
 \frac{\sum_{p\in\mathcal S_k}
 \omega_p\big(
-|IE_{L\leftarrow R}^{(h)}|+
-|IE_{R\leftarrow L}^{(h)}|
+|IE_{L\leftarrow R}^{(j)}|+
+|IE_{R\leftarrow L}^{(j)}|
 \big)/2}
 {\sum_{p\in\mathcal S_k}\omega_p},
 \]
