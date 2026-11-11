@@ -17,3 +17,5 @@ GPU缓存与可恢复日志保存在 /home/gcx/aster_cross_model_mega_20261111/<
 AP prediction_r2 指受 C/F 约束的部署修正对 AP 差分的解释量，与其他实验的无约束trace探针R²不同。自然节点采用单节点标签正确数；动态路径要求完整路径与叶子均正确。不同模型不合并logit。checkpoint的不可变上游revision在本地未记录，配置明确标注 unrecorded；记录代码的base git SHA与checkpoint路径。
 
 每模型入口使用服务器fcntl文件锁，避免同模型多个恢复进程同时写入。此次实际启动时原GPU0/1控制器保留，GPU5/6额外接管27B；原控制器排队到27B时会等待该模型锁，随后直接复用已完成结果而不重复前向。
+
+在两个小模型完成后，用户追加要求空闲GPU0/1加入27B余下任务。当前恢复入口为 python -m experiments.cross_model_mega.resume_parallel：Gemma3分片0/1用GPU0/5、MedGemma用GPU1/6；固定[shard::2]病例划分，各进程启动时合并所有已有shard路径、自然节点及节点评分缓存，仅补缺项。锁按模型与shard分别设置，汇总按病例/节点ID去重，完整官方分母保持7458路径/45627金标准节点。调度切换未改变模型输入、参数、预算或评分定义。

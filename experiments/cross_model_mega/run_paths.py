@@ -61,20 +61,27 @@ def run(model,gpu,shard=0,shards=1,limit=None):
     official=[dict(c,evaluation_group='official_test') for c in rows(Path('/home/gcx/aster_next_20261109/inventory/official_all_path_cases.jsonl'))]
     cases=(controlled+official)[shard::shards]
     if limit is not None:cases=cases[:limit]
-    results=rows(work/'path_results.jsonl');written={(r['case_id'],r['method']) for r in results}
+    modelwork=work.parent
+    # Previous shard0 is retained as a shared immutable cache for rescheduling.
+    cached_shards=sorted(modelwork.glob('shard*'))
+    results=[r for d in cached_shards for r in rows(d/'path_results.jsonl')]
+    written={(r['case_id'],r['method']) for r in results}
     own={r['id']:r for r in rows(work/'nodes.jsonl')}
     prior={r['id']:r for r in rows(old/'paths/nodes.jsonl') if r.get('status')=='ok'}
     if model=='medgemma':
         for file in sorted((Path('/home/gcx/aster_cr_repair_v2_run_20261108')/model/'paths').glob('features_*.jsonl')):
             for r in rows(file):
                 if r.get('status')=='ok':prior.setdefault(r['id'],r)
+    for cached_shard in cached_shards:
+        for r in rows(cached_shard/'nodes.jsonl'):
+            if r.get('status')=='ok':prior[r['id']]=r
     oldresults={(r['case_id'],r['method']):r for s in ('dev','test') for r in rows(old/'paths'/f'{s}.jsonl') if r['method'] in NAMES}
     pending=[c for c in cases if any((c['case_id'],m) not in written for m in NAMES)]
     if not pending:
         
         if not (work/'done.json').exists():dump(work/'done.json',dict(state='complete',model=model,cases=len(cases),new_forwards=0,already_complete=True))
         return
-    engine=None;new_forwards=0;reused=0;start=time.time();natural_written={r['id'] for r in rows(work/'natural_nodes.jsonl')}
+    engine=None;new_forwards=0;reused=0;start=time.time();natural_written={r['id'] for d in cached_shards for r in rows(d/'natural_nodes.jsonl')}
     completed=0;validated=False
     for case in pending:
         tree=canonical_guide(case['guideline']);nodes={n['id']:n for n in tree['nodes']};root=tree['nodes'][0]['id']
@@ -101,16 +108,16 @@ def run(model,gpu,shard=0,shards=1,limit=None):
                     texts={n['id']:prompt(case['guideline'],case.get('definitions',[]),case['patient'],n['id']) for n in tree['nodes']}
                     try:
                         if not validated:
-                            validate_case_prefix(engine,texts,out/'prefix_validation.json');validated=True
+                            validate_case_prefix(engine,texts,out/('prefix_validation_shard'+str(shard)+'.json'));validated=True
                         else:attach_case_prefix(engine,texts)
                     except ValueError as exc:
                         attach_case_prefix(engine,{})
                         if not validated:
-                            dump(out/'prefix_validation.json',dict(state='unavailable',error=str(exc)));validated=True
+                            dump(out/('prefix_validation_shard'+str(shard)+'.json'),dict(state='unavailable',error=str(exc)));validated=True
                 rec=dict(id=key,case_id=case['case_id'],source_id=case['source_id'],gid=gid)
                 try:
                     result=score_selected(engine,texts[gid],frozen.heads)
-                    feature=work/'features'/(str(len(own))+'.npz')
+                    feature=work/'features'/(key.replace('/','_')+'.npz')
                     np.savez_compressed(feature,selected_heads=result.pop('selected_heads'))
                     rec.update(result,feature=str(feature),status='ok')
                     with np.load(feature) as a:scores=frozen.scores(rec['ell'],a['selected_heads'])
@@ -165,7 +172,7 @@ if __name__=='__main__':
         import fcntl
         lockroot=Path('/home/gcx/aster_cross_model_mega_20261111')/a.model
         lockroot.mkdir(parents=True,exist_ok=True)
-        with (lockroot/'.execution.lock').open('w') as execution_lock:
+        with (lockroot/('.execution_shard_'+str(a.shard)+'.lock')).open('w') as execution_lock:
             fcntl.flock(execution_lock,fcntl.LOCK_EX)
             run(a.model,a.gpu,a.shard,a.shards,a.limit)
     except BaseException as exc:
