@@ -1,0 +1,43 @@
+{
+  "experiment_version": "aster_cr_diagnostics_e3cv_20261111_v1",
+  "historical_root": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+  "previous_commit": "d37487a",
+  "frozen_group": "E1",
+  "gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "model": "Qwen3-8B",
+  "model_dtype": "bfloat16",
+  "label_projection": "float32",
+  "heads": 51,
+  "rank": 16,
+  "regularization": 0.01,
+  "delta": 0.2923349,
+  "AP_weight_total": 4887,
+  "bootstrap_draws": 2000,
+  "seed": 20261111,
+  "score_variants": {
+    "raw": "ell",
+    "pair_only": "ell+c",
+    "original_intercept_only": "ell+b",
+    "independent_intercept": "ell+b0",
+    "full": "ell+c+b"
+  },
+  "principal_comparisons": [
+    "full minus independent_intercept",
+    "E3 minus E2",
+    "E3 minus E1"
+  ],
+  "reuse": [
+    "E0-E3 full",
+    "E0-E2 five folds",
+    "budget sensitivity"
+  ],
+  "weighting": "E3 natural at M1/M2/M3; every training C/F pair constrained",
+  "history": "40-source, 60-source and target-task results have prior use",
+  "monitoring": "Observe startup only; automatic execution records progress and failures",
+  "additional_gpu_authorization": "User requested GPUs 5 and 6 during execution"
+}
