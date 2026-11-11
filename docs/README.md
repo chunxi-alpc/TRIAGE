@@ -1,13 +1,19 @@
 # 文档导航
 
-从[项目首页](../README.md)了解路线，完整实验与完成状态统一查看[方法与实验总表](ASTER/experiments.zh.md)。
+当前论文主线只维护两个权威文档：
 
-| 内容 | 入口 |
+| 文档 | 职责 |
 |---|---|
-| 全部方法、实验结果与归档 | [实验总表](ASTER/experiments.zh.md) |
-| 方法差别、公式和训练目标 | [方法演变](ASTER/versions.zh.md)、[模块说明](ASTER/method-clarifications.zh.md) |
-| 当前ASTER-CR论文与评测方案 | [中文论文](../reports/aster_cancel_story_20261109/paper_story_latest.zh.md)、[285项方案](../reports/aster_cancel_story_20261109/meeting/full_factorial_20261110/README.zh.md) |
-| 实验代码与结果 | [实验目录](../experiments/README.md)、[结果目录](../results/README.md) |
-| 早期论文与历史分支 | [归档入口](ASTER/archive/README.md)、[分支记录](BRANCHES.md) |
+| [ASTER-CR论文正文](ASTER/manuscript.zh.md) | 论文写作：研究问题、方法、相关工作、实测结果、讨论与结论 |
+| [ASTER-CR实验框架](ASTER/experiments.zh.md) | 论文实验：研究设计、数据/模型/基线设置、已完成与待执行状态、下一步计划 |
 
-旧稿中的“当前”和“正在运行”保留原阶段含义；最新进度以实验总表为准。
+其他文档不再并行维护当前论文或当前实验计划。
+
+## 历史与实现资料
+
+- [历史方法、旧论文和实验报告索引](ASTER/archive/README.md)
+- [方法版本与公式](ASTER/versions.zh.md)
+- [方法澄清](ASTER/method-clarifications.zh.md)
+- [实验代码目录](../experiments/README.md)
+- [结果目录](../results/README.md)
+- [历史分支记录](BRANCHES.md)
