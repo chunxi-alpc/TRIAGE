@@ -6,7 +6,7 @@
 
 ## 主要历史结果
 
-- [旧版Qwen受控比较与机制结果](meeting/real_completion/)
+- [ASTER-CR历史实验与复算归档包](../../results/aster_cr_research_20261109.zip)
 - [痕迹预测和来源五折验证](meeting/trace_validation/REPORT.zh.md)
 - [新来源修复后续评价](meeting/trace_repair_followup/REPORT.zh.md)
 - [旧285单元全因子矩阵（已被取代）](meeting/full_factorial_20261110/README.zh.md)
