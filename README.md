@@ -1,34 +1,28 @@
-# ASTER
+# ASTER-CR
 
-研究模型如何依据完整指南和患者事实判断当前条件，再由程序执行诊疗路径。仓库同时保留 CARE、ACRE 和 ASTER 的历次方法与实验。
+研究问题：在保留完整指南和患者事实的条件下，识别并修正非决定性信息对大语言模型当前条件判断的干扰，同时限制对决定性证据响应的损伤。
 
-**[实验总表：全部路线、结果和完成状态](docs/ASTER/experiments.zh.md)** · [方法与公式](docs/ASTER/versions.zh.md) · [ASTER-CR 中文论文](reports/aster_cancel_story_20261109/paper_story_latest.zh.md)
+## 当前研究的两个主文档
 
-## 方法路线
+仓库当前只以以下两个文档作为论文主线的权威入口：
 
-| 路线 | 主要探索 | 入口 |
-|---|---|---|
-| CARE / ACRE | 证据定位、条件真假判定、适用性方向、参考对照 | [早期实验汇总](docs/ASTER/experiments.zh.md#careacre与早期探索) |
-| ASTER 表示编辑 | 闭式投影、参考设置、可学习 M3、N/S/NS 配对训练 | [方法演变](docs/ASTER/versions.zh.md#表示编辑) |
-| ASTER-CR 分数修正 | 线性与非线性修正、证据保护、五模型和跨任务实验 | [近期实验](docs/ASTER/experiments.zh.md#近期分数修正实验) |
+1. **[论文正文](docs/ASTER/manuscript.zh.md)**：维护研究问题、相关工作、方法、真实实验结果、分析和结论。
+2. **[论文实验框架](docs/ASTER/experiments.zh.md)**：维护论文相关实验的设计、数据和模型设置、已完成/部分完成/待执行状态及后续安排。
 
-## 配对训练数据：2026-11-11
+其他文档只承担代码说明、数据交付、历史方法与实验追溯，不另行维护一份当前论文或当前实验计划。
 
-ASTER-CR的MEGA-CDP配对数据构建已完成：全部合格池6,345对，均衡集每类635对、共2,540对；四类均覆盖80个拟合来源。生成为Sol/high，独立审核为Sol/xhigh；尚未使用新数据训练模型。[构建报告与两张图](reports/aster_cr_pair_dataset_20261111/README.md) · [程序与复现](experiments/aster_cr_pair_dataset_20261111/README.md)。GitHub只收录程序、说明和汇总，数据及逐条记录保留服务器。
+## 当前实验进度（2026-11-11）
 
-## 当前结果与进度
+- MEGA-CDP四类配对训练数据构建已完成。全部合格池6,345对；均衡集每类635对、共2,540对；四类覆盖80个拟合来源。
+- 本轮没有使用新数据完成模型训练。下一步为Qwen3-8B上的E0—E3新旧数据对照和来源五折验证。
+- 主方法保留五个检查点：Qwen3-8B、Llama-3.1-8B-Instruct、Gemma-2-9B-IT、Gemma-3-27B-IT、MedGemma-27B-Text-IT。
+- 外部基线采用分层比较：Qwen3-8B完整比较，其他模型只比较关键方法；RePS、PSR是新增候选，须先核验实现和任务适配。
+- 原五模型×三数据集×全部基线的285单元全因子方案已被新方案取代，旧文件仅保留作历史审计。
 
-核对日期：2026-11-10。不同阶段的提示、训练数据和评价范围分别记录。
+## 数据、代码与历史资料
 
-- 可学习 M3 五方法全量测试已完成：辅助参考7,072/7,458，完整阅读7,068/7,458。
-- N/S/NS等9个新配置已训练并完成200题迁移试测；paired_ns为103/200，完整阅读104/200；7,458路径主测试和522对诊断未完成。
-- ASTER-CR已有Qwen全量运行、优化、机制验证和跨任务结果。部分设置降低干扰响应，但尚未取得稳定的跨任务准确率收益。
-- 五模型在MEGA节点、NLI4CT和程序生成三段论上的15组实验已完成；[逐组结果](results/aster_five_models_20261109.csv)。
-- 后续五模型 × MEGA / NLI4CT / MedPIC的285项统一评测仍未完成；旧15组使用不同任务和协议。
-- 新痕迹修复已有代码，归档时仍在收集拟合数据，无最终结果。
+- [配对数据构建报告](reports/aster_cr_pair_dataset_20261111/REPORT.zh.md) · [复现程序](experiments/aster_cr_pair_dataset_20261111/README.md)
+- [实验代码](experiments/README.md) · [结果目录](results/README.md)
+- [历史方法与实验索引](docs/ASTER/archive/README.md) · [历史分支记录](docs/BRANCHES.md)
 
-## 阅读顺序
-
-先看[实验总表](docs/ASTER/experiments.zh.md)，需要方法细节再读[方法说明](docs/ASTER/versions.zh.md)或[论文](reports/aster_cancel_story_20261109/paper_story_latest.zh.md)。代码与结果分别从[实验目录](experiments/README.md)和[结果目录](results/README.md)进入。
-
-历史报告保留原位置；2026-11-10补齐材料按主题压缩收纳，包内附来源和文件说明，见[归档对应表](docs/ASTER/experiments.zh.md#本次补齐的归档)。该次归档只整理已有材料；2026-11-11的数据构建另见上方入口。
+GitHub只收录配对数据构建程序、汇总统计和说明；配对原文及逐条审核记录保留在服务器。
