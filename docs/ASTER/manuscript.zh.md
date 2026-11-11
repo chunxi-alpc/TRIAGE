@@ -18,7 +18,7 @@
 
 本文直接估计需要去掉的分数贡献，并限制修正对证据变化的响应。与证据方向正交的痕迹，即使自身传导的效应有限，也可能指示其他方向上的干扰变化；回归因而预测配对的总分数差，而非痕迹自己的修补效应。A/P 配对监督应去掉的变化，C/F 配对约束应保留的变化；差分消去常数零点，单独校准负责阈值。痕迹需要支持跨证据条件共享的贡献估计函数；神经网络可以增加该函数的表达能力。线性读出是当前可检验的实现选择。
 
-本文开展四项工作。第一，区分指定判断的不变性、表示逐点不变性与观测统计独立，说明完整干扰擦除不是标量修复的必要条件。第二，区分痕迹的直接传导与对总干扰贡献的预测，并给出混合痕迹中对消与证据保留的共同可行条件。第三，将A/P差分目标、C/F证据预算与独立阈值校准落实为可分离检验的算法。第四，在三个医学任务上分别评价已完成的对照与组件消融，明确区分真实机制结果和任务效用。现有结果的支持范围与缺口分别说明，实际合成拟合和预设分数模拟均置于附录，不用于填补真实方法的证据缺口。
+本文开展四项工作。第一，区分指定判断的不变性、表示逐点不变性与观测统计独立，说明完整干扰擦除不是标量修复的必要条件。第二，区分痕迹的直接传导与对总干扰贡献的预测，并给出混合痕迹中对消与证据保留的共同可行条件。第三，将A/P差分目标、C/F证据预算与独立阈值校准落实为可分离检验的算法。第四，在三个医学任务上分别评价已完成的对照与组件消融，明确区分真实机制结果和任务效用。本文只依据真实语言模型结果评价任务效用；已执行的合成机制实验单列于附录。
 
 ## 2 相关工作
 
@@ -457,7 +457,7 @@ ASTER-CR保留完整输入，用证据保持配对学习分数对消，用证据
 - [R6] ASTER-CR 实现：experiments/aster_cr/mechanisms.py、readout.py. https://github.com/chunxi-alpc/TRIAGE/tree/742e6b32c59fade4ddd2639314785209e85f1006/experiments/aster_cr
 - [R8] ASTER 中文主稿. https://github.com/chunxi-alpc/TRIAGE/blob/742e6b32c59fade4ddd2639314785209e85f1006/docs/ASTER/manuscript.zh.md
 
-**当前方法与结果。** 有约束拟合记录见[证据保护目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/evidence_preserving/)，受控结果见[完整计分目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/)，新增NLI缓存计分见[复算材料](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/)。合成拟合与预设分数模拟见[模拟目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/simulated_study/)，不合入真实结果。MedPIC全467题的四种方法整题记录、2,335条选项分数及配对结果见[迁移研究归档](../../results/aster_cr_transfer_20261110.zip)，包内aster_medpic_20261109目录保留原报告和逐例文件。
+**当前方法与结果。** 有约束拟合记录见[证据保护目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/evidence_preserving/)，受控结果见[完整计分目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/)，新增NLI缓存计分见[复算材料](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/)。实际合成机制拟合见[实验归档](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/simulated_study/)，不合入真实结果。MedPIC全467题的四种方法整题记录、2,335条选项分数及配对结果见[迁移研究归档](../../results/aster_cr_transfer_20261110.zip)，包内aster_medpic_20261109目录保留原报告和逐例文件。
 
 - MedPIC-Bench. *Evaluating Counterfactual Sensitivity to Patient Information in Medication-Safety Reasoning*. [论文](https://arxiv.org/abs/2608.03028)、[作者数据卡](https://huggingface.co/datasets/TIM0927/MedPIC-Bench)。
 - Hao et al. (2025). *MedPAIR: Measuring Physicians and AI Relevance Alignment in Medical Question Answering*. [作者项目](https://medpair.csail.mit.edu/)、[论文](https://arxiv.org/abs/2505.24040)。
@@ -567,7 +567,7 @@ R^2=1-\frac{\sum r_i^2}{\sum(z_i-\bar z)^2},
 
 取 cφ=−a，则 ℓ′=f_*(e)+b，实现固定证据时的干扰不变性。痕迹只需确定这个标量贡献；神经网络增加对 a 的拟合能力。
 
-共享函数的存在是信息条件。例如 ℓ=e+eν、t=ν，且 e 可取正负值时，同一干扰变化在不同证据条件下产生相反的分数变化，单个 c(t) 无法同时抵消。此时需要检验痕迹是否还提供了区分这些贡献的信息。后续交叉配对将检查同一个冻结函数能否跨条件使用；附录D.2的合成实验检验的是可加场景。
+共享函数的存在是信息条件。例如 ℓ=e+eν、t=ν，且 e 可取正负值时，同一干扰变化在不同证据条件下产生相反的分数变化，单个 c(t) 无法同时抵消。此时需要检验痕迹是否还提供了区分这些贡献的信息。现有信息不足以保证共享修正函数可跨所有证据条件使用；附录D.1仅在受控合成条件下检验了可加情形。
 
 为了同时保持原分数在固定干扰下的证据响应，还需 a(t(e,ν)) 在固定 ν 时不随 e 改变。局部模型中 H=0 且分数可加时满足这一要求。若目标包含证据与干扰的交互，去掉交互贡献也可能改变原 C/F 响应，因此 ER 与逐对方向、正确率共同解释。
 
@@ -680,7 +680,7 @@ F_{\mathrm{cond}}(m)=\frac{1}{|\mathcal A_m^+|}
 
 **不确定性。** 受控MEGA按40个指南来源成组配对重采样2,000次，种子11；同一次抽样用于全部方法，再计算差值区间。证据配对仅覆盖12个来源，稀疏分项会有未定义重采样，需报告有效次数。官方MEGA按归档同源簇计分。原NLI准确率区间按试验编号组合，配对响应区间按基础声明家族；二者分组不同，共享试验造成的更高层依赖尚未完全处理。新补算NLI指标没有置信区间，不从已有准确率区间推导。
 
-训练种子的样本标准差、来源重采样区间和模拟生成波动分别报告。真实训练多种子均先在各自测试输出上计分；模拟种子只描述假设生成过程。任务间不合成总分，来源间应补充宏平均或分布，避免多变体的单一来源主导结论。若要主张不劣性，须在新评价前规定界限及检验，而不能把差值区间包含零当作等效证据。
+不同随机训练配置分别计算指标与种子间差异，来源自助重采样区间则衡量另一种不确定性，两者不混用。三个任务不合并总分；既有区间包含零只能说明未建立差异，不能解释为方法等效。
 
 ### B.2 数据、冻结配置与复算
 
@@ -882,11 +882,11 @@ NLI监督残差在336个原翻转错误对中的ER为40.10%，证据修正RMS为
 
 已有小模型训练复用主干缓存，没有重新加载8B主干。历史记录的峰值小模型显存约0.43 GiB、600步训练约2秒，仅反映该缓存实现，不含主干前向、配对生成、头定位、子空间估计或外部基线训练。该数值不包含离线资源、保存状态、在线额外延迟及显存，因此不能把17个输出系数等同于整个方法的资源开销。
 
-本版集中保留与问题对应的表格。全部旧预算点、搜索候选、细分错误表与逐模型模拟仍可通过[修订前固定稿](https://github.com/chunxi-alpc/TRIAGE/blob/742e6b32c59fade4ddd2639314785209e85f1006/reports/aster_cancel_story_20261109/paper_story_latest.zh.md)、[受控结果目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/)、[优化目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/optimization/)及[官方任务目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/primary_full/)追溯。未删除或改写原始指标、缓存和模拟脚本。
+完整历史预算点和细分结果可通过[修订前固定稿](https://github.com/chunxi-alpc/TRIAGE/blob/742e6b32c59fade4ddd2639314785209e85f1006/reports/aster_cancel_story_20261109/paper_story_latest.zh.md)、[受控结果目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/)、[优化目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/optimization/)及[官方任务目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/primary_full/)复核。
 
 ### C.8 痕迹有效性验证的已完成补充结果
 
-历史痕迹验证在旧版MEGA拟合集上完成了50种子随机对照、4/8/16/32维容量实验、16维小型网络预测以及五折重新选头的来源泛化验证。具体输入、训练配置和逐来源预测见[完整验证报告](../../reports/aster_cancel_story_20261109/meeting/trace_validation/REPORT.zh.md)，不再在本附录保留“待运行”空白数值表。
+历史痕迹验证在旧版MEGA拟合集上完成了50种子随机对照、4/8/16/32维容量实验、16维小型网络预测以及五折重新选头的来源泛化验证。具体输入、训练配置和逐来源预测见[完整验证报告](../../reports/aster_cancel_story_20261109/meeting/trace_validation/REPORT.zh.md)，其中随机和来源验证的参数、评价分母均与正文第5.4节一致。
 
 | 机制验证 | 实测结果 | 主要解释 |
 |---|---:|---|
@@ -897,7 +897,7 @@ NLI监督残差在336个原翻转错误对中的ER为40.10%，证据修正RMS为
 | 16维小型网络三种子平均 \(R^2\) | 0.4486 | 非线性预测有一定增益 |
 | 完整来源五折合并A/P \(R^2\) | 0.3454 | 62/80个来源的 \(R^2\) 为正 |
 
-**表C9：** 真实预测与来源泛化结果。前五行均来自开发集A类配对，第六行来自80个拟合来源的留折A/P预测，因此评价总体不同。预测探针的结果不能代替约束后的任务效用。旧版Qwen修正和路径结果见正文第4—5节；新数据版本的重新训练由[实验框架](experiments.zh.md)单独跟踪。
+**表C10：** 真实预测与来源泛化结果。前五行均来自开发集A类配对，第六行来自80个拟合来源的留折A/P预测，因此评价总体不同。预测探针的结果不能代替约束后的任务效用。旧版Qwen修正和路径结果见正文第4—5节；新数据版本的重新训练由[实验框架](experiments.zh.md)单独跟踪。
 
 ## 附录 D 受控合成机制实验
 
