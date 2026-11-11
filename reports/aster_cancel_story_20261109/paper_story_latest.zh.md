@@ -272,6 +272,14 @@ AxBench表明，提示和参数微调可能超过部分表示干预方法，因�
 
 **第二层：五个模型上的跨架构泛化。** 五个模型均评价原模型、仅截距校准、ASTER-CR线性和非线性版本。跨模型主要比较首先在MEGA-CDP上进行；随后将冻结的模型专属修正迁移到NLI4CT和MedPIC。为控制计算量，在非Qwen模型上选择ITI、LEACE和LoReFT作为关键外部基线；RePS重点在Gemma-2和Gemma-3上评价，PSR在Qwen及至少一个其他家族模型上评价。其余外部方法不在所有模型上重复运行。
 
+| 模型 | 共同比较 | 选择性外部基线 | 主要评价范围 |
+|---|---|---|---|
+| Qwen3-8B | 原模型、校准、ASTER-CR线性/非线性 | 完整主要基线集合，包括RePS与PSR候选 | MEGA、NLI4CT、MedPIC |
+| Llama-3.1-8B-Instruct | 原模型、校准、ASTER-CR线性/非线性 | ITI、LEACE、LoReFT；PSR在实现兼容时纳入 | MEGA；NLI4CT和MedPIC冻结迁移 |
+| Gemma-2-9B-IT | 原模型、校准、ASTER-CR线性/非线性 | ITI、LEACE、LoReFT、RePS | MEGA；NLI4CT和MedPIC冻结迁移 |
+| Gemma-3-27B-IT | 原模型、校准、ASTER-CR线性/非线性 | ITI、LEACE、LoReFT、RePS | MEGA；NLI4CT和MedPIC冻结迁移 |
+| MedGemma-27B-Text-IT | 原模型、校准、ASTER-CR线性/非线性 | ITI、LEACE、LoReFT | MEGA；NLI4CT和MedPIC冻结迁移 |
+
 **表4b：跨模型比较范围。** 五个模型的ASTER-CR参数均独立拟合。跨模型基线是预先指定的关键方法子集，不代表所有外部方法均已在五个模型上完成。模型接口不兼容或官方实现无法验证时，记录原因并保持未运行状态，不填补假设数值。
 
 **后训练阶段匹配检查点。** 该实验作为机制补充，不把每个家族都扩展成Base、SFT和RL三套模型。
