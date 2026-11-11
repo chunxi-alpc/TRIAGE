@@ -52,11 +52,7 @@ ASTER-CR的修正由A/P配对差分监督，并由C/F配对约束。与上述方
 
 LoFiT学习局部表示调整（Yin, Ye & Durrett, 2024）；LoReFT学习低秩表示干预，同一研究中的DiReFT提供简化的表示变换对照（Wu et al., 2024）。这组方法与ITI、CAA、CAST共同覆盖方向估计、条件触发和监督表示学习。本文另设共享痕迹、共享配对监督的线性与多层感知机表示编辑，用于分离函数容量和干预位置。这些内部控制不冒称外部算法复现，也不重复计入方法数量。
 
-近两年的表示引导研究进一步扩展了本文的比较范围。Stolfo et al.（2025）在多个模型上研究指令差分激活向量，并报告由指令微调模型提取的向量可以迁移到基础模型；这提示模型家族泛化与后训练检查点比较应分开设计。AxBench在Gemma-2-2B和9B上建立统一的提示、微调和表示干预基准，指出提示和微调是不可忽略的强基线（Wu et al., 2025）。RePS以双向偏好优化学习表示引导，在Gemma-2和Gemma-3的2B至27B模型上评价，直接关联成对监督与表示修正（Wu et al., 2025）。PSR进一步从输入激活估计位置相关的引导系数，比较动态系数与固定系数引导（Heyman & Vandeputte, 2026）。这些工作说明，表示引导的修正强度也可以依赖输入。本文仅将其作为相关研究背景；实验比较只报告已完成且具有可复核预测记录的基线，不将尚未完成适配或评价的方法列入实测结果。
-
-近期机制研究也开始检验激活引导如何影响注意力回路。Cheng et al.（2026）通过多词元激活修补研究拒绝行为中的表示引导，报告引导向量主要与注意力OV回路交互，而非主要改变QK注意力分数。该结果来自拒绝任务，不能直接外推到医学指南判断，也不构成本文方法有效性的证据；它仅说明注意力回路可能参与表示引导的行为效应。
-
-模型训练阶段也可能改变表示的行为可用性。Venhoff et al.（2026）比较九组基础模型与思考模型检查点，区分RL训练、SFT蒸馏及混合训练的影响；Xu（2026）的预印本进一步比较Gemma-2、Llama-3.1和Qwen-2.5的七组Base/IT匹配检查点，报告指令暴露程度与方向的行为可干预性相关。上述工作支持使用同家族匹配检查点研究后训练影响，但不支持将不同模型家族之间的性能差异直接解释为SFT或RL的因果效应。
+近期工作进一步研究输入相关的表示引导。Stolfo et al.（2025）研究指令差分激活向量，并报告由指令微调模型提取的方向可以迁移到基础模型。RePS通过双向偏好优化学习表示引导（Wu et al., 2025）；PSR则从输入激活估计位置相关的引导系数（Heyman & Vandeputte, 2026）。这些工作表明，表示干预的方向或强度可以依赖输入。本文将其作为相关研究背景；当前实测比较仅纳入具有可复核预测记录的方法。
 
 ### 2.5 参数高效权重微调
 
@@ -556,9 +552,6 @@ ASTER-CR保留完整输入，用证据保持配对学习分数对消，用证据
 - Wu, Z. et al. (2025). *AxBench: Steering LLMs? Even Simple Baselines Outperform Sparse Autoencoders*. [ICML 2025](https://proceedings.mlr.press/v267/wu25a.html)。
 - Wu, Z., Yu, Q., Arora, A., Manning, C. D. & Potts, C. (2025). *Improved Representation Steering for Language Models (RePS)*. [NeurIPS 2025](https://proceedings.neurips.cc/paper_files/paper/2025/hash/eb1ef82926376d252dde00d5dd909f4b-Abstract-Conference.html)。
 - Heyman, G. & Vandeputte, F. (2026). *Steer Like the LLM: Activation Steering that Mimics Prompting*. [ICML 2026](https://proceedings.mlr.press/v306/heyman26a.html)。
-- Cheng, S. S., Wiegreffe, S. & Manocha, D. (2026). *What Drives Representation Steering? A Mechanistic Case Study on Steering Refusal*. [EMNLP 2026](https://aclanthology.org/2026.emnlp-main.79/)。
-- Venhoff, C., Arcuschin, I., Torr, P., Conmy, A. & Nanda, N. (2026). *Base Models Know How to Reason, Thinking Models Learn When*. [ICML 2026](https://proceedings.mlr.press/v306/venhoff26a.html)。
-- Xu, S. (2026). *From Geometry to Behavior: How Instruction Exposure Unlocks Latent Rhetorical Directions in LLMs*. [arXiv预印本](https://arxiv.org/abs/2610.37685)。
 - 官方模型资料：[Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B)、[Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)、[Gemma-2-9B-IT](https://huggingface.co/google/gemma-2-9b-it)、[MedGemma-27B](https://huggingface.co/google/medgemma-27b-text-it)、[Gemma-3-27B-IT](https://huggingface.co/google/gemma-3-27b-it)。
 
 **仓库内证据**（chunxi-alpc/TRIAGE）
