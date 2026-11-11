@@ -1,0 +1,67 @@
+{
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "model_version": "same local frozen checkpoint directory",
+  "prompt": "exact raw prompt strings, no normalization; original canonical SYSTEM + official tokenizer chat template",
+  "tokenizer": "same model tokenizer; enable_thinking=False",
+  "scoring": "native immutable prefix cache replay; final prompt token; FP32 YES-NO label projection",
+  "label_tokens": [
+    20412,
+    32376
+  ],
+  "labels": [
+    "是",
+    "否"
+  ],
+  "evidence": [
+    "/home/gcx/aster_cr_repair_v2_run_20261108/configuration.json",
+    "/home/gcx/aster_cr_repair_v2_run_20261108/verification/qwen_forward.json",
+    "/home/gcx/aster_five_models_20261109/engine.py",
+    "/home/gcx/aster_cross_task_transfer_20261109/medpic/model_metadata.json",
+    "/home/gcx/aster-final-two-20261111/reports/aster_cancel_story_20261109/meeting/trace_repair_followup/score_worker.py"
+  ],
+  "reuse_rule": "identical canonical model/prompt/tokenizer/final-token score protocol plus exact prompt and label tuple",
+  "feature_policy": "full historical and cross-task heads; 60-source cache provides recorded head subset and will be supplemented only when required",
+  "no_hash_checks": true,
+  "unique_input_table": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/data/inputs.jsonl",
+  "cache_records": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/data/reused_scores.jsonl",
+  "reused": 109777,
+  "stages": {
+    "fit": 9969,
+    "path_fit": 39046,
+    "path_interference_fit": 117138,
+    "dev": 1685,
+    "path_dev": 8312,
+    "path_interference_dev": 24936,
+    "test": 3100,
+    "path_test": 16674,
+    "path_interference_test": 50022,
+    "new60": 63434,
+    "nli4ct": 3999,
+    "medpic": 7005
+  },
+  "protocol_direct_comparisons": {
+    "experiments/aster_cr/engine.py": true,
+    "experiments/m1_diagnostics/engine.py": true,
+    "cross_model_same_path": true,
+    "cross_tokenizer_template_same": true,
+    "cross_label_token_ids_same": true,
+    "cross_no_softcap": true
+  },
+  "unique_inputs": 332860,
+  "metadata_encoding_repair": {
+    "labels_corrected": 332860,
+    "prompt_content_changed": false,
+    "uid_changed": false,
+    "labels": [
+      "是",
+      "否"
+    ]
+  },
+  "updated": "2026-11-11 11:58:39",
+  "last_completed_stage": "complete",
+  "available_inputs": 332860,
+  "fresh_inputs": 286517,
+  "reused_inputs": 46343,
+  "deduplication": "exact prompt and label string equality; stable unique IDs; no hashes",
+  "learned_estimates": "M1 rankings/M2 moments and spaces/M3 weights are independently fitted within each training fold"
+}

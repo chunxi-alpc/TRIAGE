@@ -1,0 +1,117 @@
+{
+  "task": "ASTER-CR frozen paired-data Qwen3-8B comparison",
+  "data_commit": "5a329fe68eaa84fb5f7a791c50d15a47181ac4f2",
+  "data_root": "/home/gcx/aster_cr_pair_dataset_20261111",
+  "historical_root": "/home/gcx/aster_cr_repair_v2_run_20261108",
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "model_dtype": "bfloat16",
+  "frozen_model": true,
+  "gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "estimated_peak_gib_per_gpu": [
+    20,
+    50
+  ],
+  "estimated_hours": [
+    6,
+    12
+  ],
+  "seed": 20261108,
+  "rank": 16,
+  "heads": 51,
+  "regularization": 0.01,
+  "delta": 0.2923349,
+  "regression_weight_total": 4887,
+  "groups": {
+    "E0": "reuse historical full fit and five-fold M1/M2; compute only missing five-fold constrained M3 and intercept",
+    "E1": "balanced frozen A; equal category and within-category source weighting",
+    "E2": "full frozen B; equal category and within-category source weighting",
+    "E3": "full frozen B; natural pair weights"
+  },
+  "source_cv": {
+    "folds": 5,
+    "train_sources": 64,
+    "validation_sources": 16,
+    "groups": [
+      "E0",
+      "E1",
+      "E2"
+    ],
+    "independent_modules": true,
+    "calibration": "same historical natural fit nodes restricted to training sources",
+    "fold_seed": 20261109,
+    "fold_origin": "reuse completed historical source splits"
+  },
+  "calibration_nodes": 761,
+  "sensitivity_relative_budgets": [
+    0.05,
+    0.25
+  ],
+  "bootstrap_draws": 2000,
+  "preprocessing": "one existence/count/field/source check; no generation or semantic rereview; no hashes",
+  "cache_policy": "exact input text, model, system prompt, tokenizer, final-token score and FP32 projection match; cache raw activations and pairwise exact patch scores; learned estimates remain fold specific",
+  "historical_eval_policy": "40 historical test sources and 60 previously used new sources are reused evaluation; no claim of independent confirmation",
+  "execution_order": [
+    "prepare",
+    "smoke",
+    "new full fits E1/E2/E3",
+    "missing five-fold E0/E1/E2",
+    "development selection E1/E2",
+    "freeze",
+    "budget sensitivity",
+    "historical/test evaluation",
+    "frozen transfer NLI4CT-2024 and MedPIC",
+    "report"
+  ],
+  "user_steering": [
+    "add physical GPUs 5 and 6",
+    "do not rerun experiments already completed"
+  ],
+  "small_batch": {
+    "all_checks_passed": true,
+    "observed_peak_gib": 16.785137176513672,
+    "saved_prefix_replay_difference": 0.0,
+    "bidirectional_patching": true
+  },
+  "monitoring": "stopped after stable startup; controller continues workflow and writes final report",
+  "observed_peak_gib_per_gpu": [
+    16.310672283172607,
+    16.784099578857422,
+    16.309804439544678,
+    16.013553142547607
+  ],
+  "patch_engine": "single_row_read_only",
+  "speed_optimization": {
+    "lazy_input_index": true,
+    "fit_feature_memmap": true,
+    "single_row_patch_speedup_measured": 1.3129249569003398,
+    "single_row_patch_max_logit_difference": 0.0,
+    "multirow_patch_enabled": false,
+    "multirow_patch_reason": "Observed BF16 batch-shape score difference up to 0.356 logit; keep original single-input shapes",
+    "extraction_workers_per_gpu": 1,
+    "evaluation_metrics_speedup_measured": 3.59,
+    "evaluation_paths_speedup_measured": 10.6,
+    "extraction_single_per_second": 3.822833065876536,
+    "extraction_double_combined_per_second": 3.7931747346179367,
+    "extraction_concurrency_decision": "single process per authorized GPU; two processes did not improve measured throughput",
+    "patch_scheduler": "four GPUs claim different pair jobs; no whole-group lockstep"
+  },
+  "extraction_workers_per_gpu": 1,
+  "scheduling": {
+    "gpus": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "policy": "global dynamic queue of distinct raw input-pair interventions; CPU estimates remain independent for every group and source fold",
+    "deduplication": "union candidates only for computation; finalize each plan with its own candidates, training pairs and weights",
+    "immutable_prefix_read": "concurrent read; lock only when creating absent prefix",
+    "old_partial_results": "reused at safe exact-pair checkpoints",
+    "cpu_module_fits": "parallel with four-GPU development feature extraction"
+  }
+}
