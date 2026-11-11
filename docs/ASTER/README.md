@@ -1,14 +1,16 @@
-# ASTER 文档
+# ASTER-CR 文档入口
 
-[项目首页](../../README.md) · **[方法与实验总表](experiments.zh.md)**
+当前论文主线只维护两个权威文档：
 
-| 内容 | 入口 |
-|---|---|
-| 全部探索、当前结果、未完成事项及归档 | [实验总表](experiments.zh.md) |
-| 闭式、参考、可学习M3、N/S/NS及CR演变 | [方法与公式](versions.zh.md)、[模块和训练目标](method-clarifications.zh.md) |
-| 当前分数修正论文 | [ASTER-CR中文论文](../../reports/aster_cancel_story_20261109/paper_story_latest.zh.md) |
-| 表示编辑论文与早期文稿 | [paired_ns稿](manuscript.zh.md)、[历史资料](archive/README.md) |
-| 既有30阶段与60份报告 | [历史实验索引](../../reports/aster_synthesis_20261106/EXPERIMENTS.zh.md) |
-| 引用与支持范围 | [引用说明](references.zh.md) |
+1. **[论文正文](manuscript.zh.md)**：论文写作和真实结果。
+2. **[实验框架](experiments.zh.md)**：论文相关实验的完整设计、状态、未完成事项和执行计划。
 
-状态统一维护在实验总表，旧报告保留原始设置与结论。
+## 其他资料
+
+- [历史方法与实验索引](archive/README.md)：CARE、ACRE、旧ASTER表示编辑、旧版M3及历史实验报告。
+- [方法版本与公式](versions.zh.md)：方法演变的技术记录。
+- [方法澄清](method-clarifications.zh.md)：实现和术语补充。
+- [图表资料](figures/README.md)：论文图表源文件和说明。
+- [引用资料](references.zh.md)：文献与来源记录。
+
+**维护规则：** 当前论文只更新论文正文；当前论文相关实验状态只更新实验框架；历史方法和历史实验保留在独立报告和归档中。
