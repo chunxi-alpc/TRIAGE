@@ -183,7 +183,7 @@ D_{AP}&=\operatorname{stack}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}\big(\tilde h(x
 \end{aligned}
 $$
 
-记 $D=U_D\Sigma_DV_D^\top$ 为奇异值分解。令 $r_{\mathrm{eff}}$ 为按数值阈值保留的前 $r$ 个奇异值的数量，并定义 $\operatorname{Basis}_r(D)=[v_1,\ldots,v_{r_{\mathrm{eff}}}]$，其中 $v_i$ 是 $V_D$ 的第 $i$ 列。对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：
+此处 $\operatorname{stack}$ 表示按配对顺序逐行堆叠。记 $D=U_D\Sigma_DV_D^\top$ 为奇异值分解。令 $r_{\mathrm{eff}}$ 为按数值阈值保留的前 $r$ 个奇异值的数量，并定义 $\operatorname{Basis}_r(D)=[v_1,\ldots,v_{r_{\mathrm{eff}}}]$，其中 $v_i$ 是 $V_D$ 的第 $i$ 列。对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：
 
 $$
 N=\operatorname{orth}\big((I-SS^\top)U\big),\qquad t(x)=N^\top\tilde h(x).
@@ -358,7 +358,7 @@ $$
 
 令 $Z$ 为 $\ker(H^\top)$ 的正交基，则上述条件可同时满足，当且仅当 $\gamma\in\operatorname{range}(D^\top Z)$。因此，痕迹混入证据并不自动导致修正不可行；关键在于痕迹中是否仍存在能够表征干扰贡献、同时不响应证据变化的方向。
 
-令 $b$ 为与单位证据切向 $s$ 夹角为 $\theta$ 的单位干扰切向。若可微编辑 $T$ 在点 $h_0$ 的雅可比矩阵 $J_T(h_0)$ 满足 $J_T(h_0)s=s$ 且 $J_T(h_0)b=0$，则
+令 $u$ 为与单位证据切向 $s$ 夹角为 $\theta$ 的单位干扰切向。若可微编辑 $T$ 在点 $h_0$ 的雅可比矩阵 $J_T(h_0)$ 满足 $J_T(h_0)s=s$ 且 $J_T(h_0)u=0$，则
 
 $$
 \|I-J_T(h_0)\|_2\geq\csc\theta.
@@ -651,28 +651,28 @@ ASTER-CR保留完整输入，用证据保持配对学习分数对消，用证据
 为了分析线性和非线性擦除在相同局部约束下的代价，设 $s$、$q$ 为正交单位向量，$s$ 属于证据切空间，单位干扰方向为
 
 $$
-b=\cos\theta\,s+\sin\theta\,q,\qquad 0<\theta\leq\pi/2.
+u=\cos\theta\,s+\sin\theta\,q,\qquad 0<\theta\leq\pi/2.
 $$
 
-在线性编辑 $E$ 中，若 $Es=s$ 且 $Eb=0$，则
+在线性编辑 $E$ 中，若 $Es=s$ 且 $Eu=0$，则
 
 $$
 \|I-E\|_2\geq\csc\theta.
 $$
 
-对任意在 $h_0$ 可微的非线性编辑 $T$，令 $J=J_T(h_0)$。若它在同一点保持证据切向且消去干扰切向，即 $Js=s$、$Jb=0$，同样有
+对任意在 $h_0$ 可微的非线性编辑 $T$，令 $J=J_T(h_0)$。若它在同一点保持证据切向且消去干扰切向，即 $Js=s$、$Ju=0$，同样有
 
 $$
 \boxed{\|I-J_T(h_0)\|_2\geq\csc\theta.}
 $$
 
-证明：由 $Jb=0$、$Js=s$ 得 $Jq=-\cot\theta\,s$，故 $(I-J)q=q+\cot\theta\,s$，其范数为 $\csc\theta$。线性情形取 $J=E$ 即得。
+证明：由 $Ju=0$、$Js=s$ 得 $Jq=-\cot\theta\,s$，故 $(I-J)q=q+\cot\theta\,s$，其范数为 $\csc\theta$。线性情形取 $J=E$ 即得。
 
-若允许误差 $\|Js-s\|\leq\varepsilon_s$、$\|Jb\|\leq\varepsilon_b$，则三角不等式给出
+若允许误差 $\|Js-s\|\leq\varepsilon_s$、$\|Ju\|\leq\varepsilon_u$，则三角不等式给出
 
 $$
 \|I-J\|_2\geq
-\frac{[1-\cos\theta\,\varepsilon_s-\varepsilon_b]_+}{\sin\theta}.
+\frac{[1-\cos\theta\,\varepsilon_s-\varepsilon_u]_+}{\sin\theta}.
 $$
 
 其中 $[u]_+=\max(u,0)$。该命题说明，增加非线性并不自动消除“同点保持原有证据切向、同时压平干扰切向”的局部约束。它给出编辑改变量的局部最坏方向增益；实际误差取决于数据、误差方向及后续计算。只保持最终任务分数而允许证据表示重编码的编辑，采用的是更弱的保留条件，应通过对应任务目标评价。
