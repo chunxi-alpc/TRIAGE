@@ -254,16 +254,7 @@ E_\theta(\mathrm{None}\mid x)
 \tilde\pi_k^{(m)}=\frac{n_k^{(m)}+a}{N^{(m)}+ma}.
 ```
 
-因此，$\tilde\pi_k^{(m)}$ 是具有 $m$ 个普通选项的非None金标准集合中、集合大小为 $k$ 的平滑频率，进而定义
-
-```math
-\gamma_k
-=\rho\left[
-\log\tilde\pi_k^{(m)}
--\log {m\choose k}
-\right],
-\qquad 0\leq\rho\leq1.
-```
+因此，$\tilde\pi_k^{(m)}$ 是具有 $m$ 个普通选项的非None金标准集合中、集合大小为 $k$ 的平滑频率，用于构造集合大小势函数。
 
 集合大小势函数还需抵消M3中心化对选项分数求和产生的已知平移。令 $\mu_{c,\mathrm{fit}}$ 为M3中心化时使用的固定均值，则
 
