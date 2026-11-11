@@ -1,5 +1,8 @@
 # 仓库状态入口
 
-方法、已完成实验、运行快照及尚未完成事项统一维护在[方法与实验总表](ASTER/experiments.zh.md)。研究概况见[项目首页](../README.md)，实现差别见[方法说明](ASTER/versions.zh.md)。
+当前论文主线的状态只在两个文档中维护：
 
-本页保留兼容入口，不另维护进度表。
+- [论文正文](ASTER/manuscript.zh.md)
+- [论文实验框架](ASTER/experiments.zh.md)
+
+历史方法、旧实验和版本记录见[历史资料索引](ASTER/archive/README.md)。本页不另行维护重复的进度表。
