@@ -1,4 +1,6 @@
-# ASTER 方法变体
+# ASTER 历史方法变体与实现追溯
+
+> 本页记录CARE/ACRE、旧版ASTER表示编辑及ASTER-CR早期实现的演变和公式差异，不维护当前论文实验状态。当前论文与当前实验框架分别以[论文正文](manuscript.zh.md)和[实验框架](experiments.zh.md)为准。历史报告入口见[历史资料索引](archive/README.md)。
 
 [主页](../../README.md) · [模块与训练目标](method-clarifications.zh.md) · [实验索引](experiments.zh.md) · [中文主稿](manuscript.zh.md)
 
