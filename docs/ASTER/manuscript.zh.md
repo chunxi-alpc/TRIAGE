@@ -183,13 +183,22 @@ D_{AP}&=\operatorname{stack}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}\big(\tilde h(x
 \end{aligned}
 $$
 
-此处 $\operatorname{stack}$ 表示按配对顺序逐行堆叠。记 $D=U_D\Sigma_DV_D^\top$ 为奇异值分解。令 $r_{\mathrm{eff}}$ 为按数值阈值保留的前 $r$ 个奇异值的数量，并定义 $\operatorname{Basis}_r(D)=[v_1,\ldots,v_{r_{\mathrm{eff}}}]$，其中 $v_i$ 是 $V_D$ 的第 $i$ 列。对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：
+此处 $\operatorname{stack}$ 表示按配对顺序逐行堆叠。记 $D=U_D\Sigma_DV_D^\top$ 为奇异值分解，$\sigma_{\max}(D)$ 为其最大奇异值。定义有效秩与对应的右奇异向量基为
+
+$$
+\begin{aligned}
+r_{\mathrm{eff}}(D)&=\min\left\{r,\left|\left\{i:\sigma_i(D)>\max\big(10^{-7},10^{-6}\sigma_{\max}(D)\big)\right\}\right|\right\},\\
+\operatorname{Basis}_r(D)&=[v_1,\ldots,v_{r_{\mathrm{eff}}(D)}],
+\end{aligned}
+$$
+
+其中 $v_i$ 是 $V_D$ 的第 $i$ 列。对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：
 
 $$
 N=\operatorname{orth}\big((I-SS^\top)U\big),\qquad t(x)=N^\top\tilde h(x).
 $$
 
-数值实现采用随机化奇异值分解提取主方向，随机种子固定为 20261108。对 $S$ 和 $U$，仅保留满足 $\sigma_i>\max(10^{-7},10^{-6}\sigma_{\max})$ 的奇异方向；投影后的残差再进行双重正交化和奇异值分解，仅保留满足 $\sigma_i>\max(10^{-10},10^{-6}\sigma_{\max})$ 的方向，以减小有限精度误差。这里 $\operatorname{orth}(\cdot)$ 表示返回列正交基的数值正交化算子。该构造满足 $N^\top S\approx0$，表示痕迹与所估计的主要证据方向近似正交。它并不意味着所有可能的证据信息都已被移除，也不保证痕迹与证据在统计意义上独立。有限样本和秩截断可能使 $S$ 未覆盖全部证据变化。记 $r_N=\operatorname{rank}(N)$；当前 Qwen3-8B 实例中 $r=16$ 且 $r_N=16$，因此 $t(x)\in\mathbb R^{16}$。M2 只负责降低主要证据方向进入修正特征的程度；最终修正对证据的影响仍由 M3 的逐对约束直接限制。
+数值实现采用随机化奇异值分解提取主方向，随机种子固定为 20261108。对投影后的残差再进行双重正交化和奇异值分解，仅保留满足 $\sigma_i>\max(10^{-10},10^{-6}\sigma_{\max})$ 的方向，以减小有限精度误差。这里 $\operatorname{orth}(\cdot)$ 表示返回列正交基的数值正交化算子。该构造满足 $N^\top S\approx0$，表示痕迹与所估计的主要证据方向近似正交。它并不意味着所有可能的证据信息都已被移除，也不保证痕迹与证据在统计意义上独立。有限样本和秩截断可能使 $S$ 未覆盖全部证据变化。记 $r_N=\operatorname{rank}(N)$；当前 Qwen3-8B 实例中 $r=16$ 且 $r_N=16$，因此 $t(x)\in\mathbb R^{16}$。M2 只负责降低主要证据方向进入修正特征的程度；最终修正对证据的影响仍由 M3 的逐对约束直接限制。
 
 ### 3.5 M3：证据约束的分数修正
 
@@ -530,7 +539,7 @@ NLI线性与平衡配置的全体声明准确率分别下降0.764与0.455个百�
 
 **表9：共享16维痕迹和拟合配对的函数—位置比较。** 三种训练式对照报告三个训练种子的均值±样本标准差；线性输出为固定凸优化解。路径范围是种子间最小与最大正确数，不是置信区间。各方法自然节点均为368/372，故省略重复的节点列及其零标准差。所有行另有一个独立截距，RMS单位为logit。[逐种子结果](https://github.com/chunxi-alpc/TRIAGE/blob/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/seed_summary.json)。
 
-输出MLP与表示MLP均提高干扰降低率，也扩大留出证据改动。表9中的输出 MLP（16→32→1，隐藏层采用 GELU）和表示 MLP（$16\to32\to16$，隐藏层采用 GELU）均以 A/P 配对分数差训练，并使用 C/F 配对惩罚；具体采用 600 步 Adam、学习率 0.001、每步 64 个 A/P 配对及全部 135 个拟合 C/F 配对，正则项为 $0.01/n_{AP}$ 倍参数平方和，证据惩罚系数为 100。训练后再按拟合 C/F 配对的最大修正差施加统一收缩因子，并单独校准截距。训练实现见[MLP对照代码](https://github.com/chunxi-alpc/TRIAGE/blob/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/train.py)。它们不是线性主方法所使用的 SLSQP 硬约束二次规划；硬约束只在拟合配对上成立，留出配对仍需单独评价。因而，相同名义预算不代表相同的优化路径或留出证据代价。相同拟合预算没有产生相同留出保护水平，故这张表不能单独证明输出位置优于表示位置。更有说服力的比较应在开发集匹配实际证据改动后冻结配置，再比较独立测试上的干扰、正确率与成本。
+输出MLP与表示MLP均提高干扰降低率，也扩大留出证据改动。表9中的输出 MLP（$16\to32\to1$，隐藏层采用 GELU）和表示 MLP（$16\to32\to16$，隐藏层采用 GELU）均以 A/P 配对分数差训练，并使用 C/F 配对惩罚；具体采用 600 步 Adam、学习率 0.001、每步 64 个 A/P 配对及全部 135 个拟合 C/F 配对，正则项为 $0.01/n_{AP}$ 倍参数平方和，证据惩罚系数为 100。训练后再按拟合 C/F 配对的最大修正差施加统一收缩因子，并单独校准截距。训练实现见[MLP对照代码](https://github.com/chunxi-alpc/TRIAGE/blob/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/train.py)。它们不是线性主方法所使用的 SLSQP 硬约束二次规划；硬约束只在拟合配对上成立，留出配对仍需单独评价。因而，相同名义预算不代表相同的优化路径或留出证据代价。相同拟合预算没有产生相同留出保护水平，故这张表不能单独证明输出位置优于表示位置。更有说服力的比较应在开发集匹配实际证据改动后冻结配置，再比较独立测试上的干扰、正确率与成本。
 
 99维平衡集成的输入含16维干扰痕迹、16维证据坐标、64维残差主成分和3维分数特征；它还改变保护损失、集成与搜索规模。其结果支持丰富特征与保护策略可以改变经验权衡，不能单独归因于非线性。原16维输出MLP与99维平衡集成恰有相近的VR，二者的证据改动及训练条件并不相同，名称和结果始终分列。
 
