@@ -192,7 +192,7 @@ r_{\mathrm{eff}}(D)&=\min\left\{r,\left|\left\{i:\sigma_i(D)>\max\big(10^{-7},10
 \end{aligned}
 $$
 
-其中 $v_i$ 是 $V_D$ 的第 $i$ 列。对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：
+其中 $v_i$ 是 $V_D$ 的第 $i$ 列。对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：
 
 $$
 N=\operatorname{orth}\big((I-SS^\top)U\big),\qquad t(x)=N^\top\tilde h(x).
