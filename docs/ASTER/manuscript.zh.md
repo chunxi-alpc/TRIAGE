@@ -799,7 +799,7 @@ F_{\mathrm{cond}}(m)=\frac{1}{|\mathcal A_m^+|}
 
 留出A/P中的A占2,283对、覆盖40来源，P仅10对、5来源；C为33对、11来源，F为7对、2来源，C/F合并12来源；F0为6对、2来源。没有因样本量小而补造配对或显著性。
 
-线性方法读取51个选中头，标准化与子空间仅在拟合集估计。16个修正系数和一个截距之外，还需保存头索引、均值、标准差及子空间基。每次在线判断执行一次主干序列评分流程（前缀预填充与末位置评分），不额外运行参考提示；离线定位、配对提取与子空间估计成本不能省略。已有缓存小模型训练计时不包含这些成本，不作为端到端加速证据。
+线性方法读取51个选中头，标准化与子空间仅在拟合集估计。16个修正系数和一个截距之外，还需保存头索引、均值、标准差及子空间基。每次在线判断执行一次主干序列评分流程（前缀预填充与末位置评分），不额外运行参考提示；离线定位、配对提取与子空间估计成本不能省略。已有缓存小模型训练计时不包含这些成本，不作为端到端加速证据。当前 Qwen3-8B 配置下，M1 精确修补最多涉及 $4\times12\times64\times2=6,144$ 次末位置评分；同一配对的前缀缓存可在候选头间复用，梯度归因计算另计。该离线开销不计入在线节点评分延迟。
 
 **实现对应关系。** 本文 M1 的梯度筛选、来源去重配对抽样和排序融合见 [mechanisms.py](https://github.com/chunxi-alpc/TRIAGE/blob/0e702e64bbfa4a8b41d0a9cb6f1ae44898030945/experiments/aster_cr/mechanisms.py)；双向单头修补算子见 [m1.py](https://github.com/chunxi-alpc/TRIAGE/blob/0e702e64bbfa4a8b41d0a9cb6f1ae44898030945/experiments/aster_closed_form/m1.py)。M2 的随机化 SVD、数值秩截断和正交化见 [features.py](https://github.com/chunxi-alpc/TRIAGE/blob/0e702e64bbfa4a8b41d0a9cb6f1ae44898030945/experiments/aster_cr/features.py) 及 [mechanisms.py](https://github.com/chunxi-alpc/TRIAGE/blob/0e702e64bbfa4a8b41d0a9cb6f1ae44898030945/experiments/aster_cr/mechanisms.py)。M3 线性受约束回归、SLSQP 求解、拟合 C/F 预算检查及独立截距校准见 [run_repair.py](https://github.com/chunxi-alpc/TRIAGE/blob/0e702e64bbfa4a8b41d0a9cb6f1ae44898030945/reports/aster_cancel_story_20261109/meeting/trace_validation/exp4/run_repair.py)。该线性二次规划的实测结果、求解器配置和拟合约束均对应上述实现。
 
