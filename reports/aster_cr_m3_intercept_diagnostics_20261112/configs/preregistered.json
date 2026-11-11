@@ -1,0 +1,41 @@
+{
+  "model": "Qwen3-8B BF16",
+  "dataset": "E1 / Dataset A",
+  "pairs": 2540,
+  "heads": 51,
+  "rank": 16,
+  "lambda_": 0.01,
+  "delta": 0.2923349,
+  "gpu_devices_authorized": [
+    0,
+    1
+  ],
+  "gpu_used": [],
+  "draws": 2000,
+  "seed": 20261111,
+  "scales": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1,
+    1.25,
+    1.5
+  ],
+  "intercept_objective": "mean natural-node logistic loss on original dev20; each fold uses its own frozen E1 correction",
+  "scale_tie": "lowest scale",
+  "medpic_objective": "natural development exact-set accuracy for selecting decoder; calibration coefficients fit development exact-set negative log likelihood",
+  "decoder_tie": [
+    "B_pair_only",
+    "C_mean_full",
+    "D_none_calibrated",
+    "E_size_calibrated",
+    "A_sum_full"
+  ],
+  "D": "sum(l+c)+eta*I(candidate is none-of-the-above)",
+  "E": "sum(l+c)+tau*cardinality(candidate)",
+  "C": "sum(l+c+b)/cardinality(candidate); empty candidate score=0",
+  "noninferiority": "No new margin; report CI against zero without declaring noninferiority from nonsignificance",
+  "historical_inputs": "/home/gcx/aster-cr-diagnostics-e3cv-20261111/reports/aster_cr_diagnostics_e3cv_20261111",
+  "historical_models": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/models/E1"
+}

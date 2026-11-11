@@ -4,6 +4,7 @@
 
 | 结果 | 入口 |
 |---|---|
+| ASTER-CR M3截距与MedPIC多选解码诊断 | [结果与结论](../reports/aster_cr_m3_intercept_diagnostics_20261112/REPORT.zh.md)、[指标、逐例预测与复算](../reports/aster_cr_m3_intercept_diagnostics_20261112/README.md)；冻结E1，开发校准，2,000次来源重采样 |
 | ASTER-CR新配对训练与开发集选型 | [E0—E3全量、原15个来源折及预算敏感性](../reports/aster_cr_retrain_paired_v2_20261111/REPORT.zh.md) |
 | ASTER-CR收益拆分与E3五折 | [结果与结论](../reports/aster_cr_diagnostics_e3cv_20261111/REPORT.zh.md)、[指标、参数与压缩预测](../reports/aster_cr_diagnostics_e3cv_20261111/README.md)；共20折，保持冻结E1 |
 | ASTER-CR配对训练数据构建 | [报告、统计和两张图](../reports/aster_cr_pair_dataset_20261111/README.md)：合格6,345对，均衡每类635对；该报告只记录数据构建，模型训练结果见上两行 |
