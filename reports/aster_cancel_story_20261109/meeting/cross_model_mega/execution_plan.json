@@ -6,18 +6,14 @@
     6
   ],
   "queues": {
-    "0": [
-      "llama31"
-    ],
-    "1": [
-      "gemma2"
-    ],
-    "5": [
-      "gemma3"
-    ],
-    "6": [
-      "medgemma"
-    ]
+    "gemma3": {
+      "0": 0,
+      "1": 5
+    },
+    "medgemma": {
+      "0": 1,
+      "1": 6
+    }
   },
   "official_cases_per_model": 7458,
   "gold_nodes_per_model": 45627,
@@ -45,5 +41,8 @@
     "aster_cr",
     "random_trace"
   ],
-  "controller_note": "Original GPU0/1 controller remains alive; external GPU5/6 workers hold per-model locks, so old queued resumes cannot duplicate inference."
+  "controller_note": "Original GPU0/1 controller remains alive; external GPU5/6 workers hold per-model locks, so old queued resumes cannot duplicate inference.",
+  "scheduling": "Retain all completed model outputs; two disjoint [shard::2] case lists per 27B model, global cache reuse.",
+  "lock": "per-model per-shard",
+  "model_inputs_weights_budgets_unchanged": true
 }

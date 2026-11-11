@@ -30,7 +30,7 @@ ASTER-CR 是**输出端决策分数修正方法**。它读取模型内部痕迹�
 | NLI/MedPIC 标签监督与截距后续实验 | 已完成，结果混合/阴性 | NLI 的部分配置准确率下降；MedPIC 收益不稳定，截距解释部分配对变化 | [跨任务后续报告](../aster_cross_task_followup_20261110/REPORT.zh.md) |
 | 合成机制实验 | 已完成，合成数据 | 用于检验理论机制，不作为真实模型或临床任务效果 | [合成实验报告](simulated_study/REPORT.zh.md) |
 | 同等实际证据代价的特征比较 | 已完成，回顾性/探索性 | dev C/F RMS=0.20 时 N/U/S/50随机均值 VR=4.52%/2.00%/1.90%/1.39%；冻结 test 代价失配，尚未建立严格同代价复现优势 | [同代价主报告](meeting/matched_cost_feature_analysis/REPORT.zh.md) |
-| 四模型 MEGA 核心复现 | 受控完成，官方路径完成2/4 | 四模型独立状态均有正的 AP VR、平均 ER 接近100%；自然节点正确数无一致提升；Llama与Gemma-2官方已完成，两个27B模型继续 | [跨模型受控数据与配置](meeting/cross_model_mega/)、[执行状态](meeting/EXPERIMENT_STATUS.md) |
+| 四模型 MEGA 核心复现 | 已完成 | 四模型 AP VR=8.57%/27.08%/12.58%/6.26%；每模型官方7,458路径完成；ASTER路径正确数均未超过仅截距 | [跨模型主报告](meeting/cross_model_mega/REPORT.zh.md)、[完整摘要](meeting/RESULTS_SUMMARY.md) |
 | 临床配对人工审核 | 待完成 | 已准备 30 对 A 和全部 32 对 P 的审核材料，当前 README 标记尚未经过医生审核 | [临床审核材料](clinical/README.zh.md) |
 | 五模型 × 三任务 × 285 单元统一基准 | 未完成 | 状态表 285 项均为 not_completed_in_common_protocol；不是已完成实验，也不是本轮必须运行的任务 | [矩阵说明](meeting/full_factorial_20261110/README.zh.md)、[状态表](meeting/full_factorial_20261110/matrix_status_285.csv) |
 
@@ -87,7 +87,7 @@ MEGA 官方测试：
 |---|---|---|
 | paper_story_latest.zh.md | 当前论文正文 | 论文主张和最终表述以此为准 |
 | meeting/matched_cost_feature_analysis/ | N/U/S/50随机，同实际证据代价与完整Pareto曲线 | 本轮实验A主结果，回顾性/探索性 |
-| meeting/cross_model_mega/ | 四模型各自独立拟合、受控配对与官方路径 | 本轮实验B，官方推理仍在运行 |
+| meeting/cross_model_mega/ | 四模型独立拟合、受控配对与官方完整路径 | 本轮实验B已完成，含逐例、来源区间、配置与图表 |
 | meeting/trace_validation/ | Q1–Q4 痕迹机制、随机对照、五折、预算修复 | 痕迹机制主证据 |
 | meeting/real_completion/ | 受控留出、逐对指标、参数和重放核验 | 16 维主方法及表示/输出对照 |
 | meeting/optimization/ | 874 个配置、优化搜索、模型与评分结果 | 优化扩展；不是新增独立测试集 |
@@ -102,13 +102,15 @@ MEGA 官方测试：
 
 ## 6. 本轮两项实验状态
 
-1. **同等证据代价下的特征比较已完成**：只使用已有真实 Qwen 缓存。开发集证据改动匹配后，正交痕迹比 U、S 与50随机均值的 VR 更高；冻结留出的实际代价不再匹配，不据此宣称严格同代价优势已经复现。
-2. **跨模型 MEGA 复现正在完成官方路径推理**：四模型独立的受控结果和随机控制已完成并归档；GPU0/1/5/6分别运行 Llama、Gemma2、Gemma3、MedGemma 的官方7,458条路径。复用已完成的各模型独立特征和参数，不复用 Qwen 内部状态。
+1. **同等证据代价特征比较已完成**：Qwen 缓存、CPU、50 随机对照。开发集实际 C/F RMS=0.20 时 N 的 VR=4.52%，高于 U/S/随机均值；冻结留出成本不再匹配，尚未建立严格同代价的可重复优势。
+2. **四模型 MEGA 核心复现已完成**：每模型各自独立提取特征、选头、估计 S/N 与拟合修正，本轮复用已完成状态，不使用 Qwen 参数。四模型均完成官方7,458路径、45,627金标路径节点，推理失败0。
 
-当前结果与最终完成状态以 [RESULTS_SUMMARY.md](meeting/RESULTS_SUMMARY.md) 和 [EXPERIMENT_STATUS.md](meeting/EXPERIMENT_STATUS.md) 为准。原始执行清单保留于 [EXPERIMENT_PLAN_CODEX_20261111.zh.md](meeting/EXPERIMENT_PLAN_CODEX_20261111.zh.md)。
+完整交付：[EXPERIMENT_STATUS.md](meeting/EXPERIMENT_STATUS.md)、[RESULTS_SUMMARY.md](meeting/RESULTS_SUMMARY.md)、[当前论文](paper_story_latest.zh.md)。原始执行清单保留于 [EXPERIMENT_PLAN_CODEX_20261111.zh.md](meeting/EXPERIMENT_PLAN_CODEX_20261111.zh.md)。
 
 ## 7. 统一结论
 
-目前证据支持：Qwen3-8B 内部痕迹具有部分来源级预测能力，正交痕迹在开发集匹配证据改动后取得更高的干扰抑制；严格同代价优势尚未在冻结留出得到复现。四个其他模型独立拟合后均观察到受约束的干扰分数抑制，支持核心分数机制的跨模型复现，但自然节点正确数没有一致提高，Llama官方ASTER比原模型多190条正确路径，但仅截距多209条；Gemma-2路径差值区间包含零，两个27B模型仍在运行。跨任务冻结迁移和新来源标签监督后续实验尚未显示稳定的任务准确率收益。
+正交痕迹在开发集匹配实际证据改动时取得更大的干扰抑制，但严格同代价优势尚未在冻结留出上复现。四个其他模型各自拟合后均有正的受约束干扰方差降低，支持核心分数修复机制的跨模型复现。
+
+完整任务收益需要分别解释。官方路径上，Llama 的 ASTER 比原模型多190条、MedGemma多22条，两项来源簇区间均高于零；Gemma-2多3条、Gemma-3少16条，区间均包含零。四模型的 ASTER 路径正确数均未超过仅截距。因此，当前贡献是预测型内部痕迹、A/P差分与C/F证据保护的分数修复框架，以及其适用范围的实证分析；不声称普遍提高任务正确率。
 
 不要将正交投影、R²、VR、ER、节点准确率和路径准确率混成一个“效果”。每个数字只支持其对应层面的结论。

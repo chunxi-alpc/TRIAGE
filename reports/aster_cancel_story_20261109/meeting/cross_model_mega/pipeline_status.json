@@ -1,0 +1,176 @@
+{
+  "state": "complete",
+  "phase": "remaining_27b_two_shards",
+  "results": [
+    {
+      "model": "medgemma",
+      "gpu": 6,
+      "shard": 1,
+      "state": "complete",
+      "exit_code": 0
+    },
+    {
+      "model": "medgemma",
+      "gpu": 1,
+      "shard": 0,
+      "state": "complete",
+      "exit_code": 0
+    },
+    {
+      "model": "gemma3",
+      "gpu": 5,
+      "shard": 1,
+      "state": "complete",
+      "exit_code": 0
+    },
+    {
+      "model": "gemma3",
+      "gpu": 0,
+      "shard": 0,
+      "state": "complete",
+      "exit_code": 0
+    }
+  ],
+  "actual_execution": {
+    "llama31": {
+      "gpus": [
+        0
+      ],
+      "shards": [
+        {
+          "state": "complete",
+          "model": "llama31",
+          "gpu": 0,
+          "cases": 8684,
+          "new_forwards": 48717,
+          "reused_nodes": 7165,
+          "seconds": 10588.067546844482,
+          "peak_gib": 17.16430425643921,
+          "counts": {
+            "prefills": 56185,
+            "final_forwards": 48721,
+            "backwards": 0,
+            "prefill_seconds": 2184.5466170305444,
+            "final_seconds": 7449.544969148701,
+            "residual_forwards": 0
+          }
+        }
+      ]
+    },
+    "gemma2": {
+      "gpus": [
+        1
+      ],
+      "shards": [
+        {
+          "state": "complete",
+          "model": "gemma2",
+          "gpu": 1,
+          "cases": 8684,
+          "new_forwards": 46408,
+          "reused_nodes": 7449,
+          "seconds": 20237.10428094864,
+          "peak_gib": 24.283518314361572,
+          "counts": {
+            "prefills": 53870,
+            "final_forwards": 46412,
+            "backwards": 0,
+            "prefill_seconds": 12041.558313052868,
+            "final_seconds": 7322.427892906038,
+            "residual_forwards": 0
+          }
+        }
+      ]
+    },
+    "gemma3": {
+      "gpus": [
+        0,
+        5
+      ],
+      "shards": [
+        {
+          "state": "complete",
+          "model": "gemma3",
+          "gpu": 0,
+          "cases": 4342,
+          "new_forwards": 1956,
+          "reused_nodes": 2,
+          "seconds": 1176.4938516616821,
+          "peak_gib": 53.046560287475586,
+          "counts": {
+            "prefills": 2297,
+            "final_forwards": 1960,
+            "backwards": 0,
+            "prefill_seconds": 830.078305911622,
+            "final_seconds": 314.6858940156817,
+            "residual_forwards": 0
+          }
+        },
+        {
+          "state": "complete",
+          "model": "gemma3",
+          "gpu": 5,
+          "cases": 4342,
+          "new_forwards": 1948,
+          "reused_nodes": 0,
+          "seconds": 1174.9827027320862,
+          "peak_gib": 53.048423767089844,
+          "counts": {
+            "prefills": 2289,
+            "final_forwards": 1952,
+            "backwards": 0,
+            "prefill_seconds": 828.4148196621973,
+            "final_seconds": 314.8622989777941,
+            "residual_forwards": 0
+          }
+        }
+      ]
+    },
+    "medgemma": {
+      "gpus": [
+        1,
+        6
+      ],
+      "shards": [
+        {
+          "state": "complete",
+          "model": "medgemma",
+          "gpu": 1,
+          "cases": 4342,
+          "new_forwards": 1535,
+          "reused_nodes": 9,
+          "seconds": 900.7127203941345,
+          "peak_gib": 52.2581090927124,
+          "counts": {
+            "prefills": 1815,
+            "final_forwards": 1539,
+            "backwards": 0,
+            "prefill_seconds": 626.8792016284424,
+            "final_seconds": 245.24554536820506,
+            "residual_forwards": 0
+          }
+        },
+        {
+          "state": "complete",
+          "model": "medgemma",
+          "gpu": 6,
+          "cases": 4342,
+          "new_forwards": 1534,
+          "reused_nodes": 0,
+          "seconds": 856.3079617023468,
+          "peak_gib": 52.25879192352295,
+          "counts": {
+            "prefills": 1814,
+            "final_forwards": 1538,
+            "backwards": 0,
+            "prefill_seconds": 593.5800883807242,
+            "final_seconds": 234.23066166581702,
+            "residual_forwards": 0
+          }
+        }
+      ]
+    }
+  },
+  "summary_exit_code": 0,
+  "seconds_since_reschedule": 1206.3286950588226
+}
