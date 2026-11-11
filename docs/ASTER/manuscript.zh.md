@@ -165,7 +165,11 @@ M1 不把每个入选头解释为纯粹的干扰通道。它同时保留与干�
 将 M1 选出的查询头在输入 $x$ 上、位于 $o_{\mathrm{proj}}$ 之前的末位置激活拼接为 $h(x)\in\mathbb R^d$。令 $\mathcal V_{\mathrm{fit}}^{\mathrm{full}}$ 表示拟合集中的完整输入视图集合，$n_{\mathrm{fit}}=|\mathcal V_{\mathrm{fit}}^{\mathrm{full}}|$。标准化统计量仅由该集合估计：
 
 $$
-\mu_j=\frac{1}{n_{\mathrm{fit}}}\sum_{x\in\mathcal V_{\mathrm{fit}}^{\mathrm{full}}}h_j(x),\qquad s_j=\max\left(\sqrt{\frac{1}{n_{\mathrm{fit}}}\sum_{x\in\mathcal V_{\mathrm{fit}}^{\mathrm{full}}}(h_j(x)-\mu_j)^2},10^{-5}\right),\qquad \tilde h(x)=(h(x)-\mu)\oslash s.
+\begin{aligned}
+\mu_j&=\frac{1}{n_{\mathrm{fit}}}\sum_{x\in\mathcal V_{\mathrm{fit}}^{\mathrm{full}}}h_j(x),\\
+s_j&=\max\left\{\sqrt{\frac{1}{n_{\mathrm{fit}}}\sum_{x\in\mathcal V_{\mathrm{fit}}^{\mathrm{full}}}\big(h_j(x)-\mu_j\big)^2},10^{-5}\right\},\\
+\tilde h(x)&=\big(h(x)-\mu\big)\oslash s.
+\end{aligned}
 $$
 
 其中 $\mu,s\in\mathbb R^d$ 分别为逐维均值和标准差，$\oslash$ 表示逐元素除法。标准差采用总体定义。所有统计量均仅由拟合集估计，并在开发和测试阶段冻结。
@@ -173,10 +177,13 @@ $$
 令 $\mathcal P_{CF}^{\mathrm{fit}}=\mathcal P_C^{\mathrm{fit}}\cup\mathcal P_F^{\mathrm{fit}}$，$\mathcal P_{AP}^{\mathrm{fit}}=\mathcal P_A^{\mathrm{fit}}\cup\mathcal P_P^{\mathrm{fit}}$，并记 $n_{CF}=|\mathcal P_{CF}^{\mathrm{fit}}|$、$n_{AP}=|\mathcal P_{AP}^{\mathrm{fit}}|$。对任一配对 $p=(x_L^p,x_R^p)$，定义标准化激活差分。每个拟合配对在差分矩阵中占一行，且不沿用 M1 的错误/边界权重：
 
 $$
-D_{CF}=\operatorname{stack}_{p\in\mathcal P_{CF}^{\mathrm{fit}}}(\tilde h(x_R^p)-\tilde h(x_L^p))\in\mathbb R^{n_{CF}\times d},\qquad D_{AP}=\operatorname{stack}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}(\tilde h(x_R^p)-\tilde h(x_L^p))\in\mathbb R^{n_{AP}\times d}.
+\begin{aligned}
+D_{CF}&=\operatorname{stack}_{p\in\mathcal P_{CF}^{\mathrm{fit}}}\big(\tilde h(x_R^p)-\tilde h(x_L^p)\big)\in\mathbb R^{n_{CF}\times d},\\
+D_{AP}&=\operatorname{stack}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}\big(\tilde h(x_R^p)-\tilde h(x_L^p)\big)\in\mathbb R^{n_{AP}\times d}.
+\end{aligned}
 $$
 
-记 $D=U_D\Sigma_DV_D^\top$ 为奇异值分解。令 $r_{\mathrm{eff}}$ 为按数值阈值保留的前 $r$ 个奇异值的数量，并定义 $\operatorname{Basis}_r(D)=V_D[:,1:r_{\mathrm{eff}}]$。对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：
+记 $D=U_D\Sigma_DV_D^\top$ 为奇异值分解。令 $r_{\mathrm{eff}}$ 为按数值阈值保留的前 $r$ 个奇异值的数量，并定义 $\operatorname{Basis}_r(D)=[v_1,\ldots,v_{r_{\mathrm{eff}}}]$，其中 $v_i$ 是 $V_D$ 的第 $i$ 列。对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：
 
 $$
 N=\operatorname{orth}\big((I-SS^\top)U\big),\qquad t(x)=N^\top\tilde h(x).
@@ -197,13 +204,19 @@ $$
 **A/P 差分对消。** 对每个 $p=(x_L^p,x_R^p)\in\mathcal P_{AP}^{\mathrm{fit}}$，定义
 
 $$
-\Delta\ell_p=\ell(x_R^p)-\ell(x_L^p),\qquad \Delta t_p=t(x_R^p)-t(x_L^p).
+\begin{aligned}
+\Delta\ell_p&=\ell(x_R^p)-\ell(x_L^p),\\
+\Delta t_p&=t(x_R^p)-t(x_L^p).
+\end{aligned}
 $$
 
 将所有 A/P 配对按固定顺序排列，构造
 
 $$
-X=\begin{bmatrix}(\Delta t_p)^\top\end{bmatrix}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}\in\mathbb R^{n_{AP}\times r_N},\qquad d_{AP}=\begin{bmatrix}\Delta\ell_p\end{bmatrix}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}\in\mathbb R^{n_{AP}}.
+\begin{aligned}
+X&=\operatorname{stack}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}(\Delta t_p^\top)\in\mathbb R^{n_{AP}\times r_N},\\
+d_{AP}&=\operatorname{stack}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}(\Delta\ell_p)\in\mathbb R^{n_{AP}}.
+\end{aligned}
 $$
 
 当前线性实例对所有 A/P 配对等权，不使用类别重加权；M1 的配对权重只用于头定位，不进入 M3 的回归目标。理想情况下，修正后的配对分数差应接近零，因此以岭回归目标拟合修正系数：
@@ -214,10 +227,20 @@ $$
 
 该目标学习由痕迹预测的完整干扰分数贡献，而不是痕迹方向本身的直接激活修补效应。
 
-**C/F 逐对证据约束。** 仅使用 A/P 目标可能利用混合痕迹中的证据信息获得较大的分数对消。对每个 $q=(x_L^q,x_R^q)\in\mathcal P_{CF}^{\mathrm{fit}}$，定义 $\Delta t_q=t(x_R^q)-t(x_L^q)$，并构造
+**C/F 逐对证据约束。** 仅使用 A/P 目标可能利用混合痕迹中的证据信息获得较大的分数对消。对每个 $q=(x_L^q,x_R^q)\in\mathcal P_{CF}^{\mathrm{fit}}$，定义
 
 $$
-E=\begin{bmatrix}(\Delta t_q)^\top\end{bmatrix}_{q\in\mathcal P_{CF}^{\mathrm{fit}}}\in\mathbb R^{n_{CF}\times r_N}.
+\begin{aligned}
+\Delta\ell_q&=\ell(x_R^q)-\ell(x_L^q),\\
+\Delta\ell'_q&=\ell'(x_R^q)-\ell'(x_L^q),\\
+\Delta t_q&=t(x_R^q)-t(x_L^q).
+\end{aligned}
+$$
+
+将 C/F 配对按固定顺序排列，构造
+
+$$
+E=\operatorname{stack}_{q\in\mathcal P_{CF}^{\mathrm{fit}}}(\Delta t_q^\top)\in\mathbb R^{n_{CF}\times r_N}.
 $$
 
 要求每个参与约束的证据配对上的修正差均不超过预算：
@@ -229,7 +252,10 @@ $$
 因此，对每个 $q\in\mathcal P_{CF}^{\mathrm{fit}}$，均有
 
 $$
-|\Delta\ell'_q-\Delta\ell_q|=|w^\top\Delta t_q|\leq\delta.
+\begin{aligned}
+|\Delta\ell'_q-\Delta\ell_q|&=|w^\top\Delta t_q|\\
+&\leq\delta.
+\end{aligned}
 $$
 
 该约束直接限制最终分数修正，而不是要求痕迹的每一维都不含证据信息。若原始证据响应的绝对值大于 $\delta$，修正不会单独将该配对的响应方向翻转。C/F 标签不作为 $w$ 的分类损失目标；它们只用于确定受保护的配对并构造约束矩阵 $E$。因此，该约束不保证原模型或修正模型在 C/F 两端预测正确，双端正确率和方向退化仍需单独评价。$w=0$ 始终可行；当证据预算限制了对消幅度时，未能解释的干扰变化保留在残差中。
@@ -237,13 +263,19 @@ $$
 **约束优化形式。** 上述目标等价于一个带线性不等式约束的凸二次规划。令
 
 $$
-Q=X^\top X+\lambda I,\qquad q=X^\top d_{AP}.
+\begin{aligned}
+Q&=X^\top X+\lambda I,\\
+g&=X^\top d_{AP}.
+\end{aligned}
 $$
 
 则原岭回归目标去掉与 $w$ 无关的常数项，并整体乘以 $1/2$ 后，可写为
 
 $$
-\hat w=\arg\min_w\left(\frac12w^\top Qw+q^\top w\right),\qquad -\delta\mathbf{1}\leq Ew\leq\delta\mathbf{1}.
+\begin{aligned}
+\hat w&=\arg\min_w\left(\frac12w^\top Qw+g^\top w\right),\\
+\text{subject to}\quad&-\delta\mathbf{1}\leq Ew\leq\delta\mathbf{1}.
+\end{aligned}
 $$
 
 当 $\lambda>0$ 时，$Q$ 正定，目标函数严格凸；$w=0$ 满足约束，因此问题始终可行。当前实现使用 SLSQP 求解该小规模约束问题，设置 $\mathrm{ftol}=10^{-12}$、最大迭代次数为 1500，并检查求解状态及拟合配对上的最大约束违反量。该优化只有 16 个修正系数，不需要更新基础语言模型参数。
@@ -251,7 +283,10 @@ $$
 当前线性实例使用拟合集的 4,887 个 A/P 配对和 135 个 C/F 配对拟合修正参数，设置 $r=16$、$\lambda=0.01$。证据预算定义为
 
 $$
-\delta=\tau\operatorname{RMS}(d_{AP}),\qquad \tau=0.1.
+\begin{aligned}
+\operatorname{RMS}(d_{AP})&=\sqrt{\frac{1}{n_{AP}}\sum_{p\in\mathcal P_{AP}^{\mathrm{fit}}}(\Delta\ell_p)^2},\\
+\delta&=\tau\operatorname{RMS}(d_{AP}),\qquad \tau=0.1.
+\end{aligned}
 $$
 
 当前拟合集 $\operatorname{RMS}(d_{AP})=2.923349$ logit，故 $\delta=0.2923349$ logit。该预算是当前实验的预设值，不是普适常数。无证据约束的 A/P 岭回归作为消融，用于检验证据约束对干扰抑制与证据响应之间权衡的影响。
@@ -323,7 +358,7 @@ $$
 
 令 $Z$ 为 $\ker(H^\top)$ 的正交基，则上述条件可同时满足，当且仅当 $\gamma\in\operatorname{range}(D^\top Z)$。因此，痕迹混入证据并不自动导致修正不可行；关键在于痕迹中是否仍存在能够表征干扰贡献、同时不响应证据变化的方向。
 
-若可微编辑 $T$ 在点 $h_0$ 的雅可比矩阵为 $J_T(h_0)$，且该雅可比保持单位证据切向 $s$、同时消去与其夹角为 $\theta$ 的单位干扰切向，则
+令 $b$ 为与单位证据切向 $s$ 夹角为 $\theta$ 的单位干扰切向。若可微编辑 $T$ 在点 $h_0$ 的雅可比矩阵 $J_T(h_0)$ 满足 $J_T(h_0)s=s$ 且 $J_T(h_0)b=0$，则
 
 $$
 \|I-J_T(h_0)\|_2\geq\csc\theta.
@@ -665,7 +700,7 @@ $$
 D^\top w=-\gamma,\qquad H^\top w=0.
 $$
 
-取 $Z$ 为 $\ker(H^\top)$ 的正交基，则 $w=Z\alpha$。上述两个条件可同时满足，当且仅当
+取 $Z$ 为 $\ker(H^\top)$ 的列正交归一基，则 $w=Z\alpha$。上述两个条件可同时满足，当且仅当
 
 $$
 \boxed{\gamma\in\operatorname{range}(D^\top Z).}
@@ -701,7 +736,7 @@ $$
 
 ### A.4 共享非线性修正的成立条件
 
-为了将对消扩展到一般函数，精确的共享痕迹修正成立，当且仅当分数可分解为仅依赖证据的项与仅通过痕迹确定的标量项之和。也就是说，存在共享函数 $a$ 和仅依赖证据的 $f_*$，使
+为了将对消扩展到一般函数，精确的共享痕迹修正成立，当且仅当存在一个仅依赖证据的函数 $f_*$ 和一个共享标量函数 $a$，使原始分数可分解为证据项与痕迹项之和：
 
 $$
 \ell(e,\nu)=f_*(e)+a(t(e,\nu)).
