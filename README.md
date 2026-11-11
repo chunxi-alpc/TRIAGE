@@ -14,15 +14,17 @@
 ## 当前实验进度（2026-11-11）
 
 - MEGA-CDP四类配对训练数据构建已完成。全部合格池6,345对；均衡集每类635对、共2,540对；四类覆盖80个拟合来源。
-- 本轮没有使用新数据完成模型训练。下一步为Qwen3-8B上的E0—E3新旧数据对照和来源五折验证。
+- Qwen3-8B的E0—E3全量对照和20个来源验证折均已完成；E1保持开发集选定的冻结主方案。另已完成6个独立截距、收益拆分与80来源的2,000次配对重采样。
+- 当前结果：配对修正改善分数稳定性，但相对独立截距基线尚未显示稳定正确率收益；均衡权重未显示稳定正确率优势。MedPIC原生保持85对的下降主要发生在加入截距后。详见[结果与结论](reports/aster_cr_diagnostics_e3cv_20261111/REPORT.zh.md)。
 - 主方法保留五个检查点：Qwen3-8B、Llama-3.1-8B-Instruct、Gemma-2-9B-IT、Gemma-3-27B-IT、MedGemma-27B-Text-IT。
 - 外部基线采用分层比较：Qwen3-8B完整比较，其他模型只比较关键方法；RePS、PSR是新增候选，须先核验实现和任务适配。
 - 原五模型×三数据集×全部基线的285单元全因子方案已被新方案取代，旧文件仅保留作历史审计。
 
 ## 数据、代码与历史资料
 
+- [新旧配对训练结果](reports/aster_cr_retrain_paired_v2_20261111/REPORT.zh.md) · [收益拆分与E3五折验证](reports/aster_cr_diagnostics_e3cv_20261111/REPORT.zh.md)
 - [配对数据构建报告](reports/aster_cr_pair_dataset_20261111/REPORT.zh.md) · [复现程序](experiments/aster_cr_pair_dataset_20261111/README.md)
 - [实验代码](experiments/README.md) · [结果目录](results/README.md)
 - [历史方法与实验索引](docs/ASTER/archive/README.md) · [历史分支记录](docs/BRANCHES.md)
 
-GitHub只收录配对数据构建程序、汇总统计和说明；配对原文及逐条审核记录保留在服务器。
+GitHub收录程序、模型参数、指标、压缩预测和报告；配对原文、逐条审核记录及大缓存保留在服务器。
