@@ -1,0 +1,817 @@
+{
+  "dataset_name": "ASTER-CR MEGA-CDP paired data",
+  "version": "20261111-sol-agents-v2",
+  "stage": "dataset_complete",
+  "experiment_root": "/home/gcx/aster_cr_pair_dataset_20261111",
+  "historical_data_root": "/home/gcx/aster_cr_repair_v2_run_20261108/data",
+  "historical_input_version": "repair-v2",
+  "inventory": {
+    "stage": "inventory_only",
+    "input_data": "/home/gcx/aster_cr_repair_v2_run_20261108/data",
+    "read_reference_report": "/home/gcx/aster-final-two-20261111/reports/aster_cancel_story_20261109/meeting/trace_validation/data_audit.json",
+    "read_paper_story": "/home/gcx/aster-final-two-20261111/reports/aster_cancel_story_20261109/paper_story_latest.zh.md",
+    "fit_sources": 80,
+    "fit_guidelines": 89,
+    "fit_cases": 1712,
+    "fit_gold_nodes": 11722,
+    "expanded_fit_nodes": 1623,
+    "pairs": {
+      "A": {
+        "pairs": 4869,
+        "sources": 80,
+        "guidelines": 89,
+        "cases": 1010,
+        "nodes": 1623,
+        "languages": {
+          "zh": 2589,
+          "en": 2280
+        }
+      },
+      "P": {
+        "pairs": 18,
+        "sources": 10,
+        "guidelines": 10,
+        "cases": 15,
+        "nodes": 18,
+        "languages": {
+          "zh": 18
+        }
+      },
+      "C": {
+        "pairs": 66,
+        "sources": 21,
+        "guidelines": 23,
+        "cases": 38,
+        "nodes": 40,
+        "languages": {
+          "zh": 46,
+          "en": 20
+        }
+      },
+      "F": {
+        "pairs": 69,
+        "sources": 10,
+        "guidelines": 12,
+        "cases": 18,
+        "nodes": 18,
+        "languages": {
+          "en": 4,
+          "zh": 65
+        }
+      },
+      "F0": {
+        "pairs": 82,
+        "sources": 11,
+        "guidelines": 13,
+        "cases": 19,
+        "nodes": 20,
+        "languages": {
+          "zh": 76,
+          "en": 6
+        }
+      }
+    },
+    "source_documents_missing": [],
+    "original_patient_mismatches": 0,
+    "source_splits_disjoint": true,
+    "preserved_historical_ids": true,
+    "semantic_review_completed": false,
+    "clinical_expert_review": false
+  },
+  "fit_source_ids": [
+    "train_val:1027",
+    "train_val:104",
+    "train_val:1056",
+    "train_val:1080",
+    "train_val:1096",
+    "train_val:110",
+    "train_val:1126",
+    "train_val:1128",
+    "train_val:1164",
+    "train_val:1177",
+    "train_val:1250",
+    "train_val:1255",
+    "train_val:1284",
+    "train_val:130",
+    "train_val:1350",
+    "train_val:1378",
+    "train_val:1397",
+    "train_val:1424",
+    "train_val:15",
+    "train_val:1667",
+    "train_val:1683",
+    "train_val:1716",
+    "train_val:1745",
+    "train_val:1781",
+    "train_val:1783",
+    "train_val:1821",
+    "train_val:1838",
+    "train_val:1850",
+    "train_val:1857",
+    "train_val:190",
+    "train_val:1946",
+    "train_val:1977",
+    "train_val:1983",
+    "train_val:2",
+    "train_val:2002",
+    "train_val:2020",
+    "train_val:2022",
+    "train_val:2027",
+    "train_val:2138",
+    "train_val:2154",
+    "train_val:2174",
+    "train_val:2246",
+    "train_val:2299",
+    "train_val:2315",
+    "train_val:2423",
+    "train_val:2509",
+    "train_val:2522",
+    "train_val:2527",
+    "train_val:2528",
+    "train_val:2600",
+    "train_val:2607",
+    "train_val:2696",
+    "train_val:2744",
+    "train_val:2762",
+    "train_val:286",
+    "train_val:304",
+    "train_val:335",
+    "train_val:341",
+    "train_val:377",
+    "train_val:388",
+    "train_val:446",
+    "train_val:467",
+    "train_val:516",
+    "train_val:541",
+    "train_val:721",
+    "train_val:730",
+    "train_val:738",
+    "train_val:739",
+    "train_val:759",
+    "train_val:772",
+    "train_val:78",
+    "train_val:804",
+    "train_val:808",
+    "train_val:811",
+    "train_val:825",
+    "train_val:85",
+    "train_val:855",
+    "train_val:869",
+    "train_val:94",
+    "train_val:976"
+  ],
+  "agent_a": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "agents": [
+      "/root/new_author_c_w0",
+      "/root/w2_p_author",
+      "/root/w2_f_author",
+      "/root/new_author_f_w0",
+      "/root/w2_c_author",
+      "/root/author_w1_f",
+      "/root/new_author_p_w0",
+      "/root/author_w1_p",
+      "/root/author_w1_c"
+    ],
+    "execution": "user-created Codex agent; server data IO",
+    "generation_started": true,
+    "actual_snapshot_exposed": false
+  },
+  "agent_b": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "historical_agent": "/root/agent_b_sol",
+    "new_candidate_agents": [
+      "/root/new_reviewer_c_w0",
+      "/root/w2_p_reviewer",
+      "/root/w2_f_reviewer",
+      "/root/new_reviewer_f_w0",
+      "/root/w2_c_reviewer",
+      "/root/reviewer_w1_f",
+      "/root/new_reviewer_p_w0",
+      "/root/reviewer_w1_p",
+      "/root/reviewer_w1_c"
+    ],
+    "execution": "user-created independent Codex agent; server data IO",
+    "formal_semantic_rounds": 1,
+    "blinded_to_generation_reasoning": true,
+    "actual_snapshot_exposed": false
+  },
+  "protocol": {
+    "formal_version": "sol-agents-v1",
+    "agent_a": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "high",
+      "task": "/root/agent_a_sol"
+    },
+    "agent_b": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "xhigh",
+      "task": "/root/agent_b_sol"
+    },
+    "execution": "Created Codex agents perform semantic generation/review themselves; all dataset IO and deterministic programs run on gcx server",
+    "qwen_trial": "Discarded diagnostic trial only; preserve outputs, exclude all judgments from formal round",
+    "formal_review_scope": {
+      "historical": 5022,
+      "f0_excluded": 82,
+      "review_rounds": 1
+    },
+    "generation_order": [
+      "P",
+      "C",
+      "F",
+      "A_if_needed"
+    ],
+    "generation_after_historical_completed": true,
+    "blind_review": "B receives original full source, original case, node and label, actual edits and expected class; never receives A reasoning/self-evaluation",
+    "gpu": {
+      "formal_gpus": [],
+      "vram_gib": 0
+    },
+    "server_api_required": false,
+    "server_cli_required": false,
+    "originals_preserved": true,
+    "parallelism": {
+      "authorized_by_user": true,
+      "max_concurrent_slots": 4,
+      "coordinator_slots": 1,
+      "max_review_workers": 3,
+      "max_generation_workers": 3,
+      "review_model": "gpt-6.1-sol",
+      "review_reasoning_effort": "xhigh",
+      "generation_model": "gpt-6.1-sol",
+      "generation_reasoning_effort": "high",
+      "historical_plan": "review_sol/shards/plan.json",
+      "ownership": "disjoint source documents and pair IDs",
+      "review_agents": [
+        "/root/agent_b_sol",
+        "/root/agent_b_sol_parallel_1",
+        "/root/agent_b_sol_parallel_2"
+      ],
+      "generation_agents": "Not dispatched in this window per latest user instruction",
+      "generation_review_independence": true,
+      "single_semantic_round_per_pair": true,
+      "continuation": "reports/parallel_continuation.md",
+      "updated_at": "2026-11-11T02:38:16.442473+00:00"
+    },
+    "current_execution_scope": {
+      "current_window_scope": "generation_and_independent_review",
+      "historical_review_complete": true,
+      "author_model": "gpt-6.1-sol",
+      "author_effort": "high",
+      "reviewer_model": "gpt-6.1-sol",
+      "reviewer_effort": "xhigh",
+      "parallel_workers_current_window": 3,
+      "multiple_windows_if_estimate_exceeds_hours": 3,
+      "generation_started_in_this_window": true,
+      "automatic_generation_dispatch": true,
+      "gpus": [],
+      "gpu_memory_mib": 0,
+      "updated_at": "2026-11-11T03:15:24.430750+00:00"
+    },
+    "new_generation_parallelism": {
+      "windows_planned": 3,
+      "workers_per_window": 3,
+      "job_plan": "generation_parallel/plan.json",
+      "one_author_round": true,
+      "one_independent_review_round": true
+    }
+  },
+  "execution_scope": {
+    "current_window_scope": "generation_and_independent_review",
+    "historical_review_complete": true,
+    "author_model": "gpt-6.1-sol",
+    "author_effort": "high",
+    "reviewer_model": "gpt-6.1-sol",
+    "reviewer_effort": "xhigh",
+    "parallel_workers_current_window": 3,
+    "multiple_windows_if_estimate_exceeds_hours": 3,
+    "generation_started_in_this_window": true,
+    "automatic_generation_dispatch": true,
+    "gpus": [],
+    "gpu_memory_mib": 0,
+    "updated_at": "2026-11-11T03:15:24.430750+00:00"
+  },
+  "parallelism": {
+    "historical": {
+      "authorized_by_user": true,
+      "max_concurrent_slots": 4,
+      "coordinator_slots": 1,
+      "max_review_workers": 3,
+      "max_generation_workers": 3,
+      "review_model": "gpt-6.1-sol",
+      "review_reasoning_effort": "xhigh",
+      "generation_model": "gpt-6.1-sol",
+      "generation_reasoning_effort": "high",
+      "historical_plan": "review_sol/shards/plan.json",
+      "ownership": "disjoint source documents and pair IDs",
+      "review_agents": [
+        "/root/agent_b_sol",
+        "/root/agent_b_sol_parallel_1",
+        "/root/agent_b_sol_parallel_2"
+      ],
+      "generation_agents": "Not dispatched in this window per latest user instruction",
+      "generation_review_independence": true,
+      "single_semantic_round_per_pair": true,
+      "continuation": "reports/parallel_continuation.md",
+      "updated_at": "2026-11-11T02:38:16.442473+00:00"
+    },
+    "new_candidates": {
+      "created_at": "2026-11-11T03:15:24.480194+00:00",
+      "tasks": 2150,
+      "windows": 3,
+      "workers_per_window": 3,
+      "jobs": {
+        "w0_P": {
+          "job": "w0_P",
+          "window": 0,
+          "kind": "P",
+          "tasks": 242,
+          "sources": [
+            "train_val:104",
+            "train_val:1126",
+            "train_val:1128",
+            "train_val:1164",
+            "train_val:1255",
+            "train_val:130",
+            "train_val:1350",
+            "train_val:1397",
+            "train_val:1850",
+            "train_val:1857",
+            "train_val:1977",
+            "train_val:2002",
+            "train_val:2174",
+            "train_val:2299",
+            "train_val:2527",
+            "train_val:2607",
+            "train_val:2762",
+            "train_val:335",
+            "train_val:377",
+            "train_val:467",
+            "train_val:721",
+            "train_val:739",
+            "train_val:759",
+            "train_val:808",
+            "train_val:811",
+            "train_val:855"
+          ],
+          "author_model": "gpt-6.1-sol",
+          "author_effort": "high",
+          "review_model": "gpt-6.1-sol",
+          "review_effort": "xhigh"
+        },
+        "w0_C": {
+          "job": "w0_C",
+          "window": 0,
+          "kind": "C",
+          "tasks": 229,
+          "sources": [
+            "train_val:104",
+            "train_val:1126",
+            "train_val:1128",
+            "train_val:1164",
+            "train_val:1255",
+            "train_val:130",
+            "train_val:1350",
+            "train_val:1397",
+            "train_val:1850",
+            "train_val:1857",
+            "train_val:1977",
+            "train_val:2002",
+            "train_val:2174",
+            "train_val:2299",
+            "train_val:2527",
+            "train_val:2607",
+            "train_val:2762",
+            "train_val:335",
+            "train_val:377",
+            "train_val:467",
+            "train_val:721",
+            "train_val:739",
+            "train_val:759",
+            "train_val:808",
+            "train_val:811",
+            "train_val:855"
+          ],
+          "author_model": "gpt-6.1-sol",
+          "author_effort": "high",
+          "review_model": "gpt-6.1-sol",
+          "review_effort": "xhigh"
+        },
+        "w0_F": {
+          "job": "w0_F",
+          "window": 0,
+          "kind": "F",
+          "tasks": 234,
+          "sources": [
+            "train_val:104",
+            "train_val:1126",
+            "train_val:1128",
+            "train_val:1164",
+            "train_val:1255",
+            "train_val:130",
+            "train_val:1350",
+            "train_val:1397",
+            "train_val:1850",
+            "train_val:1857",
+            "train_val:1977",
+            "train_val:2002",
+            "train_val:2174",
+            "train_val:2299",
+            "train_val:2527",
+            "train_val:2607",
+            "train_val:2762",
+            "train_val:335",
+            "train_val:377",
+            "train_val:467",
+            "train_val:721",
+            "train_val:739",
+            "train_val:759",
+            "train_val:808",
+            "train_val:811",
+            "train_val:855"
+          ],
+          "author_model": "gpt-6.1-sol",
+          "author_effort": "high",
+          "review_model": "gpt-6.1-sol",
+          "review_effort": "xhigh"
+        },
+        "w1_P": {
+          "job": "w1_P",
+          "window": 1,
+          "kind": "P",
+          "tasks": 247,
+          "sources": [
+            "train_val:1027",
+            "train_val:1056",
+            "train_val:110",
+            "train_val:1284",
+            "train_val:1424",
+            "train_val:1667",
+            "train_val:1683",
+            "train_val:1781",
+            "train_val:1783",
+            "train_val:190",
+            "train_val:1946",
+            "train_val:2",
+            "train_val:2020",
+            "train_val:2027",
+            "train_val:2315",
+            "train_val:2522",
+            "train_val:2528",
+            "train_val:2696",
+            "train_val:286",
+            "train_val:304",
+            "train_val:388",
+            "train_val:516",
+            "train_val:730",
+            "train_val:78",
+            "train_val:825",
+            "train_val:869",
+            "train_val:94"
+          ],
+          "author_model": "gpt-6.1-sol",
+          "author_effort": "high",
+          "review_model": "gpt-6.1-sol",
+          "review_effort": "xhigh"
+        },
+        "w1_C": {
+          "job": "w1_C",
+          "window": 1,
+          "kind": "C",
+          "tasks": 228,
+          "sources": [
+            "train_val:1027",
+            "train_val:1056",
+            "train_val:110",
+            "train_val:1284",
+            "train_val:1424",
+            "train_val:1667",
+            "train_val:1683",
+            "train_val:1781",
+            "train_val:1783",
+            "train_val:190",
+            "train_val:1946",
+            "train_val:2",
+            "train_val:2020",
+            "train_val:2027",
+            "train_val:2315",
+            "train_val:2522",
+            "train_val:2528",
+            "train_val:2696",
+            "train_val:286",
+            "train_val:304",
+            "train_val:388",
+            "train_val:516",
+            "train_val:730",
+            "train_val:78",
+            "train_val:825",
+            "train_val:869",
+            "train_val:94"
+          ],
+          "author_model": "gpt-6.1-sol",
+          "author_effort": "high",
+          "review_model": "gpt-6.1-sol",
+          "review_effort": "xhigh"
+        },
+        "w1_F": {
+          "job": "w1_F",
+          "window": 1,
+          "kind": "F",
+          "tasks": 248,
+          "sources": [
+            "train_val:1027",
+            "train_val:1056",
+            "train_val:110",
+            "train_val:1284",
+            "train_val:1424",
+            "train_val:1667",
+            "train_val:1683",
+            "train_val:1781",
+            "train_val:1783",
+            "train_val:190",
+            "train_val:1946",
+            "train_val:2",
+            "train_val:2020",
+            "train_val:2027",
+            "train_val:2315",
+            "train_val:2522",
+            "train_val:2528",
+            "train_val:2696",
+            "train_val:286",
+            "train_val:304",
+            "train_val:388",
+            "train_val:516",
+            "train_val:730",
+            "train_val:78",
+            "train_val:825",
+            "train_val:869",
+            "train_val:94"
+          ],
+          "author_model": "gpt-6.1-sol",
+          "author_effort": "high",
+          "review_model": "gpt-6.1-sol",
+          "review_effort": "xhigh"
+        },
+        "w2_P": {
+          "job": "w2_P",
+          "window": 2,
+          "kind": "P",
+          "tasks": 248,
+          "sources": [
+            "train_val:1080",
+            "train_val:1096",
+            "train_val:1177",
+            "train_val:1250",
+            "train_val:1378",
+            "train_val:15",
+            "train_val:1716",
+            "train_val:1745",
+            "train_val:1821",
+            "train_val:1838",
+            "train_val:1983",
+            "train_val:2022",
+            "train_val:2138",
+            "train_val:2154",
+            "train_val:2246",
+            "train_val:2423",
+            "train_val:2509",
+            "train_val:2600",
+            "train_val:2744",
+            "train_val:341",
+            "train_val:446",
+            "train_val:541",
+            "train_val:738",
+            "train_val:772",
+            "train_val:804",
+            "train_val:85",
+            "train_val:976"
+          ],
+          "author_model": "gpt-6.1-sol",
+          "author_effort": "high",
+          "review_model": "gpt-6.1-sol",
+          "review_effort": "xhigh"
+        },
+        "w2_C": {
+          "job": "w2_C",
+          "window": 2,
+          "kind": "C",
+          "tasks": 233,
+          "sources": [
+            "train_val:1080",
+            "train_val:1096",
+            "train_val:1177",
+            "train_val:1250",
+            "train_val:1378",
+            "train_val:15",
+            "train_val:1716",
+            "train_val:1745",
+            "train_val:1821",
+            "train_val:1838",
+            "train_val:1983",
+            "train_val:2022",
+            "train_val:2138",
+            "train_val:2154",
+            "train_val:2246",
+            "train_val:2423",
+            "train_val:2509",
+            "train_val:2600",
+            "train_val:2744",
+            "train_val:341",
+            "train_val:446",
+            "train_val:541",
+            "train_val:738",
+            "train_val:772",
+            "train_val:804",
+            "train_val:85",
+            "train_val:976"
+          ],
+          "author_model": "gpt-6.1-sol",
+          "author_effort": "high",
+          "review_model": "gpt-6.1-sol",
+          "review_effort": "xhigh"
+        },
+        "w2_F": {
+          "job": "w2_F",
+          "window": 2,
+          "kind": "F",
+          "tasks": 241,
+          "sources": [
+            "train_val:1080",
+            "train_val:1096",
+            "train_val:1177",
+            "train_val:1250",
+            "train_val:1378",
+            "train_val:15",
+            "train_val:1716",
+            "train_val:1745",
+            "train_val:1821",
+            "train_val:1838",
+            "train_val:1983",
+            "train_val:2022",
+            "train_val:2138",
+            "train_val:2154",
+            "train_val:2246",
+            "train_val:2423",
+            "train_val:2509",
+            "train_val:2600",
+            "train_val:2744",
+            "train_val:341",
+            "train_val:446",
+            "train_val:541",
+            "train_val:738",
+            "train_val:772",
+            "train_val:804",
+            "train_val:85",
+            "train_val:976"
+          ],
+          "author_model": "gpt-6.1-sol",
+          "author_effort": "high",
+          "review_model": "gpt-6.1-sol",
+          "review_effort": "xhigh"
+        }
+      },
+      "one_generation_round": true,
+      "one_review_round": true,
+      "automatic_semantic_retry": false
+    }
+  },
+  "discarded_qwen_trial": {
+    "path": "review_b/",
+    "issue": "reports/reviewer_issue.json",
+    "used_in_official_review": false,
+    "counts_as_official_round": false
+  },
+  "gpu_resources": {
+    "gpus_used_for_formal_dataset_work": [],
+    "vram_gib": 0
+  },
+  "external_api_used": false,
+  "server_codex_cli_used": false,
+  "clinical_expert_review": false,
+  "human_audit": {
+    "status": "awaiting_human_review",
+    "selected": 150,
+    "actually_reviewed": 0,
+    "actual_review_fraction": 0,
+    "human_pass_rate": null,
+    "clinical_expert_involved": false
+  },
+  "deterministic_validation": {
+    "script": "scripts/validate.py",
+    "schema": "pair.schema.json",
+    "unresolved_near_duplicates": "UNCERTAIN"
+  },
+  "dataset_a": {
+    "path": "balanced_train.jsonl",
+    "selection": "source, language and complexity stratification; same count per class from smallest accepted class; prioritize distinct cases before reusing a case"
+  },
+  "dataset_b": {
+    "path": "full_pool_train.jsonl",
+    "selection": "all accepted A/P/C/F",
+    "future_training": "class-balanced sampling or inverse-frequency weights; same model/features/objective/evaluation as Dataset A"
+  },
+  "balanced_selection_revision": {
+    "version": "20261111-sol-agents-v2",
+    "changed": "Balanced subset selection now prioritizes distinct cases within source/language/tree-complexity strata",
+    "previous_version_backup": "reports/dataset_versions/v1/",
+    "unchanged_counts": {
+      "A": 4368,
+      "C": 676,
+      "P": 635,
+      "F": 666
+    },
+    "unchanged_accepted_pool": true,
+    "unchanged_semantic_reviews": true,
+    "review_rounds": 1,
+    "balanced_coverage": {
+      "A": {
+        "pairs": 635,
+        "sources": 80,
+        "cases": 635
+      },
+      "P": {
+        "pairs": 635,
+        "sources": 80,
+        "cases": 622
+      },
+      "C": {
+        "pairs": 635,
+        "sources": 80,
+        "cases": 635
+      },
+      "F": {
+        "pairs": 635,
+        "sources": 80,
+        "cases": 635
+      }
+    },
+    "hash_checks": false
+  },
+  "training_performed": false,
+  "model_structure_changed": false,
+  "paper_conclusions_changed": false,
+  "artifacts": {
+    "historical_pairs.jsonl": {
+      "bytes": 188032105
+    },
+    "f0_diagnostic_pairs.jsonl": {
+      "bytes": 2502480
+    },
+    "generated_candidates.jsonl": {
+      "bytes": 60031832
+    },
+    "accepted_historical_pairs.jsonl": {
+      "bytes": 165835408
+    },
+    "rejected_historical_pairs.jsonl": {
+      "bytes": 22509712
+    },
+    "accepted_pairs.jsonl": {
+      "bytes": 224127529
+    },
+    "rejected_pairs.jsonl": {
+      "bytes": 24272027
+    },
+    "review_results_historical.jsonl": {
+      "bytes": 5630790
+    },
+    "review_results.jsonl": {
+      "bytes": 7388134
+    },
+    "balanced_train.jsonl": {
+      "bytes": 77681550
+    },
+    "full_pool_train.jsonl": {
+      "bytes": 224127529
+    },
+    "pair_statistics.csv": {
+      "bytes": 266
+    },
+    "source_coverage.csv": {
+      "bytes": 7891
+    },
+    "human_audit.csv": {
+      "bytes": 15615
+    }
+  },
+  "created_or_updated_at": "2026-11-11T04:41:34.102470+00:00",
+  "packages": {
+    "torch": "2.8.0",
+    "transformers": "4.57.6",
+    "jsonschema": "4.26.0",
+    "matplotlib": "3.11.2"
+  },
+  "publication": {
+    "repository": "chunxi-alpc/TRIAGE",
+    "directory": "reports/aster_cr_pair_dataset_20261111",
+    "scope": "programs, documentation, aggregate statistics and figures only",
+    "dataset_files_uploaded": false,
+    "per_record_review_files_uploaded": false,
+    "raw_sources_uploaded": false,
+    "server_artifact_directory": "/home/gcx/aster_cr_pair_dataset_20261111",
+    "artifact_entries_describe": "files preserved on server; not repository contents",
+    "hash_checks": false
+  }
+}

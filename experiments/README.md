@@ -8,6 +8,7 @@
 | 可学习M3五方法全量实验 | [aster_learnable_m3](aster_learnable_m3/README.zh.md) |
 | 节点、迁移、选头及N/S/NS | [aster_m3_followup](aster_m3_followup/README.zh.md)；9配置训练与200题迁移完成，主测试未完成 |
 | CR / repair-v2基础实现 | [aster_cr](aster_cr/README.zh.md) |
+| MEGA-CDP配对数据构建与独立审核 | [aster_cr_pair_dataset_20261111](aster_cr_pair_dataset_20261111/README.md)：合格6,345对，均衡2,540对，数据留服务器 |
 | CR优化、证据保护、机制验证及模拟 | [源码和结果归档](../results/aster_cr_research_20261109.zip) |
 | 五模型、MedPIC和跨任务适配 | [源码和结果归档](../results/aster_cr_transfer_20261110.zip) |
 | 新痕迹修复（未完成） | [代码和状态快照](aster_cr/trace_repair_20261110.zip) |

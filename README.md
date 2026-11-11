@@ -12,6 +12,10 @@
 | ASTER 表示编辑 | 闭式投影、参考设置、可学习 M3、N/S/NS 配对训练 | [方法演变](docs/ASTER/versions.zh.md#表示编辑) |
 | ASTER-CR 分数修正 | 线性与非线性修正、证据保护、五模型和跨任务实验 | [近期实验](docs/ASTER/experiments.zh.md#近期分数修正实验) |
 
+## 配对训练数据：2026-11-11
+
+ASTER-CR的MEGA-CDP配对数据构建已完成：全部合格池6,345对，均衡集每类635对、共2,540对；四类均覆盖80个拟合来源。生成为Sol/high，独立审核为Sol/xhigh；尚未使用新数据训练模型。[构建报告与两张图](reports/aster_cr_pair_dataset_20261111/README.md) · [程序与复现](experiments/aster_cr_pair_dataset_20261111/README.md)。GitHub只收录程序、说明和汇总，数据及逐条记录保留服务器。
+
 ## 当前结果与进度
 
 核对日期：2026-11-10。不同阶段的提示、训练数据和评价范围分别记录。
@@ -27,4 +31,4 @@
 
 先看[实验总表](docs/ASTER/experiments.zh.md)，需要方法细节再读[方法说明](docs/ASTER/versions.zh.md)或[论文](reports/aster_cancel_story_20261109/paper_story_latest.zh.md)。代码与结果分别从[实验目录](experiments/README.md)和[结果目录](results/README.md)进入。
 
-历史报告保留原位置；本次补齐材料按主题压缩收纳，包内附来源和文件说明，见[归档对应表](docs/ASTER/experiments.zh.md#本次补齐的归档)。本次只整理已有材料，没有新增实验。
+历史报告保留原位置；2026-11-10补齐材料按主题压缩收纳，包内附来源和文件说明，见[归档对应表](docs/ASTER/experiments.zh.md#本次补齐的归档)。该次归档只整理已有材料；2026-11-11的数据构建另见上方入口。

@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "pair_id",
+    "kind",
+    "origin",
+    "source_id",
+    "split",
+    "case_id",
+    "group_id",
+    "guideline_id",
+    "source_filename",
+    "node_id",
+    "raw_node_index",
+    "language",
+    "tree_complexity",
+    "source_document",
+    "original",
+    "modified",
+    "edits",
+    "counterfactual",
+    "source_evidence",
+    "label_derivation",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "pair_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "A",
+        "P",
+        "C",
+        "F",
+        "F0"
+      ]
+    },
+    "origin": {
+      "enum": [
+        "historical",
+        "generated"
+      ]
+    },
+    "split": {
+      "const": "fit"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "group_id": {
+      "type": "string"
+    },
+    "guideline_id": {
+      "type": "integer"
+    },
+    "source_filename": {
+      "type": "string"
+    },
+    "node_id": {
+      "type": "string",
+      "pattern": "^G[0-9]+$"
+    },
+    "raw_node_index": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "language": {
+      "type": "string"
+    },
+    "tree_complexity": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "source_document": {
+      "type": "string"
+    },
+    "original": {
+      "$ref": "#/$defs/side"
+    },
+    "modified": {
+      "$ref": "#/$defs/side"
+    },
+    "edits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "component",
+          "old",
+          "new"
+        ],
+        "properties": {
+          "component": {
+            "enum": [
+              "patient",
+              "condition",
+              "guide",
+              "definitions"
+            ]
+          },
+          "old": {
+            "type": "string"
+          },
+          "new": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "counterfactual": {
+      "type": "boolean"
+    },
+    "source_evidence": {
+      "type": "object"
+    },
+    "label_derivation": {
+      "type": "object"
+    },
+    "provenance": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "side": {
+      "type": "object",
+      "required": [
+        "patient",
+        "condition",
+        "guide",
+        "definitions",
+        "node_id",
+        "label",
+        "prompt"
+      ],
+      "properties": {
+        "patient": {
+          "type": "string",
+          "minLength": 1
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "guide": {
+          "type": "string",
+          "minLength": 1
+        },
+        "definitions": {
+          "type": "string"
+        },
+        "node_id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ]
+        },
+        "prompt": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

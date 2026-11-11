@@ -4,6 +4,7 @@
 
 | 结果 | 入口 |
 |---|---|
+| ASTER-CR配对训练数据构建 | [报告、统计和两张图](../reports/aster_cr_pair_dataset_20261111/README.md)：合格6,345对，均衡每类635对；未进行模型训练 |
 | CR优化、正式测试、机制验证及模拟 | [近期研究归档](aster_cr_research_20261109.zip) |
 | 五模型旧15组、MedPIC及跨任务A/B/C、G0/G1/G2 | [迁移归档](aster_cr_transfer_20261110.zip)、[五模型CSV](aster_five_models_20261109.csv) |
 | CR / repair-v2原阶段 | [结果和逐例明细](aster_cr_repair_v2_20261108/README.md) |
