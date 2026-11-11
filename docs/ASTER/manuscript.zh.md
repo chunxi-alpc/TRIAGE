@@ -162,75 +162,74 @@ M1 不把每个入选头解释为纯粹的干扰通道。它同时保留与干�
 
 为了从选定头的混合激活中提取可用于预测干扰分数变化的特征，同时减少主要证据变化进入修正读出，M2 分别估计证据子空间和干扰相关子空间，并将后者投影到前者的正交补空间。
 
-将 M1 选出的查询头在输入 $x$ 上、位于 $o_{\mathrm{proj}}$ 之前的末位置激活拼接为 $h(x)$。标准化统计量由拟合集中的原始完整输入估计：
+将 M1 选出的查询头在输入 $x$ 上、位于 $o_{\mathrm{proj}}$ 之前的末位置激活拼接为 $h(x)\in\mathbb R^d$。令 $\mathcal V_{\mathrm{fit}}^{\mathrm{full}}$ 表示拟合集中的完整输入视图集合，$n_{\mathrm{fit}}=|\mathcal V_{\mathrm{fit}}^{\mathrm{full}}|$。标准化统计量仅由该集合估计：
 
 $$
-\tilde h(x)=\big(h(x)-\mu\big)\oslash s,\qquad
-s_j=\max(\operatorname{Std}_{\mathrm{fit}}(h_j),10^{-5}).
+\mu_j=\frac{1}{n_{\mathrm{fit}}}\sum_{x\in\mathcal V_{\mathrm{fit}}^{\mathrm{full}}}h_j(x),\qquad s_j=\max\left(\sqrt{\frac{1}{n_{\mathrm{fit}}}\sum_{x\in\mathcal V_{\mathrm{fit}}^{\mathrm{full}}}(h_j(x)-\mu_j)^2},10^{-5}\right),\qquad \tilde h(x)=(h(x)-\mu)\oslash s.
 $$
 
-其中 $\mu$ 为逐维均值，$s$ 为逐维尺度，$\oslash$ 表示逐元素除法。所有统计量均仅由拟合集估计，并在开发和测试阶段冻结。
+其中 $\mu,s\in\mathbb R^d$ 分别为逐维均值和标准差，$\oslash$ 表示逐元素除法。标准差采用总体定义。所有统计量均仅由拟合集估计，并在开发和测试阶段冻结。
 
-接下来，分别构造 C/F 与 A/P 的标准化配对差分矩阵。每个拟合配对在矩阵中占一行，不沿用 M1 的错误/边界权重：
-
-$$
-D_{CF}=\operatorname{stack}_{(L,R)\in C/F_{\mathrm{fit}}}
-\big(\tilde h(x_R)-\tilde h(x_L)\big),
-\qquad
-D_{AP}=\operatorname{stack}_{(L,R)\in A/P_{\mathrm{fit}}}
-\big(\tilde h(x_R)-\tilde h(x_L)\big).
-$$
-
-记 $\operatorname{Basis}_r(D)$ 为矩阵 $D$ 的右奇异向量中对应前 $r$ 个有效奇异值的列向量。对 C/F 差分进行奇异值分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：
+令 $\mathcal P_{CF}^{\mathrm{fit}}=\mathcal P_C^{\mathrm{fit}}\cup\mathcal P_F^{\mathrm{fit}}$，$\mathcal P_{AP}^{\mathrm{fit}}=\mathcal P_A^{\mathrm{fit}}\cup\mathcal P_P^{\mathrm{fit}}$，并记 $n_{CF}=|\mathcal P_{CF}^{\mathrm{fit}}|$、$n_{AP}=|\mathcal P_{AP}^{\mathrm{fit}}|$。对任一配对 $p=(x_L^p,x_R^p)$，定义标准化激活差分。每个拟合配对在差分矩阵中占一行，且不沿用 M1 的错误/边界权重：
 
 $$
-N=\operatorname{orth}\big((I-SS^\top)U\big),\qquad
-t(x)=N^\top\tilde h(x).
+D_{CF}=\operatorname{stack}_{p\in\mathcal P_{CF}^{\mathrm{fit}}}(\tilde h(x_R^p)-\tilde h(x_L^p))\in\mathbb R^{n_{CF}\times d},\qquad D_{AP}=\operatorname{stack}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}(\tilde h(x_R^p)-\tilde h(x_L^p))\in\mathbb R^{n_{AP}\times d}.
 $$
 
-其中 $N$ 为最终痕迹基，$t(x)$ 为低维痕迹。在当前 Qwen3-8B 实例中，子空间秩设置为 $r=16$，最终读出使用 16 维痕迹。
+记 $D=U_D\Sigma_DV_D^\top$ 为奇异值分解。令 $r_{\mathrm{eff}}$ 为按数值阈值保留的前 $r$ 个奇异值的数量，并定义 $\operatorname{Basis}_r(D)=V_D[:,1:r_{\mathrm{eff}}]$。对 C/F 差分进行分解，得到证据子空间基 $S=\operatorname{Basis}_r(D_{CF})$；对 A/P 差分进行分解，得到干扰相关基 $U=\operatorname{Basis}_r(D_{AP})$。为减少主要证据变化进入最终痕迹，将 $U$ 投影到 $S$ 的正交补并重新正交化：
 
-数值实现采用随机化奇异值分解提取主方向，随机种子固定为 20261108。对 $S$ 和 $U$，仅保留满足 $\sigma_i>\max(10^{-7},10^{-6}\sigma_{\max})$ 的奇异方向；投影后的残差再进行一次双重正交化和奇异值分解，仅保留满足 $\sigma_i>\max(10^{-10},10^{-6}\sigma_{\max})$ 的方向，以减小有限精度误差。该构造满足 $N^\top S\approx0$，表示痕迹与所估计的主要证据方向近似正交。它并不意味着所有可能的证据信息都已被移除，也不保证痕迹与证据在统计意义上独立。有限样本和秩截断可能使 $S$ 未覆盖全部证据变化。因此，M2 只负责降低主要证据方向进入修正特征的程度；最终修正对证据的影响仍由 M3 的逐对约束直接限制。
+$$
+N=\operatorname{orth}\big((I-SS^\top)U\big),\qquad t(x)=N^\top\tilde h(x).
+$$
+
+数值实现采用随机化奇异值分解提取主方向，随机种子固定为 20261108。对 $S$ 和 $U$，仅保留满足 $\sigma_i>\max(10^{-7},10^{-6}\sigma_{\max})$ 的奇异方向；投影后的残差再进行双重正交化和奇异值分解，仅保留满足 $\sigma_i>\max(10^{-10},10^{-6}\sigma_{\max})$ 的方向，以减小有限精度误差。这里 $\operatorname{orth}(\cdot)$ 表示返回列正交基的数值正交化算子。该构造满足 $N^\top S\approx0$，表示痕迹与所估计的主要证据方向近似正交。它并不意味着所有可能的证据信息都已被移除，也不保证痕迹与证据在统计意义上独立。有限样本和秩截断可能使 $S$ 未覆盖全部证据变化。记 $r_N=\operatorname{rank}(N)$；当前 Qwen3-8B 实例中 $r=16$ 且 $r_N=16$，因此 $t(x)\in\mathbb R^{16}$。M2 只负责降低主要证据方向进入修正特征的程度；最终修正对证据的影响仍由 M3 的逐对约束直接限制。
 
 ### 3.5 M3：证据约束的分数修正
 
 为了抵消输入相关的干扰分数变化，同时限制对决定性证据响应的改动，M3 使用 A/P 配对学习修正函数，并在拟合阶段以 C/F 配对施加逐对证据预算。修正后的分数定义为
 
 $$
-\ell'(x)=\ell(x)+c_\phi(t(x))+b,
+\ell'(x)=\ell(x)+c_\phi(t(x))+b.
 $$
 
 其中 $c_\phi$ 为共享修正函数，$b$ 为独立校准的截距。本文的主方法采用线性修正 $c_\phi(t)=w^\top t$；非线性函数仅作为函数容量的探索性比较，不与主线性实例混为一谈。
 
-**A/P 差分对消。** 对任一 A/P 配对 $(x_L,x_R)$，定义
+**A/P 差分对消。** 对每个 $p=(x_L^p,x_R^p)\in\mathcal P_{AP}^{\mathrm{fit}}$，定义
 
 $$
-\Delta\ell_{AP}=\ell(x_R)-\ell(x_L),\qquad
-\Delta t_{AP}=t(x_R)-t(x_L).
+\Delta\ell_p=\ell(x_R^p)-\ell(x_L^p),\qquad \Delta t_p=t(x_R^p)-t(x_L^p).
 $$
 
-令 $X$ 的每一行为一个 A/P 配对的 $\Delta t_{AP}^\top$，令 $d_{AP}$ 为相应的原始分数差。当前线性实例对所有 A/P 配对等权，不使用类别重加权；M1 的配对权重只用于头定位，不进入 M3 的回归目标。理想情况下，修正后的配对分数差应接近零，因此以岭回归目标拟合修正系数：
+将所有 A/P 配对按固定顺序排列，构造
 
 $$
-\hat w=\arg\min_w
-\left(\|Xw+d_{AP}\|_2^2+\lambda\|w\|_2^2\right).
+X=\begin{bmatrix}(\Delta t_p)^\top\end{bmatrix}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}\in\mathbb R^{n_{AP}\times r_N},\qquad d_{AP}=\begin{bmatrix}\Delta\ell_p\end{bmatrix}_{p\in\mathcal P_{AP}^{\mathrm{fit}}}\in\mathbb R^{n_{AP}}.
+$$
+
+当前线性实例对所有 A/P 配对等权，不使用类别重加权；M1 的配对权重只用于头定位，不进入 M3 的回归目标。理想情况下，修正后的配对分数差应接近零，因此以岭回归目标拟合修正系数：
+
+$$
+\hat w=\arg\min_w\left(\|Xw+d_{AP}\|_2^2+\lambda\|w\|_2^2\right).
 $$
 
 该目标学习由痕迹预测的完整干扰分数贡献，而不是痕迹方向本身的直接激活修补效应。
 
-**C/F 逐对证据约束。** 仅使用 A/P 目标可能利用混合痕迹中的证据信息获得较大的分数对消。为此，令 $E$ 的每一行为一个拟合 C/F 配对的 $\Delta t_{CF}^\top$，并要求每个证据配对上的修正差均不超过预算：
+**C/F 逐对证据约束。** 仅使用 A/P 目标可能利用混合痕迹中的证据信息获得较大的分数对消。对每个 $q=(x_L^q,x_R^q)\in\mathcal P_{CF}^{\mathrm{fit}}$，定义 $\Delta t_q=t(x_R^q)-t(x_L^q)$，并构造
 
 $$
-\|Ew\|_\infty\leq\delta,
-\qquad
-\Delta t_{CF}=t(x_R)-t(x_L).
+E=\begin{bmatrix}(\Delta t_q)^\top\end{bmatrix}_{q\in\mathcal P_{CF}^{\mathrm{fit}}}\in\mathbb R^{n_{CF}\times r_N}.
 $$
 
-因此，对每个参与约束的 C/F 配对均有
+要求每个参与约束的证据配对上的修正差均不超过预算：
 
 $$
-|\Delta\ell'_{CF}-\Delta\ell_{CF}|
-=|w^\top\Delta t_{CF}|\leq\delta.
+\|Ew\|_\infty\leq\delta.
+$$
+
+因此，对每个 $q\in\mathcal P_{CF}^{\mathrm{fit}}$，均有
+
+$$
+|\Delta\ell'_q-\Delta\ell_q|=|w^\top\Delta t_q|\leq\delta.
 $$
 
 该约束直接限制最终分数修正，而不是要求痕迹的每一维都不含证据信息。若原始证据响应的绝对值大于 $\delta$，修正不会单独将该配对的响应方向翻转。C/F 标签不作为 $w$ 的分类损失目标；它们只用于确定受保护的配对并构造约束矩阵 $E$。因此，该约束不保证原模型或修正模型在 C/F 两端预测正确，双端正确率和方向退化仍需单独评价。$w=0$ 始终可行；当证据预算限制了对消幅度时，未能解释的干扰变化保留在残差中。
@@ -238,15 +237,13 @@ $$
 **约束优化形式。** 上述目标等价于一个带线性不等式约束的凸二次规划。令
 
 $$
-Q=X^\top X+\lambda I,\qquad q=X^\top d_{AP},
+Q=X^\top X+\lambda I,\qquad q=X^\top d_{AP}.
 $$
 
-则
+则原岭回归目标去掉与 $w$ 无关的常数项，并整体乘以 $1/2$ 后，可写为
 
 $$
-\hat w=\arg\min_w\frac12w^\top Qw+q^\top w,
-\qquad
--\delta\mathbf{1}\leq Ew\leq\delta\mathbf{1}.
+\hat w=\arg\min_w\left(\frac12w^\top Qw+q^\top w\right),\qquad -\delta\mathbf{1}\leq Ew\leq\delta\mathbf{1}.
 $$
 
 当 $\lambda>0$ 时，$Q$ 正定，目标函数严格凸；$w=0$ 满足约束，因此问题始终可行。当前实现使用 SLSQP 求解该小规模约束问题，设置 $\mathrm{ftol}=10^{-12}$、最大迭代次数为 1500，并检查求解状态及拟合配对上的最大约束违反量。该优化只有 16 个修正系数，不需要更新基础语言模型参数。
@@ -262,17 +259,13 @@ $$
 **独立截距校准。** 完成 $\hat w$ 的拟合后，固定修正系数，在拟合集的 761 个自然原始输入上使用任务标签和二元交叉熵单独拟合截距 $b$：
 
 $$
-\hat b=\arg\min_b
-\sum_{i\in\mathcal V_{\mathrm{fit}}^{\mathrm{nat}}}
-\operatorname{BCEWithLogits}
-\big(\ell(x_i)+\hat w^\top t(x_i)+b,y_i\big).
+\hat b=\arg\min_b\sum_{i\in\mathcal V_{\mathrm{fit}}^{\mathrm{nat}}}\operatorname{BCEWithLogits}\big(\ell(x_i)+\hat w^\top t(x_i)+b,y_i\big).
 $$
 
-等价地，$\hat b$ 满足
+等价地，$\hat b$ 满足一阶最优条件
 
 $$
-\sum_i\sigma\big(\ell(x_i)+\hat w^\top t(x_i)+\hat b\big)
-=\sum_i y_i.
+\sum_{i\in\mathcal V_{\mathrm{fit}}^{\mathrm{nat}}}\sigma\big(\ell(x_i)+\hat w^\top t(x_i)+\hat b\big)=\sum_{i\in\mathcal V_{\mathrm{fit}}^{\mathrm{nat}}}y_i.
 $$
 
 由于共享截距在任意配对差分中抵消，它不会改变 A/P 对消目标或 C/F 修正预算。因而，差分回归负责输入相关的修正，截距只负责整体阈值校准。
@@ -293,28 +286,26 @@ $$
 
 **算法1：ASTER-CR 的训练与推理。**
 
-```text
-输入：冻结模型 f；拟合集 A/P、C/F 配对；自然节点集合 V_nat；
-      头数 k；子空间秩 r；正则系数 λ；预算比例 τ。
+**输入：** 冻结模型 $f$；拟合集 A/P、C/F 配对；自然节点集合 $\mathcal V_{\mathrm{fit}}^{\mathrm{nat}}$；头数 $k$；子空间秩 $r$；正则系数 $\lambda$；预算比例 $\tau$。
 
-训练：
-1. 对 A、P、C、F 分别计算加权梯度归因，保留每类前 64 个候选头。
+**训练：**
+1. 对 A、P、C、F 分别计算加权梯度归因，每类保留前 64 个候选头。
 2. 对每类选取至多 12 个来源不同的拟合配对，执行双向单头激活修补并排序。
-3. 融合 A/P 与 C/F 排名，得到头集合 H。
-4. 用 H 提取拟合完整输入的激活，估计 μ 和 s。
-5. 对 C/F 与 A/P 激活差分分别执行秩 r 的 SVD，得到 S 和 U。
-6. 计算 N = orth((I - S S^T) U)，并为每个输入提取 t(x)。
-7. 构造 A/P 差分矩阵 X、原分数差 d_AP，以及 C/F 差分矩阵 E。
-8. 计算 δ = τ RMS(d_AP)，求解带约束的凸二次规划，得到 w。
-9. 固定 w，在 V_nat 上拟合共享截距 b。
+3. 融合 A/P 与 C/F 排名，得到查询头集合 $\mathcal H$。
+4. 用 $\mathcal H$ 提取拟合完整输入的激活，估计标准化参数 $\mu$ 和 $s$。
+5. 构造 $D_{CF}$ 与 $D_{AP}$，分别执行秩 $r$ 的奇异值分解，得到 $S$ 和 $U$。
+6. 计算 $N=\operatorname{orth}((I-SS^\top)U)$，并为每个输入提取 $t(x)=N^\top\tilde h(x)$。
+7. 构造 A/P 差分矩阵 $X$、原分数差向量 $d_{AP}$，以及 C/F 差分矩阵 $E$。
+8. 计算 $\delta=\tau\operatorname{RMS}(d_{AP})$，求解受约束凸二次规划，得到 $\hat w$。
+9. 固定 $\hat w$，在自然拟合节点集合 $\mathcal V_{\mathrm{fit}}^{\mathrm{nat}}$ 上拟合共享截距 $\hat b$。
 
-推理：
-1. 对当前节点输入 x 执行一次冻结模型序列评分流程（前缀预填充与末位置评分），得到 ℓ(x) 和 H 对应的头激活。
-2. 使用冻结的 μ、s、N 计算 t(x)。
-3. 计算 ℓ'(x) = ℓ(x) + w^T t(x) + b。
-4. 若 $\ell'(x)>0$ 则选择“是”分支，否则选择“否”分支；重复至叶节点。
-输出：修正后的节点判断及指南树路径。
-```
+**推理：**
+1. 对当前节点输入 $x$ 执行一次冻结模型序列评分前向，读取原始分数 $\ell(x)$ 和 $\mathcal H$ 对应的末位置激活。
+2. 使用冻结的 $\mu$、$s$ 和 $N$ 计算标准化激活 $\tilde h(x)$ 及痕迹 $t(x)$。
+3. 计算修正分数 $\ell'(x)=\ell(x)+\hat w^\top t(x)+\hat b$。
+4. 若 $\ell'(x)>0$，选择“是”分支；否则选择“否”分支。重复执行直至到达叶节点。
+
+**输出：** 修正后的节点判断及指南树路径。
 
 算法中的 $k=51$、$r=16$、$\lambda=0.01$ 和 $\tau=0.1$ 对应当前 Qwen3-8B 实验配置；它们不是所有主干模型共享的理论常数。
 
@@ -332,7 +323,13 @@ $$
 
 令 $Z$ 为 $\ker(H^\top)$ 的正交基，则上述条件可同时满足，当且仅当 $\gamma\in\operatorname{range}(D^\top Z)$。因此，痕迹混入证据并不自动导致修正不可行；关键在于痕迹中是否仍存在能够表征干扰贡献、同时不响应证据变化的方向。
 
-若可微编辑 $T$ 在同一点保持单位证据切向 $s$，同时消去与其夹角为 $\theta$ 的单位干扰切向，则 $\|I-J_T\|_2\geq\csc\theta$。该结论依赖指定的局部切向约束；若方法允许证据重新编码，或只要求最终输出保持，则应采用相应的任务级约束评价，而不能将该界解释为所有输出修正方法的下界。
+若可微编辑 $T$ 在点 $h_0$ 的雅可比矩阵为 $J_T(h_0)$，且该雅可比保持单位证据切向 $s$、同时消去与其夹角为 $\theta$ 的单位干扰切向，则
+
+$$
+\|I-J_T(h_0)\|_2\geq\csc\theta.
+$$
+
+该结论依赖指定的局部切向约束；若方法允许证据重新编码，或只要求最终输出保持，则应采用相应的任务级约束评价，而不能将该界解释为所有输出修正方法的下界。
 
 对于一般共享非线性修正函数，必要条件是需要抵消的标量贡献能够由同一个痕迹函数确定。增加函数容量可以拟合更复杂的映射，但不能恢复痕迹中不存在的信息。完整命题、证明和反例见附录A。
 
@@ -643,7 +640,7 @@ $$
 \frac{[1-\cos\theta\,\varepsilon_s-\varepsilon_b]_+}{\sin\theta}.
 $$
 
-该命题说明，增加非线性并不自动消除“同点保持原有证据切向、同时压平干扰切向”的局部约束。它给出编辑改变量的局部最坏方向增益；实际误差取决于数据、误差方向及后续计算。只保持最终任务分数而允许证据表示重编码的编辑，采用的是更弱的保留条件，应通过对应任务目标评价。
+其中 $[u]_+=\max(u,0)$。该命题说明，增加非线性并不自动消除“同点保持原有证据切向、同时压平干扰切向”的局部约束。它给出编辑改变量的局部最坏方向增益；实际误差取决于数据、误差方向及后续计算。只保持最终任务分数而允许证据表示重编码的编辑，采用的是更弱的保留条件，应通过对应任务目标评价。
 
 $\theta=45^\circ$ 的精确下界为约 1.414。历史约 1.412 的算子值 [R2] 仅作为不同实测条件下的近似参照，不作严格数值验证。
 
@@ -704,19 +701,19 @@ $$
 
 ### A.4 共享非线性修正的成立条件
 
-为了将对消扩展到一般函数，要求分数中需要移除的贡献可由同一个痕迹函数确定：存在共享函数 $a$ 和仅依赖证据的 $f_*$，使
+为了将对消扩展到一般函数，精确的共享痕迹修正成立，当且仅当分数可分解为仅依赖证据的项与仅通过痕迹确定的标量项之和。也就是说，存在共享函数 $a$ 和仅依赖证据的 $f_*$，使
 
 $$
 \ell(e,\nu)=f_*(e)+a(t(e,\nu)).
 $$
 
-取 $c_\phi=-a$，则 $\ell'=f_*(e)+b$，实现固定证据时的干扰不变性。痕迹只需确定这个标量贡献；神经网络增加对 $a$ 的拟合能力。
+取 $c_\phi(t)=-a(t)$，则 $\ell'=f_*(e)+b$，实现固定证据时的干扰不变性。痕迹只需确定这个标量贡献；神经网络增加对 $a$ 的拟合能力。
 
 共享函数的存在是信息条件。例如 $\ell=e+e\nu$、$t=\nu$，且 $e$ 可取正负值时，同一干扰变化在不同证据条件下产生相反的分数变化，单个 $c(t)$ 无法同时抵消。此时需要检验痕迹是否还提供了区分这些贡献的信息。现有信息不足以保证共享修正函数可跨所有证据条件使用；附录D.1仅在受控合成条件下检验了可加情形。
 
 为了同时保持原分数在固定干扰下的证据响应，还需 $a(t(e,\nu))$ 在固定 $\nu$ 时不随 $e$ 改变。局部模型中 $H=0$ 且分数可加时满足这一要求。若目标包含证据与干扰的交互，去掉交互贡献也可能改变原 C/F 响应，因此 ER 与逐对方向、正确率共同解释。
 
-A/P 配对监督干扰修正的变化，C/F 约束限制随证据变化的 $k(e)$，全局加法常数由 $b$ 校准。有限配对所覆盖的变化具有直接约束，留出证据配对用于检验同一函数的迁移。线性实例的特征中心平移只产生常数，一般非线性实例保持训练时的标准化。
+A/P 配对监督干扰修正的变化，C/F 约束限制修正项 $c_\phi(t(e,\nu))$ 随证据变化的幅度，全局加法常数由 $b$ 校准。有限配对所覆盖的变化具有直接约束，留出证据配对用于检验同一函数的迁移。线性实例的特征中心平移只产生常数，一般非线性实例保持训练时的标准化。
 
 表示编辑也能实现与输出修正相同的分数函数。同监督对照比较达到相同不变性和证据保留时的数据、计算及实现代价。痕迹噪声与不同条件下的迁移通过留出预测评价。
 
@@ -746,7 +743,13 @@ $$
 
 二元正类预测使用严格大于零的阈值；等于零归负类。共享截距在配对差分中抵消。真实模型分数以logit计，合成分数以生成模型的分数单位计，二者不直接合并。
 
-**干扰指标。** 主文的干扰RMS对合格A/P配对求均方根。辅助VR定义为
+**干扰指标。** 令 $\mathcal I$ 表示合格的 A/P 配对索引集，$\mathcal E$ 表示 C/F 证据翻转配对索引集。主文的干扰 RMS 对合格 A/P 配对的分数差求均方根：
+
+$$
+\operatorname{RMS}_{\mathcal I}(m)=\sqrt{\frac{1}{|\mathcal I|}\sum_{i\in\mathcal I}(\Delta\ell_{m,i})^2}.
+$$
+
+其中 $m$ 表示待评价方法，原模型记为 $m=\mathrm{base}$。辅助 VR 定义为
 
 $$
 \mathrm{VR}(m)=100\left[1-
@@ -773,7 +776,19 @@ $$
 
 它是有向响应总和的比值，不是逐对比值均值。原分母为零时未定义；原平均响应非正或接近零时，不能把保留比例解释为正确证据利用，应同时给出原量纲响应。100%仅表示保留平均响应。例如两对原响应均为1，修改后为3和−1，平均保留仍为100%，但一对已反向。
 
-证据修正RMS按第4.4节定义。补充归一化量为 $\mathrm{DU}=\mathrm{RMS}_{\Delta c,E}/\mathrm{RMS}_I(\mathrm{base})$，原干扰RMS为零时未定义。DU以百分比展示时乘100，不与ER混淆。另报告 $|\Delta c|$ 的中位数、第95百分位和最大值，以及超预算比例
+证据修正 RMS 定义为
+
+$$
+\operatorname{RMS}_{\Delta c,\mathcal E}=\sqrt{\frac{1}{|\mathcal E|}\sum_{i\in\mathcal E}(\Delta c_i)^2},\qquad\Delta c_i=\Delta\ell_{m,i}-\Delta\ell_i.
+$$
+
+补充归一化量为
+
+$$
+\mathrm{DU}(m)=\frac{\operatorname{RMS}_{\Delta c,\mathcal E}}{\operatorname{RMS}_{\mathcal I}(\mathrm{base})}.
+$$
+
+原干扰 RMS 为零时，DU 未定义。DU 以百分比展示时乘 100，不与 ER 混淆。另报告 $|\Delta c|$ 的中位数、第 95 百分位和最大值，以及超预算比例
 
 $$
 \mathrm{Exceed}_{\delta}(m)=
@@ -869,7 +884,7 @@ python reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/nl
 
 **表B2：零值处理规则。** 不把真实零值改成正数，不通过删除失败样本美化结果。表内省略的是冗余数值展示，事实与原始记录仍可追溯。
 
-零预算还有具体理论价值：当前拟合证据差分矩阵为135×16、秩为16，最小奇异值5.508；要求所有证据差分修正严格为零会迫使 $w=0$。这解释了为何需允许小幅预算，不必在预算表重复一个全零行。线性方法在有限留出中没有新增方向退化的观察，则是另一种零，不能混为同一个证明。
+零预算还有具体理论价值：当前拟合证据差分矩阵的维度为 $135\times16$、秩为 16，最小奇异值为 5.508；要求所有证据差分修正严格为零会迫使 $w=0$。这解释了为何需允许小幅预算，不必在预算表重复一个全零行。线性方法在有限留出中没有新增方向退化的观察，则是另一种零，不能混为同一个证明。
 
 ### B.4 结果类型与可追溯性
 
