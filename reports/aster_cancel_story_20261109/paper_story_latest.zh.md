@@ -34,6 +34,8 @@
 
 上下文感知解码（CAD）组合同一模型在有、无上下文时的输出，强化上下文相对于模型先验的影响（Shi et al., 2024）。DExperts组合基础模型、专家和反专家的输出以控制生成属性（Liu et al., 2021）。二者说明输出修正也可以依赖输入，不能将这一类概括为共享截距。CAD是本文直接比较的条件对比分数方法；DExperts需要额外专家训练，列为资源扩展的相关工作。
 
+AxBench提供了直接的公平比较依据。该基准在Gemma-2-2B和9B上统一比较提示、微调、线性表示方法、监督引导和稀疏自编码器，发现提示在行为引导任务上表现突出，微调通常优于多种表示干预；简单线性方法在概念检测上仍有优势（Wu et al., 2025）。因此，本文将强提示、普通监督读出和参数微调纳入Qwen3-8B的主干比较，而不只选择表示干预方法。
+
 ASTER-CR的修正由A/P配对差分监督，并由C/F配对约束。与上述方法的区别是修正的识别目标及证据预算，而非仅仅“在输出层操作”。固定共享截距在配对差分中抵消，统一正比例缩放则同时缩小干扰与证据响应；两者均不能替代对输入相关修复的检验。
 
 ### 2.3 概念擦除
@@ -49,6 +51,12 @@ ASTER-CR的修正由A/P配对差分监督，并由C/F配对约束。与上述方
 表示干预可以使用固定方向，也可以依输入决定是否干预。ITI沿估计的注意力头方向调整激活（Li et al., 2023）；对比激活相加（CAA）用成对行为示例的残差激活差估计干预向量（Rimsky et al., 2024）。条件激活引导（CAST）用输入激活识别条件，再选择性施加行为向量（Lee et al., 2025）。CAA与CAST分别检验共享行为方向和条件触发机制是否已经足以改善判断依赖。
 
 LoFiT学习局部表示调整（Yin, Ye & Durrett, 2024）；LoReFT学习低秩表示干预，同一研究中的DiReFT提供简化的表示变换对照（Wu et al., 2024）。这组方法与ITI、CAA、CAST共同覆盖方向估计、条件触发和监督表示学习。本文另设共享痕迹、共享配对监督的线性与多层感知机表示编辑，用于分离函数容量和干预位置。这些内部控制不冒称外部算法复现，也不重复计入方法数量。
+
+近两年的表示引导研究进一步扩展了本文的比较范围。Stolfo et al.（2025）在多个模型上研究指令差分激活向量，并报告由指令微调模型提取的向量可以迁移到基础模型；这提示模型家族泛化与后训练检查点比较应分开设计。AxBench在Gemma-2-2B和9B上建立统一的提示、微调和表示干预基准，指出提示和微调是不可忽略的强基线（Wu et al., 2025）。RePS以双向偏好优化学习表示引导，在Gemma-2和Gemma-3的2B至27B模型上评价，直接关联成对监督与表示修正（Wu et al., 2025）。PSR进一步从输入激活估计位置相关的引导系数，比较动态系数与固定系数引导（Heyman & Vandeputte, 2026）。因此，本文将RePS和PSR列为新增重点候选基线，并将输入相关修正与固定引导强度作为机制比较。
+
+近期机制研究也开始检验激活引导如何影响注意力回路。Cheng et al.（2026）通过多词元激活修补研究拒绝行为中的表示引导，报告引导向量主要与注意力OV回路交互，而非主要改变QK注意力分数。该结果来自拒绝任务，不能直接外推到医学指南判断，但为本文M1的注意力头和OV路径干预提供了可检验的机制假设。
+
+模型训练阶段也可能改变表示的行为可用性。Venhoff et al.（2026）比较九组基础模型与思考模型检查点，区分RL训练、SFT蒸馏及混合训练的影响；Xu（2026）的预印本进一步比较Gemma-2、Llama-3.1和Qwen-2.5的七组Base/IT匹配检查点，报告指令暴露程度与方向的行为可干预性相关。上述工作支持使用同家族匹配检查点研究后训练影响，但不支持将不同模型家族之间的性能差异直接解释为SFT或RL的因果效应。
 
 ### 2.5 参数高效权重微调
 
@@ -488,6 +496,12 @@ E1与E2检验增加合格样本是否有价值；E2与E3检验类别和来源均
 
 形成确认性实验需要三项补充。其一，在来源隔离且未参与搜索的新集合上冻结主方法、擦除基线及表示编辑配置，同时完成盲法配对核验；按最小可检测效应和来源内相关性确定样本量，而不把现有少量P/F对当充分证据。其二，为输入删除、普通分数缩放及随机子空间提供同一评价协议，检验删信息或压缩所有分数能否产生类似表面改进。其三，记录证据改动的尾部、超预算比例、来源簇差值区间及完整任务的纠正/新增错误，利用已补录MedPIC逐例结果补充同范围统计。预算曲线和来源分层用于解释稳健性，不能在已查看测试结果后重新选择配置并仍称独立验证。
 
+### 5.6 近期表示引导研究启发的机制检验
+
+两项机制检验可在新数据主实验之外并行准备。第一，借鉴多词元激活修补研究，对M1选中的注意力头进行OV路径分析：分别比较选中头与匹配随机头，测量头输出修补、OV输出干预和QK注意力冻结对当前判断分数及路径的影响。拒绝任务中的OV机制结果只作为研究动机；本文必须在MEGA条件判断任务中独立验证，不能预设相同机制成立。
+
+第二，比较固定修正与输入相关修正。对照包括固定方向/固定系数、仅截距、输入相关线性修正、输入相关非线性修正，以及PSR式位置相关系数。所有配置在同一拟合集上训练、在开发集选择，并在冻结评价集报告干扰抑制、证据代价和任务效用。若动态方法仅提高分数不变性，却增加证据响应退化或完整路径错误，不视为方法改进。
+
 ## 6 结论
 
 ASTER-CR保留完整输入，用证据保持配对学习分数对消，用证据变化配对约束修正，再独立校准阈值。理论区分了指定判断的修复与整个表示的干扰擦除，并给出混合痕迹下共同可行的条件。
@@ -538,6 +552,13 @@ NLI的声明与变体共享基础文本，不同试验组合还可共享试验�
 - Lee, B. W. et al. (2025). *Programming Refusal with Conditional Activation Steering*. [ICLR](https://proceedings.iclr.cc/paper_files/paper/2025/hash/e2dd53601de57c773343a7cdf09fae1c-Abstract-Conference.html)、[CAST作者代码](https://github.com/IBM/activation-steering).
 - Liu, S.-Y. et al. (2024). *DoRA: Weight-Decomposed Low-Rank Adaptation*. [ICML](https://proceedings.mlr.press/v235/liu24bn.html)、[作者代码](https://github.com/NVlabs/DoRA).
 - Gao et al. (2024). *Parameter-Efficient Fine-Tuning with Discrete Fourier Transform*. [ICML](https://proceedings.mlr.press/v235/gao24o.html)、[FourierFT作者代码](https://github.com/Chaos96/fourierft).
+- Stolfo, A., Balachandran, V., Yousefi, S., Horvitz, E. & Nushi, B. (2025). *Improving Instruction-Following in Language Models through Activation Steering*. [ICLR 2025](https://proceedings.iclr.cc/paper_files/paper/2025/hash/8c3262a4c965ba9888f120d4f9e13478-Abstract-Conference.html)、[作者代码](https://github.com/microsoft/llm-steer-instruct)。
+- Wu, Z. et al. (2025). *AxBench: Steering LLMs? Even Simple Baselines Outperform Sparse Autoencoders*. [ICML 2025](https://proceedings.mlr.press/v267/wu25a.html)。
+- Wu, Z., Yu, Q., Arora, A., Manning, C. D. & Potts, C. (2025). *Improved Representation Steering for Language Models (RePS)*. [NeurIPS 2025](https://proceedings.neurips.cc/paper_files/paper/2025/hash/eb1ef82926376d252dde00d5dd909f4b-Abstract-Conference.html)。
+- Heyman, G. & Vandeputte, F. (2026). *Steer Like the LLM: Activation Steering that Mimics Prompting*. [ICML 2026](https://proceedings.mlr.press/v306/heyman26a.html)。
+- Cheng, S. S., Wiegreffe, S. & Manocha, D. (2026). *What Drives Representation Steering? A Mechanistic Case Study on Steering Refusal*. [EMNLP 2026](https://aclanthology.org/2026.emnlp-main.79/)。
+- Venhoff, C., Arcuschin, I., Torr, P., Conmy, A. & Nanda, N. (2026). *Base Models Know How to Reason, Thinking Models Learn When*. [ICML 2026](https://proceedings.mlr.press/v306/venhoff26a.html)。
+- Xu, S. (2026). *From Geometry to Behavior: How Instruction Exposure Unlocks Latent Rhetorical Directions in LLMs*. [arXiv预印本](https://arxiv.org/abs/2610.37685)。
 - 官方模型资料：[Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B)、[Llama-3.1-8B-Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct)、[Gemma-2-9B-IT](https://huggingface.co/google/gemma-2-9b-it)、[MedGemma-27B](https://huggingface.co/google/medgemma-27b-text-it)、[Gemma-3-27B-IT](https://huggingface.co/google/gemma-3-27b-it)。
 
 **仓库内证据**（chunxi-alpc/TRIAGE）
