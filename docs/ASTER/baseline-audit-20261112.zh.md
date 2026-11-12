@@ -107,6 +107,8 @@ SEA 当前实现需要特别检查零范数回退。历史开发结果中，`SEA
 
 当前 ASTER-CR 线性主方法约17个可训练系数。LoFiT 的最终部署参数约128；LoReFT 和 LoRA 分别约8,193和8,192。不能将这几项称为严格参数量匹配。
 
+实现忠实性还需单独审计：本地 LoFiT 通过 attention o_proj hook 实现逐坐标缩放和选中头偏移，并使用二元 BCE 训练；官方 LoFiT 仓库针对 Llama 2/Gemma 7B 定制模型类，原实验按任务使用 DPO 或 SFT。除非逐项证明两阶段头选择、偏移参数化和训练目标等价，正文应称为“LoFiT-style 任务适配”，不能写成官方 LoFiT 原样复现。LoReFT 调用 pyreft，但 pyreft 不在当前 environment.lock.txt 中；test_models.py 的随机微型 Qwen 测试不能替代真实 Qwen3-8B 权重的适配器加载和输出变化验收。
+
 建议未来同时报告：
 
 - 方法原生配置；
@@ -350,6 +352,8 @@ SEA 回退和 LoReFT 加载问题必须先解决，未通过 smoke test 不进�
 - PyReFT 和 SEA 的部分代码依赖没有完整提交到公开仓库。
 
 因此，正式运行必须显式设置新的 `ASTER_CR_ROOT`、GPU 列表、模型路径和独立输出目录。不能直接依赖旧默认值。
+
+另外，当前代码默认随机种子为 20261108，而实验框架要求随机外部基线使用 11、22、33；E1 已冻结的数据选择种子不得因此改变。正式基线代码应增加显式 seed 参数并记录逐种子结果。`configs/models.json` 将 Qwen3-8B revision 记为 `master`，且 `file_revisions` 为空；`configs/qwen3_8b_modelscope_manifest.json` 的 Revision/Sha256 字段也为空。新运行必须在服务器记录实际本地模型和分词器快照版本，不能用移动的 `master` 代替不可变模型修订。`configs/environment.lock.txt` 固定 PEFT 0.21.2、PyTorch 2.8.0 和 Transformers 4.57.6，但没有 pyreft；`requirements-aster-manuscript.txt` 仅列基础 torch/transformers。pyreft、KRaM、Obliviator 和 PSR 应使用单独的可选依赖或隔离环境，不能为了单个基线升级共享主环境。
 
 当前对话没有服务器 shell 或 GPU 监控接口，因此没有检查实时 GPU 空闲情况。启动任务前必须检查实际设备占用、显存和已有任务。服务器执行说明中列出的 GPU 0、1、5、6 及 PR #41 保护要求应在运行时再次核验；不得推断当前设备已经空闲。
 
