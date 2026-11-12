@@ -935,11 +935,11 @@ python reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/nl
 
 ### B.5 基线实现与比较协议
 
-主比较使用相同的Qwen3-8B任务输入、固定提示、分词器、二元标签和最终词元logit差。表2中的方法均在同一MEGA受控留出及同一动态路径评价器上计分。表2的16维线性ASTER-CR沿用归档拟合协议（4,887对A/P、135对C/F）；第4.6节的E1重训使用2,540对均衡配对，并执行80来源五折验证。ASTER-CR的M1–M3均只使用MEGA-CDP拟合来源数据；跨任务评价不参与M1–M3训练或参数选择。
+所有方法使用相同的Qwen3-8B任务输入、固定提示、分词器、二元标签和最终答案词元logit差。受控配对比较在同一MEGA留出和共同计分器上评价，连续分数响应见表2；完整路径表现见附录C.3。E1主方法使用2,540对均衡A/P/C/F配对，并在80个来源上执行五折验证，结果见第4.4节。M1–M3仅使用MEGA-CDP拟合来源数据；NLI4CT和MedPIC用于冻结跨任务评价。
 
-校准控制包括仅截距校准和解析正比例缩放；监督线性读出采用二元线性探针（Alain & Bengio, 2016）；LEACE执行闭式线性概念擦除（Belrose et al., 2023）；ITI沿估计方向调整激活（Li et al., 2023）；LoFiT学习局部表示调整（Yin et al., 2024）；LoRA通过低秩权重更新进行任务适配（Hu et al., 2022）。LoRA和LoFiT沿用已归档的学习率0.001；其余配置、参数量及逐方法预测来源见[受控实验归档](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/)和[评估实现](https://github.com/chunxi-alpc/TRIAGE/blob/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/evaluate.py)。
+校准控制包括独立截距、温度缩放和上下文校准；监督读出采用二元线性探针（Alain & Bengio, 2016）；概念擦除包括LEACE、INLP、R-LACE及非线性方法；表示干预包括ITI、CAA、CAST、RePS和PSR；表示微调包括LoFiT、LoReFT和ReFT-r1；权重微调包括LoRA、DoRA和FourierFT。各方法的任务适配方式、参数规模和额外前向成本见表5及[基线兼容性清单](baseline-compatibility-20261112.json)。
 
-各基线沿用其已归档的训练监督和超参数配置，训练预算与证据保护目标并未统一匹配。因此，主表按相同任务输入、输出和评价总体报告实测结果；具体训练监督与参数更新方式均在相应方法项中注明。固定比例缩放由原模型分数解析计算。LoReFT的冻结缓存与原模型分数一致，未纳入主比较。
+受控比较中的LoRA和LoFiT学习率均为0.001。固定比例缩放由原模型分数解析计算。LoReFT需通过PyReFT适配器加载和真实模型输出变化测试后，方纳入实测比较；相关实现检查见[受控实验归档](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/)和[评估实现](https://github.com/chunxi-alpc/TRIAGE/blob/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/evaluate.py)。
 
 ### B.6 数据集与数据划分
 
@@ -1067,7 +1067,7 @@ MEGA训练、开发和受控留出按指南来源隔离，分别覆盖80、20和
 
 **表C6a：NLI4CT原生分类与关系指标。** 原声明500条，正式测试5,500条，标签保持关系4,136对，标签翻转关系864对。条件翻转忠实性按各方法原题答对的合格关系数计算；全部翻转对双端全对统一以864对为分母。预测由归档结果重新计分；固定比例缩放由正比例变换解析得到。[复算脚本](https://github.com/chunxi-alpc/TRIAGE/blob/0694980caa971260bff8f78962d446c5ba4a51cf/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/nli_recomputed_metrics.py)、[完整计数](https://github.com/chunxi-alpc/TRIAGE/blob/0694980caa971260bff8f78962d446c5ba4a51cf/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/nli_recomputed_metrics.json)。
 
-NLI原始划分为训练1,700条、开发200条、练习测试2,142条、正式测试5,500条。跨划分记录合计9,542，但仅有9,342个不同原ID。本文不将开发与练习的重复计算为新增测试证据。新增脚本只在正式测试500原题及对应变体上计算表4指标；另外一种使用NLI训练标签拟合残差或截距的结果属于任务内适配，见C.6。
+NLI原始划分为训练1,700条、开发200条、练习测试2,142条、正式测试5,500条。跨划分记录合计9,542，但仅有9,342个不同原ID。本文不将开发与练习的重复计算为新增测试证据。新增脚本只在正式测试500原题及对应变体上计算表C6a指标；另外一种使用NLI训练标签拟合残差或截距的结果属于任务内适配，见C.6。
 
 ### C.5 MedPIC既有汇总与解码探索
 
