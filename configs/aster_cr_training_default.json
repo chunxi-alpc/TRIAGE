@@ -126,7 +126,7 @@
     "description": "independent agent semantic review plus deterministic validation; no clinical expert certification"
   },
   "scope": "default MEGA-only paired training configuration for ASTER-CR; NLI4CT-2024 and MedPIC are transfer evaluations, with the pre-specified MedPIC development set used only for M4 calibration",
-  "adoption_basis": "E1 was frozen after development-set selection and is retained as the primary setting because it is task-aligned, balanced, source-covered, and showed the most stable overall task performance among the existing MEGA-only configurations; no new training was performed for this decision",
+  "adoption_basis": "E1 was frozen under the development-only lexicographic selection rule: it achieved 385/420 natural paths versus 384/420 for E2, while both had 196/199 natural nodes and zero C/F direction degradations. E1 had 1/60 C/F pairs over budget versus 0/60 for E2; the pre-specified rule ranked natural path accuracy first. This is a development-set selection, not a claim of statistical superiority on every metric. No new training was performed for this decision.",
   "conclusion": "E1 is the primary training dataset. E2/E3 remain ablations. The 10,006-pair MEGA+MedEinst configuration is archived as a historical exploratory experiment, not a core training setting.",
   "repository_artifacts": {
     "data_note": "reports/aster_cr_pair_dataset_20261111/REPORT.zh.md",
