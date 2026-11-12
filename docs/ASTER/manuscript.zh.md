@@ -275,13 +275,13 @@ D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
 
 ### 4.1 实验设置
 
-**Datasets.** 按三项基准的原始任务设置开展评价。MEGA-CDP（Chen et al., 2026）评估指南决策路径，E1含80个来源的2,540对A/P/C/F配对；NLI4CT（Jullien et al., 2023, 2024）评估临床试验报告推断，正式测试为5,500条声明；MedPIC-Bench（Hou et al., 2026）评估患者特异用药安全，含467题（284道指南遵循题、183道反事实题）。NLI4CT和MedPIC用于冻结迁移，93道MedPIC开发题仅用于M4校准。划分见附录B.6。
+**Datasets.** 按三项基准的原始任务设置开展评价。MEGA-CDP（Chen et al., 2026）评估指南决策路径，E1含80个来源的2,540对A/P/C/F配对；NLI4CT（Jullien et al., 2023；Jullien et al., 2024）评估临床试验报告推断，正式测试为5,500条声明；MedPIC-Bench（Hou et al., 2026）评估患者特异用药安全，含467题（284道指南遵循题、183道反事实题）。NLI4CT和MedPIC用于冻结迁移，93道MedPIC开发题仅用于M4校准。划分见附录B.6。
 
-**Implementation Details.** 使用冻结BF16 Qwen3-8B（Qwen Team, 2025）、固定提示和分词器，以最终答案词元二元logit差评分，标签投影采用FP32。E1按类别和来源均衡加权。M1从64个候选头中选51个；M2秩为16；M3设$\lambda=0.01$、$\delta=0.2923349$ logit，以SLSQP求解（ftol=$10^{-13}$，最多3,000次迭代）；MEGA源任务的M4在761个自然拟合节点上拟合截距；MedPIC目标任务使用93道开发题独立校准。随机种子为20261108；SLSQP不使用学习率。表2沿用归档拟合协议（4,887对A/P、135对C/F）；E1重训和80来源五折见第4.6节。实现见附录B.5、B.7。
+**Implementation Details.** 使用冻结BF16 Qwen3-8B（Qwen Team, 2025）、固定提示和分词器，以最终答案词元二元logit差评分，标签投影采用FP32。E1按类别和来源均衡加权。M1从64个候选头中选51个；M2秩为16；M3设$\lambda=0.01$、$\delta=0.2923349$ logit，以SLSQP求解（ftol=$10^{-13}$，最多3,000次迭代）；MEGA源任务的M4在761个自然拟合节点上拟合截距；MedPIC目标任务使用93道开发题独立校准。随机种子为20261108；SLSQP不使用学习率。表2沿用归档拟合协议（4,887对A/P、135对C/F）；E1重训和80来源五折见第4.6节。实现见附录B.5和附录B.7。
 
-**Metrics.** 行为指标包括A/P RMS、VR，C/F ER、证据修正RMS、双端全对率、方向退化数和超预算比例（定义见附录B.1）。任务指标包括MEGA自然节点、自然路径、干扰路径及动态路径准确率；NLI4CT准确率、宏平均F1、保持一致率和条件翻转忠实性；MedPIC选项准确率、配对全对率和整题集合准确率（分别见Chen et al., 2026；Jullien et al., 2023, 2024；Hou et al., 2026）。
+**Metrics.** 行为指标包括A/P RMS、VR，C/F ER、证据修正RMS、双端全对率、方向退化数和超预算比例（定义见附录B.1）。任务指标包括MEGA自然节点、自然路径、干扰路径及动态路径准确率；NLI4CT准确率、宏平均F1、保持一致率和条件翻转忠实性；MedPIC选项准确率、配对全对率和整题集合准确率（分别见Chen et al., 2026；Jullien et al., 2023；Jullien et al., 2024；Hou et al., 2026）。
 
-**Baselines.** 比较原始Qwen3-8B、仅截距和解析比例缩放两种校准控制（校准背景见Guo et al., 2017）、监督线性读出（Alain & Bengio, 2016）、线性概念擦除LEACE（Belrose et al., 2023）、激活干预ITI（Li et al., 2023）、局部表示微调LoFiT（Yin et al., 2024）及低秩权重更新LoRA（Hu et al., 2022）。所有主比较方法使用相同任务输入、提示、分词器和二元输出；表2各方法在同一MEGA受控留出上评价。ASTER-CR的M1–M3只使用MEGA-CDP配对，不使用额外数据或患者字段。基线配置见附录B.5。
+**Baselines.** 比较原始Qwen3-8B、仅截距校准和解析比例缩放控制（校准背景见Guo et al., 2017）、监督线性读出（Alain & Bengio, 2016）、线性概念擦除LEACE（Belrose et al., 2023）、激活干预ITI（Li et al., 2023）、局部表示微调LoFiT（Yin et al., 2024）及低秩权重更新LoRA（Hu et al., 2022）。所有主比较方法使用相同任务输入、提示、分词器和二元输出；表2各方法在同一MEGA受控留出上评价。ASTER-CR的M1–M3只使用MEGA-CDP配对，不使用额外数据或患者字段。基线配置见附录B.5。
 
 ### 4.2 MEGA受控比较：选择性分数修正
 
@@ -589,7 +589,6 @@ ASTER-CR提出一套分数级干扰修正框架：保留完整输入，以A/P配
 
 **当前方法与结果。** 有约束拟合记录见[证据保护目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/evidence_preserving/)，受控结果见[完整计分目录](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/)，新增NLI缓存计分见[复算材料](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/)。实际合成机制拟合见[实验归档](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/simulated_study/)，不合入真实结果。MedPIC全467题的四种方法整题记录、2,335条选项分数及配对结果见[迁移研究归档](../../results/aster_cr_transfer_20261110.zip)，包内aster_medpic_20261109目录保留原报告和逐例文件。
 
-- MedPIC-Bench. *Evaluating Counterfactual Sensitivity to Patient Information in Medication-Safety Reasoning*. [论文](https://arxiv.org/abs/2608.03028)、[作者数据卡](https://huggingface.co/datasets/TIM0927/MedPIC-Bench)。
 - Hao et al. (2025). *MedPAIR: Measuring Physicians and AI Relevance Alignment in Medical Question Answering*. [作者项目](https://medpair.csail.mit.edu/)、[论文](https://arxiv.org/abs/2505.24040)。
 - Chen, W., Zhu, Z., Huang, G. & Wang, W. (2026). *MedEinst: Benchmarking the Einstellung Effect in Medical LLMs through Counterfactual Differential Diagnosis*. [论文](https://arxiv.org/abs/2601.06636)、[官方说明](https://github.com/zhui711/MedEinst/blob/main/README.md)。
 - Li et al. (2025). *MedGUIDE: Benchmarking Clinical Decision-Making in Large Language Models*. [论文](https://arxiv.org/abs/2505.11613)、[数据](https://huggingface.co/datasets/MedGUIDE/MedGUIDE-MCQA-8K)。
