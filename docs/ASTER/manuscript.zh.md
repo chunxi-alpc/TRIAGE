@@ -275,7 +275,7 @@ D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
 
 ### 4.1 实验设置
 
-**Datasets.** 我们采用三个医学推理数据集：MEGA-CDP（Chen et al., 2026）评估临床指南决策路径，主训练集E1包含来自80个指南来源的2,540对A/P/C/F配对；NLI4CT（Jullien et al., 2023；Jullien et al., 2024）评估临床试验报告与声明之间的推断，正式测试包含5,500条声明；MedPIC-Bench（Hou et al., 2026）评估患者特异的用药安全判断，包含467道选择题和2,335个选项。NLI4CT和MedPIC用于冻结迁移评价，MedPIC的93道开发题仅用于M4校准。数据划分和配对构建见附录B.6。
+**Datasets.** 我们采用三个医学推理数据集：MEGA-CDP（Chen et al., 2026）评估临床指南决策路径，主训练集E1包含来自80个指南来源的2,540对A/P/C/F配对；NLI4CT（Jullien et al., 2023；Jullien et al., 2024）评估临床试验报告与声明之间的推断，正式测试包含5,500条声明；MedPIC-Bench（Hou et al., 2026）评估患者特异的用药安全判断，包含467道选择题（284道指南遵循题、183道反事实题）和2,335个选项。NLI4CT和MedPIC用于冻结迁移评价，MedPIC的93道开发题仅用于M4校准。数据划分和配对构建见附录B.6。
 
 **Implementation Details.** 主干模型为冻结的BF16 Qwen3-8B（Qwen Team, 2025），使用固定提示、分词器和最终答案词元的二元logit差，标签投影采用FP32。E1按类别和来源均衡加权。M1从64个候选注意力头中选择51个；M2使用16维子空间；M3采用$\lambda=0.01$、$\delta=0.2923349$ logit的逐对证据约束，并用SLSQP求解（容差$10^{-13}$，最多3,000次迭代）；M4在761个自然节点上拟合截距。随机种子为20261108。SLSQP为约束优化器，不使用学习率。完整配置见附录B.7。
 
