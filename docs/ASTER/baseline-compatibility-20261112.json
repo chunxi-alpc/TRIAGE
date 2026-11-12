@@ -26,7 +26,27 @@
       "NLI4CT",
       "MedPIC"
     ],
-    "rule": "Historical results from other training protocols are not reusable as current E1 main-table results without a full compatibility audit."
+    "rule": "Historical results from other training protocols are not reusable as current E1 main-table results without a full compatibility audit.",
+    "pair_class_counts": {
+      "A": 635,
+      "P": 635,
+      "C": 635,
+      "F": 635
+    },
+    "source_split": {
+      "fit_sources": 80,
+      "development_sources": 20,
+      "historical_controlled_holdout_sources": 40
+    },
+    "source_cross_validation": {
+      "folds": 5,
+      "fit_sources_per_fold": 64,
+      "validation_sources_per_fold": 16
+    },
+    "historical_metric_boundary": "The historical controlled comparison contains 806 paths (2,293 A/P pairs and 40 C/F pairs); it is not a substitute for the official 7,458-path MEGA evaluation and must not be labelled as a new E1 result.",
+    "primary_data_version": "20261111-sol-agents-v2",
+    "primary_data_commit": "5a329fe68eaa84fb5f7a791c50d15a47181ac4f2",
+    "data_artifacts_note": "The E1 balanced_train.jsonl and raw pair narratives are server-only; create an E1-specific run root and export the current fit/dev/test schema before baseline fitting."
   },
   "local_implementations": [
     {
@@ -180,6 +200,18 @@
       ],
       "caveat": "Internal ASTER variants; exclude from external baseline taxonomy and main external comparison table. Keep in method analysis/ablation where appropriate.",
       "current_e1_status": "internal_only"
+    },
+    {
+      "id": "supervised_linear_readout",
+      "category": "supervised_control",
+      "status": "implemented_in_readout_pipeline",
+      "source_files": [
+        "experiments/aster_cr/readout.py",
+        "experiments/aster_cr/pipeline.py"
+      ],
+      "exactness": "Fit-only supervised linear readout over frozen ASTER feature projections; candidate selection is development-gated.",
+      "caveat": "Verify that features and split manifests are regenerated for E1. Do not treat ASTER internal feature variants as independent literature baselines.",
+      "current_e1_status": "implementation_present_results_require_protocol_audit"
     }
   ],
   "external_candidates": [
@@ -212,13 +244,14 @@
     },
     {
       "id": "cad",
-      "category": "output_calibration",
+      "category": "context_aware_contrastive_decoding",
       "paper": "Trusting Your Evidence: Hallucinate Less with Context-aware Decoding",
       "paper_url": "https://aclanthology.org/2024.naacl-short.69/",
       "official_repo": "https://github.com/xhan77/context-aware-decoding",
       "official_commit": "e83b0a",
       "status": "local_task_adaptation_exists_needs_E1_refit",
-      "priority": "P0"
+      "priority": "P0",
+      "caveat": "Current comparator uses alpha=2 and one additional reference forward. The reference retains patient text/current node/current condition but removes the full guideline tree and definitions; describe this as a guideline-context ablation, not a generic content-free prompt."
     },
     {
       "id": "pasta",
@@ -482,9 +515,30 @@
     {
       "risk": "baseline_registry_name_collision",
       "detail": "configs/baselines.json is used for ProbeRAG/SEKA/JUICE/TrialGPT and should not be repurposed as the ASTER-CR method registry."
+    },
+    {
+      "risk": "baseline_seed_mismatch",
+      "detail": "experiments/aster_cr/common.py uses SEED=20261108, while the current experiment framework requires stochastic external baselines to report seeds 11,22,33. Preserve the frozen E1 data-selection seed; add explicit baseline seed arguments."
+    },
+    {
+      "risk": "un-pinned_model_revision",
+      "detail": "configs/models.json records Qwen3-8B revision=master with empty file_revisions; configs/qwen3_8b_modelscope_manifest.json has null Revision/Sha256 fields. Record the actual local model/tokenizer snapshot on the server before a new run."
+    },
+    {
+      "risk": "pyreft_missing_from_lock",
+      "detail": "baselines.py imports pyreft.LoreftIntervention, but pyreft is absent from configs/environment.lock.txt. The minimal requirements file also omits PEFT/scikit-learn optional baseline dependencies."
+    },
+    {
+      "risk": "e1_root_and_cache_mismatch",
+      "detail": "The common.py default root points to /home/gcx/aster_cr_20261108, while E1 data/model artifacts are in the 20261111 run family. Re-export E1 views/pairs/path cases and feature caches under a new isolated ASTER_CR_ROOT."
+    },
+    {
+      "risk": "cad_category",
+      "detail": "CAD is context-aware contrastive decoding, not ordinary temperature/offset calibration. Keep it in a separate method category and count its extra reference forward."
     }
   ],
   "execution_order": [
+    "Create a fresh E1 baseline run root and regenerate E1-specific views/features; never reuse repair-v2 caches as E1.",
     "Freeze stable instance-level concept labels and distinguish native methods from ASTER task adaptations.",
     "Pin official source commits and isolate incompatible dependency environments.",
     "Run CPU/synthetic smoke tests and verify actual activation/logit changes before GPU evaluation.",
@@ -505,13 +559,43 @@
       "existing run-directory ownership check"
     ],
     "no_gpu_jobs_started": true,
-    "no_existing_jobs_stopped_or_modified": true
+    "no_existing_jobs_stopped_or_modified": true,
+    "permitted_physical_gpus": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "code_default_gpus": [
+      0,
+      1
+    ],
+    "required_stochastic_baseline_seeds": [
+      11,
+      22,
+      33
+    ],
+    "model_revision_status": "not_immutably_pinned_in_tracked_manifest; inspect local snapshot on server",
+    "pyreft_status": "not_present_in_environment.lock.txt"
   },
   "notes": [
     "The repository head SHAs are snapshots inspected on 2026-11-12; they are provenance references, not a claim that the source was executed.",
     "Short SHAs are retained where the connector only surfaced abbreviated commit identifiers in the audit snapshot; full hashes are recorded where available.",
     "PASTA's official README describes a generic causal-attention formulation but currently lists Llama, Llama 2 and GPT-J as supported architectures; do not claim Qwen3 compatibility without a smoke test.",
     "CAA's official repository is Llama 2 oriented and uses GPT-4-generated behavior data in its released pipeline; a Qwen3/ASTER implementation must be labeled as task-adapted.",
-    "PSR's official dependency stack requires Python 3.12+ and PEFT 0.15.1, so it should not be installed into the current general environment that specifies PEFT >=0.17."
-  ]
+    "PSR's official dependency stack requires Python 3.12+ and PEFT 0.15.1, so it should not be installed into the current general environment that specifies PEFT >=0.17.",
+    "CAD belongs to context-aware contrastive decoding, not generic score calibration; the current reference preserves patient/current condition but removes the full guideline tree and definitions.",
+    "The current common.py seed is 20261108; the experiment framework's stochastic baseline seed contract is 11,22,33. Do not change the frozen E1 data-selection seed.",
+    "Qwen3-8B model revision is not immutable in the tracked manifest; record the actual server-local model and tokenizer snapshot before execution.",
+    "No live GPU inventory, server package check, model load, smoke test, or GPU run was performed in this GitHub-only audit."
+  ],
+  "codex00_status": {
+    "static_repository_audit": "complete",
+    "baseline_code_and_official_source_audit": "complete",
+    "execution_dependency_map": "complete",
+    "live_server_and_gpu_preflight": "not_performed_server_access_unavailable",
+    "model_smoke_tests": "not_performed",
+    "gpu_experiments": "not_started",
+    "manuscript_body_modified": false
+  }
 }
