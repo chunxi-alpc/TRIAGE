@@ -47,7 +47,7 @@
 ### 表示干预与激活引导
 
 - Li et al. (2023). *Inference-Time Intervention: Eliciting Truthful Answers from a Language Model* (ITI). https://arxiv.org/abs/2306.03341
-- Rimsky et al. (2024). *Steering Llama 2 via Contrastive Activation Addition* (CAA). ACL. https://arxiv.org/abs/2312.06681
+- Rimsky et al. (2024). *Steering Llama 2 via Contrastive Activation Addition* (CAA). ACL. https://aclanthology.org/2024.acl-long.828/
 - Qiu et al. (2024). *Spectral Editing of Activations for Large Language Model Alignment* (SEA). https://arxiv.org/abs/2405.09719
 - Lee et al. (2025). *Programming Refusal with Conditional Activation Steering* (CAST). ICLR. https://proceedings.iclr.cc/paper_files/paper/2025/hash/e2dd53601de57c773343a7cdf09fae1c-Abstract-Conference.html
 - Wu et al. (2025). *Improved Representation Steering for Language Models* (RePS). NeurIPS. https://arxiv.org/abs/2505.20809
