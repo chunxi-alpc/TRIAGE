@@ -130,7 +130,7 @@ N&=\operatorname{orth}\!\left((I-SS^\top)U\right),\qquad
 t(x)=N^\top\tilde h(x).
 \end{aligned}
 ```
-其中，$\mathcal J_{AP}^{\mathrm{train}}$ 和 $\mathcal J_{CF}^{\mathrm{train}}$ 分别是训练集中的 A/P 与 C/F 配对索引；$\operatorname{basis}_k$ 表示按相应训练配置的配对权重构造差分矩阵，并通过截断奇异值分解取得前 $k$ 个右奇异向量；$S$、$U$ 的列为正交单位向量，$\operatorname{orth}$ 表示正交化。$N$ 因而张成干扰子空间在证据子空间正交补中的部分，$t(x)$ 是用于 M3 修正的干扰痕迹坐标。主配置 $k=16$，开发集补充 $k=8,16,32$ 的敏感性分析。标准化参数、$S$、$U$ 和 $N$ 仅使用相应训练来源估计。
+其中，$\mathcal J_{AP}^{\mathrm{train}}$ 和 $\mathcal J_{CF}^{\mathrm{train}}$ 分别是训练集中的 A/P 与 C/F 配对索引；$\operatorname{basis}_k$ 表示按相应训练配置的配对权重构造差分矩阵，并通过截断奇异值分解取得前 $k$ 个右奇异向量；$S$、$U$ 的列为正交单位向量，$\operatorname{orth}$ 表示正交化；$I$ 为 $d\times d$ 单位矩阵，$\oslash$ 表示逐元素相除。$N$ 因而张成干扰子空间在证据子空间正交补中的部分，$t(x)$ 是用于 M3 修正的干扰痕迹坐标。主配置 $k=16$，开发集补充 $k=8,16,32$ 的敏感性分析。标准化参数、$S$、$U$ 和 $N$ 仅使用相应训练来源估计。
 
 **M3：证据约束的干扰贡献对消。** 对每个训练配对 $j$，定义原模型分数差和痕迹坐标差：
 ```math
@@ -519,6 +519,8 @@ MedPIC 冻结 188 题 E3→E4 整题正确率 36.70%→39.36%，差值区间包�
 
 99维平衡集成的输入含16维干扰痕迹、16维证据坐标、64维残差主成分和3维分数特征；它还改变保护损失、集成与搜索规模。其结果支持丰富特征与保护策略可以改变经验权衡，不能单独归因于非线性。原16维输出MLP与99维平衡集成恰有相近的VR，二者的证据改动及训练条件并不相同，名称和结果始终分列。
 
+### 5.3 痕迹传导与预测：现有结果说明什么？
+
 在固定有效证据、仅改变后续处置的 A/P 配对中，记原模型完整分数差和 16 维痕迹坐标差为
 ```math
 z_i=\Delta\ell_{0,i}
@@ -533,7 +535,7 @@ z_i=\Delta\ell_{0,i}
 ```math
 q_i=\ell_{\mathrm{patch},i}^{N}-\ell_0(x_i^L).
 ```
-因此，$\operatorname{RMS}(q)/\operatorname{RMS}(z)$ 衡量该投影方向的直接修补效应相对于完整 A/P 分数差的幅度。该干预是单向的左到右激活修补，不是训练后的 M3 修正。
+对开发 A 类配对上的任意量 $v_i$，记 $\operatorname{RMS}(v)=\sqrt{N_A^{-1}\sum_i v_i^2}$，其中 $N_A=|\mathcal I_{\mathrm{dev},A}|$；$\bar z_{\mathrm{dev}}$ 表示该开发配对集合中 $z_i$ 的算术平均。因此，$\operatorname{RMS}(q)/\operatorname{RMS}(z)$ 衡量该投影方向的直接修补效应相对于完整 A/P 分数差的幅度。该干预是单向的左到右激活修补，不是训练后的 M3 修正。
 
 本研究对同一痕迹执行两个不同实验。第一，直接修补效应的 RMS 比例及其直接预测决定系数为
 ```math
@@ -725,7 +727,7 @@ w^*=-Z(D^\top Z)^+\boldsymbol\gamma,
 
 **痕迹混入证据并不自动使对消失效。** 所需条件是仍存在一个对证据不响应、又能识别判断相关干扰贡献的读出方向。$H=0$ 时，条件退化为 $\boldsymbol\gamma\in\operatorname{range}(D^\top)$，痕迹不必恢复全部干扰变量。若干扰与证据在可读特征中完全重合，精确保留可能只允许 $w=0$；在上述线性修正与精确证据保留要求下，此时无法取得非零对消。
 
-**配对分别监督两个条件。** 在固定证据的 A/P 配对中，$\Delta t_j=D\Delta\nu_j$、$\Delta\ell_{0,j}=\boldsymbol\gamma^\top\Delta\nu_j$，因而差分损失监督 $\boldsymbol\gamma+D^\top w$。在固定干扰的证据配对中，$\Delta t_j=H\Delta e_j$，限制 $w^\top\Delta t_j$ 则直接限制所覆盖证据变化上的修正响应。
+**配对分别监督两个条件。** 对配对 $j$，记 $\Delta e_j=e(x_j^R)-e(x_j^L)$、$\Delta\nu_j=\nu(x_j^R)-\nu(x_j^L)$。在固定证据的 A/P 配对中，$\Delta t_j=D\Delta\nu_j$、$\Delta\ell_{0,j}=\boldsymbol\gamma^\top\Delta\nu_j$，因而差分损失监督 $\boldsymbol\gamma+D^\top w$。在固定干扰的证据配对中，$\Delta t_j=H\Delta e_j$，限制 $w^\top\Delta t_j$ 则直接限制所覆盖证据变化上的修正响应。
 
 实际训练将 C/F 痕迹差按行堆叠为矩阵 $E_{CF}$，其第 $j$ 行为 $\Delta t_j^\top$，逐对预算写为 $\|E_{CF}w\|_\infty\leq\delta$。该约束给出训练配对的逐对响应改动界，并由独立留出的证据配对检验迁移。若 $E_{CF}$ 满列秩且 $\delta=0$，则只能有 $w=0$；报告非零预算下的干扰降低和证据改动，可以明确展示两者的实际权衡。
 
@@ -740,7 +742,7 @@ R^2=1-\frac{\sum_i r_i^2}{\sum_i(z_i-\bar z)^2},
 \operatorname{VR}_{\%}
 =100\left[1-\frac{\operatorname{Var}(r)}{\operatorname{Var}(z)}\right].
 ```
-这里的方差采用总体方差约定，且要求 $\operatorname{Var}(z)>0$。两者满足
+这里的方差采用总体方差约定，且要求 $\operatorname{Var}(z)>0$；$\bar z$、$\bar r$ 分别表示相应配对集合中 $z_i$、$r_i$ 的算术平均。两者满足
 ```math
 \operatorname{VR}_{\%}
 =100\left(R^2+\frac{\bar r^{\,2}}{\operatorname{Var}(z)}\right).
@@ -885,7 +887,7 @@ F_{\mathrm{cond}}(m)
 
 **不确定性。** 受控 MEGA 按 40 个指南来源成组配对重采样 2,000 次，种子 11；同一次抽样用于全部方法，再计算差值区间。证据配对仅覆盖 12 个来源，稀疏分项会有未定义重采样，需报告有效次数。官方 MEGA 按归档同源簇计分。原 NLI 准确率区间按试验编号组合，配对响应区间按基础声明家族；二者分组不同，共享试验造成的更高层依赖尚未完全处理。新补算 NLI 指标没有置信区间，不从已有准确率区间推导。
 
-不同随机训练配置分别计算指标与种子间差异，来源自助重采样区间则衡量另一种不确定性，两者不混用。三个任务不合并总分；既有区间包含零只能说明未建立差异，不能解释为方法等效。
+不同随机训练配置分别计算指标与种子间差异，来源自助重采样区间则衡量另一种不确定性，两者不混用。公式中的上横线表示在相应评价配对集合上的算术平均，$\operatorname{Var}$ 均表示中心化总体方差。三个任务不合并总分；既有区间包含零只能说明未建立差异，不能解释为方法等效。
 
 ### B.2 数据、冻结配置与复算
 
