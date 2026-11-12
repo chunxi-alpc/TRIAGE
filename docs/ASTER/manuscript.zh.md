@@ -98,7 +98,7 @@ F0 表示事实数值改变但仍在阈值同侧，属于同真值、不同证�
 
 **M1：注意力头定位。** 为了选择能支持干扰估计与证据保护的特征，我们在训练配对上进行梯度归因，再用双向真实激活修补验证候选头。A/P 与 C/F 分别排名，交替合并为固定 51 个头，保存排名、层分布及两类修补效应。每个来源折独立选择头集合。
 
-**M2：证据保护的干扰痕迹提取。** 令 $h(x)\in\mathbb R^d$ 为最终答案位置上所选 51 个注意力头输出的拼接向量。令 $\mathcal J_{\mathrm{train}}$ 为训练集 A/P 与 C/F 配对的并集，$\pi_j\geq0$ 为当前冻结训练配置下的配对权重，并归一化为 $\sum_{j\in\mathcal J_{\mathrm{train}}}\pi_j=1$。每个配对的权重各有一半分配给左、右端；对唯一训练端点 $v$ 定义
+**M2：证据保护的干扰痕迹提取。** 令 $h(x)\in\mathbb R^d$ 为最终答案位置上所选 51 个注意力头输出的拼接向量。对训练配对 $j$，记其左、右端输入为 $x_j^L,x_j^R$。令 $\mathcal J_{\mathrm{train}}=\mathcal J_{AP}^{\mathrm{train}}\cup\mathcal J_{CF}^{\mathrm{train}}$ 为训练配对索引集合，$\pi_j\geq0$ 为当前冻结训练配置下的配对权重，并归一化为 $\sum_{j\in\mathcal J_{\mathrm{train}}}\pi_j=1$。记 $\mathcal V_{\mathrm{train}}=\{x_j^L,x_j^R:j\in\mathcal J_{\mathrm{train}}\}$ 为去重后的训练端点集合。每个配对的权重各有一半分配给左、右端；对唯一训练端点 $v$ 定义
 ```math
 \rho_v=\frac12\sum_{j\in\mathcal J_{\mathrm{train}}}
 \pi_j\left(
@@ -109,11 +109,11 @@ F0 表示事实数值改变但仍在阈值同侧，属于同真值、不同证�
 对当前新配对主配置，标准化均值和逐维标准差按上述端点权重估计：
 ```math
 \mu=\sum_{v\in\mathcal V_{\mathrm{train}}}\rho_v h(v),\qquad
-\sigma_k=\max\!\left(
+\sigma_a=\max\!\left(
 10^{-5},
 \sqrt{\sum_{v\in\mathcal V_{\mathrm{train}}}
-\rho_v(h_k(v)-\mu_k)^2}
-\right).
+\rho_v(h_a(v)-\mu_a)^2}
+\right),\qquad a=1,\ldots,d.
 ```
 历史 E0 参照沿用其原先登记的未加权标准化方式。对训练配对 $j$，记标准化激活差为 $\Delta\tilde h_j$。证据子空间、初始干扰子空间、正交干扰子空间及痕迹坐标定义为
 ```math
@@ -130,7 +130,7 @@ N&=\operatorname{orth}\!\left((I-SS^\top)U\right),\qquad
 t(x)=N^\top\tilde h(x).
 \end{aligned}
 ```
-其中，$\mathcal J_{AP}^{\mathrm{train}}$ 和 $\mathcal J_{CF}^{\mathrm{train}}$ 分别是训练集中的 A/P 与 C/F 配对索引；$\operatorname{basis}_k$ 表示按相应训练配置的配对权重构造差分矩阵，并通过截断奇异值分解取得前 $k$ 个右奇异向量；$S$、$U$ 的列为正交单位向量，$\operatorname{orth}$ 表示正交化；$I$ 为 $d\times d$ 单位矩阵，$\oslash$ 表示逐元素相除。$N$ 因而张成干扰子空间在证据子空间正交补中的部分，$t(x)$ 是用于 M3 修正的干扰痕迹坐标。主配置 $k=16$，开发集补充 $k=8,16,32$ 的敏感性分析。标准化参数、$S$、$U$ 和 $N$ 仅使用相应训练来源估计。
+其中，$\mathcal J_{AP}^{\mathrm{train}}$ 和 $\mathcal J_{CF}^{\mathrm{train}}$ 分别是训练集中的 A/P 与 C/F 配对索引；$\operatorname{basis}_k$ 表示先将每个配对差分行乘以其配对权重的平方根，再对所得差分矩阵作截断奇异值分解并取得前 $k$ 个右奇异向量；$S$、$U$ 的列为正交单位向量，$\operatorname{orth}$ 表示正交化；$I$ 为 $d\times d$ 单位矩阵，$\oslash$ 表示逐元素相除。$N$ 因而张成干扰子空间在证据子空间正交补中的部分，$t(x)$ 是用于 M3 修正的干扰痕迹坐标。主配置 $k=16$，开发集补充 $k=8,16,32$ 的敏感性分析。标准化参数、$S$、$U$ 和 $N$ 仅使用相应训练来源估计。
 
 **M3：证据约束的干扰贡献对消。** 对每个训练配对 $j$，定义原模型分数差和痕迹坐标差：
 ```math
@@ -531,13 +531,13 @@ z_i=\Delta\ell_{0,i}
 ```math
 \Delta h_i^N=\sigma\odot(NN^\top\Delta\tilde h_i).
 ```
-记 $\ell_{\mathrm{patch},i}^{N}$ 为在左端输入的最终答案位置，将选中头激活从 $h_i^L$ 改为 $h_i^L+\Delta h_i^N$ 后继续前向得到的“是／否”logit差；直接修补效应定义为
+其中，$\odot$ 表示逐元素乘法。记 $\ell_{\mathrm{patch},i}^{N}$ 为在左端输入的最终答案位置，将选中头激活从 $h_i^L$ 改为 $h_i^L+\Delta h_i^N$ 后继续前向得到的“是／否”logit差；直接修补效应定义为
 ```math
 q_i=\ell_{\mathrm{patch},i}^{N}-\ell_0(x_i^L).
 ```
 对开发 A 类配对上的任意量 $v_i$，记 $\operatorname{RMS}(v)=\sqrt{N_A^{-1}\sum_i v_i^2}$，其中 $N_A=|\mathcal I_{\mathrm{dev},A}|$；$\bar z_{\mathrm{dev}}$ 表示该开发配对集合中 $z_i$ 的算术平均。因此，$\operatorname{RMS}(q)/\operatorname{RMS}(z)$ 衡量该投影方向的直接修补效应相对于完整 A/P 分数差的幅度。该干预是单向的左到右激活修补，不是训练后的 M3 修正。
 
-本研究对同一痕迹执行两个不同实验。第一，直接修补效应的 RMS 比例及其直接预测决定系数为
+令 $\mathcal I_{\mathrm{fit},AP}$ 为拟合集 A/P 配对索引，$\mathcal I_{\mathrm{dev},A}$ 为来源隔离开发集 A 类配对索引。本研究对同一痕迹执行两个不同实验。第一，直接修补效应的 RMS 比例及其直接预测决定系数为
 ```math
 R^2_{\mathrm{patch}}
 =1-\frac{\sum_{i\in\mathcal I_{\mathrm{dev},A}}(z_i-q_i)^2}
@@ -552,7 +552,7 @@ R^2_{\mathrm{patch}}
 \qquad
 \hat z_i=\hat a^\top\Delta t_i,
 ```
-并在来源隔离的开发 A 类配对上计算
+并在来源隔离的开发 A 类配对上计算。拟合集使用 4,887 个 A/P 配对，开发集 A 类包含 1,194 个配对。
 ```math
 R^2_{\mathrm{trace}}
 =1-\frac{\sum_{i\in\mathcal I_{\mathrm{dev},A}}(z_i-\hat z_i)^2}
@@ -761,7 +761,7 @@ R^2=1-\frac{\sum_i r_i^2}{\sum_i(z_i-\bar z)^2},
 
 为了同时保持原分数在固定干扰下的证据响应，还需 $a(t(e,\nu))$ 在固定 $\nu$ 时不随 $e$ 改变。局部模型中 $H=0$ 且分数可加时满足这一要求。若目标包含证据与干扰的交互，去掉交互贡献也可能改变原 C/F 响应，因此 ER 与逐对方向、正确率共同解释。
 
-A/P 配对监督干扰修正的变化，C/F 约束限制在固定干扰坐标时由证据变化引起的修正差，即 $c_\phi(t(e_R,\nu))-c_\phi(t(e_L,\nu))$。全局加法常数由任务级校准处理。有限配对所覆盖的变化具有直接约束，留出证据配对用于检验同一函数的迁移。线性实例的特征中心平移只产生常数，一般非线性实例保持训练时的标准化。
+对一组 C/F 配对，记两端证据坐标为 $e_L,e_R$。A/P 配对监督干扰修正的变化，C/F 约束限制在固定干扰坐标时由证据变化引起的修正差，即 $c_\phi(t(e_R,\nu))-c_\phi(t(e_L,\nu))$。全局加法常数由任务级校准处理。有限配对所覆盖的变化具有直接约束，留出证据配对用于检验同一函数的迁移。线性实例的特征中心平移只产生常数，一般非线性实例保持训练时的标准化。
 
 表示编辑也能实现与输出修正相同的分数函数。同监督对照比较达到相同不变性和证据保留时的数据、计算及实现代价。痕迹噪声与不同条件下的迁移通过留出预测评价。
 
