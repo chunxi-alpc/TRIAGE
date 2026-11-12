@@ -72,7 +72,7 @@ LoRA用低秩矩阵参数化权重更新（Hu et al., 2022）。DoRA将权重的
 ```math
 \ell_0(x)=z_+(x)-z_-(x),\qquad
 \hat y_0(x)=\mathbf 1[\ell_0(x)>0].
-```math
+```
 因此，$\ell_0(x)>0$ 表示原模型预测当前条件成立。下文以 $\ell_0$ 表示原模型分数，以 $\ell_m$ 表示评价方法 $m$ 的分数。
 
 **配对类型。**
@@ -105,7 +105,7 @@ F0 表示事实数值改变但仍在阈值同侧，属于同真值、不同证�
 \mathbf 1[v=x_j^L]+\mathbf 1[v=x_j^R]
 \right),\qquad
 \sum_{v\in\mathcal V_{\mathrm{train}}}\rho_v=1.
-```math
+```
 对当前新配对主配置，标准化均值和逐维标准差按上述端点权重估计：
 ```math
 \mu=\sum_{v\in\mathcal V_{\mathrm{train}}}\rho_v h(v),\qquad
@@ -114,7 +114,7 @@ F0 表示事实数值改变但仍在阈值同侧，属于同真值、不同证�
 \sqrt{\sum_{v\in\mathcal V_{\mathrm{train}}}
 \rho_v(h_k(v)-\mu_k)^2}
 \right).
-```math
+```
 历史 E0 参照沿用其原先登记的未加权标准化方式。对训练配对 $j$，记标准化激活差为 $\Delta\tilde h_j$。证据子空间、初始干扰子空间、正交干扰子空间及痕迹坐标定义为
 ```math
 \begin{aligned}
@@ -129,7 +129,7 @@ U&=\operatorname{basis}_{k}\!\left(
 N&=\operatorname{orth}\!\left((I-SS^\top)U\right),\qquad
 t(x)=N^\top\tilde h(x).
 \end{aligned}
-```math
+```
 其中，$\mathcal J_{AP}^{\mathrm{train}}$ 和 $\mathcal J_{CF}^{\mathrm{train}}$ 分别是训练集中的 A/P 与 C/F 配对索引；$\operatorname{basis}_k$ 表示按相应训练配置的配对权重构造差分矩阵，并通过截断奇异值分解取得前 $k$ 个右奇异向量；$S$、$U$ 的列为正交单位向量，$\operatorname{orth}$ 表示正交化。$N$ 因而张成干扰子空间在证据子空间正交补中的部分，$t(x)$ 是用于 M3 修正的干扰痕迹坐标。主配置 $k=16$，开发集补充 $k=8,16,32$ 的敏感性分析。标准化参数、$S$、$U$ 和 $N$ 仅使用相应训练来源估计。
 
 **M3：证据约束的干扰贡献对消。** 对每个训练配对 $j$，定义原模型分数差和痕迹坐标差：
@@ -137,7 +137,7 @@ t(x)=N^\top\tilde h(x).
 \Delta\ell_{0,j}
 =\ell_0(x_j^R)-\ell_0(x_j^L),\qquad
 \Delta t_j=t(x_j^R)-t(x_j^L).
-```math
+```
 令线性修正函数为 $c_w(t)=w^\top t$。拟合系数 $\hat w$ 时，在 A/P 配对上最小化修正后的分数差，并在 C/F 配对上逐对限制修正量：
 ```math
 \begin{aligned}
@@ -149,7 +149,7 @@ t(x)=N^\top\tilde h(x).
 |w^\top\Delta t_j|\leq\delta,
 \qquad j\in\mathcal J_{CF}^{\mathrm{train}}.
 \end{aligned}
-```math
+```
 其中，$\omega_j\geq0$ 是 A/P 回归权重；本轮按类别、数据集、来源、病例及病例内变体分配权重，A/P 权重总和为 $4{,}887$。固定 $\lambda=0.01$、$\delta=0.2923349$ logit。训练集共 $10{,}006$ 对：A 4,368、P 635、C 635、F 4,368、F0 0；5,003 个 C/F 配对逐对施加约束。零修正始终可行。训练约束限制的是修正项对每个训练 C/F 配对分数差的改动；留出来源上的方向退化、超预算和双端正确率仍须实测。
 
 **中心化与 M3 输出。** 沿用上述训练端点权重 $\rho_v$，中心化常数、中心化修正和 M3 输出分数定义为
@@ -160,7 +160,7 @@ t(x)=N^\top\tilde h(x).
 c_{\mathrm{centered}}(x)&=\hat w^\top t(x)-\mu_c,\\
 s(x)&=\ell_0(x)+c_{\mathrm{centered}}(x).
 \end{aligned}
-```math
+```
 因此，$\sum_v\rho_v c_{\mathrm{centered}}(v)=0$。中心化只减去输入无关的常数，不改变任意配对的分数差，也不改变 C/F 训练约束。最终 M3 不包含可学习的全局共享截距。历史旧 M3 曾先拟合受约束 $w$、再单独估计截距 $b$；严格匹配的 E2/E3 共用同一 $w$，删除 $b$ 只改变绝对分数零点，不能解释为配对干扰抑制能力提高。非线性函数仅作补充对照，仍以两端函数值之差训练。
 
 ### 3.3 M4：任务感知校准与决策
@@ -168,19 +168,19 @@ s(x)&=\ell_0(x)+c_{\mathrm{centered}}(x).
 为了将输入相关修正与绝对分数校准分开，我们固定 M1–M3 后单独估计 M4。下文 $s(x)$ 表示第3.2节定义的 M3 中心化后分数。MEGA 采用逻辑再校准：
 ```math
 p(y=1\mid x)=\operatorname{sigmoid}(\alpha+\beta s(x)),\qquad \beta>0.
-```math
+```
 M4-0 固定 $\alpha=0,\beta=1$；M4-1 仅估计 $\alpha$；M4-2 仅估计 $\beta$；M4-3 同时估计两者。主配置预先指定为 M4-3。参数在原 20 来源开发自然节点上估计，对 $\alpha$ 与 $\log\beta$ 使用固定 L2 正则；每折使用对应 M3 的开发预测。概率阈值固定为 $0.5$，测试标签只用于评价。
 
 **MedPIC 合法答案集合校准。** 对问题 $x$ 的普通选项 $i$，令 $s_i(x)$ 为该选项经 M1–M3 得到的二元分数；若题目含“以上均非”选项，记其分数为 $s_{\mathrm{None}}(x)$。令 $\mathcal L_x$ 表示该题按计分协议允许的完整答案集合。对普通答案集合 $S$，定义
 ```math
 E(S\mid x)=\frac{1}{T}\sum_{i\in S}s_i(x)+\gamma_{|S|},
 \qquad T>0.
-```math
+```
 若题目含“以上均非”选项，则将该选项作为单独的特殊答案集合，并定义
 ```math
 E(\mathrm{None}\mid x)
 =\frac{s_{\mathrm{None}}(x)}{T}+\eta.
-```math
+```
 此时 $\mathcal L_x$ 包含该特殊集合及普通选项的所有非空子集；若题目不含特殊选项，则空集也属于 $\mathcal L_x$，其能量为 $E(\varnothing\mid x)=\gamma_0$。对所有合法答案集合，概率和最终预测为
 ```math
 P(A\mid x)=
@@ -188,7 +188,7 @@ P(A\mid x)=
 {\sum_{A'\in\mathcal L_x}\exp E(A'\mid x)},
 \qquad
 \hat S=\arg\max_{A\in\mathcal L_x}P(A\mid x).
-```math
+```
 其中，$\gamma_k$ 是答案集合大小为 $k$ 时的先验项；固定 $\gamma_1=0$ 以去除所有集合能量共同平移造成的冗余，$\eta$ 是特殊“以上均非”集合的偏置。以完整集合负对数似然拟合温度 $T$、偏置 $\eta$ 和正则化的集合大小先验 $\gamma$。正则强度只在既有 93 题开发集做来源分组五折选择。官方 467 题包含这些开发题，因此全量结果属于描述性评价，另列冻结 188 题测试结果。NLI4CT 沿用原生二分类标签及冻结迁移协议，不做目标校准。
 
 为了保持原推理流程，模型只执行一次前向，读取原始分数及 51 个头，再计算痕迹、中心化修正和任务决策。rank=16 时，M3 有 16 个可拟合系数；$\mu_c$ 是由训练端点加权分布推导的统计量。M4 参数独立保存。完整存储还包含头索引、标准化参数及子空间基，离线定位和特征提取成本另报。
@@ -200,27 +200,27 @@ P(A\mid x)=
 \ell_0(e,\nu)=f(e)+\boldsymbol\gamma^\top\nu,
 \qquad
 t(e,\nu)=D\nu+He.
-```math
+```
 对痕迹施加线性修正 $w^\top t$，并允许一个输入无关常数 $\kappa$，得到
 ```math
 \ell_w(e,\nu)
 =\ell_0(e,\nu)+w^\top t(e,\nu)+\kappa
 =f(e)+(\boldsymbol\gamma+D^\top w)^\top\nu+w^\top He+\kappa.
-```math
+```
 精确对消干扰且保持原证据响应要求
 ```math
 D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
-```math
+```
 令 $Z$ 的列构成 $\ker(H^\top)$ 的正交单位基，则 $w=Za$。上述两个条件可同时满足，当且仅当
 ```math
 \boldsymbol\gamma\in\operatorname{range}(D^\top Z).
-```math
+```
 这说明痕迹可以混入证据信息；关键在于是否仍存在既能识别判断相关干扰、又不响应证据的读出方向。
 
 局部几何下界也刻画了严格保持证据方向的代价。令 $u_e$、$u_n$ 分别为同一表示点 $h_0$ 处的单位证据切向和单位干扰切向，两者夹角为 $\theta$。若可微表示编辑 $T$ 的雅可比矩阵 $J_T(h_0)$ 满足 $J_T(h_0)u_e=u_e$ 且 $J_T(h_0)u_n=0$，则
 ```math
 \|I-J_T(h_0)\|_2\geq\csc\theta.
-```math
+```
 其中 $\|\cdot\|_2$ 表示谱范数。该结论只适用于同一点严格保留原证据切向、同时消去干扰切向的局部约束；若允许证据重编码或仅要求最终输出保持，应按相应任务约束评价。
 
 一般函数修正要求需要抵消的标量贡献可由同一个痕迹函数确定。增加函数容量能拟合更复杂的关系，但不能补足特征中缺失的信息。完整命题、证明及反例见附录 A。
@@ -272,7 +272,7 @@ MEGA-CDP的拟合、开发和受控留出按指南来源隔离，分别包含80�
 ```math
 c_m(x)=\ell_m(x)-\ell_0(x),\qquad
 \ell_m(x)=\ell_0(x)+c_m(x).
-```math
+```
 因此，原模型对应 $c_0(x)=0$。对第 $i$ 组反事实配对，记左、右两端输入为 $x_i^L,x_i^R$，对应金标准标签为 $y_i^L,y_i^R\in\{0,1\}$。$L$、$R$ 仅表示配对两端，配对方向在评价前固定。原模型分数差、方法 $m$ 的分数差，以及方法修正量的配对差分别定义为
 ```math
 \begin{aligned}
@@ -284,7 +284,7 @@ c_m(x)=\ell_m(x)-\ell_0(x),\qquad
 &=c_m(x_i^R)-c_m(x_i^L)
 =\Delta\ell_{m,i}-\Delta\ell_{0,i}.
 \end{aligned}
-```math
+```
 因此，$\Delta\ell_{0,i}$ 是原模型分别对同一配对右端和左端打分后所得的差；$\Delta\ell_{m,i}$ 是方法 $m$ 对同一配对的分数差；$\Delta c_{m,i}$ 是方法 $m$ 对原模型配对分数差造成的改变量。下文不省略这些符号中的方法下标。
 
 **干扰不变性（A/P）。** A/P 配对保持当前判断的决定性证据及金标准标签不变，只改变后续处置文字或无关背景。记合格配对集合为 $\mathcal I_{AP}$，数量为 $N_{AP}$。方法 $m$ 的干扰响应均方根定义为
@@ -292,7 +292,7 @@ c_m(x)=\ell_m(x)-\ell_0(x),\qquad
 \operatorname{RMS}_{AP}(m)
 =\sqrt{\frac{1}{N_{AP}}\sum_{i\in\mathcal I_{AP}}
 (\Delta\ell_{m,i})^2}.
-```math
+```
 该值越小，表示方法对指定无关变化越稳定。干扰方差降低率定义为
 ```math
 \operatorname{VR}(m)
@@ -300,7 +300,7 @@ c_m(x)=\ell_m(x)-\ell_0(x),\qquad
 1-\frac{\operatorname{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{m,i})}
 {\operatorname{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{0,i})}
 \right].
-```math
+```
 方差均在同一配对集合上按中心化总体方差计算；VR 越大，表示配对分数差的方差降低越多。VR 不反映平均偏移，因此与 RMS 一并报告；原模型配对分数差的方差为零时，VR 未定义。VR 公式的数值按百分比报告。
 
 **证据敏感性（C/F）。** C/F 配对改变条件定义或患者决定性事实，使两端金标准标签翻转。记合格配对集合为 $\mathcal I_{CF}$，数量为 $N_{CF}$。定义标签变化方向及原模型、方法 $m$ 沿该方向的分数响应：
@@ -308,14 +308,14 @@ c_m(x)=\ell_m(x)-\ell_0(x),\qquad
 d_i=y_i^R-y_i^L\in\{-1,+1\},\qquad
 r_{0,i}=d_i\Delta\ell_{0,i},\qquad
 r_{m,i}=d_i\Delta\ell_{m,i}.
-```math
+```
 其中，$r_{0,i}$ 是原模型的有向证据响应，$r_{m,i}$ 是方法 $m$ 的有向证据响应；正值表示分数变化方向与金标准标签变化一致。证据响应保留率（ER）定义为
 ```math
 \operatorname{ER}(m)
 =100\times
 \frac{\sum_{i\in\mathcal I_{CF}}r_{m,i}}
 {\sum_{i\in\mathcal I_{CF}}r_{0,i}}.
-```math
+```
 ER 衡量配对响应的平均有向总量是否保留，不是逐对正确率。只有原模型的总有向响应为正且不接近零时，ER 才按比例解释；否则应同时报告分子、分母及原量纲响应。
 
 证据分数差改动均方根定义为
@@ -323,19 +323,19 @@ ER 衡量配对响应的平均有向总量是否保留，不是逐对正确率�
 \operatorname{RMS}_{\mathrm{corr},CF}(m)
 =\sqrt{\frac{1}{N_{CF}}\sum_{i\in\mathcal I_{CF}}
 (\Delta c_{m,i})^2}.
-```math
+```
 该值越小，表示方法对原模型证据响应的改动越小。另报告方向退化比例，即原模型有正向响应、但方法修正后响应不再为正的 C/F 配对占全部合格 C/F 配对的比例：
 ```math
 \operatorname{Deg}_{CF}(m)
 =\frac{1}{N_{CF}}\sum_{i\in\mathcal I_{CF}}
 \mathbf 1[r_{0,i}>0\ \land\ r_{m,i}\leq0].
-```math
+```
 同时报告超过训练证据预算 $\delta$ 的配对比例：
 ```math
 \operatorname{Exceed}_{\delta}(m)
 =\frac{1}{N_{CF}}\sum_{i\in\mathcal I_{CF}}
 \mathbf 1[|\Delta c_{m,i}|>\delta].
-```math
+```
 方向退化比例的分母为全部有标签的 C/F 配对；其分子只计入原模型响应为正、修正后响应不再为正的配对。超预算比例同样以全部合格 C/F 配对为分母。两项按百分比展示时均乘以 $100$。方向退化数为零不等于所有证据响应幅度均得到保留。
 
 **配对正确性与端到端任务效用。** 在二元任务中，记 $\hat y_m(x)$ 为方法 $m$ 完整推理流程给出的最终预测；若使用 M4，则按校准后概率及固定阈值 $0.5$ 决策，否则按未校准分数的零阈值决策。C/F 双端配对全对率要求同一配对的两端均预测正确：
@@ -345,7 +345,7 @@ ER 衡量配对响应的平均有向总量是否保留，不是逐对正确率�
 \mathbf 1[
 \hat y_m(x_i^L)=y_i^L\ \land\
 \hat y_m(x_i^R)=y_i^R].
-```math
+```
 该指标不同于仅要求两端预测发生翻转，也不同于仅检查分数响应方向。为避免把任务级校准效应混入 M1–M3 的配对机制评价，上述连续分数指标均使用任务级校准前的 $\ell_m(x)$；任务准确率和配对全对率则按完整推理流程计算。
 
 端到端任务效用分别报告：MEGA-CDP 的完整动态路径正确率（模型自主遍历根至叶，要求路径上的分支及终点均正确）；NLI4CT-2024 的原始声明宏平均 F1 和全部正式声明准确率；MedPIC 的整题答案集合完全正确率。NLI4CT 的标签保持一致率只表示配对两端预测相同，不要求两端正确。标签翻转条件忠实性仅在原始声明预测正确的合格关系中计算，并同时报告该条件分母及全部翻转关系中的双端全对数。MedPIC 的选项级正确率与整题答案集合正确率分别报告，不相互替代。
@@ -524,15 +524,15 @@ MedPIC 冻结 188 题 E3→E4 整题正确率 36.70%→39.36%，差值区间包�
 z_i=\Delta\ell_{0,i}
 =\ell_0(x_i^R)-\ell_0(x_i^L),\qquad
 \Delta t_i=t(x_i^R)-t(x_i^L).
-```math
+```
 令 $h_i^L=h(x_i^L)$、$h_i^R=h(x_i^R)$ 为两端选中注意力头的拼接激活，$\Delta\tilde h_i=(h_i^R-h_i^L)\oslash\sigma$。将标准化激活差投影到干扰痕迹子空间并还原原坐标，得到
 ```math
 \Delta h_i^N=\sigma\odot(NN^\top\Delta\tilde h_i).
-```math
+```
 记 $\ell_{\mathrm{patch},i}^{N}$ 为在左端输入的最终答案位置，将选中头激活从 $h_i^L$ 改为 $h_i^L+\Delta h_i^N$ 后继续前向得到的“是／否”logit差；直接修补效应定义为
 ```math
 q_i=\ell_{\mathrm{patch},i}^{N}-\ell_0(x_i^L).
-```math
+```
 因此，$\operatorname{RMS}(q)/\operatorname{RMS}(z)$ 衡量该投影方向的直接修补效应相对于完整 A/P 分数差的幅度。该干预是单向的左到右激活修补，不是训练后的 M3 修正。
 
 本研究对同一痕迹执行两个不同实验。第一，直接修补效应的 RMS 比例及其直接预测决定系数为
@@ -540,7 +540,7 @@ q_i=\ell_{\mathrm{patch},i}^{N}-\ell_0(x_i^L).
 R^2_{\mathrm{patch}}
 =1-\frac{\sum_{i\in\mathcal I_{\mathrm{dev},A}}(z_i-q_i)^2}
 {\sum_{i\in\mathcal I_{\mathrm{dev},A}}(z_i-\bar z_{\mathrm{dev}})^2}.
-```math
+```
 这里不再拟合 $q_i$ 到 $z_i$ 的回归，也不加入截距。第二，在拟合集上用岭回归从痕迹坐标差预测完整分数差：
 ```math
 \hat a
@@ -549,13 +549,13 @@ R^2_{\mathrm{patch}}
 (z_j-a^\top\Delta t_j)^2+\lambda_r\|a\|_2^2,
 \qquad
 \hat z_i=\hat a^\top\Delta t_i,
-```math
+```
 并在来源隔离的开发 A 类配对上计算
 ```math
 R^2_{\mathrm{trace}}
 =1-\frac{\sum_{i\in\mathcal I_{\mathrm{dev},A}}(z_i-\hat z_i)^2}
 {\sum_{i\in\mathcal I_{\mathrm{dev},A}}(z_i-\bar z_{\mathrm{dev}})^2}.
-```math
+```
 该回归使用 $\lambda_r=0.01$，不额外拟合截距，也不对痕迹坐标再次标准化。前者衡量“改动这些方向能直接推动多少分数”，后者衡量“读取这些方向能预测多少完整干扰效应”。
 
 | 同版真实机制诊断 | A：1,194对、20来源 | A/P：1,198对、20来源 |
@@ -675,22 +675,22 @@ ASTER-CR保留完整输入，用证据保持配对学习分数对消，用证据
 ```math
 u_n=\cos\theta\,u_e+\sin\theta\,q,\qquad
 0<\theta\leq\pi/2.
-```math
+```
 在线性编辑 $E$ 中，若 $Eu_e=u_e$ 且 $Eu_n=0$，则
 ```math
 \|I-E\|_2\geq\csc\theta.
-```math
+```
 对任意在 $h_0$ 可微的非线性编辑 $T$，令 $J_T(h_0)$ 为其在 $h_0$ 处的雅可比矩阵。若它在同一点保持证据切向且消去干扰切向，即 $J_T(h_0)u_e=u_e$、$J_T(h_0)u_n=0$，同样有
 ```math
 \boxed{\|I-J_T(h_0)\|_2\geq\csc\theta.}
-```math
+```
 其中 $\|\cdot\|_2$ 为谱范数。证明：由 $J_Tu_n=0$、$J_Tu_e=u_e$ 得 $J_Tq=-\cot\theta\,u_e$，故 $(I-J_T)q=q+\cot\theta\,u_e$，其范数为 $\csc\theta$。线性情形取 $J_T=E$ 即得。
 
 若允许误差 $\|J_Tu_e-u_e\|_2\leq\varepsilon_e$、$\|J_Tu_n\|_2\leq\varepsilon_n$，则三角不等式给出
 ```math
 \|I-J_T\|_2\geq
 \frac{[1-\cos\theta\,\varepsilon_e-\varepsilon_n]_+}{\sin\theta}.
-```math
+```
 该命题说明，增加非线性并不自动消除“同点保持原有证据切向、同时压平干扰切向”的局部约束。它给出编辑改变量的局部最坏方向增益；实际误差取决于数据、误差方向及后续计算。只保持最终任务分数而允许证据表示重编码的编辑，采用的是更弱的保留条件，应通过对应任务目标评价。
 
 $\theta=45^\circ$ 时，精确下界为 $\csc(45^\circ)=\sqrt 2\approx1.414$。历史约 1.412 的算子值 [R2] 仅作为不同实测条件下的近似参照，不作严格数值验证。
@@ -702,25 +702,25 @@ $\theta=45^\circ$ 时，精确下界为 $\csc(45^\circ)=\sqrt 2\approx1.414$。�
 \ell_0(e,\nu)=f(e)+\boldsymbol\gamma^\top\nu,
 \qquad
 t(e,\nu)=D\nu+He.
-```math
+```
 其中，$e$、$\nu$ 分别为证据和干扰坐标，$D$、$H$ 分别描述干扰和证据进入痕迹的线性映射。加入线性修正及输入无关常数 $\kappa$ 后，
 ```math
 \ell_w(e,\nu)
 =\ell_0(e,\nu)+w^\top t(e,\nu)+\kappa
 =f(e)+(\boldsymbol\gamma+D^\top w)^\top\nu+w^\top He+\kappa.
-```math
+```
 同时完全对消干扰、保持原证据响应，要求
 ```math
 D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
-```math
+```
 取 $Z$ 为 $\ker(H^\top)$ 的正交单位基，则 $w=Za$。上述两个条件可同时满足，当且仅当
 ```math
 \boxed{\boldsymbol\gamma\in\operatorname{range}(D^\top Z).}
-```math
+```
 证明：$H^\top w=0$ 等价于 $w=Za$；代入干扰条件后，方程 $D^\top Za=-\boldsymbol\gamma$ 可解恰好等价于上述值域条件。最小范数解可写为
 ```math
 w^*=-Z(D^\top Z)^+\boldsymbol\gamma,
-```math
+```
 其中 $(\cdot)^+$ 表示 Moore–Penrose 伪逆。
 
 **痕迹混入证据并不自动使对消失效。** 所需条件是仍存在一个对证据不响应、又能识别判断相关干扰贡献的读出方向。$H=0$ 时，条件退化为 $\boldsymbol\gamma\in\operatorname{range}(D^\top)$，痕迹不必恢复全部干扰变量。若干扰与证据在可读特征中完全重合，精确保留可能只允许 $w=0$；在上述线性修正与精确证据保留要求下，此时无法取得非零对消。
@@ -739,12 +739,12 @@ R^2=1-\frac{\sum_i r_i^2}{\sum_i(z_i-\bar z)^2},
 \qquad
 \operatorname{VR}_{\%}
 =100\left[1-\frac{\operatorname{Var}(r)}{\operatorname{Var}(z)}\right].
-```math
+```
 这里的方差采用总体方差约定，且要求 $\operatorname{Var}(z)>0$。两者满足
 ```math
 \operatorname{VR}_{\%}
 =100\left(R^2+\frac{\bar r^{\,2}}{\operatorname{Var}(z)}\right).
-```math
+```
 因此，残差均值接近零时，VR 的百分数数值接近 $100R^2$；二者不是两个独立的机制证据。开发集预测关系在留出测试上保持，才支持对消关系的迁移。
 
 ### A.4 共享非线性修正的成立条件
@@ -752,7 +752,7 @@ R^2=1-\frac{\sum_i r_i^2}{\sum_i(z_i-\bar z)^2},
 为了将对消扩展到一般函数，要求分数中需要移除的贡献可由同一个痕迹函数确定：存在共享函数 $a$ 和仅依赖证据的 $f_*$，使
 ```math
 \ell_0(e,\nu)=f_*(e)+a(t(e,\nu)).
-```math
+```
 取修正函数 $c_\phi(t)=-a(t)$，则修正后分数为 $\ell'=f_*(e)+\kappa$，其中 $\kappa$ 是输入无关常数，实现固定证据时的干扰不变性。痕迹只需确定这个标量贡献；神经网络增加对 $a$ 的拟合能力。
 
 共享函数的存在是信息条件。例如 $\ell_0(e,\nu)=e+e\nu$、$t(e,\nu)=\nu$，且 $e$ 可取正负值时，同一干扰变化在不同证据条件下产生相反的分数变化，单个 $c_\phi(t)$ 无法同时抵消。此时需要检验痕迹是否还提供了区分这些贡献的信息。现有信息不足以保证共享修正函数可跨所有证据条件使用；附录 D.1 仅在受控合成条件下检验了可加情形。
@@ -786,7 +786,7 @@ A/P 配对监督干扰修正的变化，C/F 约束限制在固定干扰坐标时
 \Delta\ell_{m,i}&=\ell_m(x_i^R)-\ell_m(x_i^L),\\
 \Delta c_{m,i}&=\Delta\ell_{m,i}-\Delta\ell_{0,i}.
 \end{aligned}
-```math
+```
 二元正类预测使用严格大于零的阈值；等于零归负类。若使用 M4，则最终预测按校准后概率阈值 $0.5$ 决定。共享截距在配对分数差中抵消。真实模型分数以 logit 计，合成分数以生成模型的分数单位计，二者不直接合并。MedPIC 的机制配对在对齐选项层面使用二元分数；其最终任务决策则在完整合法答案集合上进行。
 
 **干扰指标。** 主文的干扰 RMS 对合格 A/P 配对求均方根：
@@ -794,7 +794,7 @@ A/P 配对监督干扰修正的变化，C/F 约束限制在固定干扰坐标时
 \operatorname{RMS}_{AP}(m)
 =\sqrt{\frac{1}{|\mathcal I_{AP}|}
 \sum_{i\in\mathcal I_{AP}}(\Delta\ell_{m,i})^2}.
-```math
+```
 辅助 VR 定义为
 ```math
 \operatorname{VR}(m)
@@ -802,14 +802,14 @@ A/P 配对监督干扰修正的变化，C/F 约束限制在固定干扰坐标时
 1-\frac{\operatorname{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{m,i})}
 {\operatorname{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{0,i})}
 \right].
-```math
+```
 两种方差均为同一配对集合的中心化总体方差。VR 可为负；原方差为零时未定义。干扰差分预测的决定系数定义为
 ```math
 R^2(m)
 =1-\frac{\sum_{i\in\mathcal I_{AP}}(\Delta\ell_{m,i})^2}
 {\sum_{i\in\mathcal I_{AP}}
 (\Delta\ell_{0,i}-\overline{\Delta\ell_0})^2}.
-```math
+```
 其中，预测要移除的干扰分数差为 $\Delta\ell_{0,i}-\Delta\ell_{m,i}=-\Delta c_{m,i}$，修正后的分数差 $\Delta\ell_{m,i}$ 是预测残差。该决定系数与 VR 相差残差均值项，不作为另一项独立机制发现。VR 不度量平均偏移，这也是正文优先报告 RMS 的原因。
 
 **证据响应与改动。** 对标签翻转配对，定义 $d_i=y_i^R-y_i^L\in\{-1,+1\}$、$r_{0,i}=d_i\Delta\ell_{0,i}$、$r_{m,i}=d_i\Delta\ell_{m,i}$。有向响应保留率为
@@ -817,7 +817,7 @@ R^2(m)
 \operatorname{ER}(m)
 =100\frac{\sum_{i\in\mathcal I_{CF}}d_i\Delta\ell_{m,i}}
 {\sum_{i\in\mathcal I_{CF}}d_i\Delta\ell_{0,i}}.
-```math
+```
 它是有向响应总和的比值，不是逐对比值均值。原分母为非正、零或接近零时，不能把保留比例解释为正确证据利用，应同时给出原量纲响应。100%仅表示保留平均响应。例如两对原响应均为1，修改后为3和−1，平均保留仍为100%，但一对已反向。
 
 证据修正 RMS 为
@@ -825,20 +825,20 @@ R^2(m)
 \operatorname{RMS}_{\mathrm{corr},CF}(m)
 =\sqrt{\frac{1}{|\mathcal I_{CF}|}
 \sum_{i\in\mathcal I_{CF}}(\Delta c_{m,i})^2}.
-```math
+```
 补充归一化量定义为
 ```math
 \operatorname{DU}(m)
 =\frac{\operatorname{RMS}_{\mathrm{corr},CF}(m)}
 {\operatorname{RMS}_{AP}(0)},
-```math
+```
 其中 $\operatorname{RMS}_{AP}(0)$ 是原模型在 A/P 配对上的干扰 RMS；分母为零时 DU 未定义。DU 乘以 100 后以百分比展示，不与 ER 混淆。另报告 $|\Delta c_{m,i}|$ 的中位数、第 95 百分位和最大值，以及超预算比例
 ```math
 \operatorname{Exceed}_{\delta}(m)
 =\frac{1}{|\mathcal I_{CF}|}
 \sum_{i\in\mathcal I_{CF}}
 \mathbf1[|\Delta c_{m,i}|>\delta].
-```math
+```
 这些指标使用原训练预算，不根据测试响应重新定阈值。正文仅呈现已有记录支持的数字；尚未重算的尾部指标不填示例实测。
 
 **方向退化。** 定义原模型和修正后方法的有向响应 $r_{0,i}$、$r_{m,i}$。方向退化数为
@@ -846,12 +846,12 @@ R^2(m)
 N_{\mathrm{deg}}(m)
 =\sum_{i\in\mathcal I_{CF}}
 \mathbf1[r_{0,i}>0\ \land\ r_{m,i}\leq0],
-```math
+```
 方向退化比例以全部有标签 C/F 配对为分母：
 ```math
 \operatorname{Deg}_{CF}(m)
 =\frac{N_{\mathrm{deg}}(m)}{|\mathcal I_{CF}|}.
-```math
+```
 该分母不是原模型正向响应配对数；因此它表示全部 C/F 配对中发生方向退化的比例。方向正确与双端分类全对不是同一事件。没有观察到方向退化也不保证幅度保留、原错误修复或总体风险为零。
 
 **任务与配对正确率。** 二元配对全对要求 $\hat y_m(x_i^L)=y_i^L$ 且 $\hat y_m(x_i^R)=y_i^R$。C/F 双端配对全对率按全部具有两端金标准标签的合格配对计算；MedPIC 选项对使用两个二元标签，病例对则要求两端预测答案集合分别与金标集合完全相同，后者称集合配对全对率，两种分母不得混用。整题集合全对率以 467 题为分母，不由选项准确率推算。F0 只保持二元真值、改变证据数值，判断一致率不等于正确率。
@@ -863,7 +863,7 @@ MEGA 控制器由每种方法从根节点按自身分数动态执行。路径正
 \operatorname{MacroF1}
 =\frac12\sum_{k\in\{0,1\}}
 \frac{2TP_k}{2TP_k+FP_k+FN_k}.
-```math
+```
 本次两个类别均有金标支持；计分脚本保存各类真阳性、假阳性、假阴性及支持数。一般情形的零分母必须明确实现规则，不静默删除类别。
 
 保持一致率为
@@ -871,14 +871,14 @@ MEGA 控制器由每种方法从根节点按自身分数动态执行。路径正
 C(m)=\frac{1}{|\mathcal P|}
 \sum_{i\in\mathcal P}
 \mathbf1[\hat y_m(x_i^L)=\hat y_m(x_i^R)].
-```math
+```
 令 $\mathcal A_m^+=\{i\in\mathcal A:\hat y_m(x_i^L)=y_i^L\}$，按任务论文定义的条件翻转忠实性为
 ```math
 F_{\mathrm{cond}}(m)
 =\frac{1}{|\mathcal A_m^+|}
 \sum_{i\in\mathcal A_m^+}
 \mathbf1[\hat y_m(x_i^R)\ne\hat y_m(x_i^L)].
-```math
+```
 二元翻转下，其分子等于全部翻转关系中的双端正确数，但分母不同。条件分母随方法变化，也可能因覆盖减少而提高比值；因此正文同时报告 $|\mathcal A_m^+|$、原题 F1 及无条件配对全对。它与连续分数方向退化的 $N_{\mathrm{deg}}$ 也不同。
 
 任务论文规定宏平均 F1 与条件忠实性，后续勘误修正了预测一致性实现及相关成绩。公开脚本的固定版本仍存在 F1 平均方式、忠实性筛选及一致性调用差异。本文明确采用上述定义，独立复算，不声称执行了该脚本或复现官方榜单。参见[任务论文](https://aclanthology.org/2024.semeval-1.271.pdf)、[勘误](https://aclanthology.org/2024.semeval-1.271e1.pdf)、[公开脚本固定版本](https://github.com/ai-systems/Task-2-SemEval-2024/blob/7f32fa6c7db43e577f22e9fc6c28eef1cc6d223e/evaluate.py)。
