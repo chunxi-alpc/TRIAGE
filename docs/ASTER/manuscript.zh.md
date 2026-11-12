@@ -281,7 +281,7 @@ D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
 
 **Metrics.** 我们报告两类指标：（1）行为指标：A/P干扰响应RMS和方差降低率VR；C/F证据响应保留率ER、证据修正RMS、双端全对率、方向退化数和超预算比例，定义见附录B.1。（2）任务指标：MEGA自然节点、自然路径、干扰路径及官方动态路径准确率（Chen et al., 2026）；NLI4CT准确率、宏平均F1、标签保持一致率和条件翻转忠实性（Jullien et al., 2023, 2024）；MedPIC选项准确率、翻转选项对双端全对率和整题集合准确率（Hou et al., 2026）。
 
-**Baselines.** 比较方法包括原始Qwen3-8B、仅截距校准和解析比例缩放（校准参照：Guo et al., 2017）、监督线性读出（Alain & Bengio, 2016）、LEACE（Belrose et al., 2023）、ITI（Li et al., 2023）、LoFiT（Yin et al., 2024）和LoRA（Hu et al., 2022）。各方法使用相同的Qwen3-8B任务输入、提示、分词器、二元输出和评价划分。ASTER-CR的M1–M3只使用MEGA-CDP训练配对，不引入额外训练数据或患者字段。各基线的监督来源和训练预算见附录B.5。
+**Baselines.** 我们将ASTER-CR与五类方法比较：原始Qwen3-8B及仅截距、解析比例缩放两种校准控制（Guo et al., 2017）；监督线性读出（Alain & Bengio, 2016）；闭式线性概念擦除LEACE（Belrose et al., 2023）；沿方向调整激活的ITI（Li et al., 2023）和局部表示微调LoFiT（Yin et al., 2024）；低秩权重更新LoRA（Hu et al., 2022）。各方法使用相同的Qwen3-8B任务输入、提示、分词器、二元输出和评价划分。ASTER-CR的M1–M3只使用MEGA-CDP训练配对，不引入额外训练数据或患者字段。各基线的监督来源和训练预算见附录B.5。
 
 ### 4.2 MEGA受控比较：选择性分数修正
 
