@@ -723,7 +723,7 @@ D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
 ```math
 w^*=-Z(D^\top Z)^+\boldsymbol\gamma,
 ```
-其中 $(\cdot)^+$ 表示 Moore–Penrose 伪逆，$\\|\cdot\\|_\\infty$ 表示向量最大绝对分量范数。
+其中 $(\cdot)^+$ 表示 Moore–Penrose 伪逆，$\|\cdot\|_\infty$ 表示向量最大绝对分量范数。
 
 **痕迹混入证据并不自动使对消失效。** 所需条件是仍存在一个对证据不响应、又能识别判断相关干扰贡献的读出方向。$H=0$ 时，条件退化为 $\boldsymbol\gamma\in\operatorname{range}(D^\top)$，痕迹不必恢复全部干扰变量。若干扰与证据在可读特征中完全重合，精确保留可能只允许 $w=0$；在上述线性修正与精确证据保留要求下，此时无法取得非零对消。
 
