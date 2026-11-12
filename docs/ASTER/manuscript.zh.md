@@ -98,7 +98,7 @@ F0 表示事实数值改变但仍在阈值同侧，属于同真值、不同证�
 
 **M1：注意力头定位。** 为了选择能支持干扰估计与证据保护的特征，我们在训练配对上进行梯度归因，再用双向真实激活修补验证候选头。A/P 与 C/F 分别排名，交替合并为固定 51 个头，保存排名、层分布及两类修补效应。每个来源折独立选择头集合。
 
-**M2：证据保护的干扰痕迹提取。** 令 $h(x)\in\mathbb R^d$ 为最终答案位置上所选 51 个注意力头输出的拼接向量。对训练配对 $j$，记其左、右端输入为 $x_j^L,x_j^R$。令 $\mathcal J_{\mathrm{train}}=\mathcal J_{AP}^{\mathrm{train}}\cup\mathcal J_{CF}^{\mathrm{train}}$ 为训练配对索引集合，$\pi_j\geq0$ 为当前冻结训练配置下的配对权重，并归一化为 $\sum_{j\in\mathcal J_{\mathrm{train}}}\pi_j=1$。记 $\mathcal V_{\mathrm{train}}=\{x_j^L,x_j^R:j\in\mathcal J_{\mathrm{train}}\}$ 为去重后的训练端点集合。每个配对的权重各有一半分配给左、右端；对唯一训练端点 $v$ 定义
+**M2：证据保护的干扰痕迹提取。** 令 $h(x)\in\mathbb R^d$ 为最终答案位置上所选 51 个注意力头输出的拼接向量。对训练配对 $j$，记其左、右端输入为 $x_j^L,x_j^R$。令 $\mathcal J_{\mathrm{train}}=\mathcal J_{AP}^{\mathrm{train}}\cup\mathcal J_{CF}^{\mathrm{train}}$ 为训练配对索引集合，$\pi_j\geq0$ 为当前冻结训练配置下的配对权重，并归一化为 $\sum_{j\in\mathcal J_{\mathrm{train}}}\pi_j=1$；当前均衡配置按 A/P/C/F 类别、数据集、来源、病例及病例内变体分配该权重。记 $\mathcal V_{\mathrm{train}}=\{x_j^L,x_j^R:j\in\mathcal J_{\mathrm{train}}\}$ 为去重后的训练端点集合。每个配对的权重各有一半分配给左、右端；对唯一训练端点 $v$ 定义
 ```math
 \rho_v=\frac12\sum_{j\in\mathcal J_{\mathrm{train}}}
 \pi_j\left(
@@ -693,7 +693,7 @@ u_n=\cos\theta\,u_e+\sin\theta\,q,\qquad
 \|I-J_T\|_2\geq
 \frac{[1-\cos\theta\,\varepsilon_e-\varepsilon_n]_+}{\sin\theta}.
 ```
-该命题说明，增加非线性并不自动消除“同点保持原有证据切向、同时压平干扰切向”的局部约束。它给出编辑改变量的局部最坏方向增益；实际误差取决于数据、误差方向及后续计算。只保持最终任务分数而允许证据表示重编码的编辑，采用的是更弱的保留条件，应通过对应任务目标评价。
+其中 $[a]_+=\max(a,0)$。该命题说明，增加非线性并不自动消除“同点保持原有证据切向、同时压平干扰切向”的局部约束。它给出编辑改变量的局部最坏方向增益；实际误差取决于数据、误差方向及后续计算。只保持最终任务分数而允许证据表示重编码的编辑，采用的是更弱的保留条件，应通过对应任务目标评价。
 
 $\theta=45^\circ$ 时，精确下界为 $\csc(45^\circ)=\sqrt 2\approx1.414$。历史约 1.412 的算子值 [R2] 仅作为不同实测条件下的近似参照，不作严格数值验证。
 
@@ -723,7 +723,7 @@ D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
 ```math
 w^*=-Z(D^\top Z)^+\boldsymbol\gamma,
 ```
-其中 $(\cdot)^+$ 表示 Moore–Penrose 伪逆。
+其中 $(\cdot)^+$ 表示 Moore–Penrose 伪逆，$\\|\cdot\\|_\\infty$ 表示向量最大绝对分量范数。
 
 **痕迹混入证据并不自动使对消失效。** 所需条件是仍存在一个对证据不响应、又能识别判断相关干扰贡献的读出方向。$H=0$ 时，条件退化为 $\boldsymbol\gamma\in\operatorname{range}(D^\top)$，痕迹不必恢复全部干扰变量。若干扰与证据在可读特征中完全重合，精确保留可能只允许 $w=0$；在上述线性修正与精确证据保留要求下，此时无法取得非零对消。
 
