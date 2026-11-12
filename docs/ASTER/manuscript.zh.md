@@ -330,40 +330,40 @@ NLI4CT 和 MedPIC 均只按各自原生任务报告。NLI 标签保持不自动�
 
 **分数与配对。** 原模型分数记为 $\ell_0(x)$，方法 $m$ 在任务校准前的分数记为 $\ell_m(x)$。对第 $i$ 组反事实配对，左右输入为 $x_i^L,x_i^R$。定义两端分数差及其修正量：
 
-\[
+```math
 \Delta\ell_{0,i}=\ell_0(x_i^R)-\ell_0(x_i^L),\qquad
 \Delta\ell_{m,i}=\ell_m(x_i^R)-\ell_m(x_i^L),\qquad
 \Delta c_{m,i}=\Delta\ell_{m,i}-\Delta\ell_{0,i}.
-\]
+```
 
 其中，$\Delta\ell_{0,i}$ 是原模型的配对分数差，$\Delta\ell_{m,i}$ 是修正后分数差，$\Delta c_{m,i}$ 是方法实际改变的分数差。
 
 **干扰不变性（A/P）。** A/P 配对保持决定性证据和标签不变，只改变无关背景或后续处置。以修正模型在这些配对上的分数差均方根衡量干扰响应：
 
-\[
+```math
 \mathrm{RMS}_{AP}(m)
 =\sqrt{\frac{1}{N_{AP}}\sum_{i\in\mathcal I_{AP}}
 (\Delta\ell_{m,i})^2}.
-\]
+```
 
 该值越小，说明模型越不受无关变化影响。干扰方差降低率（VR）作为辅助指标，完整定义见附录 B.1。
 
 **证据敏感性（C/F）。** C/F 配对改变条件或患者的决定性事实，使金标准标签翻转。令 $d_i=y_i^R-y_i^L$，证据响应保留率定义为
 
-\[
+```math
 \mathrm{ER}(m)
 =100\times
 \frac{\sum_{i\in\mathcal I_{CF}}d_i\Delta\ell_{m,i}}
 {\sum_{i\in\mathcal I_{CF}}d_i\Delta\ell_{0,i}}.
-\]
+```
 
 同时报告证据修正 RMS，以衡量方法对原模型 C/F 配对分数差的改动幅度：
 
-\[
+```math
 \mathrm{RMS}_{\mathrm{corr},CF}(m)
 =\sqrt{\frac{1}{N_{CF}}\sum_{i\in\mathcal I_{CF}}
 (\Delta c_{m,i})^2}.
-\]
+```
 
 ER 衡量全部 C/F 配对上的有向证据响应总量相对原模型的保留比例；证据修正 RMS 衡量方法改变原模型证据响应的幅度。二者互补：ER 接近 100% 不保证每一对的响应方向均正确；证据修正 RMS 较小也不代表判断正确。因此，同时报告 C/F 双端全对率：只有同一配对的两端预测都与各自金标准一致，才计为正确。方向退化和超预算比例作为补充安全指标，完整定义见附录 B.1。
 
