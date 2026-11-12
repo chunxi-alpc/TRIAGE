@@ -51,7 +51,8 @@
 - Qiu et al. (2024). *Spectral Editing of Activations for Large Language Model Alignment* (SEA). https://arxiv.org/abs/2405.09719
 - Lee et al. (2025). *Programming Refusal with Conditional Activation Steering* (CAST). ICLR. https://proceedings.iclr.cc/paper_files/paper/2025/hash/e2dd53601de57c773343a7cdf09fae1c-Abstract-Conference.html
 - Wu et al. (2025). *Improved Representation Steering for Language Models* (RePS). NeurIPS. https://arxiv.org/abs/2505.20809
-- Sun et al. (2025). *HyperSteer: Activation Steering at Scale with Hypernetworks*. https://arxiv.org/abs/2506.03292
+
+- Wu et al. (2025). *AxBench: Steering LLMs? Even Simple Baselines Outperform Sparse Autoencoders*. ICML 2025 (spotlight). https://arxiv.org/abs/2501.17148- Sun et al. (2025). *HyperSteer: Activation Steering at Scale with Hypernetworks*. https://arxiv.org/abs/2506.03292
 - Heyman et al. (2026). *Steer Like the LLM: Activation Steering that Mimics Prompting* (PSR). ICML. https://arxiv.org/abs/2605.03907
 
 ### 表示微调与参数高效权重微调
