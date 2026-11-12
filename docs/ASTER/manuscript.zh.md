@@ -130,7 +130,7 @@ N&=\operatorname{orth}\!\left((I-SS^\top)U\right),\qquad
 t(x)=N^\top\tilde h(x).
 \end{aligned}
 ```
-其中，$\mathcal J_{AP}^{\mathrm{train}}$ 和 $\mathcal J_{CF}^{\mathrm{train}}$ 分别是训练集中的 A/P 与 C/F 配对索引；$\operatorname{basis}_k$ 表示先将每个配对差分行乘以其配对权重的平方根，再对所得差分矩阵作截断奇异值分解并取得前 $k$ 个右奇异向量；$S$、$U$ 的列为正交单位向量，$\operatorname{orth}$ 表示正交化；$I$ 为 $d\times d$ 单位矩阵，$\oslash$ 表示逐元素相除。$N$ 因而张成干扰子空间在证据子空间正交补中的部分，$t(x)$ 是用于 M3 修正的干扰痕迹坐标。主配置 $k=16$，开发集补充 $k=8,16,32$ 的敏感性分析。标准化参数、$S$、$U$ 和 $N$ 仅使用相应训练来源估计。
+其中，$\mathcal J_{AP}^{\mathrm{train}}$ 和 $\mathcal J_{CF}^{\mathrm{train}}$ 分别是训练集中的 A/P 与 C/F 配对索引；$\operatorname{basis}_k$ 表示先将每个配对差分行乘以其配对权重的平方根，再对所得差分矩阵作截断奇异值分解，最多保留前 $k$ 个右奇异向量，并剔除不大于 $\max(10^{-7},10^{-6}s_{\max})$ 的数值零方向；其中 $s_{\max}$ 是该差分矩阵的最大奇异值；$S$、$U$ 的列为正交单位向量，$\operatorname{orth}$ 表示正交化；$I$ 为 $d\times d$ 单位矩阵，$\oslash$ 表示逐元素相除。$N$ 因而张成干扰子空间在证据子空间正交补中的部分，$t(x)$ 是用于 M3 修正的干扰痕迹坐标。主配置 $k=16$，开发集补充 $k=8,16,32$ 的敏感性分析。标准化参数、$S$、$U$ 和 $N$ 仅使用相应训练来源估计。
 
 **M3：证据约束的干扰贡献对消。** 对每个训练配对 $j$，定义原模型分数差和痕迹坐标差：
 ```math
@@ -211,7 +211,7 @@ t(e,\nu)=D\nu+He.
 ```math
 D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
 ```
-令 $Z$ 的列构成 $\ker(H^\top)$ 的正交单位基，则 $w=Za$。上述两个条件可同时满足，当且仅当
+令 $Z\in\mathbb R^{d_t\times r}$ 的列构成 $\ker(H^\top)$ 的正交单位基，则 $w=Za$，其中 $a\in\mathbb R^r$。上述两个条件可同时满足，当且仅当
 ```math
 \boldsymbol\gamma\in\operatorname{range}(D^\top Z).
 ```
