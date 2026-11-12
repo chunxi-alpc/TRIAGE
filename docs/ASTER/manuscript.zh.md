@@ -120,17 +120,17 @@ F0 表示事实数值改变但仍在阈值同侧，属于同真值、不同证�
 \begin{aligned}
 \tilde h(x)&=(h(x)-\mu)\oslash\sigma,\\
 \Delta\tilde h_j&=\tilde h(x_j^R)-\tilde h(x_j^L),\\
-S&=\operatorname{basis}_{k}\!\left(
+S&=\mathrm{basis}_{k}\!\left(
 \{\Delta\tilde h_j:j\in\mathcal J_{CF}^{\mathrm{train}}\}
 \right),\\
-U&=\operatorname{basis}_{k}\!\left(
+U&=\mathrm{basis}_{k}\!\left(
 \{\Delta\tilde h_j:j\in\mathcal J_{AP}^{\mathrm{train}}\}
 \right),\\
-N&=\operatorname{orth}\!\left((I-SS^\top)U\right),\qquad
+N&=\mathrm{orth}\!\left((I-SS^\top)U\right),\qquad
 t(x)=N^\top\tilde h(x).
 \end{aligned}
 ```
-其中，$\mathcal J_{AP}^{\mathrm{train}}$ 和 $\mathcal J_{CF}^{\mathrm{train}}$ 分别是训练集中的 A/P 与 C/F 配对索引；$\operatorname{basis}_k$ 表示先将每个配对差分行乘以当前冻结配置中对应配对权重的平方根，再对所得差分矩阵作截断奇异值分解，最多保留前 $k$ 个右奇异向量，并剔除不大于 $\max(10^{-7},10^{-6}s_{\max})$ 的数值零方向，其中 $s_{\max}$ 是该差分矩阵的最大奇异值；$S$、$U$ 的列为正交单位向量，$\operatorname{orth}$ 表示正交化；$I$ 为 $d\times d$ 单位矩阵，$\oslash$ 表示逐元素相除。$N$ 因而张成干扰子空间在证据子空间正交补中的部分，$t(x)$ 是用于 M3 修正的干扰痕迹坐标。主配置的最大保留秩 $k=16$，开发集补充 $k=8,16,32$ 的敏感性分析。最终 E3/E4 配置复用 E2 估计的 M2 标准化参数及 $S,U,N$。标准化参数、$S$、$U$ 和 $N$ 仅使用相应训练来源估计。
+其中，$\mathcal J_{AP}^{\mathrm{train}}$ 和 $\mathcal J_{CF}^{\mathrm{train}}$ 分别是训练集中的 A/P 与 C/F 配对索引；$\mathrm{basis}_k$ 表示先将每个配对差分行乘以当前冻结配置中对应配对权重的平方根，再对所得差分矩阵作截断奇异值分解，最多保留前 $k$ 个右奇异向量，并剔除不大于 $\max(10^{-7},10^{-6}s_{\max})$ 的数值零方向，其中 $s_{\max}$ 是该差分矩阵的最大奇异值；$S$、$U$ 的列为正交单位向量，$\mathrm{orth}$ 表示正交化；$I$ 为 $d\times d$ 单位矩阵，$\oslash$ 表示逐元素相除。$N$ 因而张成干扰子空间在证据子空间正交补中的部分，$t(x)$ 是用于 M3 修正的干扰痕迹坐标。主配置的最大保留秩 $k=16$，开发集补充 $k=8,16,32$ 的敏感性分析。最终 E3/E4 配置复用 E2 估计的 M2 标准化参数及 $S,U,N$。标准化参数、$S$、$U$ 和 $N$ 仅使用相应训练来源估计。
 
 **M3：证据约束的干扰贡献对消。** 对每个训练配对 $j$，定义原模型分数差和痕迹坐标差：
 ```math
@@ -167,7 +167,7 @@ s(x)&=\ell_0(x)+c_{\mathrm{centered}}(x).
 
 为了将输入相关修正与绝对分数校准分开，我们固定 M1–M3 后单独估计 M4。下文 $s(x)$ 表示第3.2节定义的 M3 中心化后分数。MEGA 采用逻辑再校准：
 ```math
-p(y=1\mid x)=\operatorname{sigmoid}(\alpha+\beta s(x)),\qquad \beta>0.
+p(y=1\mid x)=\mathrm{sigmoid}(\alpha+\beta s(x)),\qquad \beta>0.
 ```
 M4-0 固定 $\alpha=0,\beta=1$；M4-1 仅估计 $\alpha$；M4-2 仅估计 $\beta$；M4-3 同时估计两者。主配置预先指定为 M4-3。参数在原 20 来源开发自然节点上估计，对 $\alpha$ 与 $\log\beta$ 使用固定 L2 正则；每折使用对应 M3 的开发预测。概率阈值固定为 $0.5$，测试标签只用于评价。
 
@@ -213,7 +213,7 @@ D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
 ```
 令 $Z\in\mathbb R^{d_t\times r}$ 的列构成 $\ker(H^\top)$ 的正交单位基，则 $w=Za$，其中 $a\in\mathbb R^r$。上述两个条件可同时满足，当且仅当
 ```math
-\boldsymbol\gamma\in\operatorname{range}(D^\top Z).
+\boldsymbol\gamma\in\mathrm{range}(D^\top Z).
 ```
 这说明痕迹可以混入证据信息；关键在于是否仍存在既能识别判断相关干扰、又不响应证据的读出方向。
 
@@ -289,16 +289,16 @@ c_m(x)=\ell_m(x)-\ell_0(x),\qquad
 
 **干扰不变性（A/P）。** A/P 配对保持当前判断的决定性证据及金标准标签不变，只改变后续处置文字或无关背景。记合格配对集合为 $\mathcal I_{AP}$，数量为 $N_{AP}$。方法 $m$ 的干扰响应均方根定义为
 ```math
-\operatorname{RMS}_{AP}(m)
+\mathrm{RMS}_{AP}(m)
 =\sqrt{\frac{1}{N_{AP}}\sum_{i\in\mathcal I_{AP}}
 (\Delta\ell_{m,i})^2}.
 ```
 该值越小，表示方法对指定无关变化越稳定。干扰方差降低率定义为
 ```math
-\operatorname{VR}(m)
+\mathrm{VR}(m)
 =100\times\left[
-1-\frac{\operatorname{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{m,i})}
-{\operatorname{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{0,i})}
+1-\frac{\mathrm{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{m,i})}
+{\mathrm{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{0,i})}
 \right].
 ```
 方差均在同一配对集合上按中心化总体方差计算；VR 越大，表示配对分数差的方差降低越多。VR 不反映平均偏移，因此与 RMS 一并报告；原模型配对分数差的方差为零时，VR 未定义。VR 公式的数值按百分比报告。
@@ -311,7 +311,7 @@ r_{m,i}=d_i\Delta\ell_{m,i}.
 ```
 其中，$r_{0,i}$ 是原模型的有向证据响应，$r_{m,i}$ 是方法 $m$ 的有向证据响应；正值表示分数变化方向与金标准标签变化一致。证据响应保留率（ER）定义为
 ```math
-\operatorname{ER}(m)
+\mathrm{ER}(m)
 =100\times
 \frac{\sum_{i\in\mathcal I_{CF}}r_{m,i}}
 {\sum_{i\in\mathcal I_{CF}}r_{0,i}}.
@@ -320,19 +320,19 @@ ER 衡量配对响应的平均有向总量是否保留，不是逐对正确率�
 
 证据分数差改动均方根定义为
 ```math
-\operatorname{RMS}_{\mathrm{corr},CF}(m)
+\mathrm{RMS}_{\mathrm{corr},CF}(m)
 =\sqrt{\frac{1}{N_{CF}}\sum_{i\in\mathcal I_{CF}}
 (\Delta c_{m,i})^2}.
 ```
 该值越小，表示方法对原模型证据响应的改动越小。另报告方向退化比例，即原模型有正向响应、但方法修正后响应不再为正的 C/F 配对占全部合格 C/F 配对的比例：
 ```math
-\operatorname{Deg}_{CF}(m)
+\mathrm{Deg}_{CF}(m)
 =\frac{1}{N_{CF}}\sum_{i\in\mathcal I_{CF}}
 \mathbf 1[r_{0,i}>0\ \land\ r_{m,i}\leq0].
 ```
 同时报告超过训练证据预算 $\delta$ 的配对比例：
 ```math
-\operatorname{Exceed}_{\delta}(m)
+\mathrm{Exceed}_{\delta}(m)
 =\frac{1}{N_{CF}}\sum_{i\in\mathcal I_{CF}}
 \mathbf 1[|\Delta c_{m,i}|>\delta].
 ```
@@ -340,7 +340,7 @@ ER 衡量配对响应的平均有向总量是否保留，不是逐对正确率�
 
 **配对正确性与端到端任务效用。** 在二元任务中，记 $\hat y_m(x)$ 为方法 $m$ 完整推理流程给出的最终预测；若使用 M4，则按校准后概率及固定阈值 $0.5$ 决策，否则按未校准分数的零阈值决策。C/F 双端配对全对率要求同一配对的两端均预测正确：
 ```math
-\operatorname{PairAcc}_{CF}(m)
+\mathrm{PairAcc}_{CF}(m)
 =\frac{1}{N_{CF}}\sum_{i\in\mathcal I_{CF}}
 \mathbf 1[
 \hat y_m(x_i^L)=y_i^L\ \land\
@@ -535,7 +535,7 @@ z_i=\Delta\ell_{0,i}
 ```math
 q_i=\ell_{\mathrm{patch},i}^{N}-\ell_0(x_i^L).
 ```
-对开发 A 类配对上的任意量 $v_i$，记 $\operatorname{RMS}(v)=\sqrt{N_A^{-1}\sum_i v_i^2}$，其中 $N_A=|\mathcal I_{\mathrm{dev},A}|$；$\bar z_{\mathrm{dev}}$ 表示该开发配对集合中 $z_i$ 的算术平均。因此，$\operatorname{RMS}(q)/\operatorname{RMS}(z)$ 衡量该投影方向的直接修补效应相对于完整 A/P 分数差的幅度。该干预是单向的左到右激活修补，不是训练后的 M3 修正。
+对开发 A 类配对上的任意量 $v_i$，记 $\mathrm{RMS}(v)=\sqrt{N_A^{-1}\sum_i v_i^2}$，其中 $N_A=|\mathcal I_{\mathrm{dev},A}|$；$\bar z_{\mathrm{dev}}$ 表示该开发配对集合中 $z_i$ 的算术平均。因此，$\mathrm{RMS}(q)/\mathrm{RMS}(z)$ 衡量该投影方向的直接修补效应相对于完整 A/P 分数差的幅度。该干预是单向的左到右激活修补，不是训练后的 M3 修正。
 
 令 $\mathcal I_{\mathrm{fit},AP}$ 为拟合集 A/P 配对索引，$\mathcal I_{\mathrm{dev},A}$ 为来源隔离开发集 A 类配对索引。本研究对同一痕迹执行两个不同实验。第一，直接修补效应的 RMS 比例及其直接预测决定系数为
 ```math
@@ -717,7 +717,7 @@ D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
 ```
 取 $Z$ 为 $\ker(H^\top)$ 的正交单位基，则 $w=Za$。上述两个条件可同时满足，当且仅当
 ```math
-\boxed{\boldsymbol\gamma\in\operatorname{range}(D^\top Z).}
+\boxed{\boldsymbol\gamma\in\mathrm{range}(D^\top Z).}
 ```
 证明：$H^\top w=0$ 等价于 $w=Za$；代入干扰条件后，方程 $D^\top Za=-\boldsymbol\gamma$ 可解恰好等价于上述值域条件。最小范数解可写为
 ```math
@@ -725,7 +725,7 @@ w^*=-Z(D^\top Z)^+\boldsymbol\gamma,
 ```
 其中 $(\cdot)^+$ 表示 Moore–Penrose 伪逆，$\|\cdot\|_\infty$ 表示向量最大绝对分量范数。
 
-**痕迹混入证据并不自动使对消失效。** 所需条件是仍存在一个对证据不响应、又能识别判断相关干扰贡献的读出方向。$H=0$ 时，条件退化为 $\boldsymbol\gamma\in\operatorname{range}(D^\top)$，痕迹不必恢复全部干扰变量。若干扰与证据在可读特征中完全重合，精确保留可能只允许 $w=0$；在上述线性修正与精确证据保留要求下，此时无法取得非零对消。
+**痕迹混入证据并不自动使对消失效。** 所需条件是仍存在一个对证据不响应、又能识别判断相关干扰贡献的读出方向。$H=0$ 时，条件退化为 $\boldsymbol\gamma\in\mathrm{range}(D^\top)$，痕迹不必恢复全部干扰变量。若干扰与证据在可读特征中完全重合，精确保留可能只允许 $w=0$；在上述线性修正与精确证据保留要求下，此时无法取得非零对消。
 
 **配对分别监督两个条件。** 对配对 $j$，记 $\Delta e_j=e(x_j^R)-e(x_j^L)$、$\Delta\nu_j=\nu(x_j^R)-\nu(x_j^L)$。在固定证据的 A/P 配对中，$\Delta t_j=D\Delta\nu_j$、$\Delta\ell_{0,j}=\boldsymbol\gamma^\top\Delta\nu_j$，因而差分损失监督 $\boldsymbol\gamma+D^\top w$。在固定干扰的证据配对中，$\Delta t_j=H\Delta e_j$，限制 $w^\top\Delta t_j$ 则直接限制所覆盖证据变化上的修正响应。
 
@@ -739,13 +739,13 @@ w^*=-Z(D^\top Z)^+\boldsymbol\gamma,
 ```math
 R^2=1-\frac{\sum_i r_i^2}{\sum_i(z_i-\bar z)^2},
 \qquad
-\operatorname{VR}_{\%}
-=100\left[1-\frac{\operatorname{Var}(r)}{\operatorname{Var}(z)}\right].
+\mathrm{VR}_{\%}
+=100\left[1-\frac{\mathrm{Var}(r)}{\mathrm{Var}(z)}\right].
 ```
-这里的方差采用总体方差约定，且要求 $\operatorname{Var}(z)>0$；$\bar z$、$\bar r$ 分别表示相应配对集合中 $z_i$、$r_i$ 的算术平均。两者满足
+这里的方差采用总体方差约定，且要求 $\mathrm{Var}(z)>0$；$\bar z$、$\bar r$ 分别表示相应配对集合中 $z_i$、$r_i$ 的算术平均。两者满足
 ```math
-\operatorname{VR}_{\%}
-=100\left(R^2+\frac{\bar r^{\,2}}{\operatorname{Var}(z)}\right).
+\mathrm{VR}_{\%}
+=100\left(R^2+\frac{\bar r^{\,2}}{\mathrm{Var}(z)}\right).
 ```
 因此，残差均值接近零时，VR 的百分数数值接近 $100R^2$；二者不是两个独立的机制证据。开发集预测关系在留出测试上保持，才支持对消关系的迁移。
 
@@ -793,16 +793,16 @@ R^2=1-\frac{\sum_i r_i^2}{\sum_i(z_i-\bar z)^2},
 
 **干扰指标。** 主文的干扰 RMS 对合格 A/P 配对求均方根：
 ```math
-\operatorname{RMS}_{AP}(m)
+\mathrm{RMS}_{AP}(m)
 =\sqrt{\frac{1}{|\mathcal I_{AP}|}
 \sum_{i\in\mathcal I_{AP}}(\Delta\ell_{m,i})^2}.
 ```
 辅助 VR 定义为
 ```math
-\operatorname{VR}(m)
+\mathrm{VR}(m)
 =100\left[
-1-\frac{\operatorname{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{m,i})}
-{\operatorname{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{0,i})}
+1-\frac{\mathrm{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{m,i})}
+{\mathrm{Var}_{i\in\mathcal I_{AP}}(\Delta\ell_{0,i})}
 \right].
 ```
 两种方差均为同一配对集合的中心化总体方差。VR 可为负；原方差为零时未定义。干扰差分预测的决定系数定义为
@@ -816,7 +816,7 @@ R^2(m)
 
 **证据响应与改动。** 对标签翻转配对，定义 $d_i=y_i^R-y_i^L\in\{-1,+1\}$、$r_{0,i}=d_i\Delta\ell_{0,i}$、$r_{m,i}=d_i\Delta\ell_{m,i}$。有向响应保留率为
 ```math
-\operatorname{ER}(m)
+\mathrm{ER}(m)
 =100\frac{\sum_{i\in\mathcal I_{CF}}d_i\Delta\ell_{m,i}}
 {\sum_{i\in\mathcal I_{CF}}d_i\Delta\ell_{0,i}}.
 ```
@@ -824,19 +824,19 @@ R^2(m)
 
 证据修正 RMS 为
 ```math
-\operatorname{RMS}_{\mathrm{corr},CF}(m)
+\mathrm{RMS}_{\mathrm{corr},CF}(m)
 =\sqrt{\frac{1}{|\mathcal I_{CF}|}
 \sum_{i\in\mathcal I_{CF}}(\Delta c_{m,i})^2}.
 ```
 补充归一化量定义为
 ```math
-\operatorname{DU}(m)
-=\frac{\operatorname{RMS}_{\mathrm{corr},CF}(m)}
-{\operatorname{RMS}_{AP}(0)},
+\mathrm{DU}(m)
+=\frac{\mathrm{RMS}_{\mathrm{corr},CF}(m)}
+{\mathrm{RMS}_{AP}(0)},
 ```
-其中 $\operatorname{RMS}_{AP}(0)$ 是原模型在 A/P 配对上的干扰 RMS；分母为零时 DU 未定义。DU 乘以 100 后以百分比展示，不与 ER 混淆。另报告 $|\Delta c_{m,i}|$ 的中位数、第 95 百分位和最大值，以及超预算比例
+其中 $\mathrm{RMS}_{AP}(0)$ 是原模型在 A/P 配对上的干扰 RMS；分母为零时 DU 未定义。DU 乘以 100 后以百分比展示，不与 ER 混淆。另报告 $|\Delta c_{m,i}|$ 的中位数、第 95 百分位和最大值，以及超预算比例
 ```math
-\operatorname{Exceed}_{\delta}(m)
+\mathrm{Exceed}_{\delta}(m)
 =\frac{1}{|\mathcal I_{CF}|}
 \sum_{i\in\mathcal I_{CF}}
 \mathbf1[|\Delta c_{m,i}|>\delta].
@@ -851,7 +851,7 @@ N_{\mathrm{deg}}(m)
 ```
 方向退化比例以全部有标签 C/F 配对为分母：
 ```math
-\operatorname{Deg}_{CF}(m)
+\mathrm{Deg}_{CF}(m)
 =\frac{N_{\mathrm{deg}}(m)}{|\mathcal I_{CF}|}.
 ```
 该分母不是原模型正向响应配对数；因此它表示全部 C/F 配对中发生方向退化的比例。方向正确与双端分类全对不是同一事件。没有观察到方向退化也不保证幅度保留、原错误修复或总体风险为零。
@@ -862,7 +862,7 @@ MEGA 控制器由每种方法从根节点按自身分数动态执行。路径正
 
 **NLI 固定口径。** 设 $\mathcal O$ 为官方 500 条原声明，$\mathcal P$ 为 4,136 个标签保持关系，$\mathcal A$ 为 864 个标签翻转关系。宏平均 F1 为两个类别 F1 的等权平均：
 ```math
-\operatorname{MacroF1}
+\mathrm{MacroF1}
 =\frac12\sum_{k\in\{0,1\}}
 \frac{2TP_k}{2TP_k+FP_k+FN_k}.
 ```
@@ -887,7 +887,7 @@ F_{\mathrm{cond}}(m)
 
 **不确定性。** 受控 MEGA 按 40 个指南来源成组配对重采样 2,000 次，种子 11；同一次抽样用于全部方法，再计算差值区间。证据配对仅覆盖 12 个来源，稀疏分项会有未定义重采样，需报告有效次数。官方 MEGA 按归档同源簇计分。原 NLI 准确率区间按试验编号组合，配对响应区间按基础声明家族；二者分组不同，共享试验造成的更高层依赖尚未完全处理。新补算 NLI 指标没有置信区间，不从已有准确率区间推导。
 
-不同随机训练配置分别计算指标与种子间差异，来源自助重采样区间则衡量另一种不确定性，两者不混用。公式中的上横线表示在相应评价配对集合上的算术平均，$\operatorname{Var}$ 均表示中心化总体方差。三个任务不合并总分；既有区间包含零只能说明未建立差异，不能解释为方法等效。
+不同随机训练配置分别计算指标与种子间差异，来源自助重采样区间则衡量另一种不确定性，两者不混用。公式中的上横线表示在相应评价配对集合上的算术平均，$\mathrm{Var}$ 均表示中心化总体方差。三个任务不合并总分；既有区间包含零只能说明未建立差异，不能解释为方法等效。
 
 ### B.2 数据、冻结配置与复算
 
