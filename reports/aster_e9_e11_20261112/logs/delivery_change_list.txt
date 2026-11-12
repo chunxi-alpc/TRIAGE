@@ -1,0 +1,67 @@
+ docs/ASTER/experiments.zh.md                       |   19 +-
+ experiments/aster_e9_e11_20261112/__init__.py      |    0
+ experiments/aster_e9_e11_20261112/common.py        |   36 +
+ experiments/aster_e9_e11_20261112/e11.py           |  130 +
+ experiments/aster_e9_e11_20261112/e9.py            |  141 +
+ experiments/aster_e9_e11_20261112/finalize.py      |   40 +
+ .../aster_e9_e11_20261112/render_reports.py        |  178 +
+ experiments/aster_e9_e11_20261112/summarize.py     |   98 +
+ reports/aster_e9_e11_20261112/.gitignore           |    1 +
+ reports/aster_e9_e11_20261112/E11_REPORT.zh.md     |   93 +
+ reports/aster_e9_e11_20261112/E9_REPORT.zh.md      |   89 +
+ reports/aster_e9_e11_20261112/README.zh.md         |   16 +
+ .../aster_e9_e11_20261112/artifact_manifest.json   |  262 +
+ .../aster_e9_e11_20261112/checkpoints/e1_m2.npz    |  Bin 0 -> 1236091 bytes
+ .../aster_e9_e11_20261112/checkpoints/e1_m3.npz    |  Bin 0 -> 18760 bytes
+ reports/aster_e9_e11_20261112/checkpoints/leace.pt |  Bin 0 -> 1101767 bytes
+ reports/aster_e9_e11_20261112/checkpoints/lofit.pt |  Bin 0 -> 2259 bytes
+ reports/aster_e9_e11_20261112/checkpoints/lora.pt  |  Bin 0 -> 34893 bytes
+ reports/aster_e9_e11_20261112/configs/e11.json     |   27 +
+ .../aster_e9_e11_20261112/configs/e11_inputs.jsonl |    4 +
+ reports/aster_e9_e11_20261112/configs/e1_m1.json   | 6849 ++++++++++++++++++++
+ reports/aster_e9_e11_20261112/configs/e1_m3.json   |   44 +
+ reports/aster_e9_e11_20261112/configs/e9.json      |  140 +
+ .../aster_e9_e11_20261112/configs/e9_inputs.jsonl  |  109 +
+ .../aster_e9_e11_20261112/configs/e9_pairs.jsonl   |   71 +
+ .../configs/lofit_lr0.001_training.json            |   26 +
+ .../configs/lora_lr0.001_training.json             |   19 +
+ .../configs/software_versions.json                 |    8 +
+ reports/aster_e9_e11_20261112/e11_environment.json |    8 +
+ .../aster_e9_e11_20261112/e11_measurements.jsonl   |  240 +
+ reports/aster_e9_e11_20261112/e11_method_info.json |   63 +
+ .../aster_e9_e11_20261112/e11_repeat_summary.csv   |   61 +
+ reports/aster_e9_e11_20261112/e11_statistics.json  |  374 ++
+ reports/aster_e9_e11_20261112/e11_status.json      |   16 +
+ reports/aster_e9_e11_20261112/e11_summary.csv      |   13 +
+ .../aster_e9_e11_20261112/e9_gpu_relocation.json   |   15 +
+ .../e9_identity_controls.jsonl                     |    2 +
+ .../e9_initial_formal_run.json                     |   14 +
+ .../aster_e9_e11_20261112/e9_paired_contrasts.csv  |   55 +
+ .../e9_partial_before_transfer_optimization.json   |    6 +
+ reports/aster_e9_e11_20261112/e9_predictions.jsonl | 1704 +++++
+ reports/aster_e9_e11_20261112/e9_runs.jsonl        |    1 +
+ reports/aster_e9_e11_20261112/e9_statistics.json   | 2276 +++++++
+ reports/aster_e9_e11_20261112/e9_status.json       |   14 +
+ reports/aster_e9_e11_20261112/e9_summary.csv       |   85 +
+ .../logs/implementation_correction.json            |    5 +
+ ...itial_implementation_e9_identity_controls.jsonl |    2 +
+ .../initial_implementation_e9_predictions.jsonl    | 1420 ++++
+ .../logs/initial_implementation_e9_status.json     |   14 +
+ ..._readout_capture_fix_e9_identity_controls.jsonl |    6 +
+ .../pre_readout_capture_fix_e9_predictions.jsonl   | 1563 +++++
+ .../logs/pre_readout_capture_fix_e9_status.json    |    6 +
+ .../logs/readout_capture_correction.json           |    6 +
+ .../measurement_consistency.json                   |    8 +
+ reports/aster_e9_e11_20261112/reproduce.sh         |    7 +
+ reports/aster_e9_e11_20261112/reuse_manifest.json  |   28 +
+ .../reused/evaluation_performance.json             |   20 +
+ .../reused/extraction_performance.json             |   39 +
+ .../reused/historical_h2.json                      |   41 +
+ .../reused/historical_h3.json                      |   34 +
+ .../reused/historical_selection.json               |  483 ++
+ .../reused/trace_validation_REPORT.zh.md           |  160 +
+ .../reused/trace_validation_summary.csv            |  250 +
+ reports/aster_e9_e11_20261112/run_e11.sh           |    6 +
+ reports/aster_e9_e11_20261112/run_e9.sh            |    6 +
+ reports/aster_e9_e11_20261112/status.json          |   10 +
+ 66 files changed, 17458 insertions(+), 3 deletions(-)
