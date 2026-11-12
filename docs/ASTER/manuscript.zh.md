@@ -286,10 +286,7 @@ ER 衡量配对响应的平均有向总量是否保留，不是逐对正确率�
 ```math
 \operatorname{PairAcc}_{CF}(m)
 =\frac{1}{N_{CF}}\sum_{i\in\mathcal I_{CF}}
-\mathbf 1[
-\hat y_m(x_i^L)=y_i^L
-\ \land\
-\hat y_m(x_i^R)=y_i^R].
+\mathbf 1[\hat y_m(x_i^L)=y_i^L\ \land\ \hat y_m(x_i^R)=y_i^R].
 ```
 该指标不同于仅要求两端预测发生翻转，也不同于仅检查分数响应方向。为避免把任务级校准效应混入 M1–M3 的配对机制评价，上述连续分数指标均使用任务级校准前的 $\ell_m(x)$；任务准确率和配对全对率则按完整推理流程计算。
 
