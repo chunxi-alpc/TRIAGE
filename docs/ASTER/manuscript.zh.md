@@ -183,22 +183,22 @@ R_{q,h}=
 
 ```math
 \begin{aligned}
-S_m&=\operatorname{basis}_{k_m}
+S_m&=\mathrm{basis}_{k_m}
 \left(\{\Delta\tilde h_{m,j}:j\in\mathcal J_{CF}^{\mathrm{train}}\}\right),\\
-U_m&=\operatorname{basis}_{k_m}
+U_m&=\mathrm{basis}_{k_m}
 \left(\{\Delta\tilde h_{m,j}:j\in\mathcal J_{AP}^{\mathrm{train}}\}\right).
 \end{aligned}
 ```
 
-具体而言，$`\operatorname{basis}_{k_m}`$ 先将每个配对差分行乘以对应配对权重的平方根，再对加权差分矩阵进行截断奇异值分解，保留由训练／开发流程确定的有效右奇异向量，并剔除数值零方向。随后将干扰子空间投影到证据子空间的正交补：
+具体而言，$`\mathrm{basis}_{k_m}`$ 先将每个配对差分行乘以对应配对权重的平方根，再对加权差分矩阵进行截断奇异值分解，保留由训练／开发流程确定的有效右奇异向量，并剔除数值零方向。随后将干扰子空间投影到证据子空间的正交补：
 
 ```math
-N_m=\operatorname{orth}\bigl((I-S_mS_m^\top)U_m\bigr),
+N_m=\mathrm{orth}\bigl((I-S_mS_m^\top)U_m\bigr),
 \qquad
 t_m(x)=N_m^\top\tilde h_m(x).
 ```
 
-其中 $`I`$ 为相应维度的单位矩阵，$`\operatorname{orth}`$ 表示对投影残差再次正交化并剔除数值零方向。$`N_m`$ 张成干扰变化子空间中与主要证据变化子空间正交的部分；$`t_m(x)`$ 是供M3读取的内部痕迹坐标。注意，正交投影仅依据训练配对估计的主要变化子空间降低线性重叠，最终修正对证据响应的保护仍由M3中的C/F约束直接承担。标准化参数、$`S_m`$、$`U_m`$ 和 $`N_m`$ 均只使用相应训练来源估计。
+其中 $`I`$ 为相应维度的单位矩阵，$`\mathrm{orth}`$ 表示对投影残差再次正交化并剔除数值零方向。$`N_m`$ 张成干扰变化子空间中与主要证据变化子空间正交的部分；$`t_m(x)`$ 是供M3读取的内部痕迹坐标。注意，正交投影仅依据训练配对估计的主要变化子空间降低线性重叠，最终修正对证据响应的保护仍由M3中的C/F约束直接承担。标准化参数、$`S_m`$、$`U_m`$ 和 $`N_m`$ 均只使用相应训练来源估计。
 
 **M3：证据约束的干扰贡献对消。** 对每个训练配对 $`j`$，定义原模型分数差和痕迹差：
 
@@ -246,7 +246,7 @@ s_m(x)&=\ell_0(x)+c_m(x).
 M1–M3冻结后，M4在训练来源的自然样本上独立估计任务校准参数。对MEGA类二元判断，采用逻辑再校准：
 
 ```math
-p(y=1\mid x)=\operatorname{sigmoid}
+p(y=1\mid x)=\mathrm{sigmoid}
 \left(\alpha_m+\beta_m s_m(x)\right),
 \qquad \beta_m>0.
 ```
