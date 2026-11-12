@@ -228,7 +228,8 @@
       "official_repo": "https://github.com/QingruZhang/PASTA",
       "official_commit": "56a9138d2d071c9ab2860c72be596da9723ca793",
       "status": "not_implemented_requires_span_mapping_and_Qwen3_attention_adapter",
-      "priority": "P2"
+      "priority": "P2",
+      "architecture_notes": "Official README says the library is generic in principle for causal attention, but the currently supported/tested architectures are Llama, Llama 2 and GPT-J; Qwen3 needs a dedicated attention adapter and token-span mapping."
     },
     {
       "id": "inlp",
@@ -268,7 +269,8 @@
       "official_repo": "https://github.com/brcsomnath/KRaM",
       "official_commit": "5ace3",
       "status": "not_implemented_old_dependency_stack_and_label_mapping_required",
-      "priority": "P2"
+      "priority": "P2",
+      "environment_notes": "Official repository pins an old stack (Python 3.6.13, torch 1.13, transformers 4.12.5 in its environment); a vector-level port or isolated legacy environment is required."
     },
     {
       "id": "leopard",
@@ -278,7 +280,8 @@
       "official_repo": "https://github.com/ToineSayan/non-LEOPARD",
       "official_commit": "c9f7c64406393d1c6be06267ec592fae5c1abb21",
       "status": "not_implemented_feature_level_MMD_projection_requires_instance_labels",
-      "priority": "P1"
+      "priority": "P1",
+      "environment_notes": "Author repository uses Python 3.12.9 and vector-level datasets such as Bias-in-Bios, GloVe and DIAL; adapt pre-extracted Qwen features and define instance-level protected labels."
     },
     {
       "id": "obliviator",
@@ -288,7 +291,8 @@
       "official_repo": "https://github.com/ramin-akbari/Obliviator",
       "official_commit": "0f223",
       "status": "not_implemented_high_dependency_cost_and_label_mapping_required",
-      "priority": "P2"
+      "priority": "P2",
+      "environment_notes": "Official package supports custom data but its pyproject requires Python >=3.12 and torch >=2.9; isolate the environment and validate memory/compute before using Qwen features."
     },
     {
       "id": "iti",
@@ -303,12 +307,13 @@
     {
       "id": "caa",
       "category": "activation_steering",
-      "paper": "Steering Llama 2 via Contrastive Activation Addition",
+      "paper": "Steering Llama 2 with Contrastive Activation Addition",
       "paper_url": "https://arxiv.org/abs/2312.06681",
       "official_repo": "https://github.com/nrimsky/CAA",
       "official_commit": "5dabbb",
       "status": "not_implemented_official_code_Llama2_oriented_requires_Qwen3_port",
-      "priority": "P1"
+      "priority": "P1",
+      "architecture_notes": "Official release is Llama 2 oriented and its published pipeline uses GPT-4-generated behavior datasets; applying it to Qwen3 and ASTER A/P/C/F pairs is a task adaptation."
     },
     {
       "id": "sea",
@@ -328,7 +333,8 @@
       "official_repo": "https://github.com/IBM/activation-steering",
       "official_commit": "52be60235ee309b46c49d6d5877f36e20c52e6ab",
       "status": "not_implemented_general_library_but_ASTer_condition_behavior_mapping_needed",
-      "priority": "P1"
+      "priority": "P1",
+      "architecture_notes": "Official library is general-purpose and demonstrates Llama 3.1 and Gemma 2; the paper's target behavior is refusal. ASTER must define condition and behavior vectors and smoke-test Qwen3."
     },
     {
       "id": "reps",
@@ -339,7 +345,8 @@
       "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
       "official_path": "axbench/sweep/wuzhengx/reps",
       "status": "not_implemented_AxBench_preference_BiPO_configs_require_task_specific_preference_pairs",
-      "priority": "P1"
+      "priority": "P1",
+      "architecture_notes": "AxBench contains the RePS sweep and BIPO preference configurations, including Gemma 2 9B settings. Qwen3 architecture support and conversion of ASTER pairs into valid preference examples remain unverified."
     },
     {
       "id": "psr",
@@ -349,7 +356,8 @@
       "official_repo": "https://github.com/Nokia-Bell-Labs/steer-like-the-llm",
       "official_commit": "3d916c618d146c5d657f055e432a432b0fa493c6",
       "status": "not_implemented_prompt_steering_teacher_required_Python312_isolated_env",
-      "priority": "P1"
+      "priority": "P1",
+      "environment_notes": "Official repository requires Python >=3.12, torch >=2.8, transformers >=4.52.3, PEFT 0.15.1, TRL 0.15.2, vLLM 0.10.2, Unsloth 2025.5.9, HF_TOKEN and OPENAI_API_KEY; use an isolated environment because PEFT version conflicts with the current general requirements."
     },
     {
       "id": "hypersteer",
@@ -369,7 +377,8 @@
       "official_repo": "https://github.com/fc2869/lo-fit",
       "official_commit": "ebd344",
       "status": "local_architecture_port_exists_needs_E1_refit_and_stage_parameter_accounting",
-      "priority": "P0"
+      "priority": "P0",
+      "architecture_notes": "Official implementation documents Gemma 7B and Llama 2 7B/13B; local Qwen3/Gemma3 hooks are an architecture port, not the official model configuration."
     },
     {
       "id": "loreft",
@@ -384,11 +393,11 @@
     {
       "id": "reft_r1",
       "category": "representation_finetuning",
-      "paper": "AxBench rank-1 ReFT baseline",
+      "paper": "AxBench: Steering LLMs? Even Simple Baselines Outperform Sparse Autoencoders",
       "paper_url": "https://arxiv.org/abs/2501.17148",
       "official_repo": "https://github.com/stanfordnlp/axbench",
       "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
-      "status": "not_implemented_distinct_from_local_generic_LoReFT",
+      "status": "AxBench benchmark configuration; distinct from generic local LoReFT adapter",
       "priority": "P1"
     },
     {
@@ -415,10 +424,10 @@
       "id": "fourierft",
       "category": "weight_peft",
       "paper": "Parameter-Efficient Fine-Tuning with Discrete Fourier Transform",
-      "paper_url": "https://proceedings.mlr.press/v235/gao24o.html",
+      "paper_url": "https://arxiv.org/abs/2405.03003",
       "official_repo": "https://github.com/Chaos96/fourierft",
       "official_commit": "2f01ee",
-      "status": "not_implemented_PEFT_integration_version_pin_and_smoke_required",
+      "status": "not_implemented_official_code_moved_to_PEFT_version_pin_and_smoke_required",
       "priority": "P1",
       "integrated_repo": "https://github.com/huggingface/peft",
       "integrated_commit": "2f01ee"
@@ -430,6 +439,16 @@
       "official_repo": null,
       "status": "not_implemented_high_compute_task_adaptation_control",
       "priority": "P2"
+    },
+    {
+      "id": "axbench",
+      "category": "benchmark_and_steering_baselines",
+      "paper": "AxBench: Steering LLMs? Even Simple Baselines Outperform Sparse Autoencoders",
+      "paper_url": "https://arxiv.org/abs/2501.17148",
+      "official_repo": "https://github.com/stanfordnlp/axbench",
+      "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
+      "status": "benchmark_reference_with_prompt_RePS_HyperSteer_and_ReFT_r1_baselines",
+      "priority": "P1"
     }
   ],
   "historical_results": {
@@ -490,6 +509,9 @@
   },
   "notes": [
     "The repository head SHAs are snapshots inspected on 2026-11-12; they are provenance references, not a claim that the source was executed.",
-    "Short SHAs are retained where the connector only surfaced abbreviated commit identifiers in the audit snapshot; full hashes are recorded where available."
+    "Short SHAs are retained where the connector only surfaced abbreviated commit identifiers in the audit snapshot; full hashes are recorded where available.",
+    "PASTA's official README describes a generic causal-attention formulation but currently lists Llama, Llama 2 and GPT-J as supported architectures; do not claim Qwen3 compatibility without a smoke test.",
+    "CAA's official repository is Llama 2 oriented and uses GPT-4-generated behavior data in its released pipeline; a Qwen3/ASTER implementation must be labeled as task-adapted.",
+    "PSR's official dependency stack requires Python 3.12+ and PEFT 0.15.1, so it should not be installed into the current general environment that specifies PEFT >=0.17."
   ]
 }
