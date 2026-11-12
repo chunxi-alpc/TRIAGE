@@ -13,6 +13,10 @@
 
 ## 当前实验进度（2026-11-12）
 
+- **10,006 对最终方法实验已完成**：无截距 M3 相对旧 M3 的五折干扰路径提高 0.643 个百分点（95% CI [0.019, 1.310]）；NLI4CT 完整 5,500 条中，E3 相对 E1 提高 0.582 个百分点（[0.127, 1.025]）。M4 改善概率校准，MedPIC 冻结测试点估计提高；完整 E4 尚未同时满足全部预设成功标准。73 项检查通过，详见[最终结果与结论](reports/aster_cr_final_method_10006_20261112/REPORT.zh.md)。
+
+
+
 - 后续默认配对训练数据已固定为 **10,006 对均衡配置**：A 4,368、P 635、C 635、F 4,368，F 全来自 MedEinst；标签保持和翻转各 5,003 对。使用固定配对清单及现有权重，入口为 [默认配置](configs/aster_cr_training_default.json)和[固定数据说明](reports/aster_cr_multisource_20261112/balanced_10006/FROZEN_DATASET.zh.md)。
 - 均衡配置的 Qwen3-8B 独立拟合与冻结评价已完成：MEGA 路径准确率与 E1 持平，干扰稳定性改善，尚无整体准确率提升的证据。E1 继续作为冻结基线；[本轮结果](reports/aster_cr_multisource_20261112/balanced_10006/TEST_RESULTS.zh.md)与其他诊断实验分别报告。
 

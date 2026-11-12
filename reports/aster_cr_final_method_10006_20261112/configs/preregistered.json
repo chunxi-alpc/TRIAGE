@@ -1,0 +1,50 @@
+{
+  "seed": 20261112,
+  "training_seed": 20261108,
+  "rank": 16,
+  "ranks": [
+    8,
+    16,
+    32
+  ],
+  "heads": 51,
+  "regularization": 0.01,
+  "delta": 0.2923349,
+  "gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "expected_peak_gib": [
+    16,
+    30
+  ],
+  "expected_hours": [
+    2,
+    6
+  ],
+  "bootstrap_draws": 2000,
+  "primary_baseline": "E1",
+  "primary_scope": "cv_pooled_common",
+  "noninferiority_margin": -0.005,
+  "mega_m4_main": "M4-3",
+  "mega_m4_regularization": 0.01,
+  "mega_threshold": 0.5,
+  "medpic_regularization_grid": [
+    0.001,
+    0.01,
+    0.1,
+    1.0
+  ],
+  "medpic_selection": "5-fold grouped development set NLL",
+  "medpic_dev_count": 93,
+  "medpic_test_count": 188,
+  "medpic_official_count": 467,
+  "centering": "frozen mixed class/source/case weighted pair endpoint distribution; train only",
+  "nli4ct_calibration": false,
+  "history": "Previously used evaluation data; 467 MedPIC includes development items and is descriptive only",
+  "base_model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "code_revision": "9c98cc9 plus saved code snapshot",
+  "resource_update": "User explicitly adds physical GPUs 5 and 6; model/data/selection unchanged"
+}

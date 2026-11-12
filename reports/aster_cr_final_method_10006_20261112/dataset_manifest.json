@@ -1,0 +1,310 @@
+{
+  "path": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_multisource_20261112/balanced_10006/data/fit_pairs.jsonl",
+  "version": "2026-11-11T15:41:13.827008+00:00",
+  "sha256": "91b71d56311e680701dd0096eb049cb3cee33cd25225ff6ab1d1d1d81c199bb3",
+  "pairs": 10006,
+  "class_counts": {
+    "A": 4368,
+    "P": 635,
+    "C": 635,
+    "F": 4368,
+    "F0": 0
+  },
+  "dataset_counts": {
+    "MEGA-CDP": 5638,
+    "MedEinst": 4368
+  },
+  "unique_cases": 5710,
+  "source_counts": {
+    "train_val:811": 76,
+    "train_val:2154": 96,
+    "train_val:15": 94,
+    "train_val:388": 55,
+    "train_val:1096": 29,
+    "train_val:1857": 55,
+    "train_val:85": 59,
+    "train_val:869": 131,
+    "train_val:825": 83,
+    "train_val:721": 58,
+    "train_val:2246": 52,
+    "train_val:804": 27,
+    "train_val:2522": 114,
+    "train_val:1378": 101,
+    "train_val:759": 46,
+    "train_val:1667": 48,
+    "train_val:2607": 110,
+    "train_val:808": 79,
+    "train_val:541": 77,
+    "train_val:2022": 74,
+    "train_val:104": 39,
+    "train_val:772": 52,
+    "train_val:1177": 42,
+    "train_val:2762": 36,
+    "train_val:1850": 40,
+    "train_val:2027": 64,
+    "train_val:94": 74,
+    "train_val:1983": 46,
+    "train_val:1027": 15,
+    "train_val:2744": 37,
+    "train_val:2527": 57,
+    "train_val:1716": 87,
+    "train_val:1255": 42,
+    "train_val:1946": 52,
+    "train_val:190": 35,
+    "train_val:2528": 72,
+    "train_val:1683": 119,
+    "train_val:341": 39,
+    "train_val:446": 50,
+    "train_val:110": 123,
+    "train_val:738": 65,
+    "train_val:2": 50,
+    "train_val:730": 83,
+    "train_val:1977": 114,
+    "train_val:1080": 127,
+    "train_val:1424": 60,
+    "train_val:2174": 137,
+    "train_val:1821": 95,
+    "train_val:2509": 47,
+    "train_val:1284": 60,
+    "train_val:1745": 20,
+    "train_val:1128": 97,
+    "train_val:855": 78,
+    "train_val:377": 59,
+    "train_val:2696": 84,
+    "train_val:2600": 36,
+    "train_val:1397": 66,
+    "train_val:2299": 54,
+    "train_val:516": 90,
+    "train_val:1838": 68,
+    "train_val:976": 65,
+    "train_val:78": 77,
+    "train_val:335": 117,
+    "train_val:1783": 56,
+    "train_val:2020": 42,
+    "train_val:2138": 67,
+    "train_val:2423": 110,
+    "train_val:1164": 35,
+    "train_val:1126": 75,
+    "train_val:739": 85,
+    "train_val:130": 127,
+    "train_val:286": 73,
+    "train_val:1056": 131,
+    "train_val:2002": 64,
+    "train_val:2315": 86,
+    "train_val:467": 28,
+    "train_val:1250": 39,
+    "train_val:1350": 106,
+    "train_val:1781": 40,
+    "train_val:304": 140,
+    "MedEinst/DDXPlus": 4368
+  },
+  "label_pairs": {
+    "('A', 1, 1)": 3426,
+    "('A', 0, 0)": 942,
+    "('P', 1, 1)": 408,
+    "('P', 0, 0)": 227,
+    "('C', 1, 0)": 387,
+    "('C', 0, 1)": 248,
+    "('F', 1, 0)": 1782,
+    "('F', 0, 1)": 2586
+  },
+  "frozen_manifest": {
+    "group": "E-Multi-Balanced",
+    "stage": "evaluated",
+    "training_pairs": 10006,
+    "class_counts": {
+      "A": 4368,
+      "P": 635,
+      "C": 635,
+      "F": 4368
+    },
+    "preserving_pairs": 5003,
+    "changing_pairs": 5003,
+    "mega_pairs": 5638,
+    "medeinst_selected_pairs": 4368,
+    "medeinst_accepted_pool": 8228,
+    "unique_case_clusters": 5710,
+    "A_original_case_clusters": 911,
+    "sampling": {
+      "seed": 20261112,
+      "method": "proportional strata by released before/after diagnosis; largest remainder quotas; uniform seeded case sampling within stratum",
+      "uses_test_results": false
+    },
+    "weighting": "equal present edit classes, then equal datasets within class, then equal sources, equal original case clusters, equal variants within case",
+    "dataset_mass": {
+      "MEGA_CDP": 0.75,
+      "MedEinst": 0.25
+    },
+    "E1_unchanged": true,
+    "previous_E_Multi_unchanged": true,
+    "all_F_from": "MedEinst",
+    "data_review": "reuse existing accepted records; no repeated model semantic review",
+    "human_audit": "pending",
+    "parent": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_multisource_20261112",
+    "frozen_at": "2026-11-11T15:41:13.827008+00:00",
+    "selection_reason": "user requested all accepted A and count-balanced preserving/changing supervision, with F exclusively from MedEinst",
+    "interpretation": "This arm changes A coverage, F composition, and weighting together; differences do not isolate a single cause."
+  },
+  "matches_frozen": true,
+  "splits": {
+    "fit": 10006
+  },
+  "isolation": {
+    "historical_views": {
+      "dev": {
+        "n": 1685,
+        "source_overlap": [],
+        "case_id_overlap": 0
+      },
+      "fit": {
+        "n": 6727,
+        "source_overlap": [
+          "train_val:1027",
+          "train_val:104",
+          "train_val:1056",
+          "train_val:1080",
+          "train_val:1096",
+          "train_val:110",
+          "train_val:1126",
+          "train_val:1128",
+          "train_val:1164",
+          "train_val:1177",
+          "train_val:1250",
+          "train_val:1255",
+          "train_val:1284",
+          "train_val:130",
+          "train_val:1350",
+          "train_val:1378",
+          "train_val:1397",
+          "train_val:1424",
+          "train_val:15",
+          "train_val:1667",
+          "train_val:1683",
+          "train_val:1716",
+          "train_val:1745",
+          "train_val:1781",
+          "train_val:1783",
+          "train_val:1821",
+          "train_val:1838",
+          "train_val:1850",
+          "train_val:1857",
+          "train_val:190",
+          "train_val:1946",
+          "train_val:1977",
+          "train_val:1983",
+          "train_val:2",
+          "train_val:2002",
+          "train_val:2020",
+          "train_val:2022",
+          "train_val:2027",
+          "train_val:2138",
+          "train_val:2154",
+          "train_val:2174",
+          "train_val:2246",
+          "train_val:2299",
+          "train_val:2315",
+          "train_val:2423",
+          "train_val:2509",
+          "train_val:2522",
+          "train_val:2527",
+          "train_val:2528",
+          "train_val:2600",
+          "train_val:2607",
+          "train_val:2696",
+          "train_val:2744",
+          "train_val:2762",
+          "train_val:286",
+          "train_val:304",
+          "train_val:335",
+          "train_val:341",
+          "train_val:377",
+          "train_val:388",
+          "train_val:446",
+          "train_val:467",
+          "train_val:516",
+          "train_val:541",
+          "train_val:721",
+          "train_val:730",
+          "train_val:738",
+          "train_val:739",
+          "train_val:759",
+          "train_val:772",
+          "train_val:78",
+          "train_val:804",
+          "train_val:808",
+          "train_val:811",
+          "train_val:825",
+          "train_val:85",
+          "train_val:855",
+          "train_val:869",
+          "train_val:94",
+          "train_val:976"
+        ],
+        "case_id_overlap": 939
+      },
+      "test": {
+        "n": 3100,
+        "source_overlap": [],
+        "case_id_overlap": 0
+      }
+    },
+    "new60_views": {
+      "final": {
+        "n": 63479,
+        "source_overlap": [],
+        "case_id_overlap": 0
+      }
+    },
+    "nli4ct_views": {
+      "dev": {
+        "n": 226,
+        "source_overlap": [],
+        "case_id_overlap": 0
+      },
+      "fit": {
+        "n": 910,
+        "source_overlap": [],
+        "case_id_overlap": 0
+      },
+      "test": {
+        "n": 2864,
+        "source_overlap": [],
+        "case_id_overlap": 0
+      }
+    },
+    "medpic_views": {
+      "dev": {
+        "n": 1395,
+        "source_overlap": [],
+        "case_id_overlap": 0
+      },
+      "fit": {
+        "n": 2790,
+        "source_overlap": [],
+        "case_id_overlap": 0
+      },
+      "test": {
+        "n": 2820,
+        "source_overlap": [],
+        "case_id_overlap": 0
+      }
+    }
+  },
+  "cross_dataset_exact_text": {
+    "MedPIC": {
+      "exact_normalized_text_overlap": 0,
+      "scope": "available full inputs/patient narratives; no semantic duplicate assertion"
+    },
+    "NLI4CT": {
+      "exact_normalized_text_overlap": 0,
+      "scope": "available full inputs/patient narratives; no semantic duplicate assertion"
+    }
+  },
+  "model_revision_reference": "configs/model_revision.json",
+  "code_snapshot": "code/",
+  "source_splits": "configs/folds.json",
+  "seeds": {
+    "training": 20261108,
+    "analysis": 20261112
+  }
+}
