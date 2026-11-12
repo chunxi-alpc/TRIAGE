@@ -94,104 +94,150 @@ F0 表示事实数值改变但仍在阈值同侧，属于同真值、不同证�
 
 ### 3.2 M1–M3：干扰痕迹与受约束修正
 
-为了在完整输入上抵消干扰并保护证据，M1 定位注意力头，M2 提取干扰痕迹，M3 学习受证据约束的分数修正。三个模块只使用训练来源，M4 独立处理任务校准与决策。
+ASTER-CR由相互衔接的模块组成：M1定位与当前判断相关的注意力头；M2根据反事实激活差分估计证据与干扰子空间，并构造内部痕迹；M3利用痕迹学习受证据约束的分数修正；M4在M1–M3冻结后进行任务校准。下文以模型索引 \(m\) 表示模型相关配置。注意力头集合、候选集合规模、子空间秩、正则强度和证据预算均由相应模型的训练／开发流程确定，不作为跨模型固定常数。
 
-**M1：注意力头定位。** 为了选择能支持干扰估计与证据保护的特征，我们在训练配对上进行梯度归因，再用双向真实激活修补验证候选头。A/P 与 C/F 分别排名，交替合并为固定 51 个头，保存排名、层分布及两类修补效应。每个来源折独立选择头集合。
+**M1：注意力头定位。** 令 \(h_{j}^{L}\) 与 \(h_{j}^{R}\) 分别表示配对 \(j\) 两端在某注意力头上的激活，\(\ell_0(x)\) 为原模型判断分数。对每一类配对 \(q\in\{A,P,C,F\}\)，先在训练来源上计算梯度归因分数。记
+\[
+g_{j,h}^{L}=\nabla_{h_h}\ell_0(x_j^L),
+\qquad
+a_{j,h}=\left|
+\left\langle h_h(x_j^R)-h_h(x_j^L),\,g_{j,h}^{L}\right\rangle
+\right|.
+\]
+其中，配对权重 \(\alpha_j\) 根据原模型误判情况及其距决策边界的程度预先确定。每类配对对注意力头 \(h\) 的加权归因分数为
+\[
+A_{q,h}=
+\frac{\sum_{j\in\mathcal J_q^{\mathrm{train}}}\alpha_j a_{j,h}}
+{\sum_{j\in\mathcal J_q^{\mathrm{train}}}\alpha_j}.
+\]
+按 \(A_{q,h}\) 对注意力头进行排序，并保留模型配置规定的候选集合。梯度归因用于筛选候选头，随后以双向激活修补进行精确验证：在左侧输入的前向计算中，将候选头的激活替换为右侧输入对应激活；再在右侧输入的前向计算中进行反向替换。定义
+\[
+\begin{aligned}
+IE_{j,h}^{L\leftarrow R}
+&=\ell(x_j^L;\,h_h\leftarrow h_h(x_j^R))-\ell_0(x_j^L),\\
+IE_{j,h}^{R\leftarrow L}
+&=\ell(x_j^R;\,h_h\leftarrow h_h(x_j^L))-\ell_0(x_j^R).
+\end{aligned}
+\]
+这里的 \(\ell(x;\,h_h\leftarrow h_h(x'))\) 表示在输入 \(x\) 的前向计算中，仅将指定注意力头的激活替换为输入 \(x'\) 对应的激活，再读取最终判断分数。对按来源平衡抽取的训练配对子集，计算双向修补效应的加权平均幅度：
+\[
+R_{q,h}=
+\frac{\sum_{j\in\mathcal P_q^{\mathrm{rank}}}
+\alpha_j\bigl(
+|IE_{j,h}^{L\leftarrow R}|+
+|IE_{j,h}^{R\leftarrow L}|
+\bigr)/2}
+{\sum_{j\in\mathcal P_q^{\mathrm{rank}}}\alpha_j}.
+\]
+候选头据此重新排序。A与P的排名通过秩聚合形成干扰侧排序，C与F的排名形成证据侧排序；最终交替合并两侧排序、去除重复项，并按模型配置确定的头集合规模截取。这样，M1同时利用梯度信息进行高效筛选，并利用双向真实激活修补确认候选头对最终分数的实际影响。所有归因、修补排名和最终头集合均只由训练来源确定。
 
-**M2：证据保护的干扰痕迹提取。** 令 $h(x)\in\mathbb R^d$ 为最终答案位置上所选 51 个注意力头输出的拼接向量。对训练配对 $j$，记其左、右端输入为 $x_j^L,x_j^R$。令 $\mathcal J_{\mathrm{train}}=\mathcal J_{AP}^{\mathrm{train}}\cup\mathcal J_{CF}^{\mathrm{train}}$ 为训练配对索引集合，$\pi_j\geq0$ 为当前冻结训练配置下的配对权重，并归一化为 $\sum_{j\in\mathcal J_{\mathrm{train}}}\pi_j=1$；当前均衡配置按 A/P/C/F 类别、数据集、来源、病例及病例内变体分配该权重。记 $\mathcal V_{\mathrm{train}}=\{x_j^L,x_j^R:j\in\mathcal J_{\mathrm{train}}\}$ 为去重后的训练端点集合。每个配对的权重各有一半分配给左、右端；对唯一训练端点 $v$ 定义
-```math
+**M2：证据保护的干扰痕迹提取。** 令 \(\mathcal H_m\) 为M1选出的模型相关注意力头集合，\(h_m(x)\in\mathbb R^{d_m}\) 为最终答案位置上这些注意力头输出的拼接向量。对训练配对 \(j\)，记左、右端输入为 \(x_j^L,x_j^R\)。令
+\[
+\mathcal J_{\mathrm{train}}
+=\mathcal J_{AP}^{\mathrm{train}}\cup
+\mathcal J_{CF}^{\mathrm{train}}
+\]
+为训练配对索引集合，\(\pi_j\geq0\) 为预先确定并归一化的配对权重，满足 \(\sum_{j\in\mathcal J_{\mathrm{train}}}\pi_j=1\)。权重用于平衡配对类别、来源、病例及病例内变体。令 \(\mathcal V_{\mathrm{train}}\) 为所有训练配对端点去重后的集合。将每个配对权重平均分配给其左右端点，对唯一端点 \(v\) 定义
+\[
 \rho_v=\frac12\sum_{j\in\mathcal J_{\mathrm{train}}}
 \pi_j\left(
 \mathbf 1[v=x_j^L]+\mathbf 1[v=x_j^R]
-\right),\qquad
+\right),
+\qquad
 \sum_{v\in\mathcal V_{\mathrm{train}}}\rho_v=1.
-```
-对当前新配对主配置，标准化均值和逐维标准差按上述端点权重估计：
-```math
-\mu=\sum_{v\in\mathcal V_{\mathrm{train}}}\rho_v h(v),\qquad
-\sigma_a=\max\!\left(
-10^{-5},
+\]
+据此估计训练端点的加权均值和逐维标准差：
+\[
+\begin{aligned}
+\mu_m&=\sum_{v\in\mathcal V_{\mathrm{train}}}\rho_v h_m(v),\\
+\sigma_{m,a}&=\max\left(
+\epsilon_m,\,
 \sqrt{\sum_{v\in\mathcal V_{\mathrm{train}}}
-\rho_v(h_a(v)-\mu_a)^2}
-\right),\qquad a=1,\ldots,d.
-```
-历史 E0 参照沿用其原先登记的未加权标准化方式。对训练配对 $j$，记标准化激活差为 $\Delta\tilde h_j$。证据子空间、初始干扰子空间、正交干扰子空间及痕迹坐标定义为
-```math
-\begin{aligned}
-\tilde h(x)&=(h(x)-\mu)\oslash\sigma,\\
-\Delta\tilde h_j&=\tilde h(x_j^R)-\tilde h(x_j^L),\\
-S&=\mathrm{basis}_{k}\!\left(
-\{\Delta\tilde h_j:j\in\mathcal J_{CF}^{\mathrm{train}}\}
+\rho_v(h_{m,a}(v)-\mu_{m,a})^2}
 \right),\\
-U&=\mathrm{basis}_{k}\!\left(
-\{\Delta\tilde h_j:j\in\mathcal J_{AP}^{\mathrm{train}}\}
-\right),\\
-N&=\mathrm{orth}\!\left((I-SS^\top)U\right),\qquad
-t(x)=N^\top\tilde h(x).
+\tilde h_m(x)&=(h_m(x)-\mu_m)\oslash\sigma_m.
 \end{aligned}
-```
-其中，$\mathcal J_{AP}^{\mathrm{train}}$ 和 $\mathcal J_{CF}^{\mathrm{train}}$ 分别是训练集中的 A/P 与 C/F 配对索引；$\mathrm{basis}_k$ 表示先将每个配对差分行乘以当前冻结配置中对应配对权重的平方根，再对所得差分矩阵作截断奇异值分解，最多保留前 $k$ 个右奇异向量，并剔除不大于 $\max(10^{-7},10^{-6}s_{\max})$ 的数值零方向，其中 $s_{\max}$ 是该差分矩阵的最大奇异值；$S$、$U$ 的列为正交单位向量，$\mathrm{orth}$ 表示正交化；$I$ 为 $d\times d$ 单位矩阵，$\oslash$ 表示逐元素相除。$N$ 因而张成干扰子空间在证据子空间正交补中的部分，$t(x)$ 是用于 M3 修正的干扰痕迹坐标。主配置的最大保留秩 $k=16$，开发集补充 $k=8,16,32$ 的敏感性分析。最终 E3/E4 配置复用 E2 估计的 M2 标准化参数及 $S,U,N$。标准化参数、$S$、$U$ 和 $N$ 仅使用相应训练来源估计。
-
-**M3：证据约束的干扰贡献对消。** 对每个训练配对 $j$，定义原模型分数差和痕迹坐标差：
-```math
-\Delta\ell_{0,j}
-=\ell_0(x_j^R)-\ell_0(x_j^L),\qquad
-\Delta t_j=t(x_j^R)-t(x_j^L).
-```
-令线性修正函数为 $c_w(t)=w^\top t$。拟合系数 $\hat w$ 时，在 A/P 配对上最小化修正后的分数差，并在 C/F 配对上逐对限制修正量：
-```math
+\]
+其中 \(\epsilon_m\) 是防止数值退化的模型相关下限。对训练配对 \(j\)，定义标准化激活差
+\[
+\Delta\tilde h_{m,j}
+=\tilde h_m(x_j^R)-\tilde h_m(x_j^L).
+\]
+证据子空间 \(S_m\) 与初始干扰子空间 \(U_m\) 分别由C/F和A/P配对差分估计：
+\[
 \begin{aligned}
-\hat w=\arg\min_w\quad&
+S_m&=\operatorname{basis}_{k_m}
+\left(\{\Delta\tilde h_{m,j}:j\in\mathcal J_{CF}^{\mathrm{train}}\}\right),\\
+U_m&=\operatorname{basis}_{k_m}
+\left(\{\Delta\tilde h_{m,j}:j\in\mathcal J_{AP}^{\mathrm{train}}\}\right).
+\end{aligned}
+\]
+具体而言，\(\operatorname{basis}_{k_m}\) 先将每个配对差分行乘以对应配对权重的平方根，再对加权差分矩阵进行截断奇异值分解，保留由训练／开发流程确定的有效右奇异向量，并剔除数值零方向。随后将干扰子空间投影到证据子空间的正交补：
+\[
+N_m=\operatorname{orth}\bigl((I-S_mS_m^\top)U_m\bigr),
+\qquad
+t_m(x)=N_m^\top\tilde h_m(x).
+\]
+其中 \(I\) 为相应维度的单位矩阵，\(\operatorname{orth}\) 表示对投影残差再次正交化并剔除数值零方向。\(N_m\) 张成干扰变化子空间中与主要证据变化子空间正交的部分；\(t_m(x)\) 是供M3读取的内部痕迹坐标。注意，正交投影仅依据训练配对估计的主要变化子空间降低线性重叠，最终修正对证据响应的保护仍由M3中的C/F约束直接承担。标准化参数、\(S_m\)、\(U_m\) 和 \(N_m\) 均只使用相应训练来源估计。
+
+**M3：证据约束的干扰贡献对消。** 对每个训练配对 \(j\)，定义原模型分数差和痕迹差：
+\[
+\Delta\ell_{0,j}
+=\ell_0(x_j^R)-\ell_0(x_j^L),
+\qquad
+\Delta t_{m,j}=t_m(x_j^R)-t_m(x_j^L).
+\]
+线性修正函数为 \(c_{w_m}(t)=w_m^\top t\)。拟合修正系数时，在A/P配对上最小化修正后的分数差，并在C/F配对上逐对限制修正量：
+\[
+\begin{aligned}
+\hat w_m=\arg\min_{w_m}\quad&
 \sum_{j\in\mathcal J_{AP}^{\mathrm{train}}}
-\omega_j\left(\Delta\ell_{0,j}+w^\top\Delta t_j\right)^2
-+\lambda\|w\|_2^2,\\
+\omega_j\left(
+\Delta\ell_{0,j}+w_m^\top\Delta t_{m,j}
+\right)^2
++\lambda_m\|w_m\|_2^2,\\
 \text{subject to}\quad&
-|w^\top\Delta t_j|\leq\delta,
+|w_m^\top\Delta t_{m,j}|\leq\delta_m,
 \qquad j\in\mathcal J_{CF}^{\mathrm{train}}.
 \end{aligned}
-```
-其中，$\omega_j\geq0$ 是 A/P 回归权重；本轮按类别、数据集、来源、病例及病例内变体分配权重，A/P 权重总和为 $4{,}887$。固定 $\lambda=0.01$、$\delta=0.2923349$ logit。训练集共 $10{,}006$ 对：A 4,368、P 635、C 635、F 4,368、F0 0；5,003 个 C/F 配对逐对施加约束。零修正始终可行。训练约束限制的是修正项对每个训练 C/F 配对分数差的改动；留出来源上的方向退化、超预算和双端正确率仍须实测。
+\]
+其中，\(\omega_j\) 为A/P回归权重，\(\lambda_m\) 为模型相关正则强度，\(\delta_m\) 为模型相关证据改动预算。A/P目标使固定证据下的干扰分数差趋近于零；C/F约束限制修正项对有效证据变化所产生的额外分数差。零修正始终是该约束问题的可行解。训练约束直接保证的是训练配对上的修正预算，留出来源上的证据响应、超预算情况及双端判断正确性仍需独立评价。
 
-**中心化与 M3 输出。** 沿用上述训练端点权重 $\rho_v$，中心化常数、中心化修正和 M3 输出分数定义为
-```math
+**M3输出中心化。** 为将输入相关修正与后续任务校准分开，使用M2定义的训练端点权重计算修正项的加权均值：
+\[
 \begin{aligned}
-\mu_c&=\sum_{v\in\mathcal V_{\mathrm{train}}}
-\rho_v\,\hat w^\top t(v),\\
-c_{\mathrm{centered}}(x)&=\hat w^\top t(x)-\mu_c,\\
-s(x)&=\ell_0(x)+c_{\mathrm{centered}}(x).
+\mu_{c,m}
+&=\sum_{v\in\mathcal V_{\mathrm{train}}}
+\rho_v\,\hat w_m^\top t_m(v),\\
+c_m(x)&=\hat w_m^\top t_m(x)-\mu_{c,m},\\
+s_m(x)&=\ell_0(x)+c_m(x).
 \end{aligned}
-```
-因此，$\sum_v\rho_v c_{\mathrm{centered}}(v)=0$。最终 E3/E4 沿用 E2 的 M2 支持空间及受约束系数 $\hat w$，只根据上述端点权重计算并减去 $\mu_c$。中心化只减去输入无关的常数，不改变任意配对的分数差，也不改变 C/F 训练约束。最终 M3 不包含可学习的全局共享截距。历史旧 M3 曾先拟合受约束 $w$、再单独估计截距 $b$；严格匹配的 E2/E3 共用同一 $w$，删除 $b$ 只改变绝对分数零点，不能解释为配对干扰抑制能力提高。非线性函数仅作补充对照，仍以两端函数值之差训练。
+\]
+因此，训练端点上的加权平均修正为零。中心化只减去输入无关的常数，不改变任意配对的分数差，也不改变C/F训练约束。最终M3不包含可学习的全局共享截距；整体阈值和概率校准由M4独立处理。非线性修正函数作为扩展时，仍以A/P两端函数值之差拟合干扰分数差，并以C/F两端函数值之差施加证据保护约束。
 
 ### 3.3 M4：任务感知校准与决策
 
-为了将输入相关修正与绝对分数校准分开，我们固定 M1–M3 后单独估计 M4。下文 $s(x)$ 表示第3.2节定义的 M3 中心化后分数。MEGA 采用逻辑再校准：
-```math
-p(y=1\mid x)=\mathrm{sigmoid}(\alpha+\beta s(x)),\qquad \beta>0.
-```
-M4-0 固定 $\alpha=0,\beta=1$；M4-1 仅估计 $\alpha$；M4-2 仅估计 $\beta$；M4-3 同时估计两者。主配置预先指定为 M4-3。参数在原 20 来源开发自然节点上估计，对 $\alpha$ 与 $\log\beta$ 使用固定 L2 正则；每折使用对应 M3 的开发预测。概率阈值固定为 $0.5$，测试标签只用于评价。
+M1–M3冻结后，M4在训练来源的自然样本上独立估计任务校准参数。对MEGA类二元判断，采用逻辑再校准：
+\[
+p(y=1\mid x)=\operatorname{sigmoid}
+\left(\alpha_m+\beta_m s_m(x)\right),
+\qquad \beta_m>0.
+\]
+校准参数仅由训练来源的自然节点标签估计；开发集用于预先规定的配置选择，测试标签仅用于最终评价。仅偏置、仅温度及联合校准作为消融设置，用于区分整体阈值变化、分数缩放和输入相关修正的作用。
 
-**MedPIC 合法答案集合校准。** 对问题 $x$ 的普通选项 $i$，令 $s_i(x)$ 为该选项经 M1–M3 得到的二元分数；若题目含“以上均非”选项，记其分数为 $s_{\mathrm{None}}(x)$。令 $\mathcal L_x$ 表示该题按计分协议允许的完整答案集合。对普通答案集合 $S$，定义
-```math
-E(S\mid x)=\frac{1}{T}\sum_{i\in S}s_i(x)+\gamma_{|S|},
-\qquad T>0.
-```
-若题目含“以上均非”选项，则将该选项作为单独的特殊答案集合，并定义
-```math
-E(\mathrm{None}\mid x)
-=\frac{s_{\mathrm{None}}(x)}{T}+\eta.
-```
-此时 $\mathcal L_x$ 包含该特殊集合及普通选项的所有非空子集；若题目不含特殊选项，则空集也属于 $\mathcal L_x$，其能量为 $E(\varnothing\mid x)=\gamma_0$。对所有合法答案集合，概率和最终预测为
-```math
-P(A\mid x)=
-\frac{\exp E(A\mid x)}
-{\sum_{A'\in\mathcal L_x}\exp E(A'\mid x)},
-\qquad
-\hat S=\arg\max_{A\in\mathcal L_x}P(A\mid x).
-```
-其中，$\gamma_k$ 是答案集合大小为 $k$ 时的先验项；固定 $\gamma_1=0$ 以去除所有集合能量共同平移造成的冗余，$\eta$ 是特殊“以上均非”集合的偏置。以完整集合负对数似然拟合温度 $T$、偏置 $\eta$ 和正则化的集合大小先验 $\gamma$。正则强度只在既有 93 题开发集做来源分组五折选择。官方 467 题包含这些开发题，因此全量结果属于描述性评价，另列冻结 188 题测试结果。NLI4CT 沿用原生二分类标签及冻结迁移协议，不做目标校准。
+对于MedPIC等集合预测任务，M4按照任务原生计分协议，将M3产生的选项分数映射为合法答案集合的能量，再在合法集合上归一化并选择预测集合。集合大小先验、特殊选项偏置和温度均由任务开发集确定。对于NLI等冻结迁移任务，按照预先指定的迁移协议使用M3分数，不在目标测试集重新拟合校准参数。各任务的校准形式、开发集范围和参数设置在实验部分分别说明。
 
-为了保持原推理流程，模型只执行一次前向，读取原始分数及 51 个头，再计算痕迹、中心化修正和任务决策。rank=16 时，M3 有 16 个可拟合系数；$\mu_c$ 是由训练端点加权分布推导的统计量。M4 参数独立保存。完整存储还包含头索引、标准化参数及子空间基，离线定位和特征提取成本另报。
+### 3.4 M1–M4整体算法
+
+给定冻结模型 \(f_m\)、训练来源、A/P与C/F反事实配对，以及模型相关配置，ASTER-CR按以下顺序训练：
+
+1. **M1定位注意力头。** 对A、P、C、F配对分别计算激活差分与梯度的内积归因分数；对候选头执行双向激活修补；按干扰侧与证据侧分别排序并交替合并，得到模型相关注意力头集合 \(\mathcal H_m\)。
+2. **M2构造内部痕迹。** 提取 \(\mathcal H_m\) 的答案位置激活，估计训练端点标准化参数；分别对C/F和A/P加权激活差分矩阵进行截断SVD，得到 \(S_m\) 和 \(U_m\)；将 \(U_m\) 投影到 \(S_m\) 的正交补并正交化，得到 \(N_m\) 和痕迹函数 \(t_m(x)\)。
+3. **M3拟合受约束修正。** 计算A/P原模型分数差与痕迹差，以带正则的加权最小二乘拟合 \(w_m\)，并对每个C/F训练配对施加修正预算；再计算训练端点加权中心化常数，得到 \(s_m(x)\)。
+4. **M4任务校准。** 固定M1–M3，在训练来源自然样本上拟合任务规定的校准器，并冻结所有参数。
+5. **推理。** 对新输入运行冻结模型，读取原始判断分数和所选注意力头激活，计算 \(t_m(x)\)、\(s_m(x)\)，再应用冻结的M4校准器得到最终判断。
+
+所有模型相关的头集合规模、候选集合规模、子空间秩、正则强度、证据预算及任务校准参数，均在相应训练／开发流程中确定并于测试前冻结。方法定义不依赖某个模型的固定头数、固定特征维度或固定配对数量。
 
 ### 3.4 核心理论结论
 
