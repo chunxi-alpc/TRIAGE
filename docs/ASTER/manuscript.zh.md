@@ -277,7 +277,7 @@ D^\top w=-\boldsymbol\gamma,\qquad H^\top w=0.
 
 **Datasets.** 我们采用三个医学推理数据集：MEGA-CDP（Chen et al., 2026）评估临床指南决策路径，主训练集E1包含来自80个指南来源的2,540对A/P/C/F配对；NLI4CT（Jullien et al., 2023；Jullien et al., 2024）评估临床试验报告与声明之间的推断，正式测试包含5,500条声明；MedPIC-Bench（Hou et al., 2026）评估患者特异的用药安全判断，包含467道选择题（284道指南遵循题、183道反事实题）和2,335个选项。NLI4CT和MedPIC用于冻结迁移评价，MedPIC的93道开发题仅用于M4校准。数据划分和配对构建见附录B.6。
 
-**Implementation Details.** 主干模型为冻结的BF16 Qwen3-8B（Qwen Team, 2025），使用固定提示、分词器和最终答案词元的二元logit差，标签投影采用FP32。E1按类别和来源均衡加权。M1从64个候选注意力头中选择51个；M2使用16维子空间；M3采用$\lambda=0.01$、$\delta=0.2923349$ logit的逐对证据约束，并用SLSQP求解（容差$10^{-13}$，最多3,000次迭代）；M4在761个自然节点上拟合截距。随机种子为20261108。SLSQP为约束优化器，不使用学习率。完整配置见附录B.7。
+**Implementation Details.** 主干模型为冻结的BF16 Qwen3-8B（Qwen Team, 2025），使用固定提示、分词器和最终答案词元的二元logit差，标签投影采用FP32。E1按类别和来源均衡加权。M1从64个候选注意力头中选择51个；M2使用16维子空间；M3采用$\lambda=0.01$、$\delta=0.2923349$ logit的逐对证据约束，并用SLSQP求解（容差$10^{-13}$，最多3,000次迭代）；M4在761个自然节点上拟合截距。随机种子为20261108。SLSQP为约束优化器，不使用学习率。表2中的线性主方法沿用4,887对A/P和135对C/F的归档拟合协议；E1的2,540对重训与80来源五折单列于第4.6节。完整配置见附录B.5和B.7。
 
 **Metrics.** 我们报告两类指标：（1）行为指标：A/P干扰响应RMS和方差降低率VR；C/F证据响应保留率ER、证据修正RMS、双端全对率、方向退化数和超预算比例，定义见附录B.1。（2）任务指标：MEGA自然节点、自然路径、干扰路径及官方动态路径准确率（Chen et al., 2026）；NLI4CT准确率、宏平均F1、标签保持一致率和条件翻转忠实性（Jullien et al., 2023, 2024）；MedPIC选项准确率、翻转选项对双端全对率和整题集合准确率（Hou et al., 2026）。
 
@@ -873,7 +873,7 @@ python reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/nl
 
 ### B.5 基线实现与比较协议
 
-主比较使用相同的Qwen3-8B任务输入、固定提示、分词器、二元标签和最终词元logit差。表2中的方法均在同一MEGA受控留出及同一动态路径评价器上计分。ASTER-CR的M1–M3仅使用MEGA-CDP拟合来源的E1配对；跨任务评价不参与M1–M3训练或参数选择。
+主比较使用相同的Qwen3-8B任务输入、固定提示、分词器、二元标签和最终词元logit差。表2中的方法均在同一MEGA受控留出及同一动态路径评价器上计分。表2的16维线性ASTER-CR沿用归档拟合协议（4,887对A/P、135对C/F）；第4.6节的E1重训使用2,540对均衡配对，并执行80来源五折验证。ASTER-CR的M1–M3均只使用MEGA-CDP拟合来源数据；跨任务评价不参与M1–M3训练或参数选择。
 
 校准控制包括仅截距校准和解析正比例缩放；监督线性读出采用二元线性探针（Alain & Bengio, 2016）；LEACE执行闭式线性概念擦除（Belrose et al., 2023）；ITI沿估计方向调整激活（Li et al., 2023）；LoFiT学习局部表示调整（Yin et al., 2024）；LoRA通过低秩权重更新进行任务适配（Hu et al., 2022）。LoRA和LoFiT沿用已归档的学习率0.001；其余配置、参数量及逐方法预测来源见[受控实验归档](https://github.com/chunxi-alpc/TRIAGE/tree/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/)和[评估实现](https://github.com/chunxi-alpc/TRIAGE/blob/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/evaluate.py)。
 
