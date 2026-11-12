@@ -1,57 +1,62 @@
 {
   "schema_version": 1,
-  "dataset_id": "ASTER-CR-Balanced-10006",
-  "experiment_group": "E-Multi-Balanced",
-  "status": "fixed_default_for_followup",
-  "adopted_at": "2026-11-12T00:26:18.438035+08:00",
-  "original_data_frozen_at": "2026-11-11T15:41:13.827008+00:00",
-  "training_pairs": 10006,
+  "dataset_id": "ASTER-CR-MEGA-Dataset-A-2540",
+  "experiment_group": "E1",
+  "status": "fixed_primary_default",
+  "adopted_at": "2026-11-12",
+  "frozen_at": "2026-11-11 09:34:54",
+  "data_version": "20261111-sol-agents-v2",
+  "data_commit": "5a329fe68eaa84fb5f7a791c50d15a47181ac4f2",
+  "training_pairs": 2540,
   "class_counts": {
-    "A": 4368,
+    "A": 635,
     "P": 635,
     "C": 635,
-    "F": 4368
+    "F": 635
   },
-  "preserving_pairs": 5003,
-  "changing_pairs": 5003,
+  "preserving_pairs": 1270,
+  "changing_pairs": 1270,
   "source_counts": {
-    "MEGA-CDP": 5638,
-    "MedEinst": 4368
+    "MEGA-CDP": 2540
   },
-  "all_F_from": "MedEinst",
+  "source_coverage_by_class": {
+    "A": 80,
+    "P": 80,
+    "C": 80,
+    "F": 80
+  },
+  "distinct_cases_by_class": {
+    "A": 635,
+    "P": 622,
+    "C": 635,
+    "F": 635
+  },
   "data": {
-    "fit_pairs": "reports/aster_cr_multisource_20261112/balanced_10006/data/fit_pairs.jsonl",
-    "unified_train": "reports/aster_cr_multisource_20261112/balanced_10006/data/unified_train.jsonl",
-    "selected_pair_ids": "reports/aster_cr_multisource_20261112/balanced_10006/data/selected_pair_ids.jsonl",
-    "medeinst_subset": "reports/aster_cr_multisource_20261112/balanced_10006/data/medeinst_train_selected.jsonl",
-    "manifest": "reports/aster_cr_multisource_20261112/balanced_10006/dataset_manifest.json"
+    "balanced_train": "/home/gcx/aster_cr_pair_dataset_20261111/balanced_train.jsonl",
+    "dataset_manifest": "reports/aster_cr_pair_dataset_20261111/dataset_manifest.json",
+    "frozen_selection": "reports/aster_cr_retrain_paired_v2_20261111/frozen.json",
+    "development_selection": "reports/aster_cr_retrain_paired_v2_20261111/development_selection.json"
   },
   "sampling": {
-    "seed": 20261112,
-    "strata": [
-      "label_before",
-      "label_after"
-    ],
-    "method": "proportional largest-remainder quotas; seeded within-stratum sampling",
-    "use_existing_selected_pair_ids": true
+    "method": "stratify by guideline source, language, and decision-tree complexity; take 635 pairs per class; prioritize distinct cases within strata",
+    "selection_rule": "selected on the development set only; no held-out or test labels used",
+    "training_seed": 20261108,
+    "source_split": {
+      "fit_sources": 80,
+      "development_sources": 20,
+      "controlled_holdout_sources": 40
+    }
   },
   "weighting": {
-    "mixed_class_mass": {
+    "class_mass": {
       "A": 0.25,
       "P": 0.25,
       "C": 0.25,
       "F": 0.25
     },
     "within_class": [
-      "dataset",
-      "source",
-      "original_case",
-      "within_case_variant"
+      "source"
     ],
-    "dataset_mass": {
-      "MEGA-CDP": 0.75,
-      "MedEinst": 0.25
-    },
     "M2_AP": {
       "A": 0.5,
       "P": 0.5
@@ -68,32 +73,69 @@
     "M3_CF": "individual evidence constraints",
     "M3_delta": 0.2923349
   },
-  "training_settings_ref": "reports/aster_cr_multisource_20261112/balanced_10006/configs/initial_frozen.json",
-  "completed_model_ref": "reports/aster_cr_multisource_20261112/balanced_10006/training/E-Multi-Balanced/full",
-  "baseline_ref": "reports/aster_cr_retrain_paired_v2_20261111/models/E1/full",
-  "baseline_role": "frozen E1 remains baseline",
-  "base_model": "Qwen3-8B",
-  "fresh_modules_for_new_model": [
-    "M1",
-    "M2",
-    "M3"
-  ],
-  "test_splits": "remain frozen; use existing evaluation definitions",
-  "adoption_basis": "User chooses existing balanced dataset as default for future experiments after reviewing current results; no data, weights or fitted parameters changed.",
-  "conclusion": "Improved MEGA interference stability and MedEinst evidence protection; no demonstrated overall accuracy superiority over E1.",
-  "human_audit": "pending",
-  "reproduction_script": "reports/aster_cr_multisource_20261112/balanced_10006/code/build_balanced.py",
-  "scope": "default paired training dataset for subsequent ASTER-CR experiments; historical controls retain their original datasets",
+  "training_settings": {
+    "base_model": "Qwen3-8B",
+    "frozen_model": true,
+    "dtype": "bfloat16",
+    "selected_heads": 51,
+    "subspace_rank": 16,
+    "regularization": 0.01,
+    "evidence_budget": 0.2923349
+  },
+  "source_cv": {
+    "folds": 5,
+    "train_sources_per_fold": 64,
+    "validation_sources_per_fold": 16,
+    "independent_M1_M2_M3_per_fold": true,
+    "fold_seed": 20261109,
+    "bootstrap_draws": 2000
+  },
+  "selection": {
+    "candidates": [
+      "E1",
+      "E2"
+    ],
+    "selected": "E1",
+    "split": "development_only",
+    "ordered_criteria": [
+      "natural_path_accuracy",
+      "natural_node_accuracy",
+      "fewer_CF_direction_degradations",
+      "lower_CF_over_budget_rate",
+      "higher_AP_variance_reduction",
+      "smaller_balanced_dataset_tie_break"
+    ],
+    "E1_development_natural_paths": "385/420",
+    "E2_development_natural_paths": "384/420",
+    "test_labels_used": false
+  },
+  "model_refs": {
+    "full": "reports/aster_cr_retrain_paired_v2_20261111/models/E1/full",
+    "folds": "reports/aster_cr_retrain_paired_v2_20261111/models/E1/fold1..fold5",
+    "historical_baseline": "reports/aster_cr_retrain_paired_v2_20261111/models/E0/full"
+  },
+  "ablations": {
+    "E2": "Dataset B (6,345 MEGA-CDP pairs), class/source-balanced weights",
+    "E3": "Dataset B (6,345 MEGA-CDP pairs), natural sample weights",
+    "mixed_source_10006": "historical exploratory only; not the default and not part of the core training protocol"
+  },
+  "human_audit": {
+    "selected_for_manual_audit": 150,
+    "actually_reviewed": 0,
+    "clinical_expert_review": false,
+    "description": "independent agent semantic review plus deterministic validation; no clinical expert certification"
+  },
+  "scope": "default MEGA-only paired training configuration for ASTER-CR; NLI4CT-2024 and MedPIC are transfer evaluations, with the pre-specified MedPIC development set used only for M4 calibration",
+  "adoption_basis": "E1 was frozen under the development-only lexicographic selection rule: it achieved 385/420 natural paths versus 384/420 for E2, while both had 196/199 natural nodes and zero C/F direction degradations. E1 had 1/60 C/F pairs over budget versus 0/60 for E2; the pre-specified rule ranked natural path accuracy first. This is a development-set selection, not a claim of statistical superiority on every metric. No new training was performed for this decision.",
+  "conclusion": "E1 is the primary training dataset. E2/E3 remain ablations. The 10,006-pair MEGA+MedEinst configuration is archived as a historical exploratory experiment, not a core training setting.",
   "repository_artifacts": {
-    "selected_pair_ids_gzip": "reports/aster_cr_multisource_20261112/balanced_10006/data/selected_pair_ids.jsonl.gz",
-    "data_note": "reports/aster_cr_multisource_20261112/balanced_10006/FROZEN_DATASET.zh.md",
+    "data_note": "reports/aster_cr_pair_dataset_20261111/REPORT.zh.md",
+    "training_report": "reports/aster_cr_retrain_paired_v2_20261111/REPORT.zh.md",
     "server_only": [
-      "fit_pairs",
-      "unified_train",
-      "medeinst_subset",
-      "model_parameters",
-      "feature_cache",
-      "training_reproduction_code"
+      "balanced_train.jsonl",
+      "raw pair narratives",
+      "per-pair semantic review records",
+      "activation caches"
     ]
   }
 }
