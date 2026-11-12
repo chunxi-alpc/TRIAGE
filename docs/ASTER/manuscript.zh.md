@@ -421,7 +421,7 @@ NLI正式测试中，原模型准确率为74.05%，ASTER-CR线性配置为73.29%
 | ASTER-CR（99维平衡集成） | 75.14 | 73.60（4,048/5,500） | 78.36 | 77.63 | 531/684 | 531/864 |
 | 仅痕迹MLP（探索） | 74.93 | 73.45（4,040/5,500） | 78.36 | 76.71 | 527/687 | 527/864 |
 
-**表6：NLI4CT-2024原生任务指标。** 原声明500条，正式测试5,500条，标签保持关系4,136对，标签翻转关系864对。预测由归档结果重新计分；固定比例缩放由解析性质得到。[复算脚本](https://github.com/chunxi-alpc/TRIAGE/blob/0694980caa971260bff8f78962d446c5ba4a51cf/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/nli_recomputed_metrics.py)、[完整计数](https://github.com/chunxi-alpc/TRIAGE/blob/0694980caa971260bff8f78962d446c5ba4a51cf/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/nli_recomputed_metrics.json)。
+**表6：NLI4CT-2024原生任务指标。** 原声明500条，正式测试5,500条，标签保持关系4,136对，标签翻转关系864对。预测由归档结果重新计分；固定比例缩放由解析性质得到。条件翻转忠实性的分母按各方法原题答对的合格关系数计算；全部翻转对双端全对统一以864对为分母。[复算脚本](https://github.com/chunxi-alpc/TRIAGE/blob/0694980caa971260bff8f78962d446c5ba4a51cf/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/nli_recomputed_metrics.py)、[完整计数](https://github.com/chunxi-alpc/TRIAGE/blob/0694980caa971260bff8f78962d446c5ba4a51cf/reports/aster_cancel_story_20261109/meeting/experiment_review_20261109/nli_recomputed_metrics.json)。
 
 正比例缩放将连续分数差统一乘以0.95，原声明宏平均F1和分类结果保持不变。ASTER-CR线性配置在翻转关系上的ER为99.48%，证据修正RMS为0.2926 logit；99维平衡配置分别为97.38%和1.4982 logit。原模型的宏平均F1和准确率为75.57%和74.05%，线性配置为74.27%和73.29%，平衡配置为75.14%和73.60%。表6同时呈现连续关系响应与原生分类结果，分别刻画证据响应和任务推断表现。
 
@@ -435,7 +435,7 @@ NLI正式测试中，原模型准确率为74.05%，ASTER-CR线性配置为73.29%
 | ASTER-CR（99维平衡集成） | 93.82 | 0.9937 | 32/244 | 67.02 | 16.70%（78/467） |
 | ASTER-CR（99维强保护集成） | 96.91 | 0.4968 | 33/244 | 66.85 | 16.70%（78/467） |
 
-**表7：MedPIC选项级证据响应与整题集合结果。** 全部467题、2,335个选项；既有配对映射包含244个标签翻转选项对。选项对双端全对、选项准确率和整题集合全对分别按配对、选项和题目计分。MedPIC逐例分数见[迁移研究归档](../../results/aster_cr_transfer_20261110.zip)。RMS单位为logit。
+**表7：MedPIC选项级证据响应与整题集合结果。** 全部467题、2,335个选项；既有配对映射包含244个标签翻转选项对。选项对双端全对、选项准确率和整题集合全对分别按配对、选项和题目计分。†固定比例缩放的绝对证据修正RMS按0.05×原始翻转响应RMS表示。MedPIC逐例分数见[迁移研究归档](../../results/aster_cr_transfer_20261110.zip)。RMS单位为logit。
 
 线性配置的翻转证据响应保留率为100.45%，证据修正RMS为0.1179 logit，翻转选项对双端全对为31/244；选项准确率为65.82%，整题集合全对为70/467。99维平衡配置和强保护配置的整题集合全对均为78/467，分别对应93.82%和96.91%的证据响应保留率。
 
