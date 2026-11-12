@@ -1,0 +1,772 @@
+{
+  "audit_date": "2026-11-12",
+  "completed_at": "2026-11-12T08:49:30.390361+00:00",
+  "decision": "从核心训练中移除 MedEinst F，改用 MEGA 内部 F",
+  "review_scope": {
+    "program_census": 4368,
+    "semantic_sample": 600,
+    "pilot_included": 60,
+    "not_semantically_reviewed": 3768,
+    "clinical_expert_reviews": 0,
+    "model_requested": "Astra Extra High",
+    "backend_requested": "gpt-6-astra",
+    "reasoning_requested": "xhigh",
+    "pro_entitlement": "not exposed",
+    "exact_backend_snapshot": "not exposed",
+    "independent_contexts": 3,
+    "reviewers_per_pair": 1,
+    "inter_rater_agreement": "not estimable: disjoint assignments, not duplicate ratings"
+  },
+  "strict_S1_census": {
+    "n": 4368,
+    "count": 0,
+    "reason": "all actual prompts are fixed two-candidate differential diagnosis, not criterion truth-value tasks"
+  },
+  "semantic_sample_counts": {
+    "S1": 0,
+    "S2": 7,
+    "S3": 512,
+    "S4": 81
+  },
+  "semantic_population_estimates": {
+    "S1": {
+      "sample_count": 0,
+      "sample_fraction": 0.0,
+      "population_estimate": 0.0,
+      "estimated_count": 0.0,
+      "design_standard_error": 0.0,
+      "approximate_95ci_logit": [
+        0.0,
+        0.0
+      ],
+      "conservative_95ci_hypergeometric_bonferroni": [
+        0.0,
+        0.0
+      ],
+      "interval_note": "S1 zero established by full task/prompt census"
+    },
+    "S2": {
+      "sample_count": 7,
+      "sample_fraction": 0.011666666666666667,
+      "population_estimate": 0.013993818681318684,
+      "estimated_count": 61.12500000000001,
+      "design_standard_error": 0.005464298563774099,
+      "approximate_95ci_logit": [
+        0.006488370211386036,
+        0.029919766416836576
+      ],
+      "conservative_95ci_hypergeometric_bonferroni": [
+        0.0016025641025641025,
+        0.4610805860805861
+      ],
+      "interval_note": "approximate design-based logit CI primary; conservative finite-population simultaneous stratum bounds also supplied"
+    },
+    "S3": {
+      "sample_count": 512,
+      "sample_fraction": 0.8533333333333334,
+      "population_estimate": 0.8298617652189076,
+      "estimated_count": 3624.8361904761887,
+      "design_standard_error": 0.01327400570351593,
+      "approximate_95ci_logit": [
+        0.8022446693762295,
+        0.8543224026361396
+      ],
+      "conservative_95ci_hypergeometric_bonferroni": [
+        0.42376373626373626,
+        0.9551282051282052
+      ],
+      "interval_note": "approximate design-based logit CI primary; conservative finite-population simultaneous stratum bounds also supplied"
+    },
+    "S4": {
+      "sample_count": 81,
+      "sample_fraction": 0.135,
+      "population_estimate": 0.15614441609977325,
+      "estimated_count": 682.0388095238096,
+      "design_standard_error": 0.013750962139160203,
+      "approximate_95ci_logit": [
+        0.1310457503560946,
+        0.1850265632254073
+      ],
+      "conservative_95ci_hypergeometric_bonferroni": [
+        0.04304029304029304,
+        0.5677655677655677
+      ],
+      "interval_note": "approximate design-based logit CI primary; conservative finite-population simultaneous stratum bounds also supplied"
+    }
+  },
+  "administrative_all_pair_counts": {
+    "S1": 0,
+    "S2": 7,
+    "S3": 512,
+    "S4": 3849
+  },
+  "administrative_count_warning": "Unreviewed 3768 are administrative S4 only; never interpret these counts as the population medical quality prevalence.",
+  "reviewers": {
+    "1": {
+      "n": 200,
+      "classes": {
+        "S3": 181,
+        "S4": 17,
+        "S2": 2
+      }
+    },
+    "2": {
+      "n": 200,
+      "classes": {
+        "S3": 170,
+        "S4": 30
+      }
+    },
+    "3": {
+      "n": 200,
+      "classes": {
+        "S3": 161,
+        "S4": 34,
+        "S2": 5
+      }
+    }
+  },
+  "issue_statistics": {
+    "sample_multifact": 287,
+    "estimated_multifact_fraction": 0.399186499644112,
+    "sample_no_new_fact": 38,
+    "estimated_no_new_fact_fraction": 0.07450474800959063,
+    "sample_needs_expert": 143,
+    "sample_unrelated_change_true": 2
+  },
+  "source_distribution": {
+    "A|MEGA-CDP": 4368,
+    "P|MEGA-CDP": 635,
+    "C|MEGA-CDP": 635,
+    "F|MedEinst": 4368
+  },
+  "program": {
+    "census_size": 4368,
+    "unique_med_cases": 4368,
+    "frozen_count": 10006,
+    "class_source_counts": {
+      "A|MEGA-CDP": 4368,
+      "P|MEGA-CDP": 635,
+      "C|MEGA-CDP": 635,
+      "F|MedEinst": 4368
+    },
+    "checks": {
+      "raw_narratives_match": 4368,
+      "raw_labels_match": 4368,
+      "labels_flip": 4368,
+      "candidate_space_same": 4368,
+      "prompt_exact": 4368,
+      "label_mapping_correct": 4368,
+      "age_sex_metadata_same": 4368,
+      "normalized_text_changed": 4368,
+      "case_id_overlap_test": 0,
+      "exact_endpoint_overlap_test": 0
+    },
+    "original_train_pairs": 10609,
+    "original_train_rows": 21218,
+    "original_test_pairs": 5383,
+    "original_test_rows": 10766,
+    "raw_train_test_case_overlap": 339,
+    "selected_diagnosis_transition_count": 148,
+    "prior_qwen_factor_counts": {
+      "2": 341,
+      "1": 4013,
+      "3": 11,
+      "4": 2,
+      "6": 1
+    },
+    "text_block_counts": {
+      "1": 3329,
+      "2": 988,
+      "4": 9,
+      "3": 38,
+      "5": 3,
+      "6": 1
+    },
+    "exact_duplicate_pair_groups": 0,
+    "exact_duplicate_endpoint_groups": 0,
+    "selected_pairs_with_repeated_endpoint": 0,
+    "near_duplicate_method": "char 3-5 TFIDF, min_df=2, max_features=100000; concatenated normalized original and edited; nearest other pair. Similarity signals synthetic template similarity, not proven same patient/leakage.",
+    "near_duplicate_thresholds": {
+      "0.95": {
+        "train_pairs_with_neighbor": 413,
+        "train_pairs_with_test_neighbor": 391
+      },
+      "0.98": {
+        "train_pairs_with_neighbor": 22,
+        "train_pairs_with_test_neighbor": 9
+      }
+    },
+    "near_train_cosine": {
+      "n": 4368,
+      "mean": 0.8905013734440663,
+      "median": 0.8982605040073395,
+      "q05": 0.7946155846118927,
+      "q95": 0.9620097905397416,
+      "min": 0.29399025440216064,
+      "max": 0.9968183636665344
+    },
+    "near_test_cosine": {
+      "n": 4368,
+      "mean": 0.885853576982196,
+      "median": 0.8953972160816193,
+      "q05": 0.7787806570529938,
+      "q95": 0.9605933219194412,
+      "min": 0.5246025919914246,
+      "max": 0.9970566034317017
+    },
+    "mega_F": {
+      "n": 666,
+      "cases": 646,
+      "sources": 80,
+      "checks": {
+        "original_case_found": 666,
+        "raw_patient_matches": 666,
+        "original_condition_matches_tree": 666,
+        "guideline_exists": 666,
+        "condition_same": 666,
+        "guide_same": 666,
+        "definitions_same": 666,
+        "patient_changed": 666,
+        "label_flip": 666,
+        "patient_only_edit_components": 666,
+        "explicit_program_rule": 149
+      },
+      "language": {
+        "zh": 335,
+        "en": 331
+      },
+      "origin": {
+        "historical": 18,
+        "generated": 648
+      }
+    },
+    "leakage_scope": {
+      "mega_eval_metadata_rows": 104729,
+      "mega_train_eval_source_overlap": [],
+      "mega_train_eval_case_overlap": [],
+      "ddxplus_underlying_patient_overlap": "not verifiable without mapping",
+      "base_model_pretraining_contamination": "not investigated; not inferable from record IDs"
+    }
+  },
+  "template_overlap": {
+    "method": "remove Sex/Age header and Markdown-only wrappers; preserve all clinical text and remaining numbers; exact equality of both ordered narratives",
+    "train_pairs_matching_test": 211,
+    "test_cases_matched": 221,
+    "pair_matches": 539,
+    "within_train_duplicate_template_groups": 82,
+    "within_train_pairs_in_groups": 218,
+    "identical_transition_count": 539,
+    "interpretation": "confirmed narrative template overlap across released splits; demographics still may be clinically important. Does not establish identical patients or causal performance inflation."
+  },
+  "source_diagnostics": {
+    "score_diagnostics": {
+      "MEGA_AP": {
+        "n": 5003,
+        "raw_delta": {
+          "n": 5003,
+          "mean": 0.14611541950867077,
+          "std": 2.612401881926758,
+          "median": -0.0019931793212890625,
+          "q05": -3.3552314758300783,
+          "q95": 3.9855327606201154,
+          "min": -25.177459716796875,
+          "max": 27.206439971923828
+        },
+        "raw_abs_delta": {
+          "n": 5003,
+          "mean": 1.5269199400312206,
+          "std": 2.124737349708833,
+          "median": 0.8465003967285156,
+          "q05": 0.053278350830078126,
+          "q95": 5.178083801269529,
+          "min": 1.33514404296875e-05,
+          "max": 27.206439971923828
+        },
+        "raw_delta_RMS": 2.6164849146350266,
+        "correction_RMS": 0.4146096265841492,
+        "relative_budget": {
+          "n": 5003,
+          "mean": 7.251264143472378,
+          "std": 312.1711353588535,
+          "median": 0.3453452604745274,
+          "q05": 0.05645620013674955,
+          "q95": 5.486939251834208,
+          "min": 0.010745062577157476,
+          "max": 21895.382864457144
+        },
+        "zero_raw_delta": 0,
+        "raw_delta_below_budget": 1155,
+        "active_constraints": null,
+        "over_budget": null,
+        "max_budget_excess": null,
+        "original_direction_correct_rate": null,
+        "corrected_direction_correct_rate": null,
+        "original_both_correct_rate": 0.9934039576254248,
+        "corrected_both_correct_rate": 0.9952028782730362,
+        "evidence_response_retention": null,
+        "tokens": {
+          "n": 5003,
+          "mean": 2183.7537477513492,
+          "std": 1141.6459230756448,
+          "median": 2028.0,
+          "q05": 838.1,
+          "q95": 3824.0,
+          "min": 371.0,
+          "max": 6648.0
+        },
+        "interpretation": "unweighted descriptive training/pool diagnostics; model not refitted; MEGA F 666 are outside current frozen training but some shared cases"
+      },
+      "MEGA_C": {
+        "n": 635,
+        "raw_delta": {
+          "n": 635,
+          "mean": -8.351803459708146,
+          "std": 46.83013771132327,
+          "median": -27.684810638427734,
+          "q05": -60.067176818847656,
+          "q95": 61.90279273986816,
+          "min": -65.16090774536133,
+          "max": 68.2520751953125
+        },
+        "raw_abs_delta": {
+          "n": 635,
+          "mean": 44.066164034745825,
+          "std": 17.91612699089756,
+          "median": 50.118024826049805,
+          "q05": 5.349040985107423,
+          "q95": 63.048140335083005,
+          "min": 0.052066802978515625,
+          "max": 68.2520751953125
+        },
+        "raw_delta_RMS": 47.56904896138975,
+        "correction_RMS": 0.1239157009040107,
+        "relative_budget": {
+          "n": 635,
+          "mean": 0.0316144822848786,
+          "std": 0.24727031633269983,
+          "median": 0.005832929390466588,
+          "q05": 0.004636693462631165,
+          "q95": 0.0546763828351931,
+          "min": 0.004283165005070459,
+          "max": 5.614612061367133
+        },
+        "zero_raw_delta": 0,
+        "raw_delta_below_budget": 4,
+        "active_constraints": 10,
+        "over_budget": 0,
+        "max_budget_excess": 2.3314683517128287e-15,
+        "original_direction_correct_rate": 0.9937007874015747,
+        "corrected_direction_correct_rate": 0.9937007874015747,
+        "original_both_correct_rate": 0.8,
+        "corrected_both_correct_rate": 0.7858267716535433,
+        "evidence_response_retention": 0.9999089754434449,
+        "tokens": {
+          "n": 635,
+          "mean": 1840.2897637795274,
+          "std": 971.9666374847486,
+          "median": 1653.0,
+          "q05": 658.3000000000001,
+          "q95": 3529.8999999999996,
+          "min": 365.0,
+          "max": 6642.0
+        },
+        "interpretation": "unweighted descriptive training/pool diagnostics; model not refitted; MEGA F 666 are outside current frozen training but some shared cases"
+      },
+      "MedEinst_F": {
+        "n": 4368,
+        "raw_delta": {
+          "n": 4368,
+          "mean": 3.004941823718312,
+          "std": 9.476483839960759,
+          "median": 1.5852336883544922,
+          "q05": -11.157610511779785,
+          "q95": 22.334467315673823,
+          "min": -40.83546257019043,
+          "max": 43.478471755981445
+        },
+        "raw_abs_delta": {
+          "n": 4368,
+          "mean": 6.623079810387049,
+          "std": 7.414056592595743,
+          "median": 3.6080799102783203,
+          "q05": 0.2758188247680664,
+          "q95": 22.922636795043942,
+          "min": 0.00029754638671875,
+          "max": 43.478471755981445
+        },
+        "raw_delta_RMS": 9.941499953878637,
+        "correction_RMS": 0.07275922816660241,
+        "relative_budget": {
+          "n": 4368,
+          "mean": 0.9276118837963767,
+          "std": 19.762287287393775,
+          "median": 0.08102229088408947,
+          "q05": 0.012753110429021698,
+          "q95": 1.0598804188995161,
+          "min": 0.00672367008759416,
+          "max": 982.4851285333334
+        },
+        "zero_raw_delta": 0,
+        "raw_delta_below_budget": 232,
+        "active_constraints": 4,
+        "over_budget": 0,
+        "max_budget_excess": 1.27675647831893e-15,
+        "original_direction_correct_rate": 0.7339743589743589,
+        "corrected_direction_correct_rate": 0.7346611721611722,
+        "original_both_correct_rate": 0.22275641025641027,
+        "corrected_both_correct_rate": 0.21932234432234432,
+        "evidence_response_retention": 0.9999060509658341,
+        "tokens": {
+          "n": 4368,
+          "mean": 350.71588827838826,
+          "std": 85.0136226119902,
+          "median": 332.0,
+          "q05": 218.0,
+          "q95": 518.0,
+          "min": 159.0,
+          "max": 641.0
+        },
+        "interpretation": "unweighted descriptive training/pool diagnostics; model not refitted; MEGA F 666 are outside current frozen training but some shared cases"
+      },
+      "MEGA_F_666": {
+        "n": 666,
+        "raw_delta": {
+          "n": 666,
+          "mean": 0.13131491056791655,
+          "std": 53.44755264293965,
+          "median": -2.664569854736328,
+          "q05": -62.09312391281128,
+          "q95": 63.5139799118042,
+          "min": -68.83687210083008,
+          "max": 69.47970581054688
+        },
+        "raw_abs_delta": {
+          "n": 666,
+          "mean": 51.96309966582794,
+          "std": 12.50977218996313,
+          "median": 55.575039863586426,
+          "q05": 21.943077087402344,
+          "q95": 64.26311922073364,
+          "min": 0.5363903045654297,
+          "max": 69.47970581054688
+        },
+        "raw_delta_RMS": 53.447713956029425,
+        "correction_RMS": 0.17399458076459515,
+        "relative_budget": {
+          "n": 666,
+          "mean": 0.008701589548319675,
+          "std": 0.027072440942148102,
+          "median": 0.0052601885185437165,
+          "q05": 0.004549034752493686,
+          "q95": 0.013330842891322199,
+          "min": 0.004207486151382411,
+          "max": 0.5450040716840372
+        },
+        "zero_raw_delta": 0,
+        "raw_delta_below_budget": 0,
+        "active_constraints": 0,
+        "over_budget": 59,
+        "max_budget_excess": 0.3780558897351873,
+        "original_direction_correct_rate": 1.0,
+        "corrected_direction_correct_rate": 1.0,
+        "original_both_correct_rate": 0.9429429429429429,
+        "corrected_both_correct_rate": 0.9369369369369369,
+        "evidence_response_retention": 0.9993726988797841,
+        "tokens": {
+          "n": 666,
+          "mean": 1771.4294294294293,
+          "std": 912.8163338997659,
+          "median": 1606.5,
+          "q05": 566.25,
+          "q95": 3448.75,
+          "min": 365.0,
+          "max": 6566.0
+        },
+        "interpretation": "unweighted descriptive training/pool diagnostics; model not refitted; MEGA F 666 are outside current frozen training but some shared cases"
+      }
+    },
+    "source_probes": {
+      "structure": {
+        "n": 5710,
+        "balanced_accuracy": 1.0,
+        "accuracy": 1.0,
+        "auc": 1.0,
+        "folds": [
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          }
+        ]
+      },
+      "S_original_coordinates": {
+        "n": 5710,
+        "balanced_accuracy": 1.0,
+        "accuracy": 1.0,
+        "auc": 1.0,
+        "folds": [
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          }
+        ]
+      },
+      "S_pair_difference": {
+        "n": 5710,
+        "balanced_accuracy": 0.9120299099807296,
+        "accuracy": 0.886339754816112,
+        "auc": 0.9666479353979354,
+        "folds": [
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9040865466716759,
+            "auc": 0.9604238532736773
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.92427939379229,
+            "auc": 0.97266614715739
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9015505994057174,
+            "auc": 0.9598645787082892
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9197078110591208,
+            "auc": 0.9684116602342976
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9105443350068345,
+            "auc": 0.9727257629760216
+          }
+        ]
+      },
+      "U_original_coordinates": {
+        "n": 5710,
+        "balanced_accuracy": 0.9988822652757079,
+        "accuracy": 0.9994746059544658,
+        "auc": 0.9999996588111342,
+        "folds": [
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9981343283582089,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9981412639405205,
+            "auc": 0.9999957417272406
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9981343283582089,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          }
+        ]
+      },
+      "U_pair_difference": {
+        "n": 5710,
+        "balanced_accuracy": 0.9094786702368669,
+        "accuracy": 0.9262697022767076,
+        "auc": 0.9795554513792217,
+        "folds": [
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.893187096553844,
+            "auc": 0.9781455992349465
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9124562994758065,
+            "auc": 0.9822770687753634
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.918883841661259,
+            "auc": 0.9794519963113494
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9164460876396052,
+            "auc": 0.9762799275931555
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.906458522294187,
+            "auc": 0.9820811882284308
+          }
+        ]
+      },
+      "N_original_coordinates": {
+        "n": 5710,
+        "balanced_accuracy": 0.9985096870342771,
+        "accuracy": 0.9992994746059545,
+        "auc": 0.9999972704890738,
+        "folds": [
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9981412639405205,
+            "auc": 0.9999957417272406
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.9944029850746269,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 1.0,
+            "auc": 1.0
+          }
+        ]
+      },
+      "N_pair_difference": {
+        "n": 5710,
+        "balanced_accuracy": 0.8465852794746238,
+        "accuracy": 0.9267950963222417,
+        "auc": 0.8441943132004607,
+        "folds": [
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.8171641791044777,
+            "auc": 0.8136505686669626
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.8550185873605948,
+            "auc": 0.859491902894348
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.8491794460193313,
+            "auc": 0.851083541104546
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.8527613648007104,
+            "auc": 0.8468655008709313
+          },
+          {
+            "test_n": 1142,
+            "balanced_accuracy": 0.8587360594795539,
+            "auc": 0.8528894509808931
+          }
+        ]
+      },
+      "format_rule": {
+        "n": 5710,
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "rule": "presence of the differential-diagnosis instruction; input text only"
+      }
+    },
+    "M1": {
+      "selected_heads": 51,
+      "selected_in_top64_by_class": {
+        "A": 43,
+        "P": 47,
+        "C": 39,
+        "F": 43
+      },
+      "selected_F_candidates_only": 0,
+      "F_C_top64_overlap": 45,
+      "attribution_cosine_F_C": 0.7738780027097594,
+      "exact_F_representatives": 44,
+      "note": "Different within-pair interventions; no cross-source pair subtraction. Candidate-rank differences alone do not show source causation."
+    },
+    "source_probe_protocol": "5-fold StratifiedGroupKFold, seed 20261112, one original endpoint per original case, MEGA grouped by guideline source and MedEinst by released case ID. Logistic regression C=1 balanced; train-fold StandardScaler. Read-only learned S/U/N used; those representations were fitted using all original training data, so probe is descriptive, not an unbiased nested generalization estimate. No test labels used.",
+    "limitations": [
+      "MedEinst underlying DDXPlus case mapping absent; distinct released case IDs may share synthetic templates.",
+      "Perfect source separability does not establish test leakage or causation.",
+      "Projection probe cannot separate source from task with this confounded design.",
+      "Source-only additive constant cancels within a pair; task-dependent gradients, scaling, subspace geometry and evidence constraints need not cancel."
+    ]
+  },
+  "sampling": {
+    "seed": 20261112,
+    "strata": 148,
+    "n": 600,
+    "design": "stratified SRS without replacement; case unique; at least 2 per stratum unless census",
+    "interval": "finite-population stratified variance with logit transformation; additionally exact hypergeometric Bonferroni bounds across noncensus strata",
+    "ci_scope": "sampling uncertainty conditional on these AI classifications; excludes clinical-review error and shared model bias"
+  },
+  "limitations": [
+    "No complete semantic census of 4368 pairs.",
+    "No clinical expert adjudication.",
+    "No patient-level DDXPlus mapping or per-record generation label evidence.",
+    "Model source probes reuse representations fitted on all original training data.",
+    "Existing evaluation is reused and MEGA test F only has 7 pairs."
+  ],
+  "artifacts": {
+    "pair_audit": "pair_audit.csv",
+    "manifest": "sampling_manifest.json",
+    "report": "REPORT.zh.md",
+    "examples": "examples.md",
+    "experiment_plan": "experiment_plan.zh.md"
+  }
+}
