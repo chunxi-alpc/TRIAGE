@@ -2,7 +2,7 @@
 
 ## 完成情况
 
-已实测原始Qwen3-8B、冻结E1的ASTER-CR 16维线性、LEACE、LoFiT、LoRA及CAD，共 240 次计时。**E11尚待通过有效性审计的ITI，以及新增方法完成后的代表方法接入。** Codex00/01尚未完成；Codex03尚无已完成新增方法。本轮没有以未经审计ITI或未完成方法填表。
+已实测原始Qwen3-8B、冻结E1的ASTER-CR 16维线性、LEACE、LoFiT、LoRA及CAD，共240次计时。2026-11-13，ITI与DoRA冻结产物已到位，80次补测已进入统一队列；完成后自动生成[八方法合并报告](e11_shared_missing/merged/REPORT.zh.md)。
 
 LEACE、LoFiT、LoRA使用历史已保存检查点，本报告只比较推理成本，不将它们标为当前E1数据有效性审计已通过。没有重新训练方法，没有重跑已有特征提取测试或CPU后处理微基准。
 
