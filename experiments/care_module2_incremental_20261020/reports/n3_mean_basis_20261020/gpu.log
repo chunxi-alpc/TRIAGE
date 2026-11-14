@@ -1,0 +1,159 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 3/3 [00:00<00:00, 117.46it/s]
+{
+  "task": "N3",
+  "split": "dev",
+  "metrics": {
+    "route": {
+      "correct": 11,
+      "total": 16,
+      "primary": 0.6875,
+      "cache_hits": 0,
+      "corrected": 2,
+      "damaged": 0,
+      "q_wrong_decision": 2,
+      "q_total": 4,
+      "d_unnecessary_query": 3,
+      "d_total": 12,
+      "decisive_query_correct": 2,
+      "pair_both_correct": 0,
+      "pair_total": 0
+    },
+    "random": {
+      "correct": 9,
+      "total": 16,
+      "primary": 0.5625,
+      "cache_hits": 0,
+      "corrected": 0,
+      "damaged": 0,
+      "q_wrong_decision": 4,
+      "q_total": 4,
+      "d_unnecessary_query": 3,
+      "d_total": 12,
+      "decisive_query_correct": 0,
+      "pair_both_correct": 0,
+      "pair_total": 0
+    },
+    "baseline": {
+      "correct": 9,
+      "total": 16,
+      "primary": 0.5625,
+      "cache_hits": 16,
+      "corrected": 0,
+      "damaged": 0,
+      "q_wrong_decision": 4,
+      "q_total": 4,
+      "d_unnecessary_query": 3,
+      "d_total": 12,
+      "decisive_query_correct": 0,
+      "pair_both_correct": 0,
+      "pair_total": 0
+    },
+    "text": {
+      "correct": 12,
+      "total": 16,
+      "primary": 0.75,
+      "cache_hits": 16,
+      "corrected": 5,
+      "damaged": 2,
+      "q_wrong_decision": 0,
+      "q_total": 4,
+      "d_unnecessary_query": 0,
+      "d_total": 12,
+      "decisive_query_correct": 3,
+      "pair_both_correct": 0,
+      "pair_total": 0
+    },
+    "mean": {
+      "correct": 10,
+      "total": 16,
+      "primary": 0.625,
+      "cache_hits": 16,
+      "corrected": 1,
+      "damaged": 0,
+      "q_wrong_decision": 3,
+      "q_total": 4,
+      "d_unnecessary_query": 3,
+      "d_total": 12,
+      "decisive_query_correct": 1,
+      "pair_both_correct": 0,
+      "pair_total": 0
+    },
+    "old_route": {
+      "correct": 10,
+      "total": 16,
+      "primary": 0.625,
+      "cache_hits": 16,
+      "corrected": 2,
+      "damaged": 1,
+      "q_wrong_decision": 3,
+      "q_total": 4,
+      "d_unnecessary_query": 3,
+      "d_total": 12,
+      "decisive_query_correct": 1,
+      "pair_both_correct": 0,
+      "pair_total": 0
+    }
+  },
+  "primary_comparison": {
+    "reference": "text",
+    "family_differences": {
+      "logic_12": -0.25,
+      "logic_13": 0.0,
+      "logic_14": 0.25,
+      "logic_15": -0.25
+    },
+    "difference": -0.0625,
+    "ci95": [
+      -0.25,
+      0.125
+    ],
+    "two_sided_signflip_p": 1.0,
+    "bootstrap": 10000,
+    "seed": 261014,
+    "families": 4
+  },
+  "status": "gpu_evaluated",
+  "conclusion": "exploratory development comparison on already-seen families; not a test confirmation",
+  "variant": "mean_preserving_rank2",
+  "selected_route_beta": 0.5,
+  "new_forward_count": 48,
+  "test_status": "not_run_user_scope",
+  "N2_status": "unchanged",
+  "N5_status": "unchanged",
+  "route_vs_comparisons": {
+    "mean": {
+      "corrected": 1,
+      "damaged": 0,
+      "net_correct_difference": 1,
+      "families": {
+        "logic_12": 0.25,
+        "logic_13": 0.0,
+        "logic_14": 0.0,
+        "logic_15": 0.0
+      }
+    },
+    "text": {
+      "corrected": 2,
+      "damaged": 3,
+      "net_correct_difference": -1,
+      "families": {
+        "logic_12": -0.25,
+        "logic_13": 0.0,
+        "logic_14": 0.25,
+        "logic_15": -0.25
+      }
+    },
+    "old_route": {
+      "corrected": 2,
+      "damaged": 1,
+      "net_correct_difference": 1,
+      "families": {
+        "logic_12": 0.0,
+        "logic_13": 0.0,
+        "logic_14": 0.25,
+        "logic_15": 0.0
+      }
+    }
+  }
+}

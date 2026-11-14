@@ -1,0 +1,157 @@
+{
+  "N2_status": "unchanged",
+  "N5_status": "unchanged",
+  "conclusion": "exploratory development comparison on already-seen families; not a test confirmation",
+  "metrics": {
+    "baseline": {
+      "cache_hits": 16,
+      "correct": 9,
+      "corrected": 0,
+      "d_total": 12,
+      "d_unnecessary_query": 3,
+      "damaged": 0,
+      "decisive_query_correct": 0,
+      "pair_both_correct": 0,
+      "pair_total": 0,
+      "primary": 0.5625,
+      "q_total": 4,
+      "q_wrong_decision": 4,
+      "total": 16
+    },
+    "mean": {
+      "cache_hits": 16,
+      "correct": 10,
+      "corrected": 1,
+      "d_total": 12,
+      "d_unnecessary_query": 3,
+      "damaged": 0,
+      "decisive_query_correct": 1,
+      "pair_both_correct": 0,
+      "pair_total": 0,
+      "primary": 0.625,
+      "q_total": 4,
+      "q_wrong_decision": 3,
+      "total": 16
+    },
+    "old_route": {
+      "cache_hits": 16,
+      "correct": 10,
+      "corrected": 2,
+      "d_total": 12,
+      "d_unnecessary_query": 3,
+      "damaged": 1,
+      "decisive_query_correct": 1,
+      "pair_both_correct": 0,
+      "pair_total": 0,
+      "primary": 0.625,
+      "q_total": 4,
+      "q_wrong_decision": 3,
+      "total": 16
+    },
+    "random": {
+      "cache_hits": 0,
+      "correct": 9,
+      "corrected": 0,
+      "d_total": 12,
+      "d_unnecessary_query": 3,
+      "damaged": 0,
+      "decisive_query_correct": 0,
+      "pair_both_correct": 0,
+      "pair_total": 0,
+      "primary": 0.5625,
+      "q_total": 4,
+      "q_wrong_decision": 4,
+      "total": 16
+    },
+    "route": {
+      "cache_hits": 0,
+      "correct": 11,
+      "corrected": 2,
+      "d_total": 12,
+      "d_unnecessary_query": 3,
+      "damaged": 0,
+      "decisive_query_correct": 2,
+      "pair_both_correct": 0,
+      "pair_total": 0,
+      "primary": 0.6875,
+      "q_total": 4,
+      "q_wrong_decision": 2,
+      "total": 16
+    },
+    "text": {
+      "cache_hits": 16,
+      "correct": 12,
+      "corrected": 5,
+      "d_total": 12,
+      "d_unnecessary_query": 0,
+      "damaged": 2,
+      "decisive_query_correct": 3,
+      "pair_both_correct": 0,
+      "pair_total": 0,
+      "primary": 0.75,
+      "q_total": 4,
+      "q_wrong_decision": 0,
+      "total": 16
+    }
+  },
+  "new_forward_count": 48,
+  "primary_comparison": {
+    "bootstrap": 10000,
+    "ci95": [
+      -0.25,
+      0.125
+    ],
+    "difference": -0.0625,
+    "families": 4,
+    "family_differences": {
+      "logic_12": -0.25,
+      "logic_13": 0.0,
+      "logic_14": 0.25,
+      "logic_15": -0.25
+    },
+    "reference": "text",
+    "seed": 261014,
+    "two_sided_signflip_p": 1.0
+  },
+  "route_vs_comparisons": {
+    "mean": {
+      "corrected": 1,
+      "damaged": 0,
+      "families": {
+        "logic_12": 0.25,
+        "logic_13": 0.0,
+        "logic_14": 0.0,
+        "logic_15": 0.0
+      },
+      "net_correct_difference": 1
+    },
+    "old_route": {
+      "corrected": 2,
+      "damaged": 1,
+      "families": {
+        "logic_12": 0.0,
+        "logic_13": 0.0,
+        "logic_14": 0.25,
+        "logic_15": 0.0
+      },
+      "net_correct_difference": 1
+    },
+    "text": {
+      "corrected": 2,
+      "damaged": 3,
+      "families": {
+        "logic_12": -0.25,
+        "logic_13": 0.0,
+        "logic_14": 0.25,
+        "logic_15": -0.25
+      },
+      "net_correct_difference": -1
+    }
+  },
+  "selected_route_beta": 0.5,
+  "split": "dev",
+  "status": "gpu_evaluated",
+  "task": "N3",
+  "test_status": "not_run_user_scope",
+  "variant": "mean_preserving_rank2"
+}
