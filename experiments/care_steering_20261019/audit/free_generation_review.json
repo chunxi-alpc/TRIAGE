@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "errors": [],
+  "parser_tests_passed": 8,
+  "unique_completions": 552,
+  "prediction_rows": 960,
+  "method_summary": {
+    "A": {
+      "items": 240,
+      "correct": 68,
+      "invalid": 171,
+      "truncated": 0,
+      "owns_unique_completion": 240
+    },
+    "B": {
+      "items": 240,
+      "correct": 30,
+      "invalid": 205,
+      "truncated": 7,
+      "owns_unique_completion": 240
+    },
+    "C_reduced": {
+      "items": 240,
+      "correct": 50,
+      "invalid": 189,
+      "truncated": 0,
+      "owns_unique_completion": 72
+    },
+    "D_adapt": {
+      "items": 240,
+      "correct": 68,
+      "invalid": 171,
+      "truncated": 0,
+      "owns_unique_completion": 0
+    }
+  },
+  "limitations": [
+    "Parser is deliberately strict, case-sensitive for option actions, and uses only the final nonempty line; semantically equivalent prose may be marked invalid.",
+    "Invalid outputs remain incorrect in accuracy. New-rule misuse is only known for parsed outputs; report coverage and full-denominator lower/upper bounds.",
+    "The raw reused_completion field labels all C rows as reused. The derived manifest correctly marks positive-alpha C completions as separately executed.",
+    "Batch wall time allocated across items is not isolated latency. True total compute is reported by free_complete.json, not the sum of replicated method-row times.",
+    "Free-generation gate_seconds is an unmeasured per-item placeholder; total run time includes gate computation."
+  ]
+}

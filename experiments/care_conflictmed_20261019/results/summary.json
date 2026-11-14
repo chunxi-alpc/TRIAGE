@@ -1,0 +1,752 @@
+{
+  "populations": {
+    "all_test": [
+      3,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      29,
+      30,
+      42,
+      43,
+      44,
+      45,
+      49,
+      61,
+      68,
+      69,
+      74,
+      86,
+      87,
+      88,
+      89,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      108,
+      111,
+      112,
+      113,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172,
+      173,
+      174,
+      182,
+      186,
+      187,
+      188,
+      189
+    ],
+    "recognition_known": [
+      6,
+      8,
+      12,
+      42,
+      44,
+      49,
+      61,
+      68,
+      91,
+      94,
+      97,
+      99,
+      102,
+      103,
+      104,
+      106,
+      108,
+      113,
+      119,
+      120,
+      121,
+      122,
+      124,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      172,
+      173,
+      174,
+      186,
+      187,
+      188,
+      189
+    ],
+    "strict_open_and_recognition_known": [
+      61
+    ],
+    "stable_wrong_prior": [
+      10,
+      93,
+      101,
+      112,
+      123,
+      171
+    ]
+  },
+  "metrics": {
+    "all_test": {
+      "baseline_misleading": {
+        "n": 136,
+        "correct": 10,
+        "accuracy": 0.07352941176470588,
+        "explicit_context_follow": 126,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "caution_prompt": {
+        "n": 136,
+        "correct": 45,
+        "accuracy": 0.33088235294117646,
+        "explicit_context_follow": 91,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "baseline_aligned": {
+        "n": 136,
+        "correct": 135,
+        "accuracy": 0.9926470588235294,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "selected_direction_misleading": {
+        "n": 136,
+        "correct": 11,
+        "accuracy": 0.08088235294117647,
+        "explicit_context_follow": 125,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "selected_direction_aligned": {
+        "n": 136,
+        "correct": 134,
+        "accuracy": 0.9852941176470589,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "nonzero_direction_diagnostic_misleading": {
+        "n": 136,
+        "correct": 11,
+        "accuracy": 0.08088235294117647,
+        "explicit_context_follow": 125,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "nonzero_direction_diagnostic_aligned": {
+        "n": 136,
+        "correct": 134,
+        "accuracy": 0.9852941176470589,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      }
+    },
+    "recognition_known": {
+      "baseline_misleading": {
+        "n": 74,
+        "correct": 10,
+        "accuracy": 0.13513513513513514,
+        "explicit_context_follow": 64,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "caution_prompt": {
+        "n": 74,
+        "correct": 42,
+        "accuracy": 0.5675675675675675,
+        "explicit_context_follow": 32,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "baseline_aligned": {
+        "n": 74,
+        "correct": 74,
+        "accuracy": 1.0,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "selected_direction_misleading": {
+        "n": 74,
+        "correct": 11,
+        "accuracy": 0.14864864864864866,
+        "explicit_context_follow": 63,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "selected_direction_aligned": {
+        "n": 74,
+        "correct": 74,
+        "accuracy": 1.0,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "nonzero_direction_diagnostic_misleading": {
+        "n": 74,
+        "correct": 11,
+        "accuracy": 0.14864864864864866,
+        "explicit_context_follow": 63,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "nonzero_direction_diagnostic_aligned": {
+        "n": 74,
+        "correct": 74,
+        "accuracy": 1.0,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      }
+    },
+    "strict_open_and_recognition_known": {
+      "baseline_misleading": {
+        "n": 2,
+        "correct": 0,
+        "accuracy": 0.0,
+        "explicit_context_follow": 2,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "caution_prompt": {
+        "n": 2,
+        "correct": 1,
+        "accuracy": 0.5,
+        "explicit_context_follow": 1,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "baseline_aligned": {
+        "n": 2,
+        "correct": 2,
+        "accuracy": 1.0,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "selected_direction_misleading": {
+        "n": 2,
+        "correct": 0,
+        "accuracy": 0.0,
+        "explicit_context_follow": 2,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "selected_direction_aligned": {
+        "n": 2,
+        "correct": 2,
+        "accuracy": 1.0,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "nonzero_direction_diagnostic_misleading": {
+        "n": 2,
+        "correct": 0,
+        "accuracy": 0.0,
+        "explicit_context_follow": 2,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "nonzero_direction_diagnostic_aligned": {
+        "n": 2,
+        "correct": 2,
+        "accuracy": 1.0,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      }
+    },
+    "stable_wrong_prior": {
+      "baseline_misleading": {
+        "n": 12,
+        "correct": 0,
+        "accuracy": 0.0,
+        "explicit_context_follow": 12,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "caution_prompt": {
+        "n": 12,
+        "correct": 0,
+        "accuracy": 0.0,
+        "explicit_context_follow": 12,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "baseline_aligned": {
+        "n": 12,
+        "correct": 11,
+        "accuracy": 0.9166666666666666,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "selected_direction_misleading": {
+        "n": 12,
+        "correct": 0,
+        "accuracy": 0.0,
+        "explicit_context_follow": 12,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "selected_direction_aligned": {
+        "n": 12,
+        "correct": 11,
+        "accuracy": 0.9166666666666666,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "nonzero_direction_diagnostic_misleading": {
+        "n": 12,
+        "correct": 0,
+        "accuracy": 0.0,
+        "explicit_context_follow": 12,
+        "invalid": 0,
+        "truncated": 0
+      },
+      "nonzero_direction_diagnostic_aligned": {
+        "n": 12,
+        "correct": 11,
+        "accuracy": 0.9166666666666666,
+        "explicit_context_follow": 0,
+        "invalid": 0,
+        "truncated": 0
+      }
+    }
+  },
+  "differences": {
+    "all_test": {
+      "caution_prompt": {
+        "groups": 14,
+        "delta": 0.25735294117647056,
+        "ci95": [
+          0.1595744680851064,
+          0.32716329966329966
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      },
+      "selected_direction_misleading": {
+        "groups": 14,
+        "delta": 0.007352941176470588,
+        "ci95": [
+          0.0,
+          0.021436335403726595
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      },
+      "nonzero_direction_diagnostic_misleading": {
+        "groups": 14,
+        "delta": 0.007352941176470588,
+        "ci95": [
+          0.0,
+          0.021436335403726595
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      }
+    },
+    "recognition_known": {
+      "caution_prompt": {
+        "groups": 10,
+        "delta": 0.43243243243243246,
+        "ci95": [
+          0.2916666666666667,
+          0.5625
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      },
+      "selected_direction_misleading": {
+        "groups": 10,
+        "delta": 0.013513513513513514,
+        "ci95": [
+          0.0,
+          0.03260869565217391
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      },
+      "nonzero_direction_diagnostic_misleading": {
+        "groups": 10,
+        "delta": 0.013513513513513514,
+        "ci95": [
+          0.0,
+          0.03260869565217391
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      }
+    },
+    "strict_open_and_recognition_known": {
+      "caution_prompt": {
+        "groups": 1,
+        "delta": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      },
+      "selected_direction_misleading": {
+        "groups": 1,
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      },
+      "nonzero_direction_diagnostic_misleading": {
+        "groups": 1,
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      }
+    },
+    "stable_wrong_prior": {
+      "caution_prompt": {
+        "groups": 5,
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      },
+      "selected_direction_misleading": {
+        "groups": 5,
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      },
+      "nonzero_direction_diagnostic_misleading": {
+        "groups": 5,
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "note": "Descriptive group bootstrap; fixed model/direction, not training uncertainty. Few groups limit inference."
+      }
+    }
+  },
+  "patient": {
+    "no_intervention_closed": {
+      "n": 16,
+      "correct": 12,
+      "joint_correct_pairs": 1,
+      "pairs": 4,
+      "applicable_correct": 8,
+      "inapplicable_correct": 4,
+      "n_applicable": 8,
+      "strict_patient_known_pairs": []
+    },
+    "no_intervention_scoped": {
+      "n": 16,
+      "correct": 10,
+      "joint_correct_pairs": 1,
+      "pairs": 4,
+      "applicable_correct": 8,
+      "inapplicable_correct": 2,
+      "n_applicable": 8,
+      "strict_patient_known_pairs": []
+    },
+    "selected_direction_scoped": {
+      "n": 16,
+      "correct": 10,
+      "joint_correct_pairs": 1,
+      "pairs": 4,
+      "applicable_correct": 8,
+      "inapplicable_correct": 2,
+      "n_applicable": 8,
+      "strict_patient_known_pairs": []
+    },
+    "signed_scope_gate_scoped": {
+      "n": 16,
+      "correct": 10,
+      "joint_correct_pairs": 1,
+      "pairs": 4,
+      "applicable_correct": 8,
+      "inapplicable_correct": 2,
+      "n_applicable": 8,
+      "strict_patient_known_pairs": []
+    }
+  },
+  "selection": {
+    "selected": {
+      "alpha": -2,
+      "n": 272,
+      "correct": 154,
+      "accuracy": 0.5661764705882353
+    },
+    "selected_nonzero": {
+      "alpha": -2,
+      "n": 272,
+      "correct": 154,
+      "accuracy": 0.5661764705882353
+    },
+    "grid": [
+      {
+        "alpha": -2,
+        "n": 272,
+        "correct": 154,
+        "accuracy": 0.5661764705882353
+      },
+      {
+        "alpha": -1,
+        "n": 272,
+        "correct": 149,
+        "accuracy": 0.5477941176470589
+      },
+      {
+        "alpha": 0,
+        "n": 272,
+        "correct": 148,
+        "accuracy": 0.5441176470588235
+      },
+      {
+        "alpha": 1,
+        "n": 272,
+        "correct": 149,
+        "accuracy": 0.5477941176470589
+      },
+      {
+        "alpha": 2,
+        "n": 272,
+        "correct": 149,
+        "accuracy": 0.5477941176470589
+      }
+    ],
+    "layer": 27,
+    "config_sha256": "f8e70ffeccb570adc70c795edcfddfca61c8fe47a05e04781cd4c4093401ccc7",
+    "direction_sha256": "7c49308ba37c537f46ed7f87893512b80c48214166ddbfe78d53f7ae1efc0c42",
+    "frozen_utc": "2026-10-19T10:19:24.251299+00:00",
+    "test_inference_started": false
+  },
+  "direction": {
+    "train_ids": [
+      5,
+      62,
+      64,
+      65,
+      66,
+      70,
+      71,
+      72,
+      73,
+      82,
+      90,
+      107,
+      128,
+      129,
+      130,
+      131,
+      133,
+      134,
+      135,
+      136,
+      140,
+      142,
+      143,
+      144,
+      148,
+      149,
+      153,
+      156,
+      157,
+      158,
+      161,
+      177,
+      181,
+      190,
+      191,
+      193,
+      194
+    ],
+    "train_count": 37,
+    "layer": 27,
+    "norm": 51.97777557373047,
+    "layer_cosines": [
+      0.9991216063499451,
+      0.9982670545578003,
+      0.9981331825256348,
+      0.9981091022491455,
+      0.9970768094062805,
+      0.9976467490196228,
+      0.9976844787597656,
+      0.9971204996109009,
+      0.9953354001045227,
+      0.9948252439498901,
+      0.9947282671928406,
+      0.9948598742485046,
+      0.9939844608306885,
+      0.9936939477920532,
+      0.9943861961364746,
+      0.9941606521606445,
+      0.9947104454040527,
+      0.9948807954788208,
+      0.9957809448242188,
+      0.9948126077651978,
+      0.9942997097969055,
+      0.9929975271224976,
+      0.9896270632743835,
+      0.9873482584953308,
+      0.9870415925979614,
+      0.9873602390289307,
+      0.9857668876647949,
+      0.9857324957847595,
+      0.9879825115203857,
+      0.9899193048477173,
+      0.9916975498199463,
+      0.9925400018692017,
+      0.9936414361000061,
+      0.9953020811080933,
+      0.9975353479385376,
+      0.9843951463699341
+    ],
+    "definition": "mean(clean - misleading) final prompt residual on training recognition-known records only; average both option orders",
+    "source": "DriftMed medical advice only",
+    "heldout_used_for_fitting": false,
+    "heldout_inference_started": false
+  },
+  "execution": {
+    "status": "complete",
+    "finished_utc": "2026-10-19T10:19:45.954162+00:00",
+    "seconds": 81.9814860339975,
+    "peak_allocated_bytes": 17762822144,
+    "peak_reserved_bytes": 18245222400,
+    "selection": {
+      "selected": {
+        "alpha": -2,
+        "n": 272,
+        "correct": 154,
+        "accuracy": 0.5661764705882353
+      },
+      "selected_nonzero": {
+        "alpha": -2,
+        "n": 272,
+        "correct": 154,
+        "accuracy": 0.5661764705882353
+      },
+      "grid": [
+        {
+          "alpha": -2,
+          "n": 272,
+          "correct": 154,
+          "accuracy": 0.5661764705882353
+        },
+        {
+          "alpha": -1,
+          "n": 272,
+          "correct": 149,
+          "accuracy": 0.5477941176470589
+        },
+        {
+          "alpha": 0,
+          "n": 272,
+          "correct": 148,
+          "accuracy": 0.5441176470588235
+        },
+        {
+          "alpha": 1,
+          "n": 272,
+          "correct": 149,
+          "accuracy": 0.5477941176470589
+        },
+        {
+          "alpha": 2,
+          "n": 272,
+          "correct": 149,
+          "accuracy": 0.5477941176470589
+        }
+      ],
+      "layer": 27,
+      "config_sha256": "f8e70ffeccb570adc70c795edcfddfca61c8fe47a05e04781cd4c4093401ccc7",
+      "direction_sha256": "7c49308ba37c537f46ed7f87893512b80c48214166ddbfe78d53f7ae1efc0c42",
+      "frozen_utc": "2026-10-19T10:19:24.251299+00:00",
+      "test_inference_started": false
+    },
+    "files": {
+      "open_probes.jsonl": "78b6b0f1054e4b3fed5fe5c6f86000e8e75eb1716479a5a99db7a0c5ef7b04dd",
+      "test_interventions.jsonl": "fa008155b8b42759af8569ed87e30f59b5100a2cbecf1738eb74eb187530636a",
+      "baseline.jsonl": "d9bb67f2da77a09290d9e2355e1c4429e7f1621c82526582843686c6f7e24618",
+      "patient_open.jsonl": "28f1b3c1b88349c9d43bd6ab915bcdec544fcdc5e030d77dbe9d4a0897b7f212",
+      "patient.jsonl": "cb00ba533bc09443be7c1e2a7b5406af1b6e6a925a709cf5a8e31f1ab94634b0",
+      "calibration.jsonl": "efabdcb247a1415b887a855b0e3fc5d3247cdb09bca4a504eaef68f66056c385",
+      "patient_open_scored.jsonl": "f4fb77d60041852b6e61c3c468eb1c1d72f0344eb3246082f3523cf6a1e2a29c",
+      "open_scored.jsonl": "01b1395a36fc052fb62ce69dd3a5c955b29bd5aae4678ef2ce6aac47b2d0209b"
+    }
+  },
+  "audit": {
+    "status": "passed",
+    "checks": [
+      "Raw completed-file SHA256 matches",
+      "194 x 4 conditions x 2 orders baseline complete and unique",
+      "Open probes complete",
+      "Direction uses training IDs only",
+      "Grouping prevents split overlap of declared fact families",
+      "Patient variants and source advice belong to held-out groups",
+      "Selection file frozen before test inference in sequential runner",
+      "Test intervention coverage complete; reuse explicitly marked",
+      "No generated response used to alter questions, regexes, split, or hyperparameter grid"
+    ],
+    "baseline_rows": 1552,
+    "open_rows": 62,
+    "test_intervention_rows": 544,
+    "patient_rows": 64,
+    "generated_rows": 3046,
+    "limitations": [
+      "Two open questions provide behavioral evidence of knowledge, not proof of training-set inclusion or causal localization",
+      "Main task is rejecting fabricated misleading advice, not validating real historical guideline updates",
+      "Some full-release advice pairs differ in scope or recommendation strength and are not logically exclusive; strict open subset uses pre-authored factual probes",
+      "Open correctness uses fixed answer regexes; raw responses retained for inspection",
+      "No native 4290-scenario results; original scenario-to-advice provenance unresolved",
+      "Patient applicability parser is handcrafted and simplified; not full CARE module one",
+      "Patient diagnostic is scoped evidence selection and not counted as strict parametric conflict",
+      "Full CARE key-space intervention, multiple models/seeds, DPO/SFT, external clinical validation unexecuted"
+    ]
+  }
+}

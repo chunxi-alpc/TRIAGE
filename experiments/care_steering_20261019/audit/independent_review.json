@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "errors": [],
+  "case_count": 440,
+  "family_count": 44,
+  "case_sha256": "426364257240ee73c1aedf7e0911fe15ecfeb5c797ded60dec56f36faf95b0bd",
+  "fact_count": 384,
+  "normalized_question_split_leakage": false,
+  "prediction_rows": 1280,
+  "coverage": {
+    "A/test": 160,
+    "B/test": 160,
+    "C_reduced/test": 160,
+    "D_adapt/test": 160,
+    "A/dev": 80,
+    "B/dev": 80,
+    "C_reduced/dev": 80,
+    "D_adapt/dev": 80,
+    "A/transfer": 80,
+    "B/transfer": 80,
+    "C_reduced/transfer": 80,
+    "D_adapt/transfer": 80
+  },
+  "raw_top_token_is_choice_count": {
+    "A": 0,
+    "B": 0,
+    "C_reduced": 0,
+    "D_adapt": 0
+  },
+  "nonzero_residual_edits": {
+    "B": 320,
+    "C_reduced": 224
+  },
+  "alpha_values": {
+    "A": [
+      0
+    ],
+    "B": [
+      -2.0
+    ],
+    "C_reduced": [
+      -2.0,
+      -0.0,
+      2.0
+    ],
+    "D_adapt": [
+      0
+    ]
+  },
+  "ambiguous_fact_training_conflict_matches": [],
+  "checks": [
+    "independent visible-observation label derivation",
+    "exact family split isolation",
+    "exact prompt split isolation",
+    "minimal numeric/exception pair checks",
+    "normalized source question isolation",
+    "prediction labels and misuse markers",
+    "nonzero/zero residual hook traces",
+    "C unknown/invalid/no-conflict gate",
+    "identical interventions have identical full option score dictionaries"
+  ],
+  "limitations": [
+    "Shared logical templates across splits; this is not unseen logical structure transfer.",
+    "The target task supplies both old and new rules in context, not parametric-versus-context knowledge.",
+    "Structured rule predicates are authored input; CARE free-text parsing and learned classifiers are not tested.",
+    "Constrained single-token option scoring is not free-generation instruction-following accuracy.",
+    "D_adapt is an independently specified key projector, not verified original CARE.",
+    "Current peak memory measurements are process high-water marks, not reset per item.",
+    "train/dev/test splitting does not protect against public-source model pretraining contamination."
+  ]
+}

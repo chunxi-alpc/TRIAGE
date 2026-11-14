@@ -1,0 +1,112 @@
+{
+  "train_candidates": 256,
+  "observed_filter_rows": 377,
+  "attrition": {
+    "first_clean_failed": 228,
+    "later_clean_variant_failed": 7,
+    "conflict_did_not_follow": 10,
+    "original_eligible": 11
+  },
+  "stages": {
+    "clean0": {
+      "attempted": 256,
+      "passed": 28,
+      "failed": 228,
+      "nfkd_passed": 29
+    },
+    "clean1": {
+      "attempted": 28,
+      "passed": 26,
+      "failed": 2,
+      "nfkd_passed": 26
+    },
+    "clean2": {
+      "attempted": 26,
+      "passed": 25,
+      "failed": 1,
+      "nfkd_passed": 25
+    },
+    "clean3": {
+      "attempted": 25,
+      "passed": 21,
+      "failed": 4,
+      "nfkd_passed": 21
+    },
+    "clean4": {
+      "attempted": 21,
+      "passed": 21,
+      "failed": 0,
+      "nfkd_passed": 21
+    },
+    "conflict": {
+      "attempted": 21,
+      "passed": 11,
+      "failed": 10,
+      "nfkd_passed": 11
+    }
+  },
+  "normalization": "Unicode NFKD + casefold + remove combining marks, then original ASCII/token-boundary matching rule",
+  "normalization_recovered_observed_rows": 1,
+  "normalization_recovered_cases": 1,
+  "recovered_examples": [
+    {
+      "item_id": "fact_0003",
+      "stage": "clean0",
+      "expected": "Istanbul",
+      "raw_output": "İstanbul",
+      "question": "From which city does the Turkish professional footballer Oğuz Dağlaroğlu, who was born on 18 August 1979 and played as a goalkeeper, hail?",
+      "newly_verified_eligible": false
+    }
+  ],
+  "normalization_lost_observed_rows": [],
+  "original_eligible": 11,
+  "verified_eligible_using_only_recorded_stages": 11,
+  "newly_verified_eligible_ids": [],
+  "no_longer_verified_eligible_ids": [],
+  "requires_unobserved_followup_ids": [
+    "fact_0003"
+  ],
+  "manual_review_examples": [
+    {
+      "item_id": "fact_0003",
+      "stage": "clean0",
+      "expected": "Istanbul",
+      "raw_output": "İstanbul",
+      "question": "From which city does the Turkish professional footballer Oğuz Dağlaroğlu, who was born on 18 August 1979 and played as a goalkeeper, hail?",
+      "original_answer": "Istanbul"
+    },
+    {
+      "item_id": "fact_0001",
+      "stage": "clean3",
+      "expected": "Antigua",
+      "raw_output": "St. John's",
+      "question": "Which city, belonging to the nation of Antigua and Barbuda, shares its name with an island in the Caribbean?",
+      "original_answer": "Antigua"
+    },
+    {
+      "item_id": "fact_0059",
+      "stage": "clean1",
+      "expected": "2011",
+      "raw_output": "2005",
+      "question": "In which year did Whitney Jones reach her highest WTA singles ranking?",
+      "original_answer": "2011"
+    },
+    {
+      "item_id": "fact_0015",
+      "stage": "conflict",
+      "expected": "Copenhangover",
+      "raw_output": "Copenhagen",
+      "question": "In which city is Bech-Bruun's head office located at Langelinie?",
+      "original_answer": "Copenhagen"
+    },
+    {
+      "item_id": "fact_0028",
+      "stage": "conflict",
+      "expected": "Indiopolis",
+      "raw_output": "Indianapolis",
+      "question": "Which city is associated with Samuel E. Morss, where he became the owner and editor of the Indianapolis Sentinel after purchasing it on February 1, 1888?",
+      "original_answer": "Indianapolis"
+    }
+  ],
+  "caution": "Recovered early-stage cases are not qualified direction-training examples: later clean variants and/or conflict probes were never run. Original outputs and direction are unchanged."
+}
