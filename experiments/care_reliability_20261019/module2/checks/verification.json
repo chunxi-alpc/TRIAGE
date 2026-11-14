@@ -1,0 +1,40 @@
+{
+  "status": "cpu_preparation_checks_completed",
+  "real_model_inference_completed": false,
+  "torch_adapter_executed": false,
+  "cpu_tests_run": 20,
+  "cpu_tests_passed": 18,
+  "tests_skipped": [
+    {
+      "test": "test_bf16_realized_anchor_and_full_support (test_backend_torch.TorchAdapterProperties.test_bf16_realized_anchor_and_full_support)",
+      "reason": "PyTorch/Transformers unavailable; Torch adapter has NOT been validated"
+    },
+    {
+      "test": "test_reused_key_and_bias_hook_scope_and_zero (test_backend_torch.TorchAdapterProperties.test_reused_key_and_bias_hook_scope_and_zero)",
+      "reason": "PyTorch/Transformers unavailable; Torch adapter has NOT been validated"
+    }
+  ],
+  "preflight_count": 6,
+  "protocol_sha256": "2d7c524f7bfe7a667cdea905fbd5a4bc27e323eef129938eeef0f4fd71c4321f",
+  "source_fingerprints": {
+    "PROTOCOL.zh.md": "88ad3cd30cbc621dcec25c558b21ae5e7f6b6c4884b79e39296dc23aa5e390c2",
+    "README.zh.md": "780906d77d6905950b0754a597deaa87a3cc26bb1e40c0bd8d76c4a6d50305ff",
+    "analyze.py": "c94c43bffbd5ace6efe9621bd77f8d70b246a46f34eddc2744a8b9b8616cb812",
+    "backend.py": "cc99e073ef44bd600905f2ed824c64b4e2fa38570f86f6cc82240b447257a8c6",
+    "compatibility.py": "728387109f1bc65d724f90d2ff69f550c354b3c7694dd1e02d16c8707fb6c9ca",
+    "frozen_learned_assets.json": "57374d8966b49087bfea8a61a6ce73b9322e7de073de524bfa07f3768b590735",
+    "geometry.py": "645defdb21f536f95587258c24b35889b23d8da646fe08decf4e50aac40c334e",
+    "protocol.json": "2d7c524f7bfe7a667cdea905fbd5a4bc27e323eef129938eeef0f4fd71c4321f",
+    "run.py": "538bd55fb6a7f3fec4760092410599d8eff8829c0de72bbd4bbafe7d40922ca2",
+    "test_analysis.py": "5cd7381422c40b184887c16e903c689a8d4a28f773ca068d8cc716138a124779",
+    "test_backend_torch.py": "af725ff5eacf9539a16907dfd221909df8256de84465721102fa99b1de213226",
+    "test_geometry.py": "0917a5ac09a70606136396afbf59283ad93104dd1212bd40d40902fcb760806e",
+    "test_model_guards.py": "ccdb9dd91cd7db9503ddee2d5f76075956f8d99d4282d98706799387de8b4f59"
+  },
+  "model_effects": null,
+  "next_required_gate": "Use the frozen Torch 2.8.0 / Transformers 4.57.6 environment; run skipped Torch adapter tests and real config, old-operator reproduction, and every-case direct-bias zero gates in the authorized execution environment.",
+  "configuration_environment_guards": "CPU tests reject each of 21 changed config fields, a missing null field, changed frozen reference bytes, and unvalidated Torch/Transformers versions. No AutoConfig/model loading occurred here.",
+  "zero_log_schema_guards": "CPU fixtures require every baseline case to have exactly one direct-bias zero with matching token length and exact candidate scores; ten key conditions remain on the first case. No real zero forward has run.",
+  "maximum_planned_real_model_forwards_both_modes": 8076,
+  "planned_real_zero_forwards_both_modes": 588
+}

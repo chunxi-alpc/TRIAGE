@@ -1,0 +1,248 @@
+{
+  "run_type": "offline_saved_prediction_gate_replay_not_new_model_inference",
+  "baseline_commit": "7557d3150214a3894f2d340df6d9964de75efce1",
+  "created_at": "2026-10-19T06:13:02.761910+00:00",
+  "source_hashes": {
+    "src/module1/care_v6.py": "8c2394d51c4973b19882b2c97cc1c05317feaa3b35a20a64f4fd8b61802f194e",
+    "src/module1/care_v7.py": "8c9353e3b9f116ab25618c75ffb0e399ace4413b7c56fc459446db33c3f82dac"
+  },
+  "raw_patient_text_available": false,
+  "numeric_scope_guard_recomputed": false,
+  "offset_validation": "structure_only",
+  "gold_used_for_gate_decisions": false,
+  "expert_review": false,
+  "limitations": [
+    "Evidence labels and model predictions are reused; V7 clinical effectiveness is not established.",
+    "No raw patient text: numeric subject/time guard and exact evidence text cannot be replayed.",
+    "This evaluates gate and proof selection, not the complete V7 inference pipeline.",
+    "Development/cache data contain correlated variants; bootstrap groups variants by anchor."
+  ],
+  "input_sha256": {
+    "labels_public.jsonl": "c65c22de4f2a5e0e60c00714d351c5a3f8cff3cfe9f69648da83b973449cb93f",
+    "rules_v5.jsonl": "e7fabfde2f1c8a1a8248a7e949a1d3b46d2e268740db8b8dce8b6a7790e83be0",
+    "old_192_predictions_v6.jsonl": "6a27cc27c1cc5327eaaf01bdb569e3a9b7f8ebc9fd263aa62dc7b135fc422b1f",
+    "new_labels_100.jsonl": "f1fe5c1b0e5765cc3a4504685c4a46a4e38cb10e071f60636efec483b030d11b",
+    "new_rules_100.jsonl": "86c1d01242303201c358e50fc05a669bae2bf0baad6cf4216f4a9be5433b020b",
+    "new_100_predictions_v6.jsonl": "48a1d28e5fd4f4aca582345f53ecd7e1714654e96c73e225bbdf8b39f63f3535"
+  },
+  "cohorts": {
+    "old_192": {
+      "n": 192,
+      "labels_and_models_unchanged": true,
+      "applicability_correct": 151,
+      "state_reconstruction_mismatches": 0,
+      "numeric_TF_atoms_in_original_cache": 40,
+      "numeric_atoms_total": 492,
+      "gate_changes": {
+        "opened_to_closed": 7,
+        "closed_to_opened": 4
+      },
+      "gate_reasons": {
+        "complete_consistent_true_proof": 23,
+        "rule_not_true": 107,
+        "no_complete_consistent_evidence_proof": 62
+      },
+      "policies": {
+        "saved_V6_gate_all_cached_evidence": {
+          "n": 192,
+          "opened": 26,
+          "coverage": 0.13541666666666666,
+          "opened_label_correct": 25,
+          "opened_label_accuracy": 0.9615384615384616,
+          "opened_evidence_correct": 21,
+          "opened_evidence_accuracy": 0.8076923076923077,
+          "opened_joint_correct": 20,
+          "opened_joint_accuracy": 0.7692307692307693,
+          "incorrect_opening": 1,
+          "correct_T_n": 61,
+          "correct_T_opened": 25,
+          "correct_T_gate_coverage": 0.4098360655737705,
+          "cluster_bootstrap": {
+            "cluster": "source_case_anchor_all_variants_together",
+            "clusters": 32,
+            "draws": 2000,
+            "seed": 20261019,
+            "opened_joint_accuracy_95pct": [
+              0.5789473684210527,
+              0.9047619047619048
+            ],
+            "coverage_95pct": [
+              0.07291666666666667,
+              0.19791666666666666
+            ],
+            "interpretation": "descriptive_bootstrap_of_development_cache_not_independent_generalization"
+          }
+        },
+        "V7_proof_gate_all_cached_evidence": {
+          "n": 192,
+          "opened": 23,
+          "coverage": 0.11979166666666667,
+          "opened_label_correct": 22,
+          "opened_label_accuracy": 0.9565217391304348,
+          "opened_evidence_correct": 15,
+          "opened_evidence_accuracy": 0.6521739130434783,
+          "opened_joint_correct": 15,
+          "opened_joint_accuracy": 0.6521739130434783,
+          "incorrect_opening": 1,
+          "correct_T_n": 61,
+          "correct_T_opened": 22,
+          "correct_T_gate_coverage": 0.36065573770491804,
+          "cluster_bootstrap": {
+            "cluster": "source_case_anchor_all_variants_together",
+            "clusters": 32,
+            "draws": 2000,
+            "seed": 20261019,
+            "opened_joint_accuracy_95pct": [
+              0.4166666666666667,
+              0.85
+            ],
+            "coverage_95pct": [
+              0.06770833333333333,
+              0.18229166666666666
+            ],
+            "interpretation": "descriptive_bootstrap_of_development_cache_not_independent_generalization"
+          }
+        },
+        "V7_proof_gate_selected_proof_evidence": {
+          "n": 192,
+          "opened": 23,
+          "coverage": 0.11979166666666667,
+          "opened_label_correct": 22,
+          "opened_label_accuracy": 0.9565217391304348,
+          "opened_evidence_correct": 18,
+          "opened_evidence_accuracy": 0.782608695652174,
+          "opened_joint_correct": 18,
+          "opened_joint_accuracy": 0.782608695652174,
+          "incorrect_opening": 1,
+          "correct_T_n": 61,
+          "correct_T_opened": 22,
+          "correct_T_gate_coverage": 0.36065573770491804,
+          "cluster_bootstrap": {
+            "cluster": "source_case_anchor_all_variants_together",
+            "clusters": 32,
+            "draws": 2000,
+            "seed": 20261019,
+            "opened_joint_accuracy_95pct": [
+              0.5789473684210527,
+              0.9523809523809523
+            ],
+            "coverage_95pct": [
+              0.06770833333333333,
+              0.18229166666666666
+            ],
+            "interpretation": "descriptive_bootstrap_of_development_cache_not_independent_generalization"
+          }
+        }
+      }
+    },
+    "new_100": {
+      "n": 100,
+      "labels_and_models_unchanged": true,
+      "applicability_correct": 73,
+      "state_reconstruction_mismatches": 0,
+      "numeric_TF_atoms_in_original_cache": 0,
+      "numeric_atoms_total": 196,
+      "gate_changes": {
+        "opened_to_closed": 1,
+        "closed_to_opened": 1
+      },
+      "gate_reasons": {
+        "complete_consistent_true_proof": 11,
+        "rule_not_true": 70,
+        "no_complete_consistent_evidence_proof": 19
+      },
+      "policies": {
+        "saved_V6_gate_all_cached_evidence": {
+          "n": 100,
+          "opened": 11,
+          "coverage": 0.11,
+          "opened_label_correct": 8,
+          "opened_label_accuracy": 0.7272727272727273,
+          "opened_evidence_correct": 5,
+          "opened_evidence_accuracy": 0.45454545454545453,
+          "opened_joint_correct": 2,
+          "opened_joint_accuracy": 0.18181818181818182,
+          "incorrect_opening": 3,
+          "correct_T_n": 23,
+          "correct_T_opened": 8,
+          "correct_T_gate_coverage": 0.34782608695652173,
+          "cluster_bootstrap": {
+            "cluster": "source_case_anchor_all_variants_together",
+            "clusters": 17,
+            "draws": 2000,
+            "seed": 20261019,
+            "opened_joint_accuracy_95pct": [
+              0.0,
+              0.5
+            ],
+            "coverage_95pct": [
+              0.052083333333333336,
+              0.17647058823529413
+            ],
+            "interpretation": "descriptive_bootstrap_of_development_cache_not_independent_generalization"
+          }
+        },
+        "V7_proof_gate_all_cached_evidence": {
+          "n": 100,
+          "opened": 11,
+          "coverage": 0.11,
+          "opened_label_correct": 8,
+          "opened_label_accuracy": 0.7272727272727273,
+          "opened_evidence_correct": 4,
+          "opened_evidence_accuracy": 0.36363636363636365,
+          "opened_joint_correct": 1,
+          "opened_joint_accuracy": 0.09090909090909091,
+          "incorrect_opening": 3,
+          "correct_T_n": 23,
+          "correct_T_opened": 8,
+          "correct_T_gate_coverage": 0.34782608695652173,
+          "cluster_bootstrap": {
+            "cluster": "source_case_anchor_all_variants_together",
+            "clusters": 17,
+            "draws": 2000,
+            "seed": 20261019,
+            "opened_joint_accuracy_95pct": [
+              0.0,
+              0.3333333333333333
+            ],
+            "coverage_95pct": [
+              0.05,
+              0.18
+            ],
+            "interpretation": "descriptive_bootstrap_of_development_cache_not_independent_generalization"
+          }
+        },
+        "V7_proof_gate_selected_proof_evidence": {
+          "n": 100,
+          "opened": 11,
+          "coverage": 0.11,
+          "opened_label_correct": 8,
+          "opened_label_accuracy": 0.7272727272727273,
+          "opened_evidence_correct": 5,
+          "opened_evidence_accuracy": 0.45454545454545453,
+          "opened_joint_correct": 2,
+          "opened_joint_accuracy": 0.18181818181818182,
+          "incorrect_opening": 3,
+          "correct_T_n": 23,
+          "correct_T_opened": 8,
+          "correct_T_gate_coverage": 0.34782608695652173,
+          "cluster_bootstrap": {
+            "cluster": "source_case_anchor_all_variants_together",
+            "clusters": 17,
+            "draws": 2000,
+            "seed": 20261019,
+            "opened_joint_accuracy_95pct": [
+              0.0,
+              0.46153846153846156
+            ],
+            "coverage_95pct": [
+              0.05,
+              0.18
+            ],
+            "interpretation": "descriptive_bootstrap_of_development_cache_not_independent_generalization"
+          }
+        }
+      }
+    }
+  }
+}

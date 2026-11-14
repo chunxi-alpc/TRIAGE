@@ -1,0 +1,738 @@
+{
+  "v6": [
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard0",
+      "manifest_sha256": "9fb694387aac2f0be96377d3b7cf475e56e79192ef4170a04f4484a5fde32560",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    },
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard1",
+      "manifest_sha256": "2eab7d38368a60e7081dbfafcc9893406ce878d375b629415b767019758c5413",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    },
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard2",
+      "manifest_sha256": "d1fe7f721963b1141e1bccee3ea8daa146a9495582ecc14c3a4a413f5d0742dd",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    },
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard3",
+      "manifest_sha256": "c20652fe6fb54a0566f42a21a52d8db6363a4180bbf8de56fef10d74c9b7abdb",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    },
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard4",
+      "manifest_sha256": "581fb2337e99e4d83870df0163acbc6fa62b607cc5e1f7243ff7e9407683d773",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    },
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard5",
+      "manifest_sha256": "91a0257d2cebf37b32d8866da3383936625231787cf006fc361159c73157874d",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    }
+  ],
+  "v7": [
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard0",
+      "manifest_sha256": "9fb694387aac2f0be96377d3b7cf475e56e79192ef4170a04f4484a5fde32560",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    },
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard1",
+      "manifest_sha256": "2eab7d38368a60e7081dbfafcc9893406ce878d375b629415b767019758c5413",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    },
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard2",
+      "manifest_sha256": "d1fe7f721963b1141e1bccee3ea8daa146a9495582ecc14c3a4a413f5d0742dd",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    },
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard3",
+      "manifest_sha256": "c20652fe6fb54a0566f42a21a52d8db6363a4180bbf8de56fef10d74c9b7abdb",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    },
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard4",
+      "manifest_sha256": "581fb2337e99e4d83870df0163acbc6fa62b607cc5e1f7243ff7e9407683d773",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    },
+    {
+      "run": "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard5",
+      "manifest_sha256": "91a0257d2cebf37b32d8866da3383936625231787cf006fc361159c73157874d",
+      "python_executable": "/home/gcx/n/.venv/bin/python",
+      "versions": {
+        "torch": "2.8.0",
+        "transformers": "4.57.1",
+        "peft": "0.21.2",
+        "bitsandbytes": "0.50.2",
+        "accelerate": "1.10.1",
+        "tokenizers": "0.22.2"
+      },
+      "models": {
+        "base_model": {
+          "path": "/home/gcx/models/care_module1_v5/phi-4",
+          "file_sha256": {
+            "added_tokens.json": "e2c8dff553db16508eb2bbaf1de51c13256727ddde88b5c65e1e75c224e277f0",
+            "config.json": "07eedad2c48798b6e3728e4a1b75e0e092019a375ba725a40e40c78d13664045",
+            "generation_config.json": "6acf48d95f0a1deb97acf54d946636243e299bf315b068efd719708ceea5741d",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "model-00001-of-00006.safetensors": "cafbe72210c39b19270cbfce27996afc4383c8a487087bcb91a6290d5ceb8f18",
+            "model-00002-of-00006.safetensors": "9f87a5897162ed988cfb0fac13879634b4bab3da5a756b4f9dd2437ef8145e20",
+            "model-00003-of-00006.safetensors": "19537df78a263aa0c0b2dc12dbce5908021e30a25e528699b08642c3999eeb05",
+            "model-00004-of-00006.safetensors": "d4f17100a39c19d352f2e8108eef6fb975afb86808e50d78a075e162f1edfc93",
+            "model-00005-of-00006.safetensors": "a72666b6001d76e7a9dc3ebe0d05a2c3316f546a8c6779c87343f296bdf82e50",
+            "model-00006-of-00006.safetensors": "a9bfeeea354e31503d09a864e6cd5bd0f1230664065b6a2988b05e22b3228d77",
+            "model.safetensors.index.json": "51f3004b8d5b478473f26eb8cb5ac7e5aacc39938ad365f0c8933b18dfa9a158",
+            "modelscope_download_verification.json": "60e8eb4738e7cc590cad394d4ed3c54873be5cebfa14dfb85995f3b0606a03d4",
+            "special_tokens_map.json": "b0e1617caf68ebcd6af7426d6afdbe62a3fb8fbe56ea84782a88fc8cbd464b1d",
+            "tokenizer.json": "9f38d05d9d25756bb2f181ab5a0cebcd59e638df10336fc7ed1010f7296d0298",
+            "tokenizer_config.json": "2b707658c7c2b41580155a45503d7d3b42dc2f530bef678f67a39bf5d10b0510",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "adapter_model": {
+          "path": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+          "file_sha256": {
+            "adapter_config.json": "516034e07744cca4d89c94366ed3ff1c8ea5b99607bd17e0486f5547bcb6ce59",
+            "adapter_model.safetensors": "f9665b6540cbab908cd531e343a8d1d330b1a9b0f8bf4a83c1a9b39250e50b15",
+            "download_receipt.json": "d613b9d854e521981ec5aa34a30861fbacbf80103bf3f37e8ea28ad2a5aa89b3",
+            "merges.txt": "b6fe424e334903f7fb84d3a106d9730455f4744b9fe3c21ee136d97a00e72502",
+            "special_tokens_map.json": "49fb71eef3a959cf088a17dfdfb78a40affbb576e44b585a44a051bd1f3101ff",
+            "tokenizer.json": "00fc41ba94dde84336d4a1cb485a6f92b293fc4e11a7d7679cb1bd849ca5698c",
+            "tokenizer_config.json": "28c83e72dea519802ebef093d3340a109f892d4e15578f441f48099b253c8c43",
+            "vocab.json": "741943243bd0035a8082ef0ccc09ef62e7ce7ec2f2f053aeedd808dba1c2ffc5"
+          }
+        },
+        "evidence_model": {
+          "path": "/home/gcx/models/care_module1_v5/biolinkbert-mednli",
+          "file_sha256": {
+            "config.json": "80ba4466704d3dd5846ef8b702d8149e5b365d1a6db942b36021b596f617fb2f",
+            "download_receipt.json": "9badf6ebfddfd6b432c343137293b2fe145a5fb2326e0c8257be2b48f654fca1",
+            "pytorch_model.bin": "5fadc0dafd7509bdd583d0015a2ab49c65d8d5d9193cbb49ed46c88c313bbd55",
+            "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+            "tokenizer.json": "87067b1fb18dcd7dd9c89a9168a096a0ae7a46f99a025998b343c009e0c756d2",
+            "tokenizer_config.json": "75af93a690916ef7a61ad2abcd6f0fa28bca5da8d42f952d44789d8d643fc8cd",
+            "vocab.txt": "7b36651908a88bc38bda41b728b2a598191e0d3b553cbacf7b1e5f026d5b5b9f"
+          }
+        }
+      }
+    }
+  ]
+}

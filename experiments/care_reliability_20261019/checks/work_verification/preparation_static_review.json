@@ -1,0 +1,135 @@
+{
+  "status": "passed_preparation_and_static_review",
+  "created_at": "2026-10-19T06:56:50.899911+00:00",
+  "git_head": "d3930d12d34ba79b5e07d3e8104339c5a67014ff",
+  "pretrained_model_inference_performed_by_reviewer": false,
+  "preparation": {
+    "checks_passed": 14,
+    "torch_tests_executed": [
+      "test_bf16_realized_anchor_and_full_support",
+      "test_reused_key_and_bias_hook_scope_and_zero"
+    ],
+    "unit_tests_skipped": 0,
+    "full_logs_server_path": "/home/gcx/care_reliability_runs/preparation_work_01",
+    "original_generic_joint_preflight_status": "blocked_model_runtime",
+    "explicit_checkpoint_joint_preflight_status": "ready_for_real_model_initialization"
+  },
+  "data": {
+    "files_sha256_verified": {
+      "mechanism_cases.jsonl": {
+        "sha256": "c160431b2de0d4d028aa323d21c09105bcbba0867bca6166b5206b086d0e516a",
+        "bytes": 5253919
+      },
+      "module2_sealed.jsonl": {
+        "sha256": "f6d80f0f2926b5290064413d1289516bc348cdc62cbf84e99ffa8fec6bdef7b9",
+        "bytes": 1336909
+      },
+      "family_split.json": {
+        "sha256": "daa538e26dc5f6163825c45f6d276ea2ccbe1a8408dd097d5a5fb7cc091eb4db",
+        "bytes": 19596
+      }
+    },
+    "all_cases": 576,
+    "family_split_counts": {
+      "train": 12,
+      "confirmation": 8,
+      "dev": 4
+    },
+    "confirmation_cases": 192,
+    "sealed_module2_cases": 144,
+    "canonical_module2_cases": 48,
+    "canonical_pairs": 24,
+    "sealed_families": 8,
+    "family_and_variant_split_isolation": true,
+    "module2_folds": {
+      "legacy384_regression": [
+        {
+          "fold": 0,
+          "train_families": 6,
+          "dev_families": 2,
+          "test_families": 4,
+          "test_cases": 128
+        },
+        {
+          "fold": 1,
+          "train_families": 6,
+          "dev_families": 2,
+          "test_families": 4,
+          "test_cases": 128
+        },
+        {
+          "fold": 2,
+          "train_families": 6,
+          "dev_families": 2,
+          "test_families": 4,
+          "test_cases": 128
+        }
+      ],
+      "sealed_mechanism": [
+        {
+          "fold": 0,
+          "train_families": 6,
+          "dev_families": 2,
+          "test_families": 3,
+          "test_cases": 54
+        },
+        {
+          "fold": 1,
+          "train_families": 6,
+          "dev_families": 2,
+          "test_families": 4,
+          "test_cases": 72
+        },
+        {
+          "fold": 2,
+          "train_families": 6,
+          "dev_families": 2,
+          "test_families": 1,
+          "test_cases": 18
+        }
+      ]
+    },
+    "outer_fold_exact_implementation": "int(SHA256(family_id).hexdigest()[:16], 16) modulo 3"
+  },
+  "methods": {
+    "baseline": "baseline",
+    "interventions": [
+      "b4_raw",
+      "b4_calibrated",
+      "mean_raw",
+      "mean_calibrated",
+      "random_projector_raw",
+      "random_projector_calibrated",
+      "random_vector_raw",
+      "random_vector_calibrated",
+      "shuffled_mean_raw",
+      "shuffled_mean_calibrated",
+      "direct_bias"
+    ],
+    "no_test_selection_recorded": true
+  },
+  "model_identity": {
+    "original_manifest_sha256": "45d729a7176125f7ffc9156a94d8cb36211962e6dc41810bb5500accbbed2e3e",
+    "model_revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+    "full_live_weight_hash_and_runtime_identity_review": "pending actual run provenance"
+  },
+  "static_acceptance_review": {
+    "module2_zero_control": "every test input direct bias; ten key methods on first sorted case per fold; exact logits and probabilities; analyzer checks coverage",
+    "module2_no_op": "no_eligible_direction retained as journal record with zero actual score RMS; forwarded count excludes reused baseline",
+    "module2_failure": "incomplete folds, mismatched model, failed zero checks, over-budget edits and anchor-sign failures cannot pass analyzer",
+    "joint_failure_denominators": "parse errors, blocked sources, missing predictions and zero failures remain explicit; score denominator preserves full requested cases",
+    "prediction_input_allowlist": [
+      "guideline",
+      "patient",
+      "question"
+    ],
+    "cache_review": "pending split-environment/cache implementation"
+  },
+  "limitations": [
+    "14 groups passing are preparation checks, not GPU completion",
+    "generic joint preflight lacked --model; explicit-path preflight only permits initialization",
+    "new cases are invented routing rules and simulated observations, not clinical validation",
+    "new wording was seen during parser development; not fully blinded independent confirmation",
+    "family intervals must preserve paired cases and variants; only 8 new test families"
+  ]
+}

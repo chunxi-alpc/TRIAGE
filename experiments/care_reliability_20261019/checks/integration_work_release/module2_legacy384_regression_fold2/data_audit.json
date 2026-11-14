@@ -1,0 +1,94 @@
+{
+  "cases": 128,
+  "pairs": 64,
+  "families": 4,
+  "patient_data": "simulated",
+  "mode": "legacy384_regression",
+  "fold": 2,
+  "data_sha256": "cbe6dc63cb95c64db60ce6b9062c0eeb910d15c7a68f42ed7ca7904d7cf6c28b",
+  "fixed_configuration": {
+    "layer": 9,
+    "kv_head": 0,
+    "rank": 4,
+    "score_rms": 0.1
+  },
+  "primary_cases": 128,
+  "old_training_cases": 192,
+  "test_outcomes_used_for_selection": false,
+  "dependencies_available": {
+    "torch": false,
+    "transformers": false,
+    "numpy": true
+  },
+  "model_manifest_sha256": "45d729a7176125f7ffc9156a94d8cb36211962e6dc41810bb5500accbbed2e3e",
+  "environment_compatibility": {
+    "compatible": false,
+    "required_versions": {
+      "torch": "2.8.0",
+      "transformers": "4.57.6"
+    },
+    "original_versions": {
+      "torch": "2.8.0",
+      "transformers": "4.57.6",
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "matplotlib": "3.11.2",
+      "pandas": "3.0.6"
+    },
+    "observed_versions": {
+      "torch": null,
+      "transformers": null,
+      "numpy": "2.3.5",
+      "scipy": "1.17.0",
+      "scikit-learn": "1.8.0",
+      "matplotlib": "3.10.8",
+      "pandas": "2.2.3"
+    },
+    "differences": {
+      "torch": {
+        "expected": "2.8.0",
+        "observed": null
+      },
+      "transformers": {
+        "expected": "4.57.6",
+        "observed": null
+      },
+      "numpy": {
+        "expected": "2.5.4",
+        "observed": "2.3.5"
+      },
+      "scipy": {
+        "expected": "1.18.1",
+        "observed": "1.17.0"
+      },
+      "scikit-learn": {
+        "expected": "1.9.1",
+        "observed": "1.8.0"
+      },
+      "matplotlib": {
+        "expected": "3.11.2",
+        "observed": "3.10.8"
+      },
+      "pandas": {
+        "expected": "3.0.6",
+        "observed": "2.2.3"
+      }
+    },
+    "blocking_differences": {
+      "torch": {
+        "expected": "2.8.0",
+        "observed": null
+      },
+      "transformers": {
+        "expected": "4.57.6",
+        "observed": null
+      }
+    },
+    "policy": "Exact installed-distribution Torch/Transformers versions; no local-suffix normalization or unvalidated-version override",
+    "remaining_scope": "CUDA build/driver versions were not in the original manifest; real setup records the current Torch CUDA build and GPU model. Driver equality is not claimed. Passing this gate is not a real-model numerical validation."
+  },
+  "model_directory_exists": false,
+  "status": "cpu_preflight_only",
+  "no_model_inference_performed": true
+}

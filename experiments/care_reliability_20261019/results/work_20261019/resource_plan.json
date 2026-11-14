@@ -1,0 +1,106 @@
+{
+  "reported_before_gpu_launch": true,
+  "recorded_at": "2026-10-19T06:54:01.078917+00:00",
+  "server": "gcx@10.29.128.115",
+  "branch": "codex/care-reliability-20261019-work",
+  "initial_commit": "d3930d12d34ba79b5e07d3e8104339c5a67014ff",
+  "gpu_type": "NVIDIA A100-SXM4-80GB",
+  "physical_gpu_assignment": {
+    "module2_fold0": [
+      1
+    ],
+    "module2_fold1": [
+      2
+    ],
+    "module2_fold2": [
+      3
+    ],
+    "module1_structure": [
+      6,
+      7
+    ],
+    "joint_qwen": [
+      0
+    ]
+  },
+  "budget_gib_per_gpu": 24,
+  "not_used": [
+    4,
+    5
+  ],
+  "module2": {
+    "legacy_cases": 384,
+    "mechanism_cases": 144,
+    "mechanism_primary_cases": 48,
+    "mechanism_primary_pairs": 24,
+    "conditions_including_baseline": 12,
+    "maximum_forward_calls": 8076,
+    "initial_minutes": [
+      10,
+      30
+    ]
+  },
+  "joint": {
+    "cases": 192,
+    "rules": 576,
+    "sources": [
+      "reference",
+      "reference_positive",
+      "v6",
+      "v7"
+    ],
+    "methods": 3,
+    "source_method_results": 2304,
+    "baseline_results": 192,
+    "initial_hours": [
+      1,
+      3
+    ]
+  },
+  "module1": {
+    "logical_atom_calls_per_version": 2352,
+    "logical_atom_calls_total": 4704,
+    "exact_request_dedup_estimate": 1090,
+    "training_probe_cases": 2,
+    "batch_size": 8,
+    "max_new_tokens": 2048
+  },
+  "environments": {
+    "module2_and_qwen": "/home/gcx/gcx261014",
+    "phi4_and_nli": "/home/gcx/n/.venv"
+  },
+  "policy": "Run on server only. Reuse original models and environments. Retain failed attempts. Stop GPU monitoring once stable. Report actual results and limits.",
+  "resource_reallocation": {
+    "reported_to_user_before_six_shard_launch": true,
+    "reason": "Module two finished; use released GPUs to shorten structure inference",
+    "structure_gpus": [
+      0,
+      1,
+      2,
+      3,
+      6,
+      7
+    ],
+    "cases_per_shard": 32,
+    "qwen_after_structure_gpus": [
+      0
+    ],
+    "budget_gib_per_gpu": 24,
+    "estimated_hours": [
+      1,
+      1.5
+    ],
+    "run_root": "/home/gcx/care_reliability_runs/joint_formal_work_02",
+    "controller_pid": 2825518,
+    "original_two_shard_attempt_retained": "/home/gcx/care_reliability_runs/joint_formal_work_01",
+    "recorded_at": "2026-10-19T07:07:20.138613+00:00"
+  },
+  "actual_completed": {
+    "module2_seconds": 116.435279,
+    "module2_peak_reserved_gib": 7.7578125,
+    "structure_and_joint_seconds": 4341.117615696974,
+    "structure_peak_reserved_gib": 15.18359375,
+    "joint_seconds": 176.33794260025024,
+    "joint_peak_reserved_gib": 8.783203125
+  }
+}

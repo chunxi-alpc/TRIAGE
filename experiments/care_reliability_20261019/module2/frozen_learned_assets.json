@@ -1,0 +1,98 @@
+{
+  "artifact_type": "learned_applicability_subspace",
+  "method": "B4",
+  "source_repository_commit": "7557d3150214a3894f2d340df6d9964de75efce1",
+  "model_revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+  "training_family_ids": [
+    "adiposity",
+    "anaemia",
+    "bone_density",
+    "copd",
+    "glycemia",
+    "hypoglycemia",
+    "pneumonia",
+    "renal",
+    "sore_throat",
+    "venous_thromboembolism"
+  ],
+  "selection_family_ids": [
+    "atrial_fibrillation",
+    "blood_pressure",
+    "hypoglycemia",
+    "renal"
+  ],
+  "confirmation_family_ids_used": [],
+  "folds": {
+    "0": {
+      "operator_path": "../../care_module2_signed_20261019/results/fold0/operators.pt",
+      "operator_sha256": "564adaa329f05797f999b01b405186d2f26005e604a970a92b8b55209f070489",
+      "operator_key": "B4_projector",
+      "location": [
+        9,
+        0
+      ],
+      "rank": 1,
+      "training_family_ids": [
+        "copd",
+        "glycemia",
+        "hypoglycemia",
+        "pneumonia",
+        "sore_throat",
+        "venous_thromboembolism"
+      ],
+      "selection_family_ids": [
+        "atrial_fibrillation",
+        "renal"
+      ],
+      "confirmation_family_ids_used": []
+    },
+    "1": {
+      "operator_path": "../../care_module2_signed_20261019/results/fold1/operators.pt",
+      "operator_sha256": "0e3a57a7ec584441548e15d47987aa859f0fa39feb90eacdab53e588c8b02503",
+      "operator_key": "B4_projector",
+      "location": [
+        2,
+        0
+      ],
+      "rank": 1,
+      "training_family_ids": [
+        "adiposity",
+        "anaemia",
+        "bone_density",
+        "copd",
+        "glycemia",
+        "venous_thromboembolism"
+      ],
+      "selection_family_ids": [
+        "atrial_fibrillation",
+        "blood_pressure"
+      ],
+      "confirmation_family_ids_used": []
+    },
+    "2": {
+      "operator_path": "../../care_module2_signed_20261019/results/fold2/operators.pt",
+      "operator_sha256": "ec05e4e7bc0e3f64f974daf49949378608b875c664510d610071ad1f4d573a0d",
+      "operator_key": "B4_projector",
+      "location": [
+        9,
+        0
+      ],
+      "rank": 4,
+      "training_family_ids": [
+        "adiposity",
+        "anaemia",
+        "bone_density",
+        "pneumonia",
+        "renal",
+        "sore_throat"
+      ],
+      "selection_family_ids": [
+        "blood_pressure",
+        "hypoglycemia"
+      ],
+      "confirmation_family_ids_used": []
+    }
+  },
+  "provenance_check": "All original operator, split, selection and training-audit bytes match the source ARTIFACT_MANIFEST SHA256 values. This CPU check does not deserialize Torch tensors or validate current runtime inference.",
+  "new_experiment_model_inference_completed": false
+}
