@@ -1,0 +1,54 @@
+{
+  "version": "20261024-v1",
+  "authorized_gpus": [
+    0,
+    1,
+    6
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "development_cases": 200,
+  "test_cases": 1000,
+  "pilot_cases": 20,
+  "pilot_seed": 0,
+  "pilot_variants": [
+    "NC",
+    "AC",
+    "SW"
+  ],
+  "T1_tolerance": 1e-05,
+  "T2_accuracy_abs_difference_max": 0.02,
+  "T2_agreement_min": 0.9,
+  "T3_accuracy_abs_difference_max_each_variant": 0.02,
+  "E2_oracle_p": 0.99,
+  "E2_lambda": [
+    0.5,
+    1,
+    2,
+    4,
+    8,
+    "infinity"
+  ],
+  "E2_layers": [
+    "all",
+    "last_half"
+  ],
+  "E2_green_g": [
+    0.5,
+    1,
+    2
+  ],
+  "E2_gate": "group9 hard minus group3 >= -0.02; T3 absolute difference <= 0.02",
+  "E3_E8": "blocked until engineering gates; human E0 pending separately by user authorization",
+  "E5_selection": "development F maximum subject to damage <= .02; definitions S/F/H-Acc require explicit implementation before main experiment",
+  "statistics": "paired by case, tree cluster bootstrap 10000; seeds reported separately; no model pooling",
+  "KV_cache": "disabled pending exact mask/position/intervention equivalence tests",
+  "green": "requires verified official SEKA projection and placement; no substitute operator",
+  "test_policy": "no test set evaluation until configurations locked",
+  "CS_shortfall": "do not manufacture patient values; report shortfall",
+  "data_label": "counterfactual task labels are not NCCN recommendations",
+  "diagnostic": "strict applies gate to all queries to test indirect action leakage; not a replacement for registered staged gate"
+}

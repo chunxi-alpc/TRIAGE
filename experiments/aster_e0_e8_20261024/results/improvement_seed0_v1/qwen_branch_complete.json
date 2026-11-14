@@ -1,0 +1,101 @@
+{
+  "model": "qwen",
+  "rows": 800,
+  "cases": 200,
+  "branch_accuracy": {
+    "condition": 0.445,
+    "blind": 0.36375,
+    "equal_external": 0.3625,
+    "weighted_oof": 0.34625
+  },
+  "weights": {
+    "aml_7": {
+      "weights": [
+        0.25,
+        0.5,
+        0.25
+      ],
+      "training_macro_branch_accuracy": 0.38666666666666666,
+      "candidate_scores": [
+        0.3066666666666667,
+        0.38166666666666665,
+        0.38166666666666665,
+        0.38166666666666665,
+        0.385,
+        0.38666666666666666,
+        0.38166666666666665
+      ],
+      "training_trees": [
+        "bre_1",
+        "pancreatic_11",
+        "vulvar_3"
+      ]
+    },
+    "bre_1": {
+      "weights": [
+        0.75,
+        0.25,
+        0.0
+      ],
+      "training_macro_branch_accuracy": 0.455,
+      "candidate_scores": [
+        0.4266666666666667,
+        0.3183333333333333,
+        0.455,
+        0.40166666666666667,
+        0.4466666666666667,
+        0.36833333333333335,
+        0.32
+      ],
+      "training_trees": [
+        "aml_7",
+        "pancreatic_11",
+        "vulvar_3"
+      ]
+    },
+    "pancreatic_11": {
+      "weights": [
+        0.75,
+        0.25,
+        0.0
+      ],
+      "training_macro_branch_accuracy": 0.5483333333333333,
+      "candidate_scores": [
+        0.5266666666666667,
+        0.41,
+        0.5483333333333333,
+        0.49333333333333335,
+        0.5366666666666667,
+        0.46166666666666667,
+        0.4166666666666667
+      ],
+      "training_trees": [
+        "aml_7",
+        "bre_1",
+        "vulvar_3"
+      ]
+    },
+    "vulvar_3": {
+      "weights": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "training_macro_branch_accuracy": 0.52,
+      "candidate_scores": [
+        0.52,
+        0.345,
+        0.48,
+        0.4283333333333334,
+        0.46166666666666667,
+        0.38833333333333336,
+        0.33166666666666667
+      ],
+      "training_trees": [
+        "aml_7",
+        "bre_1",
+        "pancreatic_11"
+      ]
+    }
+  }
+}

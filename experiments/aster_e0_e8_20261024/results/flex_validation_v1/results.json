@@ -1,0 +1,219 @@
+{
+  "torch": "2.8.0+cu128",
+  "gpu": 6,
+  "synthetic": [
+    {
+      "mode": "none",
+      "controls": {},
+      "dtype": "torch.float32",
+      "max_abs": 1.3113021850585938e-06,
+      "tolerance": 2e-05,
+      "pass": true
+    },
+    {
+      "mode": "blind",
+      "controls": {},
+      "dtype": "torch.float32",
+      "max_abs": 1.3113021850585938e-06,
+      "tolerance": 2e-05,
+      "pass": true
+    },
+    {
+      "mode": "hard",
+      "controls": {},
+      "dtype": "torch.float32",
+      "max_abs": 1.3113021850585938e-06,
+      "tolerance": 2e-05,
+      "pass": true
+    },
+    {
+      "mode": "hard",
+      "controls": {
+        "gate_phase": "all",
+        "gate_scope": "rule",
+        "gate_options": true
+      },
+      "dtype": "torch.float32",
+      "max_abs": 1.430511474609375e-06,
+      "tolerance": 2e-05,
+      "pass": true
+    },
+    {
+      "mode": "gate",
+      "controls": {
+        "gate_phase": "all"
+      },
+      "dtype": "torch.float32",
+      "max_abs": 1.3113021850585938e-06,
+      "tolerance": 2e-05,
+      "pass": true
+    },
+    {
+      "mode": "gate",
+      "controls": {
+        "blind": true
+      },
+      "dtype": "torch.float32",
+      "max_abs": 1.3113021850585938e-06,
+      "tolerance": 2e-05,
+      "pass": true
+    },
+    {
+      "mode": "none",
+      "controls": {},
+      "dtype": "torch.bfloat16",
+      "max_abs": 0.0,
+      "tolerance": 0.04,
+      "pass": true
+    },
+    {
+      "mode": "blind",
+      "controls": {},
+      "dtype": "torch.bfloat16",
+      "max_abs": 0.0,
+      "tolerance": 0.04,
+      "pass": true
+    },
+    {
+      "mode": "hard",
+      "controls": {},
+      "dtype": "torch.bfloat16",
+      "max_abs": 0.0,
+      "tolerance": 0.04,
+      "pass": true
+    },
+    {
+      "mode": "hard",
+      "controls": {
+        "gate_phase": "all",
+        "gate_scope": "rule",
+        "gate_options": true
+      },
+      "dtype": "torch.bfloat16",
+      "max_abs": 0.0009765625,
+      "tolerance": 0.04,
+      "pass": true
+    },
+    {
+      "mode": "gate",
+      "controls": {
+        "gate_phase": "all"
+      },
+      "dtype": "torch.bfloat16",
+      "max_abs": 0.001953125,
+      "tolerance": 0.04,
+      "pass": true
+    },
+    {
+      "mode": "gate",
+      "controls": {
+        "blind": true
+      },
+      "dtype": "torch.bfloat16",
+      "max_abs": 0.001953125,
+      "tolerance": 0.04,
+      "pass": true
+    }
+  ],
+  "models": [
+    {
+      "model": "qwen",
+      "mode": "none",
+      "controls": {},
+      "tokens": 675,
+      "max_logit_abs": 0.25,
+      "option_probability_max_abs": 0.01131892204284668,
+      "same_option": true,
+      "finite": true
+    },
+    {
+      "model": "qwen",
+      "mode": "blind",
+      "controls": {},
+      "tokens": 675,
+      "max_logit_abs": 0.5625,
+      "option_probability_max_abs": 9.912252426147461e-05,
+      "same_option": true,
+      "finite": true
+    },
+    {
+      "model": "qwen",
+      "mode": "hard",
+      "controls": {
+        "gate_phase": "all"
+      },
+      "tokens": 675,
+      "max_logit_abs": 0.40283203125,
+      "option_probability_max_abs": 0.03487521409988403,
+      "same_option": true,
+      "finite": true
+    },
+    {
+      "model": "qwen",
+      "mode": "gate",
+      "controls": {
+        "gate_phase": "all",
+        "gate_options": true
+      },
+      "tokens": 675,
+      "max_logit_abs": 0.25,
+      "option_probability_max_abs": 0.0,
+      "same_option": true,
+      "finite": true
+    },
+    {
+      "model": "llama",
+      "mode": "none",
+      "controls": {},
+      "tokens": 694,
+      "max_logit_abs": 0.203125,
+      "option_probability_max_abs": 0.004795193672180176,
+      "same_option": true,
+      "finite": true
+    },
+    {
+      "model": "llama",
+      "mode": "blind",
+      "controls": {},
+      "tokens": 694,
+      "max_logit_abs": 0.25,
+      "option_probability_max_abs": 0.017671406269073486,
+      "same_option": true,
+      "finite": true
+    },
+    {
+      "model": "llama",
+      "mode": "hard",
+      "controls": {
+        "gate_phase": "all"
+      },
+      "tokens": 694,
+      "max_logit_abs": 0.2216796875,
+      "option_probability_max_abs": 0.0009558796882629395,
+      "same_option": true,
+      "finite": true
+    },
+    {
+      "model": "llama",
+      "mode": "gate",
+      "controls": {
+        "gate_phase": "all",
+        "gate_options": true
+      },
+      "tokens": 694,
+      "max_logit_abs": 0.25,
+      "option_probability_max_abs": 0.0006963610649108887,
+      "same_option": true,
+      "finite": true
+    }
+  ],
+  "elapsed_seconds": 46.65407395362854,
+  "peak_allocated_GiB": 30.302374362945557,
+  "indirect_access": {
+    "layers": 3,
+    "protected_max_abs": 0.0,
+    "pass": true
+  },
+  "complete": true,
+  "gpu_hours": 0.012959464391072591
+}

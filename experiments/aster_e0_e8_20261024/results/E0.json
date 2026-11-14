@@ -1,0 +1,44 @@
+{
+  "rows": 7747,
+  "trees": 55,
+  "eligible": 3281,
+  "selected": {
+    "dev": 200,
+    "test": 1000
+  },
+  "forms": {
+    "NC": 3600,
+    "AC": 3600,
+    "IC": 3600,
+    "SW": 3600,
+    "CS": 144,
+    "CS-null": 144
+  },
+  "CS_verified_source_cases": 83,
+  "exclusions": {
+    "no_same_parent_sibling": 3822,
+    "no_AC_action_outside_all_siblings": 644
+  },
+  "human_review": "pending",
+  "closed_book": "pending",
+  "atoms": "numeric threshold proof only; full gold atoms pending",
+  "status": "partial_E0_not_passed",
+  "source_sha256": {
+    "train.parquet": "306c90e4899f8bd32c5c9911813b561aea3f2e2cb1251319a576a30b1180d943",
+    "all_paths.json": "0c0af3b487bde55e87ede987be8389696f204fbdd12231549f54bd0e6078cace"
+  },
+  "data_sha256": "08aa8466617a10f4a2b726948128ff54d7470f3e7400b7865bd9ee9d5949e8d8",
+  "review_rows_each": 150,
+  "limitations": [
+    "all published paths retained; source path gold is not independently verified patient applicability",
+    "CS source-conditioned traversal excludes unresolved downstream branches",
+    "AC excludes every same-parent sibling action",
+    "option set expanded identically across variants; letters randomized, not guaranteed exact balance",
+    "decoy chosen deterministically before closed-book inference"
+  ],
+  "represented_trees": {
+    "dev": 4,
+    "test": 22
+  },
+  "review_sampling": "150 distinct patients, variant stratified; annotation_A/B.csv are authoritative"
+}
