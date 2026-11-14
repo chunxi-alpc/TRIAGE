@@ -1,0 +1,109 @@
+{
+  "census_size": 4368,
+  "unique_med_cases": 4368,
+  "frozen_count": 10006,
+  "class_source_counts": {
+    "A|MEGA-CDP": 4368,
+    "P|MEGA-CDP": 635,
+    "C|MEGA-CDP": 635,
+    "F|MedEinst": 4368
+  },
+  "checks": {
+    "raw_narratives_match": 4368,
+    "raw_labels_match": 4368,
+    "labels_flip": 4368,
+    "candidate_space_same": 4368,
+    "prompt_exact": 4368,
+    "label_mapping_correct": 4368,
+    "age_sex_metadata_same": 4368,
+    "normalized_text_changed": 4368,
+    "case_id_overlap_test": 0,
+    "exact_endpoint_overlap_test": 0
+  },
+  "original_train_pairs": 10609,
+  "original_train_rows": 21218,
+  "original_test_pairs": 5383,
+  "original_test_rows": 10766,
+  "raw_train_test_case_overlap": 339,
+  "selected_diagnosis_transition_count": 148,
+  "prior_qwen_factor_counts": {
+    "2": 341,
+    "1": 4013,
+    "3": 11,
+    "4": 2,
+    "6": 1
+  },
+  "text_block_counts": {
+    "1": 3329,
+    "2": 988,
+    "4": 9,
+    "3": 38,
+    "5": 3,
+    "6": 1
+  },
+  "exact_duplicate_pair_groups": 0,
+  "exact_duplicate_endpoint_groups": 0,
+  "selected_pairs_with_repeated_endpoint": 0,
+  "near_duplicate_method": "char 3-5 TFIDF, min_df=2, max_features=100000; concatenated normalized original and edited; nearest other pair. Similarity signals synthetic template similarity, not proven same patient/leakage.",
+  "near_duplicate_thresholds": {
+    "0.95": {
+      "train_pairs_with_neighbor": 413,
+      "train_pairs_with_test_neighbor": 391
+    },
+    "0.98": {
+      "train_pairs_with_neighbor": 22,
+      "train_pairs_with_test_neighbor": 9
+    }
+  },
+  "near_train_cosine": {
+    "n": 4368,
+    "mean": 0.8905013734440663,
+    "median": 0.8982605040073395,
+    "q05": 0.7946155846118927,
+    "q95": 0.9620097905397416,
+    "min": 0.29399025440216064,
+    "max": 0.9968183636665344
+  },
+  "near_test_cosine": {
+    "n": 4368,
+    "mean": 0.885853576982196,
+    "median": 0.8953972160816193,
+    "q05": 0.7787806570529938,
+    "q95": 0.9605933219194412,
+    "min": 0.5246025919914246,
+    "max": 0.9970566034317017
+  },
+  "mega_F": {
+    "n": 666,
+    "cases": 646,
+    "sources": 80,
+    "checks": {
+      "original_case_found": 666,
+      "raw_patient_matches": 666,
+      "original_condition_matches_tree": 666,
+      "guideline_exists": 666,
+      "condition_same": 666,
+      "guide_same": 666,
+      "definitions_same": 666,
+      "patient_changed": 666,
+      "label_flip": 666,
+      "patient_only_edit_components": 666,
+      "explicit_program_rule": 149
+    },
+    "language": {
+      "zh": 335,
+      "en": 331
+    },
+    "origin": {
+      "historical": 18,
+      "generated": 648
+    }
+  },
+  "leakage_scope": {
+    "mega_eval_metadata_rows": 104729,
+    "mega_train_eval_source_overlap": [],
+    "mega_train_eval_case_overlap": [],
+    "ddxplus_underlying_patient_overlap": "not verifiable without mapping",
+    "base_model_pretraining_contamination": "not investigated; not inferable from record IDs"
+  }
+}
