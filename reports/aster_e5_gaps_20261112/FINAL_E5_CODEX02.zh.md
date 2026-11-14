@@ -1,5 +1,9 @@
 # Codex02 E5 实际完成结果
 
+<!-- HISTORICAL-SCOPE-START -->
+> **历史批次/审计快照。** 以下完成或缺失状态对应当时范围；后续CPU补算已完成，GPU接续按统一队列执行。当前逐项状态见[实验框架](../../docs/ASTER/experiments.zh.md)及其执行状态附件。原始数值和审计证据保留。
+<!-- HISTORICAL-SCOPE-END -->
+
 本报告只收录已有完成记录与真实预测支持的单元。正式训练固定E1/Dataset A 2540对，Qwen3-8B；源训练端点4637。未重训ASTER，未重评NLI500或MedPIC188。
 
 [新增E1结果统一表](section_4_5_new_e1.csv)保存逐方法结果和95%区间来源；[运行状态与完成文件](new_results_index.json)单列。原有历史13行结果继续保存在section_4_5_data.csv及对应原始目录；不把历史旧训练行冒充E1。
