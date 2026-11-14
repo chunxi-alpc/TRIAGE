@@ -1,0 +1,110 @@
+{
+  "closed": true,
+  "jobs": [
+    {
+      "id": "G01",
+      "units": [
+        "G01"
+      ],
+      "script": "official_worker.py",
+      "args": [
+        "--model",
+        "qwen"
+      ],
+      "preferred_gpu": 0
+    },
+    {
+      "id": "G02",
+      "units": [
+        "G02"
+      ],
+      "script": "official_worker.py",
+      "args": [
+        "--model",
+        "gemma2"
+      ],
+      "preferred_gpu": 1
+    },
+    {
+      "id": "G03",
+      "units": [
+        "G03"
+      ],
+      "script": "official_worker.py",
+      "args": [
+        "--model",
+        "gemma3"
+      ],
+      "preferred_gpu": 5
+    },
+    {
+      "id": "G04",
+      "units": [
+        "G04"
+      ],
+      "script": "official_worker.py",
+      "args": [
+        "--model",
+        "medgemma"
+      ],
+      "preferred_gpu": 6
+    },
+    {
+      "id": "E5_LORA",
+      "units": [
+        "G05",
+        "G06",
+        "G07"
+      ],
+      "script": "e5_worker.py",
+      "args": [
+        "--group",
+        "lora"
+      ],
+      "ready_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e5_ready.json"
+    },
+    {
+      "id": "E5_LOFIT",
+      "units": [
+        "G08",
+        "G09",
+        "G10"
+      ],
+      "script": "e5_worker.py",
+      "args": [
+        "--group",
+        "lofit"
+      ],
+      "ready_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e5_ready.json"
+    },
+    {
+      "id": "E5_LOREFT",
+      "units": [
+        "G11",
+        "G12",
+        "G13"
+      ],
+      "script": "e5_worker.py",
+      "args": [
+        "--group",
+        "loreft"
+      ],
+      "ready_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e5_ready.json"
+    },
+    {
+      "id": "E5_REPRESENTATION",
+      "units": [
+        "G14",
+        "G15",
+        "G16",
+        "G17"
+      ],
+      "script": "e5_worker.py",
+      "args": [
+        "--group",
+        "representation"
+      ],
+      "ready_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e5_ready.json"
+    }
+  ]
+}

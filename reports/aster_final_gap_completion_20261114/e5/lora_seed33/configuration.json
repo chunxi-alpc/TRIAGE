@@ -1,0 +1,53 @@
+{
+  "method": "lora_seed33",
+  "parameter_source": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/lr0.001_seed33",
+  "training_reused": true,
+  "source_protocol": "E1-balanced-2540",
+  "new_training": false,
+  "source_natural_paths": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/lr0.001_seed33/test_path_predictions.jsonl",
+  "source_pair_predictions": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/lr0.001_seed33/test_pair_predictions.jsonl",
+  "physical_gpu": "0",
+  "expected_interference_paths": 2418,
+  "expected_sources": 40,
+  "training": {
+    "method": "lora",
+    "reported_name": "LoRA-single-layer-SFT",
+    "seed": 33,
+    "lr": 0.001,
+    "examples": 4637,
+    "epochs_per_stage": 1,
+    "stages": [
+      {
+        "stage": "tune",
+        "steps": 4637,
+        "parameters": 8192,
+        "mean_loss": 0.18878789591944042,
+        "mean_answer_ce": 0.18878789591944042,
+        "parameter_change_l2": [
+          3.5443475246429443,
+          4.133152961730957
+        ],
+        "seconds": 2569.4083647727966
+      }
+    ],
+    "objective": "Native supervised fine-tuning: full-vocabulary cross entropy of the correct answer token, with prompt tokens masked. No A/P or C/F difference loss.",
+    "manifest": "../training_manifest.json",
+    "configuration": "Single layer 18 q_proj, rank 1, alpha 1, dropout 0; local configuration, not a standard multi-layer LoRA baseline.",
+    "target_budget": 17,
+    "strict_parameter_matching": false,
+    "layer": 18,
+    "rank": 1,
+    "heads": [],
+    "deployment_parameters": 8192,
+    "selection_parameters": 0,
+    "optimizer": "AdamW",
+    "weight_decay": 0.01,
+    "gradient_clip_norm": 1.0,
+    "full_vocabulary_loss": true,
+    "prompt_token_loss": false,
+    "extra_pair_loss": false,
+    "train_seconds": 2569.4083647727966,
+    "total_seconds": 2574.0902659893036,
+    "peak_gib": 18.57726001739502
+  }
+}

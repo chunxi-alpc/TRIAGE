@@ -68,9 +68,16 @@ def main():
     import argparse
     p = argparse.ArgumentParser()
     p.add_argument('--model', required=True)
+    p.add_argument('--merge-only', action='store_true')
     a = p.parse_args()
     target = prepare(a.model)
     if (target / 'evaluation/mega_official/completed.json').exists():
+        return
+    if a.merge_only:
+        result = official.summarize(target)
+        if result['state'] != 'complete':
+            raise RuntimeError('Official shards do not cover the full population')
+        summarize(target)
         return
     import torch
     torch.set_num_threads(4)

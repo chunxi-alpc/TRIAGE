@@ -1,5 +1,5 @@
 {
-  "status": "APPROVED_EXECUTING",
+  "status": "COMPLETE",
   "active_scheduler_manifest": false,
   "allowed_gpus": [
     0,
@@ -112,7 +112,7 @@
     {
       "id": "C08",
       "unit": "E5十三行接续统计",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "inputs": [
         "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112",
         "G05–G17新增节点分数"
@@ -121,12 +121,12 @@
       "output": "reports/aster_final_gap_completion_20261114/e5/",
       "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间",
       "audit_state": "PARTIAL_CURRENT",
-      "waiting_for_gpu": true
+      "waiting_for_gpu": false
     },
     {
       "id": "C09",
       "unit": "E6官方合并统计",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "inputs": [
         "G01–G04新节点/路径",
         "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/mega_official/shard0"
@@ -135,14 +135,14 @@
       "output": "reports/aster_final_gap_completion_20261114/e6/",
       "acceptance": "每模型三方法各7458路径、418来源；重复ID=0；缺失ID=0；保留45627金标准自然节点总体；失败记录计入分母",
       "audit_state": "PARTIAL_CURRENT",
-      "waiting_for_gpu": true
+      "waiting_for_gpu": false
     }
   ],
   "gpu_tasks": [
     {
       "id": "G01",
       "unit": "qwen_official",
-      "state": "RUNNING",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "upstream_revision": null,
@@ -173,7 +173,7 @@
     {
       "id": "G02",
       "unit": "gemma2_official",
-      "state": "RUNNING",
+      "state": "COMPLETE_CURRENT",
       "model": "Gemma-2-9B-IT",
       "model_path": "/home/gcx/models/gemma-2-9b-it",
       "upstream_revision": null,
@@ -204,7 +204,7 @@
     {
       "id": "G03",
       "unit": "gemma3_official",
-      "state": "RUNNING",
+      "state": "COMPLETE_CURRENT",
       "model": "Gemma-3-27B-IT",
       "model_path": "/home/gcx/gemma3_27b_head_pilot_20261103/model",
       "upstream_revision": null,
@@ -235,7 +235,7 @@
     {
       "id": "G04",
       "unit": "medgemma_official",
-      "state": "RUNNING",
+      "state": "COMPLETE_CURRENT",
       "model": "MedGemma-27B-Text-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/medgemma-27b-text-it",
       "upstream_revision": null,
@@ -266,7 +266,7 @@
     {
       "id": "G05",
       "unit": "lora_seed11_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/lr0.001_seed11",
@@ -289,7 +289,7 @@
     {
       "id": "G06",
       "unit": "lora_seed22_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/lr0.001_seed22",
@@ -312,7 +312,7 @@
     {
       "id": "G07",
       "unit": "lora_seed33_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/lr0.001_seed33",
@@ -335,7 +335,7 @@
     {
       "id": "G08",
       "unit": "lofit_seed11_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.0001_seed11",
@@ -358,7 +358,7 @@
     {
       "id": "G09",
       "unit": "lofit_seed22_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.0001_seed22",
@@ -381,7 +381,7 @@
     {
       "id": "G10",
       "unit": "lofit_seed33_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.0001_seed33",
@@ -404,7 +404,7 @@
     {
       "id": "G11",
       "unit": "loreft_seed11_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/loreft_e1/lr0.0001_seed11",
@@ -427,7 +427,7 @@
     {
       "id": "G12",
       "unit": "loreft_seed22_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/loreft_e1/lr0.0001_seed22",
@@ -450,7 +450,7 @@
     {
       "id": "G13",
       "unit": "loreft_seed33_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/loreft_e1/lr0.0001_seed33",
@@ -473,7 +473,7 @@
     {
       "id": "G14",
       "unit": "leace_pair_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/leace_pair",
@@ -499,7 +499,7 @@
     {
       "id": "G15",
       "unit": "iti_style_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/iti_style",
@@ -525,7 +525,7 @@
     {
       "id": "G16",
       "unit": "sea_adaptation_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/sea_adaptation",
@@ -551,7 +551,7 @@
     {
       "id": "G17",
       "unit": "strong_evidence_prompt_interference",
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "model": "Qwen3-8B-IT",
       "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
       "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/prompt_controls_e1/strong_evidence_prompt",
@@ -623,7 +623,7 @@
       }
     ]
   },
-  "updated_at": "2026-11-14T07:41:00+00:00",
+  "updated_at": "2026-11-14T14:14:33+00:00",
   "current_status": "reports/aster_final_gap_completion_20261114/execution_status.json",
   "active_queue_manifest": "reports/aster_final_gap_completion_20261114/queue_manifest.json",
   "decision": {
@@ -633,14 +633,14 @@
   "independent_cpu_complete": true,
   "dependent_cpu": {
     "C08": {
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "dependency": "E5 thirteen interference evaluations",
-      "waiting_for_gpu": true
+      "waiting_for_gpu": false
     },
     "C09": {
-      "state": "PARTIAL_CURRENT",
+      "state": "COMPLETE_CURRENT",
       "dependency": "E6 four official evaluations",
-      "waiting_for_gpu": true
+      "waiting_for_gpu": false
     }
   }
 }

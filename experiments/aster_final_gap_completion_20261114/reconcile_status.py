@@ -52,16 +52,34 @@ def reconcile():
     for model, job in [('qwen', 'G01'), ('gemma2', 'G02'), ('gemma3', 'G03'), ('medgemma', 'G04')]:
         done = (OUT / 'e6' / model / 'evaluation/mega_official/completed.json').exists()
         task = queue.get('jobs', {}).get(job, {})
-        state = 'COMPLETE_CURRENT' if done else ('RUNNING' if task.get('state') == 'running' else
-                'FAILED' if task.get('state') == 'failed' else 'PARTIAL_CURRENT')
+        workers = {key: value for key, value in queue.get('jobs', {}).items()
+                   if key == job or key.startswith(job + '_')}
+        state = 'COMPLETE_CURRENT' if done else ('FAILED' if any(v.get('state') == 'failed' for v in workers.values()) else
+                'RUNNING' if any(v.get('state') == 'running' for v in workers.values()) else 'PARTIAL_CURRENT')
         official[model] = dict(state=state, calculation_complete=done, expected_paths_per_method=7458,
-                               expected_sources=418, job=job, queue_state=task.get('state', 'pending'),
+                               expected_sources=418, job=job, queue_state=task.get('state', 'pending'), workers=workers,
                                output=str((OUT / 'e6' / model / 'evaluation/mega_official').relative_to(PROJECT)),
                                identity_status='NEEDS_VALIDATION', identity_reason='Upstream immutable revision unavailable')
+        for shard in (OUT / 'e6' / model / 'evaluation/mega_official').glob('shard*'):
+            marker = read(shard / 'done.json', {})
+            progress = read(shard / 'status.json', {})
+            if marker.get('state') == 'complete' and progress.get('state') != 'complete':
+                progress.update(state='complete', completion_record='done.json',
+                                cases_completed=progress.get('pending_at_start', marker.get('cases')))
+                write(shard / 'status.json', progress)
+                changed.append(shard / 'status.json')
     all_e6 = all(x['calculation_complete'] for x in official.values())
     e5 = {}
     for name in METHODS:
         done = (OUT / 'e5' / name / 'done.json').exists()
+        if done:
+            progress_path = OUT / 'e5' / name / 'status.json'
+            progress = read(progress_path, {})
+            if progress.get('state') != 'complete':
+                progress.update(state='complete', paths_completed=2418, expected=2418,
+                                completion_record='done.json')
+                write(progress_path, progress)
+                changed.append(progress_path)
         e5[name] = dict(state='COMPLETE_CURRENT' if done else 'PARTIAL_CURRENT', natural_paths=806,
                         interference_complete=done, expected_interference_paths=2418,
                         output=str((OUT / 'e5' / name).relative_to(PROJECT)))
@@ -86,7 +104,8 @@ def reconcile():
                  E8=dict(comparisons_complete=True, state='NEEDS_VALIDATION',
                          missing='Immutable revisions unavailable for some checkpoints; retained as unknown',
                          new_fitting_required=False),
-                 queue_snapshot=queue, training_tasks=0, model_download_tasks=0,
+                 queue_snapshot=queue, allowed_gpus=queue.get('allowed_gpus', [0, 1, 5, 6]),
+                 training_tasks=0, model_download_tasks=0,
                  artifact_status_note='Calculation completion and immutable model identity are recorded separately.')
     write(OUT / 'execution_status.json', state)
     changed.append(OUT / 'execution_status.json')
@@ -145,7 +164,7 @@ def reconcile():
         saved_status(PROJECT / 'reports/aster_e678_20261112' / name, aggregate.copy(), changed, sync_source=True)
     saved_status(PROJECT / 'reports/aster_e678_20261112/handoff_status.json',
                  dict(updated_at=now, state='COMPLETE_CURRENT' if all_e6 else 'RUNNING',
-                      queue=str(OUT), allowed_gpus=[0, 1, 5, 6], standalone_dispatch=False,
+                      queue=str(OUT), allowed_gpus=queue.get('allowed_gpus', [0, 1, 5, 6]), standalone_dispatch=False,
                       previous_queue_scope_complete=True), changed, sync_source=True)
     for name in ['delivery_status.json', 'delivery_status_current.json']:
         saved_status(PROJECT / 'reports/aster_e5_gaps_20261112' / name,
@@ -157,8 +176,10 @@ def reconcile():
     # Update the sole human experiment tracker, retaining unrelated manuscript evidence.
     tracker = PROJECT / TRACKER_REL
     text = tracker.read_text()
-    e6word = '四个IT官方评价已完成' if all_e6 else '四个IT官方评价正在统一队列执行，Gemma2从既有2,379条接续'
-    e5word = '十三行干扰路径及接续统计已完成' if all_e5 else '十三行干扰路径已入统一队列，尚待完成'
+    completed_e6 = sum(v['calculation_complete'] for v in official.values())
+    completed_e5 = sum(v['interference_complete'] for v in e5.values())
+    e6word = '四个IT官方评价已完成' if all_e6 else f'四个IT官方评价已完成{completed_e6}个，其余由统一队列接续'
+    e5word = '十三行干扰路径及接续统计已完成' if all_e5 else f'十三行干扰路径已完成{completed_e5}行，其余由统一队列接续'
     dependent_text = 'C08/C09接续统计也已完成。' if all_e6 and all_e5 else '后续CPU任务C08/C09随对应GPU产物完成。'
     summary = ('更新时间：' + now + '。独立CPU任务C01–C07已全部完成；五个IT检查点的806条受控评价齐全。'
                + e6word + '；' + e5word + '。CC和11行配对区间、Qwen三项独立截距统计已完成。'
@@ -174,8 +195,8 @@ def reconcile():
         '| E6：跨模型泛化 |': '| E6：跨模型泛化 | 五个IT检查点 | E1受控806路径及官方7,458路径 | 五模型受控评价齐全；Llama官方完成；' + e6word + '。各自M1/M2/M3均已冻结。 |',
         '| E8：Gemma匹配对 |': '| E8：Gemma匹配对 | Gemma-2-9B-Base/IT | 头集合、子空间与Base官方评价 | 比较已完成，共享36/51头；IT官方评价共用E6。 |',
         '| E8：Qwen匹配对 |': '| E8：Qwen匹配对 | Qwen3-8B-Base/IT | 头集合、子空间与Base官方评价 | 比较已完成，共享20/51头；IT官方评价共用E6。 |',
-        '| E5 |': '| E5 | Qwen3-8B外部基线比较 | **CC及11行配对统计完成；' + ('十三行补测完成' if all_e5 else '十三行干扰补测待完成') + '** | 全部原训练与自然路径复用；LoReFT修复及PSR seed22更新已完成 | ' + e5word + '；各方法保留独立修正分数和原种子 |',
-        '| E6 |': '| E6 | 五模型跨架构泛化 | **五模型受控评价齐全；' + ('官方评价齐全' if all_e6 else '四个官方单元执行中') + '** | 每模型受控三方法各806路径、40来源；两27B由CPU重建 | ' + e6word + '；Llama官方7,458路径复用 |',
+        '| E5 |': '| E5 | Qwen3-8B外部基线比较 | **CC及11行配对统计完成；' + ('十三行补测完成' if all_e5 else f'干扰补测完成{completed_e5}/13行') + '** | 全部原训练与自然路径复用；LoReFT修复及PSR seed22更新已完成 | ' + e5word + '；各方法保留独立修正分数和原种子 |',
+        '| E6 |': '| E6 | 五模型跨架构泛化 | **五模型受控评价齐全；' + ('官方评价齐全' if all_e6 else f'本轮官方单元完成{completed_e6}/4个') + '** | 每模型受控三方法各806路径、40来源；两27B由CPU重建 | ' + e6word + '；Llama官方7,458路径复用 |',
         '| E7 |': '| E7 | 冻结迁移评价 | **全部前向与所需CPU统计完成** | Qwen NLI500/NLI5500/MedPIC467已补独立截距、逐例和95%区间；其他四模型直接复用 | NLI500按113试验/组合簇，NLI5500按500声明簇；MedPIC467含开发题，作描述性评价 |',
         '| E8 |': '| E8 | Base/IT匹配检查点 | **两组比较完成；部分版本追溯待确认** | Qwen共享20/51头，Gemma2共享36/51头；既有子空间和Base官方结果复用 | 缺失上游revision保留未知；不重拟合，不作后训练阶段因果归因 |',
         '| 是否优于匹配强基线？ |': '| 是否优于匹配强基线？ | E5 | 固定E1配置比较强基线 | 训练与自然路径完成，CC和11行配对区间完成；' + e5word + ' |',

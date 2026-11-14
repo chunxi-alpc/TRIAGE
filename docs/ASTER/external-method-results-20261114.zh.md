@@ -1,7 +1,7 @@
 # ASTER-CR 新增外部方法结果（2026-11-14）
 
 <!-- HISTORICAL-SCOPE-START -->
-> **历史批次/审计快照。** 以下完成或缺失状态对应当时范围；后续CPU补算已完成，GPU接续按统一队列执行。当前逐项状态见[实验框架](experiments.zh.md)及其执行状态附件。原始数值和审计证据保留。
+> **历史批次/审计快照。** 以下完成或缺失状态对应当时范围；后续CPU补算已完成，本轮GPU接续及统计已完成。当前逐项状态见[实验框架](experiments.zh.md)及其执行状态附件。原始数值和审计证据保留。
 <!-- HISTORICAL-SCOPE-END -->
 
 Qwen3-8B 上的 RePS、PSR、CAA、INLP 和 DoRA 共完成11次正式实验。DoRA、RePS、PSR使用种子11、22、33，CAA和INLP使用冻结配置。主训练数据为 E1 / Dataset A 的2,540对。

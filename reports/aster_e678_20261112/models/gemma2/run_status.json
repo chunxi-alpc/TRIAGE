@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-14T07:41:00+00:00",
-  "state": "RUNNING",
-  "stage": "official_meGA_only",
+  "updated_at": "2026-11-14T14:14:33+00:00",
+  "state": "COMPLETE_CURRENT",
+  "stage": "complete",
   "modules_fitted": true,
   "parameters_frozen": true,
   "controlled_test_complete": true,
@@ -22,12 +22,26 @@
     }
   },
   "official_mega": {
-    "state": "RUNNING",
-    "calculation_complete": false,
+    "state": "COMPLETE_CURRENT",
+    "calculation_complete": true,
     "expected_paths_per_method": 7458,
     "expected_sources": 418,
     "job": "G02",
-    "queue_state": "running",
+    "queue_state": "complete",
+    "workers": {
+      "G02": {
+        "state": "complete",
+        "pid": 494645,
+        "gpu": 1,
+        "started": 1794635011.1459608,
+        "log": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/logs/G02.log",
+        "units": [
+          "G02"
+        ],
+        "exit_code": 0,
+        "finished": 1794647632.037334
+      }
+    },
     "output": "reports/aster_final_gap_completion_20261114/e6/gemma2/evaluation/mega_official",
     "identity_status": "NEEDS_VALIDATION",
     "identity_reason": "Upstream immutable revision unavailable"

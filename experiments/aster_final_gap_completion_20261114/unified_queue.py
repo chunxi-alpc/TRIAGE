@@ -5,7 +5,25 @@ import time
 import sys
 from common import *
 
-GPUS = [0, 1, 5, 6]
+GPUS = [0, 1, 4, 5, 6]
+
+
+class ExistingProcess:
+    """Adopt a worker retained during a deliberate scheduler restart."""
+    def __init__(self, pid, job):
+        self.pid, self.job = pid, job
+
+    def poll(self):
+        process = Path('/proc') / str(self.pid)
+        try:
+            state = (process / 'stat').read_text().rsplit(')', 1)[1].split()[0]
+            command = (process / 'cmdline').read_bytes().replace(b'\0', b' ').decode()
+            if state != 'Z' and str(CODE / self.job['script']) in command:
+                return None
+        except FileNotFoundError:
+            pass
+        marker = read(self.job.get('completion_file', '/nonexistent'), {})
+        return 0 if marker.get('complete') or marker.get('state') == 'complete' else 1
 
 def gpu_busy(gpu):
     r = subprocess.run(['nvidia-smi', '-i', str(gpu), '--query-compute-apps=pid', '--format=csv,noheader,nounits'],
@@ -18,11 +36,24 @@ def main():
     manifest_path = OUT / 'queue_manifest.json'
     status_path = OUT / 'queue_status.json'
     status = read(status_path, {'jobs': {}})
-    status.update(state='running', pid=os.getpid(), allowed_gpus=GPUS, started=time.time())
-    for item in status['jobs'].values():
-        if item.get('state') == 'running':
-            raise RuntimeError('Existing running state requires process reconciliation before restart')
+    status.update(state='running', pid=os.getpid(), allowed_gpus=GPUS, scheduler_started=time.time())
+    status.setdefault('started', time.time())
     live = {}
+    jobs = {job['id']: job for job in read(manifest_path)['jobs']}
+    for key, item in status['jobs'].items():
+        if item.get('state') == 'running':
+            job = jobs[key]
+            if not job.get('completion_file'):
+                raise RuntimeError('An adopted worker needs a completion marker: ' + key)
+            process = ExistingProcess(item['pid'], job)
+            code = process.poll()
+            if code is None:
+                if item['gpu'] in live:
+                    raise RuntimeError('Two retained workers claim the same GPU')
+                live[item['gpu']] = process, job, None
+                item['adopted_at'] = time.time()
+            else:
+                item.update(state='complete' if code == 0 else 'failed', exit_code=code, finished=time.time())
     write(status_path, status)
     while True:
         manifest = read(manifest_path)
@@ -30,7 +61,8 @@ def main():
             code = process.poll()
             if code is None:
                 continue
-            log.close()
+            if log is not None:
+                log.close()
             status['jobs'][job['id']].update(state='complete' if code == 0 else 'failed',
                                           exit_code=code, finished=time.time())
             del live[gpu]

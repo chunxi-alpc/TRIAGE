@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-14T07:41:00+00:00",
-  "state": "RUNNING",
-  "stage": "official_meGA_only",
+  "updated_at": "2026-11-14T14:14:33+00:00",
+  "state": "COMPLETE_CURRENT",
+  "stage": "complete",
   "modules_fitted": true,
   "parameters_frozen": true,
   "controlled_test_complete": true,
@@ -22,12 +22,62 @@
     }
   },
   "official_mega": {
-    "state": "RUNNING",
-    "calculation_complete": false,
+    "state": "COMPLETE_CURRENT",
+    "calculation_complete": true,
     "expected_paths_per_method": 7458,
     "expected_sources": 418,
     "job": "G04",
-    "queue_state": "running",
+    "queue_state": "complete",
+    "workers": {
+      "G04": {
+        "state": "complete",
+        "pid": 509626,
+        "gpu": 6,
+        "started": 1794660851.364372,
+        "log": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/logs/G04.log",
+        "units": [
+          "G04"
+        ],
+        "exit_code": 0,
+        "finished": 1794664991.800422
+      },
+      "G04_HELPER": {
+        "state": "complete",
+        "pid": 509638,
+        "gpu": 4,
+        "started": 1794660851.4210653,
+        "log": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/logs/G04_HELPER.log",
+        "units": [
+          "G04"
+        ],
+        "exit_code": 0,
+        "finished": 1794665651.8816254
+      },
+      "G04_HELPER2": {
+        "state": "complete",
+        "pid": 510865,
+        "gpu": 1,
+        "started": 1794663131.6504025,
+        "log": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/logs/G04_HELPER2.log",
+        "units": [
+          "G04"
+        ],
+        "exit_code": 0,
+        "finished": 1794665251.8261228
+      },
+      "G04_MERGE": {
+        "state": "complete",
+        "pid": 511232,
+        "gpu": 4,
+        "started": 1794665651.9139855,
+        "log": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/logs/G04_MERGE.log",
+        "units": [
+          "G04"
+        ],
+        "exit_code": 0,
+        "finished": 1794665671.9156415
+      }
+    },
     "output": "reports/aster_final_gap_completion_20261114/e6/medgemma/evaluation/mega_official",
     "identity_status": "NEEDS_VALIDATION",
     "identity_reason": "Upstream immutable revision unavailable"

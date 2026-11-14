@@ -1,0 +1,598 @@
+{
+  "status": "AWAITING_USER_APPROVAL",
+  "active_scheduler_manifest": false,
+  "allowed_gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "gpu_type": "NVIDIA A100-SXM4-80GB",
+  "max_active_gpu_jobs": 4,
+  "per_gpu_active_jobs": 1,
+  "scheduler": "单一统一GPU队列；同一模型优先连续复用；禁止各脚本自行启动独立调度器",
+  "training_tasks": 0,
+  "model_download_tasks": 0,
+  "cpu_tasks": [
+    {
+      "id": "C01",
+      "unit": "Gemma3 受控806",
+      "state": "PARTIAL_CURRENT",
+      "inputs": [
+        "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma3/models/E1/full",
+        "/home/gcx/aster-final-missing-audit-20261114/cache_maps/e6_gemma3_additional_fullhead_nodes.jsonl",
+        "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma3/data/reused_scores.jsonl"
+      ],
+      "implementation": "新建 cpu_rebuild_controlled_from_cache.py；复用 evaluation.py 的冻结线性评分、原树遍历及来源统计函数，按实际访问节点读取缓存",
+      "output": "reports/aster_final_gap_completion_20261114/e6/gemma3/test/",
+      "acceptance": "raw/calibration/E1 各806个唯一自然路径、40来源，已有配对指标和来源配对95%区间；0新模型前向"
+    },
+    {
+      "id": "C02",
+      "unit": "MedGemma 受控806",
+      "state": "PARTIAL_CURRENT",
+      "inputs": [
+        "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/medgemma/models/E1/full",
+        "/home/gcx/aster-final-missing-audit-20261114/cache_maps/e6_medgemma_additional_fullhead_nodes.jsonl",
+        "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/medgemma/data/reused_scores.jsonl"
+      ],
+      "implementation": "同C01，使用MedGemma自己的头、子空间、M3和截距",
+      "output": "reports/aster_final_gap_completion_20261114/e6/medgemma/test/",
+      "acceptance": "同C01，使用MedGemma参数"
+    },
+    {
+      "id": "C03",
+      "unit": "CC干扰路径",
+      "state": "PARTIAL_CURRENT",
+      "inputs": [
+        "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/prompt_controls_e1/cc_parameters.json",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/cache",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/data/path_interference_views.jsonl",
+        "/home/gcx/aster_cr_repair_v2_run_20261108/data/path_cases.jsonl"
+      ],
+      "implementation": "新建 cpu_complete_cc.py；raw+冻结offset后按树遍历；复用 bootstrap_summary 的来源配对抽样，不调用原prompt main()",
+      "output": "reports/aster_final_gap_completion_20261114/e5/CC/",
+      "acceptance": "2418干扰路径、806自然路径、40来源，纠正/新增错误、A/P、C/F与相对raw配对区间；0新模型前向"
+    },
+    {
+      "id": "C04",
+      "unit": "新增方法11行配对差值",
+      "state": "PARTIAL_CURRENT",
+      "inputs": [
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/evaluation/test",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/test/path_predictions.jsonl"
+      ],
+      "implementation": "新建 cpu_paired_path_ci.py；按(case_id,variant,source_id)配对，再对40来源共同抽样",
+      "output": "reports/aster_final_gap_completion_20261114/e5/external_paired_ci/",
+      "acceptance": "11行×自然/干扰两总体的差值点估计与95%区间；保留逐种子、方法自身既有区间及配对计数"
+    },
+    {
+      "id": "C05",
+      "unit": "Qwen NLI500",
+      "state": "PARTIAL_CURRENT",
+      "inputs": [
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/nli4ct/predictions.jsonl",
+        "/home/gcx/aster-cr-diagnostics-e3cv-20261111/reports/aster_cr_m3_intercept_diagnostics_20261112/configs/independent_intercepts_reused.json"
+      ],
+      "implementation": "新建 cpu_qwen_transfer.py；使用冻结b0=3.0993948961894406，不拟合任何参数；聚类口径待确认",
+      "output": "reports/aster_final_gap_completion_20261114/e7/qwen/nli500/",
+      "acceptance": "500原声明、2864视图；三方法逐例、准确率/宏F1、原生配对指标、纠正/新增错误、95%区间"
+    },
+    {
+      "id": "C06",
+      "unit": "Qwen NLI5500",
+      "state": "PARTIAL_CURRENT",
+      "inputs": [
+        "/home/gcx/aster-cr-balanced-publish-20261112/reports/aster_cr_final_method_10006_20261112/evaluation/nli4ct_official5500",
+        "/home/gcx/aster-cr-diagnostics-e3cv-20261111/reports/aster_cr_m3_intercept_diagnostics_20261112/configs/independent_intercepts_reused.json"
+      ],
+      "implementation": "同C05；全量5500单独计算，避免natural字段的500分母；聚类口径待确认",
+      "output": "reports/aster_final_gap_completion_20261114/e7/qwen/nli5500/",
+      "acceptance": "三方法各5500声明；完整统计、原生关系指标、配对差值区间及脱敏逐例归档"
+    },
+    {
+      "id": "C07",
+      "unit": "Qwen MedPIC467",
+      "state": "PARTIAL_CURRENT",
+      "inputs": [
+        "/home/gcx/aster-cr-balanced-publish-20261112/reports/aster_cr_final_method_10006_20261112/evaluation/medpic_official467",
+        "/home/gcx/aster-cr-diagnostics-e3cv-20261111/reports/aster_cr_m3_intercept_diagnostics_20261112/configs/independent_intercepts_reused.json"
+      ],
+      "implementation": "同C05；使用已冻结的原整题集合解码；376来源共同抽样",
+      "output": "reports/aster_final_gap_completion_20261114/e7/qwen/medpic467/",
+      "acceptance": "三方法各467原题/2335原始选项，保留7005含扰动视图；标注含开发题的描述性评价"
+    },
+    {
+      "id": "C08",
+      "unit": "E5十三行接续统计",
+      "state": "PARTIAL_CURRENT",
+      "inputs": [
+        "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112",
+        "G05–G17新增节点分数"
+      ],
+      "implementation": "完成路径后复用现有自然/配对预测；补干扰路径、配对来源区间和纠正/新增错误",
+      "output": "reports/aster_final_gap_completion_20261114/e5/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    },
+    {
+      "id": "C09",
+      "unit": "E6官方合并统计",
+      "state": "PARTIAL_CURRENT",
+      "inputs": [
+        "G01–G04新节点/路径",
+        "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/mega_official/shard0"
+      ],
+      "implementation": "复用 official_mega.py 的路径和自然节点汇总；按来源共同抽样",
+      "output": "reports/aster_final_gap_completion_20261114/e6/",
+      "acceptance": "每模型三方法各7458路径、418来源；重复ID=0；缺失ID=0；保留45627金标准自然节点总体；失败记录计入分母"
+    }
+  ],
+  "gpu_tasks": [
+    {
+      "id": "G01",
+      "unit": "qwen_official",
+      "state": "NOT_FOUND_AFTER_EXHAUSTIVE_SEARCH",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "upstream_revision": null,
+      "frozen_parameters": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/models/E1/full",
+      "pending_paths": 7458,
+      "initial_path_root_uids": 7458,
+      "known_gold_node_forwards": 45627,
+      "all_tree_candidate_upper_bound": 152066,
+      "manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_qwen_official_initial_gold_nodes.jsonl",
+      "root_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_qwen_official_initial_root_nodes.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_qwen_official_candidate_nodes.jsonl",
+      "new_activation_required": "当前51头；同一次前向供raw/独立截距/ASTER使用",
+      "load_backbone": true,
+      "gpu_count": 1,
+      "preferred_gpu": 0,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "estimated_gpu_hours": [
+        3,
+        4
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e6/qwen/mega_official/",
+      "acceptance": "每模型三方法各7458路径、418来源；重复ID=0；缺失ID=0；保留45627金标准自然节点总体；失败记录计入分母"
+    },
+    {
+      "id": "G02",
+      "unit": "gemma2_official",
+      "state": "PARTIAL_CURRENT",
+      "model": "Gemma-2-9B-IT",
+      "model_path": "/home/gcx/models/gemma-2-9b-it",
+      "upstream_revision": null,
+      "frozen_parameters": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/models/E1/full",
+      "pending_paths": 5079,
+      "initial_path_root_uids": 5078,
+      "known_gold_node_forwards": 30572,
+      "all_tree_candidate_upper_bound": 95132,
+      "manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_gemma2_official_initial_gold_nodes.jsonl",
+      "root_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_gemma2_official_initial_root_nodes.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_gemma2_official_candidate_nodes.jsonl",
+      "new_activation_required": "当前51头；同一次前向供raw/独立截距/ASTER使用",
+      "load_backbone": true,
+      "gpu_count": 1,
+      "preferred_gpu": 1,
+      "vram_gib": [
+        26,
+        40
+      ],
+      "estimated_gpu_hours": [
+        5.5,
+        7
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e6/gemma2/mega_official/",
+      "acceptance": "每模型三方法各7458路径、418来源；重复ID=0；缺失ID=0；保留45627金标准自然节点总体；失败记录计入分母"
+    },
+    {
+      "id": "G03",
+      "unit": "gemma3_official",
+      "state": "NOT_FOUND_AFTER_EXHAUSTIVE_SEARCH",
+      "model": "Gemma-3-27B-IT",
+      "model_path": "/home/gcx/gemma3_27b_head_pilot_20261103/model",
+      "upstream_revision": null,
+      "frozen_parameters": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma3/models/E1/full",
+      "pending_paths": 7458,
+      "initial_path_root_uids": 7458,
+      "known_gold_node_forwards": 45627,
+      "all_tree_candidate_upper_bound": 152066,
+      "manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_gemma3_official_initial_gold_nodes.jsonl",
+      "root_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_gemma3_official_initial_root_nodes.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_gemma3_official_candidate_nodes.jsonl",
+      "new_activation_required": "当前51头；同一次前向供raw/独立截距/ASTER使用",
+      "load_backbone": true,
+      "gpu_count": 1,
+      "preferred_gpu": 5,
+      "vram_gib": [
+        54,
+        66
+      ],
+      "estimated_gpu_hours": [
+        8,
+        11
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e6/gemma3/mega_official/",
+      "acceptance": "每模型三方法各7458路径、418来源；重复ID=0；缺失ID=0；保留45627金标准自然节点总体；失败记录计入分母"
+    },
+    {
+      "id": "G04",
+      "unit": "medgemma_official",
+      "state": "NOT_FOUND_AFTER_EXHAUSTIVE_SEARCH",
+      "model": "MedGemma-27B-Text-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/medgemma-27b-text-it",
+      "upstream_revision": null,
+      "frozen_parameters": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/medgemma/models/E1/full",
+      "pending_paths": 7458,
+      "initial_path_root_uids": 7458,
+      "known_gold_node_forwards": 45627,
+      "all_tree_candidate_upper_bound": 152066,
+      "manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_medgemma_official_initial_gold_nodes.jsonl",
+      "root_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_medgemma_official_initial_root_nodes.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e6_medgemma_official_candidate_nodes.jsonl",
+      "new_activation_required": "当前51头；同一次前向供raw/独立截距/ASTER使用",
+      "load_backbone": true,
+      "gpu_count": 1,
+      "preferred_gpu": 6,
+      "vram_gib": [
+        54,
+        66
+      ],
+      "estimated_gpu_hours": [
+        7.5,
+        10
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e6/medgemma/mega_official/",
+      "acceptance": "每模型三方法各7458路径、418来源；重复ID=0；缺失ID=0；保留45627金标准自然节点总体；失败记录计入分母"
+    },
+    {
+      "id": "G05",
+      "unit": "lora_seed11_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/lr0.001_seed11",
+      "seed": 11,
+      "first_missing_uid_count": 2375,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lora_seed11_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lora_seed11_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/lora_seed11/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    },
+    {
+      "id": "G06",
+      "unit": "lora_seed22_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/lr0.001_seed22",
+      "seed": 22,
+      "first_missing_uid_count": 2373,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lora_seed22_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lora_seed22_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/lora_seed22/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    },
+    {
+      "id": "G07",
+      "unit": "lora_seed33_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/lr0.001_seed33",
+      "seed": 33,
+      "first_missing_uid_count": 2373,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lora_seed33_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lora_seed33_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/lora_seed33/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    },
+    {
+      "id": "G08",
+      "unit": "lofit_seed11_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.0001_seed11",
+      "seed": 11,
+      "first_missing_uid_count": 2373,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lofit_seed11_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lofit_seed11_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/lofit_seed11/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    },
+    {
+      "id": "G09",
+      "unit": "lofit_seed22_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.0001_seed22",
+      "seed": 22,
+      "first_missing_uid_count": 2373,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lofit_seed22_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lofit_seed22_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/lofit_seed22/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    },
+    {
+      "id": "G10",
+      "unit": "lofit_seed33_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.0001_seed33",
+      "seed": 33,
+      "first_missing_uid_count": 2373,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lofit_seed33_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_lofit_seed33_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/lofit_seed33/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    },
+    {
+      "id": "G11",
+      "unit": "loreft_seed11_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/loreft_e1/lr0.0001_seed11",
+      "seed": 11,
+      "first_missing_uid_count": 2373,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_loreft_seed11_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_loreft_seed11_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/loreft_seed11/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    },
+    {
+      "id": "G12",
+      "unit": "loreft_seed22_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/loreft_e1/lr0.0001_seed22",
+      "seed": 22,
+      "first_missing_uid_count": 2373,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_loreft_seed22_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_loreft_seed22_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/loreft_seed22/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    },
+    {
+      "id": "G13",
+      "unit": "loreft_seed33_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/loreft_e1/lr0.0001_seed33",
+      "seed": 33,
+      "first_missing_uid_count": 2374,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_loreft_seed33_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_loreft_seed33_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/loreft_seed33/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    },
+    {
+      "id": "G14",
+      "unit": "leace_pair_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/leace_pair",
+      "seed": null,
+      "first_missing_uid_count": 2373,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_leace_pair_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_leace_pair_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/leace_pair/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间",
+      "shared_worker_group": "e5_original_prefix_representation_methods",
+      "share_prompt_prefill_only": true,
+      "method_specific_scores_separate": true
+    },
+    {
+      "id": "G15",
+      "unit": "iti_style_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/iti_style",
+      "seed": null,
+      "first_missing_uid_count": 2376,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_iti_style_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_iti_style_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/iti_style/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间",
+      "shared_worker_group": "e5_original_prefix_representation_methods",
+      "share_prompt_prefill_only": true,
+      "method_specific_scores_separate": true
+    },
+    {
+      "id": "G16",
+      "unit": "sea_adaptation_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/sea_adaptation",
+      "seed": null,
+      "first_missing_uid_count": 2373,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_sea_adaptation_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_sea_adaptation_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "最终层原始残差，接冻结SEA算子",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/sea_adaptation/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间",
+      "shared_worker_group": "e5_original_prefix_representation_methods",
+      "share_prompt_prefill_only": true,
+      "method_specific_scores_separate": true
+    },
+    {
+      "id": "G17",
+      "unit": "strong_evidence_prompt_interference",
+      "state": "PARTIAL_CURRENT",
+      "model": "Qwen3-8B-IT",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "parameters": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/prompt_controls_e1/strong_evidence_prompt",
+      "seed": null,
+      "first_missing_uid_count": 2373,
+      "frontier_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_strong_evidence_prompt_first_missing.jsonl",
+      "candidate_manifest": "/home/gcx/aster-final-missing-audit-20261114/missing_ids/e5_strong_evidence_prompt_candidate_uids.jsonl",
+      "candidate_uid_upper_bound": 47739,
+      "load_backbone": "同卡同模型任务连续执行可复用已加载主干；冻结适配器按方法/种子切换",
+      "new_activation_required": "方法特定前向分数；不复用其他方法的修正分数",
+      "gpu_count": 1,
+      "vram_gib": [
+        18,
+        28
+      ],
+      "output": "reports/aster_final_gap_completion_20261114/e5/strong_evidence_prompt/",
+      "acceptance": "每方法/种子自然806、干扰2418、40来源；A/P2293与C/F40，F0另列；相对raw来源配对95%区间"
+    }
+  ],
+  "estimated_gpu_hours": [
+    32,
+    46
+  ],
+  "estimated_wall_hours_with_four_gpus": [
+    12,
+    18
+  ],
+  "estimated_cpu_wall_hours": [
+    1,
+    3
+  ],
+  "open_decision": "NLI500现有113临床试验/组合簇与NLI5500现有500原始声明簇：确认分别沿用并明确标注，或统一为临床试验/组合簇后再统计。",
+  "archive_after_execution": true,
+  "monitoring": "启动后确认稳定运行即停止持续监控；调度器写状态和完成标记。",
+  "representation_shared_prefill": {
+    "methods": [
+      "leace_pair",
+      "iti_style",
+      "sea_adaptation"
+    ],
+    "first_frontier_unique_inputs": 2385,
+    "first_frontier_method_score_requests": 7122,
+    "shared_stage": "One original-model prompt prefill per simultaneous UID request; separate method-specific final-token forwards.",
+    "reason": "Comparators.edited installs interventions after Engine.prepare. Engine.run copies the original prefix cache before each final-token forward.",
+    "other_methods": "Do not share adapter-modified or strong-prompt contexts across methods or seeds.",
+    "inspection_only": true,
+    "new_model_forwards": 0,
+    "source_files": [
+      {
+        "path": "/home/gcx/aster-e5-gaps-20261112/experiments/aster_cr/comparators.py",
+        "sha256": "ba718c561bb18d159c40131a8eaee01f34a87da2d686c8884ac84f73d69f8df4",
+        "size": 13028
+      },
+      {
+        "path": "/home/gcx/aster-e5-gaps-20261112/experiments/aster_cr/engine.py",
+        "sha256": "db5bbe78dc9be5630982cab41a5300fda3b1d9359723dc807275714f8bea1235",
+        "size": 1556
+      },
+      {
+        "path": "/home/gcx/aster-e5-gaps-20261112/experiments/m1_diagnostics/engine.py",
+        "sha256": "4136505fc3e255e62ace28a3527561529488ae4a4c79eb928b41e98b3a57f24a",
+        "size": 9968
+      },
+      {
+        "path": "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/e1_representation_baselines.py",
+        "sha256": "62e63bc089f78f950fc9805179047f3d8723f1c60ceb5ff030d4fe678866323d",
+        "size": 23312
+      }
+    ]
+  }
+}
