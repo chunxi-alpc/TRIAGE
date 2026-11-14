@@ -1151,7 +1151,7 @@ LoRA自然路径正确率为91.44%–96.03%，三个种子的均值和样本标�
 
 ### C.13 E6多模型官方MEGA与27B受控评价
 
-官方MEGA评价对每个模型计分7,458条动态路径和45,627个金标准自然节点，按418个来源簇统计。E6的Qwen、Gemma2、Gemma3和MedGemma官方补缺任务均完成；Llama官方结果沿用既有完整归档。执行队列46个单元完成、0个失败；最终验收记录每个方法均有7,458条唯一路径且执行错误为0。完整计数见[e6_official_summary.csv](../../reports/aster_final_gap_completion_20261114/e6_official_summary.csv)和[最终验收记录](../../reports/aster_final_gap_completion_20261114/final_acceptance.json)。
+官方MEGA评价对每个检查点计分7,458条动态路径和45,627个金标准自然节点，按418个来源簇统计。结果覆盖五个IT检查点和两个Base检查点：Qwen、Gemma2、Gemma3和MedGemma IT官方补缺任务完成，Llama IT沿用既有完整归档；Qwen Base与Gemma2 Base的完整路径结果来自Base/IT比较归档。执行队列46个单元完成、0个失败；最终验收记录本轮补缺的每个方法均有7,458条唯一路径且执行错误为0。IT结果见[e6_official_summary.csv](../../reports/aster_final_gap_completion_20261114/e6_official_summary.csv)，Base结果见[official_MEGA_7458.csv](../../reports/aster_completion_20261114/official_MEGA_7458.csv)，验收记录见[final_acceptance.json](../../reports/aster_final_gap_completion_20261114/final_acceptance.json)。
 
 受控来源评价包含六个检查点：Qwen Base、Gemma2 Base、Llama-3.1-8B-Instruct、Gemma-2-9B-IT，以及本轮补齐的Gemma-3-27B-IT和MedGemma-27B-Text-IT。各模型均使用40个既有来源、2,293对A/P、40对C/F、6对F0和806条自然路径。Gemma3的E1 A/P VR为7.59%、C/F ER为99.98%、C/F修正RMS为0.1189 logit；MedGemma分别为6.67%、99.35%和0.1075 logit。两模型均未观察到C/F方向退化或超预算配对，但自然路径正确数相对原模型分别减少12条和2条。四个既有检查点的逐项计数见[E6受控来源汇总](../../reports/aster_completion_20261114/E6_controlled_source_test.csv)；两款27B的原始统计见[e6/gemma3](../../reports/aster_final_gap_completion_20261114/e6/gemma3/)和[e6/medgemma](../../reports/aster_final_gap_completion_20261114/e6/medgemma/)。
 
