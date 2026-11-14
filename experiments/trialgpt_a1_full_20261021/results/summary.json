@@ -1,0 +1,292 @@
+{
+  "a1_prediction_rows": 1014,
+  "by_native_label": {
+    "excluded": {
+      "accuracy": 1.0,
+      "all_rows": 10,
+      "correct": 10,
+      "mapped_rows": 10
+    },
+    "included": {
+      "accuracy": 0.8533333333333334,
+      "all_rows": 150,
+      "correct": 128,
+      "mapped_rows": 150
+    },
+    "not applicable": {
+      "accuracy": null,
+      "all_rows": 55,
+      "correct": 0,
+      "mapped_rows": 0
+    },
+    "not enough information": {
+      "accuracy": 0.5767918088737202,
+      "all_rows": 293,
+      "correct": 169,
+      "mapped_rows": 293
+    },
+    "not excluded": {
+      "accuracy": 0.8202479338842975,
+      "all_rows": 484,
+      "correct": 397,
+      "mapped_rows": 484
+    },
+    "not included": {
+      "accuracy": 0.782608695652174,
+      "all_rows": 23,
+      "correct": 18,
+      "mapped_rows": 23
+    }
+  },
+  "dataset": "ncbi/TrialGPT-Criterion-Annotations",
+  "dataset_parquet_sha256": "14c547184fac9b013cd17441fd028845b40150c76b022e58334f5494077e5234",
+  "dataset_revision": "1cfcafde94a1560a33b4addc1638664fe28fc059",
+  "expert_native_labels": {
+    "excluded": 10,
+    "included": 150,
+    "not applicable": 55,
+    "not enough information": 293,
+    "not excluded": 484,
+    "not included": 23
+  },
+  "limitations": [
+    "Experts label trial inclusion/exclusion eligibility; mapped states are not literal rule truth labels.",
+    "Not applicable has no frozen A1 TFU equivalent and remains in the full denominator.",
+    "Frozen PR12 A1 prompt describes invented routing simulation; this is domain transfer.",
+    "One criterion per input differs from historical three-rule A1 prompts.",
+    "The 1015 rows reuse only 53 patient notes and 103 clinical trials.",
+    "One official empty criterion is retained as invalid_input, without a fabricated model request.",
+    "No training here does not establish absence of these data from base-model or adapter training.",
+    "Separate patient and trial cluster intervals do not jointly account for crossed clustering.",
+    "No score threshold or hyperparameter selected on expert labels."
+  ],
+  "mapped_population": 960,
+  "mapped_scoring": {
+    "accuracy": 0.7520833333333333,
+    "confusion": {
+      "F": {
+        "ERROR": 2,
+        "F": 415,
+        "T": 28,
+        "U": 62
+      },
+      "T": {
+        "ERROR": 1,
+        "F": 3,
+        "T": 138,
+        "U": 18
+      },
+      "U": {
+        "ERROR": 0,
+        "F": 84,
+        "T": 40,
+        "U": 169
+      }
+    },
+    "correct": 722,
+    "macro_f1": 0.733437075715052,
+    "per_class": {
+      "F": {
+        "f1": 0.8225966303270564,
+        "gold": 507,
+        "precision": 0.8266932270916335,
+        "predicted": 502,
+        "recall": 0.8185404339250493,
+        "true_positive": 415
+      },
+      "T": {
+        "f1": 0.7540983606557378,
+        "gold": 160,
+        "precision": 0.6699029126213593,
+        "predicted": 206,
+        "recall": 0.8625,
+        "true_positive": 138
+      },
+      "U": {
+        "f1": 0.6236162361623617,
+        "gold": 293,
+        "precision": 0.678714859437751,
+        "predicted": 249,
+        "recall": 0.5767918088737202,
+        "true_positive": 169
+      }
+    },
+    "total": 960
+  },
+  "mapping_coverage_of_all_rows": 0.9458128078817734,
+  "native_label_by_a1_state": {
+    "excluded": {
+      "ERROR": 0,
+      "F": 0,
+      "T": 10,
+      "U": 0
+    },
+    "included": {
+      "ERROR": 1,
+      "F": 3,
+      "T": 128,
+      "U": 18
+    },
+    "not applicable": {
+      "ERROR": 1,
+      "F": 47,
+      "T": 1,
+      "U": 6
+    },
+    "not enough information": {
+      "ERROR": 0,
+      "F": 84,
+      "T": 40,
+      "U": 169
+    },
+    "not excluded": {
+      "ERROR": 2,
+      "F": 397,
+      "T": 25,
+      "U": 60
+    },
+    "not included": {
+      "ERROR": 0,
+      "F": 18,
+      "T": 3,
+      "U": 2
+    }
+  },
+  "not_excluded_without_expert_evidence": {
+    "accuracy": 0.8142076502732241,
+    "confusion": {
+      "F": {
+        "ERROR": 2,
+        "F": 298,
+        "T": 15,
+        "U": 51
+      },
+      "T": {
+        "ERROR": 0,
+        "F": 0,
+        "T": 0,
+        "U": 0
+      },
+      "U": {
+        "ERROR": 0,
+        "F": 0,
+        "T": 0,
+        "U": 0
+      }
+    },
+    "correct": 298,
+    "macro_f1": 0.2991967871485944,
+    "per_class": {
+      "F": {
+        "f1": 0.8975903614457832,
+        "gold": 366,
+        "precision": 1.0,
+        "predicted": 298,
+        "recall": 0.8142076502732241,
+        "true_positive": 298
+      },
+      "T": {
+        "f1": 0.0,
+        "gold": 0,
+        "precision": 0.0,
+        "predicted": 15,
+        "recall": 0.0,
+        "true_positive": 0
+      },
+      "U": {
+        "f1": 0.0,
+        "gold": 0,
+        "precision": 0.0,
+        "predicted": 51,
+        "recall": 0.0,
+        "true_positive": 0
+      }
+    },
+    "total": 366
+  },
+  "official_rows_without_prediction": 1,
+  "outcomes": {
+    "invalid_input": 1,
+    "parse_failure": 3,
+    "valid": 1011
+  },
+  "parse_or_missing_error_count": 4,
+  "patient_cluster": {
+    "bootstrap": 10000,
+    "ci95": [
+      0.7249255213505462,
+      0.7788778877887789
+    ],
+    "clusters": 53,
+    "macro_f1_ci95": [
+      0.7030977585658107,
+      0.7623018814035228
+    ],
+    "method": "separate one-way cluster bootstrap; patient and trial intervals are not joint two-way intervals",
+    "seed": 20261021
+  },
+  "predictions_sha256": "042749ce3161661bdd409832dbda180ee0332f2f7f96c45150f5cb8b707e877c",
+  "status": "complete",
+  "strata": {
+    "criterion_type": {
+      "exclusion": {
+        "accuracy": 0.7553017944535073,
+        "all_rows": 659,
+        "correct": 463,
+        "mapped_rows": 613
+      },
+      "inclusion": {
+        "accuracy": 0.7463976945244957,
+        "all_rows": 356,
+        "correct": 259,
+        "mapped_rows": 347
+      }
+    },
+    "expert_evidence_present": {
+      "False": {
+        "accuracy": 0.7544169611307421,
+        "all_rows": 610,
+        "correct": 427,
+        "mapped_rows": 566
+      },
+      "True": {
+        "accuracy": 0.748730964467005,
+        "all_rows": 405,
+        "correct": 295,
+        "mapped_rows": 394
+      }
+    },
+    "training_flag": {
+      "False": {
+        "accuracy": 0.7045454545454546,
+        "all_rows": 134,
+        "correct": 93,
+        "mapped_rows": 132
+      },
+      "True": {
+        "accuracy": 0.7596618357487923,
+        "all_rows": 881,
+        "correct": 629,
+        "mapped_rows": 828
+      }
+    }
+  },
+  "total_official_rows": 1015,
+  "trial_cluster": {
+    "bootstrap": 10000,
+    "ci95": [
+      0.7247706422018348,
+      0.779317697228145
+    ],
+    "clusters": 103,
+    "macro_f1_ci95": [
+      0.7018989857358594,
+      0.7624922351969085
+    ],
+    "method": "separate one-way cluster bootstrap; patient and trial intervals are not joint two-way intervals",
+    "seed": 20261021
+  },
+  "unmapped_not_applicable": 55,
+  "unmapped_other": 0,
+  "valid_model_state": 1011
+}
