@@ -70,7 +70,7 @@ def reconcile():
                 changed.append(shard / 'status.json')
     all_e6 = all(x['calculation_complete'] for x in official.values())
     e5 = {}
-    for name in METHODS:
+    for name in ['CC', *METHODS]:
         done = (OUT / 'e5' / name / 'done.json').exists()
         if done:
             progress_path = OUT / 'e5' / name / 'status.json'
@@ -80,6 +80,8 @@ def reconcile():
                                 completion_record='done.json')
                 write(progress_path, progress)
                 changed.append(progress_path)
+        if name == 'CC':
+            continue
         e5[name] = dict(state='COMPLETE_CURRENT' if done else 'PARTIAL_CURRENT', natural_paths=806,
                         interference_complete=done, expected_interference_paths=2418,
                         output=str((OUT / 'e5' / name).relative_to(PROJECT)))
@@ -184,6 +186,7 @@ def reconcile():
     summary = ('更新时间：' + now + '。独立CPU任务C01–C07已全部完成；五个IT检查点的806条受控评价齐全。'
                + e6word + '；' + e5word + '。CC和11行配对区间、Qwen三项独立截距统计已完成。'
                + dependent_text + '\n\n'
+               '[完整结果与分析](../../reports/aster_final_gap_completion_20261114/REPORT.zh.md) · '
                '[CPU结果及验收](../../reports/aster_final_gap_completion_20261114/CPU_RESULTS.zh.md) · '
                '[执行状态](../../reports/aster_final_gap_completion_20261114/execution_status.json) · '
                '[第二轮审计](../../reports/aster_final_missing_experiments_audit_20261114/ASTER_FINAL_MISSING_EXPERIMENTS_AUDIT.md)。')
@@ -249,9 +252,12 @@ def reconcile():
                       '[CPU结果](CPU_RESULTS.zh.md)分别维护完成情况和实测数据。\n')
     changed.append(launch)
     index = PROJECT / 'docs/ASTER/final-gap-completion-20261114.zh.md'
-    index.write_text('# ASTER-CR 补实验产物\n\n[当前状态](experiments.zh.md) · '
-                     '[已完成CPU结果](../../reports/aster_final_gap_completion_20261114/CPU_RESULTS.zh.md) · '
-                     '[审计报告](../../reports/aster_final_missing_experiments_audit_20261114/ASTER_FINAL_MISSING_EXPERIMENTS_AUDIT.md)\n')
+    if all_e6 and all_e5:
+        index.write_text('# ASTER-CR 最小补实验结果\n\n当前E1补实验与全部CPU统计已完成，包含E6官方路径、E5干扰路径及E7独立截距统计。\n\n[完整结果、图表与分析](../../reports/aster_final_gap_completion_20261114/REPORT.zh.md) · [当前状态](experiments.zh.md) · [逐例验收](../../reports/aster_final_gap_completion_20261114/final_acceptance.json) · [CPU结果](../../reports/aster_final_gap_completion_20261114/CPU_RESULTS.zh.md)\n')
+    else:
+        index.write_text('# ASTER-CR 补实验产物\n\n[当前状态](experiments.zh.md) · '
+                         '[已完成CPU结果](../../reports/aster_final_gap_completion_20261114/CPU_RESULTS.zh.md) · '
+                         '[审计报告](../../reports/aster_final_missing_experiments_audit_20261114/ASTER_FINAL_MISSING_EXPERIMENTS_AUDIT.md)\n')
     changed.append(index)
     return list(dict.fromkeys(changed))
 

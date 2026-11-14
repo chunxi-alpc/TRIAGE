@@ -1,9 +1,9 @@
 # ASTER-CR 实验框架与进度
 
 <!-- ASTER-CURRENT-EXECUTION-START -->
-更新时间：2026-11-14T14:14:33+00:00。独立CPU任务C01–C07已全部完成；五个IT检查点的806条受控评价齐全。四个IT官方评价已完成；十三行干扰路径及接续统计已完成。CC和11行配对区间、Qwen三项独立截距统计已完成。C08/C09接续统计也已完成。
+更新时间：2026-11-14T14:18:01+00:00。独立CPU任务C01–C07已全部完成；五个IT检查点的806条受控评价齐全。四个IT官方评价已完成；十三行干扰路径及接续统计已完成。CC和11行配对区间、Qwen三项独立截距统计已完成。C08/C09接续统计也已完成。
 
-[CPU结果及验收](../../reports/aster_final_gap_completion_20261114/CPU_RESULTS.zh.md) · [执行状态](../../reports/aster_final_gap_completion_20261114/execution_status.json) · [第二轮审计](../../reports/aster_final_missing_experiments_audit_20261114/ASTER_FINAL_MISSING_EXPERIMENTS_AUDIT.md)。
+[完整结果与分析](../../reports/aster_final_gap_completion_20261114/REPORT.zh.md) · [CPU结果及验收](../../reports/aster_final_gap_completion_20261114/CPU_RESULTS.zh.md) · [执行状态](../../reports/aster_final_gap_completion_20261114/execution_status.json) · [第二轮审计](../../reports/aster_final_missing_experiments_audit_20261114/ASTER_FINAL_MISSING_EXPERIMENTS_AUDIT.md)。
 <!-- ASTER-CURRENT-EXECUTION-END -->
 
 > **本文件是当前论文实验的唯一管理入口。** 记录论文相关实验的研究目的、数据与模型设置、已完成结果、未完成任务、执行顺序和状态。历史方法路线及不再属于当前论文的实验不在此展开，统一见[历史资料索引](archive/README.md)。
