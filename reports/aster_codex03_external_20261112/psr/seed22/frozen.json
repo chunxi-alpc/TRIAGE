@@ -1,0 +1,78 @@
+{
+  "method": "PSR-MSE-E1-task-adapted",
+  "variant": "S-PSR_MSE",
+  "seed": 22,
+  "model": "Qwen3-8B",
+  "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "train_data": "E1 / Dataset A",
+  "train_pair_count": 2540,
+  "layer": 18,
+  "layer_numbering": "zero_based",
+  "rank": 1,
+  "batch_size": 1,
+  "epochs": 1,
+  "learning_rate": 0.001,
+  "weight_decay": 1e-06,
+  "optimizer": "AdamW",
+  "schedule": "linear_decay",
+  "native_objective": "prompt_steering_imitation",
+  "layers_to_imitate": "all",
+  "normalize_psi_loss": false,
+  "steering_location": "answer_only",
+  "location_activation_fn": "relu",
+  "use_location_bias": true,
+  "use_steering_coeff_bias": false,
+  "regularization_coefficient": 0.1,
+  "training_user_steering_coefficient": 1.0,
+  "official_repository": "https://github.com/Nokia-Bell-Labs/steer-like-the-llm",
+  "official_commit": "3d916c618d146c5d657f055e432a432b0fa493c6",
+  "official_components": [
+    "FocusedSteeringModule",
+    "mse_on_aligned_activations"
+  ],
+  "official_reference_config": "src/ase/experiment_utils/default_model_configs.py",
+  "teacher_system_prompt": "根据给定规则和病例，判断当前条件是否成立。只输出用户指定的答案标签。For English inputs, 是 means Yes and 否 means No.\nEvaluate only the current condition using the patient's decisive facts and the literal guideline condition. Do not let downstream actions, irrelevant background, or stylistic differences change the decision. Preserve sensitivity to changes in decisive facts or in the condition. Answer with the requested single Chinese yes/no label.",
+  "teacher_response": "Argmax of common FP32 yes/no scores; one-token constrained response.",
+  "teacher_success_filter": "Fit-only ground truth checks teacher response; retain correct teacher examples.",
+  "system_prompt": "根据给定规则和病例，判断当前条件是否成立。只输出用户指定的答案标签。For English inputs, 是 means Yes and 否 means No.",
+  "answer_labels": [
+    "是",
+    "否"
+  ],
+  "decision_rule": "ell > 0",
+  "position_alignment": "Official answer_only includes the final prompt token (position >= last_input_token_positions); training aligns final prompt plus teacher-response token.",
+  "implementation_differences": [
+    "Qwen3-8B and E1 correctness teacher instruction replace original trait/concept prompts; explicitly task-adapted.",
+    "Teacher responses are task-constrained single-token yes/no decisions; fit truth is used only for successful-teacher filtering.",
+    "Exact upstream Focused module and aligned MSE are imported directly without modifying official files.",
+    "For answer_only steering, unchanged causal prefixes are cached with the common Engine; only final prompt and response positions require a differentiable suffix.",
+    "Cache the frozen teacher's aligned two-position residuals at all layers, and reuse across random seeds.",
+    "Use the official unnormalized MSE option, the official default 0.1 regularization, and a fixed one-epoch budget.",
+    "Canonical Engine prefill/final-token inference and FP32 yes/no projection are retained."
+  ],
+  "smoke_only": false,
+  "torch_version": "2.8.0+cu128",
+  "selected_strength": 0.5,
+  "selection_metric": "mean dev binary negative log likelihood",
+  "selection_split": "dev",
+  "selection_candidates": [
+    {
+      "strength": 0.5,
+      "mean_binary_nll": 0.5983664471543547,
+      "unique_dev_inputs": 1685
+    },
+    {
+      "strength": 1.0,
+      "mean_binary_nll": 0.5983664471543547,
+      "unique_dev_inputs": 1685
+    },
+    {
+      "strength": 2.0,
+      "mean_binary_nll": 0.5983664471543547,
+      "unique_dev_inputs": 1685
+    }
+  ],
+  "selection_wall_seconds": 861.4377213149564,
+  "decision_threshold": 0.0,
+  "frozen_before_test": true
+}

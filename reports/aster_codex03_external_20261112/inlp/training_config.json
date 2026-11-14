@@ -1,0 +1,24 @@
+{
+  "classifier": "sklearn.linear_model.LogisticRegression",
+  "C": 1.0,
+  "solver": "lbfgs",
+  "class_weight": "balanced",
+  "max_iter": 1000,
+  "tol": 0.0001,
+  "num_classifiers": 8,
+  "min_accuracy": 0.0,
+  "is_autoregressive": true,
+  "by_class": false,
+  "dropout_rate": 0.0,
+  "input_dim": 4096,
+  "candidate_iterations": [
+    1,
+    4,
+    8
+  ],
+  "objective": "Iteratively fit a linear concept classifier and remove its row space",
+  "selection": "Maximize dev endpoint truth accuracy; tie-break by lower dev disposition-concept balanced accuracy, then fewer iterations",
+  "selection_scope": "All unique labeled dev pair-endpoint prompts, not test data",
+  "extra_AP_CF_loss": false,
+  "evidence_labels_used_in_erasure_training": false
+}

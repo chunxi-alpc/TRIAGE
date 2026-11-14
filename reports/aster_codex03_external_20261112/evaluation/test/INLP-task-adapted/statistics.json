@@ -1,0 +1,339 @@
+{
+  "method": "INLP-task-adapted",
+  "split": "test",
+  "complete": true,
+  "result_kind": "actual_experiment",
+  "evaluation_status": "computed",
+  "model": "Qwen3-8B",
+  "train_data": "E1 / Dataset A",
+  "train_pairs": 2540,
+  "unique_inputs": 20023,
+  "candidate_inputs": 66752,
+  "required_pair_inputs": 3100,
+  "unscored_path_inputs": 46729,
+  "pair_count": 2339,
+  "case_count": 806,
+  "path_count": 3224,
+  "source_count": 40,
+  "metrics": {
+    "ap_raw_rms": 2.628151983382305,
+    "ap_score_change_rms": 2.6284117071231257,
+    "ap_correction_rms": 0.028998919951678425,
+    "ap_paired_accuracy": 0.9847361535106847,
+    "ap_relation_accuracy": 0.9912778020061055,
+    "ap_vr": -0.000434847029034513,
+    "cf_raw_rms": 36.29733328873823,
+    "cf_score_change_rms": 36.30312884535403,
+    "cf_correction_rms": 0.024356713798740968,
+    "cf_paired_accuracy": 0.475,
+    "cf_relation_accuracy": 0.475,
+    "cf_er": 1.0001964507813685,
+    "cf_direction_degradation_rate": 0.0,
+    "cf_direction_degradation_count": 0.0,
+    "f0_raw_rms": 4.184726751718108,
+    "f0_score_change_rms": 4.200850739270079,
+    "f0_correction_rms": 0.01764374949498778,
+    "f0_paired_accuracy": 1.0,
+    "f0_relation_accuracy": 1.0,
+    "natural_path_accuracy": 0.9540942928039702,
+    "interference_path_accuracy": 0.967328370554177
+  },
+  "counts": {
+    "ap_pairs": 2293,
+    "ap_sources": 40,
+    "ap_paired_labeled_count": 2293,
+    "ap_paired_unlabeled_count": 0,
+    "cf_pairs": 40,
+    "cf_sources": 12,
+    "cf_paired_labeled_count": 40,
+    "cf_paired_unlabeled_count": 0,
+    "cf_direction_degradation_count": 0,
+    "cf_max_abs_correction": 0.07561492919921875,
+    "f0_pairs": 6,
+    "f0_sources": 2,
+    "f0_paired_labeled_count": 6,
+    "f0_paired_unlabeled_count": 0,
+    "natural_path_count": 806,
+    "natural_path_correct": 769,
+    "natural_path_raw_correct": 768,
+    "natural_path_corrected": 1,
+    "natural_path_new_errors": 0,
+    "interference_path_count": 2418,
+    "interference_path_correct": 2339,
+    "interference_path_raw_correct": 2339,
+    "interference_path_corrected": 0,
+    "interference_path_new_errors": 0
+  },
+  "costs": {
+    "parameter_count": 4096,
+    "trainable_parameter_count": 4096,
+    "stored_parameter_count": 4096,
+    "training_wall_seconds": 1072.302327776677,
+    "training_gpu_hours": 0.24503254190184331,
+    "training_peak_memory_gib": null,
+    "inference_wall_seconds": 3775.2246204927796,
+    "inference_gpu_hours": 1.0486735056924388,
+    "inference_forward_count": 40058,
+    "inference_peak_memory_gib": 16.400676250457764,
+    "inference_seconds_per_input": 0.1885444049589362
+  },
+  "intervals": {
+    "ap_raw_rms": {
+      "estimate": 2.628151983382305,
+      "low": 2.1800170003494608,
+      "high": 3.115761135021315,
+      "defined_draws": 2000
+    },
+    "ap_score_change_rms": {
+      "estimate": 2.6284117071231257,
+      "low": 2.1798808124404587,
+      "high": 3.1172824213086283,
+      "defined_draws": 2000
+    },
+    "ap_correction_rms": {
+      "estimate": 0.028998919951678425,
+      "low": 0.027470846722729984,
+      "high": 0.030634558406455126,
+      "defined_draws": 2000
+    },
+    "ap_paired_accuracy": {
+      "estimate": 0.9847361535106847,
+      "low": 0.9667257709387843,
+      "high": 0.9963688372549471,
+      "defined_draws": 2000
+    },
+    "ap_relation_accuracy": {
+      "estimate": 0.9912778020061055,
+      "low": 0.9800491157583624,
+      "high": 0.9984211799943383,
+      "defined_draws": 2000
+    },
+    "ap_vr": {
+      "estimate": -0.000434847029034513,
+      "low": -0.001394945751466803,
+      "high": 0.0007821668288546356,
+      "defined_draws": 2000
+    },
+    "cf_raw_rms": {
+      "estimate": 36.29733328873823,
+      "low": 19.02539421159817,
+      "high": 41.948557558482506,
+      "defined_draws": 2000
+    },
+    "cf_score_change_rms": {
+      "estimate": 36.30312884535403,
+      "low": 19.038985808116205,
+      "high": 41.951856981348016,
+      "defined_draws": 2000
+    },
+    "cf_correction_rms": {
+      "estimate": 0.024356713798740968,
+      "low": 0.01803956835661501,
+      "high": 0.03696037864745203,
+      "defined_draws": 2000
+    },
+    "cf_paired_accuracy": {
+      "estimate": 0.475,
+      "low": 0.14285714285714285,
+      "high": 0.6226668695475754,
+      "defined_draws": 2000
+    },
+    "cf_relation_accuracy": {
+      "estimate": 0.475,
+      "low": 0.14285714285714285,
+      "high": 0.6226668695475754,
+      "defined_draws": 2000
+    },
+    "cf_er": {
+      "estimate": 1.0001964507813685,
+      "low": 0.9999532814179602,
+      "high": 1.0012598357313203,
+      "defined_draws": 2000
+    },
+    "cf_direction_degradation_rate": {
+      "estimate": 0.0,
+      "low": 0.0,
+      "high": 0.0,
+      "defined_draws": 2000
+    },
+    "cf_direction_degradation_count": {
+      "estimate": 0.0,
+      "low": 0.0,
+      "high": 0.0,
+      "defined_draws": 2000
+    },
+    "f0_raw_rms": {
+      "estimate": 4.184726751718108,
+      "low": 3.921812350499858,
+      "high": 4.432072185846836,
+      "defined_draws": 1750
+    },
+    "f0_score_change_rms": {
+      "estimate": 4.200850739270079,
+      "low": 3.940270606475652,
+      "high": 4.446185040570841,
+      "defined_draws": 1750
+    },
+    "f0_correction_rms": {
+      "estimate": 0.01764374949498778,
+      "low": 0.015285330259760995,
+      "high": 0.01972213151091428,
+      "defined_draws": 1750
+    },
+    "f0_paired_accuracy": {
+      "estimate": 1.0,
+      "low": 1.0,
+      "high": 1.0,
+      "defined_draws": 1750
+    },
+    "f0_relation_accuracy": {
+      "estimate": 1.0,
+      "low": 1.0,
+      "high": 1.0,
+      "defined_draws": 1750
+    },
+    "natural_path_accuracy": {
+      "estimate": 0.9540942928039702,
+      "low": 0.934623565884456,
+      "high": 0.9719058506026791,
+      "defined_draws": 2000
+    },
+    "interference_path_accuracy": {
+      "estimate": 0.967328370554177,
+      "low": 0.9511893689268266,
+      "high": 0.9808373908847655,
+      "defined_draws": 2000
+    }
+  },
+  "metadata": {
+    "iterations": 1,
+    "erased_rank": 1,
+    "dev_node_accuracy": 0.9703264094955489,
+    "dev_concept_balanced_accuracy": 0.6893847753955378,
+    "dev_evidence_balanced_accuracy": 0.9597649741771567,
+    "official_projection_equivalence_max_abs_error": 1.1102230246251565e-16,
+    "parameter_count": 4096,
+    "projection": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/inlp/iterations_1/projection.npz",
+    "method": "INLP-task-adapted",
+    "selected_on": "dev",
+    "frozen_before_test": true,
+    "concept_definition": "Whether all leaf disposition/conclusion descriptions remain visible in the guideline. 0: at least one leaf is replaced by an existing deletion or neutral placeholder; 1: leaf descriptions contain none of those placeholders. Protected leaves may remain. Swapped substantive leaf descriptions still receive 1. This is disposition-text visibility, not a claim to label every form of interference.",
+    "train_unique_inputs": 4637,
+    "dev_unique_inputs": 1685,
+    "training_config": {
+      "classifier": "sklearn.linear_model.LogisticRegression",
+      "C": 1.0,
+      "solver": "lbfgs",
+      "class_weight": "balanced",
+      "max_iter": 1000,
+      "tol": 0.0001,
+      "num_classifiers": 8,
+      "min_accuracy": 0.0,
+      "is_autoregressive": true,
+      "by_class": false,
+      "dropout_rate": 0.0,
+      "input_dim": 4096,
+      "candidate_iterations": [
+        1,
+        4,
+        8
+      ],
+      "objective": "Iteratively fit a linear concept classifier and remove its row space",
+      "selection": "Maximize dev endpoint truth accuracy; tie-break by lower dev disposition-concept balanced accuracy, then fewer iterations",
+      "selection_scope": "All unique labeled dev pair-endpoint prompts, not test data",
+      "extra_AP_CF_loss": false,
+      "evidence_labels_used_in_erasure_training": false
+    },
+    "candidate_results": [
+      {
+        "iterations": 1,
+        "erased_rank": 1,
+        "dev_node_accuracy": 0.9703264094955489,
+        "dev_concept_balanced_accuracy": 0.6893847753955378,
+        "dev_evidence_balanced_accuracy": 0.9597649741771567,
+        "official_projection_equivalence_max_abs_error": 1.1102230246251565e-16,
+        "parameter_count": 4096,
+        "projection": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/inlp/iterations_1/projection.npz"
+      },
+      {
+        "iterations": 4,
+        "erased_rank": 4,
+        "dev_node_accuracy": 0.9703264094955489,
+        "dev_concept_balanced_accuracy": 0.8005444828190447,
+        "dev_evidence_balanced_accuracy": 0.9603866017571822,
+        "official_projection_equivalence_max_abs_error": 1.1102230246251565e-16,
+        "parameter_count": 16384,
+        "projection": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/inlp/iterations_4/projection.npz"
+      },
+      {
+        "iterations": 8,
+        "erased_rank": 8,
+        "dev_node_accuracy": 0.9703264094955489,
+        "dev_concept_balanced_accuracy": 0.7427958125837285,
+        "dev_evidence_balanced_accuracy": 0.9612874196311435,
+        "official_projection_equivalence_max_abs_error": 1.1102230246251565e-16,
+        "parameter_count": 32768,
+        "projection": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/inlp/iterations_8/projection.npz"
+      }
+    ],
+    "original_readout": "Fixed original Qwen3 RMSNorm and original FP32 yes/no output rows",
+    "official_commit": "e1edcc19d808108ab71cbb3afb0389db0206a7eb",
+    "official_repository": "https://github.com/shauli-ravfogel/nullspace_projection",
+    "deterministic": true,
+    "training_wall_seconds": 1072.302327776677,
+    "direct_cpu_training_wall_seconds": 190.18517693004105,
+    "shared_original_feature_seconds": 882.1171508466359,
+    "shared_original_feature_inputs": 4637,
+    "training_cpu_seconds": 1696.357374624,
+    "erasure_fit_seconds": 136.32364153902745,
+    "direct_fit_gpu_hours": 0.0,
+    "training_gpu_hours": 0.24503254190184331,
+    "training_cost_scope": "CPU erasure fitting/probes/dev selection plus measured original-prompt feature extraction when available. Original features are shared with CAA; this accounting charges their measured extraction cost once to an independent INLP run. No CAA target-completion work is charged to INLP.",
+    "trainable_parameter_count": 4096,
+    "stored_parameter_count": 4096,
+    "frozen_backbone_parameters_trained": 0,
+    "implementation_differences": [
+      "Author src/debias.py and src/classifier.py unchanged; isolated import namespace",
+      "New text-defined disposition visibility labels and E1 unique-prompt data adapter",
+      "Deterministic supported logistic classifier; no pairwise task loss",
+      "Fixed final-prompt-token residual location and fixed original RMSNorm/head",
+      "Exact low-rank basis storage with author dense projection retained"
+    ],
+    "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+    "run_method": "INLP-task-adapted",
+    "layer": 35,
+    "position": "last_prompt_token",
+    "strength": 1.0,
+    "official_code_version": "e1edcc19d808108ab71cbb3afb0389db0206a7eb",
+    "readout_protocol": "Fixed original Qwen3 RMSNorm and original output rows",
+    "split": "test",
+    "execution_kind": "model_inference",
+    "actual_experiment_results": true,
+    "inference_wall_seconds": 3775.2246204927796,
+    "inference_forward_count": 40058,
+    "inference_peak_memory_gib": 16.400676250457764,
+    "inference_input_count": 20023,
+    "inference_token_count": 35265136,
+    "candidate_input_count": 66752,
+    "pair_view_records": 3100,
+    "path_count": 3224,
+    "path_visited_node_count": 19937,
+    "new_inputs_this_call": 20023,
+    "collection_wall_seconds_this_call": 3776.7479324460146,
+    "scoring_policy": "All pair views plus all dynamically visited natural/interference path nodes; no gold labels used to choose nodes.",
+    "timing_scope": "Prompt lookup and scorer callback only; model loading and training are excluded. Cached validation has no model inference cost.",
+    "scores_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/inlp/test/scores.jsonl",
+    "traversed_paths_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/inlp/test/scores.traversed_paths.jsonl",
+    "inference_gpu_hours": 1.0486735056924388,
+    "physical_gpu_visibility": "6"
+  },
+  "scores_path": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/inlp/test/scores.jsonl",
+  "raw_cache": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+  "bootstrap_draws": 2000,
+  "decision_rule": "ell > 0",
+  "metric_units": "accuracy, VR and ER are fractions; RMS is in logit units",
+  "test_history": "Frozen historical evaluation scope; previously evaluated, not newly unseen",
+  "missing_cost_fields": [
+    "training_peak_memory_gib"
+  ]
+}

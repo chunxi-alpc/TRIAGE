@@ -1,0 +1,99 @@
+{
+  "status": "prepared_only",
+  "actual_experiment_results": false,
+  "training": "E1 / Dataset A, 2,540 pairs from 80 fit sources",
+  "source_data_version": "20261111-sol-agents-v2",
+  "source_paths": {
+    "complete_e1": "/home/gcx/aster_cr_pair_dataset_20261111/balanced_train.jsonl",
+    "metadata": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/data",
+    "path_cases": "/home/gcx/aster_cr_repair_v2_run_20261108/data/path_cases.jsonl",
+    "source_splits": "/home/gcx/aster_cr_pair_dataset_20261111/source_splits.json"
+  },
+  "evaluation_scope": "Historical 20-source development and 40-source controlled test; not official 7,458-case test",
+  "evaluation_history": "The historical evaluation sets were previously used; this preparation does not make them new blind data",
+  "training_rule": "Use fit data for fitting and dev for choices; freeze all choices before test scoring",
+  "f0_policy": "Keep F0 diagnostics separate from A/P and C/F",
+  "fit_path_policy": "No path evaluation exported for fitting; fit contains all requested E1 pairs",
+  "checks": "Existing counts, source membership/disjointness, endpoint joins and three prompt lookups; no hashes or repeated data review",
+  "splits": {
+    "fit": {
+      "source_count": 80,
+      "pair_count": 2540,
+      "pair_kinds": {
+        "A": 635,
+        "P": 635,
+        "C": 635,
+        "F": 635
+      },
+      "ap_pairs": 1270,
+      "cf_pairs": 1270,
+      "f0_pairs": 0,
+      "endpoint_records": 5080,
+      "unique_pair_input_uids": 4637,
+      "cases": 0,
+      "path_node_records": 0,
+      "path_node_variants": {},
+      "natural_paths": 0,
+      "interference_paths": 0,
+      "unique_scoring_uids": 4637,
+      "sample_input_lookup": "passed"
+    },
+    "dev": {
+      "source_count": 20,
+      "pair_count": 1287,
+      "pair_kinds": {
+        "A": 1194,
+        "F0": 29,
+        "F": 31,
+        "C": 29,
+        "P": 4
+      },
+      "ap_pairs": 1198,
+      "cf_pairs": 60,
+      "f0_pairs": 29,
+      "endpoint_records": 1685,
+      "unique_pair_input_uids": 1685,
+      "cases": 420,
+      "path_node_records": 33248,
+      "path_node_variants": {
+        "original": 8312,
+        "action_presence": 8312,
+        "action_neutral": 8312,
+        "action_swap": 8312
+      },
+      "natural_paths": 420,
+      "interference_paths": 1260,
+      "unique_scoring_uids": 33341,
+      "sample_input_lookup": "passed"
+    },
+    "test": {
+      "source_count": 40,
+      "pair_count": 2339,
+      "pair_kinds": {
+        "A": 2283,
+        "P": 10,
+        "F0": 6,
+        "F": 7,
+        "C": 33
+      },
+      "ap_pairs": 2293,
+      "cf_pairs": 40,
+      "f0_pairs": 6,
+      "endpoint_records": 3100,
+      "unique_pair_input_uids": 3100,
+      "cases": 806,
+      "path_node_records": 66696,
+      "path_node_variants": {
+        "original": 16674,
+        "action_presence": 16674,
+        "action_neutral": 16674,
+        "action_swap": 16674
+      },
+      "natural_paths": 806,
+      "interference_paths": 2418,
+      "unique_scoring_uids": 66752,
+      "sample_input_lookup": "passed"
+    }
+  },
+  "seconds": 2.906536111026071
+}

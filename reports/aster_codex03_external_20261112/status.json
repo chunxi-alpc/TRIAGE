@@ -1,0 +1,191 @@
+{
+  "task": "Codex 03: ASTER-CR recent external methods",
+  "date": "2026-11-12",
+  "status": "experiments_complete",
+  "experiments_started": true,
+  "completed_new_methods": [
+    "CAA-E1-task-adapted",
+    "DoRA-E1-SFT",
+    "INLP-task-adapted",
+    "PSR-MSE-E1-task-adapted",
+    "RePS-E1-task-adapted"
+  ],
+  "prerequisite": {
+    "required": "Codex 01 official implementation and compatibility audit",
+    "audit_location": "docs/ASTER/baseline-compatibility-audit.zh.md at origin/codex/aster-codex00-01-audit-20261112",
+    "checked_remote_branch": "codex/aster-codex00-01-audit-20261112",
+    "checked_revision": "742dcb2598631ac20c1ae2f72c85a2dff20cb16b",
+    "finding": "Static audit read; local E1 interfaces and real-model smoke tests for DoRA, RePS, CAA completed. INLP and PSR smoke precede their full evaluation/training in the queue."
+  },
+  "model": "Qwen3-8B",
+  "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "environment": "/home/gcx/gcx261014",
+  "allowed_gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "training": {
+    "dataset": "E1 / Dataset A",
+    "version": "20261111-sol-agents-v2",
+    "pairs": 2540,
+    "kind_counts": {
+      "A": 635,
+      "P": 635,
+      "C": 635,
+      "F": 635
+    },
+    "file": "/home/gcx/aster_cr_pair_dataset_20261111/balanced_train.jsonl",
+    "source_splits": "/home/gcx/aster_cr_pair_dataset_20261111/source_splits.json",
+    "fit_sources": 80,
+    "dev_sources": 20,
+    "test_sources": 40
+  },
+  "prepared_data_root": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+  "evaluation": {
+    "scope": "Section 4.5 controlled MEGA-CDP holdout",
+    "dev": {
+      "ap_pairs": 1198,
+      "cf_pairs": 60,
+      "natural_paths": 420,
+      "interference_paths": 1260
+    },
+    "test": {
+      "ap_pairs": 2293,
+      "cf_pairs": 40,
+      "natural_paths": 806,
+      "interference_paths": 2418
+    },
+    "official_7458_paths": "Separate scope; not interchangeable with Section 4.5 controlled holdout."
+  },
+  "priorities": {
+    "representation": [
+      "RePS",
+      "PSR",
+      "CAA"
+    ],
+    "erasure_choose_one": [
+      "INLP",
+      "R-LACE",
+      "KRaM",
+      "Obliviator"
+    ],
+    "peft_choose_one": [
+      "DoRA",
+      "FourierFT"
+    ],
+    "optional": [
+      "CAST"
+    ]
+  },
+  "excluded_existing_methods": [
+    "ITI",
+    "SEA",
+    "LEACE",
+    "LoRA"
+  ],
+  "metric_fields": [
+    "ap_rms",
+    "ap_vr",
+    "cf_er",
+    "cf_correction_rms",
+    "cf_both_correct",
+    "natural_path_accuracy",
+    "interference_path_accuracy",
+    "corrections",
+    "new_errors",
+    "parameter_count",
+    "training_cost",
+    "inference_cost"
+  ],
+  "selection_rule": "Use fit/dev only; freeze layers, ranks, directions, strengths, thresholds before test.",
+  "adaptation_rule": "Keep original optimization objectives; label added A/P or C/F supervision as task adaptation.",
+  "result_files": [
+    "section4_5_new_methods.csv",
+    "section4_5_method_summary.csv"
+  ],
+  "manuscript_modified": false,
+  "preparation_complete": true,
+  "upstream_status": "Codex00/01 static audit published and read at f8796e8",
+  "preparation_artifacts": [
+    "experiments/aster_codex03_external_20261112/data.py",
+    "experiments/aster_codex03_external_20261112/inference.py",
+    "experiments/aster_codex03_external_20261112/evaluate.py",
+    "experiments/aster_codex03_external_20261112/README.md",
+    "reports/aster_codex03_external_20261112/prepared/summary.json",
+    "reports/aster_codex03_external_20261112/prepared/token_lengths.json",
+    "reports/aster_codex03_external_20261112/validation/evaluation_checks.json",
+    "reports/aster_codex03_external_20261112/validation/resume_check.json",
+    "reports/aster_codex03_external_20261112/official_sources.json"
+  ],
+  "cpu_validation": {
+    "evaluation_checks_passed": 5,
+    "resume_passed": true,
+    "model_runs": 0,
+    "gpu_runs": 0,
+    "dev_dynamic_inputs": 10093,
+    "dev_candidate_inputs": 33341,
+    "dev_paths": 1680
+  },
+  "official_source_preparation": "reports/aster_codex03_external_20261112/official_sources.json",
+  "official_sources_ready_for_audit": true,
+  "resource_coordination": {
+    "reported_by": "Codex02",
+    "reported_running_method": "LoReFT E1",
+    "reported_gpus": [
+      0,
+      1
+    ],
+    "controller_status": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/loreft_e1/controller_status.json",
+    "codex03_gpu_jobs": 2,
+    "note": "Coordination message only; no continuous monitoring. Check availability before any future Codex03 launch."
+  },
+  "assigned_gpus": [],
+  "audit_copies": "reports/aster_codex03_external_20261112/upstream_audit",
+  "resource_plan": {
+    "gpu5": "DoRA seeds 11/22/33",
+    "gpu6": "CAA shared feature extraction, INLP fit, RePS seeds 11/22/33, CAA and INLP evaluation, PSR smoke then seeds 11/22/33",
+    "estimated_memory_gib_per_gpu": [
+      25,
+      55
+    ],
+    "estimated_initial_batch_hours": [
+      8,
+      16
+    ],
+    "stop_continuous_monitoring_after_stable": true
+  },
+  "completed_new_method_runs": [
+    "CAA-E1-task-adapted",
+    "DoRA-E1-SFT-seed11",
+    "DoRA-E1-SFT-seed22",
+    "DoRA-E1-SFT-seed33",
+    "INLP-task-adapted",
+    "PSR-MSE-E1-task-adapted-seed11",
+    "PSR-MSE-E1-task-adapted-seed22",
+    "PSR-MSE-E1-task-adapted-seed33",
+    "RePS-E1-task-adapted-seed11",
+    "RePS-E1-task-adapted-seed22",
+    "RePS-E1-task-adapted-seed33"
+  ],
+  "controllers": {
+    "gpu6": {
+      "stage": "complete",
+      "current": null
+    },
+    "gpu5": {
+      "stage": "complete",
+      "current": null
+    }
+  },
+  "available_result_methods": [
+    "CAA-E1-task-adapted",
+    "DoRA-E1-SFT",
+    "INLP-task-adapted",
+    "PSR-MSE-E1-task-adapted",
+    "RePS-E1-task-adapted"
+  ],
+  "scheduler": "shared_dynamic_queue",
+  "scheduler_manifest": "/home/gcx/aster-gpu-queue-20261113/codex03_jobs.json"
+}

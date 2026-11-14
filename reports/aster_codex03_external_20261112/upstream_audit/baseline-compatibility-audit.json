@@ -1,0 +1,616 @@
+{
+  "schema_version": 1,
+  "audit_metadata": {
+    "audit_date": "2026-11-12",
+    "repository": "chunxi-alpc/TRIAGE",
+    "audited_main_commit": "742dcb2598631ac20c1ae2f72c85a2dff20cb16b",
+    "working_branch": "codex/aster-codex00-01-audit-20261112",
+    "branch_base_commit": "742dcb2598631ac20c1ae2f72c85a2dff20cb16b",
+    "audit_type": "static repository, code-path, configuration, and official-source audit",
+    "runtime_execution": false,
+    "gpu_experiments_started": false,
+    "server_process_inventory_checked": false,
+    "limitation": "GitHub connector access was available; no SSH or remote shell action was available in this conversation. GPU occupancy, server-local files, installed packages, and live jobs remain unverified."
+  },
+  "frozen_protocol": {
+    "primary_model": "Qwen3-8B",
+    "primary_training_configuration": "E1 / Dataset A",
+    "primary_training_pairs": 2540,
+    "pair_counts": {
+      "A": 635,
+      "P": 635,
+      "C": 635,
+      "F": 635
+    },
+    "training_data_source": "MEGA-CDP only",
+    "fit_sources": 80,
+    "development_sources": 20,
+    "historical_controlled_holdout_sources": 40,
+    "source_cross_validation": {
+      "folds": 5,
+      "fit_sources_per_fold": 64,
+      "validation_sources_per_fold": 16
+    },
+    "ablations": {
+      "E2": "Dataset B, 6,345 MEGA-CDP pairs, class/source-balanced weights",
+      "E3": "Dataset B, 6,345 MEGA-CDP pairs, natural sample weights"
+    },
+    "transfer_evaluations": {
+      "NLI4CT": "5,500 official test statements; target labels must not be used for fitting or selection",
+      "MedPIC": "467 official questions; only the pre-specified 93-question development set may be used for M4 calibration"
+    },
+    "historical_comparison_boundary": "The existing 806-path controlled comparison (2,293 A/P pairs and 40 C/F pairs) is historical. It must not be relabelled as a new E1 result or substituted for the official 7,458-path MEGA evaluation."
+  },
+  "repository_findings": [
+    {
+      "id": "F01",
+      "severity": "blocking",
+      "finding": "The ASTER-CR baseline code defaults to the older repair-v2 run directory.",
+      "evidence": [
+        "experiments/aster_cr/common.py: ROOT defaults to /home/gcx/aster_cr_20261108",
+        "configs/aster_cr_training_default.json: E1 data and model artifacts use the 20261111 reports and server-only balanced_train.jsonl"
+      ],
+      "required_action": "Create a new, isolated E1 baseline run root and export E1-compatible fit/dev/test views, pairs, path cases, score caches, and manifests. Do not point the new run at old repair-v2 caches."
+    },
+    {
+      "id": "F02",
+      "severity": "blocking",
+      "finding": "The current comparator code mixes external methods, custom controls, and ASTER-internal variants.",
+      "evidence": [
+        "experiments/aster_cr/comparators.py: closed_form, LEACE, ITI, SEA, CAD, reference_fusion, prompt-template variants, legacy_m3",
+        "experiments/aster_cr/baselines.py: LoReFT, LoFiT, LoRA, last_layer"
+      ],
+      "required_action": "Keep closed_form, legacy_m3, and last_layer out of the external-baseline table. Report them only as internal controls or ablations. Treat reference_fusion as a custom supervised score-fusion control, not as CC or BC."
+    },
+    {
+      "id": "F03",
+      "severity": "high",
+      "finding": "The current prompt-template selector is not a strong evidence-filtering prompt baseline.",
+      "evidence": [
+        "experiments/aster_cr/comparators.py: format_prompt and best_template evaluate answer order/verbalizer/task-wording variants"
+      ],
+      "required_action": "Add a pre-specified evidence-focused prompt that retains the complete guideline and patient input. Select any prompt variant on development sources only. Describe current best_template as prompt/verbalizer-format selection."
+    },
+    {
+      "id": "F04",
+      "severity": "high",
+      "finding": "CAD is implemented as a contrastive score baseline, but its context definition must be stated precisely.",
+      "evidence": [
+        "experiments/aster_cr/comparators.py: CAD = 3 * full - 2 * reference, corresponding to alpha=2",
+        "reference() preserves the patient text, current node, and current condition while removing the full guideline tree and definitions"
+      ],
+      "required_action": "Keep CAD under context-aware contrastive decoding, not generic calibration. Document the reference as a guideline-tree/definition ablation, count the extra forward, and re-evaluate under E1. Do not call the reference prompt context-free without qualification."
+    },
+    {
+      "id": "F05",
+      "severity": "high",
+      "finding": "Contextual Calibration and Batch Calibration are not implemented by the current reference_fusion code.",
+      "evidence": [
+        "experiments/aster_cr/comparators.py: reference_fusion is LogisticRegression over full and reference scores, fitted with task labels",
+        "No CC or BC implementation was found in the tracked ASTER-CR code"
+      ],
+      "required_action": "Implement CC separately using its content-free calibration procedure. Treat BC as a transductive batch-level setting and report it separately from the per-instance inductive main comparison."
+    },
+    {
+      "id": "F06",
+      "severity": "high",
+      "finding": "LEACE and ITI are local task adaptations, not verified drop-in reproductions of the official implementations.",
+      "evidence": [
+        "experiments/aster_closed_form/operators.py: local LEACE factors and pair-type/side concept coding",
+        "experiments/aster_cr/comparators.py: local ITI direction extraction from correct/incorrect answer completions and fit-source head ranking"
+      ],
+      "required_action": "Validate the local LEACE transform against EleutherAI/concept-erasure on synthetic and held-out representations. Document the exact concept coding. Document ITI as an E1 task adaptation and verify its head selection, direction, layer, and intervention strength against the paper."
+    },
+    {
+      "id": "F07",
+      "severity": "high",
+      "finding": "LoFiT in the local baseline code is an architecture-adapted implementation, not the official code path.",
+      "evidence": [
+        "experiments/aster_cr/baselines.py: custom attention o_proj hooks, learned per-coordinate scaling and selected-head offsets, binary BCE training",
+        "fc2869/lo-fit README: official implementation customizes Llama-2 and Gemma-7B model classes and uses task-specific DPO/SFT trainers"
+      ],
+      "required_action": "Call the local result LoFiT-style/task-adapted unless an equivalence audit is completed. Compare its head-selection and offset stages with the official algorithm; record the changed task loss and model hooks."
+    },
+    {
+      "id": "F08",
+      "severity": "blocking",
+      "finding": "LoReFT depends on pyreft, but pyreft is absent from the tracked environment lock and requirements file.",
+      "evidence": [
+        "experiments/aster_cr/baselines.py: from pyreft import LoreftIntervention",
+        "configs/environment.lock.txt: peft is pinned but pyreft is not listed",
+        "requirements-aster-manuscript.txt: only torch and transformers are declared",
+        "docs/ASTER/experiments.zh.md: historical LoReFT cache matched the original model"
+      ],
+      "required_action": "Install and pin pyreft in an isolated or explicitly extended environment, then prove non-zero intervention/logit change on a real Qwen3-8B checkpoint. A tiny random-model unit test is not sufficient."
+    },
+    {
+      "id": "F09",
+      "severity": "high",
+      "finding": "LoRA is implemented through PEFT, but current code targets one middle-layer q_proj and has no verified E1 real-checkpoint result in this audit.",
+      "evidence": [
+        "experiments/aster_cr/baselines.py: target_modules is model.layers.{middle}.self_attn.q_proj",
+        "configs/environment.lock.txt: peft==0.21.2",
+        "experiments/aster_cr/test_models.py: tiny Qwen adapter gradient/cache-replay test exists"
+      ],
+      "required_action": "Retain the single-module setting only as an explicitly parameter-matched PEFT control, verify adapter activation and exact trainable parameter count on real Qwen3-8B, and compare with a pre-registered broader target-module setting only if the search budget permits."
+    },
+    {
+      "id": "F10",
+      "severity": "high",
+      "finding": "The baseline run seed and GPU defaults differ from the current experiment execution contract.",
+      "evidence": [
+        "experiments/aster_cr/common.py: SEED=20261108 and default GPUS=0,1",
+        "docs/ASTER/experiments.zh.md: stochastic baselines are expected to use seeds 11,22,33",
+        "docs/ASTER/server-execution-task.zh.md: only physical GPUs 0,1,5,6 are permitted"
+      ],
+      "required_action": "Keep the frozen E1 data-selection seed unchanged. For stochastic external baselines, add explicit seed arguments and run 11,22,33. Set ASTER_CR_GPUS=0,1,5,6 only after checking server occupancy; never assume all four are free."
+    },
+    {
+      "id": "F11",
+      "severity": "high",
+      "finding": "The model revision is not immutably pinned in the tracked Qwen3-8B manifest.",
+      "evidence": [
+        "configs/models.json: Qwen3-8B revision is master and file_revisions is empty",
+        "configs/qwen3_8b_modelscope_manifest.json: Revision and Sha256 fields are null"
+      ],
+      "required_action": "On the server, record the actual local model snapshot revision and tokenizer/config identity before any new run. Do not invent a revision or substitute a moving master reference."
+    },
+    {
+      "id": "F12",
+      "severity": "medium",
+      "finding": "The minimal ASTER manuscript requirements omit optional baseline dependencies.",
+      "evidence": [
+        "requirements-aster-manuscript.txt: torch and transformers only",
+        "configs/environment.lock.txt: includes PEFT, scikit-learn, numpy, torch, transformers; does not include pyreft"
+      ],
+      "required_action": "Maintain method-specific optional requirements or isolated environments. Do not upgrade the shared main environment to satisfy legacy or incompatible baseline repositories."
+    },
+    {
+      "id": "F13",
+      "severity": "medium",
+      "finding": "SEA is referenced by the comparator code but is not CAST or CAA and its source is not tracked in the repository tree.",
+      "evidence": [
+        "experiments/aster_cr/comparators.py: reads ROOT/vendor/sea/src/decoding_algorithm/inference.py",
+        "The current tracked Git tree contains no vendor/ directory"
+      ],
+      "required_action": "Keep SEA separately named and supplementary. Verify the server-side source and revision before use. Do not relabel SEA as CAST."
+    },
+    {
+      "id": "F14",
+      "severity": "medium",
+      "finding": "configs/baselines.json is a registry for other TRIAGE workflows, not the ASTER-CR baseline registry.",
+      "evidence": [
+        "configs/baselines.json: ProbeRAG, SEKA, JUICE, TrialGPT entries"
+      ],
+      "required_action": "Do not import these entries into the ASTER-CR main comparison without a separate task-equivalence justification."
+    },
+    {
+      "id": "F15",
+      "severity": "medium",
+      "finding": "The name LEOPARD from earlier brainstorming was not verified against an authoritative paper and official implementation during this audit.",
+      "evidence": [
+        "No authoritative LEOPARD concept-erasure paper/repository was established in the checked sources"
+      ],
+      "required_action": "Do not schedule LEOPARD as a baseline until its exact title, authors, venue, method, and official code are verified."
+    }
+  ],
+  "baseline_methods": [
+    {
+      "id": "temperature_scaling",
+      "category": "output_calibration",
+      "representative_work": "On Calibration of Modern Neural Networks",
+      "year": 2017,
+      "paper_url": "https://proceedings.mlr.press/v70/guo17a.html",
+      "official_code_url": null,
+      "local_status": "implemented",
+      "local_paths": [
+        "experiments/aster_cr/readout.py"
+      ],
+      "protocol_note": "Positive scalar scaling preserves the sign of a binary logit under a zero threshold. Report calibration metrics (Brier, log loss, ECE) and do not expect path accuracy to change solely from temperature scaling.",
+      "priority": "P0",
+      "main_table_role": "calibration control"
+    },
+    {
+      "id": "contextual_calibration",
+      "category": "output_calibration",
+      "representative_work": "Calibrate Before Use: Improving Few-shot Performance of Language Models",
+      "year": 2021,
+      "paper_url": "https://proceedings.mlr.press/v139/zhao21c.html",
+      "official_code_url": null,
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Implement content-free calibration with the same prompt/verbalizers; do not substitute the current supervised reference_fusion model.",
+      "priority": "P1",
+      "main_table_role": "candidate after faithful task adaptation"
+    },
+    {
+      "id": "batch_calibration",
+      "category": "output_calibration",
+      "representative_work": "Batch Calibration: Rethinking Calibration for In-Context Learning and Prompt Engineering",
+      "year": 2024,
+      "paper_url": "https://research.google/pubs/batch-calibration-rethinking-calibration-for-in-context-learning-and-prompt-engineering/",
+      "official_code_url": null,
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Batch-level, transductive calibration; separate from the per-instance inductive main table unless the evaluation protocol explicitly permits unlabeled test-batch statistics.",
+      "priority": "P2",
+      "main_table_role": "supplementary transductive analysis"
+    },
+    {
+      "id": "cad",
+      "category": "context_aware_contrastive_decoding",
+      "representative_work": "Trusting Your Evidence: Hallucinate Less with Context-aware Decoding",
+      "year": 2024,
+      "paper_url": "https://aclanthology.org/2024.naacl-short.69/",
+      "official_code_url": "https://github.com/xhan77/context-aware-decoding",
+      "local_status": "implemented_historical_adaptation",
+      "local_paths": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "protocol_note": "Current formula uses alpha=2 and two score paths. The reference keeps patient/current condition but removes the full guideline tree and definitions. Re-run under E1 and explicitly name this reference ablation.",
+      "priority": "P0",
+      "main_table_role": "context-aware decoding baseline"
+    },
+    {
+      "id": "strong_evidence_prompt",
+      "category": "prompting",
+      "representative_work": "Task-specific evidence-focused instruction baseline",
+      "year": null,
+      "paper_url": null,
+      "official_code_url": null,
+      "local_status": "not_implemented_as_a_distinct_baseline",
+      "local_paths": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "protocol_note": "Existing best_template selects answer order/verbalizer/wording variants; it is not yet a dedicated instruction that asks the model to use decisive evidence and ignore irrelevant context while preserving all input.",
+      "priority": "P0",
+      "main_table_role": "prompting baseline"
+    },
+    {
+      "id": "supervised_linear_readout",
+      "category": "supervised_readout",
+      "representative_work": "Linear probing / supervised linear readout",
+      "year": 2016,
+      "paper_url": "https://arxiv.org/abs/1611.01491",
+      "official_code_url": null,
+      "local_status": "implemented",
+      "local_paths": [
+        "experiments/aster_cr/readout.py",
+        "experiments/aster_cr/pipeline.py"
+      ],
+      "protocol_note": "Current code contains ordinary/readout candidates. Verify the feature set and training split are E1-compatible before using the result.",
+      "priority": "P0",
+      "main_table_role": "supervised control"
+    },
+    {
+      "id": "leace",
+      "category": "concept_erasure_linear",
+      "representative_work": "LEACE: Perfect Linear Concept Erasure in Closed Form",
+      "year": 2023,
+      "paper_url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/d066d21c619d0a78c5b557fa3291a8f4-Abstract-Conference.html",
+      "official_code_url": "https://github.com/EleutherAI/concept-erasure",
+      "local_status": "implemented_local_adaptation_historical",
+      "local_paths": [
+        "experiments/aster_closed_form/operators.py",
+        "experiments/aster_cr/comparators.py"
+      ],
+      "protocol_note": "Local LEACE factors use pair-type/subtype and side coding. Validate against the official package; keep fixed original readout and re-trained readout as separate protocols.",
+      "priority": "P0",
+      "main_table_role": "linear concept-erasure baseline"
+    },
+    {
+      "id": "inlp",
+      "category": "concept_erasure_linear",
+      "representative_work": "Null It Out: Guarding Protected Attributes by Iterative Nullspace Projection",
+      "year": 2020,
+      "paper_url": "https://aclanthology.org/2020.acl-main.647/",
+      "official_code_url": "https://github.com/shauli-ravfogel/nullspace_projection",
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Requires a precise nuisance-concept definition and repeated fit-only probes/projections. Report both fixed-readout and re-trained-readout variants.",
+      "priority": "P1",
+      "main_table_role": "iterative linear concept erasure"
+    },
+    {
+      "id": "r_lace",
+      "category": "concept_erasure_linear",
+      "representative_work": "Linear Adversarial Concept Erasure",
+      "year": 2022,
+      "paper_url": "https://proceedings.mlr.press/v162/ravfogel22a.html",
+      "official_code_url": "https://github.com/shauli-ravfogel/rlace-icml",
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Requires a fit-only minimax projection and development selection of rank/optimization settings.",
+      "priority": "P1",
+      "main_table_role": "adversarial linear concept erasure"
+    },
+    {
+      "id": "kram",
+      "category": "concept_erasure_nonlinear",
+      "representative_work": "Robust Concept Erasure via Kernelized Rate-Distortion Maximization",
+      "year": 2023,
+      "paper_url": "https://github.com/brcsomnath/KRaM",
+      "official_code_url": "https://github.com/brcsomnath/KRaM",
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Official repository pins Python 3.6.13, PyTorch 1.13 and Transformers 4.12.5. Use an isolated environment or port the representation transform; do not downgrade the main environment.",
+      "priority": "P2",
+      "main_table_role": "supplementary nonlinear concept erasure"
+    },
+    {
+      "id": "obliviator",
+      "category": "concept_erasure_nonlinear",
+      "representative_work": "Obliviator",
+      "year": 2025,
+      "paper_url": "https://openreview.net/pdf?id=GcjpjIHDZn",
+      "official_code_url": "https://github.com/ramin-akbari/Obliviator",
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Current official package requires Python >=3.12 and PyTorch >=2.9; the tracked environment lock has PyTorch 2.8. Use a separate environment and validate the hidden-state interface.",
+      "priority": "P2",
+      "main_table_role": "supplementary nonlinear concept erasure"
+    },
+    {
+      "id": "iti",
+      "category": "activation_steering",
+      "representative_work": "Inference-Time Intervention: Eliciting Truthful Answers from a Language Model",
+      "year": 2023,
+      "paper_url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/81b8390039b7302c909cb769f8b6cd93-Abstract-Conference.html",
+      "official_code_url": "https://github.com/likenneth/honest_llama",
+      "local_status": "implemented_local_task_adaptation_historical",
+      "local_paths": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "protocol_note": "Local direction uses fit-only correct/incorrect answer representations and source-held-out head ranking. Verify equivalence to ITI and refit under E1.",
+      "priority": "P0",
+      "main_table_role": "activation-intervention baseline"
+    },
+    {
+      "id": "caa",
+      "category": "activation_steering",
+      "representative_work": "Steering Llama 2 with Contrastive Activation Addition",
+      "year": 2023,
+      "paper_url": "https://arxiv.org/abs/2312.06681",
+      "official_code_url": "https://github.com/nrimsky/CAA",
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Official pipeline is Llama-2/data-task specific. A Qwen3 implementation using E1 pairs must be labelled CAA-style/task-adapted and retain its mean-difference steering objective.",
+      "priority": "P1",
+      "main_table_role": "contrastive activation steering"
+    },
+    {
+      "id": "cast",
+      "category": "conditional_activation_steering",
+      "representative_work": "Programming Refusal with Conditional Activation Steering",
+      "year": 2025,
+      "paper_url": "https://arxiv.org/abs/2409.05907",
+      "official_code_url": "https://github.com/IBM/activation-steering",
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Adapt the conditional gate to a pre-defined input-context trigger. Do not use test labels to decide whether an input should be steered.",
+      "priority": "P1",
+      "main_table_role": "conditional activation steering"
+    },
+    {
+      "id": "reps",
+      "category": "preference_based_representation_steering",
+      "representative_work": "RePS (Wu et al., 2025; AxBench implementation)",
+      "year": 2025,
+      "paper_url": "https://arxiv.org/abs/2505.20809",
+      "official_code_url": "https://github.com/stanfordnlp/axbench",
+      "local_status": "not_implemented_in_TRIAGE",
+      "local_paths": [],
+      "protocol_note": "AxBench contains RePS experiment configurations. First reproduce its original preference objective on a supported model; any E1 A/P/C/F adaptation must be named separately.",
+      "priority": "P1",
+      "main_table_role": "recent representation-steering baseline"
+    },
+    {
+      "id": "psr",
+      "category": "prompt_distilled_activation_steering",
+      "representative_work": "Steer Like the LLM: Activation Steering that Mimics Prompting",
+      "year": 2026,
+      "paper_url": "https://proceedings.mlr.press/v306/heyman26a.html",
+      "official_code_url": "https://github.com/Nokia-Bell-Labs/steer-like-the-llm",
+      "local_status": "not_implemented_in_TRIAGE",
+      "local_paths": [],
+      "protocol_note": "Official code uses prompt-imitation training and position-specific coefficients; setup requires Python >=3.12, Hugging Face/OpenAI credentials and additional benchmark repositories. Build a task-specific prompt teacher and verify Qwen3 compatibility before scheduling GPU work.",
+      "priority": "P1",
+      "main_table_role": "recent prompt-distilled activation steering"
+    },
+    {
+      "id": "lofit",
+      "category": "representation_finetuning",
+      "representative_work": "LoFiT: Localized Fine-tuning on LLM Representations",
+      "year": 2024,
+      "paper_url": "https://arxiv.org/abs/2406.01563",
+      "official_code_url": "https://github.com/fc2869/lo-fit",
+      "local_status": "implemented_architecture_adapted_historical",
+      "local_paths": [
+        "experiments/aster_cr/baselines.py"
+      ],
+      "protocol_note": "Local implementation is a Qwen3/Gemma3 hook port with binary BCE, not the official Llama2/Gemma7B task-specific DPO/SFT pipeline. Name it LoFiT-style/task-adapted unless equivalence is demonstrated.",
+      "priority": "P0",
+      "main_table_role": "localized representation fine-tuning"
+    },
+    {
+      "id": "loreft",
+      "category": "representation_finetuning",
+      "representative_work": "ReFT: Representation Finetuning for Language Models (LoReFT)",
+      "year": 2024,
+      "paper_url": "https://arxiv.org/abs/2404.03592",
+      "official_code_url": "https://github.com/stanfordnlp/pyreft",
+      "local_status": "code_present_dependency_and_effect_unverified",
+      "local_paths": [
+        "experiments/aster_cr/baselines.py",
+        "experiments/aster_cr/test_models.py"
+      ],
+      "protocol_note": "pyreft is not in the environment lock. The old cached result matched the original model. Require real Qwen3 adapter-load and logit-change tests.",
+      "priority": "P0",
+      "main_table_role": "representation fine-tuning baseline"
+    },
+    {
+      "id": "reft_r1",
+      "category": "representation_finetuning",
+      "representative_work": "ReFT-r1 (AxBench)",
+      "year": 2025,
+      "paper_url": "https://github.com/stanfordnlp/axbench",
+      "official_code_url": "https://github.com/stanfordnlp/axbench",
+      "local_status": "not_implemented_in_TRIAGE",
+      "local_paths": [],
+      "protocol_note": "Use as a recent AxBench representation-finetuning candidate only after model and objective compatibility is established.",
+      "priority": "P2",
+      "main_table_role": "supplementary representation fine-tuning"
+    },
+    {
+      "id": "lora",
+      "category": "weight_peft",
+      "representative_work": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "year": 2022,
+      "paper_url": "https://arxiv.org/abs/2106.09685",
+      "official_code_url": "https://github.com/huggingface/peft",
+      "local_status": "implemented_peft_historical",
+      "local_paths": [
+        "experiments/aster_cr/baselines.py"
+      ],
+      "protocol_note": "PEFT 0.21.2 is in the environment lock. Current adapter targets one middle-layer q_proj; validate activation, parameter count, and E1 data compatibility on the real checkpoint.",
+      "priority": "P0",
+      "main_table_role": "weight-space PEFT baseline"
+    },
+    {
+      "id": "dora",
+      "category": "weight_peft",
+      "representative_work": "DoRA: Weight-Decomposed Low-Rank Adaptation",
+      "year": 2024,
+      "paper_url": "https://proceedings.mlr.press/v235/liu24bn.html",
+      "official_code_url": "https://github.com/NVlabs/DoRA",
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Supported by modern PEFT through use_dora; use the same target modules and parameter-matched budget as LoRA.",
+      "priority": "P1",
+      "main_table_role": "weight-space PEFT baseline"
+    },
+    {
+      "id": "fourierft",
+      "category": "weight_peft",
+      "representative_work": "Parameter-Efficient Fine-Tuning with Discrete Fourier Transform",
+      "year": 2024,
+      "paper_url": "https://proceedings.mlr.press/v235/gao24o.html",
+      "official_code_url": "https://github.com/huggingface/peft",
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Official implementation is integrated into PEFT. It supports nn.Linear layers and not quantized layers; validate Qwen3 q_proj and parameter matching.",
+      "priority": "P1",
+      "main_table_role": "weight-space PEFT baseline"
+    },
+    {
+      "id": "full_finetuning",
+      "category": "weight_finetuning",
+      "representative_work": "Full supervised fine-tuning control",
+      "year": null,
+      "paper_url": null,
+      "official_code_url": null,
+      "local_status": "not_implemented",
+      "local_paths": [],
+      "protocol_note": "Optional high-cost upper-bound control. It changes all model weights and should be reported separately from parameter-efficient tuning.",
+      "priority": "P2",
+      "main_table_role": "optional task-adaptation upper bound"
+    }
+  ],
+  "other_local_controls": [
+    {
+      "id": "bias_intercept",
+      "category": "output_calibration",
+      "local_status": "implemented",
+      "local_paths": [
+        "experiments/aster_cr/readout.py"
+      ],
+      "interpretation": "Learned intercept control; not an external method."
+    },
+    {
+      "id": "affine_logistic",
+      "category": "output_calibration",
+      "local_status": "implemented",
+      "local_paths": [
+        "experiments/aster_cr/readout.py"
+      ],
+      "interpretation": "Learned affine logit calibration; not Contextual Calibration or Batch Calibration."
+    },
+    {
+      "id": "reference_fusion",
+      "category": "custom_score_fusion",
+      "local_status": "implemented_historical",
+      "local_paths": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "interpretation": "Supervised logistic fusion of full and guideline-ablated reference scores; do not label CC or BC."
+    },
+    {
+      "id": "sea",
+      "category": "subspace_erasure",
+      "local_status": "code_reference_requires_untracked_vendor_source",
+      "local_paths": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "interpretation": "Separate SEA comparator; not CAA or CAST."
+    },
+    {
+      "id": "legacy_m3",
+      "category": "internal_aster_variant",
+      "local_status": "historical_internal",
+      "local_paths": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "interpretation": "Exclude from the external-baseline table; place in internal ablation/history."
+    },
+    {
+      "id": "closed_form",
+      "category": "internal_aster_variant",
+      "local_status": "internal_aster_operator",
+      "local_paths": [
+        "experiments/aster_cr/comparators.py",
+        "experiments/aster_closed_form/operators.py"
+      ],
+      "interpretation": "ASTER operator variant, not an independent external baseline."
+    },
+    {
+      "id": "last_layer",
+      "category": "internal_control",
+      "local_status": "implemented",
+      "local_paths": [
+        "experiments/aster_cr/baselines.py"
+      ],
+      "interpretation": "Simple learned residual offset control; keep in ablation/control analysis, not as a literature baseline."
+    }
+  ],
+  "codex00_handoff": {
+    "completed_static_tasks": [
+      "Verified repository snapshot and E1 frozen protocol",
+      "Inspected experiment framework, manuscript baseline table, ASTER-CR comparator/readout/training code, environment lock, model manifests, and server execution instructions",
+      "Mapped local implementations versus missing official methods",
+      "Identified E1 data-root, dependency, seed, model-revision, and GPU-default blockers",
+      "Created a method-level baseline registry and fair-comparison gates"
+    ],
+    "not_completed_because_no_server_access": [
+      "Live GPU occupancy and process inventory",
+      "Server-local E1 files and feature-cache inspection",
+      "Installed package verification",
+      "Actual model/tokenizer revision inspection",
+      "GPU smoke tests or any model inference"
+    ],
+    "next_execution_order": [
+      "Create isolated E1 baseline run root and materialize the E1 fit/dev/test schema without copying old repair-v2 caches",
+      "Pin and record actual Qwen3-8B model/tokenizer revision on the server",
+      "Add or verify optional dependencies; install pyreft separately if LoReFT remains in scope",
+      "Fix or validate CAD reference prompt and add the dedicated evidence-focused prompt",
+      "Run CPU/synthetic smoke tests for every adapter, then real-Qwen small-sample intervention checks",
+      "Run P0 baselines on development sources only",
+      "Run P1 baselines after implementation and objective audits",
+      "Freeze hyperparameters and prompt choices before any test evaluation",
+      "Run the frozen test suite and source-cluster bootstrap; populate the main table only from audited predictions"
+    ],
+    "gpu_policy": "Use only physical GPUs 0,1,5,6; set ASTER_CR_GPUS explicitly after server-side occupancy checks. No live occupancy result was obtained in this audit.",
+    "seeds": "Use seeds 11,22,33 for stochastic external baseline runs as required by the experiment framework; preserve the already frozen E1 training seed.",
+    "test_policy": "No test labels for training, tuning, threshold selection, rank selection, prompt selection, or method selection.",
+    "output_policy": "Each method gets an isolated run ID and output directory. Preserve negative results and all failures. No published-paper scores may fill missing Qwen3-8B/E1 results."
+  }
+}

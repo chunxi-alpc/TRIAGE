@@ -1,0 +1,414 @@
+{
+  "method": "RePS-E1-task-adapted-seed33",
+  "split": "test",
+  "complete": true,
+  "result_kind": "actual_experiment",
+  "evaluation_status": "computed",
+  "model": "Qwen3-8B",
+  "train_data": "E1 / Dataset A",
+  "train_pairs": 2540,
+  "unique_inputs": 16799,
+  "candidate_inputs": 66752,
+  "required_pair_inputs": 3100,
+  "unscored_path_inputs": 49953,
+  "pair_count": 2339,
+  "case_count": 806,
+  "path_count": 3224,
+  "source_count": 40,
+  "metrics": {
+    "ap_raw_rms": 2.628151983382305,
+    "ap_score_change_rms": 0.5057253837018977,
+    "ap_correction_rms": 2.6529407736555948,
+    "ap_paired_accuracy": 0.7623201046663759,
+    "ap_relation_accuracy": 0.9851722634103794,
+    "ap_vr": 0.97556517543684,
+    "cf_raw_rms": 36.29733328873823,
+    "cf_score_change_rms": 0.39841375809600493,
+    "cf_correction_rms": 36.03301790736373,
+    "cf_paired_accuracy": 0.05,
+    "cf_relation_accuracy": 0.05,
+    "cf_er": 0.00919172751542132,
+    "cf_direction_degradation_rate": 0.225,
+    "cf_direction_degradation_count": 9.0,
+    "f0_raw_rms": 4.184726751718108,
+    "f0_score_change_rms": 0.4759787340959565,
+    "f0_correction_rms": 3.859813765500762,
+    "f0_paired_accuracy": 0.5,
+    "f0_relation_accuracy": 1.0,
+    "natural_path_accuracy": 0.07444168734491315,
+    "interference_path_accuracy": 0.07899090157154673
+  },
+  "counts": {
+    "ap_pairs": 2293,
+    "ap_sources": 40,
+    "ap_paired_labeled_count": 2293,
+    "ap_paired_unlabeled_count": 0,
+    "cf_pairs": 40,
+    "cf_sources": 12,
+    "cf_paired_labeled_count": 40,
+    "cf_paired_unlabeled_count": 0,
+    "cf_direction_degradation_count": 9,
+    "cf_max_abs_correction": 57.755971908569336,
+    "f0_pairs": 6,
+    "f0_sources": 2,
+    "f0_paired_labeled_count": 6,
+    "f0_paired_unlabeled_count": 0,
+    "natural_path_count": 806,
+    "natural_path_correct": 60,
+    "natural_path_raw_correct": 768,
+    "natural_path_corrected": 1,
+    "natural_path_new_errors": 709,
+    "interference_path_count": 2418,
+    "interference_path_correct": 191,
+    "interference_path_raw_correct": 2339,
+    "interference_path_corrected": 0,
+    "interference_path_new_errors": 2148
+  },
+  "costs": {
+    "parameter_count": 4097,
+    "trainable_parameter_count": 4097,
+    "stored_parameter_count": 4097,
+    "training_wall_seconds": 3994.0240257839905,
+    "training_gpu_hours": 1.1094511182733306,
+    "training_peak_memory_gib": 17.6148943901062,
+    "inference_wall_seconds": 3244.2201324863127,
+    "inference_gpu_hours": 0.9011722590239757,
+    "inference_forward_count": 33604,
+    "inference_peak_memory_gib": 17.6148943901062,
+    "inference_seconds_per_input": 0.19311983644778336
+  },
+  "intervals": {
+    "ap_raw_rms": {
+      "estimate": 2.628151983382305,
+      "low": 2.1800170003494608,
+      "high": 3.115761135021315,
+      "defined_draws": 2000
+    },
+    "ap_score_change_rms": {
+      "estimate": 0.5057253837018977,
+      "low": 0.4088434265508426,
+      "high": 0.5938638162812647,
+      "defined_draws": 2000
+    },
+    "ap_correction_rms": {
+      "estimate": 2.6529407736555948,
+      "low": 2.2086356346942755,
+      "high": 3.1317995496408284,
+      "defined_draws": 2000
+    },
+    "ap_paired_accuracy": {
+      "estimate": 0.7623201046663759,
+      "low": 0.7217378400568056,
+      "high": 0.7947541999127291,
+      "defined_draws": 2000
+    },
+    "ap_relation_accuracy": {
+      "estimate": 0.9851722634103794,
+      "low": 0.9728147139088718,
+      "high": 0.994026965198518,
+      "defined_draws": 2000
+    },
+    "ap_vr": {
+      "estimate": 0.97556517543684,
+      "low": 0.9618641013259224,
+      "high": 0.9852688127577217,
+      "defined_draws": 2000
+    },
+    "cf_raw_rms": {
+      "estimate": 36.29733328873823,
+      "low": 19.02539421159817,
+      "high": 41.948557558482506,
+      "defined_draws": 2000
+    },
+    "cf_score_change_rms": {
+      "estimate": 0.39841375809600493,
+      "low": 0.23309638871007174,
+      "high": 0.5925708095732499,
+      "defined_draws": 2000
+    },
+    "cf_correction_rms": {
+      "estimate": 36.03301790736373,
+      "low": 18.69825513993952,
+      "high": 41.649505710075296,
+      "defined_draws": 2000
+    },
+    "cf_paired_accuracy": {
+      "estimate": 0.05,
+      "low": 0.0,
+      "high": 0.26666666666666666,
+      "defined_draws": 2000
+    },
+    "cf_relation_accuracy": {
+      "estimate": 0.05,
+      "low": 0.0,
+      "high": 0.26666666666666666,
+      "defined_draws": 2000
+    },
+    "cf_er": {
+      "estimate": 0.00919172751542132,
+      "low": 0.004976852221420369,
+      "high": 0.03272388826312767,
+      "defined_draws": 2000
+    },
+    "cf_direction_degradation_rate": {
+      "estimate": 0.225,
+      "low": 0.1,
+      "high": 0.4090909090909091,
+      "defined_draws": 2000
+    },
+    "cf_direction_degradation_count": {
+      "estimate": 9.0,
+      "low": 2.0,
+      "high": 20.0,
+      "defined_draws": 2000
+    },
+    "f0_raw_rms": {
+      "estimate": 4.184726751718108,
+      "low": 3.921812350499858,
+      "high": 4.432072185846836,
+      "defined_draws": 1750
+    },
+    "f0_score_change_rms": {
+      "estimate": 0.4759787340959565,
+      "low": 0.09892501129802275,
+      "high": 0.665826818897275,
+      "defined_draws": 1750
+    },
+    "f0_correction_rms": {
+      "estimate": 3.859813765500762,
+      "low": 3.256424555316289,
+      "high": 4.380870201710096,
+      "defined_draws": 1750
+    },
+    "f0_paired_accuracy": {
+      "estimate": 0.5,
+      "low": 0.0,
+      "high": 1.0,
+      "defined_draws": 1750
+    },
+    "f0_relation_accuracy": {
+      "estimate": 1.0,
+      "low": 1.0,
+      "high": 1.0,
+      "defined_draws": 1750
+    },
+    "natural_path_accuracy": {
+      "estimate": 0.07444168734491315,
+      "low": 0.05784953414938407,
+      "high": 0.09863596949332912,
+      "defined_draws": 2000
+    },
+    "interference_path_accuracy": {
+      "estimate": 0.07899090157154673,
+      "low": 0.06080738464054351,
+      "high": 0.10487319938124708,
+      "defined_draws": 2000
+    }
+  },
+  "metadata": {
+    "method": "RePS-E1-task-adapted-seed33",
+    "seed": 33,
+    "model": "Qwen3-8B",
+    "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+    "train_data": "E1 / Dataset A",
+    "train_pair_count": 2540,
+    "layer": 18,
+    "layer_numbering": "zero_based",
+    "rank": 1,
+    "learning_rate": 0.04,
+    "epochs": 1,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 1,
+    "weight_decay": 0.0,
+    "optimizer": "AdamW",
+    "schedule": "linear_decay",
+    "clipping_norm": 1.0,
+    "loss_type": "scaled_simpo",
+    "beta": 1.0,
+    "gemma": 0.0,
+    "simpo_scaler": 1.0,
+    "reference_free": true,
+    "label_smoothing": 0.0,
+    "preference_pairs": [
+      "orig_add",
+      "orig_sub"
+    ],
+    "substraction_type": "null_it_out",
+    "steering_factors": [
+      1.0
+    ],
+    "positions": "all",
+    "exclude_bos": true,
+    "prefix_length": 1,
+    "dropout": 0.0,
+    "intervention_positions_dropout": 0.0,
+    "official_repository": "https://github.com/stanfordnlp/axbench",
+    "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
+    "official_reference_config": "axbench/sweep/wuzhengx/reps/experiments/p_vector_dps_g2-9b_nfs_axbench.yaml",
+    "isolated_dependency": {
+      "pyvene": "0.1.8",
+      "location": "/home/gcx/aster_codex03_external_assets_20261112/python"
+    },
+    "torch_version": "2.8.0+cu128",
+    "official_components": [
+      "PreferenceVectorIntervention",
+      "AdditionIntervention",
+      "preference_loss"
+    ],
+    "supervision": "Each unique fit prompt uses its correct yes/no label as positive response and opposite label as negative response. orig_sub reverses these preferences.",
+    "implementation_differences": [
+      "Qwen3-8B and E1 task responses replace Gemma concept-generation data; this is explicitly task-adapted.",
+      "Exact upstream loss is loaded from its AST node to avoid imports of unrelated AxBench benchmark tooling.",
+      "Exact upstream intervention classes are connected by a PyTorch output hook supporting Qwen3 Tensor output.",
+      "One-token responses share the same causal prompt hidden state. Compute only the final vocabulary logits, rather than logits for every prompt and appended response token.",
+      "Reference prompt forward is shared between positive and nulling branches. Branch losses are backpropagated separately and averaged, as in upstream minibatching.",
+      "Frozen BF16 backbone with FP32 intervention parameters; exact source operations receive FP32 residuals and return to BF16.",
+      "Use fixed one-epoch small-batch training budget and one preset layer; choose only inference strength on development data.",
+      "Inference calls official AdditionIntervention, which uses the trained direction and a multiplier and does not add its saved training bias.",
+      "Retain upstream attention-mask length scaling: prompt length plus one response token."
+    ],
+    "system_prompt": "根据给定规则和病例，判断当前条件是否成立。只输出用户指定的答案标签。For English inputs, 是 means Yes and 否 means No.",
+    "answer_labels": [
+      "是",
+      "否"
+    ],
+    "decision_rule": "ell > 0",
+    "evaluation_projection": "Canonical Engine chunked prefill and final-token replay, FP32 yes/no output-head rows",
+    "training_projection": "Native BF16 full-vocabulary final-token logits, then FP32 log-softmax",
+    "actual_experiment_results": true,
+    "execution_kind": "model_inference",
+    "train_unique_inputs": 4637,
+    "training_steps": 4637,
+    "parameter_count": 4097,
+    "trainable_parameter_count": 4097,
+    "stored_parameter_count": 4097,
+    "backbone_parameter_count": 8190735360,
+    "training_wall_seconds": 3994.0240257839905,
+    "training_gpu_hours": 1.1094511182733306,
+    "training_peak_memory_gib": 17.6148943901062,
+    "training_forward_count": 13911,
+    "training_backward_count": 9274,
+    "model_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/reps/seed33/model.pt",
+    "parameter_change_l2": 79.88157653808594,
+    "gpu_visibility": "6",
+    "selected_checkpoint": "final_epoch",
+    "frozen_configuration": {
+      "method": "RePS-E1-task-adapted",
+      "seed": 33,
+      "model": "Qwen3-8B",
+      "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+      "train_data": "E1 / Dataset A",
+      "train_pair_count": 2540,
+      "layer": 18,
+      "layer_numbering": "zero_based",
+      "rank": 1,
+      "learning_rate": 0.04,
+      "epochs": 1,
+      "batch_size": 1,
+      "gradient_accumulation_steps": 1,
+      "weight_decay": 0.0,
+      "optimizer": "AdamW",
+      "schedule": "linear_decay",
+      "clipping_norm": 1.0,
+      "loss_type": "scaled_simpo",
+      "beta": 1.0,
+      "gemma": 0.0,
+      "simpo_scaler": 1.0,
+      "reference_free": true,
+      "label_smoothing": 0.0,
+      "preference_pairs": [
+        "orig_add",
+        "orig_sub"
+      ],
+      "substraction_type": "null_it_out",
+      "steering_factors": [
+        1.0
+      ],
+      "positions": "all",
+      "exclude_bos": true,
+      "prefix_length": 1,
+      "dropout": 0.0,
+      "intervention_positions_dropout": 0.0,
+      "official_repository": "https://github.com/stanfordnlp/axbench",
+      "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
+      "official_reference_config": "axbench/sweep/wuzhengx/reps/experiments/p_vector_dps_g2-9b_nfs_axbench.yaml",
+      "isolated_dependency": {
+        "pyvene": "0.1.8",
+        "location": "/home/gcx/aster_codex03_external_assets_20261112/python"
+      },
+      "torch_version": "2.8.0+cu128",
+      "official_components": [
+        "PreferenceVectorIntervention",
+        "AdditionIntervention",
+        "preference_loss"
+      ],
+      "supervision": "Each unique fit prompt uses its correct yes/no label as positive response and opposite label as negative response. orig_sub reverses these preferences.",
+      "implementation_differences": [
+        "Qwen3-8B and E1 task responses replace Gemma concept-generation data; this is explicitly task-adapted.",
+        "Exact upstream loss is loaded from its AST node to avoid imports of unrelated AxBench benchmark tooling.",
+        "Exact upstream intervention classes are connected by a PyTorch output hook supporting Qwen3 Tensor output.",
+        "One-token responses share the same causal prompt hidden state. Compute only the final vocabulary logits, rather than logits for every prompt and appended response token.",
+        "Reference prompt forward is shared between positive and nulling branches. Branch losses are backpropagated separately and averaged, as in upstream minibatching.",
+        "Frozen BF16 backbone with FP32 intervention parameters; exact source operations receive FP32 residuals and return to BF16.",
+        "Use fixed one-epoch small-batch training budget and one preset layer; choose only inference strength on development data.",
+        "Inference calls official AdditionIntervention, which uses the trained direction and a multiplier and does not add its saved training bias.",
+        "Retain upstream attention-mask length scaling: prompt length plus one response token."
+      ],
+      "system_prompt": "根据给定规则和病例，判断当前条件是否成立。只输出用户指定的答案标签。For English inputs, 是 means Yes and 否 means No.",
+      "answer_labels": [
+        "是",
+        "否"
+      ],
+      "decision_rule": "ell > 0",
+      "evaluation_projection": "Canonical Engine chunked prefill and final-token replay, FP32 yes/no output-head rows",
+      "training_projection": "Native BF16 full-vocabulary final-token logits, then FP32 log-softmax",
+      "selected_strength": 1.0,
+      "selection_metric": "mean dev binary negative log likelihood",
+      "selection_candidates": [
+        {
+          "strength": 0.5,
+          "mean_binary_nll": 0.5996701569556921,
+          "unique_dev_inputs": 1685
+        },
+        {
+          "strength": 1.0,
+          "mean_binary_nll": 0.5486079508826229,
+          "unique_dev_inputs": 1685
+        },
+        {
+          "strength": 2.0,
+          "mean_binary_nll": 1.9114311290519446,
+          "unique_dev_inputs": 1685
+        }
+      ],
+      "selection_wall_seconds": 824.8244070290239,
+      "selection_split": "dev",
+      "decision_threshold": 0.0,
+      "frozen_before_test": true
+    },
+    "split": "test",
+    "inference_wall_seconds": 3244.2201324863127,
+    "inference_forward_count": 33604,
+    "inference_peak_memory_gib": 17.6148943901062,
+    "inference_input_count": 16799,
+    "inference_token_count": 30296678,
+    "candidate_input_count": 66752,
+    "pair_view_records": 3100,
+    "path_count": 3224,
+    "path_visited_node_count": 14478,
+    "new_inputs_this_call": 16799,
+    "collection_wall_seconds_this_call": 3245.3889122809633,
+    "scoring_policy": "All pair views plus all dynamically visited natural/interference path nodes; no gold labels used to choose nodes.",
+    "timing_scope": "Prompt lookup and scorer callback only; model loading and training are excluded. Cached validation has no model inference cost.",
+    "scores_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/reps/seed33/test/scores.jsonl",
+    "traversed_paths_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/reps/seed33/test/scores.traversed_paths.jsonl",
+    "inference_gpu_hours": 0.9011722590239757
+  },
+  "scores_path": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/reps/seed33/test/scores.jsonl",
+  "raw_cache": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+  "bootstrap_draws": 2000,
+  "decision_rule": "ell > 0",
+  "metric_units": "accuracy, VR and ER are fractions; RMS is in logit units",
+  "test_history": "Frozen historical evaluation scope; previously evaluated, not newly unseen",
+  "missing_cost_fields": []
+}

@@ -1,0 +1,46 @@
+{
+  "status": "prepared",
+  "method": "INLP-task-adapted",
+  "concept_definition": "Whether all leaf disposition/conclusion descriptions remain visible in the guideline. 0: at least one leaf is replaced by an existing deletion or neutral placeholder; 1: leaf descriptions contain none of those placeholders. Protected leaves may remain. Swapped substantive leaf descriptions still receive 1. This is disposition-text visibility, not a claim to label every form of interference.",
+  "label_source": "Exact prompt leaf descriptions; no pair type, side, source ID, or truth label is used",
+  "neutral_marker_source": "experiments/aster_cr/repair/build.py::action_guides and experiments/aster_cr/build.py",
+  "official_repository": "https://github.com/shauli-ravfogel/nullspace_projection",
+  "official_commit": "e1edcc19d808108ab71cbb3afb0389db0206a7eb",
+  "official_path": "/home/gcx/aster_codex03_external_assets_20261112/official/nullspace_projection",
+  "shared_original_features": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/caa/raw_prompt_residuals",
+  "training_pairs_pool": 2540,
+  "training_scope": "All concept-labeled unique E1 endpoint prompts; repeated UIDs counted once",
+  "planned_iterations": [
+    1,
+    4,
+    8
+  ],
+  "deterministic": true,
+  "random_seed_policy": "Deterministic lbfgs classifier; no random subsampling or dropout, no manufactured seed repeats",
+  "readout": "Fixed original Qwen3 RMSNorm and original FP32 yes/no output rows",
+  "intervention": "Final prompt token, final decoder-layer output before final RMSNorm",
+  "data": {
+    "fit": {
+      "unique_inputs": 4637,
+      "concepts": {
+        "1": 4003,
+        "0": 634
+      },
+      "available_original_residuals": 1469,
+      "fresh_shared_residuals": 0,
+      "missing_original_residuals": 3168,
+      "sources": 80
+    },
+    "dev": {
+      "unique_inputs": 1685,
+      "concepts": {
+        "1": 889,
+        "0": 796
+      },
+      "available_original_residuals": 1685,
+      "fresh_shared_residuals": 0,
+      "missing_original_residuals": 0,
+      "sources": 20
+    }
+  }
+}
