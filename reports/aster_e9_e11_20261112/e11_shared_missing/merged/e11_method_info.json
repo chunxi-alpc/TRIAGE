@@ -1,0 +1,98 @@
+{
+  "raw": {
+    "method": "raw",
+    "trainable_parameters": 0,
+    "inference_trainable_parameters": 0,
+    "storage_bytes": 0,
+    "deployment_tensor_bytes": 0,
+    "checkpoint": null,
+    "logical_forwards": 1
+  },
+  "aster": {
+    "method": "aster",
+    "trainable_parameters": 17,
+    "inference_trainable_parameters": 0,
+    "storage_bytes": 1254851,
+    "deployment_tensor_bytes": 940576,
+    "checkpoint": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/models/E1/full",
+    "logical_forwards": 1,
+    "storage_note": "m2/m3 checkpoint includes fit metadata; deployment only needs heads, mu, scale, N, w, b"
+  },
+  "leace": {
+    "method": "leace",
+    "trainable_parameters": 0,
+    "inference_trainable_parameters": 0,
+    "storage_bytes": 1101767,
+    "deployment_tensor_bytes": 235416,
+    "checkpoint": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/leace.pt",
+    "logical_forwards": 1,
+    "parameters_note": "closed-form fit; no gradient-trained parameters"
+  },
+  "lofit": {
+    "method": "lofit",
+    "trainable_parameters": 128,
+    "inference_trainable_parameters": 0,
+    "storage_bytes": 2259,
+    "deployment_tensor_bytes": 520,
+    "checkpoint": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/baselines/lofit_lr0.001.pt",
+    "logical_forwards": 1,
+    "selection_parameters": 147456
+  },
+  "lora": {
+    "method": "lora",
+    "trainable_parameters": 8192,
+    "inference_trainable_parameters": 0,
+    "storage_bytes": 34893,
+    "deployment_tensor_bytes": 32768,
+    "checkpoint": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/baselines/lora_lr0.001.pt",
+    "logical_forwards": 1,
+    "selection_parameters": 0
+  },
+  "cad": {
+    "method": "cad",
+    "trainable_parameters": 0,
+    "inference_trainable_parameters": 0,
+    "storage_bytes": 0,
+    "deployment_tensor_bytes": 0,
+    "checkpoint": null,
+    "logical_forwards": 2,
+    "reference_forwards": 1,
+    "CAD_alpha": 2.0,
+    "storage_note": "fixed scalar coefficient; no checkpoint"
+  },
+  "iti": {
+    "method": "iti",
+    "trainable_parameters": 0,
+    "inference_trainable_parameters": 0,
+    "storage_bytes": 40131,
+    "deployment_tensor_bytes": 26520,
+    "checkpoint": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/iti_style/operator.pt",
+    "logical_forwards": 1,
+    "method_label": "ITI-style task adaptation",
+    "frozen_configuration": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/iti_style/selection.json",
+    "fitted_offset_parameters": 6528,
+    "parameters_note": "Offsets fitted using the existing ITI artifact; no new training. Probe parameters are not deployed.",
+    "intervention": "Existing Comparators.edited(context, 'iti'); unmodified prefix, last judgment token only",
+    "implementation_source": "/home/gcx/aster-e9-e11-20261112/experiments/aster_cr/comparators.py",
+    "physical_gpu": "4",
+    "gpu_name": "NVIDIA A100-SXM4-80GB"
+  },
+  "dora": {
+    "method": "dora",
+    "trainable_parameters": 4018176,
+    "inference_trainable_parameters": 0,
+    "storage_bytes": 16108127,
+    "deployment_tensor_bytes": 16072704,
+    "checkpoint": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/dora/full/seed11/adapter",
+    "logical_forwards": 1,
+    "method_label": "DoRA-E1-SFT, seed 11",
+    "frozen_configuration": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/dora/full/seed11/frozen_configuration.json",
+    "seed": 11,
+    "representative_selection": "Fixed seed 11, independent of evaluation outcomes",
+    "adapter_merged": false,
+    "implementation": "PEFT DoRA; adapted prefix and judgment, with no retraining",
+    "peft_version": "0.21.2",
+    "physical_gpu": "4",
+    "gpu_name": "NVIDIA A100-SXM4-80GB"
+  }
+}

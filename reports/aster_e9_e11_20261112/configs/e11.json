@@ -1,0 +1,27 @@
+{
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "dtype": "bfloat16",
+  "attention": "sdpa",
+  "score": "FP32 yes-minus-no, final judgment token",
+  "batch_size": 1,
+  "lengths": [
+    512,
+    2048
+  ],
+  "primary_input": "identical fixed tail tokens of 4 development prompts for all methods",
+  "reference_input": "CAD native no-rule prompt, truncated to same maximum; actual reference length reported",
+  "warmup": 3,
+  "repeats": 5,
+  "inputs": 4,
+  "seed": 20261112,
+  "gpu": 1,
+  "timing": "CUDA synchronize around prefill and end-to-end; tokenize, host-to-device, prefix, judgment, correction and score transfer included; model loading excluded",
+  "forward_count": "2 low-level calls = prefill plus judgment; logical model pass = 1; CAD doubles both",
+  "pending_ITI": "await Codex00/01 validity approval; not timed from unaudited checkpoint",
+  "new_methods": "Codex03 status has no completed new methods; pending",
+  "reused": [
+    "reused/extraction_performance.json",
+    "reused/evaluation_performance.json"
+  ],
+  "historical_baselines": "LEACE/LoFiT/LoRA retain published historical checkpoints; throughput comparison only, not E1 task-validity claim"
+}

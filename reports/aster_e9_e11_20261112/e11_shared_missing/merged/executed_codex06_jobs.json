@@ -1,0 +1,130 @@
+{
+  "jobs": [
+    {
+      "id": "codex06-e11-iti",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-u",
+        "-m",
+        "experiments.aster_e9_e11_20261112.e11_shared_missing",
+        "measure",
+        "--method",
+        "iti"
+      ],
+      "cwd": "/home/gcx/aster-e9-e11-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONUNBUFFERED": "1",
+        "PYTHONPATH": "/home/gcx/aster-e9-e11-20261112"
+      },
+      "dependencies": [],
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        4,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 24,
+      "estimated_hours": 0.12,
+      "completion_marker": "/home/gcx/aster-e9-e11-20261112/reports/aster_e9_e11_20261112/e11_shared_missing/iti/completion.json",
+      "priority": 90,
+      "owner": "Codex06",
+      "state": "complete",
+      "external": false,
+      "pid": 464936,
+      "assigned_gpu": 4,
+      "log": "/home/gcx/aster-gpu-queue-20261113/logs/codex06-e11-iti.log",
+      "started_at": "2026-11-13 16:15:50",
+      "returncode": 0,
+      "finished_at": "2026-11-13 16:16:20"
+    },
+    {
+      "id": "codex06-e11-dora",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-u",
+        "-m",
+        "experiments.aster_e9_e11_20261112.e11_shared_missing",
+        "measure",
+        "--method",
+        "dora"
+      ],
+      "cwd": "/home/gcx/aster-e9-e11-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONUNBUFFERED": "1",
+        "PYTHONPATH": "/home/gcx/aster-e9-e11-20261112"
+      },
+      "dependencies": [],
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        4,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 24,
+      "estimated_hours": 0.12,
+      "completion_marker": "/home/gcx/aster-e9-e11-20261112/reports/aster_e9_e11_20261112/e11_shared_missing/dora/completion.json",
+      "priority": 90,
+      "owner": "Codex06",
+      "state": "complete",
+      "external": false,
+      "pid": 464963,
+      "assigned_gpu": 4,
+      "log": "/home/gcx/aster-gpu-queue-20261113/logs/codex06-e11-dora.log",
+      "started_at": "2026-11-13 16:16:20",
+      "returncode": 0,
+      "finished_at": "2026-11-13 16:16:50"
+    },
+    {
+      "id": "codex06-e11-merge",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-u",
+        "-m",
+        "experiments.aster_e9_e11_20261112.e11_shared_missing",
+        "merge"
+      ],
+      "cwd": "/home/gcx/aster-e9-e11-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONUNBUFFERED": "1",
+        "PYTHONPATH": "/home/gcx/aster-e9-e11-20261112",
+        "CUDA_VISIBLE_DEVICES": ""
+      },
+      "dependencies": [
+        "codex06-e11-iti",
+        "codex06-e11-dora"
+      ],
+      "gpu_count": 0,
+      "run_on_failure": true,
+      "estimated_vram_gib": 0,
+      "estimated_hours": 0.01,
+      "completion_marker": "/home/gcx/aster-e9-e11-20261112/reports/aster_e9_e11_20261112/e11_shared_missing/merged/completion.json",
+      "owner": "Codex06",
+      "priority": 100,
+      "state": "complete",
+      "external": false,
+      "pid": 464988,
+      "assigned_gpu": null,
+      "log": "/home/gcx/aster-gpu-queue-20261113/logs/codex06-e11-merge.log",
+      "started_at": "2026-11-13 16:16:50",
+      "returncode": 0,
+      "finished_at": "2026-11-13 16:17:05"
+    }
+  ],
+  "source": "/home/gcx/aster-gpu-queue-20261113/status.json"
+}
