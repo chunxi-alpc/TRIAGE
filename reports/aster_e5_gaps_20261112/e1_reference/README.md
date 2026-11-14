@@ -1,0 +1,1 @@
+Frozen E1 reference copied from the existing archive. No training, inference, or re-evaluation. Dataset A: 2540 pairs. Historical 40-source evaluation: 2293 AP, 40 CF, 806 natural paths; 2418 interference paths remain a separate denominator. Original 2000 source-bootstrap intervals are copied verbatim. This row does not certify external baseline compatibility.

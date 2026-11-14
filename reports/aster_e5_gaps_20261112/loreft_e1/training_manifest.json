@@ -1,0 +1,39 @@
+{
+  "dataset": "/home/gcx/aster_cr_pair_dataset_20261111/balanced_train.jsonl",
+  "pairs": 2540,
+  "categories": {
+    "A": 635,
+    "P": 635,
+    "C": 635,
+    "F": 635
+  },
+  "endpoints_before_deduplication": 5080,
+  "training_examples": 4637,
+  "sources": 80,
+  "deduplication": "Exact full prompt equality; each unique prompt once per epoch. All pair endpoint memberships retained; conflicting labels fail.",
+  "objective": "Native single-input binary cross entropy on the yes/no logit margin; no A/P or C/F difference objective.",
+  "extra_natural_training_nodes": 0,
+  "model": "Qwen3-8B",
+  "layer": 18,
+  "rank": 1,
+  "target_budget": 17,
+  "epochs": 1,
+  "optimizer": "AdamW",
+  "rotation_weight_decay": 0.0,
+  "learned_source_weight_decay": 0.01,
+  "gradient_clip_norm": 1.0,
+  "candidate_lrs": [
+    0.0001,
+    0.001,
+    0.01
+  ],
+  "candidate_seed": 11,
+  "final_seeds": [
+    11,
+    22,
+    33
+  ],
+  "selection": "Maximum development natural-path accuracy; minimum development natural-node BCE breaks ties; ascending learning rate breaks exact remaining ties.",
+  "test_history": "Historical 40-source controlled pool, not a new independent test.",
+  "target_tasks_evaluated": []
+}

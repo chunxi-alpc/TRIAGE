@@ -1,0 +1,113 @@
+{
+  "updated_at": "2026-11-13T16:58:20.534324+00:00",
+  "user_instruction": "Only run experiments that have not been run before",
+  "active_models": [
+    "gemma2_base",
+    "qwen_base"
+  ],
+  "stopped_model_pipelines": [
+    "gemma2",
+    "gemma3",
+    "medgemma"
+  ],
+  "reuse_completed_models": [
+    "qwen",
+    "llama31"
+  ],
+  "keep_existing_results": true,
+  "new_training_for_stopped_models": false,
+  "resume_stopped_full_pipelines": false,
+  "summary_scope": "two unfinished Base pipelines, two missing-transfer groups with existing E1 fits, and reused completed outputs",
+  "future_experiments_policy": "Only previously unrun experiments; reuse existing fits, cached features, predictions and completed evaluation units",
+  "missing_transfer_jobs": {
+    "gemma3": {
+      "scopes": [
+        "nli4ct_official5500",
+        "medpic",
+        "medpic_official467"
+      ],
+      "stages": [
+        "extract-dev",
+        "freeze",
+        "extract-transfer",
+        "evaluate-transfer"
+      ],
+      "source_fit": "models/gemma3/models/E1/full",
+      "new_training": false,
+      "full_pipeline_resume": false,
+      "source_development": "Complete only missing feature records and pending source freeze under the existing E1 configuration",
+      "evidence": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/running_history_check_20261114/matrix.json",
+      "history_checked": [
+        "server existing outputs",
+        "GitHub history checked 2026-11-14"
+      ],
+      "status": "queued",
+      "expected_peak_gib": [
+        54,
+        66
+      ],
+      "estimated_remaining_hours": [
+        3,
+        5
+      ],
+      "cpu_only_scopes": [
+        "nli4ct"
+      ],
+      "cpu_only_reason": "Existing 2864 full-head feature records are reused for the missing E1-frozen NLI 500 population statistics; historical NLI-within-task fit is retained separately; zero new backbone forward passes for this subset"
+    },
+    "medgemma": {
+      "scopes": [
+        "nli4ct_official5500",
+        "medpic",
+        "medpic_official467"
+      ],
+      "stages": [
+        "extract-dev",
+        "freeze",
+        "extract-transfer",
+        "evaluate-transfer"
+      ],
+      "source_fit": "models/medgemma/models/E1/full",
+      "new_training": false,
+      "full_pipeline_resume": false,
+      "source_development": "Complete only missing feature records and pending source freeze under the existing E1 configuration",
+      "evidence": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/running_history_check_20261114/matrix.json",
+      "history_checked": [
+        "server existing outputs",
+        "GitHub history checked 2026-11-14"
+      ],
+      "status": "queued",
+      "expected_peak_gib": [
+        54,
+        66
+      ],
+      "estimated_remaining_hours": [
+        3,
+        5
+      ],
+      "cpu_only_scopes": [
+        "nli4ct"
+      ],
+      "cpu_only_reason": "Existing 2864 full-head feature records are reused for the missing E1-frozen NLI 500 population statistics; historical NLI-within-task fit is retained separately; zero new backbone forward passes for this subset"
+    }
+  },
+  "previously_deferred_evaluations": {
+    "gemma3": {
+      "scopes": [
+        "nli4ct_official5500",
+        "medpic",
+        "medpic_official467"
+      ],
+      "reason": "E1 source fit exists but source development evaluation and freeze are incomplete; full source rerun is removed by user instruction; no switch to historical training protocol"
+    },
+    "medgemma": {
+      "scopes": [
+        "nli4ct_official5500",
+        "medpic",
+        "medpic_official467"
+      ],
+      "reason": "E1 source fit exists but source development evaluation and freeze are incomplete; full source rerun is removed by user instruction; no switch to historical training protocol"
+    }
+  },
+  "deferred_evaluations": {}
+}

@@ -1,0 +1,53 @@
+{
+  "method": "lofit",
+  "reported_name": "LoFiT-style-Qwen-SFT",
+  "seed": 22,
+  "lr": 0.0001,
+  "examples": 4637,
+  "epochs_per_stage": 1,
+  "stages": [
+    {
+      "stage": "select",
+      "steps": 4637,
+      "parameters": 147456,
+      "mean_loss": 0.2158588396781687,
+      "mean_answer_ce": 0.21585206017473207,
+      "parameter_change_l2": [
+        4.986073017120361
+      ],
+      "seconds": 2603.369771003723
+    },
+    {
+      "stage": "tune",
+      "steps": 4637,
+      "parameters": 128,
+      "mean_loss": 0.5933276942121456,
+      "mean_answer_ce": 0.5933276942121456,
+      "parameter_change_l2": [
+        0.4185989499092102
+      ],
+      "seconds": 2571.0973761081696
+    }
+  ],
+  "objective": "Native supervised fine-tuning: full-vocabulary cross entropy of the correct answer token, with prompt tokens masked. No A/P or C/F difference loss.",
+  "manifest": "../training_manifest.json",
+  "configuration": "Qwen architecture adaptation: all-head per-coordinate scale selection with 1e-3 mean-absolute scale penalty, then discard scales and train one selected-head offset. Not an unchanged official LoFiT model configuration.",
+  "target_budget": 17,
+  "strict_parameter_matching": false,
+  "layer": null,
+  "rank": null,
+  "heads": [
+    1119
+  ],
+  "deployment_parameters": 128,
+  "selection_parameters": 147456,
+  "optimizer": "AdamW",
+  "weight_decay": 0.01,
+  "gradient_clip_norm": 1.0,
+  "full_vocabulary_loss": true,
+  "prompt_token_loss": false,
+  "extra_pair_loss": false,
+  "train_seconds": 5174.467147111893,
+  "total_seconds": 5178.35773563385,
+  "peak_gib": 18.579866886138916
+}

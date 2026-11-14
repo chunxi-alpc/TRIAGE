@@ -1,0 +1,32 @@
+{
+  "owner": "Codex03",
+  "jobs": [
+    {
+      "id": "codex03-finalize",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.finalize"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "dependencies": [
+        "codex03-inlp-run",
+        "codex03-psr-smoke",
+        "codex03-psr-teacher",
+        "codex03-psr-seed11",
+        "codex03-psr-seed22",
+        "codex03-psr-seed33"
+      ],
+      "gpu_count": 0,
+      "run_on_failure": true,
+      "estimated_vram_gib": 0,
+      "estimated_hours": 0.02
+    }
+  ]
+}

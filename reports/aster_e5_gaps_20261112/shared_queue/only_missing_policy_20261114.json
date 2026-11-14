@@ -1,0 +1,39 @@
+{
+  "updated_at": "2026-11-13T16:49:43.990062+00:00",
+  "user_instruction": "Only run experiments that have not been run before",
+  "active_models": [
+    "gemma2_base",
+    "qwen_base"
+  ],
+  "stopped_model_pipelines": [
+    "gemma2",
+    "gemma3",
+    "medgemma"
+  ],
+  "reuse_completed_models": [
+    "qwen",
+    "llama31"
+  ],
+  "keep_existing_results": true,
+  "new_training_for_stopped_models": false,
+  "resume_stopped_full_pipelines": false,
+  "deferred_evaluations": {
+    "gemma3": {
+      "scopes": [
+        "nli4ct_official5500",
+        "medpic",
+        "medpic_official467"
+      ],
+      "reason": "E1 source fit exists but source development evaluation and freeze are incomplete; full source rerun is removed by user instruction; no switch to historical training protocol"
+    },
+    "medgemma": {
+      "scopes": [
+        "nli4ct_official5500",
+        "medpic",
+        "medpic_official467"
+      ],
+      "reason": "E1 source fit exists but source development evaluation and freeze are incomplete; full source rerun is removed by user instruction; no switch to historical training protocol"
+    }
+  },
+  "summary_scope": "remaining authorized Base experiments and already completed outputs"
+}

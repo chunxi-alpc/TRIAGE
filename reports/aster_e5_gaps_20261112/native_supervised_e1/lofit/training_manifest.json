@@ -1,0 +1,43 @@
+{
+  "audit_reference": "docs/ASTER/baseline-audit-20261112.zh.md, branch codex/aster-codex00-01-audit-20261112",
+  "dataset": "/home/gcx/aster_cr_pair_dataset_20261111/balanced_train.jsonl",
+  "pairs": 2540,
+  "categories": {
+    "A": 635,
+    "P": 635,
+    "C": 635,
+    "F": 635
+  },
+  "endpoints_before_deduplication": 5080,
+  "training_examples": 4637,
+  "sources": 80,
+  "deduplication": "Exact full prompt equality; each unique prompt once per epoch. All pair endpoint memberships retained; conflicting labels fail.",
+  "objective": "Native supervised fine-tuning: full-vocabulary cross entropy of the correct answer token, with prompt tokens masked. No A/P or C/F difference loss.",
+  "extra_natural_training_nodes": 0,
+  "model": "Qwen3-8B",
+  "method": "lofit",
+  "target_budget": 17,
+  "epochs_per_stage": 1,
+  "optimizer": "AdamW",
+  "weight_decay": 0.01,
+  "gradient_clip_norm": 1.0,
+  "configuration": "Qwen architecture adaptation: all-head per-coordinate scale selection with 1e-3 mean-absolute scale penalty, then discard scales and train one selected-head offset. Not an unchanged official LoFiT model configuration.",
+  "stages": [
+    "select",
+    "tune"
+  ],
+  "candidate_lrs": [
+    0.0001,
+    0.001,
+    0.01
+  ],
+  "candidate_seed": 11,
+  "final_seeds": [
+    11,
+    22,
+    33
+  ],
+  "selection": "Maximum development natural-path accuracy; minimum development natural-node BCE breaks ties; ascending learning rate breaks exact remaining ties.",
+  "test_history": "Historical 40-source controlled pool, not a new independent test.",
+  "target_tasks_evaluated": []
+}

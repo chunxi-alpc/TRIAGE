@@ -1,0 +1,36 @@
+{
+  "methods": [
+    "leace_pair",
+    "iti_style",
+    "sea_adaptation"
+  ],
+  "first_frontier_unique_inputs": 2385,
+  "first_frontier_method_score_requests": 7122,
+  "shared_stage": "One original-model prompt prefill per simultaneous UID request; separate method-specific final-token forwards.",
+  "reason": "Comparators.edited installs interventions after Engine.prepare. Engine.run copies the original prefix cache before each final-token forward.",
+  "other_methods": "Do not share adapter-modified or strong-prompt contexts across methods or seeds.",
+  "inspection_only": true,
+  "new_model_forwards": 0,
+  "source_files": [
+    {
+      "path": "/home/gcx/aster-e5-gaps-20261112/experiments/aster_cr/comparators.py",
+      "sha256": "ba718c561bb18d159c40131a8eaee01f34a87da2d686c8884ac84f73d69f8df4",
+      "size": 13028
+    },
+    {
+      "path": "/home/gcx/aster-e5-gaps-20261112/experiments/aster_cr/engine.py",
+      "sha256": "db5bbe78dc9be5630982cab41a5300fda3b1d9359723dc807275714f8bea1235",
+      "size": 1556
+    },
+    {
+      "path": "/home/gcx/aster-e5-gaps-20261112/experiments/m1_diagnostics/engine.py",
+      "sha256": "4136505fc3e255e62ace28a3527561529488ae4a4c79eb928b41e98b3a57f24a",
+      "size": 9968
+    },
+    {
+      "path": "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/e1_representation_baselines.py",
+      "sha256": "62e63bc089f78f950fc9805179047f3d8723f1c60ceb5ff030d4fe678866323d",
+      "size": 23312
+    }
+  ]
+}
