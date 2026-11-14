@@ -1,0 +1,2851 @@
+{
+  "status": "Historical results export only; E1 compatibility awaits Codex 01 report.",
+  "source_directory": "/home/gcx/aster_cancel_story_20261109/meeting/real_completion",
+  "model": "Qwen3-8B",
+  "evaluation_history": "Previously used 40-source controlled evaluation; not a new independent test.",
+  "denominators": {
+    "sources": 40,
+    "AP_pairs": 2293,
+    "CF_pairs": 40,
+    "CF_sources": 12,
+    "F0_pairs_separate": 6,
+    "natural_nodes": 372,
+    "dynamic_paths": 806
+  },
+  "historical_fit_context": {
+    "AP": 4887,
+    "CF": 135,
+    "note": "Describes historical ASTER fit context; it is not a verified training manifest for every external method."
+  },
+  "target_training_protocol": "E1 / Dataset A, 2540 pairs. Historical learned-method rows are not certified as E1-compatible.",
+  "uncertainty": "2000 source-cluster bootstrap replicates, seed 11, percentile 95% CIs; sources sampled jointly across methods; undefined sparse-group replicates omitted",
+  "interval_provenance": "Existing intervals copied verbatim; fixed-scale intervals transformed analytically from raw intervals. No new bootstrap.",
+  "analytic_identities": "Raw and shared-intercept pair correction is exactly zero; archived floating-point residuals remain in imported records. Positive scaling leaves binary predictions and paths unchanged.",
+  "model_inference_runs": 0,
+  "training_runs": 0,
+  "excluded": {
+    "loreft": "Effectiveness not established; excluded from numeric tables."
+  },
+  "methods": {
+    "raw": {
+      "settings": {
+        "basis": "r16",
+        "weights_source": "existing",
+        "b": 0.0,
+        "tau": null,
+        "parameters": 17,
+        "fit_max_evidence_correction": 0.0
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "expected": 2283,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 2.558574584942964,
+          "correction_rms": 0.0,
+          "correction_rms_over_ap_rms": 0.0,
+          "correction_abs_max": 0.0,
+          "paired_correct": 2248,
+          "paired_accuracy": 0.9846692947875603,
+          "paired_accuracy_ci": [
+            0.9673015536519011,
+            0.9966941765413201
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            2.165167197337634,
+            2.962915176736797
+          ],
+          "correction_rms_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.0,
+          "variance_reduction_ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "P": {
+          "n": 10,
+          "expected": 10,
+          "missing": 0,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 9.449647881654274,
+          "correction_rms": 0.0,
+          "correction_rms_over_ap_rms": 0.0,
+          "correction_abs_max": 0.0,
+          "paired_correct": 10,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            0.056495360588912864,
+            12.569779232424583
+          ],
+          "correction_rms_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.0,
+          "variance_reduction_ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "expected": 2293,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 2.628151983382305,
+          "correction_rms": 0.0,
+          "correction_rms_over_ap_rms": 0.0,
+          "correction_abs_max": 0.0,
+          "paired_correct": 2258,
+          "paired_accuracy": 0.9847361535106847,
+          "paired_accuracy_ci": [
+            0.9674270320487187,
+            0.9967040211623353
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            2.170409858723565,
+            3.092887019858962
+          ],
+          "correction_rms_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.0,
+          "variance_reduction_ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "F0": {
+          "n": 6,
+          "expected": 6,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 4.184726751718108,
+          "correction_rms": 0.0,
+          "correction_rms_over_ap_rms": 0.0,
+          "correction_abs_max": 0.0,
+          "paired_correct": 6,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            3.921812350499858,
+            4.432072185846836
+          ],
+          "correction_rms_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.0,
+          "variance_reduction_ci": [
+            0.0,
+            0.0
+          ]
+        },
+        "C": {
+          "n": 33,
+          "expected": 33,
+          "missing": 0,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 35.98966226239321,
+          "correction_rms": 0.0,
+          "correction_rms_over_ap_rms": 0.0,
+          "correction_abs_max": 0.0,
+          "paired_correct": 16,
+          "paired_accuracy": 0.48484848484848486,
+          "paired_accuracy_ci": [
+            0.18181818181818182,
+            0.6049463937621832
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            20.819688102570073,
+            40.356439445283065
+          ],
+          "correction_rms_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 1.0,
+          "mean_evidence_retention_ci": [
+            1.0,
+            1.0
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 0,
+          "exceeds_fit_budget_fraction": 0.0
+        },
+        "F": {
+          "n": 7,
+          "expected": 7,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 37.71398962270881,
+          "correction_rms": 0.0,
+          "correction_rms_over_ap_rms": 0.0,
+          "correction_abs_max": 0.0,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            11.116157561759035,
+            56.16089759812457
+          ],
+          "correction_rms_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 1.0,
+          "mean_evidence_retention_ci": [
+            1.0,
+            1.0
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 0,
+          "exceeds_fit_budget_fraction": 0.0
+        },
+        "CF": {
+          "n": 40,
+          "expected": 40,
+          "missing": 0,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 36.29733328873824,
+          "correction_rms": 0.0,
+          "correction_rms_over_ap_rms": 0.0,
+          "correction_abs_max": 0.0,
+          "paired_correct": 19,
+          "paired_accuracy": 0.475,
+          "paired_accuracy_ci": [
+            0.13333333333333333,
+            0.6207129543336439
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            18.79145598765586,
+            42.051301026420795
+          ],
+          "correction_rms_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 1.0,
+          "mean_evidence_retention_ci": [
+            1.0,
+            1.0
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 0,
+          "exceeds_fit_budget_fraction": 0.0
+        },
+        "natural": {
+          "n": 372,
+          "expected": 372,
+          "missing": 0,
+          "correct": 368,
+          "accuracy": 0.989247311827957,
+          "accuracy_ci": [
+            0.9786096256684492,
+            0.9974025974025974
+          ],
+          "difference_vs_raw": 0.0,
+          "difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "expected": 806,
+        "missing": 0,
+        "correct": 768,
+        "accuracy": 0.9528535980148883,
+        "accuracy_ci": [
+          0.9351523251482478,
+          0.9699184647944525
+        ],
+        "difference_vs_raw": 0.0,
+        "difference_vs_raw_ci": [
+          0.0,
+          0.0
+        ],
+        "unavailable_scores": 0
+      }
+    },
+    "scale_095": {
+      "settings": {
+        "scale": 0.95,
+        "derivation": "Analytic transformation of existing raw scores; no fit or inference."
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "expected": 2283,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 2.4306458556958157,
+          "correction_rms": 0.1279287292471482,
+          "correction_rms_over_ap_rms": 0.048676305653568064,
+          "correction_abs_max": 1.224764633178711,
+          "paired_correct": 2248,
+          "paired_accuracy": 0.9846692947875603,
+          "paired_accuracy_ci": [
+            0.9673015536519011,
+            0.9966941765413201
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            2.0569088374707523,
+            2.814769417899957
+          ],
+          "correction_rms_ci": [
+            0.1082583598668817,
+            0.14814575883683986
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.09750000000000003,
+          "variance_reduction_ci": [
+            0.09750000000000003,
+            0.09750000000000003
+          ]
+        },
+        "P": {
+          "n": 10,
+          "expected": 10,
+          "missing": 0,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 8.97716548757156,
+          "correction_rms": 0.4724823940827137,
+          "correction_rms_over_ap_rms": 0.17977742423961784,
+          "correction_abs_max": 1.0847661972045899,
+          "paired_correct": 10,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            0.05367059255946722,
+            11.941290270803353
+          ],
+          "correction_rms_ci": [
+            0.0028247680294456435,
+            0.6284889616212292
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.09750000000000003,
+          "variance_reduction_ci": [
+            0.09750000000000003,
+            0.09750000000000003
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "expected": 2293,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 2.4967443842131893,
+          "correction_rms": 0.13140759916911524,
+          "correction_rms_over_ap_rms": 0.049999999999999996,
+          "correction_abs_max": 1.224764633178711,
+          "paired_correct": 2258,
+          "paired_accuracy": 0.9847361535106847,
+          "paired_accuracy_ci": [
+            0.9674270320487187,
+            0.9967040211623353
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            2.0618893657873865,
+            2.938242668866014
+          ],
+          "correction_rms_ci": [
+            0.10852049293617826,
+            0.15464435099294813
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.09750000000000003,
+          "variance_reduction_ci": [
+            0.09750000000000003,
+            0.09750000000000003
+          ]
+        },
+        "F0": {
+          "n": 6,
+          "expected": 6,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 3.975490414132202,
+          "correction_rms": 0.2092363375859054,
+          "correction_rms_over_ap_rms": 0.07961348464963139,
+          "correction_abs_max": 0.3730653762817383,
+          "paired_correct": 6,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            3.725721732974865,
+            4.2104685765544945
+          ],
+          "correction_rms_ci": [
+            0.1960906175249929,
+            0.22160360929234182
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.09750000000000003,
+          "variance_reduction_ci": [
+            0.09750000000000003,
+            0.09750000000000003
+          ]
+        },
+        "C": {
+          "n": 33,
+          "expected": 33,
+          "missing": 0,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 34.19017914927355,
+          "correction_rms": 1.7994831131196607,
+          "correction_rms_over_ap_rms": 0.6846952248187005,
+          "correction_abs_max": 2.9015366554260256,
+          "paired_correct": 16,
+          "paired_accuracy": 0.48484848484848486,
+          "paired_accuracy_ci": [
+            0.18181818181818182,
+            0.6049463937621832
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            19.778703697441568,
+            38.33861747301891
+          ],
+          "correction_rms_ci": [
+            1.0409844051285038,
+            2.0178219722641533
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.95,
+          "mean_evidence_retention_ci": [
+            0.95,
+            0.95
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 20,
+          "exceeds_fit_budget_fraction": 0.6060606060606061
+        },
+        "F": {
+          "n": 7,
+          "expected": 7,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 35.82829014157337,
+          "correction_rms": 1.8856994811354406,
+          "correction_rms_over_ap_rms": 0.7175001647768621,
+          "correction_abs_max": 2.852344417572022,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            10.560349683671083,
+            53.35285271821834
+          ],
+          "correction_rms_ci": [
+            0.5558078780879517,
+            2.8080448799062285
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.95,
+          "mean_evidence_retention_ci": [
+            0.95,
+            0.95
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 7,
+          "exceeds_fit_budget_fraction": 1.0
+        },
+        "CF": {
+          "n": 40,
+          "expected": 40,
+          "missing": 0,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 34.482466624301324,
+          "correction_rms": 1.814866664436912,
+          "correction_rms_over_ap_rms": 0.6905485968514142,
+          "correction_abs_max": 2.9015366554260256,
+          "paired_correct": 19,
+          "paired_accuracy": 0.475,
+          "paired_accuracy_ci": [
+            0.13333333333333333,
+            0.6207129543336439
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            17.851883188273064,
+            39.94873597509975
+          ],
+          "correction_rms_ci": [
+            0.9395727993827929,
+            2.1025650513210397
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.95,
+          "mean_evidence_retention_ci": [
+            0.95,
+            0.95
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 27,
+          "exceeds_fit_budget_fraction": 0.675
+        },
+        "natural": {
+          "n": 372,
+          "expected": 372,
+          "missing": 0,
+          "correct": 368,
+          "accuracy": 0.989247311827957,
+          "accuracy_ci": [
+            0.9786096256684492,
+            0.9974025974025974
+          ],
+          "difference_vs_raw": 0.0,
+          "difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "expected": 806,
+        "missing": 0,
+        "correct": 768,
+        "accuracy": 0.9528535980148883,
+        "accuracy_ci": [
+          0.9351523251482478,
+          0.9699184647944525
+        ],
+        "difference_vs_raw": 0.0,
+        "difference_vs_raw_ci": [
+          0.0,
+          0.0
+        ],
+        "unavailable_scores": 0
+      }
+    },
+    "no_w": {
+      "settings": {
+        "basis": "r16",
+        "weights_source": "existing",
+        "b": 3.0993948961894406,
+        "tau": null,
+        "parameters": 17,
+        "fit_max_evidence_correction": 0.0
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "expected": 2283,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 2.5585745849429635,
+          "correction_rms": 1.082817310298422e-15,
+          "correction_rms_over_ap_rms": 4.1200711265749873e-16,
+          "correction_abs_max": 3.552713678800501e-15,
+          "paired_correct": 2257,
+          "paired_accuracy": 0.9886114761279019,
+          "paired_accuracy_ci": [
+            0.9781475429992731,
+            0.9970949047941597
+          ],
+          "paired_accuracy_difference_vs_raw": 0.003942181340341655,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.011542966985896996
+          ],
+          "difference_rms_ci": [
+            2.1651671973376336,
+            2.962915176736797
+          ],
+          "correction_rms_ci": [
+            9.825708649572248e-16,
+            1.175879239487409e-15
+          ],
+          "corrected_pairs_vs_raw": 9,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 2.220446049250313e-16,
+          "variance_reduction_ci": [
+            0.0,
+            2.220446049250313e-16
+          ]
+        },
+        "P": {
+          "n": 10,
+          "expected": 10,
+          "missing": 0,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 9.449647881654272,
+          "correction_rms": 1.5888218580782547e-15,
+          "correction_rms_over_ap_rms": 6.045395654910023e-16,
+          "correction_abs_max": 3.552713678800501e-15,
+          "paired_correct": 10,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            0.056495360588912864,
+            12.56977923242458
+          ],
+          "correction_rms_ci": [
+            0.0,
+            2.1151172074891737e-15
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 3.3306690738754696e-16,
+          "variance_reduction_ci": [
+            0.0,
+            4.440892098500626e-16
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "expected": 2293,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 2.628151983382305,
+          "correction_rms": 1.0855362405813402e-15,
+          "correction_rms_over_ap_rms": 4.130416533918664e-16,
+          "correction_abs_max": 3.552713678800501e-15,
+          "paired_correct": 2267,
+          "paired_accuracy": 0.9886611426079372,
+          "paired_accuracy_ci": [
+            0.978259274450825,
+            0.9971089126630299
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0039249890972525075,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.011502309593852813
+          ],
+          "difference_rms_ci": [
+            2.170409858723565,
+            3.092887019858962
+          ],
+          "correction_rms_ci": [
+            9.855344437965738e-16,
+            1.1776455980906471e-15
+          ],
+          "corrected_pairs_vs_raw": 9,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 2.220446049250313e-16,
+          "variance_reduction_ci": [
+            0.0,
+            2.220446049250313e-16
+          ]
+        },
+        "F0": {
+          "n": 6,
+          "expected": 6,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 4.184726751718107,
+          "correction_rms": 2.0511601988091347e-15,
+          "correction_rms_over_ap_rms": 7.8045722309004e-16,
+          "correction_abs_max": 3.552713678800501e-15,
+          "paired_correct": 6,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            3.921812350499858,
+            4.4320721858468355
+          ],
+          "correction_rms_ci": [
+            0.0,
+            2.9007785717557725e-15
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 2.220446049250313e-16,
+          "variance_reduction_ci": [
+            0.0,
+            8.881784197001252e-16
+          ]
+        },
+        "C": {
+          "n": 33,
+          "expected": 33,
+          "missing": 0,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 35.98966226239321,
+          "correction_rms": 1.382891923927195e-15,
+          "correction_rms_over_ap_rms": 5.261841524657489e-16,
+          "correction_abs_max": 3.552713678800501e-15,
+          "paired_correct": 16,
+          "paired_accuracy": 0.48484848484848486,
+          "paired_accuracy_ci": [
+            0.18181818181818182,
+            0.6049463937621832
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            20.819688102570073,
+            40.356439445283065
+          ],
+          "correction_rms_ci": [
+            0.0,
+            1.7585928014183521e-15
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 1.0,
+          "mean_evidence_retention_ci": [
+            1.0,
+            1.0
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 0,
+          "exceeds_fit_budget_fraction": 0.0
+        },
+        "F": {
+          "n": 7,
+          "expected": 7,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 37.71398962270881,
+          "correction_rms": 0.0,
+          "correction_rms_over_ap_rms": 0.0,
+          "correction_abs_max": 0.0,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            11.116157561759035,
+            56.16089759812457
+          ],
+          "correction_rms_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 1.0,
+          "mean_evidence_retention_ci": [
+            1.0,
+            1.0
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 0,
+          "exceeds_fit_budget_fraction": 0.0
+        },
+        "CF": {
+          "n": 40,
+          "expected": 40,
+          "missing": 0,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 36.29733328873824,
+          "correction_rms": 1.2560739669470201e-15,
+          "correction_rms_over_ap_rms": 4.77930490660024e-16,
+          "correction_abs_max": 3.552713678800501e-15,
+          "paired_correct": 19,
+          "paired_accuracy": 0.475,
+          "paired_accuracy_ci": [
+            0.13333333333333333,
+            0.6207129543336439
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            18.79145598765586,
+            42.051301026420795
+          ],
+          "correction_rms_ci": [
+            0.0,
+            1.636259790671482e-15
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 1.0,
+          "mean_evidence_retention_ci": [
+            1.0,
+            1.0
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 0,
+          "exceeds_fit_budget_fraction": 0.0
+        },
+        "natural": {
+          "n": 372,
+          "expected": 372,
+          "missing": 0,
+          "correct": 368,
+          "accuracy": 0.989247311827957,
+          "accuracy_ci": [
+            0.9786096256684492,
+            0.9974025974025974
+          ],
+          "difference_vs_raw": 0.0,
+          "difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "expected": 806,
+        "missing": 0,
+        "correct": 767,
+        "accuracy": 0.9516129032258065,
+        "accuracy_ci": [
+          0.934209766622098,
+          0.9680439648492146
+        ],
+        "difference_vs_raw": -0.0012406947890818859,
+        "difference_vs_raw_ci": [
+          -0.009318435382079163,
+          0.0065535105047335425
+        ],
+        "unavailable_scores": 0
+      }
+    },
+    "ordinary_r8": {
+      "settings": {
+        "source": "existing frozen readout scores",
+        "configuration": "ordinary_r8"
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "expected": 2283,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 1.3602523542131233,
+          "correction_rms": 1.908225891307426,
+          "correction_rms_over_ap_rms": 0.7260713624528028,
+          "correction_abs_max": 19.121865928173065,
+          "paired_correct": 2247,
+          "paired_accuracy": 0.9842312746386334,
+          "paired_accuracy_ci": [
+            0.9706909318751424,
+            0.9948105344335253
+          ],
+          "paired_accuracy_difference_vs_raw": -0.0004380201489268506,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.006874191100995224,
+            0.006664867235000129
+          ],
+          "difference_rms_ci": [
+            1.2328262433155082,
+            1.5009810327375195
+          ],
+          "correction_rms_ci": [
+            1.5812803847002768,
+            2.2419389280226087
+          ],
+          "corrected_pairs_vs_raw": 16,
+          "new_error_pairs_vs_raw": 17,
+          "variance_reduction": 0.7378930417151848,
+          "variance_reduction_ci": [
+            0.6729073901463399,
+            0.78346407737364
+          ]
+        },
+        "P": {
+          "n": 10,
+          "expected": 10,
+          "missing": 0,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 1.0775200597534735,
+          "correction_rms": 8.548479239277198,
+          "correction_rms_over_ap_rms": 3.252657872653056,
+          "correction_abs_max": 20.040228843688965,
+          "paired_correct": 10,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            0.035439329823712645,
+            1.3826386276830127
+          ],
+          "correction_rms_ci": [
+            0.02294510214412384,
+            11.377430378240739
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.9883707550269831,
+          "variance_reduction_ci": [
+            -7.236934636705573,
+            0.989152164793381
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "expected": 2293,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 1.359147025308684,
+          "correction_rms": 1.9859858277330182,
+          "correction_rms_over_ap_rms": 0.7556586682544707,
+          "correction_abs_max": 20.040228843688965,
+          "paired_correct": 2257,
+          "paired_accuracy": 0.98430004361099,
+          "paired_accuracy_ci": [
+            0.9707397160408251,
+            0.9948187044567842
+          ],
+          "paired_accuracy_difference_vs_raw": -0.0004361098996947231,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.006870196724793049,
+            0.0066441717523308555
+          ],
+          "difference_rms_ci": [
+            1.231959702489334,
+            1.498780994842872
+          ],
+          "correction_rms_ci": [
+            1.5827035858625478,
+            2.4269515344209167
+          ],
+          "corrected_pairs_vs_raw": 16,
+          "new_error_pairs_vs_raw": 17,
+          "variance_reduction": 0.752011321110672,
+          "variance_reduction_ci": [
+            0.6743148550404929,
+            0.8077803651198034
+          ]
+        },
+        "F0": {
+          "n": 6,
+          "expected": 6,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 1.9306732820031194,
+          "correction_rms": 2.3337101234926725,
+          "correction_rms_over_ap_rms": 0.8879661976356863,
+          "correction_abs_max": 4.72390079498291,
+          "paired_correct": 6,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            1.7246915549128807,
+            2.1167044394750967
+          ],
+          "correction_rms_ci": [
+            1.8244855089327146,
+            2.7502106298752653
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.818142994485406,
+          "variance_reduction_ci": [
+            0.8155366408429638,
+            0.9201286410432491
+          ]
+        },
+        "C": {
+          "n": 33,
+          "expected": 33,
+          "missing": 0,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 11.080031078298912,
+          "correction_rms": 25.02601095520517,
+          "correction_rms_over_ap_rms": 9.522284522905673,
+          "correction_abs_max": 41.5001916885376,
+          "paired_correct": 17,
+          "paired_accuracy": 0.5151515151515151,
+          "paired_accuracy_ci": [
+            0.18181818181818182,
+            0.6428571428571429
+          ],
+          "paired_accuracy_difference_vs_raw": 0.030303030303030304,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.04838709677419355
+          ],
+          "difference_rms_ci": [
+            5.921036290321317,
+            12.587135609077736
+          ],
+          "correction_rms_ci": [
+            14.476505310296181,
+            27.957679989369176
+          ],
+          "corrected_pairs_vs_raw": 1,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.30952449238689994,
+          "mean_evidence_retention_ci": [
+            0.2635809451028274,
+            0.33105509628371643
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 27,
+          "exceeds_fit_budget_fraction": 0.8181818181818182
+        },
+        "F": {
+          "n": 7,
+          "expected": 7,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 10.904745983709462,
+          "correction_rms": 26.95063987009692,
+          "correction_rms_over_ap_rms": 10.254597162000026,
+          "correction_abs_max": 41.0988245010376,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            5.070015070904564,
+            15.594595041314752
+          ],
+          "correction_rms_ci": [
+            6.066195603572408,
+            40.56749112877781
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.3151282423610083,
+          "mean_evidence_retention_ci": [
+            0.2776013599963757,
+            0.45882328456728405
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 7,
+          "exceeds_fit_budget_fraction": 1.0
+        },
+        "CF": {
+          "n": 40,
+          "expected": 40,
+          "missing": 0,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 11.049556916178693,
+          "correction_rms": 25.37336168540997,
+          "correction_rms_over_ap_rms": 9.654449912274737,
+          "correction_abs_max": 41.5001916885376,
+          "paired_correct": 20,
+          "paired_accuracy": 0.5,
+          "paired_accuracy_ci": [
+            0.13333333333333333,
+            0.6571526418786692
+          ],
+          "paired_accuracy_difference_vs_raw": 0.025,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0410958904109589
+          ],
+          "difference_rms_ci": [
+            5.720185948735088,
+            12.783307394049004
+          ],
+          "correction_rms_ci": [
+            12.949633277998728,
+            29.412341123908448
+          ],
+          "corrected_pairs_vs_raw": 1,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.3106377093044827,
+          "mean_evidence_retention_ci": [
+            0.2722740171296314,
+            0.3698741183553663
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 34,
+          "exceeds_fit_budget_fraction": 0.85
+        },
+        "natural": {
+          "n": 372,
+          "expected": 372,
+          "missing": 0,
+          "correct": 367,
+          "accuracy": 0.9865591397849462,
+          "accuracy_ci": [
+            0.9717937853107345,
+            0.9973476555373106
+          ],
+          "difference_vs_raw": -0.002688172043010753,
+          "difference_vs_raw_ci": [
+            -0.011237542055481496,
+            0.005525244486616364
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "expected": 806,
+        "missing": 0,
+        "correct": 737,
+        "accuracy": 0.9143920595533499,
+        "accuracy_ci": [
+          0.8848377859212286,
+          0.9431706134415877
+        ],
+        "difference_vs_raw": -0.038461538461538464,
+        "difference_vs_raw_ci": [
+          -0.05832177572309151,
+          -0.018225429090749038
+        ],
+        "unavailable_scores": 0
+      }
+    },
+    "leace": {
+      "settings": {
+        "source": "existing per-input scores",
+        "configuration": "qwen/comparators/settings.json"
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "expected": 2283,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 2.507667976490646,
+          "correction_rms": 0.6940336752015857,
+          "correction_rms_over_ap_rms": 0.26407668947227236,
+          "correction_abs_max": 5.358081817626953,
+          "paired_correct": 2252,
+          "paired_accuracy": 0.9864213753832677,
+          "paired_accuracy_ci": [
+            0.971735858587606,
+            0.9970949047941597
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0017520805957074025,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.004831063911816763
+          ],
+          "difference_rms_ci": [
+            2.133672780598528,
+            2.9025511755960105
+          ],
+          "correction_rms_ci": [
+            0.5886653447395833,
+            0.8270831607000502
+          ],
+          "corrected_pairs_vs_raw": 4,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.04384673369622849,
+          "variance_reduction_ci": [
+            -0.026386851918197684,
+            0.10611481543235188
+          ]
+        },
+        "P": {
+          "n": 10,
+          "expected": 10,
+          "missing": 0,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 7.626546304660421,
+          "correction_rms": 1.97254223487906,
+          "correction_rms_over_ap_rms": 0.7505434416850175,
+          "correction_abs_max": 5.305229187011719,
+          "paired_correct": 10,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            0.22054645113065208,
+            10.131636351453059
+          ],
+          "correction_rms_ci": [
+            0.11876527817115116,
+            2.619079204818735
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.3614574121009635,
+          "variance_reduction_ci": [
+            -9.155866702293027,
+            0.3654550283683658
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "expected": 2293,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 2.552378150401908,
+          "correction_rms": 0.7046635906643445,
+          "correction_rms_over_ap_rms": 0.2681213244591268,
+          "correction_abs_max": 5.358081817626953,
+          "paired_correct": 2262,
+          "paired_accuracy": 0.9864805931094636,
+          "paired_accuracy_ci": [
+            0.9719374948774692,
+            0.9971089126630299
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0017444395987788923,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.004808040019286402
+          ],
+          "difference_rms_ci": [
+            2.139028583650281,
+            2.9918260295368193
+          ],
+          "correction_rms_ci": [
+            0.5954943345224551,
+            0.8398887940940186
+          ],
+          "corrected_pairs_vs_raw": 4,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.061251386008803976,
+          "variance_reduction_ci": [
+            -0.006247752853267385,
+            0.11535313564654617
+          ]
+        },
+        "F0": {
+          "n": 6,
+          "expected": 6,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 4.1566795290406695,
+          "correction_rms": 0.6834296621390046,
+          "correction_rms_over_ap_rms": 0.26004191023209533,
+          "correction_abs_max": 1.1423568725585938,
+          "paired_correct": 6,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            3.798537925204444,
+            4.486321326551971
+          ],
+          "correction_rms_ci": [
+            0.6460911874896461,
+            0.71883126228002
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.08962528602088571,
+          "variance_reduction_ci": [
+            -0.4941236529093702,
+            0.24911502176538536
+          ]
+        },
+        "C": {
+          "n": 33,
+          "expected": 33,
+          "missing": 0,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 35.703337151854825,
+          "correction_rms": 1.1486986282659164,
+          "correction_rms_over_ap_rms": 0.43707465760317127,
+          "correction_abs_max": 2.8676910400390625,
+          "paired_correct": 16,
+          "paired_accuracy": 0.48484848484848486,
+          "paired_accuracy_ci": [
+            0.18181818181818182,
+            0.6049463937621832
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            20.96356221793408,
+            39.933765683175196
+          ],
+          "correction_rms_ci": [
+            0.6875695894968972,
+            1.3446134107383707
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.9887941898174204,
+          "mean_evidence_retention_ci": [
+            0.9776631204014515,
+            1.0288721257358966
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 22,
+          "exceeds_fit_budget_fraction": 0.6666666666666666
+        },
+        "F": {
+          "n": 7,
+          "expected": 7,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 36.92391367316238,
+          "correction_rms": 0.9178078615537826,
+          "correction_rms_over_ap_rms": 0.34922176014060197,
+          "correction_abs_max": 1.4528045654296875,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            10.976642496298386,
+            54.95962483082728
+          ],
+          "correction_rms_ci": [
+            0.6085349255389558,
+            1.2131693853575822
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.9814118044792117,
+          "mean_evidence_retention_ci": [
+            0.9786317859340485,
+            0.9920568369735161
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 5,
+          "exceeds_fit_budget_fraction": 0.7142857142857143
+        },
+        "CF": {
+          "n": 40,
+          "expected": 40,
+          "missing": 0,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 35.91993220041959,
+          "correction_rms": 1.1117596488028496,
+          "correction_rms_over_ap_rms": 0.4230195421849495,
+          "correction_abs_max": 2.8676910400390625,
+          "paired_correct": 19,
+          "paired_accuracy": 0.475,
+          "paired_accuracy_ci": [
+            0.13333333333333333,
+            0.6207129543336439
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            18.93699259311264,
+            41.418782112021006
+          ],
+          "correction_rms_ci": [
+            0.6729198161193837,
+            1.2852561963389557
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.987327636832619,
+          "mean_evidence_retention_ci": [
+            0.9786960271139292,
+            1.0247166999311748
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 27,
+          "exceeds_fit_budget_fraction": 0.675
+        },
+        "natural": {
+          "n": 372,
+          "expected": 372,
+          "missing": 0,
+          "correct": 368,
+          "accuracy": 0.989247311827957,
+          "accuracy_ci": [
+            0.9786096256684492,
+            0.9974025974025974
+          ],
+          "difference_vs_raw": 0.0,
+          "difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "expected": 806,
+        "missing": 0,
+        "correct": 767,
+        "accuracy": 0.9516129032258065,
+        "accuracy_ci": [
+          0.9333333333333333,
+          0.9692753900073785
+        ],
+        "difference_vs_raw": -0.0012406947890818859,
+        "difference_vs_raw_ci": [
+          -0.005633882210965909,
+          0.002541948511841164
+        ],
+        "unavailable_scores": 0
+      }
+    },
+    "iti": {
+      "settings": {
+        "source": "existing per-input scores",
+        "configuration": "qwen/comparators/settings.json"
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "expected": 2283,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 1.176203705081053,
+          "correction_rms": 2.5851265353312844,
+          "correction_rms_over_ap_rms": 0.983629010680102,
+          "correction_abs_max": 23.036344528198242,
+          "paired_correct": 578,
+          "paired_accuracy": 0.25317564607971965,
+          "paired_accuracy_ci": [
+            0.2162237103879494,
+            0.3030822375179782
+          ],
+          "paired_accuracy_difference_vs_raw": -0.7314936487078406,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.772586912718346,
+            -0.6790674550739958
+          ],
+          "difference_rms_ci": [
+            1.0715207055263334,
+            1.2921682916621622
+          ],
+          "correction_rms_ci": [
+            2.245103713668477,
+            2.942659901566755
+          ],
+          "corrected_pairs_vs_raw": 3,
+          "new_error_pairs_vs_raw": 1673,
+          "variance_reduction": 0.8016963674882721,
+          "variance_reduction_ci": [
+            0.7212417132393549,
+            0.856873481793482
+          ]
+        },
+        "P": {
+          "n": 10,
+          "expected": 10,
+          "missing": 0,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 0.9259161579066681,
+          "correction_rms": 8.67726345894016,
+          "correction_rms_over_ap_rms": 3.3016596885591607,
+          "correction_abs_max": 19.846982955932617,
+          "paired_correct": 3,
+          "paired_accuracy": 0.3,
+          "paired_accuracy_ci": [
+            0.0,
+            0.5316742081447964
+          ],
+          "paired_accuracy_difference_vs_raw": -0.7,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -1.0,
+            -0.4683257918552036
+          ],
+          "difference_rms_ci": [
+            0.21793878719690457,
+            1.0867970088000107
+          ],
+          "correction_rms_ci": [
+            0.14172952803719083,
+            11.527225514817632
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 7,
+          "variance_reduction": 0.9903065415896615,
+          "variance_reduction_ci": [
+            -32.66202956741749,
+            0.9928256013832867
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "expected": 2293,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 1.1752279062105362,
+          "correction_rms": 2.642366935855219,
+          "correction_rms_over_ap_rms": 1.0054087254324693,
+          "correction_abs_max": 23.036344528198242,
+          "paired_correct": 581,
+          "paired_accuracy": 0.2533798517226341,
+          "paired_accuracy_ci": [
+            0.21600840776343017,
+            0.30360357943786387
+          ],
+          "paired_accuracy_difference_vs_raw": -0.7313563017880506,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.7730488319636015,
+            -0.6789343849639201
+          ],
+          "difference_rms_ci": [
+            1.0711049146266398,
+            1.2912136882051113
+          ],
+          "correction_rms_ci": [
+            2.2610782029601486,
+            3.049494945706479
+          ],
+          "corrected_pairs_vs_raw": 3,
+          "new_error_pairs_vs_raw": 1680,
+          "variance_reduction": 0.8122877479830163,
+          "variance_reduction_ci": [
+            0.7248389650090704,
+            0.869663909956623
+          ]
+        },
+        "F0": {
+          "n": 6,
+          "expected": 6,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 1.1018355848052919,
+          "correction_rms": 3.254531062721661,
+          "correction_rms_over_ap_rms": 1.238334420269423,
+          "correction_abs_max": 6.278936386108398,
+          "paired_correct": 3,
+          "paired_accuracy": 0.5,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": -0.5,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -1.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            0.715354787094653,
+            1.3843232427678165
+          ],
+          "correction_rms_ci": [
+            2.5436388668541694,
+            3.835863161202339
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 3,
+          "variance_reduction": 0.9356921611685943,
+          "variance_reduction_ci": [
+            0.9247913414630973,
+            0.9914814609794017
+          ]
+        },
+        "C": {
+          "n": 33,
+          "expected": 33,
+          "missing": 0,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 2.994025979513047,
+          "correction_rms": 33.160719508300275,
+          "correction_rms_over_ap_rms": 12.61750451190575,
+          "correction_abs_max": 53.384660720825195,
+          "paired_correct": 0,
+          "paired_accuracy": 0.0,
+          "paired_accuracy_ci": [
+            0.0,
+            0.0
+          ],
+          "paired_accuracy_difference_vs_raw": -0.48484848484848486,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.6049463937621833,
+            -0.18181818181818182
+          ],
+          "difference_rms_ci": [
+            1.2689826351825597,
+            3.4659318015015343
+          ],
+          "correction_rms_ci": [
+            19.281605345177177,
+            37.1174490321944
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 16,
+          "mean_evidence_retention": 0.07814734057606665,
+          "mean_evidence_retention_ci": [
+            0.039554198748698234,
+            0.09242333972187051
+          ],
+          "response_direction_degraded": 4,
+          "response_direction_improved": 2,
+          "exceeds_fit_budget_count": 31,
+          "exceeds_fit_budget_fraction": 0.9393939393939394
+        },
+        "F": {
+          "n": 7,
+          "expected": 7,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 3.073645125797313,
+          "correction_rms": 34.79534979127186,
+          "correction_rms_over_ap_rms": 13.239473976878584,
+          "correction_abs_max": 53.09519577026367,
+          "paired_correct": 0,
+          "paired_accuracy": 0.0,
+          "paired_accuracy_ci": [
+            0.0,
+            0.0
+          ],
+          "paired_accuracy_difference_vs_raw": -0.42857142857142855,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -1.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            2.0115615050834004,
+            4.080259050617149
+          ],
+          "correction_rms_ci": [
+            9.177169975442386,
+            52.08369154430235
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 3,
+          "mean_evidence_retention": 0.09441842993117514,
+          "mean_evidence_retention_ci": [
+            0.07265094270690066,
+            0.1777688123323676
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 7,
+          "exceeds_fit_budget_fraction": 1.0
+        },
+        "CF": {
+          "n": 40,
+          "expected": 40,
+          "missing": 0,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 3.0081114598420884,
+          "correction_rms": 33.45254626850108,
+          "correction_rms_over_ap_rms": 12.728543280609392,
+          "correction_abs_max": 53.384660720825195,
+          "paired_correct": 0,
+          "paired_accuracy": 0.0,
+          "paired_accuracy_ci": [
+            0.0,
+            0.0
+          ],
+          "paired_accuracy_difference_vs_raw": -0.475,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.620712954333644,
+            -0.13333333333333333
+          ],
+          "difference_rms_ci": [
+            1.4510987627757408,
+            3.4850555956247393
+          ],
+          "correction_rms_ci": [
+            17.380806160019787,
+            38.68761341727013
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 19,
+          "mean_evidence_retention": 0.0813796853489953,
+          "mean_evidence_retention_ci": [
+            0.05055149066570658,
+            0.11395458720981515
+          ],
+          "response_direction_degraded": 4,
+          "response_direction_improved": 2,
+          "exceeds_fit_budget_count": 38,
+          "exceeds_fit_budget_fraction": 0.95
+        },
+        "natural": {
+          "n": 372,
+          "expected": 372,
+          "missing": 0,
+          "correct": 193,
+          "accuracy": 0.5188172043010753,
+          "accuracy_ci": [
+            0.4684141274238227,
+            0.5710551512830333
+          ],
+          "difference_vs_raw": -0.47043010752688175,
+          "difference_vs_raw_ci": [
+            -0.5198863636363636,
+            -0.4199392821128967
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "expected": 806,
+        "missing": 0,
+        "correct": 45,
+        "accuracy": 0.05583126550868486,
+        "accuracy_ci": [
+          0.04976838138493944,
+          0.06374240904213109
+        ],
+        "difference_vs_raw": -0.8970223325062034,
+        "difference_vs_raw_ci": [
+          -0.9130965664311562,
+          -0.879165521978022
+        ],
+        "unavailable_scores": 0
+      }
+    },
+    "lofit": {
+      "settings": {
+        "source": "existing selected training baseline",
+        "configuration": "lofit_lr0.001"
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "expected": 2283,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 2.4548031702199395,
+          "correction_rms": 1.6823758222748424,
+          "correction_rms_over_ap_rms": 0.6401364277684223,
+          "correction_abs_max": 14.136402130126953,
+          "paired_correct": 2249,
+          "paired_accuracy": 0.9851073149364871,
+          "paired_accuracy_ci": [
+            0.964527816138987,
+            0.9976252619812771
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0004380201489268506,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.0036197694911024813,
+            0.004952947003467063
+          ],
+          "difference_rms_ci": [
+            2.1694640971946124,
+            2.7750020067284105
+          ],
+          "correction_rms_ci": [
+            1.3423264459171496,
+            2.06880657540708
+          ],
+          "corrected_pairs_vs_raw": 8,
+          "new_error_pairs_vs_raw": 7,
+          "variance_reduction": 0.08474343925497696,
+          "variance_reduction_ci": [
+            -0.07933643903120804,
+            0.22004268476388472
+          ]
+        },
+        "P": {
+          "n": 10,
+          "expected": 10,
+          "missing": 0,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 6.869309725834506,
+          "correction_rms": 3.0402309329993398,
+          "correction_rms_over_ap_rms": 1.156794185504717,
+          "correction_abs_max": 8.791912078857422,
+          "paired_correct": 10,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            0.21102893351930538,
+            9.133461524335424
+          ],
+          "correction_rms_ci": [
+            0.14694494334383496,
+            4.039538203322464
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.4684546196168252,
+          "variance_reduction_ci": [
+            -6.119165996757852,
+            0.6764688134454828
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "expected": 2293,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 2.491097621421041,
+          "correction_rms": 1.6906668682366457,
+          "correction_rms_over_ap_rms": 0.6432911334377394,
+          "correction_abs_max": 14.136402130126953,
+          "paired_correct": 2259,
+          "paired_accuracy": 0.9851722634103794,
+          "paired_accuracy_ci": [
+            0.9647949913734617,
+            0.9976346924997939
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0004361098996947231,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.003609977394051369,
+            0.004904523619771596
+          ],
+          "difference_rms_ci": [
+            2.1993962032176695,
+            2.8111445156573174
+          ],
+          "correction_rms_ci": [
+            1.3443324649018702,
+            2.079223009882517
+          ],
+          "corrected_pairs_vs_raw": 8,
+          "new_error_pairs_vs_raw": 7,
+          "variance_reduction": 0.10658503951057108,
+          "variance_reduction_ci": [
+            -0.07750798367944928,
+            0.24597556282557248
+          ]
+        },
+        "F0": {
+          "n": 6,
+          "expected": 6,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 4.52617513025867,
+          "correction_rms": 0.9766902679007217,
+          "correction_rms_over_ap_rms": 0.37162625071772615,
+          "correction_abs_max": 1.3109474182128906,
+          "paired_correct": 6,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            3.881818099549483,
+            5.089598300608234
+          ],
+          "correction_rms_ci": [
+            0.7278689761859516,
+            1.1739056658564953
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": -0.10007524677100843,
+          "variance_reduction_ci": [
+            -0.23176594488171331,
+            0.30910120043596945
+          ]
+        },
+        "C": {
+          "n": 33,
+          "expected": 33,
+          "missing": 0,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 32.021794753123345,
+          "correction_rms": 4.592247088374076,
+          "correction_rms_over_ap_rms": 1.7473293467846083,
+          "correction_abs_max": 9.879009246826172,
+          "paired_correct": 16,
+          "paired_accuracy": 0.48484848484848486,
+          "paired_accuracy_ci": [
+            0.18181818181818182,
+            0.6049463937621832
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            18.09538437381212,
+            36.130024294468996
+          ],
+          "correction_rms_ci": [
+            2.819303631817943,
+            5.54008583197873
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.9010891601692136,
+          "mean_evidence_retention_ci": [
+            0.8346456053830313,
+            0.9432342623632393
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 25,
+          "exceeds_fit_budget_fraction": 0.7575757575757576
+        },
+        "F": {
+          "n": 7,
+          "expected": 7,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 35.12442181193058,
+          "correction_rms": 4.709622025475631,
+          "correction_rms_over_ap_rms": 1.791989982030862,
+          "correction_abs_max": 6.0294189453125,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            15.047616981095247,
+            50.76203287930193
+          ],
+          "correction_rms_ci": [
+            4.082339358911087,
+            5.4345131273696134
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.9929603557205573,
+          "mean_evidence_retention_ci": [
+            0.9036079107095989,
+            1.3351018433167736
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 7,
+          "exceeds_fit_budget_fraction": 1.0
+        },
+        "CF": {
+          "n": 40,
+          "expected": 40,
+          "missing": 0,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 32.58608646620716,
+          "correction_rms": 4.61300329758814,
+          "correction_rms_over_ap_rms": 1.7552269909639804,
+          "correction_abs_max": 9.879009246826172,
+          "paired_correct": 19,
+          "paired_accuracy": 0.475,
+          "paired_accuracy_ci": [
+            0.13333333333333333,
+            0.6207129543336439
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            17.21003513169975,
+            37.67544431229329
+          ],
+          "correction_rms_ci": [
+            3.1670291885570427,
+            5.363119843462069
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.9193398975502273,
+          "mean_evidence_retention_ci": [
+            0.8570869306681097,
+            1.0567981264263309
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 32,
+          "exceeds_fit_budget_fraction": 0.8
+        },
+        "natural": {
+          "n": 372,
+          "expected": 372,
+          "missing": 0,
+          "correct": 368,
+          "accuracy": 0.989247311827957,
+          "accuracy_ci": [
+            0.978319783197832,
+            0.9973546718599489
+          ],
+          "difference_vs_raw": 0.0,
+          "difference_vs_raw_ci": [
+            -0.007936507936507936,
+            0.008000534759358286
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "expected": 806,
+        "missing": 0,
+        "correct": 769,
+        "accuracy": 0.9540942928039702,
+        "accuracy_ci": [
+          0.9359969986357436,
+          0.9719411710003006
+        ],
+        "difference_vs_raw": 0.0012406947890818859,
+        "difference_vs_raw_ci": [
+          -0.010365559422632656,
+          0.01323553759252045
+        ],
+        "unavailable_scores": 0
+      }
+    },
+    "lora": {
+      "settings": {
+        "source": "existing selected training baseline",
+        "configuration": "lora_lr0.001"
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "expected": 2283,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 2.3541456803983865,
+          "correction_rms": 2.6816733067695404,
+          "correction_rms_over_ap_rms": 1.0203646226419358,
+          "correction_abs_max": 16.274375915527344,
+          "paired_correct": 2262,
+          "paired_accuracy": 0.9908015768725361,
+          "paired_accuracy_ci": [
+            0.9829278702518139,
+            0.9972805500658761
+          ],
+          "paired_accuracy_difference_vs_raw": 0.006132282084975909,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.004879140066568451,
+            0.020550172999748016
+          ],
+          "difference_rms_ci": [
+            2.1481546214070555,
+            2.598824345056353
+          ],
+          "correction_rms_ci": [
+            2.3295707238053587,
+            3.040890032639345
+          ],
+          "corrected_pairs_vs_raw": 21,
+          "new_error_pairs_vs_raw": 7,
+          "variance_reduction": 0.16267159214275995,
+          "variance_reduction_ci": [
+            -0.09615457145016706,
+            0.33984926843345026
+          ]
+        },
+        "P": {
+          "n": 10,
+          "expected": 10,
+          "missing": 0,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 3.256153136467468,
+          "correction_rms": 8.170501198821821,
+          "correction_rms_over_ap_rms": 3.1088389295914234,
+          "correction_abs_max": 21.65569305419922,
+          "paired_correct": 10,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            0.19688827421942265,
+            4.293304433265513
+          ],
+          "correction_rms_ci": [
+            0.1711821953941481,
+            10.832393101497171
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.8823858301105708,
+          "variance_reduction_ci": [
+            -21.829716288682576,
+            0.8898211315724328
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "expected": 2293,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 2.3588283877366214,
+          "correction_rms": 2.729678317635091,
+          "correction_rms_over_ap_rms": 1.0386303131990589,
+          "correction_abs_max": 21.65569305419922,
+          "paired_correct": 2272,
+          "paired_accuracy": 0.9908416921064108,
+          "paired_accuracy_ci": [
+            0.9830063795535724,
+            0.9972885662142469
+          ],
+          "paired_accuracy_difference_vs_raw": 0.006105538595726123,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.0048708710554478925,
+            0.020510884823605163
+          ],
+          "difference_rms_ci": [
+            2.1546082876434967,
+            2.600108959680021
+          ],
+          "correction_rms_ci": [
+            2.349205675262892,
+            3.1218424145270305
+          ],
+          "corrected_pairs_vs_raw": 21,
+          "new_error_pairs_vs_raw": 7,
+          "variance_reduction": 0.2032560117269424,
+          "variance_reduction_ci": [
+            -0.07954938140251151,
+            0.3946069123434636
+          ]
+        },
+        "F0": {
+          "n": 6,
+          "expected": 6,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 5.834163144737176,
+          "correction_rms": 4.540763499185891,
+          "correction_rms_over_ap_rms": 1.727740072833287,
+          "correction_abs_max": 7.744987487792969,
+          "paired_correct": 6,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            5.5476058458801925,
+            6.107289789880211
+          ],
+          "correction_rms_ci": [
+            1.6340694203421189,
+            6.210224105503808
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": -1.0922997233719633,
+          "variance_reduction_ci": [
+            -1.5291361394375955,
+            0.9972680608500077
+          ]
+        },
+        "C": {
+          "n": 33,
+          "expected": 33,
+          "missing": 0,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 16.51407899453422,
+          "correction_rms": 20.770576652568746,
+          "correction_rms_over_ap_rms": 7.90311092505313,
+          "correction_abs_max": 38.669708251953125,
+          "paired_correct": 17,
+          "paired_accuracy": 0.5151515151515151,
+          "paired_accuracy_ci": [
+            0.25,
+            0.6428968253968252
+          ],
+          "paired_accuracy_difference_vs_raw": 0.030303030303030304,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.17647058823529413
+          ],
+          "difference_rms_ci": [
+            10.377604027386052,
+            19.171077335747363
+          ],
+          "correction_rms_ci": [
+            10.114897704430698,
+            23.773889045267296
+          ],
+          "corrected_pairs_vs_raw": 1,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.48387085451450446,
+          "mean_evidence_retention_ci": [
+            0.44226507272950266,
+            0.6913153551672386
+          ],
+          "response_direction_degraded": 2,
+          "response_direction_improved": 3,
+          "exceeds_fit_budget_count": 31,
+          "exceeds_fit_budget_fraction": 0.9393939393939394
+        },
+        "F": {
+          "n": 7,
+          "expected": 7,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 18.152944139520056,
+          "correction_rms": 21.485116346604407,
+          "correction_rms_over_ap_rms": 8.17499006239133,
+          "correction_abs_max": 33.372121810913086,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            12.75350021275264,
+            23.495379658002424
+          ],
+          "correction_rms_ci": [
+            2.3682527582113546,
+            32.704928713588885
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.5693482799908094,
+          "mean_evidence_retention_ci": [
+            0.4176505488298148,
+            1.1502175264678158
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 7,
+          "exceeds_fit_budget_fraction": 1.0
+        },
+        "CF": {
+          "n": 40,
+          "expected": 40,
+          "missing": 0,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 16.81241671560962,
+          "correction_rms": 20.897384865598383,
+          "correction_rms_over_ap_rms": 7.951360879329535,
+          "correction_abs_max": 38.669708251953125,
+          "paired_correct": 20,
+          "paired_accuracy": 0.5,
+          "paired_accuracy_ci": [
+            0.1875,
+            0.6470588235294118
+          ],
+          "paired_accuracy_difference_vs_raw": 0.025,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.13636363636363635
+          ],
+          "difference_rms_ci": [
+            10.921578370533187,
+            18.993921415496132
+          ],
+          "correction_rms_ci": [
+            8.772511577821124,
+            24.648313714618016
+          ],
+          "corrected_pairs_vs_raw": 1,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.5008514329755887,
+          "mean_evidence_retention_ci": [
+            0.4496382723692931,
+            0.8176491846955648
+          ],
+          "response_direction_degraded": 2,
+          "response_direction_improved": 3,
+          "exceeds_fit_budget_count": 38,
+          "exceeds_fit_budget_fraction": 0.95
+        },
+        "natural": {
+          "n": 372,
+          "expected": 372,
+          "missing": 0,
+          "correct": 369,
+          "accuracy": 0.9919354838709677,
+          "accuracy_ci": [
+            0.9833321727019498,
+            1.0
+          ],
+          "difference_vs_raw": 0.002688172043010753,
+          "difference_vs_raw_ci": [
+            -0.00554016620498615,
+            0.011431041580897475
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "expected": 806,
+        "missing": 0,
+        "correct": 773,
+        "accuracy": 0.9590570719602978,
+        "accuracy_ci": [
+          0.9387741798153421,
+          0.9764453823670549
+        ],
+        "difference_vs_raw": 0.00620347394540943,
+        "difference_vs_raw_ci": [
+          -0.01482638633429869,
+          0.02663773906360676
+        ],
+        "unavailable_scores": 0
+      }
+    },
+    "linear_output": {
+      "settings": {
+        "basis": "r16",
+        "weights_source": "existing",
+        "b": 2.6057453599732114,
+        "tau": 0.1,
+        "parameters": 17,
+        "fit_max_evidence_correction": 0.2923349027297184
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "expected": 2283,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 2.5017872823240155,
+          "correction_rms": 0.3752662912971302,
+          "correction_rms_over_ap_rms": 0.14278713471287935,
+          "correction_abs_max": 1.2445465251722894,
+          "paired_correct": 2256,
+          "paired_accuracy": 0.988173455978975,
+          "paired_accuracy_ci": [
+            0.977101379881483,
+            0.9970949047941597
+          ],
+          "paired_accuracy_difference_vs_raw": 0.003504161191414805,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.010212054941888829
+          ],
+          "difference_rms_ci": [
+            2.1059423279904306,
+            2.9051311316017694
+          ],
+          "correction_rms_ci": [
+            0.32258847603746205,
+            0.4302356663181059
+          ],
+          "corrected_pairs_vs_raw": 8,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.04363960538391509,
+          "variance_reduction_ci": [
+            0.022317945382237286,
+            0.07030815664680835
+          ]
+        },
+        "P": {
+          "n": 10,
+          "expected": 10,
+          "missing": 0,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 9.443701728602743,
+          "correction_rms": 0.10082385889850044,
+          "correction_rms_over_ap_rms": 0.03836302448869224,
+          "correction_abs_max": 0.18514371456218726,
+          "paired_correct": 10,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            0.061266175078674164,
+            12.559192932237709
+          ],
+          "correction_rms_ci": [
+            0.00914166032549669,
+            0.11453989173400887
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.000772132407539039,
+          "variance_reduction_ci": [
+            -0.30137724128353693,
+            0.0010971376939481303
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "expected": 2293,
+          "missing": 0,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 2.5730491315469584,
+          "correction_rms": 0.374506303114187,
+          "correction_rms_over_ap_rms": 0.14249796263008177,
+          "correction_abs_max": 1.2445465251722894,
+          "paired_correct": 2266,
+          "paired_accuracy": 0.9882250327082425,
+          "paired_accuracy_ci": [
+            0.9772401114684868,
+            0.9971089126630299
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0034888791975577847,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.01017544849094705
+          ],
+          "difference_rms_ci": [
+            2.117011904367454,
+            3.040551722085064
+          ],
+          "correction_rms_ci": [
+            0.32219346792963555,
+            0.42895841862151746
+          ],
+          "corrected_pairs_vs_raw": 8,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.04103277764530633,
+          "variance_reduction_ci": [
+            0.020225363917627186,
+            0.0676805523091726
+          ]
+        },
+        "F0": {
+          "n": 6,
+          "expected": 6,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 4.029133966003164,
+          "correction_rms": 0.20832617539322912,
+          "correction_rms_over_ap_rms": 0.07926717203208446,
+          "correction_abs_max": 0.3530828073852774,
+          "paired_correct": 6,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            3.7750705033823744,
+            4.268100716535767
+          ],
+          "correction_rms_ci": [
+            0.1648280023095135,
+            0.24419525049147853
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.08408765941821006,
+          "variance_reduction_ci": [
+            -0.6100793711742416,
+            0.0912094717272619
+          ]
+        },
+        "C": {
+          "n": 33,
+          "expected": 33,
+          "missing": 0,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 35.82349586855692,
+          "correction_rms": 0.24823619920462459,
+          "correction_rms_over_ap_rms": 0.0944527564517622,
+          "correction_abs_max": 0.5569085070342652,
+          "paired_correct": 16,
+          "paired_accuracy": 0.48484848484848486,
+          "paired_accuracy_ci": [
+            0.18181818181818182,
+            0.6049463937621832
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            20.77426214331518,
+            40.1512173544887
+          ],
+          "correction_rms_ci": [
+            0.10180076316589524,
+            0.29861513356246444
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.9964617059847897,
+          "mean_evidence_retention_ci": [
+            0.9944187753956051,
+            1.0069390345288505
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 8,
+          "exceeds_fit_budget_fraction": 0.24242424242424243
+        },
+        "F": {
+          "n": 7,
+          "expected": 7,
+          "missing": 0,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 37.453418777045094,
+          "correction_rms": 0.27889695367079176,
+          "correction_rms_over_ap_rms": 0.10611903551782605,
+          "correction_abs_max": 0.49746626891699464,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            11.098907301569323,
+            55.75711336820825
+          ],
+          "correction_rms_ci": [
+            0.09544398710590483,
+            0.4115200913156189
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.9939074758665302,
+          "mean_evidence_retention_ci": [
+            0.9927825517730545,
+            0.9982149484010242
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 3,
+          "exceeds_fit_budget_fraction": 0.42857142857142855
+        },
+        "CF": {
+          "n": 40,
+          "expected": 40,
+          "missing": 0,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 36.11404307976676,
+          "correction_rms": 0.2538692835408288,
+          "correction_rms_over_ap_rms": 0.09659611968639321,
+          "correction_abs_max": 0.5569085070342652,
+          "paired_correct": 19,
+          "paired_accuracy": 0.475,
+          "paired_accuracy_ci": [
+            0.13333333333333333,
+            0.6207129543336439
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "difference_rms_ci": [
+            18.782178133913234,
+            41.79293479564495
+          ],
+          "correction_rms_ci": [
+            0.10000056303731118,
+            0.3101216453223552
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.995954293592698,
+          "mean_evidence_retention_ci": [
+            0.9941563557757909,
+            1.0056298298101831
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_fit_budget_count": 11,
+          "exceeds_fit_budget_fraction": 0.275
+        },
+        "natural": {
+          "n": 372,
+          "expected": 372,
+          "missing": 0,
+          "correct": 368,
+          "accuracy": 0.989247311827957,
+          "accuracy_ci": [
+            0.9786096256684492,
+            0.9974025974025974
+          ],
+          "difference_vs_raw": 0.0,
+          "difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "expected": 806,
+        "missing": 0,
+        "correct": 767,
+        "accuracy": 0.9516129032258065,
+        "accuracy_ci": [
+          0.934209766622098,
+          0.9680439648492146
+        ],
+        "difference_vs_raw": -0.0012406947890818859,
+        "difference_vs_raw_ci": [
+          -0.009318435382079163,
+          0.0065535105047335425
+        ],
+        "unavailable_scores": 0
+      }
+    }
+  }
+}

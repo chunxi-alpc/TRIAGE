@@ -1,0 +1,37 @@
+[
+  {
+    "key": "dup_git_doc_0",
+    "url": "https://github.com/chunxi-alpc/TRIAGE/blob/main/docs/ASTER/archive/experiments_legacy_20261111.zh.md",
+    "excerpt": "# 历史实验总表快照（2026-11-11重构前）\n\n> 本文件是重构前的实验与方法汇总快照。它混合了多个历史方法路线、历史结果和阶段性状态，不再作为当前AST​​ER-CR论文的实验框架。当前论文相关实验唯一状态入口为[实验框架](../experiments.zh.md)。历史材料索引见[历史资料与版本追溯](README.md)。\n\n# 方法与实验总表\n\n[项目首页](../../../README.md) · [方法与公式](../versions.zh.md) · [当前论文](../manuscript.zh.md)\n\n核对日期：2026-11-11；本次补充分层模型与基线比较计划。本表合并服务器实验目录、实验分支和主分支已有记录，列出方法、规模、状态、结论及代码和结果位置。\n\n## 方法演变\n\n| 阶段 | 主要做法 | 后续变化 |\n|---|---|---|\n| CARE"
+  },
+  {
+    "key": "dup_gh_evidence_0",
+    "url": "https://github.com/chunxi-alpc/TRIAGE/blob/main/results/aster_five_models_20261109.csv",
+    "excerpt": "model,task,status,raw_correct,corrected_correct,natural_n,AP_pairs,CF_pairs,interference_variance_reduction_pct,evidence_response_retention_pct,evaluation_unit,source,raw_path_correct,bias_only_path_correct,aster_cr_path_correct,path_n,path_source\r\ngemma2,mega,complete,366,366,372,2293,40,27.084363,99.896893,condition_node,/home/gcx/aster_five_models_20261109/summary.json,761,765,763,806,/home/gcx"
+  },
+  {
+    "key": "dup_gh_evidence_1",
+    "url": "https://github.com/chunxi-alpc/TRIAGE/blob/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/cross_model_mega/gemma2/config.json",
+    "excerpt": "{\n  \"model\": \"gemma2\",\n  \"model_name\": \"Gemma-2-9B-IT\",\n  \"model_weight_path\": \"/home/gcx/models/gemma-2-9b-it\",\n  \"weight_revision\": \"unrecorded\",\n  \"weight_revision_note\": \"Local checkpoint metadata does not record an immutable upstream revision; no revision invented.\",\n  \"code_base_git_sha\": \"ee415a3fa939ec368c931b8820af282994bbe3ed\",\n  \"new_code_directory\": \"experiments/cross_model_mega\",\n  \"o"
+  },
+  {
+    "key": "dup_gh_evidence_2",
+    "url": "https://github.com/chunxi-alpc/TRIAGE/blob/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/cross_model_mega/gemma3/config.json",
+    "excerpt": "{\n  \"model\": \"gemma3\",\n  \"model_name\": \"Gemma-3-27B-IT\",\n  \"model_weight_path\": \"/home/gcx/gemma3_27b_head_pilot_20261103/model\",\n  \"weight_revision\": \"unrecorded\",\n  \"weight_revision_note\": \"Local checkpoint metadata does not record an immutable upstream revision; no revision invented.\",\n  \"code_base_git_sha\": \"a385b7ba0ec112d13d46e51520d548ece765e8e1\",\n  \"new_code_directory\": \"experiments/cross_"
+  },
+  {
+    "key": "dup_gh_evidence_3",
+    "url": "https://github.com/chunxi-alpc/TRIAGE/blob/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/cross_model_mega/medgemma/config.json",
+    "excerpt": "{\n  \"model\": \"medgemma\",\n  \"model_name\": \"MedGemma-27B-Text-IT\",\n  \"model_weight_path\": \"/home/gcx/TRIAGE/models/modelscope/medgemma-27b-text-it\",\n  \"weight_revision\": \"unrecorded\",\n  \"weight_revision_note\": \"Local checkpoint metadata does not record an immutable upstream revision; no revision invented.\",\n  \"code_base_git_sha\": \"c9cf2db01584551d914d5ee3dc2612128c8d5220\",\n  \"new_code_directory\": \"e"
+  },
+  {
+    "key": "dup_gh_official_report",
+    "url": "https://github.com/chunxi-alpc/TRIAGE/blob/aster-cr-20261108/reports/aster_cancel_story_20261109/meeting/cross_model_mega/REPORT.zh.md",
+    "excerpt": "# 跨模型 MEGA 核心复现\n\n四模型分别复用各自已完成的真实激活、独立选头、S/N、标准化和线性参数；只新拟合同维随机控制，并补齐官方路径推理。\nfit80/dev20/test40 来源划分保持原样。固定 alpha=0.01、tau=0.1；截距仅用自然 fit 标签。随机16维种子20261111，未根据测试结果调整。\nAP prediction_r2 是受 C/F 预算约束的部署修正对 AP 分数差的解释量；不是另训无约束探针的解释量。来源簇bootstrap 2000次，区间为配对准确率变化95%区间。\n\n| 模型 | 方法 | 官方路径正确数 | 相对原模型 | 差值95% CI（百分点） |\n|---|---|---:|---:|---:|\n| llama31 | raw | 5689/7458 | +0 | [0.000, 0.000] |\n| llama31 | bi"
+  },
+  {
+    "key": "qwen_base_old_report",
+    "url": "https://github.com/chunxi-alpc/TRIAGE/blob/codex/aster-seka-execution-20261025/experiments/aster_seka_execution/REPORT.zh.md",
+    "excerpt": "> 2026-10-27：v3 112条评分已完成，详见 [本次完整审阅包](REVIEW_20261027.zh.md)。0.6未证明独立注意力增益；后续任务未启动。\n\n> 2026-10-26 最新核验：首轮 11×16 临床评分完成，主方案退化，未证实独立注意力增益；其余后台任务未完成。详见 [最新结果](LATEST_RESULTS.zh.md)。以下较早记录按历史状态理解。\n\n# ASTER 执行报告（阶段记录，研究未完成）\n\n本报告记录115服务器上的真实执行。分支 `codex/aster-seka-execution-20261025` 继承PR36；main与PR33/35旧产物未修改。正式临床确认、最终方法冻结及独立注意力增益结论尚未完成。\n\n## 已验证的标准结果\n\nCounterFact原作者公开数据，固定处理后行号5000:10000，每种设置5000个case。"
+  }
+]

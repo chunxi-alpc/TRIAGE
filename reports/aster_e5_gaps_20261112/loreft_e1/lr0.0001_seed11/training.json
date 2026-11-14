@@ -1,0 +1,37 @@
+{
+  "seed": 11,
+  "lr": 0.0001,
+  "examples": 4637,
+  "epochs": 1,
+  "steps": 4637,
+  "objective": "Native single-input binary cross entropy on the yes/no logit margin; no A/P or C/F difference objective.",
+  "manifest": "../training_manifest.json",
+  "layer": 18,
+  "rank": 1,
+  "parameters": 8193,
+  "optimizer_groups": [
+    {
+      "names": [
+        "rotate_layer.parametrizations.weight.original"
+      ],
+      "weight_decay": 0.0
+    },
+    {
+      "names": [
+        "learned_source.weight",
+        "learned_source.bias"
+      ],
+      "weight_decay": 0.01
+    }
+  ],
+  "mean_loss": 0.19877419409112448,
+  "parameter_change_l2": {
+    "rotate_layer.parametrizations.weight.original": 0.4571014642715454,
+    "learned_source.weight": 0.3841176927089691,
+    "learned_source.bias": 0.005625086836516857
+  },
+  "rotation_weight_norm": 1.0000001192092896,
+  "train_seconds": 2578.3986327648163,
+  "total_seconds": 2585.6235914230347,
+  "peak_gib": 18.589277744293213
+}

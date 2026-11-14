@@ -1,0 +1,41 @@
+{
+  "method": "lora",
+  "reported_name": "LoRA-single-layer-SFT",
+  "seed": 11,
+  "lr": 0.001,
+  "examples": 4637,
+  "epochs_per_stage": 1,
+  "stages": [
+    {
+      "stage": "tune",
+      "steps": 4637,
+      "parameters": 8192,
+      "mean_loss": 0.17474489229772097,
+      "mean_answer_ce": 0.17474489229772097,
+      "parameter_change_l2": [
+        4.121379852294922,
+        4.29149866104126
+      ],
+      "seconds": 2569.277166366577
+    }
+  ],
+  "objective": "Native supervised fine-tuning: full-vocabulary cross entropy of the correct answer token, with prompt tokens masked. No A/P or C/F difference loss.",
+  "manifest": "../training_manifest.json",
+  "configuration": "Single layer 18 q_proj, rank 1, alpha 1, dropout 0; local configuration, not a standard multi-layer LoRA baseline.",
+  "target_budget": 17,
+  "strict_parameter_matching": false,
+  "layer": 18,
+  "rank": 1,
+  "heads": [],
+  "deployment_parameters": 8192,
+  "selection_parameters": 0,
+  "optimizer": "AdamW",
+  "weight_decay": 0.01,
+  "gradient_clip_norm": 1.0,
+  "full_vocabulary_loss": true,
+  "prompt_token_loss": false,
+  "extra_pair_loss": false,
+  "train_seconds": 2569.277166366577,
+  "total_seconds": 2574.125073671341,
+  "peak_gib": 18.5777530670166
+}

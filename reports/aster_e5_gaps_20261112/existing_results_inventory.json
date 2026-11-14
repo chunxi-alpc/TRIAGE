@@ -1,0 +1,3147 @@
+{
+  "scope": "Artifact inventory only, not implementation or E1 compatibility audit",
+  "new_model_runs": 0,
+  "gpu_use": 0,
+  "historical_test_notice": "MEGA 40 sources, AP=2293, CF=40, 806 natural paths have historical use; not fresh independent testing. E1 also has 2418 interference paths. Do not substitute 806 for official 7458.",
+  "ci_notice": "Copied archived source-cluster intervals only; difference CIs are not absolute accuracy CIs. Raw real_completion uses 2000 draws seed11. No interval is fabricated for unrun methods.",
+  "entries": [
+    {
+      "method": "CAD",
+      "archive_key": "CAD",
+      "status": "existing_historical_outputs; E1 compatibility unresolved without Codex01",
+      "metrics_file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/summary.json",
+      "metric_pointer": "paths.CAD; pairs.CAD",
+      "path_metrics": {
+        "correct": 570,
+        "n": 806,
+        "accuracy": 0.707196029776675,
+        "difference_from_full": {
+          "numerator": -198.0,
+          "denominator": 806,
+          "estimate": -0.2456575682382134,
+          "ci95": [
+            -0.2979385398265088,
+            -0.191080051066842
+          ],
+          "sources": 40
+        },
+        "noninferiority_95": false,
+        "corrected": 4,
+        "new_errors": 202,
+        "total_node_forwards": 4874
+      },
+      "pair_metrics": {
+        "A": {
+          "numerator": 2056,
+          "denominator": 2283,
+          "rate": 0.9005694261936049,
+          "nodes": 761,
+          "sources": 40,
+          "available": 2283,
+          "mean_abs_score_drift": 4.8350035583455995,
+          "flips": 120,
+          "direction_or_stability_numerator": 2163,
+          "direction_or_stability_denominator": 2283,
+          "interval": {
+            "numerator": 2056.0,
+            "denominator": 2283,
+            "estimate": 0.9005694261936049,
+            "ci95": [
+              0.8614457831325302,
+              0.9347548638612334
+            ],
+            "sources": 40
+          }
+        },
+        "P": {
+          "numerator": 8,
+          "denominator": 10,
+          "rate": 0.8,
+          "nodes": 10,
+          "sources": 5,
+          "available": 10,
+          "mean_abs_score_drift": 13.282859420776367,
+          "flips": 2,
+          "direction_or_stability_numerator": 8,
+          "direction_or_stability_denominator": 10,
+          "interval": {
+            "numerator": 8.0,
+            "denominator": 10,
+            "estimate": 0.8,
+            "ci95": [
+              0.6470588235294118,
+              1.0
+            ],
+            "sources": 5
+          }
+        },
+        "C": {
+          "numerator": 14,
+          "denominator": 33,
+          "rate": 0.42424242424242425,
+          "nodes": 21,
+          "sources": 11,
+          "available": 33,
+          "mean_abs_score_drift": 31.910017707131125,
+          "flips": 15,
+          "direction_or_stability_numerator": 20,
+          "direction_or_stability_denominator": 33,
+          "interval": {
+            "numerator": 14.0,
+            "denominator": 33,
+            "estimate": 0.42424242424242425,
+            "ci95": [
+              0.1665,
+              0.5161290322580645
+            ],
+            "sources": 11
+          }
+        },
+        "F": {
+          "numerator": 3,
+          "denominator": 7,
+          "rate": 0.42857142857142855,
+          "nodes": 2,
+          "sources": 2,
+          "available": 7,
+          "mean_abs_score_drift": 24.398339135306223,
+          "flips": 3,
+          "direction_or_stability_numerator": 7,
+          "direction_or_stability_denominator": 7,
+          "interval": {
+            "numerator": 3.0,
+            "denominator": 7,
+            "estimate": 0.42857142857142855,
+            "ci95": [
+              0.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "F0": {
+          "numerator": 5,
+          "denominator": 6,
+          "rate": 0.8333333333333334,
+          "nodes": 2,
+          "sources": 2,
+          "available": 6,
+          "mean_abs_score_drift": 7.225612640380859,
+          "flips": 1,
+          "direction_or_stability_numerator": 5,
+          "direction_or_stability_denominator": 6,
+          "interval": {
+            "numerator": 5.0,
+            "denominator": 6,
+            "estimate": 0.8333333333333334,
+            "ci95": [
+              0.6666666666666666,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "macro": 0.6383458197518644
+      },
+      "path_predictions": [
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_0.jsonl",
+          "rows": 202
+        },
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_1.jsonl",
+          "rows": 202
+        },
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_2.jsonl",
+          "rows": 201
+        },
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_3.jsonl",
+          "rows": 201
+        }
+      ],
+      "score_files": [
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_0.jsonl",
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_1.jsonl",
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_2.jsonl",
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_3.jsonl"
+      ],
+      "configuration": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/settings.json",
+      "training_note": "No adapter training; archived alpha=2.0",
+      "common_mechanism_metrics_status": "A/P and C/F per-type paired correctness, score drift and path differences with archived source CIs exist. AP RMS/CF correction RMS not present in this summary; no new computation performed here."
+    },
+    {
+      "method": "SEA",
+      "archive_key": "sea",
+      "status": "existing_historical_outputs; E1 compatibility unresolved without Codex01",
+      "metrics_file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/summary.json",
+      "metric_pointer": "paths.sea; pairs.sea",
+      "path_metrics": {
+        "correct": 764,
+        "n": 806,
+        "accuracy": 0.9478908188585607,
+        "difference_from_full": {
+          "numerator": -4.0,
+          "denominator": 806,
+          "estimate": -0.004962779156327543,
+          "ci95": [
+            -0.019662921348314606,
+            0.011016587695519291
+          ],
+          "sources": 40
+        },
+        "noninferiority_95": false,
+        "corrected": 8,
+        "new_errors": 12,
+        "total_node_forwards": 4988
+      },
+      "pair_metrics": {
+        "A": {
+          "numerator": 2260,
+          "denominator": 2283,
+          "rate": 0.9899255365746824,
+          "nodes": 761,
+          "sources": 40,
+          "available": 2283,
+          "mean_abs_score_drift": 1.471793731575831,
+          "flips": 16,
+          "direction_or_stability_numerator": 2267,
+          "direction_or_stability_denominator": 2283,
+          "interval": {
+            "numerator": 2260.0,
+            "denominator": 2283,
+            "estimate": 0.9899255365746824,
+            "ci95": [
+              0.9810804410635263,
+              0.996381562503396
+            ],
+            "sources": 40
+          }
+        },
+        "P": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "nodes": 10,
+          "sources": 5,
+          "available": 10,
+          "mean_abs_score_drift": 4.47647705078125,
+          "flips": 0,
+          "direction_or_stability_numerator": 10,
+          "direction_or_stability_denominator": 10,
+          "interval": {
+            "numerator": 10.0,
+            "denominator": 10,
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "sources": 5
+          }
+        },
+        "C": {
+          "numerator": 16,
+          "denominator": 33,
+          "rate": 0.48484848484848486,
+          "nodes": 21,
+          "sources": 11,
+          "available": 33,
+          "mean_abs_score_drift": 18.222660353689484,
+          "flips": 16,
+          "direction_or_stability_numerator": 28,
+          "direction_or_stability_denominator": 33,
+          "interval": {
+            "numerator": 16.0,
+            "denominator": 33,
+            "estimate": 0.48484848484848486,
+            "ci95": [
+              0.1875,
+              0.6000641025641021
+            ],
+            "sources": 11
+          }
+        },
+        "F": {
+          "numerator": 3,
+          "denominator": 7,
+          "rate": 0.42857142857142855,
+          "nodes": 2,
+          "sources": 2,
+          "available": 7,
+          "mean_abs_score_drift": 17.644695281982422,
+          "flips": 3,
+          "direction_or_stability_numerator": 7,
+          "direction_or_stability_denominator": 7,
+          "interval": {
+            "numerator": 3.0,
+            "denominator": 7,
+            "estimate": 0.42857142857142855,
+            "ci95": [
+              0.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "F0": {
+          "numerator": 6,
+          "denominator": 6,
+          "rate": 1.0,
+          "nodes": 2,
+          "sources": 2,
+          "available": 6,
+          "mean_abs_score_drift": 2.3328425089518228,
+          "flips": 0,
+          "direction_or_stability_numerator": 6,
+          "direction_or_stability_denominator": 6,
+          "interval": {
+            "numerator": 6.0,
+            "denominator": 6,
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "macro": 0.7258363624986489
+      },
+      "path_predictions": [
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_0.jsonl",
+          "rows": 202
+        },
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_1.jsonl",
+          "rows": 202
+        },
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_2.jsonl",
+          "rows": 201
+        },
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_3.jsonl",
+          "rows": 201
+        }
+      ],
+      "score_files": [
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_0.jsonl",
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_1.jsonl",
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_2.jsonl",
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_3.jsonl"
+      ],
+      "configuration": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/settings.json",
+      "training_note": "ITI/SEA binary-task adaptation uses correct and incorrect fit-answer completions. Existing closed-form settings retained. No new hyperparameter search.",
+      "common_mechanism_metrics_status": "A/P and C/F per-type paired correctness, score drift and path differences with archived source CIs exist. AP RMS/CF correction RMS not present in this summary; no new computation performed here."
+    },
+    {
+      "method": "Temperature Scaling",
+      "archive_key": "temperature",
+      "status": "existing_historical_outputs; E1 compatibility unresolved without Codex01",
+      "metrics_file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/summary.json",
+      "metric_pointer": "paths.temperature; pairs.temperature",
+      "path_metrics": {
+        "correct": 768,
+        "n": 806,
+        "accuracy": 0.9528535980148883,
+        "difference_from_full": {
+          "numerator": 0.0,
+          "denominator": 806,
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "sources": 40
+        },
+        "noninferiority_95": true,
+        "corrected": 0,
+        "new_errors": 0,
+        "total_node_forwards": 4977
+      },
+      "pair_metrics": {
+        "A": {
+          "numerator": 2248,
+          "denominator": 2283,
+          "rate": 0.9846692947875603,
+          "nodes": 761,
+          "sources": 40,
+          "available": 2283,
+          "mean_abs_score_drift": 0.2900913539882162,
+          "flips": 20,
+          "direction_or_stability_numerator": 2263,
+          "direction_or_stability_denominator": 2283,
+          "interval": {
+            "numerator": 2248.0,
+            "denominator": 2283,
+            "estimate": 0.9846692947875603,
+            "ci95": [
+              0.9665351332237545,
+              0.9964204199796647
+            ],
+            "sources": 40
+          }
+        },
+        "P": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "nodes": 10,
+          "sources": 5,
+          "available": 10,
+          "mean_abs_score_drift": 0.9105571750248312,
+          "flips": 0,
+          "direction_or_stability_numerator": 10,
+          "direction_or_stability_denominator": 10,
+          "interval": {
+            "numerator": 10.0,
+            "denominator": 10,
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "sources": 5
+          }
+        },
+        "C": {
+          "numerator": 16,
+          "denominator": 33,
+          "rate": 0.48484848484848486,
+          "nodes": 21,
+          "sources": 11,
+          "available": 33,
+          "mean_abs_score_drift": 4.797636663934661,
+          "flips": 16,
+          "direction_or_stability_numerator": 27,
+          "direction_or_stability_denominator": 33,
+          "interval": {
+            "numerator": 16.0,
+            "denominator": 33,
+            "estimate": 0.48484848484848486,
+            "ci95": [
+              0.1875,
+              0.6000641025641021
+            ],
+            "sources": 11
+          }
+        },
+        "F": {
+          "numerator": 3,
+          "denominator": 7,
+          "rate": 0.42857142857142855,
+          "nodes": 2,
+          "sources": 2,
+          "available": 7,
+          "mean_abs_score_drift": 5.462501003242339,
+          "flips": 3,
+          "direction_or_stability_numerator": 7,
+          "direction_or_stability_denominator": 7,
+          "interval": {
+            "numerator": 3.0,
+            "denominator": 7,
+            "estimate": 0.42857142857142855,
+            "ci95": [
+              0.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "F0": {
+          "numerator": 6,
+          "denominator": 6,
+          "rate": 1.0,
+          "nodes": 2,
+          "sources": 2,
+          "available": 6,
+          "mean_abs_score_drift": 0.6514494495513349,
+          "flips": 0,
+          "direction_or_stability_numerator": 6,
+          "direction_or_stability_denominator": 6,
+          "interval": {
+            "numerator": 6.0,
+            "denominator": 6,
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "macro": 0.7245223020518684
+      },
+      "path_predictions": [
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/path_results/temperature_test.jsonl",
+          "rows": 806
+        }
+      ],
+      "score_files": [
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/readout_scores/temperature_test.jsonl"
+      ],
+      "configuration": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/readouts/temperature.pkl",
+      "training_note": "Existing archived fit; fitting population not inferred from filenames.",
+      "common_mechanism_metrics_status": "A/P and C/F per-type paired correctness, score drift and path differences with archived source CIs exist. AP RMS/CF correction RMS not present in this summary; no new computation performed here."
+    },
+    {
+      "method": "Best template (not equated with strong-evidence prompt)",
+      "archive_key": "best_template",
+      "status": "existing_historical_outputs; E1 compatibility unresolved without Codex01",
+      "metrics_file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/summary.json",
+      "metric_pointer": "paths.best_template; pairs.best_template",
+      "path_metrics": {
+        "correct": 768,
+        "n": 806,
+        "accuracy": 0.9528535980148883,
+        "difference_from_full": {
+          "numerator": 0.0,
+          "denominator": 806,
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "sources": 40
+        },
+        "noninferiority_95": true,
+        "corrected": 0,
+        "new_errors": 0,
+        "total_node_forwards": 4977
+      },
+      "pair_metrics": {
+        "A": {
+          "numerator": 2248,
+          "denominator": 2283,
+          "rate": 0.9846692947875603,
+          "nodes": 761,
+          "sources": 40,
+          "available": 2283,
+          "mean_abs_score_drift": 1.6116678527818664,
+          "flips": 20,
+          "direction_or_stability_numerator": 2263,
+          "direction_or_stability_denominator": 2283,
+          "interval": {
+            "numerator": 2248.0,
+            "denominator": 2283,
+            "estimate": 0.9846692947875603,
+            "ci95": [
+              0.9665351332237545,
+              0.9964204199796647
+            ],
+            "sources": 40
+          }
+        },
+        "P": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "nodes": 10,
+          "sources": 5,
+          "available": 10,
+          "mean_abs_score_drift": 5.058805465698242,
+          "flips": 0,
+          "direction_or_stability_numerator": 10,
+          "direction_or_stability_denominator": 10,
+          "interval": {
+            "numerator": 10.0,
+            "denominator": 10,
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "sources": 5
+          }
+        },
+        "C": {
+          "numerator": 16,
+          "denominator": 33,
+          "rate": 0.48484848484848486,
+          "nodes": 21,
+          "sources": 11,
+          "available": 33,
+          "mean_abs_score_drift": 26.654351032141484,
+          "flips": 16,
+          "direction_or_stability_numerator": 27,
+          "direction_or_stability_denominator": 33,
+          "interval": {
+            "numerator": 16.0,
+            "denominator": 33,
+            "estimate": 0.48484848484848486,
+            "ci95": [
+              0.1875,
+              0.6000641025641021
+            ],
+            "sources": 11
+          }
+        },
+        "F": {
+          "numerator": 3,
+          "denominator": 7,
+          "rate": 0.42857142857142855,
+          "nodes": 2,
+          "sources": 2,
+          "available": 7,
+          "mean_abs_score_drift": 30.348154612949916,
+          "flips": 3,
+          "direction_or_stability_numerator": 7,
+          "direction_or_stability_denominator": 7,
+          "interval": {
+            "numerator": 3.0,
+            "denominator": 7,
+            "estimate": 0.42857142857142855,
+            "ci95": [
+              0.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "F0": {
+          "numerator": 6,
+          "denominator": 6,
+          "rate": 1.0,
+          "nodes": 2,
+          "sources": 2,
+          "available": 6,
+          "mean_abs_score_drift": 3.619274139404297,
+          "flips": 0,
+          "direction_or_stability_numerator": 6,
+          "direction_or_stability_denominator": 6,
+          "interval": {
+            "numerator": 6.0,
+            "denominator": 6,
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "macro": 0.7245223020518684
+      },
+      "path_predictions": [
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_0.jsonl",
+          "rows": 202
+        },
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_1.jsonl",
+          "rows": 202
+        },
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_2.jsonl",
+          "rows": 201
+        },
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/paths_test_3.jsonl",
+          "rows": 201
+        }
+      ],
+      "score_files": [
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_0.jsonl",
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_1.jsonl",
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_2.jsonl",
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/test_3.jsonl"
+      ],
+      "configuration": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators/settings.json",
+      "training_note": "Existing archived fit; fitting population not inferred from filenames.",
+      "common_mechanism_metrics_status": "A/P and C/F per-type paired correctness, score drift and path differences with archived source CIs exist. AP RMS/CF correction RMS not present in this summary; no new computation performed here."
+    },
+    {
+      "method": "Raw historical repair-v2",
+      "archive_key": "full",
+      "status": "existing_historical_outputs; E1 compatibility unresolved without Codex01",
+      "metrics_file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/summary.json",
+      "metric_pointer": "paths.full; pairs.full",
+      "path_metrics": {
+        "correct": 768,
+        "n": 806,
+        "accuracy": 0.9528535980148883,
+        "difference_from_full": {
+          "numerator": 0.0,
+          "denominator": 806,
+          "estimate": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "sources": 40
+        },
+        "noninferiority_95": true,
+        "corrected": 0,
+        "new_errors": 0,
+        "total_node_forwards": 4977
+      },
+      "pair_metrics": {
+        "A": {
+          "numerator": 2248,
+          "denominator": 2283,
+          "rate": 0.9846692947875603,
+          "nodes": 761,
+          "sources": 40,
+          "available": 2283,
+          "mean_abs_score_drift": 1.6116678527818664,
+          "flips": 20,
+          "direction_or_stability_numerator": 2263,
+          "direction_or_stability_denominator": 2283,
+          "interval": {
+            "numerator": 2248.0,
+            "denominator": 2283,
+            "estimate": 0.9846692947875603,
+            "ci95": [
+              0.9665351332237545,
+              0.9964204199796647
+            ],
+            "sources": 40
+          }
+        },
+        "P": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "nodes": 10,
+          "sources": 5,
+          "available": 10,
+          "mean_abs_score_drift": 5.058805465698242,
+          "flips": 0,
+          "direction_or_stability_numerator": 10,
+          "direction_or_stability_denominator": 10,
+          "interval": {
+            "numerator": 10.0,
+            "denominator": 10,
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "sources": 5
+          }
+        },
+        "C": {
+          "numerator": 16,
+          "denominator": 33,
+          "rate": 0.48484848484848486,
+          "nodes": 21,
+          "sources": 11,
+          "available": 33,
+          "mean_abs_score_drift": 26.654351032141484,
+          "flips": 16,
+          "direction_or_stability_numerator": 27,
+          "direction_or_stability_denominator": 33,
+          "interval": {
+            "numerator": 16.0,
+            "denominator": 33,
+            "estimate": 0.48484848484848486,
+            "ci95": [
+              0.1875,
+              0.6000641025641021
+            ],
+            "sources": 11
+          }
+        },
+        "F": {
+          "numerator": 3,
+          "denominator": 7,
+          "rate": 0.42857142857142855,
+          "nodes": 2,
+          "sources": 2,
+          "available": 7,
+          "mean_abs_score_drift": 30.348154612949916,
+          "flips": 3,
+          "direction_or_stability_numerator": 7,
+          "direction_or_stability_denominator": 7,
+          "interval": {
+            "numerator": 3.0,
+            "denominator": 7,
+            "estimate": 0.42857142857142855,
+            "ci95": [
+              0.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "F0": {
+          "numerator": 6,
+          "denominator": 6,
+          "rate": 1.0,
+          "nodes": 2,
+          "sources": 2,
+          "available": 6,
+          "mean_abs_score_drift": 3.619274139404297,
+          "flips": 0,
+          "direction_or_stability_numerator": 6,
+          "direction_or_stability_denominator": 6,
+          "interval": {
+            "numerator": 6.0,
+            "denominator": 6,
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "macro": 0.7245223020518684
+      },
+      "path_predictions": [
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/path_results/full_test.jsonl",
+          "rows": 806
+        }
+      ],
+      "score_files": [
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/readout_scores/full_test.jsonl"
+      ],
+      "configuration": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/readouts/full.pkl",
+      "training_note": "Existing archived fit; fitting population not inferred from filenames.",
+      "common_mechanism_metrics_status": "A/P and C/F per-type paired correctness, score drift and path differences with archived source CIs exist. AP RMS/CF correction RMS not present in this summary; no new computation performed here."
+    },
+    {
+      "method": "Historical repair-v2 bias (distinct intercept fit)",
+      "archive_key": "bias",
+      "status": "existing_historical_outputs; E1 compatibility unresolved without Codex01",
+      "metrics_file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/summary.json",
+      "metric_pointer": "paths.bias; pairs.bias",
+      "path_metrics": {
+        "correct": 768,
+        "n": 806,
+        "accuracy": 0.9528535980148883,
+        "difference_from_full": {
+          "numerator": 0.0,
+          "denominator": 806,
+          "estimate": 0.0,
+          "ci95": [
+            -0.003784187855470057,
+            0.003708281829419036
+          ],
+          "sources": 40
+        },
+        "noninferiority_95": true,
+        "corrected": 1,
+        "new_errors": 1,
+        "total_node_forwards": 4982
+      },
+      "pair_metrics": {
+        "A": {
+          "numerator": 2247,
+          "denominator": 2283,
+          "rate": 0.9842312746386334,
+          "nodes": 761,
+          "sources": 40,
+          "available": 2283,
+          "mean_abs_score_drift": 1.6116678527818664,
+          "flips": 20,
+          "direction_or_stability_numerator": 2263,
+          "direction_or_stability_denominator": 2283,
+          "interval": {
+            "numerator": 2247.0,
+            "denominator": 2283,
+            "estimate": 0.9842312746386334,
+            "ci95": [
+              0.9650473216365743,
+              0.9964204199796647
+            ],
+            "sources": 40
+          }
+        },
+        "P": {
+          "numerator": 10,
+          "denominator": 10,
+          "rate": 1.0,
+          "nodes": 10,
+          "sources": 5,
+          "available": 10,
+          "mean_abs_score_drift": 5.058805465698242,
+          "flips": 0,
+          "direction_or_stability_numerator": 10,
+          "direction_or_stability_denominator": 10,
+          "interval": {
+            "numerator": 10.0,
+            "denominator": 10,
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "sources": 5
+          }
+        },
+        "C": {
+          "numerator": 16,
+          "denominator": 33,
+          "rate": 0.48484848484848486,
+          "nodes": 21,
+          "sources": 11,
+          "available": 33,
+          "mean_abs_score_drift": 26.654351032141484,
+          "flips": 16,
+          "direction_or_stability_numerator": 27,
+          "direction_or_stability_denominator": 33,
+          "interval": {
+            "numerator": 16.0,
+            "denominator": 33,
+            "estimate": 0.48484848484848486,
+            "ci95": [
+              0.1875,
+              0.6000641025641021
+            ],
+            "sources": 11
+          }
+        },
+        "F": {
+          "numerator": 3,
+          "denominator": 7,
+          "rate": 0.42857142857142855,
+          "nodes": 2,
+          "sources": 2,
+          "available": 7,
+          "mean_abs_score_drift": 30.348154612949916,
+          "flips": 3,
+          "direction_or_stability_numerator": 7,
+          "direction_or_stability_denominator": 7,
+          "interval": {
+            "numerator": 3.0,
+            "denominator": 7,
+            "estimate": 0.42857142857142855,
+            "ci95": [
+              0.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "F0": {
+          "numerator": 6,
+          "denominator": 6,
+          "rate": 1.0,
+          "nodes": 2,
+          "sources": 2,
+          "available": 6,
+          "mean_abs_score_drift": 3.619274139404297,
+          "flips": 0,
+          "direction_or_stability_numerator": 6,
+          "direction_or_stability_denominator": 6,
+          "interval": {
+            "numerator": 6.0,
+            "denominator": 6,
+            "estimate": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "sources": 2
+          }
+        },
+        "macro": 0.7244127970146367
+      },
+      "path_predictions": [
+        {
+          "file": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/path_results/bias_test.jsonl",
+          "rows": 806
+        }
+      ],
+      "score_files": [
+        "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/readout_scores/bias_test.jsonl"
+      ],
+      "configuration": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/readouts/bias.pkl",
+      "training_note": "Existing archived fit; fitting population not inferred from filenames.",
+      "common_mechanism_metrics_status": "A/P and C/F per-type paired correctness, score drift and path differences with archived source CIs exist. AP RMS/CF correction RMS not present in this summary; no new computation performed here."
+    },
+    {
+      "method": "Raw real-completion",
+      "archive_key": "raw",
+      "status": "existing_historical_outputs; E1 compatibility unresolved without Codex01",
+      "metrics_file": "/home/gcx/aster_cancel_story_20261109/meeting/real_completion/metrics.json",
+      "metric_pointer": "methods.raw",
+      "metrics": {
+        "settings": {
+          "basis": "r16",
+          "weights_source": "existing",
+          "b": 0.0,
+          "tau": null,
+          "parameters": 17,
+          "fit_max_evidence_correction": 0.0
+        },
+        "groups": {
+          "A": {
+            "n": 2283,
+            "expected": 2283,
+            "missing": 0,
+            "sources": 40,
+            "raw_difference_rms": 2.558574584942964,
+            "difference_rms": 2.558574584942964,
+            "correction_rms": 0.0,
+            "correction_rms_over_ap_rms": 0.0,
+            "correction_abs_max": 0.0,
+            "paired_correct": 2248,
+            "paired_accuracy": 0.9846692947875603,
+            "paired_accuracy_ci": [
+              0.9673015536519011,
+              0.9966941765413201
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              2.165167197337634,
+              2.962915176736797
+            ],
+            "correction_rms_ci": [
+              0.0,
+              0.0
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "variance_reduction": 0.0,
+            "variance_reduction_ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "P": {
+            "n": 10,
+            "expected": 10,
+            "missing": 0,
+            "sources": 5,
+            "raw_difference_rms": 9.449647881654274,
+            "difference_rms": 9.449647881654274,
+            "correction_rms": 0.0,
+            "correction_rms_over_ap_rms": 0.0,
+            "correction_abs_max": 0.0,
+            "paired_correct": 10,
+            "paired_accuracy": 1.0,
+            "paired_accuracy_ci": [
+              1.0,
+              1.0
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              0.056495360588912864,
+              12.569779232424583
+            ],
+            "correction_rms_ci": [
+              0.0,
+              0.0
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "variance_reduction": 0.0,
+            "variance_reduction_ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "AP": {
+            "n": 2293,
+            "expected": 2293,
+            "missing": 0,
+            "sources": 40,
+            "raw_difference_rms": 2.628151983382305,
+            "difference_rms": 2.628151983382305,
+            "correction_rms": 0.0,
+            "correction_rms_over_ap_rms": 0.0,
+            "correction_abs_max": 0.0,
+            "paired_correct": 2258,
+            "paired_accuracy": 0.9847361535106847,
+            "paired_accuracy_ci": [
+              0.9674270320487187,
+              0.9967040211623353
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              2.170409858723565,
+              3.092887019858962
+            ],
+            "correction_rms_ci": [
+              0.0,
+              0.0
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "variance_reduction": 0.0,
+            "variance_reduction_ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "F0": {
+            "n": 6,
+            "expected": 6,
+            "missing": 0,
+            "sources": 2,
+            "raw_difference_rms": 4.184726751718108,
+            "difference_rms": 4.184726751718108,
+            "correction_rms": 0.0,
+            "correction_rms_over_ap_rms": 0.0,
+            "correction_abs_max": 0.0,
+            "paired_correct": 6,
+            "paired_accuracy": 1.0,
+            "paired_accuracy_ci": [
+              1.0,
+              1.0
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              3.921812350499858,
+              4.432072185846836
+            ],
+            "correction_rms_ci": [
+              0.0,
+              0.0
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "variance_reduction": 0.0,
+            "variance_reduction_ci": [
+              0.0,
+              0.0
+            ]
+          },
+          "C": {
+            "n": 33,
+            "expected": 33,
+            "missing": 0,
+            "sources": 11,
+            "raw_difference_rms": 35.98966226239321,
+            "difference_rms": 35.98966226239321,
+            "correction_rms": 0.0,
+            "correction_rms_over_ap_rms": 0.0,
+            "correction_abs_max": 0.0,
+            "paired_correct": 16,
+            "paired_accuracy": 0.48484848484848486,
+            "paired_accuracy_ci": [
+              0.18181818181818182,
+              0.6049463937621832
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              20.819688102570073,
+              40.356439445283065
+            ],
+            "correction_rms_ci": [
+              0.0,
+              0.0
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "mean_evidence_retention": 1.0,
+            "mean_evidence_retention_ci": [
+              1.0,
+              1.0
+            ],
+            "response_direction_degraded": 0,
+            "response_direction_improved": 0,
+            "exceeds_fit_budget_count": 0,
+            "exceeds_fit_budget_fraction": 0.0
+          },
+          "F": {
+            "n": 7,
+            "expected": 7,
+            "missing": 0,
+            "sources": 2,
+            "raw_difference_rms": 37.71398962270881,
+            "difference_rms": 37.71398962270881,
+            "correction_rms": 0.0,
+            "correction_rms_over_ap_rms": 0.0,
+            "correction_abs_max": 0.0,
+            "paired_correct": 3,
+            "paired_accuracy": 0.42857142857142855,
+            "paired_accuracy_ci": [
+              0.0,
+              1.0
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              11.116157561759035,
+              56.16089759812457
+            ],
+            "correction_rms_ci": [
+              0.0,
+              0.0
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "mean_evidence_retention": 1.0,
+            "mean_evidence_retention_ci": [
+              1.0,
+              1.0
+            ],
+            "response_direction_degraded": 0,
+            "response_direction_improved": 0,
+            "exceeds_fit_budget_count": 0,
+            "exceeds_fit_budget_fraction": 0.0
+          },
+          "CF": {
+            "n": 40,
+            "expected": 40,
+            "missing": 0,
+            "sources": 12,
+            "raw_difference_rms": 36.29733328873824,
+            "difference_rms": 36.29733328873824,
+            "correction_rms": 0.0,
+            "correction_rms_over_ap_rms": 0.0,
+            "correction_abs_max": 0.0,
+            "paired_correct": 19,
+            "paired_accuracy": 0.475,
+            "paired_accuracy_ci": [
+              0.13333333333333333,
+              0.6207129543336439
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              18.79145598765586,
+              42.051301026420795
+            ],
+            "correction_rms_ci": [
+              0.0,
+              0.0
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "mean_evidence_retention": 1.0,
+            "mean_evidence_retention_ci": [
+              1.0,
+              1.0
+            ],
+            "response_direction_degraded": 0,
+            "response_direction_improved": 0,
+            "exceeds_fit_budget_count": 0,
+            "exceeds_fit_budget_fraction": 0.0
+          },
+          "natural": {
+            "n": 372,
+            "expected": 372,
+            "missing": 0,
+            "correct": 368,
+            "accuracy": 0.989247311827957,
+            "accuracy_ci": [
+              0.9786096256684492,
+              0.9974025974025974
+            ],
+            "difference_vs_raw": 0.0,
+            "difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "path": {
+          "n": 806,
+          "expected": 806,
+          "missing": 0,
+          "correct": 768,
+          "accuracy": 0.9528535980148883,
+          "accuracy_ci": [
+            0.9351523251482478,
+            0.9699184647944525
+          ],
+          "difference_vs_raw": 0.0,
+          "difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "unavailable_scores": 0
+        }
+      },
+      "prediction_files": [
+        "/home/gcx/aster_cancel_story_20261109/meeting/real_completion/evaluated_scores.npz",
+        "/home/gcx/aster_cancel_story_20261109/meeting/real_completion/path_results.jsonl",
+        "/home/gcx/aster_cancel_story_20261109/meeting/real_completion/test_pair_results.csv"
+      ],
+      "training_note": "real_completion report records historical fit AP=4887, CF=135; no_w b=3.0993948961894406. Do not merge with repair-v2 bias."
+    },
+    {
+      "method": "Intercept-only real-completion",
+      "archive_key": "no_w",
+      "status": "existing_historical_outputs; E1 compatibility unresolved without Codex01",
+      "metrics_file": "/home/gcx/aster_cancel_story_20261109/meeting/real_completion/metrics.json",
+      "metric_pointer": "methods.no_w",
+      "metrics": {
+        "settings": {
+          "basis": "r16",
+          "weights_source": "existing",
+          "b": 3.0993948961894406,
+          "tau": null,
+          "parameters": 17,
+          "fit_max_evidence_correction": 0.0
+        },
+        "groups": {
+          "A": {
+            "n": 2283,
+            "expected": 2283,
+            "missing": 0,
+            "sources": 40,
+            "raw_difference_rms": 2.558574584942964,
+            "difference_rms": 2.5585745849429635,
+            "correction_rms": 1.082817310298422e-15,
+            "correction_rms_over_ap_rms": 4.1200711265749873e-16,
+            "correction_abs_max": 3.552713678800501e-15,
+            "paired_correct": 2257,
+            "paired_accuracy": 0.9886114761279019,
+            "paired_accuracy_ci": [
+              0.9781475429992731,
+              0.9970949047941597
+            ],
+            "paired_accuracy_difference_vs_raw": 0.003942181340341655,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.011542966985896996
+            ],
+            "difference_rms_ci": [
+              2.1651671973376336,
+              2.962915176736797
+            ],
+            "correction_rms_ci": [
+              9.825708649572248e-16,
+              1.175879239487409e-15
+            ],
+            "corrected_pairs_vs_raw": 9,
+            "new_error_pairs_vs_raw": 0,
+            "variance_reduction": 2.220446049250313e-16,
+            "variance_reduction_ci": [
+              0.0,
+              2.220446049250313e-16
+            ]
+          },
+          "P": {
+            "n": 10,
+            "expected": 10,
+            "missing": 0,
+            "sources": 5,
+            "raw_difference_rms": 9.449647881654274,
+            "difference_rms": 9.449647881654272,
+            "correction_rms": 1.5888218580782547e-15,
+            "correction_rms_over_ap_rms": 6.045395654910023e-16,
+            "correction_abs_max": 3.552713678800501e-15,
+            "paired_correct": 10,
+            "paired_accuracy": 1.0,
+            "paired_accuracy_ci": [
+              1.0,
+              1.0
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              0.056495360588912864,
+              12.56977923242458
+            ],
+            "correction_rms_ci": [
+              0.0,
+              2.1151172074891737e-15
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "variance_reduction": 3.3306690738754696e-16,
+            "variance_reduction_ci": [
+              0.0,
+              4.440892098500626e-16
+            ]
+          },
+          "AP": {
+            "n": 2293,
+            "expected": 2293,
+            "missing": 0,
+            "sources": 40,
+            "raw_difference_rms": 2.628151983382305,
+            "difference_rms": 2.628151983382305,
+            "correction_rms": 1.0855362405813402e-15,
+            "correction_rms_over_ap_rms": 4.130416533918664e-16,
+            "correction_abs_max": 3.552713678800501e-15,
+            "paired_correct": 2267,
+            "paired_accuracy": 0.9886611426079372,
+            "paired_accuracy_ci": [
+              0.978259274450825,
+              0.9971089126630299
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0039249890972525075,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.011502309593852813
+            ],
+            "difference_rms_ci": [
+              2.170409858723565,
+              3.092887019858962
+            ],
+            "correction_rms_ci": [
+              9.855344437965738e-16,
+              1.1776455980906471e-15
+            ],
+            "corrected_pairs_vs_raw": 9,
+            "new_error_pairs_vs_raw": 0,
+            "variance_reduction": 2.220446049250313e-16,
+            "variance_reduction_ci": [
+              0.0,
+              2.220446049250313e-16
+            ]
+          },
+          "F0": {
+            "n": 6,
+            "expected": 6,
+            "missing": 0,
+            "sources": 2,
+            "raw_difference_rms": 4.184726751718108,
+            "difference_rms": 4.184726751718107,
+            "correction_rms": 2.0511601988091347e-15,
+            "correction_rms_over_ap_rms": 7.8045722309004e-16,
+            "correction_abs_max": 3.552713678800501e-15,
+            "paired_correct": 6,
+            "paired_accuracy": 1.0,
+            "paired_accuracy_ci": [
+              1.0,
+              1.0
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              3.921812350499858,
+              4.4320721858468355
+            ],
+            "correction_rms_ci": [
+              0.0,
+              2.9007785717557725e-15
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "variance_reduction": 2.220446049250313e-16,
+            "variance_reduction_ci": [
+              0.0,
+              8.881784197001252e-16
+            ]
+          },
+          "C": {
+            "n": 33,
+            "expected": 33,
+            "missing": 0,
+            "sources": 11,
+            "raw_difference_rms": 35.98966226239321,
+            "difference_rms": 35.98966226239321,
+            "correction_rms": 1.382891923927195e-15,
+            "correction_rms_over_ap_rms": 5.261841524657489e-16,
+            "correction_abs_max": 3.552713678800501e-15,
+            "paired_correct": 16,
+            "paired_accuracy": 0.48484848484848486,
+            "paired_accuracy_ci": [
+              0.18181818181818182,
+              0.6049463937621832
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              20.819688102570073,
+              40.356439445283065
+            ],
+            "correction_rms_ci": [
+              0.0,
+              1.7585928014183521e-15
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "mean_evidence_retention": 1.0,
+            "mean_evidence_retention_ci": [
+              1.0,
+              1.0
+            ],
+            "response_direction_degraded": 0,
+            "response_direction_improved": 0,
+            "exceeds_fit_budget_count": 0,
+            "exceeds_fit_budget_fraction": 0.0
+          },
+          "F": {
+            "n": 7,
+            "expected": 7,
+            "missing": 0,
+            "sources": 2,
+            "raw_difference_rms": 37.71398962270881,
+            "difference_rms": 37.71398962270881,
+            "correction_rms": 0.0,
+            "correction_rms_over_ap_rms": 0.0,
+            "correction_abs_max": 0.0,
+            "paired_correct": 3,
+            "paired_accuracy": 0.42857142857142855,
+            "paired_accuracy_ci": [
+              0.0,
+              1.0
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              11.116157561759035,
+              56.16089759812457
+            ],
+            "correction_rms_ci": [
+              0.0,
+              0.0
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "mean_evidence_retention": 1.0,
+            "mean_evidence_retention_ci": [
+              1.0,
+              1.0
+            ],
+            "response_direction_degraded": 0,
+            "response_direction_improved": 0,
+            "exceeds_fit_budget_count": 0,
+            "exceeds_fit_budget_fraction": 0.0
+          },
+          "CF": {
+            "n": 40,
+            "expected": 40,
+            "missing": 0,
+            "sources": 12,
+            "raw_difference_rms": 36.29733328873824,
+            "difference_rms": 36.29733328873824,
+            "correction_rms": 1.2560739669470201e-15,
+            "correction_rms_over_ap_rms": 4.77930490660024e-16,
+            "correction_abs_max": 3.552713678800501e-15,
+            "paired_correct": 19,
+            "paired_accuracy": 0.475,
+            "paired_accuracy_ci": [
+              0.13333333333333333,
+              0.6207129543336439
+            ],
+            "paired_accuracy_difference_vs_raw": 0.0,
+            "paired_accuracy_difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ],
+            "difference_rms_ci": [
+              18.79145598765586,
+              42.051301026420795
+            ],
+            "correction_rms_ci": [
+              0.0,
+              1.636259790671482e-15
+            ],
+            "corrected_pairs_vs_raw": 0,
+            "new_error_pairs_vs_raw": 0,
+            "mean_evidence_retention": 1.0,
+            "mean_evidence_retention_ci": [
+              1.0,
+              1.0
+            ],
+            "response_direction_degraded": 0,
+            "response_direction_improved": 0,
+            "exceeds_fit_budget_count": 0,
+            "exceeds_fit_budget_fraction": 0.0
+          },
+          "natural": {
+            "n": 372,
+            "expected": 372,
+            "missing": 0,
+            "correct": 368,
+            "accuracy": 0.989247311827957,
+            "accuracy_ci": [
+              0.9786096256684492,
+              0.9974025974025974
+            ],
+            "difference_vs_raw": 0.0,
+            "difference_vs_raw_ci": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "path": {
+          "n": 806,
+          "expected": 806,
+          "missing": 0,
+          "correct": 767,
+          "accuracy": 0.9516129032258065,
+          "accuracy_ci": [
+            0.934209766622098,
+            0.9680439648492146
+          ],
+          "difference_vs_raw": -0.0012406947890818859,
+          "difference_vs_raw_ci": [
+            -0.009318435382079163,
+            0.0065535105047335425
+          ],
+          "unavailable_scores": 0
+        }
+      },
+      "prediction_files": [
+        "/home/gcx/aster_cancel_story_20261109/meeting/real_completion/evaluated_scores.npz",
+        "/home/gcx/aster_cancel_story_20261109/meeting/real_completion/path_results.jsonl",
+        "/home/gcx/aster_cancel_story_20261109/meeting/real_completion/test_pair_results.csv"
+      ],
+      "training_note": "real_completion report records historical fit AP=4887, CF=135; no_w b=3.0993948961894406. Do not merge with repair-v2 bias."
+    },
+    {
+      "method": "Fixed scale 0.95",
+      "status": "existing_analytic_control_not_fitted_temperature",
+      "metrics_file": "/home/gcx/aster-e5-gaps-20261112/reports/aster_cancel_story_20261109/analytic_scale_control_095.json",
+      "metrics": {
+        "interference_pairs": 2293,
+        "evidence_pairs": 40,
+        "controlled_paths": 806,
+        "official_paths": 7458,
+        "base_interference_rms": 2.628151983382305,
+        "scaled_interference_rms": 2.4967443842131893,
+        "base_evidence_difference_rms": 36.29733328873824,
+        "scaled_evidence_correction_rms": 1.8148666644369134,
+        "analytic_variance_reduction_pct": 9.750000000000004,
+        "analytic_evidence_retention_pct": 95,
+        "base_controlled_cf_pair_both_correct": 19,
+        "scaled_controlled_cf_pair_both_correct": 19,
+        "base_controlled_path_correct": 768,
+        "scaled_controlled_path_correct": 768,
+        "base_official_path_correct": 7037,
+        "scaled_official_path_correct": 7037
+      },
+      "prediction_note": "Existing analytic deduction, not a new inference or separate prediction archive."
+    },
+    {
+      "method": "E1 Dataset A 2540 pairs",
+      "scope": "test",
+      "status": "completed_existing_E1_evaluation_do_not_rerun",
+      "metrics_file": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/test/metrics.json",
+      "metrics": {
+        "ap_pairs": 2293,
+        "ap_sources": 40,
+        "cf_pairs": 40,
+        "cf_sources": 12,
+        "cf_direction_degradation_count": 0,
+        "cf_over_budget_count": 1,
+        "cf_max_abs_correction": 0.3240924069354634,
+        "f0_pairs": 6,
+        "f0_sources": 2,
+        "natural_node_count": 372,
+        "natural_node_correct": 368,
+        "natural_path_count": 806,
+        "natural_path_correct": 768,
+        "interference_path_count": 2418,
+        "interference_path_correct": 2333,
+        "ap_raw_rms": 2.628151983382305,
+        "ap_score_change_rms": 2.611843499196642,
+        "ap_correction_rms": 0.45036991897264816,
+        "ap_paired_accuracy": 0.9886611426079372,
+        "ap_relation_accuracy": 0.9938944614042738,
+        "ap_vr": 0.01459651556213215,
+        "cf_raw_rms": 36.29733328873823,
+        "cf_score_change_rms": 36.32800957133983,
+        "cf_correction_rms": 0.09498488152350805,
+        "cf_paired_accuracy": 0.475,
+        "cf_relation_accuracy": 0.475,
+        "cf_er": 1.0010161029734719,
+        "cf_direction_degradation_rate": 0.0,
+        "cf_over_budget_rate": 0.025,
+        "f0_raw_rms": 4.184726751718108,
+        "f0_score_change_rms": 4.13794496923945,
+        "f0_correction_rms": 0.10879713375566534,
+        "f0_paired_accuracy": 1.0,
+        "f0_relation_accuracy": 1.0,
+        "natural_node_accuracy": 0.989247311827957,
+        "natural_path_accuracy": 0.9528535980148883,
+        "interference_path_accuracy": 0.9648469809760132
+      },
+      "ci95": [
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "ap_raw_rms",
+          "estimate": 2.628151983382305,
+          "low": 2.1800170003494608,
+          "high": 3.115761135021315,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "ap_score_change_rms",
+          "estimate": 2.611843499196642,
+          "low": 2.1768685048197827,
+          "high": 3.079644347699677,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "ap_correction_rms",
+          "estimate": 0.45036991897264816,
+          "low": 0.3618007640510863,
+          "high": 0.5345536462736524,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "ap_paired_accuracy",
+          "estimate": 0.9886611426079372,
+          "low": 0.9775046328802127,
+          "high": 0.99673136851075,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "ap_relation_accuracy",
+          "estimate": 0.9938944614042738,
+          "low": 0.9881500305134839,
+          "high": 0.9982327233825872,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "ap_vr",
+          "estimate": 0.01459651556213215,
+          "low": -0.01999619461260612,
+          "high": 0.04679252533993837,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "cf_raw_rms",
+          "estimate": 36.29733328873823,
+          "low": 19.02539421159817,
+          "high": 41.948557558482506,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "cf_score_change_rms",
+          "estimate": 36.32800957133983,
+          "low": 18.984156367469186,
+          "high": 41.99534868197161,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "cf_correction_rms",
+          "estimate": 0.09498488152350805,
+          "low": 0.07206475048686638,
+          "high": 0.14871109403043314,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "cf_paired_accuracy",
+          "estimate": 0.475,
+          "low": 0.14285714285714285,
+          "high": 0.6226668695475754,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "cf_relation_accuracy",
+          "estimate": 0.475,
+          "low": 0.14285714285714285,
+          "high": 0.6226668695475754,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "cf_er",
+          "estimate": 1.0010161029734719,
+          "low": 0.9981037220581707,
+          "high": 1.0033206848675034,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "cf_direction_degradation_rate",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "cf_direction_degradation_count",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "cf_over_budget_rate",
+          "estimate": 0.025,
+          "low": 0.0,
+          "high": 0.14285714285714285,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "f0_raw_rms",
+          "estimate": 4.184726751718108,
+          "low": 3.921812350499858,
+          "high": 4.432072185846836,
+          "defined_draws": 1750,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "f0_score_change_rms",
+          "estimate": 4.13794496923945,
+          "low": 3.7769922493504735,
+          "high": 4.469844145521696,
+          "defined_draws": 1750,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "f0_correction_rms",
+          "estimate": 0.10879713375566534,
+          "low": 0.05086999084075541,
+          "high": 0.14520976778012465,
+          "defined_draws": 1750,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "f0_paired_accuracy",
+          "estimate": 1.0,
+          "low": 1.0,
+          "high": 1.0,
+          "defined_draws": 1750,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "f0_relation_accuracy",
+          "estimate": 1.0,
+          "low": 1.0,
+          "high": 1.0,
+          "defined_draws": 1750,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "natural_node_accuracy",
+          "estimate": 0.989247311827957,
+          "low": 0.9783769134988647,
+          "high": 0.9973753280839895,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "natural_path_accuracy",
+          "estimate": 0.9528535980148883,
+          "low": 0.9359774615056305,
+          "high": 0.9692878681515046,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1",
+          "metric": "interference_path_accuracy",
+          "estimate": 0.9648469809760132,
+          "low": 0.9507007024878196,
+          "high": 0.9781589656415803,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "f0_score_change_rms",
+          "estimate": -0.04678178247865805,
+          "low": -0.1448201011493846,
+          "high": 0.0377719596748598,
+          "defined_draws": 1750,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "cf_er",
+          "estimate": 0.0010161029734718774,
+          "low": -0.0018962779418292886,
+          "high": 0.003320684867503354,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "ap_relation_accuracy",
+          "estimate": 0.002616659398168353,
+          "low": -0.0015792667602153726,
+          "high": 0.009727397038137402,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "cf_score_change_rms",
+          "estimate": 0.030676282601596938,
+          "low": -0.08076604961185652,
+          "high": 0.05511665494296433,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "cf_paired_accuracy",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "f0_paired_accuracy",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 1750,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "cf_over_budget_rate",
+          "estimate": 0.025,
+          "low": 0.0,
+          "high": 0.14285714285714285,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "ap_correction_rms",
+          "estimate": 0.45036991897264816,
+          "low": 0.3618007640510863,
+          "high": 0.5345536462736524,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "cf_direction_degradation_rate",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "f0_raw_rms",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 1750,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "f0_correction_rms",
+          "estimate": 0.10879713375566534,
+          "low": 0.05086999084075541,
+          "high": 0.14520976778012465,
+          "defined_draws": 1750,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "f0_relation_accuracy",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 1750,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "ap_paired_accuracy",
+          "estimate": 0.003924989097252585,
+          "low": 0.0,
+          "high": 0.011781714485909681,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "cf_direction_degradation_count",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "interference_path_accuracy",
+          "estimate": -0.002481389578163795,
+          "low": -0.007175638281424987,
+          "high": 0.002953711332484401,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "ap_score_change_rms",
+          "estimate": -0.016308484185662664,
+          "low": -0.0716578284251127,
+          "high": 0.05031400109988686,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "cf_correction_rms",
+          "estimate": 0.09498488152350805,
+          "low": 0.07206475048686638,
+          "high": 0.14871109403043314,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "natural_path_accuracy",
+          "estimate": 0.0,
+          "low": -0.00843945632375676,
+          "high": 0.008761776655492727,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "cf_relation_accuracy",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "natural_node_accuracy",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "ap_vr",
+          "estimate": 0.01459651556213215,
+          "low": -0.01999619461260612,
+          "high": 0.04679252533993837,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "cf_raw_rms",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        },
+        {
+          "scope": "test",
+          "comparison": "E1 minus raw",
+          "metric": "ap_raw_rms",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 40,
+          "draws": 2000
+        }
+      ],
+      "prediction_files": [
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/test/predictions.jsonl",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/test/pair_predictions.jsonl",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/test/path_predictions.jsonl",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/test/question_predictions.jsonl"
+      ],
+      "training_note": "Frozen Dataset A, A/P/C/F each 635; model already fitted. No ASTER training performed."
+    },
+    {
+      "method": "E1 Dataset A 2540 pairs",
+      "scope": "nli4ct",
+      "status": "completed_existing_E1_evaluation_do_not_rerun",
+      "metrics_file": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/nli4ct/metrics.json",
+      "metrics": {
+        "native_changing_pairs": 864,
+        "native_changing_sources": 113,
+        "native_changing_direction_degradation_count": 2,
+        "native_preserving_pairs": 1500,
+        "native_preserving_sources": 113,
+        "natural_node_count": 500,
+        "natural_node_correct": 375,
+        "natural_native_count": 500,
+        "natural_native_correct": 375,
+        "native_changing_raw_rms": 38.20487714910062,
+        "native_changing_score_change_rms": 38.078305339827835,
+        "native_changing_correction_rms": 0.16067254384663282,
+        "native_changing_paired_accuracy": 0.6076388888888888,
+        "native_changing_relation_accuracy": 0.6493055555555556,
+        "native_changing_er": 0.9962896200942082,
+        "native_changing_direction_degradation_rate": 0.0023148148148148147,
+        "native_preserving_raw_rms": 15.691723941838706,
+        "native_preserving_score_change_rms": 15.601529104768902,
+        "native_preserving_correction_rms": 0.1496754288205684,
+        "native_preserving_paired_accuracy": 0.6146666666666667,
+        "native_preserving_relation_accuracy": 0.7793333333333333,
+        "native_preserving_vr": 0.0071548699252855785,
+        "natural_node_accuracy": 0.75,
+        "natural_native_accuracy": 0.75
+      },
+      "ci95": [
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_changing_raw_rms",
+          "estimate": 38.20487714910062,
+          "low": 35.99768587133948,
+          "high": 40.60882977334558,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_changing_score_change_rms",
+          "estimate": 38.078305339827835,
+          "low": 35.88046433002275,
+          "high": 40.47451611537088,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_changing_correction_rms",
+          "estimate": 0.16067254384663282,
+          "low": 0.14857331672559185,
+          "high": 0.17509175314072942,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_changing_paired_accuracy",
+          "estimate": 0.6076388888888888,
+          "low": 0.5515641218818014,
+          "high": 0.6707762046696473,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_changing_relation_accuracy",
+          "estimate": 0.6493055555555556,
+          "low": 0.6012177782458727,
+          "high": 0.7045997176850172,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_changing_er",
+          "estimate": 0.9962896200942082,
+          "low": 0.9958570775836316,
+          "high": 0.9966478195863502,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_changing_direction_degradation_rate",
+          "estimate": 0.0023148148148148147,
+          "low": 0.0,
+          "high": 0.005650520030816637,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_changing_direction_degradation_count",
+          "estimate": 2.0,
+          "low": 0.0,
+          "high": 6.0,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_preserving_raw_rms",
+          "estimate": 15.691723941838706,
+          "low": 14.769938933654965,
+          "high": 16.459018845226524,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_preserving_score_change_rms",
+          "estimate": 15.601529104768902,
+          "low": 14.680746910867622,
+          "high": 16.3652018889145,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_preserving_correction_rms",
+          "estimate": 0.1496754288205684,
+          "low": 0.14181654747612102,
+          "high": 0.1593738010418372,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_preserving_paired_accuracy",
+          "estimate": 0.6146666666666667,
+          "low": 0.5803152061370482,
+          "high": 0.6572637597958811,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_preserving_relation_accuracy",
+          "estimate": 0.7793333333333333,
+          "low": 0.7484018199233716,
+          "high": 0.817259368354057,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "native_preserving_vr",
+          "estimate": 0.0071548699252855785,
+          "low": 0.0061452518541623286,
+          "high": 0.008416169959278349,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "natural_node_accuracy",
+          "estimate": 0.75,
+          "low": 0.7186307672049117,
+          "high": 0.7831862728152654,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1",
+          "metric": "natural_native_accuracy",
+          "estimate": 0.75,
+          "low": 0.7186307672049117,
+          "high": 0.7831862728152654,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_direction_degradation_count",
+          "estimate": 2.0,
+          "low": 0.0,
+          "high": 6.0,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_correction_rms",
+          "estimate": 0.16067254384663282,
+          "low": 0.14857331672559185,
+          "high": 0.17509175314072942,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_paired_accuracy",
+          "estimate": -0.0013333333333332975,
+          "low": -0.012644252873563171,
+          "high": 0.007870086518155153,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_er",
+          "estimate": -0.0037103799057918163,
+          "low": -0.004142922416368424,
+          "high": -0.003352180413649805,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_raw_rms",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_paired_accuracy",
+          "estimate": -0.01041666666666674,
+          "low": -0.02173986986098786,
+          "high": 0.0028254623593606913,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_raw_rms",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_direction_degradation_rate",
+          "estimate": 0.0023148148148148147,
+          "low": 0.0,
+          "high": 0.005650520030816637,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_correction_rms",
+          "estimate": 0.1496754288205684,
+          "low": 0.14181654747612102,
+          "high": 0.1593738010418372,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "natural_native_accuracy",
+          "estimate": -0.006000000000000005,
+          "low": -0.017588382051100592,
+          "high": 0.004149809820193729,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_score_change_rms",
+          "estimate": -0.12657180927278233,
+          "low": -0.1427333150587417,
+          "high": -0.1126204246746056,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_relation_accuracy",
+          "estimate": -0.01041666666666663,
+          "low": -0.02213758680555552,
+          "high": 0.0041498098201936204,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_vr",
+          "estimate": 0.0071548699252855785,
+          "low": 0.0061452518541623286,
+          "high": 0.008416169959278349,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "natural_node_accuracy",
+          "estimate": -0.006000000000000005,
+          "low": -0.017588382051100592,
+          "high": 0.004149809820193729,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_relation_accuracy",
+          "estimate": -0.0033333333333332993,
+          "low": -0.015571644479292745,
+          "high": 0.008431708764756282,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        },
+        {
+          "scope": "nli4ct",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_score_change_rms",
+          "estimate": -0.09019483706980402,
+          "low": -0.1001652373392361,
+          "high": -0.08159993573953123,
+          "defined_draws": 2000,
+          "sources": 113,
+          "draws": 2000
+        }
+      ],
+      "prediction_files": [
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/nli4ct/predictions.jsonl",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/nli4ct/pair_predictions.jsonl",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/nli4ct/path_predictions.jsonl",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/nli4ct/question_predictions.jsonl"
+      ],
+      "training_note": "Frozen Dataset A, A/P/C/F each 635; model already fitted. No ASTER training performed."
+    },
+    {
+      "method": "E1 Dataset A 2540 pairs",
+      "scope": "medpic",
+      "status": "completed_existing_E1_evaluation_do_not_rerun",
+      "metrics_file": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/medpic/metrics.json",
+      "metrics": {
+        "native_changing_pairs": 110,
+        "native_changing_sources": 37,
+        "native_changing_direction_degradation_count": 0,
+        "native_preserving_pairs": 85,
+        "native_preserving_sources": 37,
+        "synthetic_preserving_pairs": 1880,
+        "synthetic_preserving_sources": 150,
+        "natural_native_count": 188,
+        "natural_native_correct": 66,
+        "natural_node_count": 940,
+        "natural_node_correct": 670,
+        "native_changing_raw_rms": 5.585791829647507,
+        "native_changing_score_change_rms": 5.562608321345074,
+        "native_changing_correction_rms": 0.06688799182650046,
+        "native_changing_paired_accuracy": 0.2909090909090909,
+        "native_changing_relation_accuracy": 0.3090909090909091,
+        "native_changing_er": 0.9970299223839517,
+        "native_changing_direction_degradation_rate": 0.0,
+        "native_preserving_raw_rms": 5.389097382968285,
+        "native_preserving_score_change_rms": 5.383836105853923,
+        "native_preserving_correction_rms": 0.05480403675732705,
+        "native_preserving_paired_accuracy": 0.6352941176470588,
+        "native_preserving_relation_accuracy": 0.6941176470588235,
+        "native_preserving_vr": 0.0019615351006999626,
+        "synthetic_preserving_raw_rms": 3.2273295022208677,
+        "synthetic_preserving_score_change_rms": 3.1975295132300503,
+        "synthetic_preserving_correction_rms": 0.14743527521097,
+        "synthetic_preserving_paired_accuracy": 0.6840425531914893,
+        "synthetic_preserving_relation_accuracy": 0.9542553191489361,
+        "synthetic_preserving_vr": 0.001774302122056981,
+        "natural_native_accuracy": 0.35106382978723405,
+        "natural_node_accuracy": 0.7127659574468085
+      },
+      "ci95": [
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_changing_raw_rms",
+          "estimate": 5.585791829647507,
+          "low": 4.7483752437555005,
+          "high": 6.429544276853544,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_changing_score_change_rms",
+          "estimate": 5.562608321345074,
+          "low": 4.731737087083561,
+          "high": 6.401788218228709,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_changing_correction_rms",
+          "estimate": 0.06688799182650046,
+          "low": 0.05264226594601245,
+          "high": 0.08228747283458264,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_changing_paired_accuracy",
+          "estimate": 0.2909090909090909,
+          "low": 0.15571024167652528,
+          "high": 0.42990654205607476,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_changing_relation_accuracy",
+          "estimate": 0.3090909090909091,
+          "low": 0.17997154471544716,
+          "high": 0.4490051020408162,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_changing_er",
+          "estimate": 0.9970299223839517,
+          "low": 0.9905907608623369,
+          "high": 1.0046720015142494,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_changing_direction_degradation_rate",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_changing_direction_degradation_count",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_preserving_raw_rms",
+          "estimate": 5.389097382968285,
+          "low": 3.9300102785157334,
+          "high": 6.812408426869986,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_preserving_score_change_rms",
+          "estimate": 5.383836105853923,
+          "low": 3.924376479464923,
+          "high": 6.813918367383763,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_preserving_correction_rms",
+          "estimate": 0.05480403675732705,
+          "low": 0.043520526803013306,
+          "high": 0.06671859855503373,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_preserving_paired_accuracy",
+          "estimate": 0.6352941176470588,
+          "low": 0.5274725274725275,
+          "high": 0.7466666666666667,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_preserving_relation_accuracy",
+          "estimate": 0.6941176470588235,
+          "low": 0.5810701830863121,
+          "high": 0.8088276602775941,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "native_preserving_vr",
+          "estimate": 0.0019615351006999626,
+          "low": -0.004637114060234443,
+          "high": 0.006919647563371721,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "synthetic_preserving_raw_rms",
+          "estimate": 3.2273295022208677,
+          "low": 3.0087810150036125,
+          "high": 3.45254042545345,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "synthetic_preserving_score_change_rms",
+          "estimate": 3.1975295132300503,
+          "low": 2.984868589880412,
+          "high": 3.4146019415126374,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "synthetic_preserving_correction_rms",
+          "estimate": 0.14743527521097,
+          "low": 0.13929562484964272,
+          "high": 0.15560147323325743,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "synthetic_preserving_paired_accuracy",
+          "estimate": 0.6840425531914893,
+          "low": 0.6497325480560775,
+          "high": 0.7164947089947089,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "synthetic_preserving_relation_accuracy",
+          "estimate": 0.9542553191489361,
+          "low": 0.935997435897436,
+          "high": 0.9702181994966826,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "synthetic_preserving_vr",
+          "estimate": 0.001774302122056981,
+          "low": -0.0019369624313107568,
+          "high": 0.005417402559212705,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "natural_native_accuracy",
+          "estimate": 0.35106382978723405,
+          "low": 0.28716292134831456,
+          "high": 0.412060991772047,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1",
+          "metric": "natural_node_accuracy",
+          "estimate": 0.7127659574468085,
+          "low": 0.6788790322580645,
+          "high": 0.745251690679212,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_direction_degradation_count",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_paired_accuracy",
+          "estimate": -0.14117647058823535,
+          "low": -0.2268405423576871,
+          "high": -0.06314144736842112,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_paired_accuracy",
+          "estimate": 0.14545454545454545,
+          "low": 0.0564487732848705,
+          "high": 0.25610008062890544,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_raw_rms",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "natural_native_accuracy",
+          "estimate": -0.021276595744680826,
+          "low": -0.048913043478260865,
+          "high": 0.005182021804835938,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "synthetic_preserving_correction_rms",
+          "estimate": 0.14743527521097,
+          "low": 0.13929562484964272,
+          "high": 0.15560147323325743,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "synthetic_preserving_relation_accuracy",
+          "estimate": 0.02765957446808509,
+          "low": 0.007221153846153866,
+          "high": 0.048711273436248065,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_er",
+          "estimate": -0.0029700776160482834,
+          "low": -0.009409239137663172,
+          "high": 0.004672001514249387,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_direction_degradation_rate",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "synthetic_preserving_score_change_rms",
+          "estimate": -0.029799988990817372,
+          "low": -0.043183906312702594,
+          "high": -0.01563044134618725,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_score_change_rms",
+          "estimate": -0.023183508302432543,
+          "low": -0.03697451607640225,
+          "high": -0.011836084824239888,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "synthetic_preserving_raw_rms",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "natural_node_accuracy",
+          "estimate": 0.004255319148936176,
+          "low": -0.007329842931937169,
+          "high": 0.01624365482233503,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_correction_rms",
+          "estimate": 0.06688799182650046,
+          "low": 0.05264226594601245,
+          "high": 0.08228747283458264,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "synthetic_preserving_vr",
+          "estimate": 0.001774302122056981,
+          "low": -0.0019369624313107568,
+          "high": 0.005417402559212705,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_raw_rms",
+          "estimate": 0.0,
+          "low": 0.0,
+          "high": 0.0,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_changing_relation_accuracy",
+          "estimate": 0.13636363636363635,
+          "low": 0.03736771577789992,
+          "high": 0.25676640926640926,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_relation_accuracy",
+          "estimate": -0.14117647058823535,
+          "low": -0.2268405423576871,
+          "high": -0.06314144736842123,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "synthetic_preserving_paired_accuracy",
+          "estimate": 0.015425531914893598,
+          "low": 0.0005343437422072634,
+          "high": 0.031216931216931254,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_correction_rms",
+          "estimate": 0.05480403675732705,
+          "low": 0.043520526803013306,
+          "high": 0.06671859855503373,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_vr",
+          "estimate": 0.0019615351006999626,
+          "low": -0.004637114060234443,
+          "high": 0.006919647563371721,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        },
+        {
+          "scope": "medpic",
+          "comparison": "E1 minus raw",
+          "metric": "native_preserving_score_change_rms",
+          "estimate": -0.005261277114362528,
+          "low": -0.018318699691929806,
+          "high": 0.011209486942467919,
+          "defined_draws": 2000,
+          "sources": 150,
+          "draws": 2000
+        }
+      ],
+      "prediction_files": [
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/medpic/predictions.jsonl",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/medpic/pair_predictions.jsonl",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/medpic/path_predictions.jsonl",
+        "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation/medpic/question_predictions.jsonl"
+      ],
+      "training_note": "Frozen Dataset A, A/P/C/F each 635; model already fitted. No ASTER training performed."
+    },
+    {
+      "method": "CC",
+      "status": "not_located_in_inspected_reports_not_confirmed_missing",
+      "metrics": null,
+      "note": "No verified named artifact in inspected summary/report files. Best-template full and direct_reference are not automatically relabeled as this method. Await Codex01."
+    },
+    {
+      "method": "Strong evidence prompt",
+      "status": "not_located_in_inspected_reports_not_confirmed_missing",
+      "metrics": null,
+      "note": "No verified named artifact in inspected summary/report files. Best-template full and direct_reference are not automatically relabeled as this method. Await Codex01."
+    }
+  ],
+  "searched_locations": [
+    "/home/gcx/aster_cr_repair_v2_run_20261108/qwen",
+    "/home/gcx/aster_cancel_story_20261109/meeting/real_completion",
+    "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/evaluation",
+    "/home/gcx/aster-e5-gaps-20261112/reports/aster_cr_repair_v2_20261108"
+  ],
+  "pending": "Codex01 report needed to decide E1 reuse/refit; inventory does not decide."
+}

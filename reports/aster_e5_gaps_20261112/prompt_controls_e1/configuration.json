@@ -1,0 +1,21 @@
+{
+  "model": "Qwen3-8B",
+  "methods": [
+    "CC",
+    "strong_evidence_prompt"
+  ],
+  "CC_references": [
+    "N/A",
+    "",
+    "[MASK]"
+  ],
+  "CC_rule": "Mean binary answer probability on three content-free prompts; subtract prior log odds from unchanged raw margin.",
+  "strong_prompt": "仅依据当前条件、指南中的定义和患者中与该条件有关的事实作出判断。后续处置的内容以及与当前条件无关的背景不作为当前条件成立的证据。保留并阅读完整输入，不得把后续处置反推为当前条件结论。",
+  "training": "none; fully frozen prompts/references before development or historical-test evaluation",
+  "development_selection": "one prespecified configuration each; no test-based or dev-based prompt search",
+  "label_scoring": "same Chinese yes/no single-token FP32 projection",
+  "no_gold_evidence": true,
+  "history": "Previously used 40-source controlled evaluation; no new independent test.",
+  "NLI4CT_evaluations": 0,
+  "MedPIC_evaluations": 0
+}

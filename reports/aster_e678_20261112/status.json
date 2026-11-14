@@ -1,0 +1,293 @@
+{
+  "updated": "2026-11-13 11:40:42",
+  "phase": "running",
+  "protocol": "E1 balanced 2540, independent M1/M2/M3 for each new checkpoint",
+  "qwen": {
+    "source": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+    "formal_result_source": "/home/gcx/aster-cr-balanced-publish-20261112/reports/aster_cr_final_method_10006_20261112",
+    "historical_meGA_paths": {
+      "correct": 768,
+      "total": 806
+    },
+    "nli_original": {
+      "correct": 375,
+      "total": 500
+    },
+    "medpic_subset": {
+      "correct": 66,
+      "total": 188
+    },
+    "nli_official": {
+      "correct": 4043,
+      "total": 5500
+    },
+    "medpic_official": {
+      "correct": 183,
+      "total": 467
+    },
+    "mega_official7458": "not located for E1; Qwen not scheduled under this task"
+  },
+  "models": {
+    "gemma2": {
+      "name": "Gemma-2-9B-IT",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2",
+      "state": "running",
+      "modules_fitted": true,
+      "parameters_frozen": true,
+      "raw_cache_reused": 15511,
+      "populations": {
+        "nli4ct": {
+          "original_statements": 500,
+          "expected_views": 2864,
+          "status": "pending",
+          "metrics": null
+        },
+        "medpic": {
+          "questions": 188,
+          "original_options": 940,
+          "expected_views": 2820,
+          "status": "pending",
+          "metrics": null
+        },
+        "nli4ct_official5500": {
+          "statements": 5500,
+          "original_statements": 500,
+          "status": "pending",
+          "metrics": null
+        },
+        "medpic_official467": {
+          "questions": 467,
+          "original_options": 2335,
+          "includes_existing_development_questions": true,
+          "status": "pending",
+          "metrics": null
+        }
+      },
+      "mega_official": {}
+    },
+    "gemma2_base": {
+      "name": "Gemma-2-9B-Base",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2_base",
+      "state": "running",
+      "modules_fitted": true,
+      "parameters_frozen": true,
+      "raw_cache_reused": 0,
+      "populations": {
+        "nli4ct": {
+          "original_statements": 500,
+          "expected_views": 2864,
+          "status": "pending",
+          "metrics": null
+        },
+        "medpic": {
+          "questions": 188,
+          "original_options": 940,
+          "expected_views": 2820,
+          "status": "pending",
+          "metrics": null
+        },
+        "nli4ct_official5500": {
+          "statements": 5500,
+          "original_statements": 500,
+          "status": "pending",
+          "metrics": null
+        },
+        "medpic_official467": {
+          "questions": 467,
+          "original_options": 2335,
+          "includes_existing_development_questions": true,
+          "status": "pending",
+          "metrics": null
+        }
+      },
+      "mega_official": {}
+    },
+    "llama31": {
+      "name": "Llama-3.1-8B-Instruct",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31",
+      "state": "complete",
+      "modules_fitted": true,
+      "parameters_frozen": true,
+      "raw_cache_reused": 15511,
+      "populations": {
+        "nli4ct": {
+          "original_statements": 500,
+          "expected_views": 2864,
+          "status": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/nli4ct/metrics.json"
+        },
+        "medpic": {
+          "questions": 188,
+          "original_options": 940,
+          "expected_views": 2820,
+          "status": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/medpic/metrics.json"
+        },
+        "nli4ct_official5500": {
+          "statements": 5500,
+          "original_statements": 500,
+          "status": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/nli4ct_official5500/metrics.json"
+        },
+        "medpic_official467": {
+          "questions": 467,
+          "original_options": 2335,
+          "includes_existing_development_questions": true,
+          "status": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/medpic_official467/metrics.json"
+        }
+      },
+      "mega_official": {
+        "state": "complete",
+        "expected": {
+          "cases_file": "/home/gcx/aster_next_20261109/inventory/official_all_path_cases.jsonl",
+          "paths": 7458,
+          "gold_path_nodes": 45627,
+          "sources": 418,
+          "evaluation": "official MEGA test, with earlier source/input-use metadata retained",
+          "methods": [
+            "raw",
+            "bias_only",
+            "aster_cr"
+          ]
+        },
+        "path_records": 22374,
+        "natural_node_records": 45627,
+        "metrics": [
+          {
+            "method": "raw",
+            "metric": "dynamic_path",
+            "n": 7458,
+            "correct": 5689,
+            "accuracy": 0.7628050415661035,
+            "raw_correct": 5689,
+            "delta_accuracy": 0.0,
+            "sources": 418,
+            "paired_source_ci_low": 0.0,
+            "paired_source_ci_high": 0.0,
+            "failed": 0
+          },
+          {
+            "method": "raw",
+            "metric": "natural_gold_path_node",
+            "n": 45627,
+            "correct": 43061,
+            "accuracy": 0.9437613693646306,
+            "raw_correct": 43061,
+            "delta_accuracy": 0.0,
+            "sources": 418,
+            "paired_source_ci_low": 0.0,
+            "paired_source_ci_high": 0.0,
+            "failed": 0
+          },
+          {
+            "method": "bias_only",
+            "metric": "dynamic_path",
+            "n": 7458,
+            "correct": 5898,
+            "accuracy": 0.7908286403861625,
+            "raw_correct": 5689,
+            "delta_accuracy": 0.028023598820058997,
+            "sources": 418,
+            "paired_source_ci_low": 0.016516683111861854,
+            "paired_source_ci_high": 0.03853999880979784,
+            "failed": 0
+          },
+          {
+            "method": "bias_only",
+            "metric": "natural_gold_path_node",
+            "n": 45627,
+            "correct": 43499,
+            "accuracy": 0.9533609485611589,
+            "raw_correct": 43061,
+            "delta_accuracy": 0.009599579196528372,
+            "sources": 418,
+            "paired_source_ci_low": 0.005560914552721605,
+            "paired_source_ci_high": 0.013396460937205139,
+            "failed": 0
+          },
+          {
+            "method": "aster_cr",
+            "metric": "dynamic_path",
+            "n": 7458,
+            "correct": 5899,
+            "accuracy": 0.7909627245910432,
+            "raw_correct": 5689,
+            "delta_accuracy": 0.02815768302493966,
+            "sources": 418,
+            "paired_source_ci_low": 0.016871375978501864,
+            "paired_source_ci_high": 0.03903114914968251,
+            "failed": 0
+          },
+          {
+            "method": "aster_cr",
+            "metric": "natural_gold_path_node",
+            "n": 45627,
+            "correct": 43485,
+            "accuracy": 0.9530541126964297,
+            "raw_correct": 43061,
+            "delta_accuracy": 0.009292743331799153,
+            "sources": 418,
+            "paired_source_ci_low": 0.0057049608966304064,
+            "paired_source_ci_high": 0.0127505199538522,
+            "failed": 0
+          }
+        ]
+      }
+    },
+    "gemma3": {
+      "name": "Gemma-3-27B-IT",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma3",
+      "state": "queued",
+      "modules_fitted": false,
+      "parameters_frozen": false,
+      "raw_cache_reused": 15511,
+      "populations": {},
+      "mega_official": {}
+    },
+    "medgemma": {
+      "name": "MedGemma-27B-Text-IT",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/medgemma",
+      "state": "queued",
+      "modules_fitted": false,
+      "parameters_frozen": false,
+      "raw_cache_reused": 15511,
+      "populations": {},
+      "mega_official": {}
+    },
+    "qwen_base": {
+      "name": "Qwen3-8B-Base",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/qwen_base",
+      "state": "queued",
+      "modules_fitted": false,
+      "parameters_frozen": false,
+      "raw_cache_reused": 0,
+      "populations": {},
+      "mega_official": {}
+    }
+  },
+  "E8": {
+    "gemma2": {
+      "state": "waiting_independent_fit",
+      "base_root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2_base",
+      "it_root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2"
+    },
+    "qwen": {
+      "state": "waiting_independent_fit",
+      "base_root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/qwen_base",
+      "it_root": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111"
+    }
+  },
+  "allocation": {},
+  "download": {
+    "model": "gemma2_base",
+    "source": "google/gemma-2-9b",
+    "path": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/checkpoints/gemma-2-9b",
+    "pid": 392438,
+    "started": 1794495468.6723576,
+    "gpu_usage": false,
+    "state": "complete",
+    "reused": false,
+    "seconds": 418.34675431251526
+  }
+}

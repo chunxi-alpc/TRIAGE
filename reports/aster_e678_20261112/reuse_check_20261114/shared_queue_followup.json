@@ -1,0 +1,53 @@
+{
+  "recorded_date": "2026-11-14",
+  "owner": "shared_gpu_scheduler",
+  "allowed_gpus": [
+    0,
+    1,
+    4,
+    5,
+    6
+  ],
+  "active_base_models": [
+    "gemma2_base",
+    "qwen_base"
+  ],
+  "resume_only": {
+    "gemma3": [
+      "remaining_source_dev_features",
+      "source_development_freeze",
+      "nli4ct_official5500",
+      "medpic",
+      "medpic_official467"
+    ],
+    "medgemma": [
+      "remaining_source_dev_features",
+      "source_development_freeze",
+      "nli4ct_official5500",
+      "medpic",
+      "medpic_official467"
+    ]
+  },
+  "reuse_complete_fits": [
+    "llama31",
+    "gemma2",
+    "gemma3",
+    "medgemma",
+    "gemma2_base"
+  ],
+  "current_E1_evaluation_still_unfinished": {
+    "gemma2": [
+      "mega_official"
+    ],
+    "gemma3": [
+      "test",
+      "mega_official"
+    ],
+    "medgemma": [
+      "test",
+      "mega_official"
+    ]
+  },
+  "historical_corrected_predictions_do_not_fill_current_E1": true,
+  "nli500": "May summarize original 500 IDs from frozen 5500 predictions on CPU, without another forward; historical within-NLI fits remain separate."
+}

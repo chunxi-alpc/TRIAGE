@@ -1,0 +1,33 @@
+{
+  "dataset": "E1 / Dataset A",
+  "pairs": 2540,
+  "endpoint_occurrences": 5080,
+  "unique_endpoints": 4637,
+  "feature": "fixed final attention layer: all 32 heads concatenated, 4096 dimensions",
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "cache_root": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+  "native_objective": "weighted pointwise binary negative log likelihood",
+  "weighting": "E1 equal pair category and within-category source; half each pair weight to each endpoint, summed for shared inputs",
+  "pairwise_loss": false,
+  "aster_selected_heads": false,
+  "aster_subspace": false,
+  "training_sources": 80,
+  "regularization_candidates": [
+    0.001,
+    0.01,
+    0.1
+  ],
+  "selection": "natural development-node NLL only; freeze before loading test residuals",
+  "deterministic_solver": true,
+  "initialization": "zero coefficients; affine scale starts at one",
+  "gpu_used": false,
+  "model_forward_passes": 0,
+  "bootstrap_draws": 2000,
+  "bootstrap_unit": "guideline source",
+  "target_task_evaluation": "NLI4CT and MedPIC are not evaluated",
+  "historical_test": "40 sources, previously used; not new independent confirmation",
+  "previous_intercept": "Existing E1 independent intercept trained on 761 original natural fit nodes is separate and reused elsewhere; this output is endpoint-supervised refit",
+  "original_implementation_reference": "experiments/aster_cr/readout.py: scalar temperature/bias/logistic objectives; ordinary readout is now explicit final-attention-layer CE without ASTER-selected feature support",
+  "linear_readout_protocol_difference": "Historical ordinary readout used a base-score residual correction on PCA of ASTER-selected heads. This separately named native supervised control is a standalone classifier on fixed last-attention-layer outputs, with 4097 fitted parameters. It is not an exact refit of the historical selected-head readout.",
+  "feature_cache_note": "E1 new inputs and path cache have all attention heads but lack final residual; fixed last-layer heads were used without GPU inference. Initial missing-residual attempt stopped before fitting and is preserved in initialization_missing_residual.log."
+}

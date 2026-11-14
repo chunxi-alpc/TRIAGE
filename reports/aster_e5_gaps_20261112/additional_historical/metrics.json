@@ -1,0 +1,868 @@
+{
+  "protocol": "Existing historical outputs only; not new model experiments; E1 training compatibility unclassified.",
+  "bootstrap": {
+    "draws": 2000,
+    "seed": 11,
+    "unit": "guideline source cluster",
+    "interval": "percentile 95%",
+    "joint_sources_across_methods": true,
+    "undefined_draws": "omitted"
+  },
+  "sources": {
+    "metadata": "/home/gcx/aster_cancel_story_20261109/meeting/real_completion/metadata.json",
+    "raw": "/home/gcx/aster_cancel_story_20261109/meeting/real_completion/evaluated_scores.npz",
+    "comparators": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/comparators",
+    "temperature": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/readout_scores/temperature_test.jsonl"
+  },
+  "counts": {
+    "sources": 40,
+    "AP": 2293,
+    "CF": 40,
+    "paths": 806
+  },
+  "methods": {
+    "CAD": {
+      "reference": {
+        "score_count": 3100,
+        "max_abs_raw_score_difference_from_real_completion": 0.0,
+        "raw_path_mismatches_from_real_completion": 0,
+        "common_reference_confirmed": true,
+        "scope": "historically used MEGA 40-source pool; no E1 training-compatibility decision"
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 7.6757237548288915,
+          "difference_rms_ci": [
+            6.495501592012902,
+            8.88874553021039
+          ],
+          "correction_rms": 5.117149169885928,
+          "correction_rms_ci": [
+            4.330334394675268,
+            5.925830353473594
+          ],
+          "correction_abs_max": 48.99058532714844,
+          "paired_correct": 2056,
+          "paired_accuracy": 0.9005694261936049,
+          "paired_accuracy_ci": [
+            0.8596309237824853,
+            0.9360396515808886
+          ],
+          "paired_accuracy_difference_vs_raw": -0.08409986859395532,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.11586989567727456,
+            -0.05439339896323776
+          ],
+          "corrected_pairs_vs_raw": 12,
+          "new_error_pairs_vs_raw": 204,
+          "variance_reduction": -8.000000000000002,
+          "variance_reduction_ci": [
+            -8.000000000000004,
+            -7.9999999999999964
+          ]
+        },
+        "P": {
+          "n": 10,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 23.383047106628077,
+          "difference_rms_ci": [
+            0.5335200898828488,
+            31.092613734946536
+          ],
+          "correction_rms": 14.290575682031125,
+          "correction_rms_ci": [
+            0.4254221359410775,
+            18.995389782055454
+          ],
+          "correction_abs_max": 39.988243103027344,
+          "paired_correct": 8,
+          "paired_accuracy": 0.8,
+          "paired_accuracy_ci": [
+            0.6455505279034691,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": -0.2,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.35444947209653094,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 2,
+          "variance_reduction": -4.828347450231726,
+          "variance_reduction_ci": [
+            -14.931964409478468,
+            -1.6807870155489224
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 7.813085049457602,
+          "difference_rms_ci": [
+            6.507288864856078,
+            9.140672834877703
+          ],
+          "correction_rms": 5.19246043408284,
+          "correction_rms_ci": [
+            4.336745925095238,
+            6.058292200876541
+          ],
+          "correction_abs_max": 48.99058532714844,
+          "paired_correct": 2064,
+          "paired_accuracy": 0.9001308329699084,
+          "paired_accuracy_ci": [
+            0.858870190443626,
+            0.9354879150209616
+          ],
+          "paired_accuracy_difference_vs_raw": -0.08460532054077627,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.11600030559382782,
+            -0.05492040018696786
+          ],
+          "corrected_pairs_vs_raw": 12,
+          "new_error_pairs_vs_raw": 206,
+          "variance_reduction": -7.836592602755296,
+          "variance_reduction_ci": [
+            -8.000757570092134,
+            -7.536840535220015
+          ]
+        },
+        "C": {
+          "n": 33,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 40.56805910274676,
+          "difference_rms_ci": [
+            30.903091349371604,
+            60.67883240436116
+          ],
+          "correction_rms": 30.58236689537037,
+          "correction_rms_ci": [
+            18.601362216816593,
+            52.862295411311315
+          ],
+          "correction_abs_max": 99.6982421875,
+          "paired_correct": 14,
+          "paired_accuracy": 0.42424242424242425,
+          "paired_accuracy_ci": [
+            0.16666666666666666,
+            0.5208559782608695
+          ],
+          "paired_accuracy_difference_vs_raw": -0.06060606060606061,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.15384615384615385,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 2,
+          "mean_evidence_retention": 0.3680977060378584,
+          "mean_evidence_retention_ci": [
+            -1.6911008350333216,
+            0.6914761959112167
+          ],
+          "response_direction_degraded": 7,
+          "response_direction_improved": 0,
+          "exceeds_reference_budget_count": 32,
+          "exceeds_reference_budget_fraction": 0.9696969696969697,
+          "budget_note": "Descriptive comparison to ASTER historical budget; this method did not train under that constraint."
+        },
+        "F": {
+          "n": 7,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 28.68885490585734,
+          "difference_rms_ci": [
+            15.002675371051017,
+            40.25349549007631
+          ],
+          "correction_rms": 12.073962878680119,
+          "correction_rms_ci": [
+            7.994685484367527,
+            15.96667438964035
+          ],
+          "correction_abs_max": 17.103614807128906,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.8039480306619752,
+          "mean_evidence_retention_ci": [
+            0.7160247779882394,
+            1.1406169652434588
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_reference_budget_count": 7,
+          "exceeds_reference_budget_fraction": 1.0,
+          "budget_note": "Descriptive comparison to ASTER historical budget; this method did not train under that constraint."
+        },
+        "CF": {
+          "n": 40,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 38.75296040616634,
+          "difference_rms_ci": [
+            30.308013732867725,
+            56.104399560460735
+          ],
+          "correction_rms": 28.23328819834431,
+          "correction_rms_ci": [
+            17.842424234197658,
+            48.33495204235238
+          ],
+          "correction_abs_max": 99.6982421875,
+          "paired_correct": 17,
+          "paired_accuracy": 0.425,
+          "paired_accuracy_ci": [
+            0.125,
+            0.5555555555555556
+          ],
+          "paired_accuracy_difference_vs_raw": -0.05,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.13333333333333333,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 2,
+          "mean_evidence_retention": 0.4546818607819723,
+          "mean_evidence_retention_ci": [
+            -1.2824256824111275,
+            0.7163380069933524
+          ],
+          "response_direction_degraded": 7,
+          "response_direction_improved": 0,
+          "exceeds_reference_budget_count": 39,
+          "exceeds_reference_budget_fraction": 0.975,
+          "budget_note": "Descriptive comparison to ASTER historical budget; this method did not train under that constraint."
+        },
+        "F0": {
+          "n": 6,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 9.26242476775924,
+          "difference_rms_ci": [
+            4.672865620191765,
+            12.237211776071764
+          ],
+          "correction_rms": 5.592036775161254,
+          "correction_rms_ci": [
+            1.1157583416757482,
+            7.829229458413691
+          ],
+          "correction_abs_max": 12.667312622070312,
+          "paired_correct": 5,
+          "paired_accuracy": 0.8333333333333334,
+          "paired_accuracy_ci": [
+            0.6666666666666666,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": -0.16666666666666666,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.3333333333333333,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 1,
+          "variance_reduction": -4.26959463535923,
+          "variance_reduction_ci": [
+            -7.08453143754425,
+            -3.6818935380507725
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "correct": 570,
+        "accuracy": 0.707196029776675,
+        "accuracy_ci": [
+          0.646672777176744,
+          0.7723703560371518
+        ],
+        "difference_vs_raw": -0.2456575682382134,
+        "difference_vs_raw_ci": [
+          -0.2979385398265088,
+          -0.191080051066842
+        ],
+        "difference_ci_source": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/summary.json#paths.CAD.difference_from_full",
+        "corrected": 4,
+        "new_errors": 202
+      }
+    },
+    "SEA": {
+      "reference": {
+        "score_count": 3100,
+        "max_abs_raw_score_difference_from_real_completion": 0.0,
+        "raw_path_mismatches_from_real_completion": 0,
+        "common_reference_confirmed": true,
+        "scope": "historically used MEGA 40-source pool; no E1 training-compatibility decision"
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 2.1842114360490807,
+          "difference_rms_ci": [
+            1.9502727083027784,
+            2.4354084701181784
+          ],
+          "correction_rms": 1.0885922342938632,
+          "correction_rms_ci": [
+            0.9583268785960595,
+            1.238270541907947
+          ],
+          "correction_abs_max": 10.211898803710938,
+          "paired_correct": 2260,
+          "paired_accuracy": 0.9899255365746824,
+          "paired_accuracy_ci": [
+            0.9816333925940163,
+            0.996870201278008
+          ],
+          "paired_accuracy_difference_vs_raw": 0.005256241787122208,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.002814792066843496,
+            0.01700818279871249
+          ],
+          "corrected_pairs_vs_raw": 17,
+          "new_error_pairs_vs_raw": 5,
+          "variance_reduction": 0.27345804028055964,
+          "variance_reduction_ci": [
+            0.17031355265538292,
+            0.3469798308239999
+          ]
+        },
+        "P": {
+          "n": 10,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 8.508110718555216,
+          "difference_rms_ci": [
+            0.16832994123523728,
+            11.313652964142369
+          ],
+          "correction_rms": 1.1700750118704015,
+          "correction_rms_ci": [
+            0.10841354172794243,
+            1.5511104799593918
+          ],
+          "correction_abs_max": 2.2189559936523438,
+          "paired_correct": 10,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.18761069841058764,
+          "variance_reduction_ci": [
+            -4.407429282856164,
+            0.40051574303809095
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 2.2507031707138117,
+          "difference_rms_ci": [
+            1.9589422318090812,
+            2.586333197376145
+          ],
+          "correction_rms": 1.088960825761646,
+          "correction_rms_ci": [
+            0.9577835154231166,
+            1.2382959416641588
+          ],
+          "correction_abs_max": 10.211898803710938,
+          "paired_correct": 2270,
+          "paired_accuracy": 0.9899694723070214,
+          "paired_accuracy_ci": [
+            0.9817260747847543,
+            0.9968788703656191
+          ],
+          "paired_accuracy_difference_vs_raw": 0.005233318796336677,
+          "paired_accuracy_difference_vs_raw_ci": [
+            -0.0028068253738715303,
+            0.016894152154045387
+          ],
+          "corrected_pairs_vs_raw": 17,
+          "new_error_pairs_vs_raw": 5,
+          "variance_reduction": 0.2687643622733472,
+          "variance_reduction_ci": [
+            0.17045079830561521,
+            0.340854583860868
+          ]
+        },
+        "C": {
+          "n": 33,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 24.306471033170165,
+          "difference_rms_ci": [
+            13.646544140569304,
+            27.445767002500993
+          ],
+          "correction_rms": 11.82652301226706,
+          "correction_rms_ci": [
+            7.126701443782406,
+            13.160657899705214
+          ],
+          "correction_abs_max": 18.99660301208496,
+          "paired_correct": 16,
+          "paired_accuracy": 0.48484848484848486,
+          "paired_accuracy_ci": [
+            0.18181818181818182,
+            0.6049463937621832
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.6819442895890996,
+          "mean_evidence_retention_ci": [
+            0.6365841992289377,
+            0.6960597436007665
+          ],
+          "response_direction_degraded": 1,
+          "response_direction_improved": 2,
+          "exceeds_reference_budget_count": 28,
+          "exceeds_reference_budget_fraction": 0.8484848484848485,
+          "budget_note": "Descriptive comparison to ASTER historical budget; this method did not train under that constraint."
+        },
+        "F": {
+          "n": 7,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 25.060981048376036,
+          "difference_rms_ci": [
+            2.3005502283014074,
+            38.189000477177935
+          ],
+          "correction_rms": 13.54120456294719,
+          "correction_rms_ci": [
+            8.843211808357198,
+            17.988329242031714
+          ],
+          "correction_abs_max": 18.391252517700195,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.5814091666204054,
+          "mean_evidence_retention_ci": [
+            0.20496126840867054,
+            0.6797209509081723
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_reference_budget_count": 7,
+          "exceeds_reference_budget_fraction": 1.0,
+          "budget_note": "Descriptive comparison to ASTER historical budget; this method did not train under that constraint."
+        },
+        "CF": {
+          "n": 40,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 24.440191807041263,
+          "difference_rms_ci": [
+            11.754646440662464,
+            28.55679756880044
+          ],
+          "correction_rms": 12.14408177218289,
+          "correction_rms_ci": [
+            7.429366389302827,
+            13.647326324597781
+          ],
+          "correction_abs_max": 18.99660301208496,
+          "paired_correct": 19,
+          "paired_accuracy": 0.475,
+          "paired_accuracy_ci": [
+            0.13333333333333333,
+            0.6207129543336439
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.6619724135744446,
+          "mean_evidence_retention_ci": [
+            0.4989511364103348,
+            0.6899343847822669
+          ],
+          "response_direction_degraded": 1,
+          "response_direction_improved": 2,
+          "exceeds_reference_budget_count": 35,
+          "exceeds_reference_budget_fraction": 0.875,
+          "budget_note": "Descriptive comparison to ASTER historical budget; this method did not train under that constraint."
+        },
+        "F0": {
+          "n": 6,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 2.9744654528543264,
+          "difference_rms_ci": [
+            1.9030662471417836,
+            3.7514301698735477
+          ],
+          "correction_rms": 4.138105102210665,
+          "correction_rms_ci": [
+            0.6957005443650971,
+            5.810665058876994
+          ],
+          "correction_abs_max": 5.986602783203125,
+          "paired_correct": 6,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.6276662526117833,
+          "variance_reduction_ci": [
+            0.2917051980078299,
+            0.6970251307690543
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "correct": 764,
+        "accuracy": 0.9478908188585607,
+        "accuracy_ci": [
+          0.9258752969528073,
+          0.9668381907557544
+        ],
+        "difference_vs_raw": -0.004962779156327543,
+        "difference_vs_raw_ci": [
+          -0.019662921348314606,
+          0.011016587695519291
+        ],
+        "difference_ci_source": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/summary.json#paths.sea.difference_from_full",
+        "corrected": 8,
+        "new_errors": 12
+      }
+    },
+    "Temperature Scaling": {
+      "reference": {
+        "score_count": 3100,
+        "max_abs_raw_score_difference_from_real_completion": 0.0,
+        "raw_path_mismatches_from_real_completion": 0,
+        "common_reference_confirmed": true,
+        "scope": "historically used MEGA 40-source pool; no E1 training-compatibility decision"
+      },
+      "groups": {
+        "A": {
+          "n": 2283,
+          "sources": 40,
+          "raw_difference_rms": 2.558574584942964,
+          "difference_rms": 0.4605293605284809,
+          "difference_rms_ci": [
+            0.3897181933624858,
+            0.5333084443474004
+          ],
+          "correction_rms": 2.098045224414483,
+          "correction_rms_ci": [
+            1.7754490039751483,
+            2.4296067323893964
+          ],
+          "correction_abs_max": 20.08627463740427,
+          "paired_correct": 2248,
+          "paired_accuracy": 0.9846692947875603,
+          "paired_accuracy_ci": [
+            0.9673015536519011,
+            0.9966941765413201
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.9676019789287227,
+          "variance_reduction_ci": [
+            0.9676019789287227,
+            0.9676019789287228
+          ]
+        },
+        "P": {
+          "n": 10,
+          "sources": 5,
+          "raw_difference_rms": 9.449647881654274,
+          "difference_rms": 1.7008846729612022,
+          "difference_rms_ci": [
+            0.010168854344895725,
+            2.26249116440032
+          ],
+          "correction_rms": 7.748763208693073,
+          "correction_rms_ci": [
+            0.04632650624401714,
+            10.307288068024263
+          ],
+          "correction_abs_max": 17.790284895697763,
+          "paired_correct": 10,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.9676019789287228,
+          "variance_reduction_ci": [
+            0.9676019789287225,
+            0.9676019789287235
+          ]
+        },
+        "AP": {
+          "n": 2293,
+          "sources": 40,
+          "raw_difference_rms": 2.628151983382305,
+          "difference_rms": 0.4730529097730769,
+          "difference_rms_ci": [
+            0.3906618435924765,
+            0.5567026616401097
+          ],
+          "correction_rms": 2.1550990736092284,
+          "correction_rms_ci": [
+            1.7797480151310883,
+            2.5361843582188524
+          ],
+          "correction_abs_max": 20.08627463740427,
+          "paired_correct": 2258,
+          "paired_accuracy": 0.9847361535106847,
+          "paired_accuracy_ci": [
+            0.9674270320487187,
+            0.9967040211623353
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.9676019789287228,
+          "variance_reduction_ci": [
+            0.9676019789287227,
+            0.9676019789287228
+          ]
+        },
+        "C": {
+          "n": 33,
+          "sources": 11,
+          "raw_difference_rms": 35.98966226239321,
+          "difference_rms": 6.477941368164345,
+          "difference_rms_ci": [
+            3.7474294103850627,
+            7.263937256437994
+          ],
+          "correction_rms": 29.511720894228862,
+          "correction_rms_ci": [
+            17.07225869218501,
+            33.09250218884507
+          ],
+          "correction_abs_max": 47.585520150203855,
+          "paired_correct": 16,
+          "paired_accuracy": 0.48484848484848486,
+          "paired_accuracy_ci": [
+            0.18181818181818182,
+            0.6049463937621832
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.17999450289183072,
+          "mean_evidence_retention_ci": [
+            0.1799945028918307,
+            0.17999450289183075
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_reference_budget_count": 30,
+          "exceeds_reference_budget_fraction": 0.9090909090909091,
+          "budget_note": "Descriptive comparison to ASTER historical budget; this method did not train under that constraint."
+        },
+        "F": {
+          "n": 7,
+          "sources": 2,
+          "raw_difference_rms": 37.71398962270881,
+          "difference_rms": 6.788310814207135,
+          "difference_rms_ci": [
+            2.0008472543960827,
+            10.108652845133443
+          ],
+          "correction_rms": 30.925678808501676,
+          "correction_rms_ci": [
+            9.115310307362952,
+            46.052244752991136
+          ],
+          "correction_abs_max": 46.77876204109714,
+          "paired_correct": 3,
+          "paired_accuracy": 0.42857142857142855,
+          "paired_accuracy_ci": [
+            0.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.17999450289183072,
+          "mean_evidence_retention_ci": [
+            0.17999450289183072,
+            0.17999450289183072
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_reference_budget_count": 7,
+          "exceeds_reference_budget_fraction": 1.0,
+          "budget_note": "Descriptive comparison to ASTER historical budget; this method did not train under that constraint."
+        },
+        "CF": {
+          "n": 40,
+          "sources": 12,
+          "raw_difference_rms": 36.29733328873824,
+          "difference_rms": 6.5333204616055385,
+          "difference_rms_ci": [
+            3.3823587791118324,
+            7.569003024205342
+          ],
+          "correction_rms": 29.7640128271327,
+          "correction_rms_ci": [
+            15.409097208544027,
+            34.48229800221546
+          ],
+          "correction_abs_max": 47.585520150203855,
+          "paired_correct": 19,
+          "paired_accuracy": 0.475,
+          "paired_accuracy_ci": [
+            0.13333333333333333,
+            0.6207129543336439
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "mean_evidence_retention": 0.17999450289183072,
+          "mean_evidence_retention_ci": [
+            0.1799945028918307,
+            0.17999450289183075
+          ],
+          "response_direction_degraded": 0,
+          "response_direction_improved": 0,
+          "exceeds_reference_budget_count": 37,
+          "exceeds_reference_budget_fraction": 0.925,
+          "budget_note": "Descriptive comparison to ASTER historical budget; this method did not train under that constraint."
+        },
+        "F0": {
+          "n": 6,
+          "sources": 2,
+          "raw_difference_rms": 4.184726751718108,
+          "difference_rms": 0.7532278114136466,
+          "difference_rms_ci": [
+            0.7059046644632643,
+            0.7977486298722111
+          ],
+          "correction_rms": 3.4314989403044613,
+          "correction_rms_ci": [
+            3.2159076860365943,
+            3.6343235559746248
+          ],
+          "correction_abs_max": 6.11831318663506,
+          "paired_correct": 6,
+          "paired_accuracy": 1.0,
+          "paired_accuracy_ci": [
+            1.0,
+            1.0
+          ],
+          "paired_accuracy_difference_vs_raw": 0.0,
+          "paired_accuracy_difference_vs_raw_ci": [
+            0.0,
+            0.0
+          ],
+          "corrected_pairs_vs_raw": 0,
+          "new_error_pairs_vs_raw": 0,
+          "variance_reduction": 0.9676019789287227,
+          "variance_reduction_ci": [
+            0.9676019789287227,
+            0.9676019789287239
+          ]
+        }
+      },
+      "path": {
+        "n": 806,
+        "correct": 768,
+        "accuracy": 0.9528535980148883,
+        "accuracy_ci": [
+          0.9351523251482478,
+          0.9699184647944525
+        ],
+        "difference_vs_raw": 0.0,
+        "difference_vs_raw_ci": [
+          0.0,
+          0.0
+        ],
+        "difference_ci_source": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/summary.json#paths.temperature.difference_from_full",
+        "corrected": 0,
+        "new_errors": 0
+      }
+    }
+  }
+}

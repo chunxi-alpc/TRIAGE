@@ -1,0 +1,293 @@
+{
+  "scope": "CPU diagnostic on synthetic hidden states; not task performance or a trained baseline.",
+  "torch_version": "2.8.0+cu128",
+  "pyreft_vendor": "/home/gcx/aster_cr_repair_v2_run_20261108/vendor/python/pyreft",
+  "loss": "binary_cross_entropy_with_logits with frozen random linear readout",
+  "seed": 20261108,
+  "batch_size": 8,
+  "runs": [
+    {
+      "embed_dim": 32,
+      "rank": 1,
+      "lr": 0.01,
+      "rotation_weight_decay": 0.01,
+      "learned_source_weight_decay": 0.01,
+      "initial": {
+        "rotation_norm": 1.0000001192092896,
+        "orthogonality_error": 1.1920928955078125e-07,
+        "raw_diagonal": [
+          -1.0
+        ],
+        "cast_diagonal": [
+          -1
+        ],
+        "output_delta_max_abs": 1.7202723026275635,
+        "output_delta_norm": 4.318307399749756,
+        "loss": 0.7131925821304321
+      },
+      "steps": [
+        {
+          "step": 1,
+          "gradient_before_step": {
+            "rotation_grad_norm": 0.5502198338508606,
+            "rotation_diag_grad": [
+              0.0
+            ],
+            "learned_weight_grad_norm": 0.21174144744873047,
+            "learned_bias_grad_norm": 0.019469004124403
+          },
+          "after": {
+            "rotation_norm": 0.0,
+            "orthogonality_error": 1.0,
+            "raw_diagonal": [
+              -0.9998999834060669
+            ],
+            "cast_diagonal": [
+              0
+            ],
+            "output_delta_max_abs": 0.0,
+            "output_delta_norm": 0.0,
+            "loss": 0.67300945520401
+          }
+        },
+        {
+          "step": 2,
+          "gradient_before_step": {
+            "rotation_grad_norm": 0.0,
+            "rotation_diag_grad": [
+              0.0
+            ],
+            "learned_weight_grad_norm": 0.0,
+            "learned_bias_grad_norm": 0.0
+          },
+          "after": {
+            "rotation_norm": 0.0,
+            "orthogonality_error": 1.0,
+            "raw_diagonal": [
+              -0.9997999668121338
+            ],
+            "cast_diagonal": [
+              0
+            ],
+            "output_delta_max_abs": 0.0,
+            "output_delta_norm": 0.0,
+            "loss": 0.67300945520401
+          }
+        }
+      ]
+    },
+    {
+      "embed_dim": 32,
+      "rank": 1,
+      "lr": 0.01,
+      "rotation_weight_decay": 0.0,
+      "learned_source_weight_decay": 0.01,
+      "initial": {
+        "rotation_norm": 1.0000001192092896,
+        "orthogonality_error": 1.1920928955078125e-07,
+        "raw_diagonal": [
+          -1.0
+        ],
+        "cast_diagonal": [
+          -1
+        ],
+        "output_delta_max_abs": 1.7202723026275635,
+        "output_delta_norm": 4.318307399749756,
+        "loss": 0.7131925821304321
+      },
+      "steps": [
+        {
+          "step": 1,
+          "gradient_before_step": {
+            "rotation_grad_norm": 0.5502198338508606,
+            "rotation_diag_grad": [
+              0.0
+            ],
+            "learned_weight_grad_norm": 0.21174144744873047,
+            "learned_bias_grad_norm": 0.019469004124403
+          },
+          "after": {
+            "rotation_norm": 1.0,
+            "orthogonality_error": 1.1920928955078125e-07,
+            "raw_diagonal": [
+              -1.0
+            ],
+            "cast_diagonal": [
+              -1
+            ],
+            "output_delta_max_abs": 1.6171238422393799,
+            "output_delta_norm": 3.9370429515838623,
+            "loss": 0.6854338049888611
+          }
+        },
+        {
+          "step": 2,
+          "gradient_before_step": {
+            "rotation_grad_norm": 0.32211220264434814,
+            "rotation_diag_grad": [
+              0.0
+            ],
+            "learned_weight_grad_norm": 0.1393788605928421,
+            "learned_bias_grad_norm": 0.013144509866833687
+          },
+          "after": {
+            "rotation_norm": 1.0000001192092896,
+            "orthogonality_error": 1.1920928955078125e-07,
+            "raw_diagonal": [
+              -1.0
+            ],
+            "cast_diagonal": [
+              -1
+            ],
+            "output_delta_max_abs": 1.5086480379104614,
+            "output_delta_norm": 3.68717098236084,
+            "loss": 0.6717467308044434
+          }
+        }
+      ]
+    },
+    {
+      "embed_dim": 4096,
+      "rank": 1,
+      "lr": 0.01,
+      "rotation_weight_decay": 0.01,
+      "learned_source_weight_decay": 0.01,
+      "initial": {
+        "rotation_norm": 1.0000001192092896,
+        "orthogonality_error": 1.1920928955078125e-07,
+        "raw_diagonal": [
+          -1.0
+        ],
+        "cast_diagonal": [
+          -1
+        ],
+        "output_delta_max_abs": 0.1654905378818512,
+        "output_delta_norm": 3.5809128284454346,
+        "loss": 0.6065430641174316
+      },
+      "steps": [
+        {
+          "step": 1,
+          "gradient_before_step": {
+            "rotation_grad_norm": 0.13693268597126007,
+            "rotation_diag_grad": [
+              0.0
+            ],
+            "learned_weight_grad_norm": 0.057101503014564514,
+            "learned_bias_grad_norm": 0.0005073569482192397
+          },
+          "after": {
+            "rotation_norm": 0.0,
+            "orthogonality_error": 1.0,
+            "raw_diagonal": [
+              -0.9998999834060669
+            ],
+            "cast_diagonal": [
+              0
+            ],
+            "output_delta_max_abs": 0.0,
+            "output_delta_norm": 0.0,
+            "loss": 0.6063346862792969
+          }
+        },
+        {
+          "step": 2,
+          "gradient_before_step": {
+            "rotation_grad_norm": 0.0,
+            "rotation_diag_grad": [
+              0.0
+            ],
+            "learned_weight_grad_norm": 0.0,
+            "learned_bias_grad_norm": 0.0
+          },
+          "after": {
+            "rotation_norm": 0.0,
+            "orthogonality_error": 1.0,
+            "raw_diagonal": [
+              -0.9997999668121338
+            ],
+            "cast_diagonal": [
+              0
+            ],
+            "output_delta_max_abs": 0.0,
+            "output_delta_norm": 0.0,
+            "loss": 0.6063346862792969
+          }
+        }
+      ]
+    },
+    {
+      "embed_dim": 4096,
+      "rank": 1,
+      "lr": 0.01,
+      "rotation_weight_decay": 0.0,
+      "learned_source_weight_decay": 0.01,
+      "initial": {
+        "rotation_norm": 1.0000001192092896,
+        "orthogonality_error": 1.1920928955078125e-07,
+        "raw_diagonal": [
+          -1.0
+        ],
+        "cast_diagonal": [
+          -1
+        ],
+        "output_delta_max_abs": 0.1654905378818512,
+        "output_delta_norm": 3.5809128284454346,
+        "loss": 0.6065430641174316
+      },
+      "steps": [
+        {
+          "step": 1,
+          "gradient_before_step": {
+            "rotation_grad_norm": 0.13693268597126007,
+            "rotation_diag_grad": [
+              0.0
+            ],
+            "learned_weight_grad_norm": 0.057101503014564514,
+            "learned_bias_grad_norm": 0.0005073569482192397
+          },
+          "after": {
+            "rotation_norm": 1.0000001192092896,
+            "orthogonality_error": 1.1920928955078125e-07,
+            "raw_diagonal": [
+              -1.0
+            ],
+            "cast_diagonal": [
+              -1
+            ],
+            "output_delta_max_abs": 2.37392520904541,
+            "output_delta_norm": 71.19136047363281,
+            "loss": 8.636580467224121
+          }
+        },
+        {
+          "step": 2,
+          "gradient_before_step": {
+            "rotation_grad_norm": 28.480642318725586,
+            "rotation_diag_grad": [
+              0.0
+            ],
+            "learned_weight_grad_norm": 8.696805953979492,
+            "learned_bias_grad_norm": 0.0009172596037387848
+          },
+          "after": {
+            "rotation_norm": 1.0000001192092896,
+            "orthogonality_error": 1.1920928955078125e-07,
+            "raw_diagonal": [
+              -1.0
+            ],
+            "cast_diagonal": [
+              -1
+            ],
+            "output_delta_max_abs": 2.3271307945251465,
+            "output_delta_norm": 59.33623123168945,
+            "loss": 0.25361084938049316
+          }
+        }
+      ]
+    }
+  ],
+  "torch_orthogonal_forward_source": "    def forward(self, X: torch.Tensor) -> torch.Tensor:\n        n, k = X.size(-2), X.size(-1)\n        transposed = n < k\n        if transposed:\n            X = X.mT\n            n, k = k, n\n        # Here n > k and X is a tall matrix\n        if (\n            self.orthogonal_map == _OrthMaps.matrix_exp\n            or self.orthogonal_map == _OrthMaps.cayley\n        ):\n            # We just need n x k - k(k-1)/2 parameters\n            X = X.tril()\n            if n != k:\n                # Embed into a square matrix\n                X = torch.cat(\n                    [X, X.new_zeros(n, n - k).expand(*X.shape[:-2], -1, -1)], dim=-1\n                )\n            A = X - X.mH\n            # A is skew-symmetric (or skew-hermitian)\n            if self.orthogonal_map == _OrthMaps.matrix_exp:\n                Q = torch.matrix_exp(A)\n            elif self.orthogonal_map == _OrthMaps.cayley:\n                # Computes the Cayley retraction (I+A/2)(I-A/2)^{-1}\n                Id = torch.eye(n, dtype=A.dtype, device=A.device)\n                Q = torch.linalg.solve(\n                    torch.add(Id, A, alpha=-0.5), torch.add(Id, A, alpha=0.5)\n                )\n            # Q is now orthogonal (or unitary) of size (..., n, n)\n            if n != k:\n                Q = Q[..., :k]\n            # Q is now the size of the X (albeit perhaps transposed)\n        else:\n            # X is real here, as we do not support householder with complex numbers\n            A = X.tril(diagonal=-1)\n            tau = 2.0 / (1.0 + (A * A).sum(dim=-2))\n            Q = torch.linalg.householder_product(A, tau)\n            # The diagonal of X is 1's and -1's\n            # We do not want to differentiate through this or update the diagonal of X hence the casting\n            Q = Q * X.diagonal(dim1=-2, dim2=-1).int().unsqueeze(-2)\n\n        if hasattr(self, \"base\"):\n            Q = self.base @ Q\n        if transposed:\n            Q = Q.mT\n        return Q  # type: ignore[possibly-undefined]\n",
+  "conclusion": "AdamW decay moves the non-differentiable Householder sign diagonal from -1 toward 0. The integer cast becomes zero and collapses the projected rotation. Excluding only rotation parameters from decay preserves it.",
+  "historical_checkpoint": "/home/gcx/aster_cr_repair_v2_run_20261108/qwen/baselines/loreft_lr0.01.pt"
+}

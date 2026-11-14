@@ -1,0 +1,19 @@
+method,historical_evidence,historical_training_protocol,current_status,artifact,protocol_note
+原模型,已有历史逐例/共同指标/区间,不训练,复用已保存的历史或冻结E1结果,reused_results.json,详见audit_reference与各方法协议；已完成数据直接复用
+固定比例缩放0.95,已有解析控制；由已存原始分数导出逐例,不训练,复用已保存的历史或冻结E1结果,reused_results.json,详见audit_reference与各方法协议；已完成数据直接复用
+仅截距校准,有两个历史拟合及冻结E1独立截距结果，必须分开,已完成761自然节点独立截距直接复用；另补E1端点截距/仿射,E1补缺已完成,output_controls_e1/completion.json,详见audit_reference与各方法协议；已完成数据直接复用
+监督线性读出,已有历史逐例/共同指标/区间,E1标签监督CE已完成，固定最后attention层全部头，4097参数,E1补缺已完成,output_controls_e1/completion.json,详见audit_reference与各方法协议；已完成数据直接复用
+LEACE,已有历史逐例/共同指标/区间,E1配对擦除已CPU拟合；共享E1选头监督，明确LEACE-pair adaptation,E1补缺已完成,representation_e1_plan/completion.json,LEACE-pair任务适配；使用A/P与共享定位头，独立标记
+ITI,已有历史逐例/共同指标/区间，历史退化如实保留,按E1重拟合既有正确/错误激活目标，明确ITI-style任务适配,E1补缺已完成,representation_e1_plan/completion.json,ITI-style任务适配；正确/错误完成激活与原生probe/shift
+LoFiT,已有历史逐例/共同指标/区间,Qwen两阶段架构适配，完整词表监督答案CE，选择/部署参数分别报告,E1补缺已完成,native_supervised_e1/lofit/completion.json,Qwen结构适配；保留两阶段全词表答案交叉熵目标
+LoRA,已有历史逐例/共同指标/区间,单层rank1局部配置，完整词表监督答案CE，非严格参数匹配,E1补缺已完成,native_supervised_e1/lora/completion.json,本地单层rank1配置；全词表答案交叉熵
+SEA,已有四个测试分片及完整806路径预测,旧完整结果复用；零范数计数已解释为坐标元素回退，原算法保留,E1补缺已完成,representation_e1_plan/completion.json,E1补拟合；官方AdapterLayer与原生谱目标；历史完整结果保留
+CAD,已有四个测试分片及完整806路径预测,无训练；历史完整806路径及逐例已找到，与共同原分数一致,复用已保存的历史或冻结E1结果,reused_results.json,CAD-style上下文适配；优先复用历史完整评价
+Temperature Scaling,已有temperature.pkl及dev/test逐例、路径与汇总,旧拟合流程存在；E1端点原生NLL重拟合已完成,E1补缺已完成,output_controls_e1/completion.json,详见audit_reference与各方法协议；已完成数据直接复用
+CC,本轮已查归档中尚未定位,审计确认缺标准CC；3个固定无内容参考，未用标签,E1补缺已完成,prompt_controls_e1/completion.json,详见audit_reference与各方法协议；已完成数据直接复用
+强证据提示,用户明确已有；本轮尚未定位明确对应结果,审计确认模板控制不能替代强提示；固定一条完整输入提示,E1补缺已完成,prompt_controls_e1/completion.json,详见audit_reference与各方法协议；已完成数据直接复用
+LoReFT,旧旋转矩阵为零；CPU复现失效原因；修复后GPU输出、学习更新及保存恢复测试通过,E1 Dataset A 2540 pairs; native supervised BCE; seeds 11/22/33,E1补缺已完成,loreft_e1/completion.json,修复后重新拟合；binary supervised CE任务适配，不含A/P或C/F差分损失
+ASTER-CR E1,已有冻结参数、逐例和95%区间,Dataset A 2540对；开发集已选定,复用已保存的历史或冻结E1结果,reused_results.json,详见audit_reference与各方法协议；已完成数据直接复用
+CAA,实验文档列为待核验候选,Codex01已完成审计，新增方法由Codex03负责,复用已保存的历史或冻结E1结果,reused_results.json,详见audit_reference与各方法协议；已完成数据直接复用
+RePS,实验文档列为待核验候选,Codex01已完成审计，新增方法由Codex03负责,复用已保存的历史或冻结E1结果,reused_results.json,详见audit_reference与各方法协议；已完成数据直接复用
+PSR,实验文档列为待核验候选,Codex01已完成审计，新增方法由Codex03负责,复用已保存的历史或冻结E1结果,reused_results.json,详见audit_reference与各方法协议；已完成数据直接复用

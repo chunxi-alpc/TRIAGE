@@ -1,0 +1,35 @@
+{
+  "owner": "Codex06",
+  "state": "exported_to_shared_queue",
+  "jobs": [
+    "codex06-e11-iti",
+    "codex06-e11-dora",
+    "codex06-e11-merge"
+  ],
+  "gpu_jobs": 2,
+  "cpu_jobs": 1,
+  "methods": [
+    "ITI-style E1 task adaptation",
+    "DoRA E1 seed 11"
+  ],
+  "per_method_inputs": 4,
+  "lengths": [
+    512,
+    2048
+  ],
+  "warmup_per_length": 3,
+  "repeats": 5,
+  "estimated_vram_gib_per_gpu": 24,
+  "estimated_hours_per_gpu_job": 0.12,
+  "prerequisites": "Both frozen checkpoint files exist; original E11 software versions match current environment.",
+  "code": "experiments/aster_e9_e11_20261112/e11_shared_missing.py",
+  "frozen_parameters": "reports/aster_e9_e11_20261112/e11_shared_missing/checkpoints",
+  "implementation_audit": "reports/aster_e9_e11_20261112/e11_shared_missing/upstream",
+  "preserved": [
+    "completed E9",
+    "six original E11 methods",
+    "240 original measurements"
+  ],
+  "created_or_launched_gpu_processes_by_codex06_this_turn": false,
+  "note": "Codex03 created the initial jobs during interruption; Codex06 resumed from these files and completed the report merge preparation."
+}

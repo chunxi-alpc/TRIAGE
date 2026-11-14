@@ -1,0 +1,215 @@
+{
+  "handoff_status.json": {
+    "pid": 428230,
+    "stage": "queued_or_running",
+    "updated": "2026-11-12 15:29:16",
+    "requested_gpus": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "pending": [
+      "gemma2",
+      "gemma2_base",
+      "llama31",
+      "gemma3",
+      "medgemma",
+      "qwen_base"
+    ],
+    "gpus": {
+      "0": {
+        "state": "waiting_predecessor_release"
+      },
+      "1": {
+        "state": "waiting_predecessor_release"
+      },
+      "5": {
+        "state": "waiting_predecessor_release"
+      },
+      "6": {
+        "state": "waiting_predecessor_release"
+      }
+    },
+    "results": {},
+    "continuous_model_monitoring": false
+  },
+  "handoff_plan.json": {
+    "gpus": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "models": [
+      "gemma2",
+      "gemma2_base",
+      "llama31",
+      "gemma3",
+      "medgemma",
+      "qwen_base"
+    ],
+    "groups": [
+      {
+        "owner": "Codex02",
+        "gpus": [
+          0,
+          1
+        ],
+        "release_file": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/gpu_release.json"
+      },
+      {
+        "owner": "Codex03",
+        "gpus": [
+          5
+        ],
+        "release_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/controllers/gpu5/gpu_release.json"
+      },
+      {
+        "owner": "Codex03",
+        "gpus": [
+          6
+        ],
+        "release_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/controllers/gpu6/gpu_release.json"
+      }
+    ],
+    "preempt_existing_jobs": false,
+    "expected_hours_after_four_gpus_available": [
+      24,
+      72
+    ],
+    "expected_peak_gib": {
+      "small_models": [
+        18,
+        40
+      ],
+      "models_27b": [
+        55,
+        78
+      ]
+    },
+    "notice": "User explicitly requested GPUs 0,1,5,6; use only after existing owners finish and release.",
+    "gpu_0_1_wait_estimate": "remaining LoReFT time plus 15-20 hours for E5 extension",
+    "e5_schedule_update": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/e5_schedule_update.json"
+  },
+  "scheduling.json": {
+    "gpus": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "models": [
+      "gemma2",
+      "gemma2_base",
+      "llama31",
+      "gemma3",
+      "medgemma",
+      "qwen_base"
+    ],
+    "groups": [
+      {
+        "owner": "Codex02",
+        "gpus": [
+          0,
+          1
+        ],
+        "release_file": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/gpu_release.json"
+      },
+      {
+        "owner": "Codex03",
+        "gpus": [
+          5
+        ],
+        "release_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/controllers/gpu5/gpu_release.json"
+      },
+      {
+        "owner": "Codex03",
+        "gpus": [
+          6
+        ],
+        "release_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/controllers/gpu6/gpu_release.json"
+      }
+    ],
+    "preempt_existing_jobs": false,
+    "expected_hours_after_four_gpus_available": [
+      24,
+      72
+    ],
+    "expected_peak_gib": {
+      "small_models": [
+        18,
+        40
+      ],
+      "models_27b": [
+        55,
+        78
+      ]
+    },
+    "notice": "User explicitly requested GPUs 0,1,5,6; use only after existing owners finish and release.",
+    "state": "queued_for_per_device_release",
+    "owner": "Codex05",
+    "gpu_0_1_wait_estimate": "remaining LoReFT time plus 15-20 hours for E5 extension",
+    "e5_schedule_update": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/e5_schedule_update.json"
+  },
+  "resource_request.json": {
+    "gpus": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "models": [
+      "gemma2",
+      "gemma2_base",
+      "llama31",
+      "gemma3",
+      "medgemma",
+      "qwen_base"
+    ],
+    "groups": [
+      {
+        "owner": "Codex02",
+        "gpus": [
+          0,
+          1
+        ],
+        "release_file": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/gpu_release.json"
+      },
+      {
+        "owner": "Codex03",
+        "gpus": [
+          5
+        ],
+        "release_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/controllers/gpu5/gpu_release.json"
+      },
+      {
+        "owner": "Codex03",
+        "gpus": [
+          6
+        ],
+        "release_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/controllers/gpu6/gpu_release.json"
+      }
+    ],
+    "preempt_existing_jobs": false,
+    "expected_hours_after_four_gpus_available": [
+      24,
+      72
+    ],
+    "expected_peak_gib": {
+      "small_models": [
+        18,
+        40
+      ],
+      "models_27b": [
+        55,
+        78
+      ]
+    },
+    "notice": "User explicitly requested GPUs 0,1,5,6; use only after existing owners finish and release.",
+    "state": "coordinated_handoff_confirmed",
+    "requested_devices": 4,
+    "gpu_0_1_wait_estimate": "remaining LoReFT time plus 15-20 hours for E5 extension",
+    "e5_schedule_update": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/e5_schedule_update.json"
+  }
+}
