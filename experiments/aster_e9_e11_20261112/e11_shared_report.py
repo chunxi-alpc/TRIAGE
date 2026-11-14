@@ -7,6 +7,8 @@ def render(merged,original):
  merged=Path(merged);original=Path(original)
  result=read(merged/'e11_statistics.json');cfg=read(merged/'configs/e11.json');infos=read(merged/'e11_method_info.json')
  stats=result['summary'];complete=result['complete']
+ envs=read(merged/'environments.json')
+ hardware='；'.join(('原六方法' if name=='original' else NAMES.get(name,name))+'：GPU '+str(env['visible_devices'])+'，'+env['gpu'] for name,env in envs.items())
  text=f"""# E11：统一模型推理效率
 
 {len(infos)}种方法、{result['measurements']}次实际测量已保存。原六方法240次测量直接复用，本次补充ITI和DoRA各40次。完成状态：{'已完成' if complete else '补测排队中，尚缺'+ '、'.join(result['pending'])}。
@@ -17,7 +19,7 @@ ASTER-CR使用一次逻辑模型前向和17个线性修正参数。统一计时�
 
 基础模型为Qwen3-8B，BF16、SDPA、批量1。各方法使用同样的4条开发输入与末尾512/2048 token；每档预热3次，再进行5轮、每轮4条，共20次计时。端到端计时包含模板、分词、输入传输、预填充、最终判断、方法修正和分数返回，计时边界使用CUDA同步。输出为最终“是/否”判断分数。
 
-原六方法在GPU 1测量。补测按统一队列使用GPU 0、1、5、6中的空闲卡，均为A100-SXM4-80GB；每条测量保存物理GPU及型号。环境记录见environments.json。比较范围为当前固定输入、长度与实现。
+实际硬件：{hardware}。补测由统一队列分配，硬件型号一致，物理卡不同。环境记录见environments.json；时间保留各卡原始测量值。比较范围为当前固定输入、长度与实现。
 
 ITI复用现有审计标注的任务适配实现和已完成E1补拟合检查点，强度15、51个头，干预最后判断token。DoRA采用官方PEFT实现，固定seed 11，保留未合并适配器，前缀及最终判断均计入；seed 11在效率测量前固定。两者均使用已冻结参数。
 
@@ -68,7 +70,7 @@ ITI复用现有审计标注的任务适配实现和已完成E1补拟合检查点
 
 当前目录包含e11_measurements.jsonl、e11_summary.csv、e11_repeat_summary.csv、e11_statistics.json、e11_method_info.json及environments.json。补测逐例记录位于上级iti/、dora/，参数快照和上游审计/冻结配置位于上级checkpoints/、upstream/。原六方法数据继续保存在原交付目录。
 
-统一队列文件：/home/gcx/aster-gpu-queue-20261113/codex06_jobs.json。两个单卡任务分别运行e11_shared_missing模块的measure --method iti和measure --method dora；二者完成后，CPU任务运行merge。每项预估显存24 GiB、时长0.12小时，CPU汇总0.01小时。实际GPU、用时和完成标记随任务保存。
+统一队列文件：/home/gcx/aster-gpu-queue-20261113/codex06_jobs.json。两个单卡任务分别运行e11_shared_missing模块的measure --method iti和measure --method dora；二者完成后，CPU任务运行merge。每项预估显存24 GiB、时长0.12小时，CPU汇总0.01小时。实际GPU、用时和完成标记随任务保存。完整执行命令及队列记录见executed_codex06_jobs.json，运行日志见../../logs/codex06-e11-*.log。CPU统计复现入口为../../reproduce.sh。
 
 E9结果与原六方法测量保持原样；实验文档同步更新，论文正文保持原样。
 """
@@ -76,7 +78,7 @@ E9结果与原六方法测量保持原样；实验文档同步更新，论文正
  if complete:
   prior=original/'E11_SIX_METHODS_20261112.zh.md'
   if not prior.exists():shutil.copyfile(original/'E11_REPORT.zh.md',prior)
-  roottext=text.replace('当前目录包含','[完整合并统计](e11_shared_missing/merged/REPORT.zh.md)所在目录包含')
+  roottext=text.replace('当前目录包含','[完整合并统计](e11_shared_missing/merged/REPORT.zh.md)所在目录包含').replace('见executed_codex06_jobs.json','见e11_shared_missing/merged/executed_codex06_jobs.json').replace('../../logs/','logs/').replace('../../reproduce.sh','reproduce.sh')
   (original/'E11_REPORT.zh.md').write_text(roottext,encoding='utf-8')
   status=read(original/'status.json')
   status.update(E11='complete',pending=[],E11_methods=list(infos),E11_measurements=result['measurements'],
