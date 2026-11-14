@@ -1,0 +1,293 @@
+{
+  "method": "DoRA-E1-SFT-seed33",
+  "split": "dev",
+  "complete": true,
+  "result_kind": "actual_experiment",
+  "evaluation_status": "computed",
+  "model": "Qwen3-8B",
+  "train_data": "E1 / Dataset A",
+  "train_pairs": 2540,
+  "unique_inputs": 10098,
+  "candidate_inputs": 33341,
+  "required_pair_inputs": 1685,
+  "unscored_path_inputs": 23243,
+  "pair_count": 1287,
+  "case_count": 420,
+  "path_count": 1680,
+  "source_count": 20,
+  "metrics": {
+    "ap_raw_rms": 3.8793544255914028,
+    "ap_score_change_rms": 0.7631195117420285,
+    "ap_correction_rms": 3.648285362801283,
+    "ap_paired_accuracy": 0.988313856427379,
+    "ap_relation_accuracy": 0.998330550918197,
+    "ap_vr": 0.9617137760575973,
+    "cf_raw_rms": 42.19247286721427,
+    "cf_score_change_rms": 15.014673974527177,
+    "cf_correction_rms": 28.316293021854445,
+    "cf_paired_accuracy": 0.75,
+    "cf_relation_accuracy": 0.75,
+    "cf_er": 0.40105747319120416,
+    "cf_direction_degradation_rate": 0.0,
+    "cf_direction_degradation_count": 0.0,
+    "f0_raw_rms": 4.6613455143719875,
+    "f0_score_change_rms": 1.3909771626089984,
+    "f0_correction_rms": 3.4709456422040565,
+    "f0_paired_accuracy": 1.0,
+    "f0_relation_accuracy": 1.0,
+    "natural_path_accuracy": 0.9428571428571428,
+    "interference_path_accuracy": 0.9404761904761905
+  },
+  "counts": {
+    "ap_pairs": 1198,
+    "ap_sources": 20,
+    "ap_paired_labeled_count": 1198,
+    "ap_paired_unlabeled_count": 0,
+    "cf_pairs": 60,
+    "cf_sources": 11,
+    "cf_paired_labeled_count": 60,
+    "cf_paired_unlabeled_count": 0,
+    "cf_direction_degradation_count": 0,
+    "cf_max_abs_correction": 44.825395584106445,
+    "f0_pairs": 29,
+    "f0_sources": 5,
+    "f0_paired_labeled_count": 29,
+    "f0_paired_unlabeled_count": 0,
+    "natural_path_count": 420,
+    "natural_path_correct": 396,
+    "natural_path_raw_correct": 384,
+    "natural_path_corrected": 19,
+    "natural_path_new_errors": 7,
+    "interference_path_count": 1260,
+    "interference_path_correct": 1185,
+    "interference_path_raw_correct": 1168,
+    "interference_path_corrected": 42,
+    "interference_path_new_errors": 25
+  },
+  "costs": {
+    "parameter_count": 4018176,
+    "trainable_parameter_count": 4018176,
+    "stored_parameter_count": 4018176,
+    "training_wall_seconds": 3145.8631856059656,
+    "training_gpu_hours": 0.873850884890546,
+    "training_peak_memory_gib": 19.031229972839355,
+    "inference_wall_seconds": 2522.639104663511,
+    "inference_gpu_hours": 0.7007330846287531,
+    "inference_forward_count": 20196,
+    "inference_peak_memory_gib": 16.409451961517334,
+    "inference_seconds_per_input": 0.24981571644518824
+  },
+  "intervals": {
+    "ap_raw_rms": {
+      "estimate": 3.8793544255914028,
+      "low": 2.8581135368350252,
+      "high": 4.747949563115577,
+      "defined_draws": 2000
+    },
+    "ap_score_change_rms": {
+      "estimate": 0.7631195117420285,
+      "low": 0.6065551505570594,
+      "high": 0.9148372449027801,
+      "defined_draws": 2000
+    },
+    "ap_correction_rms": {
+      "estimate": 3.648285362801283,
+      "low": 2.6302389529833747,
+      "high": 4.5142898551327,
+      "defined_draws": 2000
+    },
+    "ap_paired_accuracy": {
+      "estimate": 0.988313856427379,
+      "low": 0.9756083586427919,
+      "high": 0.9975868222043444,
+      "defined_draws": 2000
+    },
+    "ap_relation_accuracy": {
+      "estimate": 0.998330550918197,
+      "low": 0.9951097248190229,
+      "high": 1.0,
+      "defined_draws": 2000
+    },
+    "ap_vr": {
+      "estimate": 0.9617137760575973,
+      "low": 0.9357792929567502,
+      "high": 0.9749644747978491,
+      "defined_draws": 2000
+    },
+    "cf_raw_rms": {
+      "estimate": 42.19247286721427,
+      "low": 26.748394443218352,
+      "high": 49.48063627589407,
+      "defined_draws": 2000
+    },
+    "cf_score_change_rms": {
+      "estimate": 15.014673974527177,
+      "low": 11.746014568629471,
+      "high": 17.013258811703796,
+      "defined_draws": 2000
+    },
+    "cf_correction_rms": {
+      "estimate": 28.316293021854445,
+      "low": 18.659755695642353,
+      "high": 32.89418171374124,
+      "defined_draws": 2000
+    },
+    "cf_paired_accuracy": {
+      "estimate": 0.75,
+      "low": 0.5161045943304008,
+      "high": 0.870375816993464,
+      "defined_draws": 2000
+    },
+    "cf_relation_accuracy": {
+      "estimate": 0.75,
+      "low": 0.5161045943304008,
+      "high": 0.870375816993464,
+      "defined_draws": 2000
+    },
+    "cf_er": {
+      "estimate": 0.40105747319120416,
+      "low": 0.3399237407771084,
+      "high": 0.7025731296845408,
+      "defined_draws": 2000
+    },
+    "cf_direction_degradation_rate": {
+      "estimate": 0.0,
+      "low": 0.0,
+      "high": 0.0,
+      "defined_draws": 2000
+    },
+    "cf_direction_degradation_count": {
+      "estimate": 0.0,
+      "low": 0.0,
+      "high": 0.0,
+      "defined_draws": 2000
+    },
+    "f0_raw_rms": {
+      "estimate": 4.6613455143719875,
+      "low": 0.729504121822242,
+      "high": 5.834907218029783,
+      "defined_draws": 1995
+    },
+    "f0_score_change_rms": {
+      "estimate": 1.3909771626089984,
+      "low": 0.6009321114164257,
+      "high": 1.7078309897760664,
+      "defined_draws": 1995
+    },
+    "f0_correction_rms": {
+      "estimate": 3.4709456422040565,
+      "low": 1.282116376363611,
+      "high": 4.302822817628184,
+      "defined_draws": 1995
+    },
+    "f0_paired_accuracy": {
+      "estimate": 1.0,
+      "low": 1.0,
+      "high": 1.0,
+      "defined_draws": 1995
+    },
+    "f0_relation_accuracy": {
+      "estimate": 1.0,
+      "low": 1.0,
+      "high": 1.0,
+      "defined_draws": 1995
+    },
+    "natural_path_accuracy": {
+      "estimate": 0.9428571428571428,
+      "low": 0.8686068171473846,
+      "high": 0.9858861321064738,
+      "defined_draws": 2000
+    },
+    "interference_path_accuracy": {
+      "estimate": 0.9404761904761905,
+      "low": 0.8673137218380635,
+      "high": 0.9838718946978124,
+      "defined_draws": 2000
+    }
+  },
+  "metadata": {
+    "method": "DoRA-E1-SFT-seed33",
+    "seed": 33,
+    "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+    "model_revision": null,
+    "model_revision_note": "Installed local snapshot does not declare an immutable upstream revision; no revision inferred.",
+    "backbone": "Qwen3-8B",
+    "train_data": "E1 / Dataset A",
+    "train_pairs": 2540,
+    "objective": "Full-vocabulary causal cross-entropy for the single correct answer token",
+    "supervision": "E1 endpoint gold answers; no A/P consistency or C/F preservation loss",
+    "sample_weighting": "Equal A/P/C/F mass, equal source mass within class, aggregate both endpoints onto unique inputs",
+    "implementation": "Official PEFT DoRA LoraConfig(use_dora=True)",
+    "upstream_audit_revision": "f8796e8",
+    "data_version": "20261111-sol-agents-v2",
+    "peft_version": "0.21.2",
+    "official_reference": "https://github.com/NVlabs/DoRA",
+    "official_revision": "7e2f10abbe8efe212c8fca1d983ae1d04ef13a18",
+    "implementation_differences": [
+      "Qwen3 q_proj/v_proj across all 36 layers",
+      "One-token clinical answer SFT, original DoRA magnitude/direction parameterization unchanged"
+    ],
+    "rank": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.0,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ],
+    "learning_rate": 0.0001,
+    "epochs": 1,
+    "micro_batch": 1,
+    "gradient_accumulation": 8,
+    "optimizer": "AdamW",
+    "weight_decay": 0.0,
+    "warmup_ratio": 0.03,
+    "gradient_clip": 1.0,
+    "dtype": "bfloat16",
+    "gradient_checkpointing": true,
+    "answer_labels": [
+      "是",
+      "否"
+    ],
+    "threshold": 0.0,
+    "hyperparameter_selection": "Single configuration fixed before development/test; no test selection",
+    "parameter_count": 4018176,
+    "trainable_parameter_count": 4018176,
+    "stored_parameter_count": 4018176,
+    "backbone_parameter_count": 8190735360,
+    "training_wall_seconds": 3145.8631856059656,
+    "training_gpu_hours": 0.873850884890546,
+    "training_peak_memory_gib": 19.031229972839355,
+    "training_forward_count": 4637,
+    "training_optimizer_steps": 580,
+    "training_unique_inputs": 4637,
+    "training_mean_weighted_loss": 0.07136437549202981,
+    "training_cost_scope": "Training loop including tokenization; excludes model loading and evaluation",
+    "split": "dev",
+    "execution_kind": "model_inference",
+    "actual_experiment_results": true,
+    "inference_wall_seconds": 2522.639104663511,
+    "inference_forward_count": 20196,
+    "inference_peak_memory_gib": 16.409451961517334,
+    "inference_input_count": 10098,
+    "inference_token_count": 15148157,
+    "candidate_input_count": 33341,
+    "pair_view_records": 1685,
+    "path_count": 1680,
+    "path_visited_node_count": 9936,
+    "new_inputs_this_call": 10098,
+    "collection_wall_seconds_this_call": 2523.330400998995,
+    "scoring_policy": "All pair views plus all dynamically visited natural/interference path nodes; no gold labels used to choose nodes.",
+    "timing_scope": "Prompt lookup and scorer callback only; model loading and training are excluded. Cached validation has no model inference cost.",
+    "scores_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/dora/full/seed33/dev/scores.jsonl",
+    "traversed_paths_file": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/dora/full/seed33/dev/scores.traversed_paths.jsonl",
+    "inference_gpu_hours": 0.7007330846287531,
+    "inference_cost_scope": "Unique-input evaluation, including pair inputs and visited dynamic-path inputs"
+  },
+  "scores_path": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/dora/full/seed33/dev/scores.jsonl",
+  "raw_cache": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+  "bootstrap_draws": 2000,
+  "decision_rule": "ell > 0",
+  "metric_units": "accuracy, VR and ER are fractions; RMS is in logit units",
+  "test_history": "Frozen historical evaluation scope; previously evaluated, not newly unseen",
+  "missing_cost_fields": []
+}

@@ -1,0 +1,517 @@
+{
+  "audit_date": "2026-11-12",
+  "repository": "chunxi-alpc/TRIAGE",
+  "audited_ref": "main",
+  "audited_commit": "742dcb2598631ac20c1ae2f72c85a2dff20cb16b",
+  "work_branch": "codex/aster-codex00-01-audit-20261112",
+  "audit_type": "static_repository_and_public_source_audit",
+  "limitations": [
+    "No SSH or server shell was available in this conversation.",
+    "No live GPU utilization or active process state was inspected.",
+    "No model weights were loaded and no GPU experiment was launched.",
+    "No runtime smoke tests or unit tests were executed in this audit.",
+    "Statuses describe source-code inspection and historical artifacts, not newly executed experiments."
+  ],
+  "current_protocol": {
+    "primary_model": "Qwen3-8B",
+    "primary_dataset": "E1 / Dataset A",
+    "training_pairs": 2540,
+    "source_scope": "MEGA-CDP only",
+    "ablations": [
+      "E2 / Dataset B with class/source-balanced weights",
+      "E3 / Dataset B with natural sample weights"
+    ],
+    "evaluation_tasks": [
+      "MEGA-CDP",
+      "NLI4CT",
+      "MedPIC"
+    ],
+    "rule": "Historical results from other training protocols are not reusable as current E1 main-table results without a full compatibility audit."
+  },
+  "local_implementations": [
+    {
+      "id": "temperature_scaling",
+      "category": "output_calibration",
+      "status": "implemented",
+      "source_files": [
+        "experiments/aster_cr/readout.py"
+      ],
+      "exactness": "Scalar positive-temperature scaling fitted to binary scores.",
+      "caveat": "Positive scaling does not change the sign/argmax of a binary score; report calibration metrics separately from classification accuracy.",
+      "current_e1_status": "not_verified"
+    },
+    {
+      "id": "bias_and_logistic_calibration",
+      "category": "output_calibration",
+      "status": "implemented",
+      "source_files": [
+        "experiments/aster_cr/readout.py"
+      ],
+      "exactness": "Shared bias and affine/logistic score calibration.",
+      "caveat": "Treat as simple calibration controls, not as a named recent external method.",
+      "current_e1_status": "not_verified"
+    },
+    {
+      "id": "cad_style_reference_contrast",
+      "category": "output_calibration",
+      "status": "implemented_adaptation",
+      "source_files": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "exactness": "Score formula 3*full - 2*reference; one extra reference forward.",
+      "caveat": "Reference prompt removes the full guideline tree/definitions but retains patient text and current node/condition. This is a task-specific CAD-style adaptation.",
+      "current_e1_status": "not_verified"
+    },
+    {
+      "id": "reference_fusion",
+      "category": "output_calibration",
+      "status": "implemented_local_control",
+      "source_files": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "exactness": "Supervised logistic regression over full and reference scores.",
+      "caveat": "Not standard Contextual Calibration.",
+      "current_e1_status": "not_verified"
+    },
+    {
+      "id": "contextual_calibration",
+      "category": "output_calibration",
+      "status": "not_implemented",
+      "caveat": "Requires a content-free reference input; the current patient/condition reference is not equivalent.",
+      "current_e1_status": "not_run"
+    },
+    {
+      "id": "batch_calibration",
+      "category": "output_calibration",
+      "status": "not_implemented",
+      "caveat": "Uses unlabeled batch-level contextual bias; must be reported as a transductive/batch protocol with a frozen batch construction.",
+      "current_e1_status": "not_run"
+    },
+    {
+      "id": "strong_evidence_prompt",
+      "category": "prompt_control",
+      "status": "not_implemented",
+      "caveat": "Current template/verbalizer selection is not a strong evidence-oriented prompt baseline.",
+      "current_e1_status": "not_run"
+    },
+    {
+      "id": "leace_pair_adaptation",
+      "category": "concept_erasure",
+      "status": "implemented_adaptation",
+      "source_files": [
+        "experiments/aster_closed_form/operators.py",
+        "experiments/aster_cr/comparators.py"
+      ],
+      "exactness": "LEACE-form affine projection built from paired left/right sides and A/P kind/subtype coding.",
+      "caveat": "The pair-side coding is not automatically a stable instance-level nuisance concept. Keep separate from canonical LEACE unless label semantics are justified.",
+      "current_e1_status": "not_verified"
+    },
+    {
+      "id": "iti_task_adaptation",
+      "category": "activation_steering",
+      "status": "implemented_adaptation",
+      "source_files": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "exactness": "Correct/incorrect completion activation directions, head selection and fixed-scale intervention.",
+      "caveat": "Task-adapted classifier/answer contrast, not a direct reproduction of the original truthfulness benchmark.",
+      "current_e1_status": "not_verified"
+    },
+    {
+      "id": "sea_task_adaptation",
+      "category": "activation_steering",
+      "status": "implemented_adaptation_with_untracked_dependency",
+      "source_files": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "exactness": "Positive/negative spectral projections applied at the final residual layer.",
+      "caveat": "AdapterLayer is loaded from server-local ROOT/vendor/sea, which is not tracked in the public repository. Historical development metrics report 4,744 zero-norm fallback positions.",
+      "current_e1_status": "blocked_pending_dependency_and_fallback_audit"
+    },
+    {
+      "id": "lofit_local_port",
+      "category": "representation_finetuning",
+      "status": "implemented_architecture_adaptation",
+      "source_files": [
+        "experiments/aster_cr/baselines.py"
+      ],
+      "exactness": "Two-stage head selection and offset tuning ported to local model hooks.",
+      "caveat": "About 147456 parameters are optimized during selection; about 128 parameters remain in the deployed offset. Do not report only the latter as total training cost.",
+      "current_e1_status": "not_verified"
+    },
+    {
+      "id": "loreft_local_adapter",
+      "category": "representation_finetuning",
+      "status": "implemented_with_untracked_dependency",
+      "source_files": [
+        "experiments/aster_cr/baselines.py"
+      ],
+      "exactness": "PyReFT LoReFT intervention component used at one middle layer and one token, rank 1.",
+      "caveat": "About 8193 trainable parameters versus ASTER-CR's approximately 17 coefficients; pyreft is loaded from ROOT/vendor/python and is not declared in the minimal manuscript requirements.",
+      "current_e1_status": "blocked_pending_dependency_and_adapter_effect_test"
+    },
+    {
+      "id": "lora_single_layer",
+      "category": "weight_peft",
+      "status": "implemented_narrow_adaptation",
+      "source_files": [
+        "experiments/aster_cr/baselines.py"
+      ],
+      "exactness": "PEFT LoRA rank 1 on a single middle-layer q_proj.",
+      "caveat": "About 8192 parameters; not a canonical full multi-layer LoRA baseline and not parameter-matched to the approximately 17-parameter ASTER-CR readout.",
+      "current_e1_status": "not_verified"
+    },
+    {
+      "id": "last_layer_residual",
+      "category": "local_control",
+      "status": "implemented_local_control",
+      "source_files": [
+        "experiments/aster_cr/baselines.py"
+      ],
+      "caveat": "A simple local residual control, not an external literature method.",
+      "current_e1_status": "not_main_external_baseline"
+    },
+    {
+      "id": "aster_closed_form_and_legacy_m3",
+      "category": "internal_aster_variant",
+      "status": "implemented_internal",
+      "source_files": [
+        "experiments/aster_cr/comparators.py"
+      ],
+      "caveat": "Internal ASTER variants; exclude from external baseline taxonomy and main external comparison table. Keep in method analysis/ablation where appropriate.",
+      "current_e1_status": "internal_only"
+    }
+  ],
+  "external_candidates": [
+    {
+      "id": "temperature_scaling",
+      "category": "output_calibration",
+      "paper": "On Calibration of Modern Neural Networks",
+      "paper_url": "https://proceedings.mlr.press/v70/guo17a.html",
+      "official_repo": null,
+      "status": "implemented_control_refit_on_E1",
+      "priority": "P0"
+    },
+    {
+      "id": "contextual_calibration",
+      "category": "output_calibration",
+      "paper": "Calibrate Before Use: Improving Few-Shot Performance of Language Models",
+      "paper_url": "https://proceedings.mlr.press/v139/zhao21c.html",
+      "official_repo": null,
+      "status": "not_implemented",
+      "priority": "P1"
+    },
+    {
+      "id": "batch_calibration",
+      "category": "output_calibration",
+      "paper": "Batch Calibration: Rethinking Calibration for In-Context Learning and Prompt Engineering",
+      "paper_url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/003e438cf04e3caf0a5c908495e484fe-Abstract-Conference.html",
+      "official_repo": null,
+      "status": "not_implemented_transductive_candidate",
+      "priority": "P2"
+    },
+    {
+      "id": "cad",
+      "category": "output_calibration",
+      "paper": "Trusting Your Evidence: Hallucinate Less with Context-aware Decoding",
+      "paper_url": "https://aclanthology.org/2024.naacl-short.69/",
+      "official_repo": "https://github.com/xhan77/context-aware-decoding",
+      "official_commit": "e83b0a",
+      "status": "local_task_adaptation_exists_needs_E1_refit",
+      "priority": "P0"
+    },
+    {
+      "id": "pasta",
+      "category": "prompt_and_attention",
+      "paper": "Tell Your Model Where to Attend: Post-hoc Attention Steering for LLMs",
+      "paper_url": "https://arxiv.org/abs/2311.02262",
+      "official_repo": "https://github.com/QingruZhang/PASTA",
+      "official_commit": "56a9138d2d071c9ab2860c72be596da9723ca793",
+      "status": "not_implemented_requires_span_mapping_and_Qwen3_attention_adapter",
+      "priority": "P2",
+      "architecture_notes": "Official README says the library is generic in principle for causal attention, but the currently supported/tested architectures are Llama, Llama 2 and GPT-J; Qwen3 needs a dedicated attention adapter and token-span mapping."
+    },
+    {
+      "id": "inlp",
+      "category": "concept_erasure",
+      "paper": "Null It Out: Guarding Protected Attributes by Iterative Nullspace Projection",
+      "paper_url": "https://aclanthology.org/2020.acl-main.647/",
+      "official_repo": "https://github.com/shauli-ravfogel/nullspace_projection",
+      "official_commit": "e1edcc",
+      "status": "not_implemented_vector_level_requires_stable_instance_labels",
+      "priority": "P1"
+    },
+    {
+      "id": "r_lace",
+      "category": "concept_erasure",
+      "paper": "Linear Adversarial Concept Erasure",
+      "paper_url": "https://proceedings.mlr.press/v162/ravfogel22a.html",
+      "official_repo": "https://github.com/shauli-ravfogel/rlace-icml",
+      "official_commit": "2d9b6d",
+      "status": "not_implemented_vector_level_requires_stable_instance_labels",
+      "priority": "P1"
+    },
+    {
+      "id": "leace",
+      "category": "concept_erasure",
+      "paper": "LEACE: Perfect linear concept erasure in closed form",
+      "paper_url": "https://arxiv.org/abs/2306.03819",
+      "official_repo": "https://github.com/EleutherAI/concept-erasure",
+      "official_commit": "9f517f",
+      "status": "local_pair_adaptation_exists_canonical_package_crosscheck_needed",
+      "priority": "P0"
+    },
+    {
+      "id": "kram",
+      "category": "concept_erasure",
+      "paper": "Robust Concept Erasure via Kernelized Rate-Distortion Maximization",
+      "paper_url": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/86bd650f85480c595ecab29081a3774e-Abstract-Conference.html",
+      "official_repo": "https://github.com/brcsomnath/KRaM",
+      "official_commit": "5ace3",
+      "status": "not_implemented_old_dependency_stack_and_label_mapping_required",
+      "priority": "P2",
+      "environment_notes": "Official repository pins an old stack (Python 3.6.13, torch 1.13, transformers 4.12.5 in its environment); a vector-level port or isolated legacy environment is required."
+    },
+    {
+      "id": "leopard",
+      "category": "concept_erasure",
+      "paper": "Nonlinear Concept Erasure: a Density Matching Approach",
+      "paper_url": "https://arxiv.org/abs/2507.12341",
+      "official_repo": "https://github.com/ToineSayan/non-LEOPARD",
+      "official_commit": "c9f7c64406393d1c6be06267ec592fae5c1abb21",
+      "status": "not_implemented_feature_level_MMD_projection_requires_instance_labels",
+      "priority": "P1",
+      "environment_notes": "Author repository uses Python 3.12.9 and vector-level datasets such as Bias-in-Bios, GloVe and DIAL; adapt pre-extracted Qwen features and define instance-level protected labels."
+    },
+    {
+      "id": "obliviator",
+      "category": "concept_erasure",
+      "paper": "Obliviator Reveals the Cost of Nonlinear Guardedness in Concept Erasure",
+      "paper_url": "https://openreview.net/pdf?id=GcjpjIHDZn",
+      "official_repo": "https://github.com/ramin-akbari/Obliviator",
+      "official_commit": "0f223",
+      "status": "not_implemented_high_dependency_cost_and_label_mapping_required",
+      "priority": "P2",
+      "environment_notes": "Official package supports custom data but its pyproject requires Python >=3.12 and torch >=2.9; isolate the environment and validate memory/compute before using Qwen features."
+    },
+    {
+      "id": "iti",
+      "category": "activation_steering",
+      "paper": "Inference-Time Intervention: Eliciting Truthful Answers from a Language Model",
+      "paper_url": "https://arxiv.org/abs/2306.03341",
+      "official_repo": "https://github.com/likenneth/honest_llama",
+      "official_commit": "f7c3",
+      "status": "local_task_adaptation_exists_needs_method_fidelity_and_E1_refit",
+      "priority": "P0"
+    },
+    {
+      "id": "caa",
+      "category": "activation_steering",
+      "paper": "Steering Llama 2 with Contrastive Activation Addition",
+      "paper_url": "https://arxiv.org/abs/2312.06681",
+      "official_repo": "https://github.com/nrimsky/CAA",
+      "official_commit": "5dabbb",
+      "status": "not_implemented_official_code_Llama2_oriented_requires_Qwen3_port",
+      "priority": "P1",
+      "architecture_notes": "Official release is Llama 2 oriented and its published pipeline uses GPT-4-generated behavior datasets; applying it to Qwen3 and ASTER A/P/C/F pairs is a task adaptation."
+    },
+    {
+      "id": "sea",
+      "category": "activation_steering",
+      "paper": "Spectral Editing of Activations for Large Language Model Alignment",
+      "paper_url": "https://arxiv.org/abs/2405.09719",
+      "official_repo": "https://github.com/yfqiu-nlp/sea-llm",
+      "official_commit": "482a0a0182218982ba614ff24bf5121804be0e18",
+      "status": "local_task_adaptation_exists_but_official_adapter_dependency_untracked_and_fallback_audit_required",
+      "priority": "P0"
+    },
+    {
+      "id": "cast",
+      "category": "activation_steering",
+      "paper": "Programming Refusal with Conditional Activation Steering",
+      "paper_url": "https://proceedings.iclr.cc/paper_files/paper/2025/hash/e2dd53601de57c773343a7cdf09fae1c-Abstract-Conference.html",
+      "official_repo": "https://github.com/IBM/activation-steering",
+      "official_commit": "52be60235ee309b46c49d6d5877f36e20c52e6ab",
+      "status": "not_implemented_general_library_but_ASTer_condition_behavior_mapping_needed",
+      "priority": "P1",
+      "architecture_notes": "Official library is general-purpose and demonstrates Llama 3.1 and Gemma 2; the paper's target behavior is refusal. ASTER must define condition and behavior vectors and smoke-test Qwen3."
+    },
+    {
+      "id": "reps",
+      "category": "activation_steering",
+      "paper": "Improved Representation Steering for Language Models",
+      "paper_url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/eb1ef82926376d252dde00d5dd909f4b-Abstract-Conference.html",
+      "official_repo": "https://github.com/stanfordnlp/axbench",
+      "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
+      "official_path": "axbench/sweep/wuzhengx/reps",
+      "status": "not_implemented_AxBench_preference_BiPO_configs_require_task_specific_preference_pairs",
+      "priority": "P1",
+      "architecture_notes": "AxBench contains the RePS sweep and BIPO preference configurations, including Gemma 2 9B settings. Qwen3 architecture support and conversion of ASTER pairs into valid preference examples remain unverified."
+    },
+    {
+      "id": "psr",
+      "category": "activation_steering",
+      "paper": "Steer Like the LLM: Activation Steering that Mimics Prompting",
+      "paper_url": "https://arxiv.org/abs/2605.03907",
+      "official_repo": "https://github.com/Nokia-Bell-Labs/steer-like-the-llm",
+      "official_commit": "3d916c618d146c5d657f055e432a432b0fa493c6",
+      "status": "not_implemented_prompt_steering_teacher_required_Python312_isolated_env",
+      "priority": "P1",
+      "environment_notes": "Official repository requires Python >=3.12, torch >=2.8, transformers >=4.52.3, PEFT 0.15.1, TRL 0.15.2, vLLM 0.10.2, Unsloth 2025.5.9, HF_TOKEN and OPENAI_API_KEY; use an isolated environment because PEFT version conflicts with the current general requirements."
+    },
+    {
+      "id": "hypersteer",
+      "category": "activation_steering",
+      "paper": "HyperSteer: Activation Steering at Scale with Hypernetworks",
+      "paper_url": "https://arxiv.org/abs/2506.03292",
+      "official_repo": "https://github.com/stanfordnlp/axbench",
+      "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
+      "status": "not_implemented_AxBench_hypernetwork_training_high_data_and_compute_cost",
+      "priority": "P2"
+    },
+    {
+      "id": "lofit",
+      "category": "representation_finetuning",
+      "paper": "LoFiT: Localized Fine-tuning on LLM Representations",
+      "paper_url": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/122ea6470232ee5e79a2649243348005-Abstract-Conference.html",
+      "official_repo": "https://github.com/fc2869/lo-fit",
+      "official_commit": "ebd344",
+      "status": "local_architecture_port_exists_needs_E1_refit_and_stage_parameter_accounting",
+      "priority": "P0",
+      "architecture_notes": "Official implementation documents Gemma 7B and Llama 2 7B/13B; local Qwen3/Gemma3 hooks are an architecture port, not the official model configuration."
+    },
+    {
+      "id": "loreft",
+      "category": "representation_finetuning",
+      "paper": "Representation Finetuning",
+      "paper_url": "https://arxiv.org/abs/2404.03592",
+      "official_repo": "https://github.com/stanfordnlp/pyreft",
+      "official_commit": "dafd",
+      "status": "local_single_layer_task_adaptation_pyReFT_dependency_and_effect_smoke_required",
+      "priority": "P0"
+    },
+    {
+      "id": "reft_r1",
+      "category": "representation_finetuning",
+      "paper": "AxBench: Steering LLMs? Even Simple Baselines Outperform Sparse Autoencoders",
+      "paper_url": "https://arxiv.org/abs/2501.17148",
+      "official_repo": "https://github.com/stanfordnlp/axbench",
+      "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
+      "status": "AxBench benchmark configuration; distinct from generic local LoReFT adapter",
+      "priority": "P1"
+    },
+    {
+      "id": "lora",
+      "category": "weight_peft",
+      "paper": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "paper_url": "https://arxiv.org/abs/2106.09685",
+      "official_repo": "https://github.com/huggingface/peft",
+      "official_commit": "2f01ee",
+      "status": "single_layer_rank1_local_adapter_exists_standard_multilayer_baseline_missing",
+      "priority": "P0"
+    },
+    {
+      "id": "dora",
+      "category": "weight_peft",
+      "paper": "DoRA: Weight-Decomposed Low-Rank Adaptation",
+      "paper_url": "https://proceedings.mlr.press/v235/liu24bn.html",
+      "official_repo": "https://github.com/NVlabs/DoRA",
+      "official_commit": "7e2f",
+      "status": "not_implemented_PEFT_use_dora_or_official_recipe_smoke_required",
+      "priority": "P1"
+    },
+    {
+      "id": "fourierft",
+      "category": "weight_peft",
+      "paper": "Parameter-Efficient Fine-Tuning with Discrete Fourier Transform",
+      "paper_url": "https://arxiv.org/abs/2405.03003",
+      "official_repo": "https://github.com/Chaos96/fourierft",
+      "official_commit": "2f01ee",
+      "status": "not_implemented_official_code_moved_to_PEFT_version_pin_and_smoke_required",
+      "priority": "P1",
+      "integrated_repo": "https://github.com/huggingface/peft",
+      "integrated_commit": "2f01ee"
+    },
+    {
+      "id": "full_supervised_finetuning",
+      "category": "weight_finetuning",
+      "paper": null,
+      "official_repo": null,
+      "status": "not_implemented_high_compute_task_adaptation_control",
+      "priority": "P2"
+    },
+    {
+      "id": "axbench",
+      "category": "benchmark_and_steering_baselines",
+      "paper": "AxBench: Steering LLMs? Even Simple Baselines Outperform Sparse Autoencoders",
+      "paper_url": "https://arxiv.org/abs/2501.17148",
+      "official_repo": "https://github.com/stanfordnlp/axbench",
+      "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
+      "status": "benchmark_reference_with_prompt_RePS_HyperSteer_and_ReFT_r1_baselines",
+      "priority": "P1"
+    }
+  ],
+  "historical_results": {
+    "directory": "results/aster_cr_repair_v2_20261108",
+    "status": "historical_development_only",
+    "notes": [
+      "Comparator shards and LoReFT/LoFiT/LoRA development metrics exist.",
+      "The run snapshot marks Qwen test incomplete, MedGemma formal evaluation incomplete, and external model evaluation incomplete.",
+      "The old repair-v2 data/training protocol differs from current E1 Dataset A.",
+      "Historical development metrics must not be copied into the current E1 main table."
+    ],
+    "sea_zero_norm_fallback_positions": 4744
+  },
+  "repository_risks": [
+    {
+      "risk": "untracked_vendor_dependencies",
+      "detail": "Public repository tree has no vendor/ directory, while SEA and PyReFT integrations import from server-local ROOT/vendor paths."
+    },
+    {
+      "risk": "parameter_budget_mismatch",
+      "detail": "ASTER-CR has approximately 17 trainable coefficients; local LoFiT deployment has approximately 128, LoReFT approximately 8193, and LoRA approximately 8192. Training-stage parameter counts must also be reported."
+    },
+    {
+      "risk": "stale_default_root_and_gpu",
+      "detail": "experiments/aster_cr/common.py defaults to the historical /home/gcx/aster_cr_20261108 root and GPU string 0,1. New runs must explicitly set root, devices, model paths, and output paths."
+    },
+    {
+      "risk": "stale_manuscript_protocol",
+      "detail": "Current manuscript baseline table is Section 4.2/Table 2, while Section 4.5 is MedPIC. The baseline table still reflects an older training protocol; synchronize only after current E1 baseline results are complete."
+    },
+    {
+      "risk": "baseline_registry_name_collision",
+      "detail": "configs/baselines.json is used for ProbeRAG/SEKA/JUICE/TrialGPT and should not be repurposed as the ASTER-CR method registry."
+    }
+  ],
+  "execution_order": [
+    "Freeze stable instance-level concept labels and distinguish native methods from ASTER task adaptations.",
+    "Pin official source commits and isolate incompatible dependency environments.",
+    "Run CPU/synthetic smoke tests and verify actual activation/logit changes before GPU evaluation.",
+    "Refit existing Qwen3-8B comparators on current E1 and current source splits.",
+    "Run priority new methods: strong evidence prompt, CC, CAA, CAST, RePS, PSR, INLP/R-LACE, DoRA/FourierFT.",
+    "Run optional nonlinear erasure and high-compute methods only after feasibility and label mapping pass.",
+    "Extend to other models and frozen tasks after Qwen3 protocol is stable.",
+    "Run internal ASTER-CR ablations and efficiency tests separately.",
+    "Recompute all main-table metrics from per-example predictions and audit source-cluster confidence intervals."
+  ],
+  "runtime_requirements": {
+    "live_gpu_state": "unknown_not_inspected",
+    "server_process_state": "unknown_not_inspected",
+    "required_preflight": [
+      "nvidia-smi",
+      "active process inspection",
+      "GPU memory check",
+      "existing run-directory ownership check"
+    ],
+    "no_gpu_jobs_started": true,
+    "no_existing_jobs_stopped_or_modified": true
+  },
+  "notes": [
+    "The repository head SHAs are snapshots inspected on 2026-11-12; they are provenance references, not a claim that the source was executed.",
+    "Short SHAs are retained where the connector only surfaced abbreviated commit identifiers in the audit snapshot; full hashes are recorded where available.",
+    "PASTA's official README describes a generic causal-attention formulation but currently lists Llama, Llama 2 and GPT-J as supported architectures; do not claim Qwen3 compatibility without a smoke test.",
+    "CAA's official repository is Llama 2 oriented and uses GPT-4-generated behavior data in its released pipeline; a Qwen3/ASTER implementation must be labeled as task-adapted.",
+    "PSR's official dependency stack requires Python 3.12+ and PEFT 0.15.1, so it should not be installed into the current general environment that specifies PEFT >=0.17."
+  ]
+}

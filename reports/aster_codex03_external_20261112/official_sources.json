@@ -1,0 +1,242 @@
+{
+  "task": "ASTER-CR Codex03 official source preparation",
+  "recorded_at_utc": "2026-11-12T15:06:54.738335+00:00",
+  "scope": "Source acquisition, version pinning, installed source snapshot and CPU import preparation only; this is not an official-method compatibility audit or experimental result.",
+  "upstream_dependencies": {
+    "Codex00": "not_complete_per_user",
+    "Codex01": "audit_deliverable_not_available"
+  },
+  "assets_directory": "/home/gcx/aster_codex03_external_assets_20261112/official",
+  "shared_environment_modified": false,
+  "gpu_used": false,
+  "backbone_loaded": false,
+  "training_performed": false,
+  "evaluation_performed": false,
+  "checksums_computed": false,
+  "environment": {
+    "python": "3.12.3",
+    "packages": {
+      "torch": "2.8.0",
+      "transformers": "4.57.6",
+      "peft": "0.21.2",
+      "numpy": "2.5.4",
+      "scipy": "1.18.1",
+      "scikit-learn": "1.9.1",
+      "pyvene": null,
+      "pyreft": null,
+      "axbench": null,
+      "ase": null
+    },
+    "cpu_checks": {
+      "dora_config_and_import": {
+        "status": "passed",
+        "use_dora": true,
+        "model_loaded": false
+      },
+      "inlp_import": {
+        "status": "passed",
+        "model_loaded": false,
+        "fitting_performed": false
+      }
+    },
+    "peft_installed_path": "/home/gcx/gcx261014/lib/python3.12/site-packages/peft",
+    "peft_snapshot_path": "/home/gcx/aster_codex03_external_assets_20261112/official/peft-0.21.2-snapshot"
+  },
+  "methods": [
+    {
+      "method": "RePS",
+      "repository_url": "https://github.com/stanfordnlp/axbench",
+      "license": "Apache-2.0",
+      "entry_points": [
+        "axbench/models/preference_model.py::PreferenceModel.train",
+        "axbench/models/preference_model.py::preference_loss",
+        "axbench/models/preference_vector.py::PreferenceVector.make_model",
+        "axbench/utils/data_utils.py::make_preference_data_module"
+      ],
+      "native_objective": "Reference-free bidirectional preference steering with concept addition and suppression. Preserve the official objective and configuration.",
+      "adaptation_notes": [
+        "Official PreferenceVector supports explicit model.layers[l].output hooks; no Qwen3 functional test has been run.",
+        "Construct the original and steered preference responses; E1 A/P or C/F consistency penalties cannot replace the native objective.",
+        "Official preference length scaling currently uses the full attention mask; record this implementation detail instead of silently changing it."
+      ],
+      "blockers": [
+        "pyvene, pyreft and axbench are not installed.",
+        "Codex01 compatibility audit is pending."
+      ],
+      "local_path": "/home/gcx/aster_codex03_external_assets_20261112/official/axbench",
+      "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
+      "acquisition": "git clone --depth 1; detached at recorded commit",
+      "source_download_status": "complete",
+      "license_path": "/home/gcx/aster_codex03_external_assets_20261112/official/axbench/LICENSE",
+      "source_modifications": [],
+      "source_unmodified": true,
+      "official_implementation_audit": "pending_Codex01",
+      "gpu_run_status": "not_started_pending_upstream_audit",
+      "experiment_results": null
+    },
+    {
+      "method": "PSR",
+      "repository_url": "https://github.com/Nokia-Bell-Labs/steer-like-the-llm",
+      "license": "BSD-3-Clause",
+      "entry_points": [
+        "src/ase/steering/focused_steering.py::FocusedSteeredModel",
+        "src/ase/steering/focused_steering.py::FocusedSteeringModule",
+        "src/ase/steering/training_run.py::psteering_imitation_train",
+        "src/ase/steering/intervened_model.py",
+        "src/ase/model_introspection.py"
+      ],
+      "native_objective": "Prompt-steering imitation with token-dependent steering coefficients. Preserve the official MSE or response-loglikelihood objective and configured regularization.",
+      "adaptation_notes": [
+        "PSR is named Focused in the official code; MSE is also named psi.",
+        "Official hooks recognize model.layers and Tensor outputs.",
+        "Training needs original prompt, steered prompt and steered response triplets; interventions on prompt tokens need recomputed affected prefixes."
+      ],
+      "blockers": [
+        "ase is not installed.",
+        "Full upstream setup includes pinned optional benchmark dependencies; no shared-environment installation was attempted.",
+        "Codex01 compatibility audit and prompt-teacher data construction are pending."
+      ],
+      "local_path": "/home/gcx/aster_codex03_external_assets_20261112/official/steer-like-the-llm",
+      "official_commit": "3d916c618d146c5d657f055e432a432b0fa493c6",
+      "acquisition": "git clone --depth 1; detached at recorded commit",
+      "source_download_status": "complete",
+      "license_path": "/home/gcx/aster_codex03_external_assets_20261112/official/steer-like-the-llm/LICENSE",
+      "source_modifications": [],
+      "source_unmodified": true,
+      "official_implementation_audit": "pending_Codex01",
+      "gpu_run_status": "not_started_pending_upstream_audit",
+      "experiment_results": null
+    },
+    {
+      "method": "CAA",
+      "repository_url": "https://github.com/nrimsky/CAA",
+      "official_commit": "5dabbbd9a0bca5f25e174501e959de378806aa48",
+      "local_path": "/home/gcx/aster_codex03_external_assets_20261112/official/CAA-official-snapshot",
+      "acquisition": "Pinned official GitHub file API snapshot after ordinary and filtered shallow downloads were stopped.",
+      "source_download_status": "core_runtime_source_complete; full_repository_not_downloaded",
+      "source_files": [
+        "LICENSE",
+        "README.md",
+        "analyze_vectors.py",
+        "behaviors.py",
+        "finetune_llama.py",
+        "finetuning_script.sh",
+        "generate_vectors.py",
+        "llama_wrapper.py",
+        "normalize_vectors.py",
+        "plot_activations.py",
+        "plot_results.py",
+        "process_raw_datasets.py",
+        "prompting_with_steering.py",
+        "requirements.txt",
+        "scoring.py",
+        "script.sh",
+        "steering_settings.py",
+        "utils/helpers.py",
+        "utils/test_helpers.py",
+        "utils/tokenize.py"
+      ],
+      "excluded_contents": [
+        "historical vectors and results",
+        "original benchmark datasets",
+        "analysis notebooks"
+      ],
+      "download_notes": "The repository includes approximately 1.2 GB of history/assets. Only the exact upstream root Python/shell files, utils Python files, README, LICENSE and requirements were preserved. No source patches were made. The abandoned downloads were stopped.",
+      "license": "MIT",
+      "license_path": "/home/gcx/aster_codex03_external_assets_20261112/official/CAA-official-snapshot/LICENSE",
+      "entry_points": [
+        "generate_vectors.py::generate_save_vectors_for_behavior",
+        "llama_wrapper.py::BlockOutputWrapper",
+        "utils/helpers.py::add_vector_from_position"
+      ],
+      "native_objective": "Mean residual activation difference between matched positive and negative behavior responses, added at the specified layer and positions.",
+      "adaptation_notes": [
+        "Official LlamaWrapper hardcodes Llama paths, INST formatting, instruction-end markers, tuple outputs and answer extraction position -2.",
+        "Qwen3 requires explicit template, Tensor-output and answer-position adaptations; no such edits were made.",
+        "E1 input-pair differences alone are not the original behavior-answer contrast. Added task supervision must be labelled task-adapted."
+      ],
+      "blockers": [
+        "Codex01 audit and Qwen3 wrapper/data adaptation are pending."
+      ],
+      "source_modifications": [],
+      "source_unmodified": true,
+      "official_implementation_audit": "pending_Codex01",
+      "gpu_run_status": "not_started_pending_upstream_audit",
+      "experiment_results": null
+    },
+    {
+      "method": "INLP",
+      "repository_url": "https://github.com/shauli-ravfogel/nullspace_projection",
+      "license": "MIT",
+      "entry_points": [
+        "src/debias.py::get_debiasing_projection",
+        "src/debias.py::get_rowspace_projection",
+        "src/classifier.py"
+      ],
+      "native_objective": "Iteratively fit concept classifiers and project representations onto the intersection of their nullspaces.",
+      "adaptation_notes": [
+        "Official CPU import succeeded. No projection fitting, model loading or Qwen3 evaluation was performed.",
+        "Concept labels, layer, iterations and developer-set selection must be specified under the common protocol."
+      ],
+      "blockers": [
+        "Codex01 compatibility audit and the task concept definition are pending."
+      ],
+      "local_path": "/home/gcx/aster_codex03_external_assets_20261112/official/nullspace_projection",
+      "official_commit": "e1edcc19d808108ab71cbb3afb0389db0206a7eb",
+      "acquisition": "git clone --depth 1; detached at recorded commit",
+      "source_download_status": "complete",
+      "license_path": "/home/gcx/aster_codex03_external_assets_20261112/official/nullspace_projection/LICENSE",
+      "source_modifications": [],
+      "source_unmodified": true,
+      "official_implementation_audit": "pending_Codex01",
+      "gpu_run_status": "not_started_pending_upstream_audit",
+      "experiment_results": null
+    },
+    {
+      "method": "DoRA",
+      "repository_url": "https://github.com/NVlabs/DoRA",
+      "official_commit": "7e2f10abbe8efe212c8fca1d983ae1d04ef13a18",
+      "author_source_clone_performed": false,
+      "author_reference_documents": "/home/gcx/aster_codex03_external_assets_20261112/official/DoRA-reference",
+      "author_license": "NVIDIA Source Code License for DoRA",
+      "implementation_provider": "huggingface/peft",
+      "implementation_version": "0.21.2",
+      "implementation_license": "Apache-2.0",
+      "installed_source_path": "/home/gcx/gcx261014/lib/python3.12/site-packages/peft",
+      "preserved_source_path": "/home/gcx/aster_codex03_external_assets_20261112/official/peft-0.21.2-snapshot",
+      "entry_points": [
+        "peft.LoraConfig(use_dora=True)",
+        "peft.get_peft_model",
+        "peft/tuners/lora/dora.py::DoraLinearLayer"
+      ],
+      "native_objective": "DoRA parameterizes weight magnitude and low-rank direction. Use the prescribed task training objective without undocumented pair penalties.",
+      "cpu_import_check": {
+        "status": "passed",
+        "use_dora": true,
+        "model_loaded": false
+      },
+      "source_modifications": [],
+      "source_unmodified": true,
+      "qwen3_forward_or_training_tested": false,
+      "official_implementation_audit": "pending_Codex01",
+      "gpu_run_status": "not_started_pending_upstream_audit",
+      "experiment_results": null,
+      "blockers": [
+        "Codex01 compatibility audit is pending."
+      ]
+    }
+  ],
+  "not_downloaded": [
+    "FourierFT",
+    "R-LACE",
+    "KRaM",
+    "Obliviator",
+    "CAST"
+  ],
+  "existing_methods_not_implemented_or_run": [
+    "ITI",
+    "SEA",
+    "LEACE",
+    "LoRA"
+  ]
+}

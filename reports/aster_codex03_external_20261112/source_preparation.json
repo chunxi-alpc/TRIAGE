@@ -1,0 +1,123 @@
+{
+  "status": "read_only_preparation_not_codex01_audit",
+  "environment": {
+    "python": "3.12.3",
+    "torch": "2.8.0",
+    "transformers": "4.57.6",
+    "peft": "0.21.2",
+    "sklearn": "1.9.1"
+  },
+  "tentative_choices": {
+    "erasure": "INLP",
+    "peft": "DoRA",
+    "selection_finalized": false
+  },
+  "methods": [
+    {
+      "name": "RePS",
+      "official": "https://github.com/stanfordnlp/axbench",
+      "entry": [
+        "axbench/models/preference_model.py",
+        "axbench/models/preference_vector.py"
+      ],
+      "objective": "Bidirectional preference optimization",
+      "notes": [
+        "Qwen3 model.layers hooks appear compatible; no full-model check performed.",
+        "axbench/pyvene/pyreft not installed.",
+        "Requires explicit preference data conversion; A/P invariance loss is not the original objective.",
+        "Preserve and document official winning_lens/losing_lens behavior."
+      ]
+    },
+    {
+      "name": "PSR",
+      "official": "https://github.com/Nokia-Bell-Labs/steer-like-the-llm",
+      "entry": [
+        "src/ase/steering/focused_steering.py::FocusedSteeredModel"
+      ],
+      "objective": "Imitate prompted steering using original/steered prompts and steered responses; position-dependent coefficients",
+      "notes": [
+        "Needs teacher-prompt/response construction, not raw E1 pairs alone.",
+        "Keep official MSE/response-likelihood objective.",
+        "Recompute intervened prefixes; do not reuse unmodified-model prefix cache."
+      ]
+    },
+    {
+      "name": "CAA",
+      "official": "https://github.com/nrimsky/CAA",
+      "entry": [
+        "generate_vectors.py",
+        "utils/helpers.py::add_vector_from_position"
+      ],
+      "objective": "Average activation differences of positive/negative behavioral answers",
+      "notes": [
+        "LlamaWrapper hard-codes Llama templates/tuple outputs/extraction position; adapt these explicitly for Qwen3.",
+        "Raw A/P input differences alone do not constitute original CAA.",
+        "Respect original intervention positions and recompute intervened prefixes."
+      ]
+    },
+    {
+      "name": "INLP",
+      "official": "https://github.com/shauli-ravfogel/nullspace_projection",
+      "revision": "e1edcc19d808108ab71cbb3afb0389db0206a7eb",
+      "entry": [
+        "src/debias.py::get_debiasing_projection"
+      ],
+      "notes": [
+        "Define the nuisance concept and preserve official iterative linear-classifier/nullspace objective.",
+        "Projection preserves representation coordinates; no model adaptation check performed."
+      ]
+    },
+    {
+      "name": "R-LACE",
+      "official": "https://github.com/shauli-ravfogel/rlace-icml",
+      "revision": "2d9b6d03f65416172b4a2ca7f6da10e374002e5f",
+      "notes": [
+        "Official full-matrix CPU eigendecomposition is costly at Qwen3 hidden size 4096.",
+        "Existing sklearn requires loss=log_loss compatibility update from legacy loss=log."
+      ]
+    },
+    {
+      "name": "KRaM",
+      "official": "https://github.com/brcsomnath/KRaM",
+      "revision": "5ace3c2f664127ccdcb3a4b65230e732e1e04502",
+      "notes": [
+        "Hard-coded dataset/dimension entry requires adaptation.",
+        "Nonlinear re-encoding requires new readout and matched baseline.",
+        "Legacy pinned dependencies should not overwrite the shared environment."
+      ]
+    },
+    {
+      "name": "Obliviator",
+      "official": "https://github.com/ramin-akbari/Obliviator",
+      "revision": "0f2233f8cdc30981a994af64321bc86917723f97",
+      "notes": [
+        "Current declared torch/huggingface-hub/tyro dependencies are not met by the shared environment.",
+        "Changed representation dimensions require a new readout protocol."
+      ]
+    },
+    {
+      "name": "DoRA",
+      "official": "https://github.com/NVlabs/DoRA",
+      "revision": "7e2f10abbe8efe212c8fca1d983ae1d04ef13a18",
+      "entry": [
+        "peft.LoraConfig(use_dora=True)"
+      ],
+      "notes": [
+        "Official repository endorses PEFT implementation; import available.",
+        "Keep answer-token SFT objective; label additional pair supervision separately."
+      ]
+    },
+    {
+      "name": "FourierFT",
+      "official": "https://github.com/Chaos96/fourierft",
+      "revision": "98c7893abbc204ae34b0c4fe59d5ae1fe2b45bce",
+      "entry": [
+        "peft.FourierFTConfig"
+      ],
+      "notes": [
+        "Authors moved official implementation to PEFT; import available.",
+        "Alternative to DoRA; do not run both by default."
+      ]
+    }
+  ]
+}

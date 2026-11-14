@@ -1,0 +1,11 @@
+{
+  "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "teacher_system_prompt": "根据给定规则和病例，判断当前条件是否成立。只输出用户指定的答案标签。For English inputs, 是 means Yes and 否 means No.\nEvaluate only the current condition using the patient's decisive facts and the literal guideline condition. Do not let downstream actions, irrelevant background, or stylistic differences change the decision. Preserve sensitivity to changes in decisive facts or in the condition. Answer with the requested single Chinese yes/no label.",
+  "teacher_response": "Argmax of common FP32 yes/no scores; one-token constrained response.",
+  "teacher_success_filter": "Fit-only ground truth checks teacher response; retain correct teacher examples.",
+  "answer_labels": [
+    "是",
+    "否"
+  ],
+  "smoke_only": false
+}

@@ -1,0 +1,48 @@
+{
+  "method": "CAA-E1-task-adapted",
+  "official_repository": "https://github.com/nrimsky/CAA",
+  "official_revision": "5dabbbd9a0bca5f25e174501e959de378806aa48",
+  "official_snapshot": "/home/gcx/aster_codex03_external_assets_20261112/official/CAA-official-snapshot",
+  "official_training_core": "generate_vectors.py::generate_save_vectors_for_behavior (unmodified function AST)",
+  "official_intervention_core": "utils/helpers.py::add_vector_from_position (unmodified function AST)",
+  "implementation_status": "Qwen3 architecture and E1 behavioral data adaptation",
+  "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "model_dtype": "bfloat16",
+  "vector_dtype": "float32",
+  "dataset": "E1 / Dataset A",
+  "training_pairs": 2540,
+  "unique_training_prompts": 4637,
+  "behavior": "Correct versus incorrect single-token answer to the same unchanged E1 prompt",
+  "positive": "Gold answer token: yes if label=1, no if label=0",
+  "negative": "Opposite answer token to the identical prompt",
+  "original_pair_type_used_for_direction": false,
+  "layer": 18,
+  "layer_indexing": "zero-based",
+  "layer_selection": "fixed before development and test",
+  "multipliers": [
+    -1.0,
+    -0.5,
+    0.0,
+    0.5,
+    1.0
+  ],
+  "vector_normalization": "None: the official cross-behavior equal-norm transform is identity for one behavior",
+  "extraction": "Canonical prompt token IDs + answer token + EOS; official [-2] selects the answer token",
+  "extraction_note": "Upstream tokenizer does not explicitly append EOS. This port explicitly appends one terminal EOS so [-2] has the required answer-token meaning under Qwen3.",
+  "prefix_reuse": "Unedited prompt prefix and last prompt token are computed once, then immutable cache copies process correct/incorrect answer+EOS suffixes",
+  "intervention": "Official inclusive position mask from the last user <|im_end|> through assistant template and subsequent answer positions",
+  "scoring": "Unchanged canonical system/chat prompt, enable_thinking=False, FP32 yes-minus-no label projection",
+  "selection": "Development macro paired correctness over A/P/C/F; tie: natural original-node correctness, then smaller absolute multiplier",
+  "test_policy": "No test access until multiplier is selected and frozen",
+  "stochastic_training": false,
+  "seeds": "Not applicable: deterministic paired activation averaging",
+  "raw_residual_export": "Unedited last prompt token at final decoder output before final norm; all fit UIDs, never answer activations",
+  "expected_peak_memory_gib": [
+    20,
+    30
+  ],
+  "estimated_hours": [
+    1,
+    3
+  ]
+}

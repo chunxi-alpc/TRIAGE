@@ -1,0 +1,18 @@
+{
+  "official_revision": "5dabbbd9a0bca5f25e174501e959de378806aa48",
+  "reused_functions": [
+    "generate_vectors.py::generate_save_vectors_for_behavior (unmodified function AST)",
+    "utils/helpers.py::add_vector_from_position (unmodified function AST)"
+  ],
+  "differences": [
+    "Replace Llama-specific model and tokenizer wrappers with the existing canonical Qwen3 scorer.",
+    "Define behavior pairs from each unique E1 prompt's correct and incorrect answer, and label the result task-adapted.",
+    "Append a terminal EOS and select the answer activation at official index -2.",
+    "Reuse unedited prefix computation across the two answers; preserve the causal answer representations.",
+    "Accumulate the original official mean formula in FP32, retaining the BF16 model.",
+    "Map the official instruction-end boundary to Qwen3's closing user im_end token, inclusive.",
+    "Use the existing binary score evaluator; avoid unused full-vocabulary logits during activation extraction."
+  ],
+  "original_objective": "Mean positive-minus-negative post-block answer representations, followed by additive steering",
+  "added_ap_cf_loss": false
+}

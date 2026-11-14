@@ -1,0 +1,94 @@
+{
+  "method": "RePS-E1-task-adapted",
+  "seed": 11,
+  "model": "Qwen3-8B",
+  "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "train_data": "E1 / Dataset A",
+  "train_pair_count": 2540,
+  "layer": 18,
+  "layer_numbering": "zero_based",
+  "rank": 1,
+  "learning_rate": 0.04,
+  "epochs": 1,
+  "batch_size": 1,
+  "gradient_accumulation_steps": 1,
+  "weight_decay": 0.0,
+  "optimizer": "AdamW",
+  "schedule": "linear_decay",
+  "clipping_norm": 1.0,
+  "loss_type": "scaled_simpo",
+  "beta": 1.0,
+  "gemma": 0.0,
+  "simpo_scaler": 1.0,
+  "reference_free": true,
+  "label_smoothing": 0.0,
+  "preference_pairs": [
+    "orig_add",
+    "orig_sub"
+  ],
+  "substraction_type": "null_it_out",
+  "steering_factors": [
+    1.0
+  ],
+  "positions": "all",
+  "exclude_bos": true,
+  "prefix_length": 1,
+  "dropout": 0.0,
+  "intervention_positions_dropout": 0.0,
+  "official_repository": "https://github.com/stanfordnlp/axbench",
+  "official_commit": "41c8332543e5a631f9a8c0a9df38799893ace758",
+  "official_reference_config": "axbench/sweep/wuzhengx/reps/experiments/p_vector_dps_g2-9b_nfs_axbench.yaml",
+  "isolated_dependency": {
+    "pyvene": "0.1.8",
+    "location": "/home/gcx/aster_codex03_external_assets_20261112/python"
+  },
+  "torch_version": "2.8.0+cu128",
+  "official_components": [
+    "PreferenceVectorIntervention",
+    "AdditionIntervention",
+    "preference_loss"
+  ],
+  "supervision": "Each unique fit prompt uses its correct yes/no label as positive response and opposite label as negative response. orig_sub reverses these preferences.",
+  "implementation_differences": [
+    "Qwen3-8B and E1 task responses replace Gemma concept-generation data; this is explicitly task-adapted.",
+    "Exact upstream loss is loaded from its AST node to avoid imports of unrelated AxBench benchmark tooling.",
+    "Exact upstream intervention classes are connected by a PyTorch output hook supporting Qwen3 Tensor output.",
+    "One-token responses share the same causal prompt hidden state. Compute only the final vocabulary logits, rather than logits for every prompt and appended response token.",
+    "Reference prompt forward is shared between positive and nulling branches. Branch losses are backpropagated separately and averaged, as in upstream minibatching.",
+    "Frozen BF16 backbone with FP32 intervention parameters; exact source operations receive FP32 residuals and return to BF16.",
+    "Use fixed one-epoch small-batch training budget and one preset layer; choose only inference strength on development data.",
+    "Inference calls official AdditionIntervention, which uses the trained direction and a multiplier and does not add its saved training bias.",
+    "Retain upstream attention-mask length scaling: prompt length plus one response token."
+  ],
+  "system_prompt": "根据给定规则和病例，判断当前条件是否成立。只输出用户指定的答案标签。For English inputs, 是 means Yes and 否 means No.",
+  "answer_labels": [
+    "是",
+    "否"
+  ],
+  "decision_rule": "ell > 0",
+  "evaluation_projection": "Canonical Engine chunked prefill and final-token replay, FP32 yes/no output-head rows",
+  "training_projection": "Native BF16 full-vocabulary final-token logits, then FP32 log-softmax",
+  "selected_strength": 0.5,
+  "selection_metric": "mean dev binary negative log likelihood",
+  "selection_candidates": [
+    {
+      "strength": 0.5,
+      "mean_binary_nll": 2.022761348669931,
+      "unique_dev_inputs": 1685
+    },
+    {
+      "strength": 1.0,
+      "mean_binary_nll": 3.8649132871947387,
+      "unique_dev_inputs": 1685
+    },
+    {
+      "strength": 2.0,
+      "mean_binary_nll": 3.5944531827175594,
+      "unique_dev_inputs": 1685
+    }
+  ],
+  "selection_wall_seconds": 826.3404246249702,
+  "selection_split": "dev",
+  "decision_threshold": 0.0,
+  "frozen_before_test": true
+}

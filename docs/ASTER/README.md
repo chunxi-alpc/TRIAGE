@@ -7,6 +7,8 @@
 
 ## 其他资料
 
+- [新增外部方法结果与结论（2026-11-14）](external-method-results-20261114.zh.md)：RePS、PSR、CAA、INLP、DoRA的11次实验、成本和逐例数据。
+
 - [历史方法与实验索引](archive/README.md)：CARE、ACRE、旧ASTER表示编辑、旧版M3及历史实验报告。
 - [方法版本与公式](versions.zh.md)：方法演变的技术记录。
 - [方法澄清](method-clarifications.zh.md)：实现和术语补充。
