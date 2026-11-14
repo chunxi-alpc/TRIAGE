@@ -1,0 +1,241 @@
+{
+  "closed": true,
+  "jobs": [
+    {
+      "id": "G01",
+      "units": [
+        "G01"
+      ],
+      "script": "official_worker.py",
+      "args": [
+        "--model",
+        "qwen"
+      ],
+      "preferred_gpu": 0
+    },
+    {
+      "id": "G02",
+      "units": [
+        "G02"
+      ],
+      "script": "official_worker.py",
+      "args": [
+        "--model",
+        "gemma2"
+      ],
+      "preferred_gpu": 1
+    },
+    {
+      "id": "G03",
+      "units": [
+        "G03"
+      ],
+      "script": "official_partition_worker.py",
+      "args": [
+        "--model",
+        "gemma3",
+        "--work-index",
+        "0",
+        "--assignment",
+        "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/gemma3/evaluation/mega_official/assignment_shard0.json"
+      ],
+      "preferred_gpu": 5,
+      "completion_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/gemma3/evaluation/mega_official/shard0/done.json"
+    },
+    {
+      "id": "G04",
+      "units": [
+        "G04"
+      ],
+      "script": "official_partition_worker.py",
+      "args": [
+        "--model",
+        "medgemma",
+        "--work-index",
+        "0",
+        "--assignment",
+        "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/medgemma/evaluation/mega_official/assignment_shard0.json"
+      ],
+      "preferred_gpu": 6,
+      "completion_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/medgemma/evaluation/mega_official/shard0/done.json"
+    },
+    {
+      "id": "E5_LORA",
+      "units": [
+        "G05",
+        "G06",
+        "G07"
+      ],
+      "script": "e5_worker.py",
+      "args": [
+        "--group",
+        "lora"
+      ],
+      "ready_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e5_ready.json"
+    },
+    {
+      "id": "E5_LOFIT",
+      "units": [
+        "G08",
+        "G09",
+        "G10"
+      ],
+      "script": "e5_worker.py",
+      "args": [
+        "--group",
+        "lofit"
+      ],
+      "ready_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e5_ready.json"
+    },
+    {
+      "id": "E5_LOREFT",
+      "units": [
+        "G11",
+        "G12",
+        "G13"
+      ],
+      "script": "e5_worker.py",
+      "args": [
+        "--group",
+        "loreft"
+      ],
+      "ready_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e5_ready.json"
+    },
+    {
+      "id": "E5_REPRESENTATION",
+      "units": [
+        "G14",
+        "G15",
+        "G16",
+        "G17"
+      ],
+      "script": "e5_worker.py",
+      "args": [
+        "--group",
+        "representation"
+      ],
+      "ready_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e5_ready.json",
+      "completion_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e5/representation_worker_done.json"
+    },
+    {
+      "id": "G03_HELPER",
+      "units": [
+        "G03"
+      ],
+      "script": "official_partition_worker.py",
+      "args": [
+        "--model",
+        "gemma3",
+        "--work-index",
+        "1",
+        "--assignment",
+        "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/gemma3/evaluation/mega_official/assignment_shard1.json"
+      ],
+      "preferred_gpu": 0,
+      "completion_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/gemma3/evaluation/mega_official/shard1/done.json"
+    },
+    {
+      "id": "G03_MERGE",
+      "units": [
+        "G03"
+      ],
+      "script": "official_worker.py",
+      "args": [
+        "--model",
+        "gemma3",
+        "--merge-only"
+      ],
+      "preferred_gpu": 0,
+      "dependencies": [
+        "G03",
+        "G03_HELPER",
+        "G03_HELPER2"
+      ],
+      "completion_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/gemma3/evaluation/mega_official/completed.json",
+      "computation": "CPU statistics and shard merge; no model loading"
+    },
+    {
+      "id": "G04_HELPER",
+      "units": [
+        "G04"
+      ],
+      "script": "official_partition_worker.py",
+      "args": [
+        "--model",
+        "medgemma",
+        "--work-index",
+        "1",
+        "--assignment",
+        "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/medgemma/evaluation/mega_official/assignment_shard1.json"
+      ],
+      "preferred_gpu": 4,
+      "completion_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/medgemma/evaluation/mega_official/shard1/done.json"
+    },
+    {
+      "id": "G04_MERGE",
+      "units": [
+        "G04"
+      ],
+      "script": "official_worker.py",
+      "args": [
+        "--model",
+        "medgemma",
+        "--merge-only"
+      ],
+      "preferred_gpu": 4,
+      "dependencies": [
+        "G04",
+        "G04_HELPER",
+        "G04_HELPER2"
+      ],
+      "completion_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/medgemma/evaluation/mega_official/completed.json",
+      "computation": "CPU statistics and shard merge; no model loading"
+    },
+    {
+      "id": "G03_HELPER2",
+      "units": [
+        "G03"
+      ],
+      "script": "official_partition_worker.py",
+      "args": [
+        "--model",
+        "gemma3",
+        "--work-index",
+        "2",
+        "--assignment",
+        "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/gemma3/evaluation/mega_official/assignment_shard2.json"
+      ],
+      "preferred_gpu": 1,
+      "completion_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/gemma3/evaluation/mega_official/shard2/done.json"
+    },
+    {
+      "id": "G04_HELPER2",
+      "units": [
+        "G04"
+      ],
+      "script": "official_partition_worker.py",
+      "args": [
+        "--model",
+        "medgemma",
+        "--work-index",
+        "2",
+        "--assignment",
+        "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/medgemma/evaluation/mega_official/assignment_shard2.json"
+      ],
+      "preferred_gpu": 1,
+      "completion_file": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/e6/medgemma/evaluation/mega_official/shard2/done.json",
+      "dependencies": [
+        "G03_HELPER2"
+      ]
+    }
+  ],
+  "allowed_gpus": [
+    0,
+    1,
+    4,
+    5,
+    6
+  ],
+  "repartition_report": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/provenance/queue_repartition_20261114/handoff.json",
+  "gpu1_handoff": "/home/gcx/aster-final-gap-completion-20261114/reports/aster_final_gap_completion_20261114/provenance/queue_gpu1_20261114/handoff.json"
+}

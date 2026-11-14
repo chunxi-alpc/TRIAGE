@@ -1,0 +1,56 @@
+{
+  "model_key": "qwen_base",
+  "model": {
+    "name": "Qwen3-8B-Base",
+    "path": "/home/gcx/TRIAGE-worktrees/aster-seka-execution-20261025/experiments/aster_seka_execution/runtime/models/Qwen3-8B-Base",
+    "family": "qwen3",
+    "checkpoint_type": "base",
+    "expected_peak_gib": [
+      17,
+      28
+    ],
+    "chat_style": "system_user"
+  },
+  "source_protocol": "E1-balanced-2540",
+  "source_report": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+  "fit_pairs": 2540,
+  "pair_counts": {
+    "A": 635,
+    "P": 635,
+    "C": 635,
+    "F": 635
+  },
+  "fit_sources": 80,
+  "dev_sources": 20,
+  "head_count": 51,
+  "trace_rank": 16,
+  "regularization": 0.01,
+  "delta": 0.2923349,
+  "AP_weight_sum": 4887,
+  "seed": 20261108,
+  "calibration_nodes": 761,
+  "calibration_split": "source fit natural nodes, same as completed Qwen E1",
+  "freeze_split": "corresponding checkpoint source development set",
+  "score_protocol": "native checkpoint template; last-token BF16 backbone and FP32 YES-NO projection; native softcap",
+  "module_independence": [
+    "M1 ranking and exact patches",
+    "M2 evidence and nuisance spaces",
+    "M3 correction and intercept"
+  ],
+  "target_labels_used_for_fit": false,
+  "old_corrected_results_reused": false,
+  "gpus": [
+    4
+  ],
+  "state": "running",
+  "stage_counts": {
+    "fit": 4953,
+    "dev": 33341,
+    "test": 66752,
+    "nli4ct": 2864,
+    "medpic": 2820,
+    "nli4ct_official5500": 5500,
+    "medpic_official467": 2335
+  },
+  "scheduler": "unified_gpu_queue"
+}

@@ -1,0 +1,530 @@
+{
+  "schema_version": 1,
+  "owner": "codex03",
+  "recorded_at_utc": "2026-11-13T00:42:30.806974+00:00",
+  "jobs": [
+    {
+      "id": "codex03-inlp-run",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.inlp",
+        "run",
+        "--device",
+        "cuda:0",
+        "--threads",
+        "8"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "dependencies": [],
+      "gpu_count": 1,
+      "eligible_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "logical_device": "cuda:0",
+      "estimated_vram_gib": 36,
+      "estimated_hours": 2.0,
+      "completion_marker": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/evaluation/test/INLP-task-adapted/status.json",
+      "post_run_command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.finalize"
+      ]
+    },
+    {
+      "id": "codex03-psr-smoke",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.psr",
+        "smoke",
+        "--seed",
+        "11",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/smoke_seed11"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "dependencies": [],
+      "gpu_count": 1,
+      "eligible_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "logical_device": "cuda:0",
+      "estimated_vram_gib": 25,
+      "estimated_hours": 0.05,
+      "completion_marker": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/smoke_seed11/training.json",
+      "post_run_command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.finalize"
+      ]
+    },
+    {
+      "id": "codex03-psr-teacher",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.psr",
+        "teacher",
+        "--seed",
+        "11",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/teacher_preparation",
+        "--teacher-dir",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/teacher_fit"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "dependencies": [
+        "codex03-psr-smoke"
+      ],
+      "gpu_count": 1,
+      "eligible_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "logical_device": "cuda:0",
+      "estimated_vram_gib": 32,
+      "estimated_hours": 0.5,
+      "completion_marker": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/teacher_fit/summary.json",
+      "post_run_command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.finalize"
+      ]
+    },
+    {
+      "id": "codex03-psr-seed11",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.psr",
+        "all",
+        "--seed",
+        "11",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/seed11",
+        "--teacher-dir",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/teacher_fit"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "dependencies": [
+        "codex03-psr-teacher"
+      ],
+      "gpu_count": 1,
+      "eligible_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "logical_device": "cuda:0",
+      "estimated_vram_gib": 36,
+      "estimated_hours": 2.5,
+      "completion_marker": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/evaluation/test/PSR-MSE-E1-task-adapted-seed11/status.json",
+      "post_run_command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.finalize"
+      ]
+    },
+    {
+      "id": "codex03-psr-seed22",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.psr",
+        "all",
+        "--seed",
+        "22",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/seed22",
+        "--teacher-dir",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/teacher_fit"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "dependencies": [
+        "codex03-psr-teacher"
+      ],
+      "gpu_count": 1,
+      "eligible_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "logical_device": "cuda:0",
+      "estimated_vram_gib": 36,
+      "estimated_hours": 2.5,
+      "completion_marker": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/evaluation/test/PSR-MSE-E1-task-adapted-seed22/status.json",
+      "post_run_command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.finalize"
+      ]
+    },
+    {
+      "id": "codex03-psr-seed33",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.psr",
+        "all",
+        "--seed",
+        "33",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/seed33",
+        "--teacher-dir",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/psr/teacher_fit"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "dependencies": [
+        "codex03-psr-teacher"
+      ],
+      "gpu_count": 1,
+      "eligible_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "logical_device": "cuda:0",
+      "estimated_vram_gib": 36,
+      "estimated_hours": 2.5,
+      "completion_marker": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/evaluation/test/PSR-MSE-E1-task-adapted-seed33/status.json",
+      "post_run_command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.finalize"
+      ]
+    }
+  ],
+  "running": [],
+  "completed": [
+    {
+      "id": "codex03-dora-seed11",
+      "pid": 420247,
+      "gpu": 5,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.dora",
+        "run-seed",
+        "--seed",
+        "11",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/dora/full"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 11227.732685233
+    },
+    {
+      "id": "codex03-dora-seed22",
+      "pid": 440388,
+      "gpu": 5,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.dora",
+        "run-seed",
+        "--seed",
+        "22",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/dora/full"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 11215.414049043029
+    },
+    {
+      "id": "codex03-dora-seed33",
+      "pid": 442651,
+      "gpu": 5,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.dora",
+        "run-seed",
+        "--seed",
+        "33",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/dora/full"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 11214.99469539395
+    },
+    {
+      "id": "codex03-caa-train-shared-features",
+      "pid": 425789,
+      "gpu": 6,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.caa",
+        "--mode",
+        "train"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 1203.5838573559886
+    },
+    {
+      "id": "codex03-inlp-fit",
+      "pid": 433506,
+      "gpu": 6,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.inlp",
+        "fit",
+        "--threads",
+        "8"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 199.9701983879786
+    },
+    {
+      "id": "codex03-reps-seed11",
+      "pid": 434066,
+      "gpu": 6,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.reps",
+        "all",
+        "--seed",
+        "11",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/reps/seed11"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 8326.413742443023
+    },
+    {
+      "id": "codex03-reps-seed22",
+      "pid": 440156,
+      "gpu": 6,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.reps",
+        "all",
+        "--seed",
+        "22",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/reps/seed22"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 8543.987063029956
+    },
+    {
+      "id": "codex03-reps-seed33",
+      "pid": 442009,
+      "gpu": 6,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.reps",
+        "all",
+        "--seed",
+        "33",
+        "--output",
+        "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112/reps/seed33"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 8086.594164951006
+    },
+    {
+      "id": "codex03-caa-select",
+      "pid": 443350,
+      "gpu": 6,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.caa",
+        "--mode",
+        "select"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 1425.0609120780136
+    },
+    {
+      "id": "codex03-caa-dev",
+      "pid": 443904,
+      "gpu": 6,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.caa",
+        "--mode",
+        "evaluate",
+        "--split",
+        "dev"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 1720.2577761399443
+    },
+    {
+      "id": "codex03-caa-test",
+      "pid": 444021,
+      "gpu": 6,
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_codex03_external_20261112.caa",
+        "--mode",
+        "evaluate",
+        "--split",
+        "test"
+      ],
+      "cwd": "/home/gcx/aster-codex03-external-20261112",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONPATH": "/home/gcx/aster_codex03_external_assets_20261112/python:/home/gcx/aster-codex03-external-20261112"
+      },
+      "status": "complete",
+      "returncode": 0,
+      "wall_seconds": 3879.4891021499643
+    }
+  ],
+  "paused_controllers": [
+    420246,
+    425784
+  ],
+  "dispatch_pause_mechanism": "Both old controllers finished naturally after their preserved current jobs. GPU6 future plan was truncated before completion. No GPU child was interrupted.",
+  "old_handoff_signals": "Suppressed in finalize.py while scheduling_handoff.json active, so former Codex05 per-card watchers must not claim these GPUs.",
+  "cuda_visible_devices_policy": "Unified scheduler must inject CUDA_VISIBLE_DEVICES as its assigned physical GPU. No task fixes physical GPU IDs; code uses logical cuda:0.",
+  "completed_prerequisites": [
+    "CAA E1 shared features for all 4637 UIDs complete",
+    "INLP official fit and dev selection complete; frozen selection.json present",
+    "RePS seeds 11/22/33 frozen test evaluation complete"
+  ],
+  "parallelism_note": "INLP and PSR smoke may run independently. Build PSR teacher cache once after smoke; only then may PSR seeds 11/22/33 run in parallel on different GPUs. Do not let seed jobs concurrently build teacher cache.",
+  "failure_policy": "Do not run PSR teacher or seeds if smoke fails. Keep diagnostics; do not substitute or change objective.",
+  "post_run_note": "Run each job post_run_command in the same cwd after success to update actual-result CSVs and E5; original controllers will no longer finalize future unified jobs.",
+  "output_root": "/home/gcx/aster-codex03-external-20261112/reports/aster_codex03_external_20261112",
+  "old_controllers_exited": true
+}

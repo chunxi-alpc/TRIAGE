@@ -1,0 +1,452 @@
+{
+  "owner": "Codex02",
+  "created_at": "2026-11-13 00:41:24",
+  "allowed_gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "paused_controllers": [
+    428694
+  ],
+  "running": [
+    {
+      "id": "codex02-lora-last-test",
+      "pid": 444869,
+      "gpu": 0,
+      "completion_marker": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/lr0.001_seed11/test_metrics.json"
+    },
+    {
+      "id": "codex02-lora-finalize",
+      "pid": 442290,
+      "gpu": null,
+      "completion_marker": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lora/completion.json"
+    },
+    {
+      "id": "codex02-lofit-lr0.0001-train",
+      "pid": 445606,
+      "gpu": 1,
+      "completion_marker": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.0001_seed11/training.json"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "codex02-lofit-lr0.0001-dev",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/native_supervised_baselines.py",
+        "--kind",
+        "lofit",
+        "--action",
+        "evaluate",
+        "--lr",
+        "0.0001",
+        "--seed",
+        "11",
+        "--split",
+        "dev",
+        "--device",
+        "cuda:0"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-lr0.0001-train"
+      ],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 0.8,
+      "priority": 100,
+      "completion_marker": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.0001_seed11/dev_metrics.json"
+    },
+    {
+      "id": "codex02-lofit-lr0.001-train",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/native_supervised_baselines.py",
+        "--kind",
+        "lofit",
+        "--action",
+        "train",
+        "--lr",
+        "0.001",
+        "--seed",
+        "11",
+        "--device",
+        "cuda:0"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 2,
+      "priority": 100,
+      "completion_marker": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.001_seed11/training.json"
+    },
+    {
+      "id": "codex02-lofit-lr0.001-dev",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/native_supervised_baselines.py",
+        "--kind",
+        "lofit",
+        "--action",
+        "evaluate",
+        "--lr",
+        "0.001",
+        "--seed",
+        "11",
+        "--split",
+        "dev",
+        "--device",
+        "cuda:0"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-lr0.001-train"
+      ],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 0.8,
+      "priority": 100,
+      "completion_marker": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.001_seed11/dev_metrics.json"
+    },
+    {
+      "id": "codex02-lofit-lr0.01-train",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/native_supervised_baselines.py",
+        "--kind",
+        "lofit",
+        "--action",
+        "train",
+        "--lr",
+        "0.01",
+        "--seed",
+        "11",
+        "--device",
+        "cuda:0"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 2,
+      "priority": 100,
+      "completion_marker": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.01_seed11/training.json"
+    },
+    {
+      "id": "codex02-lofit-lr0.01-dev",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/native_supervised_baselines.py",
+        "--kind",
+        "lofit",
+        "--action",
+        "evaluate",
+        "--lr",
+        "0.01",
+        "--seed",
+        "11",
+        "--split",
+        "dev",
+        "--device",
+        "cuda:0"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-lr0.01-train"
+      ],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 0.8,
+      "priority": 100,
+      "completion_marker": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/lr0.01_seed11/dev_metrics.json"
+    },
+    {
+      "id": "codex02-lofit-select",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/native_supervised_baselines.py",
+        "--kind",
+        "lofit",
+        "--action",
+        "select"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-lr0.0001-dev",
+        "codex02-lofit-lr0.001-dev",
+        "codex02-lofit-lr0.01-dev"
+      ],
+      "gpu_count": 0,
+      "estimated_vram_gib": 0,
+      "estimated_hours": 0.01,
+      "priority": 100,
+      "completion_marker": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/selection.json"
+    },
+    {
+      "id": "codex02-lofit-selected-seed11-test",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-gpu-queue-20261113/e5_selected_job.py",
+        "--action",
+        "evaluate",
+        "--seed",
+        "11",
+        "--split",
+        "test"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-select"
+      ],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 1.4,
+      "priority": 100
+    },
+    {
+      "id": "codex02-lofit-selected-seed22-train",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-gpu-queue-20261113/e5_selected_job.py",
+        "--action",
+        "train",
+        "--seed",
+        "22"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-select"
+      ],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 2,
+      "priority": 100
+    },
+    {
+      "id": "codex02-lofit-selected-seed22-dev",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-gpu-queue-20261113/e5_selected_job.py",
+        "--action",
+        "evaluate",
+        "--seed",
+        "22",
+        "--split",
+        "dev"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-selected-seed22-train"
+      ],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 0.8,
+      "priority": 100
+    },
+    {
+      "id": "codex02-lofit-selected-seed22-test",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-gpu-queue-20261113/e5_selected_job.py",
+        "--action",
+        "evaluate",
+        "--seed",
+        "22",
+        "--split",
+        "test"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-selected-seed22-dev"
+      ],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 1.4,
+      "priority": 100
+    },
+    {
+      "id": "codex02-lofit-selected-seed33-train",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-gpu-queue-20261113/e5_selected_job.py",
+        "--action",
+        "train",
+        "--seed",
+        "33"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-select"
+      ],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 2,
+      "priority": 100
+    },
+    {
+      "id": "codex02-lofit-selected-seed33-dev",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-gpu-queue-20261113/e5_selected_job.py",
+        "--action",
+        "evaluate",
+        "--seed",
+        "33",
+        "--split",
+        "dev"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-selected-seed33-train"
+      ],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 0.8,
+      "priority": 100
+    },
+    {
+      "id": "codex02-lofit-selected-seed33-test",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-gpu-queue-20261113/e5_selected_job.py",
+        "--action",
+        "evaluate",
+        "--seed",
+        "33",
+        "--split",
+        "test"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-selected-seed33-dev"
+      ],
+      "gpu_count": 1,
+      "estimated_vram_gib": 50,
+      "estimated_hours": 1.4,
+      "priority": 100
+    },
+    {
+      "id": "codex02-lofit-finalize",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/native_supervised_baselines.py",
+        "--kind",
+        "lofit",
+        "--action",
+        "finalize",
+        "--gpus",
+        "0,1,5,6"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lofit-selected-seed11-test",
+        "codex02-lofit-selected-seed22-test",
+        "codex02-lofit-selected-seed33-test"
+      ],
+      "gpu_count": 0,
+      "estimated_vram_gib": 0,
+      "estimated_hours": 0.01,
+      "priority": 100,
+      "completion_marker": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/native_supervised_e1/lofit/completion.json"
+    },
+    {
+      "id": "codex02-collect",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/collect_e5_results.py"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {
+        "ASTER_CR_ROOT": "/home/gcx/aster_cr_repair_v2_run_20261108",
+        "OMP_NUM_THREADS": "4"
+      },
+      "dependencies": [
+        "codex02-lora-finalize",
+        "codex02-lofit-finalize"
+      ],
+      "gpu_count": 0,
+      "estimated_vram_gib": 0,
+      "estimated_hours": 0.01,
+      "priority": 100,
+      "run_on_failure": true
+    },
+    {
+      "id": "codex02-final-delivery-status",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "/home/gcx/aster-e5-gaps-20261112/experiments/aster_e5_gaps_20261112/finalize_shared_delivery.py"
+      ],
+      "cwd": "/home/gcx/aster-e5-gaps-20261112",
+      "env": {},
+      "dependencies": [
+        "codex02-collect",
+        "codex03-finalize"
+      ],
+      "gpu_count": 0,
+      "estimated_vram_gib": 0,
+      "estimated_hours": 0.02,
+      "run_on_failure": true
+    }
+  ],
+  "protocol_changed": false,
+  "estimated_remaining_gpu_hours": 15.5
+}

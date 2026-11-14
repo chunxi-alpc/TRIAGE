@@ -1,0 +1,393 @@
+{
+  "checked_at": "2026-11-13 16:58:03",
+  "timezone": [
+    "UTC",
+    "UTC"
+  ],
+  "github_remote_refs_checked": 91,
+  "allowed_gpus": [
+    0,
+    1,
+    4,
+    5,
+    6
+  ],
+  "scheduler_pid": 467851,
+  "models": {
+    "llama31": {
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31",
+      "source_protocol": "E1-balanced-2540",
+      "pair_counts": {
+        "A": 635,
+        "P": 635,
+        "C": 635,
+        "F": 635
+      },
+      "fit_complete": true,
+      "frozen": true,
+      "complete": true,
+      "runtime": {
+        "state": "running",
+        "stage": "complete",
+        "pid": 452884,
+        "physical_gpu": "5",
+        "time": "2026-11-13 11:40:42",
+        "complete": true
+      },
+      "stages": {
+        "dev": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/dev/metrics.json"
+        },
+        "test": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/test/metrics.json"
+        },
+        "nli4ct": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/nli4ct/metrics.json"
+        },
+        "nli4ct_official5500": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/nli4ct_official5500/metrics.json"
+        },
+        "medpic": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/medpic/metrics.json"
+        },
+        "medpic_official467": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/medpic_official467/metrics.json"
+        },
+        "mega_official": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/mega_official/metrics.json"
+        }
+      }
+    },
+    "gemma2": {
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2",
+      "source_protocol": "E1-balanced-2540",
+      "pair_counts": {
+        "A": 635,
+        "P": 635,
+        "C": 635,
+        "F": 635
+      },
+      "fit_complete": true,
+      "frozen": true,
+      "complete": false,
+      "runtime": {
+        "state": "stopped_by_user",
+        "stage": "stopped_repeated_pipeline",
+        "pid": 452738,
+        "physical_gpu": "6",
+        "time": "2026-11-13 14:09:03",
+        "previous_stage": "mega_official",
+        "stopped_at": "2026-11-13T16:49:43.990062+00:00",
+        "reason": "User requested only previously unrun experiments; historical model/task results retained",
+        "automatic_resume": false
+      },
+      "stages": {
+        "dev": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/dev/metrics.json"
+        },
+        "test": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/test/metrics.json"
+        },
+        "nli4ct": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/nli4ct/metrics.json"
+        },
+        "nli4ct_official5500": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/nli4ct_official5500/metrics.json"
+        },
+        "medpic": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/medpic/metrics.json"
+        },
+        "medpic_official467": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/medpic_official467/metrics.json"
+        },
+        "mega_official": {
+          "complete": false,
+          "metrics": null
+        }
+      }
+    },
+    "gemma2_base": {
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2_base",
+      "source_protocol": "E1-balanced-2540",
+      "pair_counts": {
+        "A": 635,
+        "P": 635,
+        "C": 635,
+        "F": 635
+      },
+      "fit_complete": true,
+      "frozen": true,
+      "complete": false,
+      "runtime": {
+        "state": "running",
+        "stage": "mega_official",
+        "pid": 452860,
+        "physical_gpu": "0",
+        "time": "2026-11-13 14:40:31"
+      },
+      "stages": {
+        "dev": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2_base/evaluation/dev/metrics.json"
+        },
+        "test": {
+          "complete": true,
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2_base/evaluation/test/metrics.json"
+        },
+        "nli4ct": {
+          "complete": false,
+          "metrics": null
+        },
+        "nli4ct_official5500": {
+          "complete": false,
+          "metrics": null
+        },
+        "medpic": {
+          "complete": false,
+          "metrics": null
+        },
+        "medpic_official467": {
+          "complete": false,
+          "metrics": null
+        },
+        "mega_official": {
+          "complete": false,
+          "metrics": null
+        }
+      }
+    },
+    "gemma3": {
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma3",
+      "source_protocol": "E1-balanced-2540",
+      "pair_counts": {
+        "A": 635,
+        "P": 635,
+        "C": 635,
+        "F": 635
+      },
+      "fit_complete": true,
+      "frozen": false,
+      "complete": false,
+      "runtime": {
+        "state": "stopped_by_user",
+        "stage": "stopped_repeated_pipeline",
+        "pid": 462590,
+        "physical_gpu": "5",
+        "time": "2026-11-13 16:46:32",
+        "completed": 18850,
+        "total": 31656,
+        "peak_gib": 54.72516632080078,
+        "seconds": 12699.48273849202,
+        "previous_stage": "extract_dev",
+        "stopped_at": "2026-11-13T16:49:43.990062+00:00",
+        "reason": "User requested only previously unrun experiments; historical model/task results retained",
+        "automatic_resume": false
+      },
+      "stages": {
+        "dev": {
+          "complete": false,
+          "metrics": null
+        },
+        "test": {
+          "complete": false,
+          "metrics": null
+        },
+        "nli4ct": {
+          "complete": false,
+          "metrics": null
+        },
+        "nli4ct_official5500": {
+          "complete": false,
+          "metrics": null
+        },
+        "medpic": {
+          "complete": false,
+          "metrics": null
+        },
+        "medpic_official467": {
+          "complete": false,
+          "metrics": null
+        },
+        "mega_official": {
+          "complete": false,
+          "metrics": null
+        }
+      }
+    },
+    "medgemma": {
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/medgemma",
+      "source_protocol": "E1-balanced-2540",
+      "pair_counts": {
+        "A": 635,
+        "P": 635,
+        "C": 635,
+        "F": 635
+      },
+      "fit_complete": true,
+      "frozen": false,
+      "complete": false,
+      "runtime": {
+        "state": "stopped_by_user",
+        "stage": "stopped_repeated_pipeline",
+        "pid": 462791,
+        "physical_gpu": "1",
+        "time": "2026-11-13 16:46:36",
+        "completed": 15350,
+        "total": 31656,
+        "peak_gib": 53.93065357208252,
+        "seconds": 10630.142580692016,
+        "previous_stage": "extract_dev",
+        "stopped_at": "2026-11-13T16:49:43.990062+00:00",
+        "reason": "User requested only previously unrun experiments; historical model/task results retained",
+        "automatic_resume": false
+      },
+      "stages": {
+        "dev": {
+          "complete": false,
+          "metrics": null
+        },
+        "test": {
+          "complete": false,
+          "metrics": null
+        },
+        "nli4ct": {
+          "complete": false,
+          "metrics": null
+        },
+        "nli4ct_official5500": {
+          "complete": false,
+          "metrics": null
+        },
+        "medpic": {
+          "complete": false,
+          "metrics": null
+        },
+        "medpic_official467": {
+          "complete": false,
+          "metrics": null
+        },
+        "mega_official": {
+          "complete": false,
+          "metrics": null
+        }
+      }
+    },
+    "qwen_base": {
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/qwen_base",
+      "source_protocol": "E1-balanced-2540",
+      "pair_counts": {
+        "A": 635,
+        "P": 635,
+        "C": 635,
+        "F": 635
+      },
+      "fit_complete": false,
+      "frozen": false,
+      "complete": false,
+      "runtime": {
+        "state": "running",
+        "stage": "independent_M1_M2_M3",
+        "pid": 464987,
+        "physical_gpu": "4",
+        "time": "2026-11-13 16:40:36"
+      },
+      "stages": {
+        "dev": {
+          "complete": false,
+          "metrics": null
+        },
+        "test": {
+          "complete": false,
+          "metrics": null
+        },
+        "nli4ct": {
+          "complete": false,
+          "metrics": null
+        },
+        "nli4ct_official5500": {
+          "complete": false,
+          "metrics": null
+        },
+        "medpic": {
+          "complete": false,
+          "metrics": null
+        },
+        "medpic_official467": {
+          "complete": false,
+          "metrics": null
+        },
+        "mega_official": {
+          "complete": false,
+          "metrics": null
+        }
+      }
+    }
+  },
+  "queue": {
+    "codex05-gemma2-e1": {
+      "state": "cancelled",
+      "assigned_gpu": 6,
+      "pid": 452738,
+      "reason": "User requested only previously unrun experiments; historical model/task results retained",
+      "dependencies": []
+    },
+    "codex05-gemma2-base-e1": {
+      "state": "running",
+      "assigned_gpu": 0,
+      "pid": 452860,
+      "reason": null,
+      "dependencies": []
+    },
+    "codex05-llama31-e1": {
+      "state": "complete",
+      "assigned_gpu": 5,
+      "pid": 452884,
+      "reason": null,
+      "dependencies": []
+    },
+    "codex05-gemma3-e1": {
+      "state": "cancelled",
+      "assigned_gpu": 5,
+      "pid": 462590,
+      "reason": "User requested only previously unrun experiments; historical model/task results retained",
+      "dependencies": []
+    },
+    "codex05-medgemma-e1": {
+      "state": "cancelled",
+      "assigned_gpu": 1,
+      "pid": 462791,
+      "reason": "User requested only previously unrun experiments; historical model/task results retained",
+      "dependencies": []
+    },
+    "codex05-qwen-base-e1": {
+      "state": "running",
+      "assigned_gpu": 4,
+      "pid": 464987,
+      "reason": null,
+      "dependencies": []
+    },
+    "codex05-final-summary": {
+      "state": "pending",
+      "assigned_gpu": null,
+      "pid": null,
+      "reason": null,
+      "dependencies": [
+        "codex05-gemma2-base-e1",
+        "codex05-qwen-base-e1"
+      ]
+    }
+  }
+}

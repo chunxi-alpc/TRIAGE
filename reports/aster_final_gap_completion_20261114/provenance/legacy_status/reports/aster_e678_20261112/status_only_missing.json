@@ -1,0 +1,361 @@
+{
+  "updated_at": "2026-11-14 02:30:43",
+  "policy": {
+    "updated_at": "2026-11-13T16:58:20.534324+00:00",
+    "user_instruction": "Only run experiments that have not been run before",
+    "active_models": [
+      "gemma2_base",
+      "qwen_base"
+    ],
+    "stopped_model_pipelines": [
+      "gemma2",
+      "gemma3",
+      "medgemma"
+    ],
+    "reuse_completed_models": [
+      "qwen",
+      "llama31"
+    ],
+    "keep_existing_results": true,
+    "new_training_for_stopped_models": false,
+    "resume_stopped_full_pipelines": false,
+    "summary_scope": "two unfinished Base pipelines, two missing-transfer groups with existing E1 fits, and reused completed outputs",
+    "future_experiments_policy": "Only previously unrun experiments; reuse existing fits, cached features, predictions and completed evaluation units",
+    "missing_transfer_jobs": {
+      "gemma3": {
+        "scopes": [
+          "nli4ct_official5500",
+          "medpic",
+          "medpic_official467"
+        ],
+        "stages": [
+          "extract-dev",
+          "freeze",
+          "extract-transfer",
+          "evaluate-transfer"
+        ],
+        "source_fit": "models/gemma3/models/E1/full",
+        "new_training": false,
+        "full_pipeline_resume": false,
+        "source_development": "Complete only missing feature records and pending source freeze under the existing E1 configuration",
+        "evidence": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/running_history_check_20261114/matrix.json",
+        "history_checked": [
+          "server existing outputs",
+          "GitHub history checked 2026-11-14"
+        ],
+        "status": "queued",
+        "expected_peak_gib": [
+          54,
+          66
+        ],
+        "estimated_remaining_hours": [
+          3,
+          5
+        ],
+        "cpu_only_scopes": [
+          "nli4ct"
+        ],
+        "cpu_only_reason": "Existing 2864 full-head feature records are reused for the missing E1-frozen NLI 500 population statistics; historical NLI-within-task fit is retained separately; zero new backbone forward passes for this subset"
+      },
+      "medgemma": {
+        "scopes": [
+          "nli4ct_official5500",
+          "medpic",
+          "medpic_official467"
+        ],
+        "stages": [
+          "extract-dev",
+          "freeze",
+          "extract-transfer",
+          "evaluate-transfer"
+        ],
+        "source_fit": "models/medgemma/models/E1/full",
+        "new_training": false,
+        "full_pipeline_resume": false,
+        "source_development": "Complete only missing feature records and pending source freeze under the existing E1 configuration",
+        "evidence": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/running_history_check_20261114/matrix.json",
+        "history_checked": [
+          "server existing outputs",
+          "GitHub history checked 2026-11-14"
+        ],
+        "status": "queued",
+        "expected_peak_gib": [
+          54,
+          66
+        ],
+        "estimated_remaining_hours": [
+          3,
+          5
+        ],
+        "cpu_only_scopes": [
+          "nli4ct"
+        ],
+        "cpu_only_reason": "Existing 2864 full-head feature records are reused for the missing E1-frozen NLI 500 population statistics; historical NLI-within-task fit is retained separately; zero new backbone forward passes for this subset"
+      }
+    },
+    "previously_deferred_evaluations": {
+      "gemma3": {
+        "scopes": [
+          "nli4ct_official5500",
+          "medpic",
+          "medpic_official467"
+        ],
+        "reason": "E1 source fit exists but source development evaluation and freeze are incomplete; full source rerun is removed by user instruction; no switch to historical training protocol"
+      },
+      "medgemma": {
+        "scopes": [
+          "nli4ct_official5500",
+          "medpic",
+          "medpic_official467"
+        ],
+        "reason": "E1 source fit exists but source development evaluation and freeze are incomplete; full source rerun is removed by user instruction; no switch to historical training protocol"
+      }
+    },
+    "deferred_evaluations": {}
+  },
+  "models": {
+    "gemma2": {
+      "name": "Gemma-2-9B-IT",
+      "state": "stopped_by_user",
+      "last_stage": "stopped_repeated_pipeline",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2",
+      "full_pipeline_state": "stopped_by_user",
+      "missing_transfer_status": null,
+      "fit_complete": true,
+      "frozen": true,
+      "test_complete": true,
+      "populations": {
+        "nli4ct": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/nli4ct/metrics.json"
+        },
+        "nli4ct_official5500": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/nli4ct_official5500/metrics.json"
+        },
+        "medpic": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/medpic/metrics.json"
+        },
+        "medpic_official467": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2/evaluation/medpic_official467/metrics.json"
+        }
+      },
+      "official_mega_complete": false
+    },
+    "gemma2_base": {
+      "name": "Gemma-2-9B-Base",
+      "state": "complete",
+      "last_stage": "complete",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma2_base",
+      "full_pipeline_state": "running",
+      "missing_transfer_status": null,
+      "fit_complete": true,
+      "frozen": true,
+      "test_complete": true,
+      "populations": {
+        "nli4ct": {
+          "state": "not_required_for_Base",
+          "metrics": null
+        },
+        "nli4ct_official5500": {
+          "state": "not_required_for_Base",
+          "metrics": null
+        },
+        "medpic": {
+          "state": "not_required_for_Base",
+          "metrics": null
+        },
+        "medpic_official467": {
+          "state": "not_required_for_Base",
+          "metrics": null
+        }
+      },
+      "official_mega_complete": true
+    },
+    "llama31": {
+      "name": "Llama-3.1-8B-Instruct",
+      "state": "complete",
+      "last_stage": "complete",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31",
+      "full_pipeline_state": "running",
+      "missing_transfer_status": null,
+      "fit_complete": true,
+      "frozen": true,
+      "test_complete": true,
+      "populations": {
+        "nli4ct": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/nli4ct/metrics.json"
+        },
+        "nli4ct_official5500": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/nli4ct_official5500/metrics.json"
+        },
+        "medpic": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/medpic/metrics.json"
+        },
+        "medpic_official467": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/llama31/evaluation/medpic_official467/metrics.json"
+        }
+      },
+      "official_mega_complete": true
+    },
+    "gemma3": {
+      "name": "Gemma-3-27B-IT",
+      "state": "stopped_by_user",
+      "last_stage": "stopped_repeated_pipeline",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma3",
+      "full_pipeline_state": "stopped_by_user",
+      "missing_transfer_status": {
+        "state": "transfer_complete",
+        "stage": "evaluate-transfer",
+        "pid": 470667,
+        "physical_gpu": "",
+        "time": "2026-11-13 19:39:04"
+      },
+      "fit_complete": true,
+      "frozen": true,
+      "test_complete": false,
+      "populations": {
+        "nli4ct": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma3/evaluation/nli4ct/metrics.json"
+        },
+        "nli4ct_official5500": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma3/evaluation/nli4ct_official5500/metrics.json"
+        },
+        "medpic": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma3/evaluation/medpic/metrics.json"
+        },
+        "medpic_official467": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/gemma3/evaluation/medpic_official467/metrics.json"
+        }
+      },
+      "official_mega_complete": false
+    },
+    "medgemma": {
+      "name": "MedGemma-27B-Text-IT",
+      "state": "stopped_by_user",
+      "last_stage": "stopped_repeated_pipeline",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/medgemma",
+      "full_pipeline_state": "stopped_by_user",
+      "missing_transfer_status": {
+        "state": "transfer_complete",
+        "stage": "evaluate-transfer",
+        "pid": 470910,
+        "physical_gpu": "",
+        "time": "2026-11-13 20:15:05"
+      },
+      "fit_complete": true,
+      "frozen": true,
+      "test_complete": false,
+      "populations": {
+        "nli4ct": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/medgemma/evaluation/nli4ct/metrics.json"
+        },
+        "nli4ct_official5500": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/medgemma/evaluation/nli4ct_official5500/metrics.json"
+        },
+        "medpic": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/medgemma/evaluation/medpic/metrics.json"
+        },
+        "medpic_official467": {
+          "state": "complete",
+          "metrics": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/medgemma/evaluation/medpic_official467/metrics.json"
+        }
+      },
+      "official_mega_complete": false
+    },
+    "qwen_base": {
+      "name": "Qwen3-8B-Base",
+      "state": "complete",
+      "last_stage": "complete",
+      "root": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models/qwen_base",
+      "full_pipeline_state": "complete",
+      "missing_transfer_status": null,
+      "fit_complete": true,
+      "frozen": true,
+      "test_complete": true,
+      "populations": {
+        "nli4ct": {
+          "state": "not_required_for_Base",
+          "metrics": null
+        },
+        "nli4ct_official5500": {
+          "state": "not_required_for_Base",
+          "metrics": null
+        },
+        "medpic": {
+          "state": "not_required_for_Base",
+          "metrics": null
+        },
+        "medpic_official467": {
+          "state": "not_required_for_Base",
+          "metrics": null
+        }
+      },
+      "official_mega_complete": true
+    }
+  },
+  "E8": {
+    "gemma2": {
+      "state": "complete",
+      "directory": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/base_it/gemma2"
+    },
+    "qwen": {
+      "state": "complete",
+      "directory": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/base_it/qwen"
+    }
+  },
+  "qwen_E1_reused": true,
+  "all_six_E1_complete": false,
+  "missing_transfers": {
+    "gemma3": {
+      "state": "complete",
+      "planned_stages": [
+        "extract-dev",
+        "freeze",
+        "extract-transfer",
+        "evaluate-transfer"
+      ],
+      "new_training": false,
+      "runtime": {
+        "state": "transfer_complete",
+        "stage": "evaluate-transfer",
+        "pid": 470667,
+        "physical_gpu": "",
+        "time": "2026-11-13 19:39:04"
+      }
+    },
+    "medgemma": {
+      "state": "complete",
+      "planned_stages": [
+        "extract-dev",
+        "freeze",
+        "extract-transfer",
+        "evaluate-transfer"
+      ],
+      "new_training": false,
+      "runtime": {
+        "state": "transfer_complete",
+        "stage": "evaluate-transfer",
+        "pid": 470910,
+        "physical_gpu": "",
+        "time": "2026-11-13 20:15:05"
+      }
+    }
+  },
+  "current_scope_complete": true,
+  "phase": "current_scope_complete",
+  "unrun_transfer_deferred": {}
+}

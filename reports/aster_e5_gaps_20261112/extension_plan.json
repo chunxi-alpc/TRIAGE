@@ -1,0 +1,87 @@
+{
+  "status": "ready_to_enqueue_after_existing_loreft",
+  "audit": "audit_reference/baseline-audit-20261112.zh.md",
+  "authorized_gpu_ids": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "this_task_gpu_ids": [
+    0,
+    1
+  ],
+  "other_task_gpu_ids": [
+    5,
+    6
+  ],
+  "estimated_additional_hours": [
+    15,
+    20
+  ],
+  "estimated_gib_per_gpu": [
+    25,
+    50
+  ],
+  "E1_pairs": 2540,
+  "unique_training_endpoints": 4637,
+  "completed_CPU_controls": [
+    "temperature",
+    "endpoint_intercept",
+    "affine",
+    "supervised_linear_last_attention"
+  ],
+  "phases": [
+    {
+      "parallel_jobs": {
+        "gpu0": "CC + strong evidence prompt, fixed single configurations",
+        "gpu1": "LEACE-pair + ITI-style + SEA, E1 fit/dev freeze/test; 10874 missing feature forwards"
+      }
+    },
+    {
+      "gpus": [
+        0,
+        1
+      ],
+      "method": "single-layer LoRA native supervised answer CE",
+      "training_jobs": 5,
+      "candidate_lrs": [
+        0.0001,
+        0.001,
+        0.01
+      ],
+      "selected_seeds": [
+        11,
+        22,
+        33
+      ]
+    },
+    {
+      "gpus": [
+        0,
+        1
+      ],
+      "method": "LoFiT-style Qwen native supervised answer CE",
+      "training_jobs": 5,
+      "epochs_per_job": 2,
+      "candidate_lrs": [
+        0.0001,
+        0.001,
+        0.01
+      ],
+      "selected_seeds": [
+        11,
+        22,
+        33
+      ]
+    }
+  ],
+  "never_repeat": [
+    "ASTER training",
+    "completed NLI500",
+    "completed MedPIC188"
+  ],
+  "scope": "Historical controlled MEGA40/806. Do not infer official7458 results.",
+  "release_file": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/gpu_release.json",
+  "monitoring": "Background queue waits for old controller exit and does not overlap ownership. No continuous interactive monitoring."
+}

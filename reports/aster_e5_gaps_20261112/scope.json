@@ -1,0 +1,84 @@
+{
+  "status": "partial_loreft_completed_other_baselines_queued",
+  "model": "Qwen3-8B",
+  "training_dataset": "E1 / Dataset A / 20261111-sol-agents-v2",
+  "training_pairs": 2540,
+  "pairs_per_class": {
+    "A": 635,
+    "P": 635,
+    "C": 635,
+    "F": 635
+  },
+  "training_file": "/home/gcx/aster_cr_pair_dataset_20261111/balanced_train.jsonl",
+  "source_split_file": "/home/gcx/aster_cr_pair_dataset_20261111/source_splits.json",
+  "e1_frozen_record": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111/frozen.json",
+  "authorized_gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "gpu_jobs_started": 2,
+  "new_baseline_training_runs": 5,
+  "precedence": "This task fixes E1 2540 pairs; do not adopt the later 10006-pair repository default.",
+  "objectives": "Preserve native objectives; added ASTER A/P or C/F supervision must be separately labeled task-adapted.",
+  "selection": "Development-only configuration freeze; never reselect from historical test scores.",
+  "prohibited_repeats": [
+    "ASTER-CR retraining",
+    "completed Qwen NLI4CT 500 original statements",
+    "completed Qwen MedPIC 188 questions"
+  ],
+  "codex01_report": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/audit_reference/baseline-audit-20261112.zh.md",
+  "next_required_input": null,
+  "gpu_notice": {
+    "gpus": [
+      0,
+      1
+    ],
+    "estimated_gib_per_gpu": [
+      22,
+      35
+    ],
+    "estimated_hours": [
+      4,
+      6
+    ],
+    "training_pairs": 2540,
+    "unique_endpoints": 4637,
+    "training_jobs": 5,
+    "candidate_lrs": [
+      0.0001,
+      0.001,
+      0.01
+    ],
+    "final_seeds": [
+      11,
+      22,
+      33
+    ]
+  },
+  "history_policy": "40 sources / 806 paths have historical use; no independent fresh-test claim.",
+  "manuscript_modified": false,
+  "codex00_status": "Completed static audit received; previous pending notes are historical.",
+  "monitoring": "stopped after stable launch",
+  "observed_startup_steps": [
+    114,
+    159
+  ],
+  "observed_gpu_memory_gib_approx": [
+    39.4,
+    21.7
+  ],
+  "monitoring_stopped_at": "2026-11-12 15:08:27",
+  "gpu_allocation": {
+    "Codex02": [
+      0,
+      1
+    ],
+    "Codex03": [
+      5,
+      6
+    ]
+  },
+  "additional_run_plan": "extension_plan.json"
+}

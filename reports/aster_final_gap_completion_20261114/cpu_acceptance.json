@@ -1,0 +1,166 @@
+{
+  "gemma3": {
+    "methods": {
+      "E1": {
+        "paths": 806,
+        "unique_cases": 806,
+        "sources": 40,
+        "correct": 775,
+        "duplicates": 0
+      },
+      "calibration": {
+        "paths": 806,
+        "unique_cases": 806,
+        "sources": 40,
+        "correct": 774,
+        "duplicates": 0
+      },
+      "raw": {
+        "paths": 806,
+        "unique_cases": 806,
+        "sources": 40,
+        "correct": 787,
+        "duplicates": 0
+      }
+    },
+    "new_model_forwards": 0,
+    "predictions": "reports/aster_final_gap_completion_20261114/e6/gemma3/evaluation/test/path_predictions.jsonl.gz"
+  },
+  "medgemma": {
+    "methods": {
+      "E1": {
+        "paths": 806,
+        "unique_cases": 806,
+        "sources": 40,
+        "correct": 771,
+        "duplicates": 0
+      },
+      "calibration": {
+        "paths": 806,
+        "unique_cases": 806,
+        "sources": 40,
+        "correct": 772,
+        "duplicates": 0
+      },
+      "raw": {
+        "paths": 806,
+        "unique_cases": 806,
+        "sources": 40,
+        "correct": 773,
+        "duplicates": 0
+      }
+    },
+    "new_model_forwards": 0,
+    "predictions": "reports/aster_final_gap_completion_20261114/e6/medgemma/evaluation/test/path_predictions.jsonl.gz"
+  },
+  "CC": {
+    "natural": {
+      "n": 806,
+      "sources": 40,
+      "correct": 769,
+      "accuracy": 0.9540942928039702,
+      "accuracy_ci": [
+        0.9362888670198287,
+        0.9714294207576015
+      ],
+      "raw_correct": 768,
+      "difference_vs_raw": 0.0012406947890818859,
+      "difference_vs_raw_ci": [
+        0.0,
+        0.004285867565910484
+      ],
+      "corrected_vs_raw": 1,
+      "new_errors_vs_raw": 0,
+      "corrected_count_ci": [
+        0.0,
+        3.0
+      ],
+      "new_error_count_ci": [
+        0.0,
+        0.0
+      ],
+      "bootstrap": {
+        "draws": 2000,
+        "seed": 11,
+        "unit": "source_id",
+        "paired": true,
+        "interval": "percentile 95%"
+      }
+    },
+    "interference": {
+      "n": 2418,
+      "sources": 40,
+      "correct": 2335,
+      "accuracy": 0.9656741108354011,
+      "accuracy_ci": [
+        0.9481079135713606,
+        0.980928579452313
+      ],
+      "raw_correct": 2339,
+      "difference_vs_raw": -0.0016542597187758478,
+      "difference_vs_raw_ci": [
+        -0.005575746047002129,
+        0.0014752554782975118
+      ],
+      "corrected_vs_raw": 2,
+      "new_errors_vs_raw": 6,
+      "corrected_count_ci": [
+        0.0,
+        5.0
+      ],
+      "new_error_count_ci": [
+        0.0,
+        16.0
+      ],
+      "bootstrap": {
+        "draws": 2000,
+        "seed": 11,
+        "unit": "source_id",
+        "paired": true,
+        "interval": "percentile 95%"
+      }
+    }
+  },
+  "external_paired_intervals": {
+    "method_rows": 11,
+    "populations_per_method": 2,
+    "paired_source_bootstrap": true
+  },
+  "nli500": {
+    "population_per_method": 500,
+    "saved_views": 2864,
+    "methods": [
+      "raw",
+      "calibration",
+      "E1"
+    ],
+    "sources": 113,
+    "new_model_forwards": 0
+  },
+  "nli5500": {
+    "population_per_method": 5500,
+    "saved_views": 5500,
+    "methods": [
+      "raw",
+      "calibration",
+      "E1"
+    ],
+    "sources": 500,
+    "new_model_forwards": 0
+  },
+  "medpic467": {
+    "population_per_method": 467,
+    "saved_views": 7005,
+    "methods": [
+      "raw",
+      "calibration",
+      "E1"
+    ],
+    "sources": 376,
+    "new_model_forwards": 0
+  },
+  "complete": true,
+  "new_model_forwards": 0,
+  "models_loaded": 0,
+  "updated_at": "2026-11-14T07:39:24+00:00"
+}

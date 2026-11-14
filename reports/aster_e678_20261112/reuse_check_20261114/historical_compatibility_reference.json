@@ -1,0 +1,353 @@
+{
+  "source": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/running_history_check_20261114/matrix.json",
+  "record": {
+    "checked_at": "2026-11-13T16:43:43.714293+00:00",
+    "scope": "five running Codex05 E6/E7/E8 jobs",
+    "records": [
+      {
+        "model": "Gemma-2-9B-IT",
+        "key": "gemma2",
+        "gpu": "6",
+        "stage": "mega_official",
+        "current_protocol": "E1-balanced-2540",
+        "fit_pairs": 2540,
+        "pair_counts": {
+          "A": 635,
+          "P": 635,
+          "C": 635,
+          "F": 635
+        },
+        "current_delta": 0.2923349,
+        "raw_cache_imported": 15511,
+        "reuse_by_stage": {
+          "fit": 1785,
+          "dev": 1685,
+          "test": 3100,
+          "nli4ct": 2864,
+          "medpic": 0,
+          "nli4ct_official5500": 2864,
+          "medpic_official467": 0
+        },
+        "completed_same_E1_found": false,
+        "previous_protocol": "repair-v2; per-model per-task fitting",
+        "previous_fit_ap": 4887,
+        "previous_fit_cf": 135,
+        "previous_ap_counts": {
+          "A": 4869,
+          "P": 18
+        },
+        "previous_cf_counts": {
+          "C": 66,
+          "F": 69
+        },
+        "previous_delta": 0.11919632043168348,
+        "previous_controlled_paths": 806,
+        "previous_nli_original": 500,
+        "previous_official_paths": 7458,
+        "old_heads": 51,
+        "new_heads": 51,
+        "head_overlap": 44,
+        "missing_new_heads": [
+          336,
+          381,
+          427,
+          451,
+          486,
+          552,
+          556
+        ],
+        "previous_directory": "/home/gcx/aster_five_models_20261109/results/gemma2",
+        "decision": "reuse native raw cache; refit E1 and evaluate with new heads",
+        "performance": {
+          "extract_nli4ct_official5500": {
+            "complete": true,
+            "newly_computed": 2636,
+            "reused": 2864,
+            "total": 5500,
+            "seconds": 477.8934337089886,
+            "peak_gib": 24.448554039001465
+          },
+          "extract_dev": {
+            "complete": true,
+            "newly_computed": 31656,
+            "reused": 1685,
+            "total": 33341,
+            "seconds": 10587.409717625007,
+            "peak_gib": 24.448554039001465
+          },
+          "extract_test": {
+            "complete": true,
+            "newly_computed": 63652,
+            "reused": 3100,
+            "total": 66752,
+            "seconds": 27235.34036875202,
+            "peak_gib": 24.448554039001465
+          },
+          "extract_nli4ct": {
+            "complete": true,
+            "newly_computed": 0,
+            "reused": 2864,
+            "total": 2864,
+            "seconds": 1.3606040738523006e-05,
+            "peak_gib": 24.448554039001465
+          },
+          "extract_fit": {
+            "complete": true,
+            "newly_computed": 3168,
+            "reused": 1785,
+            "total": 4953,
+            "seconds": 1468.888167158002,
+            "peak_gib": 24.448554039001465
+          },
+          "extract_medpic_official467": {
+            "complete": true,
+            "newly_computed": 1395,
+            "reused": 940,
+            "total": 2335,
+            "seconds": 181.26226286799647,
+            "peak_gib": 24.448554039001465
+          },
+          "extract_medpic": {
+            "complete": true,
+            "newly_computed": 2820,
+            "reused": 0,
+            "total": 2820,
+            "seconds": 376.09944532701047,
+            "peak_gib": 24.448554039001465
+          }
+        }
+      },
+      {
+        "model": "Gemma-2-9B-Base",
+        "key": "gemma2_base",
+        "gpu": "0",
+        "stage": "mega_official",
+        "current_protocol": "E1-balanced-2540",
+        "fit_pairs": 2540,
+        "pair_counts": {
+          "A": 635,
+          "P": 635,
+          "C": 635,
+          "F": 635
+        },
+        "current_delta": 0.2923349,
+        "raw_cache_imported": 0,
+        "reuse_by_stage": {
+          "fit": 0,
+          "dev": 0,
+          "test": 0,
+          "nli4ct": 0,
+          "medpic": 0,
+          "nli4ct_official5500": 0,
+          "medpic_official467": 0
+        },
+        "completed_same_E1_found": false,
+        "previous_protocol": "no matching completed E1 ASTER record found",
+        "decision": "new E1 Base fit and evaluation",
+        "performance": {
+          "extract_dev": {
+            "complete": true,
+            "newly_computed": 33341,
+            "reused": 0,
+            "total": 33341,
+            "seconds": 11198.074507270008,
+            "peak_gib": 24.437478065490723
+          },
+          "extract_test": {
+            "complete": true,
+            "newly_computed": 66752,
+            "reused": 0,
+            "total": 66752,
+            "seconds": 28559.261213955004,
+            "peak_gib": 24.437478065490723
+          },
+          "extract_fit": {
+            "complete": true,
+            "newly_computed": 4953,
+            "reused": 0,
+            "total": 4953,
+            "seconds": 2262.9005436720327,
+            "peak_gib": 24.437478065490723
+          }
+        }
+      },
+      {
+        "model": "Gemma-3-27B-IT",
+        "key": "gemma3",
+        "gpu": "5",
+        "stage": "extract_dev",
+        "current_protocol": "E1-balanced-2540",
+        "fit_pairs": 2540,
+        "pair_counts": {
+          "A": 635,
+          "P": 635,
+          "C": 635,
+          "F": 635
+        },
+        "current_delta": 0.2923349,
+        "raw_cache_imported": 15511,
+        "reuse_by_stage": {
+          "fit": 1785,
+          "dev": 1685,
+          "test": 3100,
+          "nli4ct": 2864,
+          "medpic": 0,
+          "nli4ct_official5500": 2864,
+          "medpic_official467": 0
+        },
+        "completed_same_E1_found": false,
+        "previous_protocol": "repair-v2; per-model per-task fitting",
+        "previous_fit_ap": 4887,
+        "previous_fit_cf": 135,
+        "previous_ap_counts": {
+          "A": 4869,
+          "P": 18
+        },
+        "previous_cf_counts": {
+          "C": 66,
+          "F": 69
+        },
+        "previous_delta": 0.2255854743878014,
+        "previous_controlled_paths": 806,
+        "previous_nli_original": 500,
+        "previous_official_paths": 7458,
+        "old_heads": 51,
+        "new_heads": 51,
+        "head_overlap": 40,
+        "missing_new_heads": [
+          998,
+          1052,
+          1109,
+          1153,
+          1338,
+          1483,
+          1515,
+          1849,
+          1895,
+          1946,
+          1965
+        ],
+        "previous_directory": "/home/gcx/aster_five_models_20261109/results/gemma3",
+        "decision": "reuse native raw cache; refit E1 and evaluate with new heads",
+        "performance": {
+          "extract_fit": {
+            "complete": true,
+            "newly_computed": 3168,
+            "reused": 1785,
+            "total": 4953,
+            "seconds": 2597.886642056983,
+            "peak_gib": 54.017996311187744
+          }
+        }
+      },
+      {
+        "model": "MedGemma-27B-Text-IT",
+        "key": "medgemma",
+        "gpu": "1",
+        "stage": "extract_dev",
+        "current_protocol": "E1-balanced-2540",
+        "fit_pairs": 2540,
+        "pair_counts": {
+          "A": 635,
+          "P": 635,
+          "C": 635,
+          "F": 635
+        },
+        "current_delta": 0.2923349,
+        "raw_cache_imported": 15511,
+        "reuse_by_stage": {
+          "fit": 1785,
+          "dev": 1685,
+          "test": 3100,
+          "nli4ct": 2864,
+          "medpic": 0,
+          "nli4ct_official5500": 2864,
+          "medpic_official467": 0
+        },
+        "completed_same_E1_found": false,
+        "previous_protocol": "repair-v2; per-model per-task fitting",
+        "previous_fit_ap": 4887,
+        "previous_fit_cf": 135,
+        "previous_ap_counts": {
+          "A": 4869,
+          "P": 18
+        },
+        "previous_cf_counts": {
+          "C": 66,
+          "F": 69
+        },
+        "previous_delta": 0.094343052748881,
+        "previous_controlled_paths": 806,
+        "previous_nli_original": 500,
+        "previous_official_paths": 7458,
+        "old_heads": 109,
+        "new_heads": 51,
+        "head_overlap": 49,
+        "missing_new_heads": [
+          1033,
+          1871
+        ],
+        "previous_directory": "/home/gcx/aster_five_models_20261109/results/medgemma",
+        "decision": "reuse native raw cache; refit E1 and evaluate with new heads",
+        "performance": {
+          "extract_fit": {
+            "complete": true,
+            "newly_computed": 3168,
+            "reused": 1785,
+            "total": 4953,
+            "seconds": 2661.99440116802,
+            "peak_gib": 53.22394609451294
+          }
+        }
+      },
+      {
+        "model": "Qwen3-8B-Base",
+        "key": "qwen_base",
+        "gpu": "4",
+        "stage": "independent_M1_M2_M3",
+        "current_protocol": "E1-balanced-2540",
+        "fit_pairs": 2540,
+        "pair_counts": {
+          "A": 635,
+          "P": 635,
+          "C": 635,
+          "F": 635
+        },
+        "current_delta": 0.2923349,
+        "raw_cache_imported": 0,
+        "reuse_by_stage": {
+          "fit": 0,
+          "dev": 0,
+          "test": 0,
+          "nli4ct": 0,
+          "medpic": 0,
+          "nli4ct_official5500": 0,
+          "medpic_official467": 0
+        },
+        "completed_same_E1_found": false,
+        "previous_protocol": "SEKA/PASTA CounterFact and BiasBios completed",
+        "decision": "new E1 Base fit and evaluation",
+        "performance": {
+          "extract_fit": {
+            "complete": true,
+            "newly_computed": 4953,
+            "reused": 0,
+            "total": 4953,
+            "seconds": 1403.6112495249836,
+            "peak_gib": 17.232154846191406
+          }
+        }
+      }
+    ],
+    "whole_job_matching_E1_duplicates_found": 0,
+    "prior_IT_experiments_completed": 3,
+    "actions": {
+      "jobs_stopped": false,
+      "new_training_started": false,
+      "configuration_changed": false,
+      "manuscript_changed": false,
+      "historical_reports_overwritten": false,
+      "hash_checks": false
+    }
+  }
+}

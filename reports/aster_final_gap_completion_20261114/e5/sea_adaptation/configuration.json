@@ -1,0 +1,55 @@
+{
+  "method": "sea_adaptation",
+  "parameter_source": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/sea_adaptation",
+  "training_reused": true,
+  "source_protocol": "E1-balanced-2540",
+  "new_training": false,
+  "source_natural_paths": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/sea_adaptation/test_path_predictions.jsonl",
+  "source_pair_predictions": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/representation_e1_plan/sea_adaptation/test_pair_predictions.jsonl",
+  "physical_gpu": "1",
+  "expected_interference_paths": 2418,
+  "expected_sources": 40,
+  "fit": {
+    "method": "SEA task adaptation",
+    "endpoints": 4637,
+    "positive_rank": 1,
+    "negative_rank": 2,
+    "ratio": 0.998,
+    "objective": "Existing sea_basis, unchanged; original nonfinite coordinate fallback retained.",
+    "seconds": 48.2581148147583
+  },
+  "selection": {
+    "frozen": true,
+    "method": "SEA task adaptation",
+    "candidates": 1,
+    "selection_rule": "The sole historical hyperparameter configuration was fixed before E1 evaluation. No test-driven tuning.",
+    "dev_path": {
+      "n": 420,
+      "correct": 384,
+      "accuracy": 0.9142857142857143,
+      "accuracy_ci": [
+        0.8239437547424332,
+        0.9707317073170731
+      ],
+      "difference_vs_raw": 0.0,
+      "difference_vs_raw_ci": [
+        0.0,
+        0.0
+      ],
+      "corrected_vs_raw": 0,
+      "new_errors_vs_raw": 0
+    },
+    "dev_natural": {
+      "n": 199,
+      "correct": 195,
+      "accuracy": 0.9798994974874372,
+      "accuracy_ci": [
+        0.96,
+        0.995
+      ],
+      "bce": 0.22953635385767937
+    },
+    "test_used_for_selection": false,
+    "frozen_at": "2026-11-12 19:54:03"
+  }
+}

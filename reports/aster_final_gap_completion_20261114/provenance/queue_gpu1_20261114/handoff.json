@@ -1,0 +1,136 @@
+{
+  "state": "running",
+  "models": {
+    "gemma3": {
+      "model": "gemma3",
+      "total_paths": 7458,
+      "work_indices": [
+        0,
+        1,
+        2
+      ],
+      "workers": [
+        {
+          "work_index": 0,
+          "gpu": 5,
+          "assigned_paths": 1259,
+          "gold_nodes": 7312,
+          "moved_to_gpu1": 321,
+          "partial_cases_reused": 1
+        },
+        {
+          "work_index": 1,
+          "gpu": 0,
+          "assigned_paths": 1252,
+          "gold_nodes": 7325,
+          "moved_to_gpu1": 317,
+          "partial_cases_reused": 1
+        },
+        {
+          "work_index": 2,
+          "gpu": 1,
+          "assigned_paths": 638,
+          "gold_nodes": 3668
+        }
+      ],
+      "completed_paths_preserved": 4309,
+      "remaining_paths": 3149,
+      "gpu1_paths": 638,
+      "gpu1_gold_nodes": 3668,
+      "overlap": 0,
+      "helper_sequence": "Gemma3 then MedGemma",
+      "existing_cache_preserved": true
+    },
+    "medgemma": {
+      "model": "medgemma",
+      "total_paths": 7458,
+      "work_indices": [
+        0,
+        1,
+        2
+      ],
+      "workers": [
+        {
+          "work_index": 0,
+          "gpu": 6,
+          "assigned_paths": 1174,
+          "gold_nodes": 6843,
+          "moved_to_gpu1": 301,
+          "partial_cases_reused": 1
+        },
+        {
+          "work_index": 1,
+          "gpu": 4,
+          "assigned_paths": 1207,
+          "gold_nodes": 7075,
+          "moved_to_gpu1": 307,
+          "partial_cases_reused": 1
+        },
+        {
+          "work_index": 2,
+          "gpu": 1,
+          "assigned_paths": 608,
+          "gold_nodes": 3481
+        }
+      ],
+      "completed_paths_preserved": 4469,
+      "remaining_paths": 2989,
+      "gpu1_paths": 608,
+      "gpu1_gold_nodes": 3481,
+      "overlap": 0,
+      "helper_sequence": "Gemma3 then MedGemma",
+      "existing_cache_preserved": true
+    }
+  },
+  "gpu": 1,
+  "new_training": false,
+  "model_downloads": false,
+  "existing_outputs_preserved": true,
+  "helper_memory_gib": [
+    55,
+    65
+  ],
+  "expected_remaining_hours": [
+    1.5,
+    2.5
+  ],
+  "prepared_at": 1794660851.1485207,
+  "stable_checked_at": 1794660944.1103752,
+  "scheduler_pid": 509557,
+  "initial_progress": {
+    "gemma3": {
+      "0": {
+        "cases_completed": 3,
+        "pending_at_start": 1259,
+        "new_forwards": 23,
+        "reused_nodes": 3
+      },
+      "1": {
+        "cases_completed": 3,
+        "pending_at_start": 1252,
+        "new_forwards": 12,
+        "reused_nodes": 2
+      },
+      "2": {
+        "cases_completed": 3,
+        "pending_at_start": 638,
+        "new_forwards": 23,
+        "reused_nodes": 0
+      }
+    },
+    "medgemma": {
+      "0": {
+        "cases_completed": 20,
+        "pending_at_start": 1174,
+        "new_forwards": 105,
+        "reused_nodes": 1
+      },
+      "1": {
+        "cases_completed": 20,
+        "pending_at_start": 1207,
+        "new_forwards": 85,
+        "reused_nodes": 7
+      }
+    }
+  }
+}

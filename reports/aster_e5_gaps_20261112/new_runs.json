@@ -1,0 +1,57 @@
+{
+  "new_model_experiments": [],
+  "new_training_runs": [],
+  "gpu_jobs": [
+    {
+      "controller_pid": 407315,
+      "physical_gpus": [
+        0,
+        1
+      ]
+    }
+  ],
+  "planned_model_runs": {
+    "method": "LoReFT_native_E1",
+    "jobs": 5,
+    "status": "running",
+    "selection": "3 learning rates on development seed11, then selected configuration seed22/33",
+    "test_jobs": 3,
+    "trained_objective": "native binary supervised CE; no pair-difference loss"
+  },
+  "reason": "Old LoReFT identity adapter confirmed; optimizer repaired and CPU/GPU effectiveness tests passed. Other methods await Codex00/01.",
+  "report_only_operations": [
+    {
+      "operation": "export existing historical predictions and archived confidence intervals",
+      "kind": "artifact reuse, no new inference"
+    },
+    {
+      "operation": "derive fixed scale 0.95 from archived raw scores",
+      "kind": "analytic transformation, no training"
+    },
+    {
+      "operation": "compute missing common historical metrics from saved SEA/CAD/temperature predictions",
+      "kind": "CPU statistics only, no new inference"
+    }
+  ],
+  "loreft_effectiveness": {
+    "cpu": "loreft_effectiveness/cpu_reproduction.json",
+    "gpu": "loreft_effectiveness/gpu_effectiveness_final.json",
+    "smoke_runs": 2,
+    "dev_examples_per_smoke": 10,
+    "formal_test_access": false
+  },
+  "loreft_e1": {
+    "status": "complete",
+    "completion": "/home/gcx/aster-e5-gaps-20261112/reports/aster_e5_gaps_20261112/loreft_e1/completion.json",
+    "training_jobs": 5,
+    "selected_test_seeds": [
+      11,
+      22,
+      33
+    ],
+    "learning_rate": 0.0001,
+    "ASTER_retraining": 0,
+    "NLI4CT_runs": 0,
+    "MedPIC_runs": 0
+  }
+}
