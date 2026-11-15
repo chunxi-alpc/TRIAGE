@@ -182,6 +182,15 @@ def _diagnosis(result, models, first_errors, bounds=None, j2_status=None, j2_res
             interfere = independent["interference_path_accuracy"] - shared["interference_path_accuracy"]
             lines.append(f"{method} 从共享截距换为独立截距，自然/干扰路径点估计分别变化 "
                          f"{_fmt(natural,100,3)} / {_fmt(interfere,100,3)} 个百分点；该变化单独归入校准分析。")
+    raw, intercept = (result.get("models", {}).get(name, {}) for name in ("R0", "R1"))
+    if all(row.get("natural_path_correct") is not None and row.get("interference_path_correct") is not None
+           for row in (raw, intercept)):
+        lines.append(f"R0原始分数答对自然/干扰路径 {raw['natural_path_correct']}/{raw['interference_path_correct']} 条，"
+                     f"R1自然节点截距校准后为 {intercept['natural_path_correct']}/{intercept['interference_path_correct']} 条。"
+                     f"校准使自然/干扰正确数分别变化 {intercept['natural_path_correct']-raw['natural_path_correct']:+d}/"
+                     f"{intercept['interference_path_correct']-raw['interference_path_correct']:+d} 条。"
+                     "这一描述性对照直接显示当前自然节点BCE截距校准在干扰路径上的损失。"
+                     "后续应将校准目标和证据约束分别作为控制因素；首轮J−S与J−R1的主要比较保持不变。")
     if not (increment and complete):
         if bounds.get("records"):
             lines.append("共享与独立截距的结果均按各自区间判断；本轮截距变化尚未建立任务成功。"
