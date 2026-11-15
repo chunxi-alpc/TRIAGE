@@ -25,6 +25,25 @@ def keys(scope):
     return sorted({tr.uid(v) for v in scope["views"]+scope["path_views"]})
 
 
+def fit_cached(problem, lam, method, path):
+    """Resume completed configurations within this study without repeating fits."""
+    if Path(path).exists():
+        model=data.read(path)
+        if (not model.get("success") or model.get("method")!=method or model.get("lambda_ap")!=lam
+            or model.get("task_ids")!=problem.natural_ids or model.get("ap_ids")!=problem.ap_ids
+            or model.get("cf_ids")!=problem.cf_ids or model.get("train_sources")!=problem.train_sources
+            or model.get("regularization")!=tr.REGULARIZATION or model.get("delta")!=tr.DELTA
+            or not np.allclose(model["mu"],problem.mu,rtol=0,atol=1e-10)
+            or abs(model["b_shared"]-problem.b0)>1e-10):
+            raise tr.ProtocolConflict("Completed configuration does not match requested fit: "+str(path))
+        model["reused_completed_same_study_fit"]=True
+        model.setdefault("fit_code_commit",model.get("code_commit"))
+        return model
+    model=tr.fit(problem,lam,method)
+    model["fit_code_commit"]=git_revision()
+    return model
+
+
 def method_scores(ell, traces, ids, models, b0):
     raw = {k:float(ell[k]) for k in ids}
     scores = {"raw":raw, "R0":dict(raw), "R1":{k:v+b0 for k,v in raw.items()}}
@@ -152,8 +171,8 @@ def fitting(study, output):
         inner_ids=keys(inner_scope)
         candidate_rows=[]
         for method,lam in [("S",0.),("J",.1),("J",1.),("J",10.)]:
-            model=tr.fit(inner,lam,method)
             name=method+"_lambda_"+str(lam)
+            model=fit_cached(inner,lam,method,selection_dir/(name+".json"))
             data.write(selection_dir/(name+".json"),model)
             scores=method_scores(ell,traces,inner_ids,{method:model},inner.b0)
             mm=selection_metrics(**inner_scope,scores=scores)
@@ -168,7 +187,8 @@ def fitting(study, output):
         data.write(selection_dir/"candidates.json",dict(candidates=candidate_rows,selection=choice,**split))
         selected.append(dict(fold=fold,**choice))
         # Outer labels have not entered the preceding selection.
-        models={name:tr.fit(problem,lam,name) for name,lam in (("S",0.),("J",choice["lambda_ap"]))}
+        models={name:fit_cached(problem,lam,name,target/(name+".json"))
+                for name,lam in (("S",0.),("J",choice["lambda_ap"]))}
         models["R2"]=r2
         for name,model in models.items():
             model.update(fold=fold,validation_sources=valid_sources,
