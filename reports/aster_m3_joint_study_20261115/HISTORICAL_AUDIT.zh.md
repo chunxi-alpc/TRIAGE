@@ -12,8 +12,8 @@
 | 审计日期 | 2026-11-15 |
 | 旧扩展代码归档提交 | `08fc9dc6ef65236f697c10278648a024c89541a0`，来自当前论文中的历史代码链接 |
 | 操作范围 | 读取历史代码、配置和报告；本文件为新增产物 |
-| 真实训练与评价 | 本次审计未运行 |
-| 服务器数据状态 | 2026-11-15服务器预检查通过；332,860条缓存分数记录，五折具体头特征在运行投影时核对 |
+| 真实训练与评价 | 本文件为历史审计；后续S/J及独立J2已完成，实测见同目录主报告 |
+| 服务器数据状态 | 2026-11-15预检查及五折特征投影完成；332,860条缓存分数记录，五折51头/16维参数已核对 |
 
 ## 1. 本轮比较需要满足的条件
 
@@ -191,17 +191,17 @@ b_{\mathrm{centered}}=b_{\mathrm{old}}+w^\top\mu_{\mathrm{train}}.
 
 ## 5. 数据路径和访问状态
 
-以下为从代码和归档读取到的路径线索，均未确认服务器现状。路径映射应在恢复 SSH 后读取并验证，先复用现有数据和模型。
+已在指定115服务器确认本轮必需资产。正式重训根目录为 `/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111`，诊断根目录为 `/home/gcx/aster-cr-diagnostics-e3cv-20261111/reports/aster_cr_diagnostics_e3cv_20261111`，路径病例为 `/home/gcx/aster_cr_repair_v2_run_20261108/data/path_cases.jsonl`。具体输入和缓存映射保存于本轮 `configuration.json`、`preflight.json`。
 
 | 资产 | 已知入口 | 当前状态 |
 |---|---|---|
-| 正式 E1 五折模型 | 正式重训产物的 `models/E1/fold1…5/m2.npz`、`m3.npz`、`model.json` | 仓库代码和报告可读取；服务器文件未核实 |
-| 正式来源划分 | 正式重训产物的 `folds.json` | 需要按文件保持原划分 |
-| E1 配对与自然校准节点 | 正式重训产物的 `data/E1_pairs.jsonl`、`data/natural_views.jsonl` | 缓存位置和访问状态未核实 |
-| 独立截距及样本 ID | `reports/aster_cr_diagnostics_e3cv_20261111/independent_intercepts.json` | 归档入口已确认；新运行中仍需对照使用相同样本 |
-| 分数与路径归档 | 诊断报告 `evaluation/` 下的预测、`scores_by_variant.npz` 和 `score_manifest.json` | 历史报告确认保存；服务器当前位置未核实 |
+| 正式 E1 五折模型 | 正式重训产物的 `models/E1/fold1…5/m2.npz`、`m3.npz`、`model.json` | 五折51头、16维痕迹、预算及来源元数据匹配；直接复用 |
+| 正式来源划分 | 正式重训产物的 `folds.json` | 原五折64/16划分已复用，留出来源互不交叉 |
+| E1 配对与自然校准节点 | 正式重训产物的 `data/E1_pairs.jsonl`、`data/natural_views.jsonl` | 2,540对和761个自然节点已读取；折内标签与截距均按训练来源过滤 |
+| 独立截距及样本 ID | 诊断产物的 `independent_intercepts.json` | b0及自然节点ID对齐；新入口R1分数精确复现 |
+| 分数与路径归档 | 诊断报告 `evaluation/` 下的预测、`scores_by_variant.npz` 和 `score_manifest.json` | 五折R0/R1/R2分数及动态完整路径均复现；R2最大绝对分数差1.42e−14 |
 | 旧监督扩展缓存 | `/home/gcx/aster_trace_repair_20261110` | 历史代码默认路径，未核实 |
-| 旧痕迹和模型缓存 | `/home/gcx/aster_cr_repair_v2_run_20261108` | 历史代码默认路径，未核实 |
+| 旧痕迹和模型缓存 | `/home/gcx/aster_cr_repair_v2_run_20261108` | 本轮使用的路径病例和冻结模型缓存可读取；未重训旧扩展 |
 | 旧扩展冻结配置 | `/home/gcx/aster_next_20261109/frozen_methods.json` | 历史代码引用路径，未核实 |
 
 ## 6. 本轮交付中的结果资格
@@ -210,4 +210,4 @@ R0/R1/R2 上述数字、旧监督痕迹结果、99 维扩展、历史 40/60 来�
 
 S/J 使用原 80 来源外层五折能够评价当前修改在对应留出来源上的表现；它们属于已使用研究来源上的新方法实验。参数选择必须限制在每个外折的训练来源内，并说明内部选择条件于冻结的 M1/M2 表示。冻结方案后的新来源才承担后续独立确认。
 
-当前能够确定的是需要补齐同表示、同容量、同监督与同校准的 S/J 对照。任务收益、AP 独立贡献、自然非劣和是否进入 J2 均应由本轮实际运行结果判断。本次审计没有这些新增结果。
+同表示、同容量、同监督与同校准的 S/J 对照现已补齐。任务收益、AP独立贡献、自然非劣及后续J2实测见 [REPORT.zh.md](REPORT.zh.md) 和 [J2_REPORT.zh.md](J2_REPORT.zh.md)；本文件中的旧实验数字继续保留历史复评身份。

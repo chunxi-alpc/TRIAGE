@@ -12,15 +12,17 @@
 | 每种方法的两种截距与拟合ID | `models/foldK/*_calibration.json` |
 | R0/R1/R2归档分数及完整动态路径复现 | `verification.json`、`models/foldK/reference_replay.json` |
 | 原始分数、修正量和未校准分数 | `corrections.jsonl.gz` |
-| 逐节点最终分数与预测 | `evaluation/predictions.jsonl` |
-| 逐对A/P和C/F | `evaluation/pair_predictions.jsonl` |
-| 自然和干扰完整路径 | `evaluation/path_predictions.jsonl` |
+| 逐节点最终分数与预测 | `evaluation/predictions.jsonl.gz` |
+| 逐对A/P和C/F | `evaluation/pair_predictions.jsonl.gz` |
+| 自然和干扰完整路径 | `evaluation/path_predictions.jsonl.gz` |
 | 来源正确率、配对指标和四向转移 | `evaluation/source_metrics.csv`、`evaluation/source_transitions.csv` |
-| 逐例四向转移 | `evaluation/transitions_by_example.jsonl` |
-| 首错节点修复及前后分数 | `evaluation/natural_first_error.jsonl` |
+| 逐例四向转移 | `evaluation/transitions_by_example.jsonl.gz` |
+| 首错节点修复及前后分数 | `evaluation/natural_first_error.jsonl.gz` |
 | 配对差值及95%置信区间 | `evaluation/source_bootstrap.csv`、`evaluation/metrics.json` |
 | 可导出结果图 | `artifacts/summary.png`、`artifacts/summary.pdf` |
-| 合成测试结果 | `tests.json`、`tests.log` |
+| 首轮14项、扩展22项合成测试结果 | `tests.json`、`extended_tests.json`、`tests.log.gz`、`j2_tests.log.gz` |
+| 固定截距下的逐首错线性规划上界 | `diagnostics/correction_bounds_summary.json`、`diagnostics/correction_bounds.jsonl` |
+| 独立J2探索及20次拟合的全部结果 | [J2_REPORT.zh.md](J2_REPORT.zh.md)、`j2/` |
 
 逐例JSONL可在交付时压缩为同名 `.jsonl.gz`；内容和记录数保持不变。五折投影缓存保留在服务器 `models/foldK/projected_cache.npz`，可从只读历史激活重新生成。
 

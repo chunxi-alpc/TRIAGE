@@ -6,6 +6,7 @@ selects a candidate, changes a historical artifact, or starts a J2 experiment.
 from __future__ import annotations
 
 import csv
+import gzip
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -31,8 +32,12 @@ def _csv(path):
 def _jsonl(path):
     path = Path(path)
     if not path.exists():
-        return []
-    with path.open(encoding="utf-8") as handle:
+        compressed = Path(str(path) + ".gz")
+        if not compressed.exists():
+            return []
+        path = compressed
+    opener = gzip.open if path.suffix == ".gz" else open
+    with opener(path, "rt", encoding="utf-8") as handle:
         return [json.loads(line) for line in handle if line.strip()]
 
 
@@ -87,6 +92,21 @@ def _table(headers, rows):
     return lines
 
 
+def _test_summary(record, link):
+    if not record:
+        return "测试结果文件尚未生成。"
+    count = record.get("tests_run")
+    if count is None:
+        return f"测试记录见 [{link}]({link})。"
+    label = "合成测试" if record.get("synthetic") else "自动化测试"
+    state = "通过" if record.get("successful") is True else "未全部通过" if record.get("successful") is False else "已执行"
+    detail = (f"{count}项{label}{state}，失败{record.get('failures', '未记录')}，"
+              f"错误{record.get('errors', '未记录')}；耗时{_fmt(record.get('seconds'), digits=3)}秒。")
+    if record.get("environment"):
+        detail += "执行环境：" + str(record["environment"]) + "。"
+    return detail + f" 详见 [{link}]({link})。"
+
+
 def _models(root, methods=("S", "J")):
     result = []
     for fold in sorted((root / "models").glob("fold*")):
@@ -112,8 +132,8 @@ def _source_error_evidence(records, comparison):
                 unresolved_shift_below_distance=sum(abs(r["score_shift"]) < abs(r["before_score"]) for r in unresolved))
 
 
-def _diagnosis(result, models, first_errors, bounds=None, j2_status=None):
-    bounds, j2_status = bounds or {}, j2_status or {}
+def _diagnosis(result, models, first_errors, bounds=None, j2_status=None, j2_result=None):
+    bounds, j2_status, j2_result = bounds or {}, j2_status or {}, j2_result or {}
     if not result.get("models"):
         return ["当前没有 S/J 的真实训练与路径评价结果。下一步是恢复服务器访问并完成冻结对照；目标、约束、校准和表达能力的归因等待实测。J2 尚未启动。"]
     lines = []
@@ -122,11 +142,19 @@ def _diagnosis(result, models, first_errors, bounds=None, j2_status=None):
     if increment and complete:
         lines.append("当前预设比较满足任务成功条件。下一步优先冻结方法和超参数规则，在新来源上验证；本轮不调整证据预算。")
     elif bounds.get("records"):
-        lines.append(f"优先修改证据约束。固定原模型截距 b0，在全部16维线性权重中求最有利修正，"
+        lines.append(f"证据约束直接限制了当前纠错可达性。固定原模型截距 b0，在全部16维线性权重中求最有利修正，"
                      f"{bounds['impossible_at_delta_shared_b0']}/{bounds['records']} 个 R1 自然首错节点在原 C/F 预算内仍不可达；"
                      f"将预算上界按齐次性扩为2倍后，{bounds['impossible_at_twice_delta_shared_b0']} 个仍不可达，"
                      f"{bounds['newly_reachable_with_at_most_double_budget']} 个由不可达变为单节点可达。"
                      "这为标签感知证据约束提供了直接实验依据。")
+        if j2_result.get("complete"):
+            j2_ok = (_conditions(j2_result, "J2_independent", "J_independent") and
+                     _conditions(j2_result, "J2_independent", "R1"))
+            lines[0] += ("J2已完成，方向监督与非对称松弛的组合满足本轮探索性任务条件。"
+                         if j2_ok else "J2已完成，当前方向监督与非对称松弛的组合尚未建立任务成功。")
+            mm = _comparison(j2_result,"J2_independent","R1").get("interference_path_accuracy")
+            if mm:
+                lines[0] += "J2−R1干扰路径差为 " + _interval(mm) + "。"
     final_cosines = [(fold, m.get("gradient_final", {}).get("task_ap_cosine"))
                      for fold, method, m in models if method == "J"]
     available = [(fold, value) for fold, value in final_cosines if value is not None]
@@ -160,6 +188,10 @@ def _diagnosis(result, models, first_errors, bounds=None, j2_status=None):
                          "上述上界对应固定 b0 的单节点纠错，重新拟合截距及多个节点同时纠正需要用完整路径评价验证。"
                          "J2沿用相同16维痕迹和线性容量，结果作为单独探索实验保存。"
                          f"当前状态：{j2_status.get('state', '已具备启动依据，状态文件待写入')}。")
+            if j2_result.get("complete") and not (_conditions(j2_result,"J2_independent","J_independent") and
+                                                   _conditions(j2_result,"J2_independent","R1")):
+                lines.append("若继续，优先在新训练来源中分离证据方向监督与非对称松弛的贡献，固定对照后再用新来源确认。"
+                             "本轮搜索范围已经结束。当前证据同时涉及约束、局部目标冲突和边界距离，无法唯一归因为特征不足。")
         else:
             lines.append("下一轮依据梯度、错误边界距离及两种截距变化定位修改点。"
                          "J2是否开展由可达性诊断和实际运行状态决定。")
@@ -207,6 +239,14 @@ def _bound_section(summary, records):
              r"由齐次性，$B_i(2\delta)=2B_i(\delta)$。2倍预算数字由此直接计算，没有重新执行训练预算扫描。"
              "每个节点分别采用最有利权重，单节点可达数与多个节点同时修复数分别解释。"
              "这组主上界固定b0；记录中以当前bw计算的辅助边界也固定该已拟合截距。重新拟合bw后须重新检查边界。", ""]
+    unique = summary.get("unique_first_error_inputs")
+    if unique is None and records:
+        unique = len({r["view_id"] for r in records if r.get("view_id") is not None})
+    if unique is not None:
+        text.insert(3, f"{summary['records']} 条首错记录对应 {unique} 个唯一输入，重复记录 "
+                       f"{int(summary['records'])-int(unique)} 条。"
+                       + (f"零痕迹方向 {summary['zero_trace_directions']} 个。" if "zero_trace_directions" in summary else ""))
+        text.insert(4, "")
     folds = defaultdict(list)
     for record in records:
         folds[record.get("fold", "unknown")].append(record)
@@ -242,6 +282,8 @@ def _write_j2_report(root, status, result, bounds):
     models = _models(directory, ("J2",))
     transitions = _csv(directory / "evaluation/transitions.csv")
     budgets = _read(directory / "cf_budget_summary.json")
+    tests = _read(directory / "tests.json")
+    configuration = _read(directory / "configuration.json")
     measured = bool(result.get("complete") and result.get("models"))
     text = ["# ASTER-CR J2：标签感知证据方向与有限松弛（探索性）", "",
             _j2_state_text(status, result), "",
@@ -351,10 +393,25 @@ def _write_j2_report(root, status, result, bounds):
         if versus_j and versus_r1:
             text.append("J2达到本轮探索性的干扰增益与自然非劣条件。下一步冻结方向监督、非对称预算和选型规则，在新来源上确认任务增益及证据代价。")
         else:
-            text.append("J2的当前配对结果未同时建立相对J与R1的任务成功。下一步保留已获得的可达性证据，"
-                        "围绕证据方向保护与错误边界距离设计一次明确的后续对照；新的方法选择和确认使用后续冻结方案的新来源。")
+            text.append("J2的当前配对结果未同时建立相对J与R1的任务成功。原证据约束确实限制单节点可达性，"
+                        "当前方向监督与非对称松弛组合的任务收益尚未通过判定。"
+                        "若继续，优先在新训练来源分离方向监督、非对称松弛及其组合的贡献；方法和参数冻结后用新来源确认。"
+                        "本轮搜索范围已经结束。")
     else:
         text.append("J2结论等待真实评价完成。首轮已支持优先研究证据约束；新方案的任务收益由本报告的独立探索结果判断。")
+    text += ["", "## 测试与执行记录", "", _test_summary(tests, "j2/tests.json"), ""]
+    execution = [("状态", status.get("state", "未记录"))]
+    for key, label in (("code_commit", "执行提交"), ("seconds", "执行时长（秒）"),
+                       ("complete_fits", "完成拟合数"), ("gpu_devices", "GPU编号"),
+                       ("peak_gpu_memory_gib", "峰值显存GiB"), ("original_study_replay", "首轮结果重放一致"),
+                       ("exploratory", "探索性"), ("independent_confirmation", "新来源独立确认")):
+        if key in status:
+            execution.append((label, status[key]))
+    for key, label in (("seed", "随机种子"), ("lambda_cf_candidates", "CF候选权重"),
+                       ("candidate_configurations", "候选配置数"), ("dimensions", "线性痕迹维数")):
+        if key in configuration:
+            execution.append((label, configuration[key]))
+    text += _table(["字段", "实际记录"], execution)
     text += ["", "本轮五折来源已被历史实验与首轮分析使用。J2作为后续探索保留全部候选与逐例输出，新来源独立确认尚未完成。", "",
              "运行状态：[j2/status.json](j2/status.json)；实际模型与校准：[j2/models/](j2/models/)；"
              "指标和逐例预测：[j2/evaluation/metrics.json](j2/evaluation/metrics.json)。", ""]
@@ -445,6 +502,7 @@ def generate_report(output_dir):
     result = _read(root / "evaluation/metrics.json")
     status, config = _read(root / "status.json"), _read(root / "configuration.json")
     verification, tests = _read(root / "verification.json"), _read(root / "tests.json")
+    extended_tests = _read(root / "extended_tests.json")
     transitions = _csv(root / "evaluation/transitions.csv")
     first_errors = _jsonl(root / "evaluation/natural_first_error.jsonl")
     first_source = _csv(root / "evaluation/natural_first_error_by_source.csv")
@@ -485,7 +543,7 @@ def generate_report(output_dir):
     else:
         text.append("真实 S/J 逐对评价及错误转移未完成，证据保护结论待实测。历史 E1 指标单独保存在历史审计中。")
     text += ["", "**问题五：如果没有成功，下一步最值得修改什么？**", ""]
-    text += [paragraph + "\n" for paragraph in _diagnosis(result, models, first_errors, bounds, j2_status)]
+    text += [paragraph + "\n" for paragraph in _diagnosis(result, models, first_errors, bounds, j2_status, j2_result)]
     text += ["## 实验状态与结果资格", "",
              "本轮真实五折对照已完成。" if measured else "**真实五折对照未完成。下文无 S/J 实测数值的单元均记为未完成。**", "",
              "R0/R1/R2 复用或重放归档模型。S/J 是原 80 来源上的新增方法实验；各外折验证来源未进入对应折的拟合和内部选型。"
@@ -623,7 +681,11 @@ def generate_report(output_dir):
              "## 测试、版本与运行限制", ""]
     for title, obj in (("自动化测试", tests), ("真实数据重建与来源核验", verification)):
         text += [f"### {title}", ""]
-        if obj:
+        if title == "自动化测试":
+            text.append(_test_summary(obj, "tests.json"))
+            if extended_tests:
+                text += ["", "扩展测试（包含首轮与J2测试模块）：" + _test_summary(extended_tests, "extended_tests.json")]
+        elif obj:
             text += ["```json", json.dumps(obj, ensure_ascii=False, indent=2), "```"]
         else:
             text.append("未执行或结果文件尚未生成。")
@@ -673,7 +735,8 @@ def generate_report(output_dir):
             if _conditions(j2_result,"J2_independent","J_independent") and _conditions(j2_result,"J2_independent","R1"):
                 text.append("后续优先冻结J2方案，用新来源验证任务与证据指标。")
             else:
-                text.append("后续围绕证据可达性与实际新增错误设计明确的对照；本轮首要机制比较与结论保持不变。")
+                text.append("原约束限制可达性，当前J2松弛组合尚未建立任务成功。后续优先在新训练来源分离方向监督与非对称松弛的贡献，"
+                            "冻结方案后用新来源确认；本轮首要机制比较与结论保持不变，搜索范围已经结束。")
         text += ["", "全部J2候选、训练目标、证据保证变化、错误转移和结论见 [J2_REPORT.zh.md](J2_REPORT.zh.md)。", ""]
     report = root / "REPORT.zh.md"
     report.write_text("\n".join(text), encoding="utf-8")
