@@ -149,6 +149,13 @@ def _comparison_specs(names):
         if lhs in names and rhs in names:
             result.append(dict(lhs=lhs, rhs=rhs, comparison=lhs + " minus " + rhs,
                                calibration="unspecified", role="exploratory"))
+    for calibration in ("shared", "independent"):
+        lhs="J2_"+calibration
+        for base in ("J", "R1", "S"):
+            rhs=base if base=="R1" else base+"_"+calibration
+            if lhs in names and rhs in names:
+                result.append(dict(lhs=lhs,rhs=rhs,comparison=lhs+" minus "+rhs,
+                                   calibration=calibration,role="exploratory"))
     return result
 
 

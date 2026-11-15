@@ -22,7 +22,23 @@ python -m experiments.aster_m3_joint_study.run preflight \
 python -m experiments.aster_m3_joint_study.run report
 ```
 
-输出默认位于 `reports/aster_m3_joint_study_20261115/`。`status.json` 记录完成或阻塞状态；缺失缓存写入 `missing_assets.json`；协议冲突直接停止。不会启动新的头提取、激活修补或 J2。
+输出默认位于 `reports/aster_m3_joint_study_20261115/`。`status.json` 记录完成或阻塞状态；缺失缓存写入 `missing_assets.json`；协议冲突直接停止。首轮入口不启动新的头提取、激活修补或 J2。
+
+首轮完成后的可达性诊断和独立J2探索使用单独入口。本轮诊断已发现原证据约束下不可纠正的首错，实际J2配置及结果保存在 `j2/`：
+
+```bash
+python -m unittest experiments.aster_m3_joint_study.test_training \
+  experiments.aster_m3_joint_study.test_evaluation \
+  experiments.aster_m3_joint_study.test_bounds \
+  experiments.aster_m3_joint_study.test_j2 -v
+python -m experiments.aster_m3_joint_study.diagnose reports/aster_m3_joint_study_20261115
+python -m experiments.aster_m3_joint_study.j2_run reports/aster_m3_joint_study_20261115
+python -m experiments.aster_m3_joint_study.report reports/aster_m3_joint_study_20261115
+python -m experiments.aster_m3_joint_study.package_results reports/aster_m3_joint_study_20261115
+python -m experiments.aster_m3_joint_study.package_results reports/aster_m3_joint_study_20261115/j2
+```
+
+J2沿用各折J的AP权重，只在原内层来源划分选择CF方向损失权重0.1、1、10，共20次线性拟合。训练CF有向修正界为 `-δ ≤ (y_right-y_left)*Δc ≤ 2δ`；原绝对δ保证随之改变。J2的全部比较均属后续探索。打包入口无损压缩逐例输出，服务器保留原始文件。
 
 ## 固定协议
 
