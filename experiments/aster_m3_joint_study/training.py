@@ -160,6 +160,22 @@ def fit(problem, lambda_ap, method="J"):
                       jac=True, method="SLSQP",
                       constraints=[LinearConstraint(problem.cf_x, -DELTA, DELTA)],
                       options=dict(ftol=1e-12, maxiter=3000, disp=False))
+    attempts=[]
+    def record_attempt(answer, tolerance):
+        attempts.append(dict(solver="SLSQP",ftol=tolerance,success=bool(answer.success),
+                             status=int(answer.status),message=str(answer.message),
+                             iterations=int(answer.nit),objective=float(answer.fun),
+                             cf_max_violation=max(0.,float(np.max(np.abs(problem.cf_x@answer.x)))-DELTA)))
+    record_attempt(result,1e-12)
+    # SLSQP can return status 8 after reaching a feasible optimum at a strict
+    # objective tolerance. Restart the same convex problem at that point with
+    # ordinary numerical precision. No loss weight, data, or bound is changed.
+    if not result.success:
+        result=minimize(lambda w: objective(problem,w,lambda_ap)[:2],result.x,
+                        jac=True,method="SLSQP",
+                        constraints=[LinearConstraint(problem.cf_x,-DELTA,DELTA)],
+                        options=dict(ftol=1e-10,maxiter=3000,disp=False))
+        record_attempt(result,1e-10)
     w = np.asarray(result.x, float)
     cf = problem.cf_x @ w
     violation = max(0., float(np.max(np.abs(cf))) - DELTA)
@@ -188,6 +204,7 @@ def fit(problem, lambda_ap, method="J"):
                 cf_training_residuals=(np.abs(cf)-DELTA).tolist(),
                 constraint_count=len(cf), natural_count=len(problem.y),
                 solver="SLSQP", success=bool(result.success), iterations=int(result.nit),
+                solver_attempts=attempts,
                 optimizer_message=str(result.message), seconds=time.monotonic()-started,
                 deterministic=True, seed=SEED)
 
