@@ -17,4 +17,9 @@ def main():
         scientific_success_count=sum(bool(v.get("complete")) for v in states.values()),
         selection_incomplete_count=sum(v.get("status")=="selection_incomplete" for v in states.values()),
         model_states=states,errors=errors))
+    try:
+        from .publish_results import publish
+        publish()
+    except Exception as exc:
+        write(OUT/"publication.json",dict(complete=False,error=str(exc)))
 if __name__=="__main__":main()
