@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CARE invented mechanism case v1",
+  "type": "object",
+  "required": ["dataset_id", "case_id", "family_id", "split", "variant_group_id", "question", "patient", "rules", "prompt", "action_spans", "reference_structure", "gold_answer", "target_action_id", "target_answer", "is_clinical"],
+  "properties": {
+    "dataset_id": {"const": "sealed_mechanism_20261019"},
+    "case_id": {"type": "string"},
+    "pair_id": {"type": ["string", "null"]},
+    "variant_group_id": {"type": "string"},
+    "family_id": {"type": "string"},
+    "group_id": {"type": "string", "description": "Legacy alias of family_id"},
+    "split": {"enum": ["train", "dev", "confirmation"]},
+    "outer_fold": {"enum": [0, 1, 2], "description": "Fixed old-asset assignment, never a new tuning split"},
+    "question": {"type": "string", "minLength": 1},
+    "patient": {"type": "string", "minLength": 1},
+    "prompt": {"type": "string"},
+    "rules": {"type": "array", "items": {"$ref": "#/$defs/rule"}, "minItems": 3, "maxItems": 3},
+    "reference_state": {"enum": ["T", "F", "U"]},
+    "applicable": {"type": ["boolean", "null"]},
+    "pair_eligible": {"type": "boolean"},
+    "target_action_id": {"const": "cedar"},
+    "target_answer": {"enum": ["A", "B", "C", "D"]},
+    "gold_answer": {"enum": ["A", "B", "C", "D"]},
+    "gold_action_id": {"enum": ["cedar", "maple", "juniper", "review"]},
+    "is_clinical": {"const": false},
+    "independent_expert_review": {"const": false},
+    "reference_structure": {"type": "object", "description": "Reference-only: forbidden in V6/V7 prediction inputs"},
+    "structured_facts": {"type": "array", "description": "Reference-only: forbidden in V6/V7 prediction inputs"}
+  },
+  "$defs": {
+    "logic": {
+      "oneOf": [
+        {"type": "string"},
+        {"type": "object", "required": ["op", "args"], "additionalProperties": false,
+         "properties": {"op": {"enum": ["AND", "OR", "NOT"]}, "args": {"type": "array", "items": {"$ref": "#/$defs/logic"}}}}
+      ]
+    },
+    "atom": {"type": "object", "required": ["condition_id", "field", "text"],
+             "properties": {"condition_id": {"type": "string"}, "field": {"type": "string"}, "text": {"type": "string"}, "numeric": {"type": "object"}}},
+    "rule": {"type": "object", "required": ["rule_id", "action_id", "action", "conditions", "logic", "exceptions", "exception_logic"],
+             "properties": {"rule_id": {"type": "string"}, "action_id": {"type": "string"}, "action": {"type": "string"},
+                            "conditions": {"type": "array", "items": {"$ref": "#/$defs/atom"}}, "logic": {"$ref": "#/$defs/logic"},
+                            "exceptions": {"type": "array", "items": {"$ref": "#/$defs/atom"}}, "exception_logic": {"$ref": "#/$defs/logic"}}}
+  }
+}

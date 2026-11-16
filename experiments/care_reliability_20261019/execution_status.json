@@ -1,0 +1,72 @@
+{
+  "as_of": "2026-10-19T08:31:35.123717+00:00",
+  "baseline_commit": "7557d3150214a3894f2d340df6d9964de75efce1",
+  "branch": "codex/care-reliability-20261019-work",
+  "implementation_status": "completed_real_model_experiments",
+  "pretrained_model_inference_performed": true,
+  "preparation_check_groups_passed": 14,
+  "unit_tests": {
+    "v6_interfaces": 8,
+    "module1": 17,
+    "module2_cpu_passed": 20,
+    "module2_torch_skipped": 0,
+    "joint": 22,
+    "module2_torch_passed": 2
+  },
+  "baseline_files_present_and_byte_identical": 124,
+  "numeric_development_regression": {
+    "cases": 56,
+    "v6_correct": 30,
+    "v7_correct": 56,
+    "not_model_accuracy": true
+  },
+  "cache_replay": {
+    "cases": 292,
+    "model_calls": 0,
+    "stable_overall_improvement_established": false
+  },
+  "next_action": "Review actual results and teacher report. Label mapping, truncation, and conservative gates are identified follow-up work, not changes to this frozen run.",
+  "blocker": null,
+  "current_validation": "checks/work_verification/README.zh.md",
+  "handoff": "WORK_HANDOFF.zh.md",
+  "module2_real_run": {
+    "status": "completed_real_model_experiments",
+    "summary": "module2/results/work_20261019/summary.json",
+    "raw_archive": "results/work_20261019/module2_raw_runs.tar.gz",
+    "server_run_root": "/home/gcx/care_reliability_runs/module2_work_02"
+  },
+  "module1_joint_real_run": {
+    "status": "completed_real_model_inference",
+    "controller_pid": 2825518,
+    "server_run_root": "/home/gcx/care_reliability_runs/joint_formal_work_02",
+    "physical_gpus": [
+      0,
+      1,
+      2,
+      3,
+      6,
+      7
+    ],
+    "cases": 192,
+    "unique_phi_requests": 1090,
+    "qwen_after_structure": "GPU 0; 192 baseline plus 2304 source/method records",
+    "estimated_hours": [
+      1,
+      1.5
+    ],
+    "monitoring": "Stopped after one stable-start check; wait for controller exit only.",
+    "actual_answer_records": 2496,
+    "actual_qwen_forward_calls": 4032,
+    "actual_zero_checks": 768,
+    "pipeline_elapsed_seconds": 4341.117615696974,
+    "finished_utc": "2026-10-19T08:17:46.411029+00:00",
+    "summary": "results/work_20261019/summary.json",
+    "raw_archive": "results/work_20261019/joint_raw_runs.tar.gz"
+  },
+  "teacher_report": "results/work_20261019/TEACHER_REPORT.zh.md",
+  "effectiveness_claims": {
+    "v7_primary_improvement_established": false,
+    "learned_direction_superiority_established": false,
+    "clinical_validation": false
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "status": "static_request_input_and_resume_refusal_review_passed",
+  "request_key_fields": [
+    "patient",
+    "criterion_text",
+    "normalized_criterion_kind"
+  ],
+  "key_matches_adapter_messages": true,
+  "prediction_allowlist": [
+    "guideline",
+    "patient",
+    "question"
+  ],
+  "reference_labels_structured_facts_not_passed": true,
+  "V6_V7_reuse": "same exact TrialMatchAI request output; numeric/logic/NLI processing remains per version",
+  "remaining": [
+    "live request and structure completeness plus final model/source hashes await completed runs"
+  ],
+  "known_limit": "batching can affect floating point rounding; this is a matched V6/V7 comparison, not guaranteed bitwise reproduction of old single-row generation",
+  "transfer_tests_passed": 7,
+  "transfer_tests_skipped": 0,
+  "server_test_log": "/home/gcx/care_reliability_runs/structure_transfer_independent_review_v2.log",
+  "relative_test_source": "joint/test_structure_transfer.py",
+  "resume_refusal": "immutable provenance, runtime/model hashes and request manifest checked before run manifest mutation; repeated refusal tested",
+  "reviewed_source_sha256": {
+    "joint/run_structures.py": "57f6a6429caf65f6a7868f1a9244c8a9529928f83abf657e16d9390d4da494f3",
+    "joint/saved_structures.py": "601b926ea2bc2dd262d3e1fa0e72b9e9eb8539fea280f86cef6ebc58f9069f25",
+    "joint/test_structure_transfer.py": "5e386cde4dfd766c8eee321d0d90202a53e6fdc4e96a1cbf0a787a63a036a67b"
+  }
+}

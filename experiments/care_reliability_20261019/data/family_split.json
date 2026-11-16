@@ -1,0 +1,1052 @@
+{
+  "assignment_policy": "fixed six-position pattern repeated; no model output consulted",
+  "families": {
+    "mechanism_01_conjunction": "train",
+    "mechanism_02_disjunction": "confirmation",
+    "mechanism_03_negation": "train",
+    "mechanism_04_conjunction_nested_disjunction": "dev",
+    "mechanism_05_disjunction_nested_conjunction": "confirmation",
+    "mechanism_06_negated_entry_conjunction": "train",
+    "mechanism_07_negated_entry_disjunction": "train",
+    "mechanism_08_negated_conjunction": "confirmation",
+    "mechanism_09_negated_disjunction": "train",
+    "mechanism_10_entry_with_two_exclusions": "dev",
+    "mechanism_11_alternative_conjunctions": "confirmation",
+    "mechanism_12_joint_alternatives": "train",
+    "mechanism_13_exclusive_entry": "train",
+    "mechanism_14_conditional_requirement": "confirmation",
+    "mechanism_15_three_requirements": "train",
+    "mechanism_16_three_alternatives": "dev",
+    "mechanism_17_three_exclusions": "confirmation",
+    "mechanism_18_negated_three_requirements": "train",
+    "mechanism_19_nested_negated_alternatives": "train",
+    "mechanism_20_two_paths_with_exclusions": "confirmation",
+    "mechanism_21_shared_requirement": "train",
+    "mechanism_22_five_condition_composition": "dev",
+    "mechanism_23_exceptional_alternative": "confirmation",
+    "mechanism_24_negated_nested_composition": "train"
+  },
+  "definitions": [
+    {
+      "family_id": "mechanism_01_conjunction",
+      "split": "train",
+      "logic": {
+        "op": "AND",
+        "args": [
+          "C1",
+          "C2"
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C2",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_02_disjunction",
+      "split": "confirmation",
+      "logic": {
+        "op": "OR",
+        "args": [
+          "C1",
+          "C2"
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C2",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_03_negation",
+      "split": "train",
+      "logic": {
+        "op": "NOT",
+        "args": [
+          "C1"
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C1",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_04_conjunction_nested_disjunction",
+      "split": "dev",
+      "logic": {
+        "op": "AND",
+        "args": [
+          "C1",
+          {
+            "op": "OR",
+            "args": [
+              "C2",
+              "C3"
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_05_disjunction_nested_conjunction",
+      "split": "confirmation",
+      "logic": {
+        "op": "OR",
+        "args": [
+          {
+            "op": "AND",
+            "args": [
+              "C1",
+              "C2"
+            ]
+          },
+          "C3"
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_06_negated_entry_conjunction",
+      "split": "train",
+      "logic": {
+        "op": "AND",
+        "args": [
+          {
+            "op": "NOT",
+            "args": [
+              "C1"
+            ]
+          },
+          "C2"
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C2",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_07_negated_entry_disjunction",
+      "split": "train",
+      "logic": {
+        "op": "OR",
+        "args": [
+          {
+            "op": "NOT",
+            "args": [
+              "C1"
+            ]
+          },
+          "C2"
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C2",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_08_negated_conjunction",
+      "split": "confirmation",
+      "logic": {
+        "op": "NOT",
+        "args": [
+          {
+            "op": "AND",
+            "args": [
+              "C1",
+              "C2"
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C2",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_09_negated_disjunction",
+      "split": "train",
+      "logic": {
+        "op": "NOT",
+        "args": [
+          {
+            "op": "OR",
+            "args": [
+              "C1",
+              "C2"
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C2",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_10_entry_with_two_exclusions",
+      "split": "dev",
+      "logic": {
+        "op": "AND",
+        "args": [
+          "C1",
+          {
+            "op": "NOT",
+            "args": [
+              {
+                "op": "OR",
+                "args": [
+                  "C2",
+                  "C3"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_11_alternative_conjunctions",
+      "split": "confirmation",
+      "logic": {
+        "op": "OR",
+        "args": [
+          {
+            "op": "AND",
+            "args": [
+              "C1",
+              "C2"
+            ]
+          },
+          {
+            "op": "AND",
+            "args": [
+              "C3",
+              "C4"
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_12_joint_alternatives",
+      "split": "train",
+      "logic": {
+        "op": "AND",
+        "args": [
+          {
+            "op": "OR",
+            "args": [
+              "C1",
+              "C2"
+            ]
+          },
+          {
+            "op": "OR",
+            "args": [
+              "C3",
+              "C4"
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_13_exclusive_entry",
+      "split": "train",
+      "logic": {
+        "op": "OR",
+        "args": [
+          {
+            "op": "AND",
+            "args": [
+              "C1",
+              {
+                "op": "NOT",
+                "args": [
+                  "C2"
+                ]
+              }
+            ]
+          },
+          {
+            "op": "AND",
+            "args": [
+              {
+                "op": "NOT",
+                "args": [
+                  "C1"
+                ]
+              },
+              "C2"
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C2",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_14_conditional_requirement",
+      "split": "confirmation",
+      "logic": {
+        "op": "OR",
+        "args": [
+          {
+            "op": "NOT",
+            "args": [
+              "C1"
+            ]
+          },
+          "C2"
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C2",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_15_three_requirements",
+      "split": "train",
+      "logic": {
+        "op": "AND",
+        "args": [
+          "C1",
+          "C2",
+          "C3"
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_16_three_alternatives",
+      "split": "dev",
+      "logic": {
+        "op": "OR",
+        "args": [
+          "C1",
+          "C2",
+          "C3"
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_17_three_exclusions",
+      "split": "confirmation",
+      "logic": {
+        "op": "NOT",
+        "args": [
+          {
+            "op": "OR",
+            "args": [
+              "C1",
+              "C2",
+              "C3"
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_18_negated_three_requirements",
+      "split": "train",
+      "logic": {
+        "op": "NOT",
+        "args": [
+          {
+            "op": "AND",
+            "args": [
+              "C1",
+              "C2",
+              "C3"
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_19_nested_negated_alternatives",
+      "split": "train",
+      "logic": {
+        "op": "OR",
+        "args": [
+          {
+            "op": "AND",
+            "args": [
+              "C1",
+              {
+                "op": "NOT",
+                "args": [
+                  "C2"
+                ]
+              }
+            ]
+          },
+          {
+            "op": "NOT",
+            "args": [
+              {
+                "op": "OR",
+                "args": [
+                  "C3",
+                  "C4"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_20_two_paths_with_exclusions",
+      "split": "confirmation",
+      "logic": {
+        "op": "OR",
+        "args": [
+          {
+            "op": "AND",
+            "args": [
+              "C1",
+              "C2",
+              {
+                "op": "NOT",
+                "args": [
+                  "C3"
+                ]
+              }
+            ]
+          },
+          {
+            "op": "AND",
+            "args": [
+              "C3",
+              {
+                "op": "NOT",
+                "args": [
+                  "C4"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_21_shared_requirement",
+      "split": "train",
+      "logic": {
+        "op": "AND",
+        "args": [
+          "C1",
+          {
+            "op": "OR",
+            "args": [
+              {
+                "op": "AND",
+                "args": [
+                  "C2",
+                  "C3"
+                ]
+              },
+              "C4"
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3",
+        "C4"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_22_five_condition_composition",
+      "split": "dev",
+      "logic": {
+        "op": "AND",
+        "args": [
+          {
+            "op": "OR",
+            "args": [
+              "C1",
+              "C2"
+            ]
+          },
+          {
+            "op": "NOT",
+            "args": [
+              {
+                "op": "AND",
+                "args": [
+                  "C3",
+                  "C4"
+                ]
+              }
+            ]
+          },
+          "C5"
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_23_exceptional_alternative",
+      "split": "confirmation",
+      "logic": {
+        "op": "OR",
+        "args": [
+          {
+            "op": "AND",
+            "args": [
+              "C1",
+              {
+                "op": "NOT",
+                "args": [
+                  {
+                    "op": "OR",
+                    "args": [
+                      "C2",
+                      "C3"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "op": "AND",
+            "args": [
+              "C4",
+              "C5"
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    },
+    {
+      "family_id": "mechanism_24_negated_nested_composition",
+      "split": "train",
+      "logic": {
+        "op": "NOT",
+        "args": [
+          {
+            "op": "OR",
+            "args": [
+              {
+                "op": "AND",
+                "args": [
+                  "C1",
+                  "C2"
+                ]
+              },
+              {
+                "op": "AND",
+                "args": [
+                  {
+                    "op": "NOT",
+                    "args": [
+                      "C3"
+                    ]
+                  },
+                  "C4",
+                  "C5"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "exception_logic": {
+        "op": "AND",
+        "args": [
+          "E1",
+          {
+            "op": "NOT",
+            "args": [
+              "E2"
+            ]
+          }
+        ]
+      },
+      "condition_ids": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5"
+      ],
+      "counterfactual_changed_atoms": [
+        "C1",
+        "C3",
+        "E1"
+      ]
+    }
+  ]
+}
