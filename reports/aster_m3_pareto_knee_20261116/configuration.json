@@ -1,0 +1,40 @@
+{
+  "source_pr": 76,
+  "source_ref": "2f1849037223fb785056c19dab364043c0d9738c",
+  "source_report_path": "reports/aster_m3_dual_objective_20261116",
+  "source_url": "https://github.com/chunxi-alpc/TRIAGE/tree/codex/aster-m3-dual-objective-20261116/reports/aster_m3_dual_objective_20261116",
+  "grid_size": 70,
+  "pareto_size": 59,
+  "selection_scope": "80-source five-fold OOF",
+  "evaluation_only_scopes": [
+    "dev",
+    "test"
+  ],
+  "axis_x": "cf_normalized_distortion",
+  "axis_y": "ap_vr",
+  "normalization": "Pareto-front Min-Max",
+  "method_A": "maximum absolute perpendicular distance to endpoint chord",
+  "method_B": "maximum normalized(ap_vr) - normalized(cf_normalized_distortion)",
+  "CPU_threads": 1,
+  "GPUs": [],
+  "GPU_memory_GiB": 0,
+  "training_runs": 0,
+  "M3_refits": 0,
+  "model_forwards": 0,
+  "new_bootstrap_draws": 0,
+  "existing_bootstrap_draws": 2000,
+  "figure_contract": {
+    "claim": "eta=1 provides the OOF trade-off knee",
+    "panels": [
+      "all-grid Pareto and references",
+      "eta parameter distribution",
+      "method equivalence"
+    ],
+    "formats": [
+      "PNG 400 dpi",
+      "PDF",
+      "SVG editable text"
+    ],
+    "statistics": "point estimates; existing marginal source-bootstrap intervals reported separately"
+  }
+}
