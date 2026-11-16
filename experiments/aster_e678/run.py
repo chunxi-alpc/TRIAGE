@@ -160,7 +160,7 @@ def run_model(key, gpu, unified_scheduler=False):
     run_official(key,root,engine=get_engine())
     summarize(root)
     write(root/"completion.json",dict(complete=True,model_key=key,m1_method_version="adaptive_m1_v2",
-        scopes=scopes+["mega_official"],time=time.strftime("%Y-%m-%d %H:%M:%S")))
+        scopes=scopes+["mega_official_m1_v2"],time=time.strftime("%Y-%m-%d %H:%M:%S")))
     state(root,"complete",complete=True)
 def main():
     p=argparse.ArgumentParser()
