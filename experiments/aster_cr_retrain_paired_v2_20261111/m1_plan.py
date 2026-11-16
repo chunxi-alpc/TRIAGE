@@ -466,11 +466,14 @@ def finish_plan(plan, features, exact_accessor, outdir):
         return max(strengths) if strengths else 0.0
 
     selected = sorted(selected_union, key=lambda head: (-head_strength(head), head))
+    heads_per_layer = int(M1_CONFIG.get("heads_per_layer", 32))
+    layer_distribution = dict(Counter(int(head // heads_per_layer) for head in selected))
     result = dict(
         method_version=METHOD_VERSION,
         method_config=M1_CONFIG,
         group=group,
         heads=selected,
+        layer_distribution=layer_distribution,
         nuisance_heads=nuisance_heads,
         evidence_heads=evidence_heads,
         shared_heads=shared_heads,
