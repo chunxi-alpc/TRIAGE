@@ -11,7 +11,11 @@ def tasks():
     return [(g,"full",None) for g in ("E1","E2","E3")]+[(g,"fold"+str(f["fold"]),f) for f in ff for g in ("E1","E2")]
 
 def done(path):
-    try:return read(path/"model.json").get("complete",False)
+    try:
+        metadata=read(path/"model.json")
+        if not metadata.get("complete"):return False
+        if metadata.get("group")=="E0":return True
+        return metadata.get("M1",{}).get("method_version")=="adaptive_m1_v2"
     except json.JSONDecodeError:return False
 
 def plan_worker(shard,shards):
@@ -23,7 +27,9 @@ def plan_worker(shard,shards):
         sources=fold["train_sources"] if fold else None
         existing=read(target/"m1_plan.json")
         expected=sorted(sources or read(OUT/"folds.json")["all_sources"])
-        if existing.get("group")==g and existing.get("training_sources")==expected:continue
+        if (existing.get("method_version")=="adaptive_m1_v2"
+                and existing.get("group")==g
+                and existing.get("training_sources")==expected):continue
         if g not in pair_cache:pair_cache[g]=rows(DATA/(g+"_pairs.jsonl"))
         make_plan(g,pair_cache[g],store,target,train_sources=sources)
         write(OUT/"status"/("plan_"+str(shard)+".json"),dict(state="running",last_group=g,last_fold=name,pid=os.getpid()))
@@ -132,9 +138,11 @@ def fit_worker(shard,shards):
                     except Exception:pass
                 if support is None:support,m2=_m2(g,heads,pairs,store,views,target)
                 else:m2=prior.get("M2",dict(rank=16,S_rank=support["S"].shape[1],N_rank=support["N"].shape[1],resumed_completed_checkpoint=True,projected_feature_entropy_effective_rank=float(support.get("projected_feature_entropy_effective_rank",0))))
-            if (target/"m3.npz").exists() and read(target/"m3.json").get("success"):
+            if g=="E0" and (target/"m3.npz").exists() and read(target/"m3.json").get("success"):
                 m3=read(target/"m3.json")
-            else:m3=refit_m3(g,pairs,store,calibrators,support,target,delta=CONFIG["delta"])
+            else:
+                # A changed M1 head set changes M2 coordinates; refit M3 rather than reuse stale weights.
+                m3=refit_m3(g,pairs,store,calibrators,support,target,delta=CONFIG["delta"])
             meta=dict(prior,complete=True,group=g,fold=name,heads=heads,training_sources=sources,train_sources=sources,validation_sources=fold["validation_sources"] if fold else [],M1=m1,M2=m2,M3=m3,rank=16,regularization=.01,delta=CONFIG["delta"],fresh_modules=["M3"] if g=="E0" else ["M1","M2","M3"],prediction="ell + (((heads_selected-mu)/scale) @ N) @ w + b",seconds=time.time()-start,gpu_cost_policy="raw pair/head patch costs shared in runtime/patch_jobs.json and status/patch_queue_*.json; no duplicated model forwards")
             write(target/"model.json",meta)
             append(OUT/"fit_jobs.jsonl",dict(group=g,fold=name,complete=True,summary=meta))
