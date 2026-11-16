@@ -1,0 +1,547 @@
+{
+  "snapshot_version": 1,
+  "updated_at_utc": "2026-10-30T00:28:42.614939+00:00",
+  "updated_at_shanghai": "2026-10-30T08:28:42.614939+08:00",
+  "source": "server_aggregate_only",
+  "phase": "confirm",
+  "status": "stopped_by_user",
+  "controller_alive": false,
+  "controller_status_age_seconds": 496.0,
+  "planned_cases": {
+    "confirm": 5126,
+    "official_test": 7458,
+    "med": 852
+  },
+  "methods": [
+    "baseline",
+    "learned",
+    "direct",
+    "mean",
+    "random",
+    "reverse",
+    "oracle",
+    "zero"
+  ],
+  "judge_draws_per_parsed_distinct_output": {
+    "path": 5,
+    "conclusion": 5
+  },
+  "phases": {
+    "confirm": {
+      "planned_cases": 5126,
+      "complete_cases": 328,
+      "partial_cases": 0,
+      "unique_prediction_records": 2624,
+      "planned_prediction_records": 41008,
+      "duplicate_cells": 0,
+      "records_by_method": {
+        "baseline": 328,
+        "learned": 328,
+        "direct": 328,
+        "mean": 328,
+        "random": 328,
+        "reverse": 328,
+        "oracle": 328,
+        "zero": 328
+      },
+      "technical_failure_records": {
+        "context_overflow": 216
+      },
+      "technical_failure_cases": {
+        "context_overflow": 27
+      },
+      "invalid_output_records": 0,
+      "judge_failed_records": 0,
+      "latest_output_age_seconds": null,
+      "original_context_failure_cases": 107,
+      "replayed_context_cells": 640,
+      "replay_duplicate_cells": 0,
+      "original_context_records_preserved": true,
+      "successful_eight_arm_cases": 301
+    },
+    "official_test": {
+      "planned_cases": 7458,
+      "complete_cases": 0,
+      "partial_cases": 0,
+      "unique_prediction_records": 0,
+      "planned_prediction_records": 59664,
+      "duplicate_cells": 0,
+      "records_by_method": {},
+      "technical_failure_records": {},
+      "technical_failure_cases": {},
+      "invalid_output_records": 0,
+      "judge_failed_records": 0,
+      "latest_output_age_seconds": null,
+      "original_context_failure_cases": 0,
+      "replayed_context_cells": 0,
+      "replay_duplicate_cells": 0,
+      "original_context_records_preserved": true
+    },
+    "med": {
+      "planned_cases": 852,
+      "complete_cases": 0,
+      "partial_cases": 0,
+      "unique_prediction_records": 0,
+      "planned_prediction_records": 6816,
+      "duplicate_cells": 0,
+      "records_by_method": {},
+      "technical_failure_records": {},
+      "technical_failure_cases": {},
+      "invalid_output_records": 0,
+      "judge_failed_records": 0,
+      "latest_output_age_seconds": null,
+      "original_context_failure_cases": 0,
+      "replayed_context_cells": 0,
+      "replay_duplicate_cells": 0,
+      "original_context_records_preserved": true
+    }
+  },
+  "worker_progress": {
+    "confirm_0": {
+      "status": "stopped_by_user",
+      "world": 4,
+      "alive": false,
+      "gpu": null,
+      "elapsed_seconds": null,
+      "oom_batch_splits": 0,
+      "token_budget_splits": 0,
+      "progress_age_seconds": null
+    },
+    "confirm_2": {
+      "status": "stopped_by_user",
+      "world": 4,
+      "alive": false,
+      "gpu": null,
+      "elapsed_seconds": null,
+      "oom_batch_splits": 0,
+      "token_budget_splits": 0,
+      "progress_age_seconds": null
+    },
+    "confirm_3": {
+      "status": "stopped_by_user",
+      "world": 4,
+      "alive": false,
+      "gpu": null,
+      "elapsed_seconds": null,
+      "oom_batch_splits": 0,
+      "token_budget_splits": 0,
+      "progress_age_seconds": null
+    },
+    "confirm_1": {
+      "status": "stopped_by_user",
+      "world": 4,
+      "alive": false,
+      "gpu": null,
+      "elapsed_seconds": null,
+      "oom_batch_splits": 0,
+      "token_budget_splits": 0,
+      "progress_age_seconds": null
+    }
+  },
+  "gpu_allocation": {
+    "confirm": {
+      "cards": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "world": 4
+    },
+    "official_test": {},
+    "med": {}
+  },
+  "privacy": "No clinical text, patient identifiers, prompts or model responses are published.",
+  "allowed_gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "context_replay": {
+    "time": 1793319259.0444455,
+    "status": "stopped_by_user",
+    "phase": "confirm",
+    "phases": {
+      "confirm": {
+        "target_cases": 107,
+        "complete_cases": 80,
+        "pending_cases": 27,
+        "original_records_preserved": 856
+      },
+      "official_test": {
+        "target_cases": 0,
+        "complete_cases": 0,
+        "pending_cases": 0,
+        "original_records_preserved": 0
+      },
+      "med": {
+        "target_cases": 0,
+        "complete_cases": 0,
+        "pending_cases": 0,
+        "original_records_preserved": 0
+      }
+    },
+    "active_jobs": [],
+    "blocked_jobs": [],
+    "unsupported_cases": 0,
+    "probe_complete": true,
+    "priority_cohort": {
+      "target_cases": 107,
+      "complete_cases": 80,
+      "remaining_cases": 27,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ]
+    },
+    "controller_alive": false,
+    "status_age_seconds": 496.0
+  },
+  "complete_cases_total": 328,
+  "planned_cases_total": 13436,
+  "unique_prediction_records_total": 2624,
+  "gpu_status": [
+    {
+      "index": 0,
+      "memory_used_mib": 0,
+      "utilization_percent": 0
+    },
+    {
+      "index": 1,
+      "memory_used_mib": 0,
+      "utilization_percent": 0
+    },
+    {
+      "index": 2,
+      "memory_used_mib": 0,
+      "utilization_percent": 0
+    },
+    {
+      "index": 3,
+      "memory_used_mib": 0,
+      "utilization_percent": 0
+    },
+    {
+      "index": 4,
+      "memory_used_mib": 0,
+      "utilization_percent": 0
+    },
+    {
+      "index": 5,
+      "memory_used_mib": 0,
+      "utilization_percent": 0
+    },
+    {
+      "index": 6,
+      "memory_used_mib": 0,
+      "utilization_percent": 0
+    }
+  ],
+  "historical_transport_repair": {
+    "retry_cells": 293,
+    "rerouted_cases": 36,
+    "counts": {
+      "failed_generated_cells": 293,
+      "failed_draws": 0,
+      "failed_score_aggregates": 0,
+      "retained_completed_rows": 609,
+      "archived_retry_rows": 293
+    }
+  },
+  "monitoring_stopped": true,
+  "stop_reason": "User requested stopping if current effect is poor; no clear interim learned-direction benefit; all run03 processes stopped.",
+  "interim_metrics": {
+    "baseline": {
+      "n": 328,
+      "guidelines": 19,
+      "conclusion_score": 0.5478658536585366,
+      "path_cost": 0.2667857952160824,
+      "full_agreement_accuracy": 0.2774390243902439,
+      "corrected": 0,
+      "regressed": 0,
+      "technical_failures": 27,
+      "invalid_outputs": 0,
+      "judge_failures": 0,
+      "route_failures": 2,
+      "intervention_applied": 0,
+      "different_output_from_baseline": 0,
+      "official_accuracy_paired_guideline": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "official_pcc_paired_guideline": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "correct_paired_guideline": {
+        "delta": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "learned": {
+      "n": 328,
+      "guidelines": 19,
+      "conclusion_score": 0.5503048780487805,
+      "path_cost": 0.26107480666426164,
+      "full_agreement_accuracy": 0.27134146341463417,
+      "corrected": 6,
+      "regressed": 8,
+      "technical_failures": 27,
+      "invalid_outputs": 0,
+      "judge_failures": 0,
+      "route_failures": 0,
+      "intervention_applied": 301,
+      "different_output_from_baseline": 137,
+      "official_accuracy_paired_guideline": {
+        "delta": 0.0014697831146882167,
+        "ci95": [
+          -0.01198557989175838,
+          0.01612639553429027
+        ]
+      },
+      "official_pcc_paired_guideline": {
+        "delta": -0.0011224796817868759,
+        "ci95": [
+          -0.009897518445781356,
+          0.009509213760292581
+        ]
+      },
+      "correct_paired_guideline": {
+        "delta": -0.00971285336610414,
+        "ci95": [
+          -0.027814634625780137,
+          0.006919636950596702
+        ]
+      }
+    },
+    "direct": {
+      "n": 328,
+      "guidelines": 19,
+      "conclusion_score": 0.5471036585365854,
+      "path_cost": 0.25847737724563696,
+      "full_agreement_accuracy": 0.27134146341463417,
+      "corrected": 7,
+      "regressed": 9,
+      "technical_failures": 27,
+      "invalid_outputs": 0,
+      "judge_failures": 0,
+      "route_failures": 0,
+      "intervention_applied": 301,
+      "different_output_from_baseline": 134,
+      "official_accuracy_paired_guideline": {
+        "delta": 0.0005193936535637982,
+        "ci95": [
+          -0.009303379369168842,
+          0.012035193385307803
+        ]
+      },
+      "official_pcc_paired_guideline": {
+        "delta": -0.007899481889420001,
+        "ci95": [
+          -0.01970118071549376,
+          0.0015375597312568526
+        ]
+      },
+      "correct_paired_guideline": {
+        "delta": -0.008032928917300973,
+        "ci95": [
+          -0.0264316100734192,
+          0.008979711379092183
+        ]
+      }
+    },
+    "mean": {
+      "n": 328,
+      "guidelines": 19,
+      "conclusion_score": 0.5487804878048781,
+      "path_cost": 0.2600798470768746,
+      "full_agreement_accuracy": 0.2682926829268293,
+      "corrected": 8,
+      "regressed": 11,
+      "technical_failures": 27,
+      "invalid_outputs": 0,
+      "judge_failures": 0,
+      "route_failures": 0,
+      "intervention_applied": 301,
+      "different_output_from_baseline": 129,
+      "official_accuracy_paired_guideline": {
+        "delta": 0.001996587882137755,
+        "ci95": [
+          -0.01008556109764213,
+          0.01613810642700803
+        ]
+      },
+      "official_pcc_paired_guideline": {
+        "delta": -0.007315507715589348,
+        "ci95": [
+          -0.015565464267043404,
+          0.0006826739088552726
+        ]
+      },
+      "correct_paired_guideline": {
+        "delta": -0.012262131573277085,
+        "ci95": [
+          -0.032112946393132155,
+          0.006833259619637328
+        ]
+      }
+    },
+    "random": {
+      "n": 328,
+      "guidelines": 19,
+      "conclusion_score": 0.5589939024390244,
+      "path_cost": 0.25957328609985975,
+      "full_agreement_accuracy": 0.28353658536585363,
+      "corrected": 9,
+      "regressed": 7,
+      "technical_failures": 27,
+      "invalid_outputs": 0,
+      "judge_failures": 0,
+      "route_failures": 0,
+      "intervention_applied": 301,
+      "different_output_from_baseline": 135,
+      "official_accuracy_paired_guideline": {
+        "delta": 0.008823696261187848,
+        "ci95": [
+          -0.009172925028188183,
+          0.030342665907849647
+        ]
+      },
+      "official_pcc_paired_guideline": {
+        "delta": -0.007300032406110275,
+        "ci95": [
+          -0.019489614977825306,
+          0.0037333502959950777
+        ]
+      },
+      "correct_paired_guideline": {
+        "delta": -0.0012905294403477206,
+        "ci95": [
+          -0.03316839529654175,
+          0.03198783500641086
+        ]
+      }
+    },
+    "reverse": {
+      "n": 328,
+      "guidelines": 19,
+      "conclusion_score": 0.5539634146341463,
+      "path_cost": 0.263171814034608,
+      "full_agreement_accuracy": 0.2774390243902439,
+      "corrected": 8,
+      "regressed": 8,
+      "technical_failures": 27,
+      "invalid_outputs": 0,
+      "judge_failures": 0,
+      "route_failures": 0,
+      "intervention_applied": 301,
+      "different_output_from_baseline": 145,
+      "official_accuracy_paired_guideline": {
+        "delta": 0.003234568681718366,
+        "ci95": [
+          -0.013883715940436227,
+          0.021879660036124567
+        ]
+      },
+      "official_pcc_paired_guideline": {
+        "delta": -0.003906707125778374,
+        "ci95": [
+          -0.0109693502389484,
+          0.003085513690389958
+        ]
+      },
+      "correct_paired_guideline": {
+        "delta": -0.014060019040500936,
+        "ci95": [
+          -0.058279053248093494,
+          0.01708285769061109
+        ]
+      }
+    },
+    "oracle": {
+      "n": 328,
+      "guidelines": 19,
+      "conclusion_score": 0.5361280487804878,
+      "path_cost": 0.26189117104077764,
+      "full_agreement_accuracy": 0.2530487804878049,
+      "corrected": 4,
+      "regressed": 12,
+      "technical_failures": 27,
+      "invalid_outputs": 0,
+      "judge_failures": 0,
+      "route_failures": 2,
+      "intervention_applied": 301,
+      "different_output_from_baseline": 135,
+      "official_accuracy_paired_guideline": {
+        "delta": -0.00899332375944302,
+        "ci95": [
+          -0.026700576610389503,
+          0.007542815371762742
+        ]
+      },
+      "official_pcc_paired_guideline": {
+        "delta": -0.0019514107236030137,
+        "ci95": [
+          -0.014056439432292763,
+          0.012248979233856969
+        ]
+      },
+      "correct_paired_guideline": {
+        "delta": -0.028161605224466986,
+        "ci95": [
+          -0.05981299402352034,
+          -0.0029239766081871343
+        ]
+      }
+    },
+    "zero": {
+      "n": 328,
+      "guidelines": 19,
+      "conclusion_score": 0.5463414634146341,
+      "path_cost": 0.2686758183420806,
+      "full_agreement_accuracy": 0.27439024390243905,
+      "corrected": 0,
+      "regressed": 1,
+      "technical_failures": 27,
+      "invalid_outputs": 0,
+      "judge_failures": 0,
+      "route_failures": 2,
+      "intervention_applied": 0,
+      "different_output_from_baseline": 11,
+      "official_accuracy_paired_guideline": {
+        "delta": -0.0013157894736842105,
+        "ci95": [
+          -0.003947368421052633,
+          0.0
+        ]
+      },
+      "official_pcc_paired_guideline": {
+        "delta": 0.001780511232854494,
+        "ci95": [
+          -0.0002631578790514091,
+          0.005736270517140596
+        ]
+      },
+      "correct_paired_guideline": {
+        "delta": -0.002631578947368421,
+        "ci95": [
+          -0.007894736842105265,
+          0.0
+        ]
+      }
+    }
+  },
+  "interim_metrics_scope": "328 paired early confirm cases including 27 unresolved context failures; official_test and med not started"
+}
