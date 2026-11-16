@@ -144,7 +144,8 @@ def run_model(key, gpu, unified_scheduler=False):
         state(root,"source_development_evaluation")
         development=evaluate_model(root,scopes=("dev",))
         write(root/"frozen.json",dict(frozen=True,model_key=key,source_protocol="E1-balanced-2540",
-            configuration=config,development=development,selection_split="source development only",
+            configuration=config,development=development,
+            selection_split="five-fold source cross-fitting within training sources; development sources excluded from M1 selection",
             m1_method_version="adaptive_m1_v2",
             selection="adaptive M1 v2 head selection; fixed trace rank/regularization/evidence budget; independently fitted checkpoint parameters",
             parameter_directory=str(target),time=time.strftime("%Y-%m-%d %H:%M:%S"),
