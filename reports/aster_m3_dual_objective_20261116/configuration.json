@@ -1,0 +1,40 @@
+{
+  "issue": 75,
+  "selection_protocol": "80-source five-fold OOF; 20-source dev independent validation; 40-source reused holdout",
+  "resolution": "User confirmed OOF selection on 2026-11-16; supersedes issue evaluation section 1-3",
+  "eta_grid": [
+    0,
+    0.01,
+    0.03,
+    0.1,
+    0.3,
+    1,
+    3,
+    10,
+    30,
+    100
+  ],
+  "lambda_grid": [
+    0.0001,
+    0.001,
+    0.01,
+    0.1,
+    1,
+    10,
+    100
+  ],
+  "bootstrap_draws": 2000,
+  "bootstrap_seed": 20261111,
+  "evaluation_weighting": "E1 pooled pair/node/path moments; sources resampled with replacement",
+  "fitting_weighting": "training.pair_weights(E1); each AP/CF group sums to 4887",
+  "M1_heads": 51,
+  "M2_rank": 16,
+  "M4": "same E1 training natural-node additive intercept; beta=1",
+  "manuscript_difference": "PR74 positive-slope Platt not used in this M3-only experiment",
+  "GPUs": [],
+  "GPU_memory_GiB": 0,
+  "model_forwards": 0,
+  "gradient_computations": 0,
+  "grid_scope": "OOF selection, never dev/test grid",
+  "execution": "CPU only"
+}
