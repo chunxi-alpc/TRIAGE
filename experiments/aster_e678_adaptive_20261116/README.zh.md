@@ -17,3 +17,5 @@ M2秩上限16、M3正则化0.01、证据预算0.2923349及自然节点截距校�
 执行顺序：fit/dev原始特征 → 自适应M1 → M2/M3 → 开发评价 → 参数冻结 → 测试点估计。干扰或证据集合为空时保存selection_incomplete并停止后续拟合。已提取特征可断点续用。
 
 主要输出：screen.json/csv、per_head_statistics.json/csv、source_effects.jsonl/csv、donors.json、m1.json、sensitivity.json/csv、point_estimates.csv、REPORT.zh.md。模型任务结束后finalize.py自动汇总，并向GitHub分支aster-adaptive-m1-20261116推送报告。
+
+GPU 空闲时，可由统一队列启动 cooperative_extract 辅助进程，共享同一检查点的未完成原始特征提取。每条输入独立加锁，分数写入加锁，完成记录用于续跑；主进程在开发特征齐备后执行 M1。测试输入仍须在参数冻结后提取。

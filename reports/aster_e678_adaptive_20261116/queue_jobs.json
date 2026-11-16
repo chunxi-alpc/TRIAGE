@@ -188,10 +188,7 @@
       ],
       "gpu_count": 1,
       "allowed_gpus": [
-        0,
-        1,
-        5,
-        6
+        0
       ],
       "estimated_vram_gib": 65,
       "estimated_hours": 120,
@@ -265,6 +262,38 @@
       "completion_marker": "/home/gcx/aster-e678-adaptive-20261116/reports/aster_e678_adaptive_20261116/models/gemma2_base/queue_done.json"
     },
     {
+      "id": "adaptive-medgemma-dev-helper1",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-u",
+        "-m",
+        "experiments.aster_e678_adaptive_20261116.cooperative_extract",
+        "--model",
+        "medgemma",
+        "--worker",
+        "helper1"
+      ],
+      "cwd": "/home/gcx/aster-e678-adaptive-20261116",
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "TOKENIZERS_PARALLELISM": "false",
+        "PYTHONUNBUFFERED": "1"
+      },
+      "dependencies": [
+        "adaptive-smoke"
+      ],
+      "gpu_count": 1,
+      "allowed_gpus": [
+        1
+      ],
+      "estimated_vram_gib": 65,
+      "estimated_hours": 3,
+      "priority": 90,
+      "completion_marker": "/home/gcx/aster-e678-adaptive-20261116/reports/aster_e678_adaptive_20261116/models/medgemma/performance/helper1_done.json"
+    },
+    {
       "id": "adaptive-finalize",
       "command": [
         "/home/gcx/gcx261014/bin/python",
@@ -287,7 +316,8 @@
         "adaptive-gemma3",
         "adaptive-medgemma",
         "adaptive-qwen_base",
-        "adaptive-gemma2_base"
+        "adaptive-gemma2_base",
+        "adaptive-medgemma-dev-helper1"
       ],
       "gpu_count": 0,
       "run_on_failure": true,

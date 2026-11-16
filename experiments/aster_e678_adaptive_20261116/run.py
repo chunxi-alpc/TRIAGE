@@ -44,6 +44,9 @@ class SplitStore(DynamicStore):
 def extract(root,stage,inputs,engine):
     if stage=="test" and not read(Path(root)/"frozen.json").get("frozen"):
         raise ValueError("Test feature extraction before parameter freeze")
+    if read(Path(root)/"cache/cooperative.json").get("enabled"):
+        from .cooperative_extract import extract as cooperative_extract
+        return cooperative_extract(root,stage,inputs,engine)
     return legacy_extract(root,stage,inputs,engine)
 
 def freeze_identity(root, engine, inputs, ids):
