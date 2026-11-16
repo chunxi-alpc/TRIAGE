@@ -1,6 +1,6 @@
 # ASTER-CR 自适应注意力头筛选实验
 
-实测完成 0/7；selection_incomplete 诊断终点 0/7。其他检查点状态见下表。
+实测完成 0/7；selection_incomplete 诊断终点 7/7。其他检查点状态见下表。
 
 ## 当前实验范围
 
@@ -20,13 +20,13 @@ M2秩上限16、M3正则化0.01、证据预算0.2923349、自然节点截距校�
 
 |模型|状态|总头数|候选A/P/C/F|有效A/P/C/F|最终头数|比例|
 |---|---|---:|---|---|---:|---:|
-|qwen|extract_fit|1152|待运行|待运行|待运行|待运行|
-|llama31|extract_fit|1024|待运行|待运行|待运行|待运行|
-|gemma2|extract_fit|672|待运行|待运行|待运行|待运行|
-|gemma3|extract_fit|1984|待运行|待运行|待运行|待运行|
-|medgemma|queued|1984|待运行|待运行|待运行|待运行|
-|qwen_base|queued|1152|待运行|待运行|待运行|待运行|
-|gemma2_base|queued|672|待运行|待运行|待运行|待运行|
+|qwen|selection_incomplete|1152|{'A': 8, 'P': 4, 'C': 16, 'F': 8}|{'A': 0, 'P': 0, 'C': 0, 'F': 1}|1|0.0008680555555555555|
+|llama31|selection_incomplete|1024|{'A': 16, 'P': 19, 'C': 79, 'F': 68}|{'A': 0, 'P': 0, 'C': 0, 'F': 0}|0|0.0|
+|gemma2|selection_incomplete|672|{'A': 35, 'P': 26, 'C': 50, 'F': 34}|{'A': 0, 'P': 0, 'C': 0, 'F': 0}|0|0.0|
+|gemma3|selection_incomplete|1984|{'A': 46, 'P': 62, 'C': 162, 'F': 132}|{'A': 0, 'P': 0, 'C': 0, 'F': 0}|0|0.0|
+|medgemma|selection_incomplete|1984|{'A': 42, 'P': 21, 'C': 117, 'F': 102}|{'A': 0, 'P': 0, 'C': 0, 'F': 0}|0|0.0|
+|qwen_base|selection_incomplete|1152|{'A': 0, 'P': 0, 'C': 0, 'F': 0}|{'A': 0, 'P': 0, 'C': 0, 'F': 0}|0|0.0|
+|gemma2_base|selection_incomplete|672|{'A': 54, 'P': 9, 'C': 57, 'F': 103}|{'A': 0, 'P': 0, 'C': 0, 'F': 0}|0|0.0|
 
 ## 测试集点估计
 

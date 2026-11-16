@@ -1,0 +1,30 @@
+{
+  "model": "gemma2_base",
+  "name": "Gemma-2-9B-Base",
+  "path": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/checkpoints/gemma-2-9b",
+  "checkpoint_type": "base",
+  "model_type": "gemma2",
+  "num_layers": 42,
+  "num_attention_heads": 16,
+  "total_heads": 672,
+  "head_dim": 256,
+  "max_position_embeddings": 8192,
+  "dtype": "bfloat16 backbone; float32 label projection",
+  "prompt_policy": "plain_completion",
+  "chat_style": "plain_completion",
+  "official_chat_template": null,
+  "plain_completion_suffix": "Answer:",
+  "answer_labels": [
+    "是",
+    "否"
+  ],
+  "answer_token_ids": [
+    235427,
+    236610
+  ],
+  "score": "official final logits(YES) - official final logits(NO)",
+  "final_logit_softcapping": 30.0,
+  "attention_implementation": "eager",
+  "cache": "native immutable prefix cache replay",
+  "activation": "last prompt token, self_attn.o_proj input, before output projection"
+}
