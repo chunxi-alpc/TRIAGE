@@ -60,11 +60,16 @@ def _m1(group, pairs, features, patcher, outdir, heads_to_select=None):
         from .m1_plan import make_plan, finish_plan
         plan = make_plan(group, pairs, features, outdir)
         return finish_plan(plan, features, patcher, outdir)
+    if group != "E0":
+        raise ValueError("Unknown M1 group; adaptive M1 v2 is required outside the E0 historical baseline")
     legacy_count = 51 if heads_to_select is None else int(heads_to_select)
     return _m1_legacy(group, pairs, features, patcher, outdir, heads_to_select=legacy_count)
 
 
 def _m1_legacy(group, pairs, features, patcher, outdir, heads_to_select=51):
+    """Retain M1 v1 only for the historical E0 comparison."""
+    if group != "E0":
+        raise ValueError("Fixed-K M1 v1 is restricted to the historical E0 baseline")
     if patcher is None:
         raise ValueError('Fresh M1 requires the exact-patching callback')
     start = time.monotonic()
