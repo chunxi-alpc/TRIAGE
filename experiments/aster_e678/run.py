@@ -91,7 +91,14 @@ def run_model(key, gpu, unified_scheduler=False):
     config=read(root / "configuration.json")
     if not config:
         raise RuntimeError("Run prepare first")
-    if read(root / "completion.json").get("complete"):
+    target=root / "models/E1/full"
+    existing_model=read(target / "model.json")
+    m1_v2_done=bool(
+        existing_model.get("complete")
+        and existing_model.get("M1",{}).get("method_version")=="adaptive_m1_v2"
+    )
+    completion=read(root / "completion.json")
+    if completion.get("complete") and completion.get("m1_method_version")=="adaptive_m1_v2" and m1_v2_done:
         return
     if not unified_scheduler:
         if not any(read(OUT / "allocation.json").get(k) for k in ("assigned_by_codex00", "scheduling_confirmed")):
@@ -100,7 +107,9 @@ def run_model(key, gpu, unified_scheduler=False):
         if gpu not in allocation.get("gpus", []):
             raise RuntimeError("GPU not assigned to Codex05")
     config["scheduler"]="unified_gpu_queue" if unified_scheduler else "previous_handoff_queue"
-    config.update(gpus=[gpu], state="running")
+    config.update(gpus=[gpu], state="running", head_count="adaptive",
+                  m1_method_version="adaptive_m1_v2",
+                  m1_config_path="experiments/aster_cr_retrain_paired_v2_20261111/m1_adaptive_v2_config.json")
     write(root / "configuration.json",config)
     extra={r["uid"]:r for r in rows(read(root/"extra_inputs.json")["path"])}
     inputs=ChainMap(extra,load_inputs(SOURCE))
@@ -113,7 +122,7 @@ def run_model(key, gpu, unified_scheduler=False):
             engine=Engine(key,metadata_path=root / "model_metadata.json")
         return engine
     target=root / "models/E1/full"
-    if not read(target / "model.json").get("complete"):
+    if not m1_v2_done:
         extract(root,"fit",inputs,get_engine())
         store=DynamicStore(root)
         state(root,"independent_M1_M2_M3")
@@ -129,13 +138,15 @@ def run_model(key, gpu, unified_scheduler=False):
         write(target/"model.json",summary)
     if not (target/"calibration.json").exists():
         calibration(root,DynamicStore(root))
-    if not read(root/"frozen.json").get("frozen"):
+    frozen=read(root/"frozen.json")
+    if not frozen.get("frozen") or frozen.get("m1_method_version")!="adaptive_m1_v2":
         extract(root,"dev",inputs,get_engine())
         state(root,"source_development_evaluation")
         development=evaluate_model(root,scopes=("dev",))
         write(root/"frozen.json",dict(frozen=True,model_key=key,source_protocol="E1-balanced-2540",
             configuration=config,development=development,selection_split="source development only",
-            selection="fixed E1 head/rank/regularization/budget; independently fitted checkpoint parameters",
+            m1_method_version="adaptive_m1_v2",
+            selection="adaptive M1 v2 head selection; fixed trace rank/regularization/evidence budget; independently fitted checkpoint parameters",
             parameter_directory=str(target),time=time.strftime("%Y-%m-%d %H:%M:%S"),
             target_test_labels_used_for_fit=False,target_labels_used_for_calibration=False))
     scopes=["test"] + ([] if key.endswith("_base") else ["nli4ct","medpic","nli4ct_official5500","medpic_official467"])
@@ -147,7 +158,7 @@ def run_model(key, gpu, unified_scheduler=False):
     state(root,"mega_official")
     run_official(key,root,engine=get_engine())
     summarize(root)
-    write(root/"completion.json",dict(complete=True,model_key=key,
+    write(root/"completion.json",dict(complete=True,model_key=key,m1_method_version="adaptive_m1_v2",
         scopes=scopes+["mega_official"],time=time.strftime("%Y-%m-%d %H:%M:%S")))
     state(root,"complete",complete=True)
 def main():
