@@ -18,16 +18,21 @@ def build_queue(plan_paths,out=OUT):
     out=Path(out);merged={};paths=sorted(Path(p) for p in plan_paths)
     for path in paths:
         plan=read(path)
+        if plan.get("method_version")!="adaptive_m1_v2":
+            raise ValueError("M1 plan is not adaptive_m1_v2; regenerate it before building the patch queue: "+str(path))
         if "kinds" not in plan:raise ValueError("M1 plan has no kinds: "+str(path))
         for kind,detail in plan["kinds"].items():
-            candidates=[int(h) for h in detail["candidates"]]
-            for pair in detail["representatives"]:
-                key=(str(pair["left"]),str(pair["right"]))
-                if key not in merged:
-                    merged[key]=dict(left=key[0],right=key[1],pair_id=pair["pair_id"],
-                                     heads=set(),pair_ids=set(),plans=set(),kinds=set())
-                job=merged[key];job["heads"].update(candidates)
-                job["pair_ids"].add(str(pair["pair_id"]));job["plans"].add(str(path));job["kinds"].add(kind)
+            for fold_detail in detail.get("folds",[]):
+                candidates=[int(h) for h in fold_detail["candidates"]]
+                if not candidates:
+                    continue
+                for pair in fold_detail["representatives"]:
+                    key=(str(pair["left"]),str(pair["right"]))
+                    if key not in merged:
+                        merged[key]=dict(left=key[0],right=key[1],pair_id=pair["pair_id"],
+                                         heads=set(),pair_ids=set(),plans=set(),kinds=set())
+                    job=merged[key];job["heads"].update(candidates)
+                    job["pair_ids"].add(str(pair["pair_id"]));job["plans"].add(str(path));job["kinds"].add(kind)
     jobs=[];requested=0;cached_heads=0;cached_pairs=0
     for job in merged.values():
         candidates=sorted(job["heads"]);requested+=len(candidates)
