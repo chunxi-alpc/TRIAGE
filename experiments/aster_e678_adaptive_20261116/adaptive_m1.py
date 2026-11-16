@@ -168,16 +168,6 @@ def confirm(matrix, sources, hypotheses, total_heads, heads_per_layer, config=Co
     means = np.divide(filled.sum(0), n, out=np.zeros(len(n)), where=n>0)
     p = np.asarray(sign_p(d))
     by, bh = adjust(p, "BY"), adjust(p, "BH")
-    w = bootstrap_weights(sources, config.bootstrap, config.seed + 1)
-    counts = w @ valid.astype(float)
-    sums = w @ filled
-    boot = np.divide(sums, counts, out=np.full_like(sums, np.nan), where=counts>0)
-    ci = np.zeros((2, len(hypotheses)))
-    for j in range(len(hypotheses)):
-        a = boot[:, j]
-        a = a[np.isfinite(a)]
-        if len(a):
-            ci[:, j] = np.quantile(a, [.025, .975])
     records = []
     for j, hypothesis in enumerate(hypotheses):
         adequate = bool(n[j] >= config.min_sources)
@@ -186,11 +176,12 @@ def confirm(matrix, sources, hypotheses, total_heads, heads_per_layer, config=Co
             nonzero_sources=int(np.sum(valid[:, j] & (d[:, j] != 0))),
             excess_mean=float(means[j]) if n[j] else None, p_confirm=float(p[j]),
             q_BY=float(by[j]), q_BH=float(bh[j]),
-            ci_low=float(ci[0, j]) if n[j] else None, ci_high=float(ci[1, j]) if n[j] else None,
             evidence_status="adequate" if adequate else "insufficient_statistical_evidence",
-            confirmed=bool(adequate and by[j] <= config.confirm_q and ci[0, j] > 0),
-            confirmed_BH=bool(adequate and bh[j] <= config.confirm_q and ci[0, j] > 0)))
+            confirmed=bool(adequate and by[j] <= config.confirm_q and means[j] > 0),
+            confirmed_BH=bool(adequate and bh[j] <= config.confirm_q and means[j] > 0)))
     summary = combine_sets(records, total_heads, heads_per_layer)
+    summary["confidence_intervals"] = False
+    summary["confirmation_rule"] = "BY q <= threshold; positive mean excess; at least 16 valid sources"
     summary["BH_sensitivity"] = combine_sets(
         [dict(r, confirmed=r["confirmed_BH"]) for r in records], total_heads, heads_per_layer)
     summary["candidate_by_kind"] = dict(Counter(r["kind"] for r in hypotheses))
@@ -203,7 +194,11 @@ def confirm(matrix, sources, hypotheses, total_heads, heads_per_layer, config=Co
         summary["N_eff"][k] = float(x.sum()**2 / (x @ x)) if len(x) else 0.
     summary["N_eff_population"] = "screened candidates with positive mean excess, by category"
     if stability and len(hypotheses):
-        # Conditional stability of BY sign-test support; CI is reported separately.
+        # Source resampling is retained for selection stability, without confidence intervals.
+        w = bootstrap_weights(sources, config.bootstrap, config.seed + 1)
+        counts = w @ valid.astype(float)
+        sums = w @ filled
+        boot = np.divide(sums, counts, out=np.full_like(sums, np.nan), where=counts>0)
         pos = w @ ((d > 0) & valid).astype(float)
         nz = w @ ((d != 0) & valid).astype(float)
         bp = binom.sf(pos - 1, nz, .5)
@@ -218,7 +213,7 @@ def confirm(matrix, sources, hypotheses, total_heads, heads_per_layer, config=Co
             hh = {hypotheses[j]["head"] for j in np.flatnonzero(row)}
             jaccard.append(len(hh & reference)/len(hh | reference) if hh | reference else 1.)
         summary["stability"] = dict(draws=config.bootstrap,
-            definition="source-resampled BY sign rejection plus positive mean; fixed screening; CI not reapplied",
+            definition="source-resampled BY sign rejection plus positive mean; fixed screening; no confidence intervals",
             mean_union_jaccard=float(np.mean(jaccard)), reference="primary confirmed head union")
     return records, summary
 
@@ -284,7 +279,7 @@ def analyze(screen, effects, dev_sources, total_heads, heads_per_layer, outdir, 
     confirmed_lookup={(r["kind"],r["head"]):r for r in main["records"]}
     all_heads=[dict(r, **{k:v for k,v in confirmed_lookup.get((r["kind"],r["head"]),{
         "evidence_status":"not_screened","confirmed":False,"p_confirm":None,
-        "q_BY":None,"q_BH":None,"ci_low":None,"ci_high":None}).items()
+        "q_BY":None,"q_BH":None}).items()
         if k not in r}) for r in screen]
     write(outdir/"per_head_statistics.json",all_heads)
     write_csv(outdir/"per_head_statistics.csv",all_heads)

@@ -1,45 +1,19 @@
 # ASTER-CR 自适应 M1
 
-所有实验在服务器环境 /home/gcx/gcx261014 运行。主报告位于 reports/aster_e678_adaptive_20261116/REPORT.zh.md。
+当前范围：七个检查点各自执行自适应M1、M2/M3、开发与测试评价、阈值敏感性和选头结构诊断。按用户2026-11-16最新要求，取消全部置信区间及其选头条件，取消固定51头基线重跑和对照。
 
-## CPU 准备
+保留E1的2,540对训练数据和80/20/40来源划分。原20个开发来源补充43对后，四类各覆盖20个来源。新增配对与修改记录见reports/aster_e678_adaptive_20261116/development。
 
-- complete_dev.py：按用户确认，在原20个开发来源补齐缺失配对。人工编写的文本替换保存于 dev_edits.json。
-- prepare.py：保留2,540对训练集及80/20/40来源划分，生成七模型独立输入配置；不导入历史学习结果或原始缓存。
-- tests/：单元、集成、来源隔离测试。在 CUDA_VISIBLE_DEVICES 为空时运行 unittest discover。
-- report.py：生成 JSON/CSV/Markdown 汇总；有实测结果后生成层分布 PNG/PDF。
+梯度候选阶段每类每训练来源取一个固定代表配对，共296个唯一左输入；覆盖全部头并执行2,000次来源级置换，统一BH q≤0.20。开发精确修补使用五个不同来源供体，最终要求BY q≤0.05、平均超额干预效应>0、至少16个有效开发来源。BH结果单列。
 
-## GPU 执行
+M2秩上限16、M3正则化0.01、证据预算0.2923349及自然节点截距校准保持原配置。来源重采样保留用于选头稳定性；性能只报告点估计。
 
-queue_jobs.json 是待提交的统一队列清单，包含一个Qwen冒烟任务与七个依赖该冒烟的检查点任务。已于2026-11-16提交至统一队列 /home/gcx/aster-gpu-queue-20261113/adaptive_20261116；GPU冒烟通过，七个检查点由队列接续执行。
+敏感性：梯度q=0.10/0.20/0.30，确认q=0.01/0.05/0.10，供体3/5/10。各场景共用原始修补缓存。未根据测试表现调整阈值。
 
-经用户授权，由 /home/gcx/aster-gpu-queue-20261113/scheduler.py 派发。仅允许 GPU 0、1、5、6。run.py 检查物理卡和调度器父进程；不能用独立 --gpu 参数或布尔标志绕过。
+统一实现为adaptive_m1.py和staged.py；training.fit_group的adaptive模式和m1_plan的adaptive模式均调用该实现。旧fixed模式保留供历史代码使用，本次运行器不调用它。每模型独立的真实/sham SQLite缓存包含目标和供体来源、配对、输入、头编号。
 
-顺序：fit/dev原始特征提取 → 自适应M1 → M2/M3 → 基线兼容性审计/匹配基线 → 开发评价 → 冻结 → 测试提取与配对评价。selection_incomplete 是有效诊断终点，保存 queue_done.json，但模型 completion.json 中 complete 为 false。
+实验服务器工作目录：/home/gcx/aster-e678-adaptive-20261116；环境：/home/gcx/gcx261014。统一队列：/home/gcx/aster-gpu-queue-20261113/adaptive_20261116。GPU限制为0、1、5、6，模型入口检查统一调度器父进程。
 
-## 统一接口
+执行顺序：fit/dev原始特征 → 自适应M1 → M2/M3 → 开发评价 → 参数冻结 → 测试点估计。干扰或证据集合为空时保存selection_incomplete并停止后续拟合。已提取特征可断点续用。
 
-- training.fit_group(..., m1_mode="adaptive", adaptive={dev_pairs, dev_features, total_heads, heads_per_layer}, patcher=ShamDonorPatcher(...))
-- m1_plan.make_plan(..., mode="adaptive", adaptive={dev_pairs, total_heads, heads_per_layer})
-- m1_plan.finish_plan(plan, features, ShamDonorPatcher(...), outdir)
-- E6 run.py 的 --m1-mode adaptive 转交新运行器；默认 fixed 保持历史行为。
-
-自适应计算统一落在 adaptive_m1.py / staged.py。旧 patch_queue 拒绝自适应计划，避免使用缺少供体身份的旧缓存。
-
-## 数据和缓存
-
-主结果每模型独立保存。真实和sham缓存使用两个SQLite库；主键包括类别、目标来源/配对/左右输入、供体来源/配对/左右输入、全局头编号。checkpoint和tokenizer/评分身份独立记录，输入提示按原文逐一比较，不计算哈希。
-
-开发精确修补只读取开发记录；M2/M3与截距校准使用受限训练Store；测试提取与评价要求 frozen.json。开发性能标记为模型选择结果。
-
-## 输出
-
-screen.json/csv包含全部类别—头的归因、p和BH q。main_heads.csv包含候选的真实减sham均值、精确符号检验p、BY/BH q、95%区间、有效来源数、确认标志及重采样诊断。source_effects.jsonl/csv保留逐来源真实效应与供体效应序列，donors.json保留供体来源。
-
-m1.json包含四类集合、干扰/证据/共享头、数量比例、层分布和N_eff。BH_sensitivity保存BH确认集合。sensitivity.json/csv包含全部预设阈值变化；每个情景也有独立JSON/CSV。
-
-稳定性是固定第一阶段候选后，来源重采样的BY支持且均值为正的频率；不嵌套第二层置信区间。最终有效头严格使用原数据的BY、95%区间下界及至少16个来源。
-
-未运行模型不填入选头数或性能数值，不改写论文结论。
-
-全部GPU任务结束后，finalize.py 自动汇总并向GitHub分支 aster-adaptive-m1-20261116 推送实验报告。发布状态保存在 publication.json。
+主要输出：screen.json/csv、per_head_statistics.json/csv、source_effects.jsonl/csv、donors.json、m1.json、sensitivity.json/csv、point_estimates.csv、REPORT.zh.md。模型任务结束后finalize.py自动汇总，并向GitHub分支aster-adaptive-m1-20261116推送报告。

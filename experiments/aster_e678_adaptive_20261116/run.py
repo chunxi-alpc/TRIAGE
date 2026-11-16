@@ -5,11 +5,11 @@ import os
 import time
 import traceback
 from pathlib import Path
-from collections import ChainMap, Counter
+from collections import ChainMap
 import numpy as np
 from experiments.aster_cr_retrain_paired_v2_20261111.common import read, write, rows, load_inputs
 from experiments.aster_cr_retrain_paired_v2_20261111 import training
-from experiments.aster_e678.run import extract as legacy_extract, Patcher
+from experiments.aster_e678.run import extract as legacy_extract
 from experiments.aster_e678.evaluate import DynamicStore
 from .adaptive_m1 import ScopedStore, pair_ids, representatives
 from .prepare import OUT, SOURCE, KEYS
@@ -62,41 +62,6 @@ def freeze_identity(root, engine, inputs, ids):
             raise ValueError("Input prompt changed: "+uid)
         if not p.exists():write(p,current)
     return dict(model=metadata,identity_file=str(path))
-
-def audit_baseline(root,key,store):
-    old=SOURCE if key=="qwen" else Path("/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/models")/key
-    previous=read(old/"model_metadata.json")
-    current=read(root/"model_metadata.json")
-    fields=("path","checkpoint_type","num_layers","num_attention_heads","head_dim",
-            "official_chat_template","answer_token_ids","score","final_logit_softcapping",
-            "attention_implementation")
-    differences=[k for k in fields if k not in previous or previous[k]!=current.get(k)]
-    previous_store=DynamicStore(old)
-    matched=0;different=0;missing=0
-    for uid,record in store.records.items():
-        prior=previous_store.records.get(uid)
-        if prior is None:missing+=1
-        elif float(record["ell"])==float(prior["ell"]):matched+=1
-        else:different+=1
-    # Old outputs do not record the complete tokenizer serialization/input identity.
-    same_identity=(old/"cache/identity.json").exists() and read(old/"cache/identity.json")==read(root/"cache/identity.json")
-    newids=set(store.records)
-    prompts_equal=all((old/"cache/prompts"/(uid+".json")).exists()
-                     and read(old/"cache/prompts"/(uid+".json"))==read(root/"cache/prompts"/(uid+".json"))
-                     for uid in newids)
-    old_pairs=rows(old/"data/E1_pairs.jsonl")
-    pairs_equal=old_pairs==rows(root/"data/E1_pairs.jsonl")
-    old_model=read(old/"models/E1/full/model.json")
-    config_equal=(old_model.get("rank")==16 and old_model.get("regularization")==.01
-                  and old_model.get("delta")==.2923349 and len(old_model.get("heads",[]))==51)
-    reusable=(not differences and same_identity and prompts_equal and pairs_equal and config_equal
-              and not different and not missing)
-    audit=dict(path=str(old),metadata_differences=differences,raw_scores_equal=matched,
-        raw_scores_different=different,raw_scores_missing=missing,tokenizer_identity_verified=same_identity,
-        prompts_verified=prompts_equal,training_pairs_identical=pairs_equal,configuration_identical=config_equal,
-        reusable=reusable,action="reuse_fixed_baseline" if reusable else "rerun_matched_fixed_baseline")
-    write(root/"baseline_audit.json",audit)
-    return audit
 
 def smoke(key):
     require_queue()
@@ -169,22 +134,6 @@ def run_model(key,gpu=None):
             from .report import report
             report()
             return
-    # Audit first; unmatched or insufficiently documented old baselines are rerun in this directory.
-    fixed=root/"fixed"
-    progress(root,"fixed_baseline")
-    baseline=audit_baseline(root,key,store)
-    if not read(fixed/"models/E1/full/model.json").get("complete"):
-        if baseline["reusable"]:
-            import shutil
-            shutil.copytree(Path(baseline["path"])/"models/E1/full",fixed/"models/E1/full",dirs_exist_ok=True)
-        else:
-            scoped=ScopedStore(store,pair_ids(pairs)|{v["view_id"] for v in natural})
-            summary=training.fit_group("E1",pairs,scoped,views,natural,fixed/"models/E1/full",
-                patcher=Patcher(fixed,scoped,inputs,engine),m1_mode="fixed")
-            summary["M1"]["layer_distribution"]=dict(Counter(str(h//engine.n_heads) for h in summary["heads"]))
-            summary["complete"]=True
-            write(fixed/"models/E1/full/m1.json",summary["M1"])
-            write(fixed/"models/E1/full/model.json",summary)
     from .evaluate import evaluate
     if not read(root/"frozen.json").get("frozen"):
         progress(root,"evaluate_dev")

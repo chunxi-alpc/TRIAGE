@@ -84,11 +84,12 @@ def prepare():
                 "path_interference_views.jsonl") for v in data[name] if v["split"]==split} |
                 pair_ids([p for p in data["historical_pairs.jsonl"] if p["split"]==split]))
         stages["dev"]=sorted(set(stages["dev"])|pair_ids(dev))
-        # Fit gradients cover all E1 pairs so a fresh matched fixed-51 baseline remains possible.
-        write(root/"gradient_ids.json",sorted({p["left"] for p in data["E1_pairs.jsonl"]}))
+        # Only deterministic per-source representatives require gradients for adaptive M1.
+        representatives_fit=representatives(data["E1_pairs.jsonl"],"fit")
+        write(root/"gradient_ids.json",sorted({p["left"] for pp in representatives_fit.values() for p in pp}))
         write(root/"stage_ids.json",stages)
         configuration=dict(model_key=key,model=specs[key],adaptive=asdict(Config()),
-            rank=16,regularization=.01,delta=.2923349,
+            rank=16,regularization=.01,delta=.2923349,confidence_intervals=False,fixed_51_comparison=False,
             score_protocol="native final-token YES-NO; BF16 backbone, FP32 projection, native softcap",
             source_report=str(SOURCE),source_counts=result["source_counts"],
             raw_cache_reused=False,learned_parameters_reused=False,
