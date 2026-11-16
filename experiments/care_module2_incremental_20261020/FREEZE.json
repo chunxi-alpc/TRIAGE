@@ -1,0 +1,62 @@
+{
+  "schema_version": "care.module2.incremental_n1_n5.plan.v2",
+  "created_date": "2026-10-20",
+  "status": "approved_research_design_not_run",
+  "prior_results_policy": "reference_only_do_not_repeat",
+  "repo_base_main": "4e156cdecad12406f4c6d0adf888111fd07d4f22",
+  "module_one": {
+    "mode": "semantic_A1_frozen",
+    "source_pr": 12,
+    "source_commit": "8fb87d15576b88500f44a88f04799267d9f2b5ee",
+    "config": "configs/care_module1_for_module2.json",
+    "mapping": {
+      "T": 1,
+      "F": -1,
+      "U": 0,
+      "technical_failure": null
+    },
+    "no_retraining": true
+  },
+  "downstream_model": {
+    "id": "Qwen/Qwen3-4B-Base",
+    "revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+    "quantization": "bf16",
+    "attention_implementation": "sdpa",
+    "batch_size": 1,
+    "kv_cache": false
+  },
+  "experiments": [
+    "N1_RA_independence",
+    "N2_CP_source_arbitration",
+    "N3_DQ_decision_sufficiency",
+    "N4_joint_orthogonality_and_order",
+    "N5_frozen_A1_transfer"
+  ],
+  "old_experiments_never_rerun": [
+    "pr1_acre_oracle_switch",
+    "pr2_o2_decode",
+    "pr3_B1_B4",
+    "pr8_signed_oracle",
+    "pr9_V6_V7_reliability",
+    "pr10_Qwen8b_conflict_direction",
+    "pr11_attention_scan",
+    "pr12_A1_Qwen24",
+    "20261020_V6_offline_audit"
+  ],
+  "new_gpu_forwards": 0,
+  "new_metrics_status": "not_run",
+  "new_dataset_status": "redesign_required",
+  "planning_soft_ceiling_qwen_forwards": 7000,
+  "planning_budget_not_empirical": true,
+  "test_policy": {
+    "split_unit": "underlying_logic_family_and_source_fact_group",
+    "selection": "train_fit_dev_select_test_once",
+    "no_test_label_use_for_hyperparameters": true
+  },
+  "conclusions_level": [
+    "mechanical_intervention",
+    "semantic_specificity",
+    "increment_over_simple_baselines",
+    "frozen_A1_end_to_end"
+  ]
+}

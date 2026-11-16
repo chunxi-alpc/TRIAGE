@@ -1,0 +1,43 @@
+{
+  "schema_version": "care.m2.reused-artifacts.v1",
+  "policy": "read_only_reference_no_rerun",
+  "artifacts": [
+    {
+      "name": "B1-B4_and_random_controls",
+      "source": "PR #3",
+      "branch": "care/module2-subspace-followup-20261017",
+      "commit": "3da16afb090a71db42843b9df29553f3e2610ceb",
+      "use": "historical denominator and implementation provenance only"
+    },
+    {
+      "name": "signed_and_direct_score_bias",
+      "source": "PR #8",
+      "branch": "codex/care-module2-signed-diagnostics-20261019",
+      "commit": "4b2f6f3ebf774aaecb786478b532fae13971e105",
+      "use": "historical comparison only; no old cases rerun"
+    },
+    {
+      "name": "attention_and_structure_controls",
+      "source": "PR #11",
+      "branch": "codex/causal-attention-20261019",
+      "commit": "f0c3c28a30096bdda37c021f6db9de85754cb8e7",
+      "use": "historical comparison only"
+    },
+    {
+      "name": "frozen_A1_new72_source",
+      "source": "PR #12",
+      "branch": "codex/care-module1-a1-frozen-20261020",
+      "commit": "5a4e47a4f71aeb845c5ebf52be14f9198a12f2b1",
+      "use": "exact read-only N5 join; no A1 retraining"
+    },
+    {
+      "name": "module2_preexperiment_audit",
+      "source": "offline audit branch",
+      "branch": "codex/module2-preexperiment-audit-20261020",
+      "commit": "e115b8495dfee0b8ff9ffbffddf39bed76edf05a",
+      "use": "offline provenance and leak-risk reference only"
+    }
+  ],
+  "new_forward_count_at_commit": 0,
+  "old_experiments_not_rerun": ["B1-B4", "signed", "attention scans", "source-conflict 8B", "A1 original 24-case comparison"]
+}

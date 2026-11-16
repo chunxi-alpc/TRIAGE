@@ -1,0 +1,1 @@
+gpu_smoke_passed

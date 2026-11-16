@@ -1,0 +1,240 @@
+{
+  "L0_only": true,
+  "actual_forward_count": 7,
+  "checks": {
+    "bf16": true,
+    "gqa": true,
+    "non_target_unchanged": true,
+    "residual_actual_change": true,
+    "rope_k": true,
+    "rope_q": true,
+    "score_actual_change": true,
+    "zero_bias": true,
+    "zero_residual": true
+  },
+  "gqa_error": 1.1324882507324219e-06,
+  "k_error": 0.0,
+  "outputs": [
+    {
+      "cache_hit": false,
+      "candidate_logits": {
+        "A": 17.875,
+        "B": 19.625,
+        "C": 19.25
+      },
+      "elapsed_seconds": 0.02748274803161621,
+      "failure_code": null,
+      "forward_count": 1,
+      "hook": {
+        "attention": [],
+        "residual": []
+      },
+      "model_hash": "26675e9cf3f890763bfc24a1694e4861a3bfdd53c6e3e49780229f81be21d7d4",
+      "output_sha256": "aba155182e47664768decc1af92a2d9f467b872beef86b778d1edcd70227851d",
+      "prediction": "B",
+      "prompt_sha256": "b638bdbabe3af7569fca1c4c4c8ab510e96b52dff48b8613931c22032f5205c8",
+      "prompt_tokens": 92,
+      "spec": {
+        "biases": [],
+        "edits": []
+      },
+      "top_unconstrained_token": " C",
+      "unconstrained_is_candidate": false
+    },
+    {
+      "cache_hit": false,
+      "candidate_logits": {
+        "A": 17.875,
+        "B": 19.625,
+        "C": 19.25
+      },
+      "elapsed_seconds": 0.021769285202026367,
+      "failure_code": null,
+      "forward_count": 1,
+      "hook": {
+        "attention": [],
+        "residual": []
+      },
+      "model_hash": "26675e9cf3f890763bfc24a1694e4861a3bfdd53c6e3e49780229f81be21d7d4",
+      "output_sha256": "aba155182e47664768decc1af92a2d9f467b872beef86b778d1edcd70227851d",
+      "prediction": "B",
+      "prompt_sha256": "b638bdbabe3af7569fca1c4c4c8ab510e96b52dff48b8613931c22032f5205c8",
+      "prompt_tokens": 92,
+      "spec": {
+        "biases": [],
+        "edits": []
+      },
+      "top_unconstrained_token": " C",
+      "unconstrained_is_candidate": false
+    },
+    {
+      "cache_hit": false,
+      "candidate_logits": {
+        "A": 18.0,
+        "B": 19.625,
+        "C": 19.375
+      },
+      "elapsed_seconds": 0.10174751281738281,
+      "failure_code": null,
+      "forward_count": 1,
+      "hook": {
+        "attention": [],
+        "residual": [
+          {
+            "actual_norm": 4.992642879486084,
+            "non_target_changed": 0,
+            "positions": [
+              45,
+              46,
+              47
+            ],
+            "quantization_error": 0.40330445766448975,
+            "relative_norm": 0.036609143018722534,
+            "requested_norm": 4.999999046325684
+          }
+        ]
+      },
+      "model_hash": "26675e9cf3f890763bfc24a1694e4861a3bfdd53c6e3e49780229f81be21d7d4",
+      "output_sha256": "5924c7f521ab6f9bd8d7f37ff74df1ec0f80de6425ca2d9c3b5b789cbbdb7d6d",
+      "prediction": "B",
+      "prompt_sha256": "b638bdbabe3af7569fca1c4c4c8ab510e96b52dff48b8613931c22032f5205c8",
+      "prompt_tokens": 92,
+      "spec": {
+        "biases": [],
+        "edits": [
+          {
+            "basis": "d433e00e492f1b6099711b644c4bf30b6e0b0046f0326b0323da116303678a85",
+            "beta": 1.0,
+            "kind": "project",
+            "positions": [
+              45,
+              46,
+              47
+            ],
+            "target": "d67dda21ec8873308056421df44dbb4074a7ffde6ca82b84db3f61522e24ef95"
+          }
+        ]
+      },
+      "top_unconstrained_token": " C",
+      "unconstrained_is_candidate": false
+    },
+    {
+      "cache_hit": false,
+      "candidate_logits": {
+        "A": 17.875,
+        "B": 19.625,
+        "C": 19.25
+      },
+      "elapsed_seconds": 0.02245497703552246,
+      "failure_code": null,
+      "forward_count": 1,
+      "hook": {
+        "attention": [],
+        "residual": []
+      },
+      "model_hash": "26675e9cf3f890763bfc24a1694e4861a3bfdd53c6e3e49780229f81be21d7d4",
+      "output_sha256": "aba155182e47664768decc1af92a2d9f467b872beef86b778d1edcd70227851d",
+      "prediction": "B",
+      "prompt_sha256": "b638bdbabe3af7569fca1c4c4c8ab510e96b52dff48b8613931c22032f5205c8",
+      "prompt_tokens": 92,
+      "spec": {
+        "biases": [],
+        "edits": []
+      },
+      "top_unconstrained_token": " C",
+      "unconstrained_is_candidate": false
+    },
+    {
+      "cache_hit": false,
+      "candidate_logits": {
+        "A": 17.875,
+        "B": 19.5,
+        "C": 19.25
+      },
+      "elapsed_seconds": 0.07736802101135254,
+      "failure_code": null,
+      "forward_count": 1,
+      "hook": {
+        "attention": [
+          {
+            "actual_score_rms": 1.0,
+            "actual_signed_mean": 1.0,
+            "heads": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31
+            ],
+            "key_positions": [
+              45,
+              46,
+              47
+            ],
+            "kv_heads": 8,
+            "layer": 24,
+            "non_target_score_changed": 0,
+            "post_rope": true,
+            "query_heads": 32,
+            "query_position": 91,
+            "requested_score_bias": 1.0
+          }
+        ],
+        "residual": []
+      },
+      "model_hash": "26675e9cf3f890763bfc24a1694e4861a3bfdd53c6e3e49780229f81be21d7d4",
+      "output_sha256": "0ea2c879b6f246c2e044fb2fe7ce25934036119dd153239fd5cd45a1b94d4560",
+      "prediction": "B",
+      "prompt_sha256": "b638bdbabe3af7569fca1c4c4c8ab510e96b52dff48b8613931c22032f5205c8",
+      "prompt_tokens": 92,
+      "spec": {
+        "biases": [
+          [
+            [
+              45,
+              46,
+              47
+            ],
+            1.0
+          ]
+        ],
+        "edits": []
+      },
+      "top_unconstrained_token": " C",
+      "unconstrained_is_candidate": false
+    }
+  ],
+  "peak_memory_bytes": 8139737088,
+  "q_error": 0.0,
+  "score_logit_change": 0.125,
+  "target_logit_change": 0.125,
+  "valid": true,
+  "zero_max_abs": 0.0
+}
