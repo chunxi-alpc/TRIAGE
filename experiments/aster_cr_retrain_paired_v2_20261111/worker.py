@@ -156,7 +156,11 @@ def train(shard,shards,phase):
     pair_cache={};view_cache={}
     started=time.time();completed_here=0
     def completed(task):
-        try:return bool(read(OUT/"models"/task[0]/task[1]/"model.json").get("complete"))
+        try:
+            metadata=read(OUT/"models"/task[0]/task[1]/"model.json")
+            if not metadata.get("complete"):return False
+            if task[0]=="E0":return True
+            return metadata.get("M1",{}).get("method_version")=="adaptive_m1_v2"
         except __import__("json").JSONDecodeError:return False
     while True:
         pending=[t for t in preferred if not completed(t)]
@@ -168,7 +172,7 @@ def train(shard,shards,phase):
             try:
                 try:fcntl.flock(handle,fcntl.LOCK_EX|fcntl.LOCK_NB)
                 except BlockingIOError:continue
-                if read(target/"model.json").get("complete"):continue
+                if completed((g,name,fold)):continue
                 claimed=True;sources=None if fold is None else fold["train_sources"]
                 if g not in pair_cache:pair_cache[g]=rows(DATA/(g+"_pairs.jsonl"))
                 pairs=pair_cache[g]
