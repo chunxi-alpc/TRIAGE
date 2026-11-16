@@ -250,10 +250,14 @@ def population_status(root):
 def evaluate_model(root, scopes=("dev", "test", "nli4ct", "medpic"), store=None):
     root = Path(root)
     scopes = tuple(scopes)
+    model_metadata = read(root / "models/E1/full/model.json", {})
+    m1_method_version = model_metadata.get("M1", {}).get("method_version")
+    if m1_method_version != "adaptive_m1_v2":
+        raise ValueError("E6 evaluation requires a completed adaptive_m1_v2 fit")
     if any(scope != "dev" for scope in scopes):
         frozen = read(root / "frozen.json", {})
-        if not frozen.get("frozen"):
-            raise ValueError("Source parameters must be frozen before held-out/target evaluation")
+        if not frozen.get("frozen") or frozen.get("m1_method_version") != m1_method_version:
+            raise ValueError("Source parameters must be frozen under the current M1 version before held-out/target evaluation")
     models = load_models(root)
     required = sorted({int(head) for model in models.values() for head in model["heads"]})
     store = store or DynamicStore(root, required_heads=required)
@@ -267,7 +271,7 @@ def evaluate_model(root, scopes=("dev", "test", "nli4ct", "medpic"), store=None)
             if scope not in SCOPES:
                 raise ValueError("Unsupported scope: " + scope)
             existing = read(root / "evaluation" / scope / "metrics.json", {})
-            if existing.get("complete"):
+            if existing.get("complete") and existing.get("m1_method_version") == m1_method_version:
                 results[scope] = existing
                 continue
             spec = scope_inputs(root, scope)
@@ -277,6 +281,7 @@ def evaluate_model(root, scopes=("dev", "test", "nli4ct", "medpic"), store=None)
             if expected_count is not None and actual_count != expected_count:
                 raise ValueError(f"{scope} has {actual_count} evaluation units, expected {expected_count}; prepare the complete declared population")
             result = legacy.scope_evaluate(scope, store=store, models=models, out=root, **spec)
+            result["m1_method_version"] = m1_method_version
             result["source_parameters_frozen"] = scope != "dev"
             result["target_labels_used_for_fitting"] = False
             result["target_labels_used_for_calibration"] = False
@@ -294,6 +299,7 @@ def evaluate_model(root, scopes=("dev", "test", "nli4ct", "medpic"), store=None)
     summary["results"].update({scope: value["models"] for scope, value in results.items()})
     summary["completed_scopes"] = list(summary["results"])
     summary["frozen_group"] = "E1"
+    summary["m1_method_version"] = m1_method_version
     write(summary_path, summary)
     return results
 
