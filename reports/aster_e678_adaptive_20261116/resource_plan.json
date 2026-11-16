@@ -1,0 +1,216 @@
+{
+  "gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "gpu_started": false,
+  "models": {
+    "qwen": {
+      "total_heads": 1152,
+      "layers": 36,
+      "heads_per_layer": 32,
+      "head_dim": 128,
+      "expected_peak_gib": [
+        17,
+        24
+      ],
+      "stage_inputs": {
+        "fit": 4953,
+        "dev": 33384,
+        "test": 66752
+      },
+      "screening_hypotheses": 4608,
+      "permutations": 2000,
+      "bootstrap": 2000,
+      "main_patch_forwards_formula": "2 * (1+5) * sum_q(n_dev_q * candidates_q)",
+      "sensitivity_patch_forwards_formula": "2 * (1+10) * sum_q(n_dev_q * candidates_q_at_q030)",
+      "main_patch_forward_upper_bound": 1105920,
+      "sensitivity_patch_forward_upper_bound": 2027520,
+      "rough_runtime_hours": [
+        12,
+        72
+      ],
+      "estimate_note": "Planning range, not measured. Runtime scales linearly with candidates; no candidate cap.",
+      "raw_head_cache_gib_uncompressed": 28.86
+    },
+    "llama31": {
+      "total_heads": 1024,
+      "layers": 32,
+      "heads_per_layer": 32,
+      "head_dim": 128,
+      "expected_peak_gib": [
+        17,
+        24
+      ],
+      "stage_inputs": {
+        "fit": 4953,
+        "dev": 33384,
+        "test": 66752
+      },
+      "screening_hypotheses": 4096,
+      "permutations": 2000,
+      "bootstrap": 2000,
+      "main_patch_forwards_formula": "2 * (1+5) * sum_q(n_dev_q * candidates_q)",
+      "sensitivity_patch_forwards_formula": "2 * (1+10) * sum_q(n_dev_q * candidates_q_at_q030)",
+      "main_patch_forward_upper_bound": 983040,
+      "sensitivity_patch_forward_upper_bound": 1802240,
+      "rough_runtime_hours": [
+        12,
+        72
+      ],
+      "estimate_note": "Planning range, not measured. Runtime scales linearly with candidates; no candidate cap.",
+      "raw_head_cache_gib_uncompressed": 25.66
+    },
+    "gemma2": {
+      "total_heads": 672,
+      "layers": 42,
+      "heads_per_layer": 16,
+      "head_dim": 256,
+      "expected_peak_gib": [
+        20,
+        30
+      ],
+      "stage_inputs": {
+        "fit": 4953,
+        "dev": 33384,
+        "test": 66752
+      },
+      "screening_hypotheses": 2688,
+      "permutations": 2000,
+      "bootstrap": 2000,
+      "main_patch_forwards_formula": "2 * (1+5) * sum_q(n_dev_q * candidates_q)",
+      "sensitivity_patch_forwards_formula": "2 * (1+10) * sum_q(n_dev_q * candidates_q_at_q030)",
+      "main_patch_forward_upper_bound": 645120,
+      "sensitivity_patch_forward_upper_bound": 1182720,
+      "rough_runtime_hours": [
+        12,
+        72
+      ],
+      "estimate_note": "Planning range, not measured. Runtime scales linearly with candidates; no candidate cap.",
+      "raw_head_cache_gib_uncompressed": 33.67
+    },
+    "gemma3": {
+      "total_heads": 1984,
+      "layers": 62,
+      "heads_per_layer": 32,
+      "head_dim": 128,
+      "expected_peak_gib": [
+        54,
+        66
+      ],
+      "stage_inputs": {
+        "fit": 4953,
+        "dev": 33384,
+        "test": 66752
+      },
+      "screening_hypotheses": 7936,
+      "permutations": 2000,
+      "bootstrap": 2000,
+      "main_patch_forwards_formula": "2 * (1+5) * sum_q(n_dev_q * candidates_q)",
+      "sensitivity_patch_forwards_formula": "2 * (1+10) * sum_q(n_dev_q * candidates_q_at_q030)",
+      "main_patch_forward_upper_bound": 1904640,
+      "sensitivity_patch_forward_upper_bound": 3491840,
+      "rough_runtime_hours": [
+        24,
+        120
+      ],
+      "estimate_note": "Planning range, not measured. Runtime scales linearly with candidates; no candidate cap.",
+      "raw_head_cache_gib_uncompressed": 49.71
+    },
+    "medgemma": {
+      "total_heads": 1984,
+      "layers": 62,
+      "heads_per_layer": 32,
+      "head_dim": 128,
+      "expected_peak_gib": [
+        53,
+        65
+      ],
+      "stage_inputs": {
+        "fit": 4953,
+        "dev": 33384,
+        "test": 66752
+      },
+      "screening_hypotheses": 7936,
+      "permutations": 2000,
+      "bootstrap": 2000,
+      "main_patch_forwards_formula": "2 * (1+5) * sum_q(n_dev_q * candidates_q)",
+      "sensitivity_patch_forwards_formula": "2 * (1+10) * sum_q(n_dev_q * candidates_q_at_q030)",
+      "main_patch_forward_upper_bound": 1904640,
+      "sensitivity_patch_forward_upper_bound": 3491840,
+      "rough_runtime_hours": [
+        24,
+        120
+      ],
+      "estimate_note": "Planning range, not measured. Runtime scales linearly with candidates; no candidate cap.",
+      "raw_head_cache_gib_uncompressed": 49.71
+    },
+    "qwen_base": {
+      "total_heads": 1152,
+      "layers": 36,
+      "heads_per_layer": 32,
+      "head_dim": 128,
+      "expected_peak_gib": [
+        17,
+        28
+      ],
+      "stage_inputs": {
+        "fit": 4953,
+        "dev": 33384,
+        "test": 66752
+      },
+      "screening_hypotheses": 4608,
+      "permutations": 2000,
+      "bootstrap": 2000,
+      "main_patch_forwards_formula": "2 * (1+5) * sum_q(n_dev_q * candidates_q)",
+      "sensitivity_patch_forwards_formula": "2 * (1+10) * sum_q(n_dev_q * candidates_q_at_q030)",
+      "main_patch_forward_upper_bound": 1105920,
+      "sensitivity_patch_forward_upper_bound": 2027520,
+      "rough_runtime_hours": [
+        12,
+        72
+      ],
+      "estimate_note": "Planning range, not measured. Runtime scales linearly with candidates; no candidate cap.",
+      "raw_head_cache_gib_uncompressed": 28.86
+    },
+    "gemma2_base": {
+      "total_heads": 672,
+      "layers": 42,
+      "heads_per_layer": 16,
+      "head_dim": 256,
+      "expected_peak_gib": [
+        20,
+        35
+      ],
+      "stage_inputs": {
+        "fit": 4953,
+        "dev": 33384,
+        "test": 66752
+      },
+      "screening_hypotheses": 2688,
+      "permutations": 2000,
+      "bootstrap": 2000,
+      "main_patch_forwards_formula": "2 * (1+5) * sum_q(n_dev_q * candidates_q)",
+      "sensitivity_patch_forwards_formula": "2 * (1+10) * sum_q(n_dev_q * candidates_q_at_q030)",
+      "main_patch_forward_upper_bound": 645120,
+      "sensitivity_patch_forward_upper_bound": 1182720,
+      "rough_runtime_hours": [
+        12,
+        72
+      ],
+      "estimate_note": "Planning range, not measured. Runtime scales linearly with candidates; no candidate cap.",
+      "raw_head_cache_gib_uncompressed": 33.67
+    }
+  },
+  "smoke_expected_minutes": [
+    5,
+    15
+  ],
+  "aggregate_four_gpu_wall_hours": [
+    30,
+    150
+  ],
+  "upper_runtime_not_bounded_without_candidate_counts": true
+}

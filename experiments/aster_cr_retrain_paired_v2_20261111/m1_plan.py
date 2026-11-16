@@ -13,8 +13,16 @@ from .common import write
 from .training import KINDS, _flat_heads, pair_weights
 
 
-def make_plan(group, pairs, features, outdir, train_sources=None):
+def make_plan(group, pairs, features, outdir, train_sources=None, mode='fixed', adaptive=None):
     """Return and save m1_plan.json; plan['kinds'][kind] contains the queue inputs."""
+    if mode == 'adaptive':
+        if train_sources is not None:
+            raise ValueError('Adaptive E1 requires the declared split')
+        from experiments.aster_e678_adaptive_20261116.staged import make_plan as adaptive_plan
+        return adaptive_plan(group, pairs, features, outdir, **(adaptive or {}))
+    if mode != 'fixed':
+        raise ValueError(mode)
+
     if group not in ('E1', 'E2', 'E3'):
         raise ValueError('E0 already has historical M1 parameters; only new groups need plans')
     started = time.monotonic()
@@ -67,6 +75,10 @@ def make_plan(group, pairs, features, outdir, train_sources=None):
 
 def finish_plan(plan, features, exact_accessor, outdir):
     """Finalize this plan from a read-only raw exact-score accessor."""
+    if plan.get('mode') == 'adaptive':
+        from experiments.aster_e678_adaptive_20261116.staged import finish_plan as adaptive_finish
+        return adaptive_finish(plan, exact_accessor, outdir)
+
     started = time.monotonic()
     target = Path(outdir)
     target.mkdir(parents=True, exist_ok=True)

@@ -283,10 +283,14 @@ def refit_m3(group, pairs, features, natural_views, support, outdir, delta=DELTA
     Qn, qn = Q / objective_scale, q / objective_scale
     maximum = float(np.max(np.abs(E @ unconstrained))) if len(E) else 0.0
     initial = unconstrained * min(1.0, delta / max(maximum, 1e-15))
-    result = minimize(lambda w: float(0.5 * w @ Qn @ w + qn @ w), initial,
-                      jac=lambda w: Qn @ w + qn, method='SLSQP',
-                      constraints=[LinearConstraint(E, -delta, delta)] if len(E) else [],
-                      options=dict(ftol=1e-13, maxiter=3000, disp=False))
+    if Q.shape[0] == 0:
+        from scipy.optimize import OptimizeResult
+        result = OptimizeResult(x=np.empty(0), success=True, message='Zero projected rank; intercept calibration', nit=0)
+    else:
+        result = minimize(lambda w: float(0.5 * w @ Qn @ w + qn @ w), initial,
+                          jac=lambda w: Qn @ w + qn, method='SLSQP',
+                          constraints=[LinearConstraint(E, -delta, delta)] if len(E) else [],
+                          options=dict(ftol=1e-13, maxiter=3000, disp=False))
     w = result.x
     corrections = E @ w
     violation = max(0.0, float(np.max(np.abs(corrections))) - delta) if len(E) else 0.0
@@ -326,8 +330,17 @@ def refit_m3(group, pairs, features, natural_views, support, outdir, delta=DELTA
     return summary
 
 
-def fit_group(group, pairs, features, views, natural_views, outdir, train_sources=None, patcher=None, delta=DELTA):
+def fit_group(group, pairs, features, views, natural_views, outdir, train_sources=None, patcher=None, delta=DELTA, m1_mode='fixed', adaptive=None):
     """Fit all three modules using only the selected training sources."""
+    if m1_mode == 'adaptive':
+        if train_sources is not None or delta != DELTA:
+            raise ValueError('Adaptive E1 uses the declared source split and evidence budget')
+        from experiments.aster_e678_adaptive_20261116.pipeline import fit_group as adaptive_fit
+        return adaptive_fit(group, pairs, features, views, natural_views, outdir,
+                            patcher=patcher, **(adaptive or {}))
+    if m1_mode != 'fixed':
+        raise ValueError('Unknown M1 mode: ' + m1_mode)
+
     started = time.monotonic()
     outdir = Path(outdir)
     outdir.mkdir(parents=True, exist_ok=True)

@@ -78,7 +78,12 @@ def calibration(root, store):
     b=float(brentq(derivative,lo,hi))
     write(root / "models/E1/full/calibration.json", dict(b=b, split="source fit", nodes=len(vv),
           method="intercept-only logistic calibration", target_labels_used=False))
-def run_model(key, gpu, unified_scheduler=False):
+def run_model(key, gpu, unified_scheduler=False, m1_mode="fixed"):
+    if m1_mode == "adaptive":
+        from experiments.aster_e678_adaptive_20261116.run import run_model as adaptive_run
+        return adaptive_run(key, gpu=gpu)
+    if m1_mode != "fixed":
+        raise ValueError(m1_mode)
     if gpu not in (0,1,4,5,6):
         raise ValueError("GPU outside user-authorized set")
     os.environ["CUDA_VISIBLE_DEVICES"]=str(gpu)
@@ -154,7 +159,10 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--model",required=True)
     p.add_argument("--gpu",required=True,type=int)
+    p.add_argument("--m1-mode",choices=("fixed","adaptive"),default="fixed")
     a=p.parse_args()
+    if a.m1_mode == "adaptive":
+        return run_model(a.model,a.gpu,m1_mode="adaptive")
     root=OUT/"models"/a.model
     root.mkdir(parents=True,exist_ok=True)
     lock=(root/".run.lock").open("a")

@@ -18,6 +18,8 @@ def build_queue(plan_paths,out=OUT):
     out=Path(out);merged={};paths=sorted(Path(p) for p in plan_paths)
     for path in paths:
         plan=read(path)
+        if plan.get("mode") == "adaptive":
+            raise ValueError("Adaptive plans require ShamDonorPatcher through the unified queue")
         if "kinds" not in plan:raise ValueError("M1 plan has no kinds: "+str(path))
         for kind,detail in plan["kinds"].items():
             candidates=[int(h) for h in detail["candidates"]]

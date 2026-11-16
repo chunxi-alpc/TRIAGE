@@ -1,0 +1,42 @@
+{
+  "model_key": "llama31",
+  "model": {
+    "name": "Llama-3.1-8B-Instruct",
+    "path": "/home/gcx/TRIAGE/models/modelscope/Meta-Llama-3.1-8B-Instruct",
+    "family": "llama",
+    "expected_peak_gib": [
+      17,
+      24
+    ],
+    "checkpoint_type": "instruction_tuned",
+    "chat_style": "system_user"
+  },
+  "adaptive": {
+    "seed": 20261116,
+    "permutations": 2000,
+    "bootstrap": 2000,
+    "screen_q": 0.2,
+    "confirm_q": 0.05,
+    "donors": 5,
+    "min_sources": 16
+  },
+  "rank": 16,
+  "regularization": 0.01,
+  "delta": 0.2923349,
+  "score_protocol": "native final-token YES-NO; BF16 backbone, FP32 projection, native softcap",
+  "source_report": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+  "source_counts": {
+    "fit": 80,
+    "dev": 20,
+    "test": 40
+  },
+  "raw_cache_reused": false,
+  "learned_parameters_reused": false,
+  "state": "awaiting_data_resolution_and_unified_queue",
+  "allowed_gpus": [
+    0,
+    1,
+    5,
+    6
+  ]
+}
