@@ -21,7 +21,7 @@ METHOD_VERSION = M1_CONFIG["method_version"]
 
 
 def _stable_seed(*parts):
-    payload = "\x1f".join(str(part) for part in parts).encode("utf-8")
+    payload = "\x1f".join(str(part) for part in (M1_CONFIG.get("seed", 0),) + parts).encode("utf-8")
     return int.from_bytes(hashlib.sha256(payload).digest()[:4], "little")
 
 
@@ -487,8 +487,16 @@ def finish_plan(plan, features, exact_accessor, outdir):
         inner_source_folds=fold_count,
         candidate_counts_by_kind={kind: len(candidate_unions[kind]) for kind in KINDS},
         selected_counts_by_kind={kind: len(selected_by_kind[kind]) for kind in KINDS},
-        validation_source_counts_by_kind={
+        validation_source_ids_by_kind={
             kind: sorted({
+                source
+                for fold_plan in plan["kinds"][kind]["folds"]
+                for source in fold_plan["validation_sources"]
+            })
+            for kind in KINDS
+        },
+        validation_source_counts_by_kind={
+            kind: len({
                 source
                 for fold_plan in plan["kinds"][kind]["folds"]
                 for source in fold_plan["validation_sources"]
