@@ -1,0 +1,54 @@
+{
+  "schema_version": "care.trialgpt.a1.full.v1",
+  "status": "complete",
+  "source_pr12_commit": "8fb87d15576b88500f44a88f04799267d9f2b5ee",
+  "dataset": "ncbi/TrialGPT-Criterion-Annotations",
+  "split": "train",
+  "expected_rows": 1015,
+  "expected_patients": 53,
+  "expected_trials": 103,
+  "a1_runner": "experiments/care_module1_semantic_v8/semantic_runner.py",
+  "a1_unchanged": true,
+  "training": false,
+  "evaluator": "criterion-level expert eligibility projection; not native six-label accuracy",
+  "unscorable_label": "not applicable",
+  "map": {
+    "inclusion/included": "T",
+    "inclusion/not included": "F",
+    "exclusion/excluded": "T",
+    "exclusion/not excluded": "F",
+    "inclusion/not enough information": "U",
+    "exclusion/not enough information": "U",
+    "inclusion/not applicable": null,
+    "exclusion/not applicable": null
+  },
+  "keep_all_rows": true,
+  "grouping": [
+    "patient_id",
+    "trial_id"
+  ],
+  "run_only_after_stop_pr19": true,
+  "dataset_revision": "1cfcafde94a1560a33b4addc1638664fe28fc059",
+  "parquet_sha256": "14c547184fac9b013cd17441fd028845b40150c76b022e58334f5494077e5234",
+  "model_inputs": 1014,
+  "invalid_input_annotation_ids": [
+    883
+  ],
+  "unmapped_not_applicable": 55,
+  "unmapped_other": 0,
+  "gpu_ids": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "estimated_memory_gib_per_gpu": [
+    25,
+    35
+  ],
+  "estimated_minutes": [
+    30,
+    60
+  ],
+  "gpu_run_complete": true
+}
