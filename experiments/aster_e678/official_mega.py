@@ -58,6 +58,10 @@ class Frozen:
     def __init__(self, model_root):
         self.root = Path(model_root)
         frozen = read(self.root / "frozen.json")
+        model_metadata = read(self.root / "models/E1/full/model.json")
+        m1_version = model_metadata.get("M1", {}).get("method_version")
+        if m1_version != "adaptive_m1_v2" or frozen.get("m1_method_version") != m1_version:
+            raise RuntimeError("Official evaluation requires frozen parameters fitted with adaptive M1 v2")
         if not frozen.get("frozen"):
             raise RuntimeError("Source-task parameter freezing must precede official evaluation")
         parameter_root = self.root / "models/E1/full"
@@ -158,7 +162,7 @@ def run(model_key, model_root, shard=0, shards=1, engine=None, cases_path=OFFICI
     if shards < 1 or not 0 <= shard < shards:
         raise ValueError("Expected 0 <= shard < shards")
     root = Path(model_root)
-    output = root / "evaluation/mega_official"
+    output = root / "evaluation/mega_official_m1_v2"
     work = output / ("shard" + str(shard))
     work.mkdir(parents=True, exist_ok=True)
     (work / "features").mkdir(exist_ok=True)
@@ -173,11 +177,12 @@ def _run(model_key, root, work, shard, shards, engine, cases_path):
     cases = all_cases[shard::shards]
     config = dict(model=model_key, parameter_directory=frozen.parameter_root, cases_file=str(cases_path),
                   shard=shard, shards=shards, selected_heads=frozen.heads.tolist(), methods=list(METHODS),
+                  m1_method_version="adaptive_m1_v2",
                   target_labels_used_for_fitting=False, cache_policy="this run, this checkpoint only",
                   physical_gpu=os.environ.get("CUDA_VISIBLE_DEVICES"))
     prior_config = read(work / "configuration.json") if (work / "configuration.json").exists() else None
     if prior_config is not None:
-        for key in ("model", "parameter_directory", "cases_file", "shard", "shards", "selected_heads"):
+        for key in ("model", "parameter_directory", "cases_file", "shard", "shards", "selected_heads", "m1_method_version"):
             if prior_config[key] != config[key]:
                 raise ValueError("Output directory belongs to a different evaluation: " + key)
     dump(work / "configuration.json", config)
@@ -246,8 +251,9 @@ def _run(model_key, root, work, shard, shards, engine, cases_path):
     if engine is not None:
         import torch
         peak = torch.cuda.max_memory_allocated(engine.device) / 2**30
-    result = dict(state="complete", model=model_key, cases=len(cases), new_forwards=forwards,
-                  reused_nodes=reused, seconds=time.monotonic() - started, peak_gib=peak,
+    result = dict(state="complete", model=model_key, m1_method_version="adaptive_m1_v2",
+                  cases=len(cases), new_forwards=forwards, reused_nodes=reused,
+                  seconds=time.monotonic() - started, peak_gib=peak,
                   counts=engine.counts if engine is not None else {}, shard=shard, shards=shards)
     dump(work / "done.json", result)
     return summarize(root, cases_path)
@@ -270,7 +276,7 @@ def _binary_summary(records, method, metric):
 
 
 def summarize(model_root, cases_path=OFFICIAL_CASES):
-    output = Path(model_root) / "evaluation/mega_official"
+    output = Path(model_root) / "evaluation/mega_official_m1_v2"
     paths, naturals = {}, {}
     for work in sorted(output.glob("shard*")):
         for record in rows(work / "path_predictions.jsonl"):
@@ -297,8 +303,8 @@ def summarize(model_root, cases_path=OFFICIAL_CASES):
     expected = inventory(cases_path)
     complete = (len(paths) == expected["paths"] * len(METHODS)
                 and len(naturals) == expected["gold_path_nodes"])
-    result = dict(state="complete" if complete else "partial", expected=expected,
-                  path_records=len(paths), natural_node_records=len(naturals), metrics=stats)
+    result = dict(state="complete" if complete else "partial", m1_method_version="adaptive_m1_v2",
+                  expected=expected, path_records=len(paths), natural_node_records=len(naturals), metrics=stats)
     dump(output / "metrics.json", result)
     if stats:
         with (output / "summary.csv").open("w", encoding="utf-8", newline="") as handle:
