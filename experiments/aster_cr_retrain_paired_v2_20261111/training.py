@@ -54,7 +54,17 @@ def _flat_heads(feature):
     return value.reshape(-1, value.shape[-1])
 
 
-def _m1(group, pairs, features, patcher, outdir, heads_to_select=51):
+def _m1(group, pairs, features, patcher, outdir, heads_to_select=None):
+    """Fit adaptive M1 v2 for new groups; retain fixed historical M1 only for E0."""
+    if group in ("E1", "E2", "E3"):
+        from .m1_plan import make_plan, finish_plan
+        plan = make_plan(group, pairs, features, outdir)
+        return finish_plan(plan, features, patcher, outdir)
+    legacy_count = 51 if heads_to_select is None else int(heads_to_select)
+    return _m1_legacy(group, pairs, features, patcher, outdir, heads_to_select=legacy_count)
+
+
+def _m1_legacy(group, pairs, features, patcher, outdir, heads_to_select=51):
     if patcher is None:
         raise ValueError('Fresh M1 requires the exact-patching callback')
     start = time.monotonic()
@@ -151,7 +161,7 @@ def _m1(group, pairs, features, patcher, outdir, heads_to_select=51):
     selected = selected[:heads_to_select]
     if len(selected) != heads_to_select:
         raise ValueError('Insufficient distinct M1 heads')
-    result = dict(group=group, heads=selected, ranks=ranks, attribution=attributes,
+    result = dict(method_version='legacy_m1_v1', group=group, heads=selected, ranks=ranks, attribution=attributes,
                   exact_scores=exact_scores, exact_representatives=representatives,
                   layer_distribution={str(k): v for k, v in sorted(Counter(h // layer_heads for h in selected).items())},
                   fit_pair_counts=dict(counts), seconds=time.monotonic() - start,
