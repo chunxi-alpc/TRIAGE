@@ -42,7 +42,7 @@ def csvwrite(p, rr):
     rr = list(rr)
     if not rr: return
     with Path(p).open('w', newline='', encoding='utf-8') as f:
-        w = csv.DictWriter(f, fieldnames=list(dict.fromkeys(k for r in rr for k in r)))
+        w = csv.DictWriter(f, fieldnames=list(dict.fromkeys(k for r in rr for k in r)), lineterminator='\n')
         w.writeheader(); w.writerows(rr)
 
 
