@@ -1,0 +1,34 @@
+{
+  "issue": "https://github.com/chunxi-alpc/TRIAGE/issues/72",
+  "model": "Qwen3-8B",
+  "input_root": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+  "output_dir": "reports/aster_head_quadrant_20261116",
+  "runtime": {
+    "device": "cpu",
+    "gpus": [],
+    "gpu_memory_gib": 0,
+    "model_forward": false,
+    "m1_rerun": false,
+    "recompute_gradients": false,
+    "recompute_patching": false
+  },
+  "folds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "heads": 1152,
+  "head_channels": 128,
+  "train_sources_per_fold": 64,
+  "weighting": "E1 equal category, equal source within category, equal pair within source; split pair weight equally between endpoints",
+  "standardization": "training-endpoint weighted population standard deviation, floor 1e-5",
+  "percentile": "100 * (average_rank - 0.5) / n; average ranks for ties",
+  "main_threshold_quantile": 0.75,
+  "sensitivity_threshold_quantile": 0.5,
+  "boundary_rule": ">= threshold is high",
+  "patch_complete_fold": "head has all A, P, C, F exact scores; rank within each original class-specific 64-candidate set before intersecting",
+  "patch_min_complete_folds": 3,
+  "consensus_m1_marker": "selected in at least 3 of 5 folds; fold panels mark their own 51 selected heads"
+}
