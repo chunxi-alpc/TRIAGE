@@ -1,0 +1,19 @@
+{
+  "method_version": "adaptive_m1_v2",
+  "inner_source_folds": 5,
+  "gradient_robust_z_threshold": 2,
+  "pairs_per_source_label_pattern": 2,
+  "candidate_fold_frequency_min": 0.8,
+  "permutation_draws": 2000,
+  "bootstrap_draws": 2000,
+  "fdr_q": 0.05,
+  "bootstrap_direction_stability_min": 0.8,
+  "min_validation_sources": 5,
+  "seed": 20261108,
+  "candidate_selection": "within-category robust z-score over all heads; no fixed candidate cap",
+  "matched_null": "within source, category, and ordered label-transition pattern; cyclically permute right-side donors among sampled pairs",
+  "AP_test": "one-sided source-level sign-flip test on observed-minus-null mean absolute symmetric patch contribution",
+  "CF_test": "two-sided source-level sign-flip test on observed-minus-null label-aligned symmetric patch contribution",
+  "final_selection": "BH q-value, source-bootstrap 95% confidence interval, bootstrap sign stability, and candidate recurrence across inner folds",
+  "final_head_count": "adaptive; no fixed minimum or maximum"
+}
