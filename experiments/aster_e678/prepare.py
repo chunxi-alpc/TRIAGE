@@ -84,7 +84,7 @@ def prepare(refresh=False):
         lines(root / "data/reused_scores.jsonl", list(reused.values()))
         configuration = dict(model_key=key, model=specs[key], source_protocol="E1-balanced-2540",
             source_report=str(SOURCE), fit_pairs=2540, pair_counts=dict(counts), fit_sources=80,
-            dev_sources=20, head_count=51, trace_rank=16, regularization=.01, delta=.2923349,
+            dev_sources=20, head_count="adaptive", m1_method_version="adaptive_m1_v2",\n            m1_config_path="experiments/aster_cr_retrain_paired_v2_20261111/m1_adaptive_v2_config.json",\n            trace_rank=16, regularization=.01, delta=.2923349,
             AP_weight_sum=4887, seed=20261108, calibration_nodes=761,
             calibration_split="source fit natural nodes, same as completed Qwen E1",
             freeze_split="corresponding checkpoint source development set",
