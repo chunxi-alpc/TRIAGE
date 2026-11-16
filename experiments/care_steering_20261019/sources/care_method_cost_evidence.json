@@ -1,0 +1,87 @@
+{
+  "source_fingerprints": {
+    "/home/gcx/care_module2_followup_20261017/EXPERIMENT_PROTOCOL.md": {
+      "sha256": "e90f33cb0814a6ab6e19c3bbf1d7f499eb7d160593dc233545270a469f058a92"
+    },
+    "/home/gcx/care_module2_followup_20261017/scripts/module2_subspaces.py": {
+      "sha256": "704807d48c427bb817895a2f99c37521cb8b9a5cd23adf751d4c4922bcf1267e"
+    },
+    "/home/gcx/care_module2_followup_20261017/scripts/run_module2_followup.py": {
+      "sha256": "7252bfd816586f33b7a99e5e97a312ac24b0ccaafb54ea15d844aa5d03b97f18"
+    },
+    "/home/gcx/care_module2_followup_20261017/results/module2_followup/README.md": {
+      "sha256": "c665a6e8df0cd96ae60ee44b8b1624eef3277d54bf6705180680a88f4c3e8e60"
+    }
+  },
+  "historical_runtime": {
+    "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard0/run_manifest.json": {
+      "cases": 32,
+      "unique_trialmatch_requests": 150,
+      "elapsed_seconds": 3138.094174895028,
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 14.9921875,
+      "status": "completed"
+    },
+    "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard2/run_manifest.json": {
+      "cases": 32,
+      "unique_trialmatch_requests": 155,
+      "elapsed_seconds": 2874.316578785947,
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 14.9921875,
+      "status": "completed"
+    },
+    "/home/gcx/care_reliability_runs/joint_formal_work_02/structures/shard4/run_manifest.json": {
+      "cases": 32,
+      "unique_trialmatch_requests": 155,
+      "elapsed_seconds": 2805.760366157978,
+      "peak_allocated_gib": 13.174214363098145,
+      "peak_reserved_gib": 15.01171875,
+      "status": "completed"
+    }
+  },
+  "subset_plan": {
+    "selection": "Lexicographically first family in test and transfer; all ten conditions retained; selected without reading model outputs.",
+    "families": [
+      "equipment_routing-ebony-30",
+      "patient_routing-alder-00"
+    ],
+    "item_ids": [
+      "patient_routing-alder-00-min_apply",
+      "patient_routing-alder-00-min_not_apply",
+      "patient_routing-alder-00-multi_apply",
+      "patient_routing-alder-00-multi_not_apply",
+      "patient_routing-alder-00-exception",
+      "patient_routing-alder-00-exception_clear",
+      "patient_routing-alder-00-old_invalid_applicable",
+      "patient_routing-alder-00-old_invalid_inapplicable",
+      "patient_routing-alder-00-unknown",
+      "patient_routing-alder-00-no_conflict",
+      "equipment_routing-ebony-30-min_apply",
+      "equipment_routing-ebony-30-min_not_apply",
+      "equipment_routing-ebony-30-multi_apply",
+      "equipment_routing-ebony-30-multi_not_apply",
+      "equipment_routing-ebony-30-exception",
+      "equipment_routing-ebony-30-exception_clear",
+      "equipment_routing-ebony-30-old_invalid_applicable",
+      "equipment_routing-ebony-30-old_invalid_inapplicable",
+      "equipment_routing-ebony-30-unknown",
+      "equipment_routing-ebony-30-no_conflict"
+    ],
+    "items": 20,
+    "unique_requests_new_only": 36,
+    "unique_requests_with_independent_rule": 48,
+    "new_only_batch8_17_21sec_amortized_minutes": [
+      10.2,
+      12.6
+    ],
+    "with_independent_batch8_17_21sec_amortized_minutes": [
+      13.6,
+      16.8
+    ],
+    "gpu_estimate": {
+      "one_A100_80GB": "16-20 GiB budget (historical reserved peak 15.01 GiB), batch 8, Phi-4 NF4 + LoRA + BioLinkBERT",
+      "two_A100_80GB": "one domain family per GPU, same per-card budget; approximately half runtime plus loading"
+    },
+    "not_executed": true
+  }
+}

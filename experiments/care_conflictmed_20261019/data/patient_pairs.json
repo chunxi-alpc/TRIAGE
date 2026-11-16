@@ -1,0 +1,115 @@
+[
+  {
+    "id": "pneumococcal",
+    "sources": [
+      7,
+      8
+    ],
+    "field": "immune_status",
+    "values": [
+      "immunocompetent",
+      "immunocompromised"
+    ],
+    "patient": "An adult with diabetes received PCV15. Immune status: {value}. There is no cochlear implant or CSF leak.",
+    "question": "What is the minimum permitted interval before PPSV23?",
+    "answers": [
+      "1 year",
+      "8 weeks"
+    ],
+    "scope": "immune_status == immunocompromised",
+    "snippet": "For immunocompromised adults, the minimum PCV15-to-PPSV23 interval can be 8 weeks.",
+    "scope_answer": 1,
+    "patterns": [
+      "1 year|one year|12 months",
+      "8 weeks|eight weeks"
+    ],
+    "group": 6,
+    "split": "test",
+    "authorship": "experiment author; grounded in cited advice rows; not clinician-reviewed"
+  },
+  {
+    "id": "renal_protein",
+    "sources": [
+      93,
+      94
+    ],
+    "field": "dialysis",
+    "values": [
+      "no",
+      "yes"
+    ],
+    "patient": "An adult has diabetes and stage G5 chronic kidney disease. Receiving maintenance dialysis: {value}.",
+    "question": "What daily protein intake in g/kg should be considered?",
+    "answers": [
+      "0.8 g/kg/day",
+      "1.0-1.2 g/kg/day"
+    ],
+    "scope": "dialysis == yes",
+    "snippet": "For adults receiving dialysis, consider protein intake of 1.0-1.2 g/kg/day.",
+    "scope_answer": 1,
+    "patterns": [
+      "0\\.8",
+      "1(?:\\.0)?\\s*[-–to]+\\s*1\\.2"
+    ],
+    "group": 61,
+    "split": "test",
+    "authorship": "experiment author; grounded in cited advice rows; not clinician-reviewed"
+  },
+  {
+    "id": "inpatient_glucose",
+    "sources": [
+      121,
+      122
+    ],
+    "field": "icu",
+    "values": [
+      "no",
+      "yes"
+    ],
+    "patient": "An adult with diabetes has hyperglycemia requiring inpatient therapy. Critically ill and in the ICU: {value}. There is no indication for a more stringent individualized target.",
+    "question": "What is the usual blood glucose target range in mg/dL?",
+    "answers": [
+      "100-180 mg/dL",
+      "140-180 mg/dL"
+    ],
+    "scope": "icu == yes",
+    "snippet": "For most critically ill adults in the ICU, a glucose goal of 140-180 mg/dL is recommended.",
+    "scope_answer": 1,
+    "patterns": [
+      "100\\s*[-–to]+\\s*180",
+      "140\\s*[-–to]+\\s*180"
+    ],
+    "group": 111,
+    "split": "test",
+    "authorship": "experiment author; grounded in cited advice rows; not clinician-reviewed"
+  },
+  {
+    "id": "hiv_diagnosis",
+    "sources": [
+      169,
+      173,
+      174
+    ],
+    "field": "age_months",
+    "values": [
+      6,
+      24
+    ],
+    "patient": "A child has perinatal HIV exposure and requires standard diagnostic testing. Age: {value} months.",
+    "question": "Which type of HIV diagnostic test is appropriate at this age?",
+    "answers": [
+      "HIV nucleic acid test",
+      "HIV antibody or antigen/antibody test"
+    ],
+    "scope": "age_months >= 18",
+    "snippet": "For children aged 18 months or older, HIV antibody or antigen/antibody tests are recommended for diagnostic testing.",
+    "scope_answer": 1,
+    "patterns": [
+      "nucleic|\\bnat\\b|\\bpcr\\b|rna|dna",
+      "antibod|antigen"
+    ],
+    "group": 164,
+    "split": "test",
+    "authorship": "experiment author; grounded in cited advice rows; not clinician-reviewed"
+  }
+]

@@ -1,0 +1,402 @@
+{
+  "request_keys": [
+    "45ba9497ebd0ed2d052c60d9888742d7737a506f409e57d90a14cecbec27292b",
+    "1d302b27fb7f47f76548cbc9ee0273b470c4e033c9ec49655c9bb04ad5936193",
+    "37464e6793a6e868a85587a6888ad2a944c11c71dd269c43e838afa5db9ca636",
+    "66533144e4e8d4670e531f353ea11de7fecc1ef2c06dcc8be25cfe0017b6bd2e",
+    "1f4925341475368e9c8f3322782f064125fc981d9a7905c0a41379ea95b9da45",
+    "2a5781835dd135dbea46a53bd49a4962215eee7ec3b1841d8482c52804c3d72f",
+    "f56b2b373ad1f44de11179b8de2f5349bb5674fbc3a843b06f7553a12fa4683a",
+    "867813c366d7dd79a1d6a94541f002bd2d93073445442e62ce76909dfa30e828"
+  ],
+  "outputs": [
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 578,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We need to figure out if this patient can join the clinical trial. First up, the age requirement. The trial says the patient needs to be at least 20 years old. The patient's age is exactly 20. So, they meet this age requirement. That's a good start.\n\nNow, let's think about any reasons they might not be able to join. Hmm, there aren't any exclusion criteria listed here, so we don't have to worry about that part. It's just about the age for now.\n\nOkay, so the patient is 20, which matches the trial's age requirement. There's nothing else to consider since there are no exclusion criteria. Looks like they're eligible based on what we have.\n\nIn conclusion, the patient is eligible for the trial because they meet the age requirement, and there are no exclusion criteria to worry about. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The patient age is at least 20 years.\", \"Classification\": \"Met\", \"Justification\": \"The patient's age is exactly 20 years, which satisfies the age requirement.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information.\"}\n  ],\n  \"Recap\": \"The patient meets the age requirement of being at least 20 years old. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Eligible\"\n}\n```",
+      "output_tokens": 338,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Met",
+      "state": "T",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": null,
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 608,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "ignored_non_target_placeholders": [
+        {
+          "Criterion": "No exclusion criteria provided.",
+          "Classification": "Irrelevant",
+          "Justification": "There are no exclusion criteria listed in the provided information."
+        }
+      ],
+      "justification": "The patient's age is exactly 20 years, which satisfies the age requirement.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The patient age is at least 20 years.",
+            "Classification": "Met",
+            "Justification": "The patient's age is exactly 20 years, which satisfies the age requirement."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "No exclusion criteria provided.",
+            "Classification": "Irrelevant",
+            "Justification": "There are no exclusion criteria listed in the provided information."
+          }
+        ],
+        "Recap": "The patient meets the age requirement of being at least 20 years old. There are no exclusion criteria to consider.",
+        "Final Decision": "Eligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The patient age is at least 20 years.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 578,
+      "inference_seconds": 21.98948362650117,
+      "batch_elapsed_seconds": 175.91586901200935,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 575,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We're looking at a clinical trial's eligibility criteria, and there's only one inclusion criterion to consider: the patient must have routing authorization. Now, let's check the patient's details. The patient is 20 years old, has routing authorization, has a suspension flag, and doesn't have an additional recording requirement. \n\nOkay, so the first thing we need to do is see if the patient meets the inclusion criterion. The criterion is about having routing authorization. The patient's details say they do have routing authorization. So, that's a clear match. The patient meets this criterion. \n\nNow, let's move on to the exclusion criteria. Hmm, it looks like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll work with what we've got. Since there are no exclusion criteria, there's nothing to evaluate here. \n\nSo, what does this mean for the patient's eligibility? Well, since the patient meets the inclusion criterion and there are no exclusion criteria to worry about, it seems like they should be eligible for the trial. \n\nLet's recap. The patient meets the inclusion criterion because they have routing authorization. There are no exclusion criteria to consider, so there's nothing to disqualify them. \n\nIn conclusion, the patient is eligible for the clinical trial. Everything checks out based on the information we have. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has routing authorization.\", \"Classification\": \"Met\", \"Justification\": \"The patient's details explicitly state that they have routing authorization, satisfying the inclusion criterion.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the information provided, so none apply to the patient's context.\"}\n  ],\n  \"Recap\": \"The patient meets the inclusion criterion of having routing authorization. There are no exclusion criteria to consider, so there are no disqualifying factors.\",\n  \"Final Decision\": \"Eligible\"\n}\n```",
+      "output_tokens": 455,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Met",
+      "state": "T",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": null,
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 738,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "ignored_non_target_placeholders": [
+        {
+          "Criterion": "No exclusion criteria provided.",
+          "Classification": "Irrelevant",
+          "Justification": "There are no exclusion criteria listed in the information provided, so none apply to the patient's context."
+        }
+      ],
+      "justification": "The patient's details explicitly state that they have routing authorization, satisfying the inclusion criterion.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The current patient has routing authorization.",
+            "Classification": "Met",
+            "Justification": "The patient's details explicitly state that they have routing authorization, satisfying the inclusion criterion."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "No exclusion criteria provided.",
+            "Classification": "Irrelevant",
+            "Justification": "There are no exclusion criteria listed in the information provided, so none apply to the patient's context."
+          }
+        ],
+        "Recap": "The patient meets the inclusion criterion of having routing authorization. There are no exclusion criteria to consider, so there are no disqualifying factors.",
+        "Final Decision": "Eligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The current patient has routing authorization.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 578,
+      "inference_seconds": 21.98948362650117,
+      "batch_elapsed_seconds": 175.91586901200935,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "exclusion",
+      "input_tokens": 576,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's take a look at the patient's eligibility for this clinical trial. First, I need to check the exclusion criteria. The only exclusion criterion mentioned is that the patient has a suspension flag. Hmm, the patient's description clearly states that they do have a suspension flag. So, this criterion is definitely violated. That's a big deal because it means the patient can't participate in the trial.\n\nNow, let's see if there are any inclusion criteria. Oh, it looks like there aren't any specific inclusion criteria listed here. That's interesting because it means there's nothing to check against the patient's data for inclusion. So, I guess there's nothing to classify as met or not met in terms of inclusion.\n\nOkay, so what does this all mean? Since the exclusion criterion is violated, the patient is automatically ineligible for the trial. There's no need to consider any inclusion criteria because the exclusion is a deal-breaker.\n\nIn summary, the patient's suspension flag is the key factor here. It's clear that this exclusion criterion is violated, and that's enough to determine that the patient is not eligible for the trial. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No specific inclusion criteria provided\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no inclusion criteria listed to assess against the patient's data.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has a suspension flag.\", \"Classification\": \"Violated\", \"Justification\": \"The patient's description explicitly states that they have a suspension flag, which violates the exclusion criterion.\"}\n  ],\n  \"Recap\": \"The patient is ineligible for the clinical trial due to the violation of the exclusion criterion related to having a suspension flag.\",\n  \"Final Decision\": \"Ineligible\"\n}\n``` \n\nThe patient is ineligible for the clinical trial because they have a suspension flag, which violates the exclusion criterion. There are no inclusion criteria to assess, so the focus is solely on the exclusion criterion. The patient's suspension flag is the key disqualifying factor. Therefore, the final decision is that the patient is ineligible.",
+      "output_tokens": 453,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Violated",
+      "state": "T",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": null,
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 698,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "ignored_non_target_placeholders": [
+        {
+          "Criterion": "No specific inclusion criteria provided",
+          "Classification": "Irrelevant",
+          "Justification": "There are no inclusion criteria listed to assess against the patient's data."
+        }
+      ],
+      "justification": "The patient's description explicitly states that they have a suspension flag, which violates the exclusion criterion.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "No specific inclusion criteria provided",
+            "Classification": "Irrelevant",
+            "Justification": "There are no inclusion criteria listed to assess against the patient's data."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The current patient has a suspension flag.",
+            "Classification": "Violated",
+            "Justification": "The patient's description explicitly states that they have a suspension flag, which violates the exclusion criterion."
+          }
+        ],
+        "Recap": "The patient is ineligible for the clinical trial due to the violation of the exclusion criterion related to having a suspension flag.",
+        "Final Decision": "Ineligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The current patient has a suspension flag.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 578,
+      "inference_seconds": 21.98948362650117,
+      "batch_elapsed_seconds": 175.91586901200935,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 577,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We're looking at a clinical trial with some specific criteria. First up, the inclusion criteria. There's only one thing mentioned: the patient needs an additional recording requirement. Now, let's check the patient's details. The patient is 20 years old, has routing authorization, and there's a suspension flag. But wait, there's something important here: the patient does not have an additional recording requirement. So, it looks like this inclusion criterion isn't met. \n\nNow, let's move on to the exclusion criteria. Hmm, it seems like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll work with what we've got. Since there are no exclusion criteria, there's nothing to evaluate here. \n\nOkay, so let's wrap this up. The patient doesn't meet the inclusion criteria because they don't have the additional recording requirement. And since there are no exclusion criteria, there's nothing to worry about on that front. \n\nIn conclusion, the patient isn't eligible for the clinical trial because they don't meet the necessary inclusion criteria. That's pretty straightforward. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has an additional recording requirement.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient does not have an additional recording requirement, as explicitly stated in the patient profile.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information.\"}\n  ],\n  \"Recap\": \"The patient does not meet the inclusion criteria due to the lack of an additional recording requirement. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Ineligible\"\n}\n``` \n\nThe patient is not eligible for the clinical trial because they do not meet the necessary inclusion criteria, specifically the requirement for an additional recording requirement. There are no exclusion criteria to evaluate, so the decision is based solely on the unmet inclusion criterion. <think>\n<think> Alright, let's see what we've got here. We're looking at a clinical trial with some specific criteria. First up, the inclusion criteria. There's only one thing mentioned: the patient needs an additional recording requirement. Now, let's check the patient's details. The patient is 20 years old, has routing authorization, and there's a suspension flag. But wait, there's something important here: the patient does not have an additional recording requirement. So, it looks like this inclusion criterion isn't met. \n\nNow, let's move on to the exclusion criteria. Hmm, it seems like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll work with what we've got. Since there are no exclusion criteria, there's nothing to evaluate here. \n\nOkay, so let's wrap this up. The patient doesn't meet the inclusion criteria because they don't have the additional recording requirement. And since there are no exclusion criteria, there's nothing to worry about on that front. \n\nIn conclusion, the patient isn't eligible for the clinical trial because they don't meet the necessary inclusion criteria. That's pretty straightforward. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has an additional recording requirement.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient does not have an additional recording requirement, as explicitly stated in the patient profile.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information.\"}\n  ],\n  \"Recap\": \"The patient does not meet the inclusion criteria due to the lack of an additional recording requirement. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Ineligible\"\n}\n``` \n\nThe patient is not eligible for the clinical trial because they do not meet the necessary inclusion criteria, specifically the requirement for an additional recording requirement. There are no exclusion criteria to evaluate, so the decision is based solely on the unmet inclusion criterion. <think>\n<think> Alright, let's see what we've got here. We're looking at a clinical trial with some specific criteria. First up, the inclusion criteria. There's only one thing mentioned: the patient needs an additional recording requirement. Now, let's check the patient's details. The patient is 20 years old, has routing authorization, and there's a suspension flag. But wait, there's something important here: the patient does not have an additional recording requirement. So, it looks like this inclusion criterion isn't met. \n\nNow, let's move on to the exclusion criteria. Hmm, it seems like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll work with what we've got. Since there are no exclusion criteria, there's nothing to evaluate here. \n\nOkay, so let's wrap this up. The patient doesn't meet the inclusion criteria because they don't have the additional recording requirement. And since there are no exclusion criteria, there's nothing to worry about on that front. \n\nIn conclusion, the patient isn't eligible for the clinical trial because they don't meet the necessary inclusion criteria. That's pretty straightforward. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has an additional recording requirement.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient does not have an additional recording requirement, as explicitly stated in the patient profile.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information.\"}\n  ],\n  \"Recap\": \"The patient does not meet the inclusion criteria due to the lack of an additional recording requirement. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Ineligible\"\n}\n``` \n\nThe patient is not eligible for the clinical trial because they do not meet the necessary inclusion criteria, specifically the requirement for an additional recording requirement. There are no exclusion criteria to evaluate, so the decision is based solely on the unmet inclusion criterion. <think>\n<think> Alright, let's see what we've got here. We're looking at a clinical trial with some specific criteria. First up, the inclusion criteria. There's only one thing mentioned: the patient needs an additional recording requirement. Now, let's check the patient's details. The patient is 20 years old, has routing authorization, and there's a suspension flag. But wait, there's something important here: the patient does not have an additional recording requirement. So, it looks like this inclusion criterion isn't met. \n\nNow, let's move on to the exclusion criteria. Hmm, it seems like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll work with what we've got. Since there are no exclusion criteria, there's nothing to evaluate here. \n\nOkay, so let's wrap this up. The patient doesn't meet the inclusion criteria because they don't have the additional recording requirement. And since there are no exclusion criteria, there's nothing to worry about on that front. \n\nIn conclusion, the patient isn't eligible for the clinical trial because they don't meet the necessary inclusion criteria. That's pretty straightforward. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has an additional recording requirement.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient does not have an additional recording requirement, as explicitly stated in the patient profile.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information.\"}\n  ],\n  \"Recap\": \"The patient does not meet the inclusion criteria due to the lack of an additional recording requirement. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Ineligible\"\n}\n``` \n\nThe patient is not eligible for the clinical trial because they do not meet the necessary inclusion criteria, specifically the requirement for an additional recording requirement. There are no exclusion criteria to evaluate, so the decision is based solely on the unmet inclusion criterion. <think>\n<think> Alright, let's see what we've got here. We're looking at a clinical trial with some specific criteria. First up, the inclusion criteria. There's only one thing mentioned: the patient needs an additional recording requirement. Now, let's check the patient's details. The patient is 20 years old, has routing authorization, and there's a suspension flag. But wait, there's something important here: the patient does not have an additional recording requirement. So, it looks like this inclusion criterion isn't met. \n\nNow, let's move on to the exclusion criteria. Hmm, it seems like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll work with what we've got. Since there are no exclusion criteria, there's nothing to evaluate here. \n\nOkay, so let's wrap this up. The patient doesn't meet the inclusion criteria because they don't have the additional recording requirement. And since there are no exclusion criteria, there's nothing to worry about on that front. \n\nIn conclusion, the patient isn't eligible for the clinical trial because they don't meet the necessary inclusion criteria. That's pretty straightforward. <think>\n```json\n{\n  \"Inclusion_Criteria_E",
+      "output_tokens": 2048,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": null,
+      "state": "U",
+      "parse_error": "generation_truncated",
+      "parse_status": "truncated",
+      "unknown_reason": "truncated",
+      "truncated": true,
+      "parse_warnings": [],
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 578,
+      "inference_seconds": 21.98948362650117,
+      "batch_elapsed_seconds": 175.91586901200935,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 578,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We need to figure out if this patient can join the clinical trial. The main thing we're looking at is whether they meet the age requirement. The trial says they need to be at least 20 years old. But here's the catch: the patient's age isn't mentioned anywhere in the details we have. So, we can't say for sure if they're old enough or not. That's a bit of a problem because we can't just guess or assume their age. \n\nNow, let's think about the exclusion criteria. Hmm, it looks like there aren't any specific exclusion criteria listed here. That's good news because it means there's nothing stopping the patient from joining based on the information we have. \n\nSo, what does this all mean? Well, since we can't confirm the patient's age, we can't say they definitely meet the inclusion criteria. But, on the flip side, there's nothing in the exclusion criteria that would disqualify them. \n\nIn the end, it seems like the patient might be eligible, but we're not entirely sure because of the missing age info. It's a bit of a gray area, but without any clear disqualifying factors, we're leaning towards them being eligible. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The patient age is at least 20 years.\", \"Classification\": \"Unclear\", \"Justification\": \"The patient's age is not documented in the provided data, making it impossible to verify if they meet the age requirement.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No specific exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed, so none apply to the patient's context.\"}\n  ],\n  \"Recap\": \"The patient's age is not documented, making it unclear if they meet the age requirement for inclusion. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Likely Eligible (leaning toward inclusion)\"\n}\n``` \n\nThe patient's eligibility for the clinical trial is uncertain due to the lack of documented age, which is a key inclusion criterion. However, since there are no exclusion criteria provided, the patient is leaning towards being eligible. The decision is based solely on the available information, without any assumptions or inferences.",
+      "output_tokens": 501,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Unclear",
+      "state": "U",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": "medical_unknown",
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 747,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "ignored_non_target_placeholders": [
+        {
+          "Criterion": "No specific exclusion criteria provided.",
+          "Classification": "Irrelevant",
+          "Justification": "There are no exclusion criteria listed, so none apply to the patient's context."
+        }
+      ],
+      "justification": "The patient's age is not documented in the provided data, making it impossible to verify if they meet the age requirement.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The patient age is at least 20 years.",
+            "Classification": "Unclear",
+            "Justification": "The patient's age is not documented in the provided data, making it impossible to verify if they meet the age requirement."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "No specific exclusion criteria provided.",
+            "Classification": "Irrelevant",
+            "Justification": "There are no exclusion criteria listed, so none apply to the patient's context."
+          }
+        ],
+        "Recap": "The patient's age is not documented, making it unclear if they meet the age requirement for inclusion. There are no exclusion criteria to consider.",
+        "Final Decision": "Likely Eligible (leaning toward inclusion)"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The patient age is at least 20 years.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 578,
+      "inference_seconds": 21.98948362650117,
+      "batch_elapsed_seconds": 175.91586901200935,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 575,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We're looking at a clinical trial's eligibility criteria, and there's only one inclusion criterion mentioned: the patient must have routing authorization. So, let's check that out.\n\nLooking at the patient's details, it says they do have routing authorization. That's a direct match with the inclusion criterion. So, it's clear that this criterion is met.\n\nNow, let's think about the exclusion criteria. Hmm, it seems like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll just have to work with what we've got.\n\nSince there are no exclusion criteria to worry about, we don't have any factors that would disqualify the patient. That's good news.\n\nSo, putting it all together, the patient meets the inclusion criterion because they have routing authorization. And since there are no exclusion criteria, there's nothing to disqualify them.\n\nIn conclusion, the patient is eligible for the clinical trial. Everything checks out based on the information we have. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has routing authorization.\", \"Classification\": \"Met\", \"Justification\": \"The patient's data explicitly states that they have routing authorization, which directly satisfies the inclusion criterion.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information, so this criterion does not apply to the patient's context.\"}\n  ],\n  \"Recap\": \"The patient meets the inclusion criterion of having routing authorization. There are no exclusion criteria to consider, so there are no disqualifying factors.\",\n  \"Final Decision\": \"Eligible\"\n}\n``` \n\nThe patient is eligible for the clinical trial as they meet the inclusion criterion of having routing authorization, and there are no exclusion criteria to disqualify them. Everything checks out based on the provided information. <think>\n<think> Alright, let's see what we've got here. We're looking at a clinical trial's eligibility criteria, and there's only one inclusion criterion mentioned: the patient must have routing authorization. So, let's check that out.\n\nLooking at the patient's details, it says they do have routing authorization. That's a direct match with the inclusion criterion. So, it's clear that this criterion is met.\n\nNow, let's think about the exclusion criteria. Hmm, it seems like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll just have to work with what we've got.\n\nSince there are no exclusion criteria to worry about, we don't have any factors that would disqualify the patient. That's good news.\n\nSo, putting it all together, the patient meets the inclusion criterion because they have routing authorization. And since there are no exclusion criteria, there's nothing to disqualify them.\n\nIn conclusion, the patient is eligible for the clinical trial. Everything checks out based on the information we have. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has routing authorization.\", \"Classification\": \"Met\", \"Justification\": \"The patient's data explicitly states that they have routing authorization, which directly satisfies the inclusion criterion.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information, so this criterion does not apply to the patient's context.\"}\n  ],\n  \"Recap\": \"The patient meets the inclusion criterion of having routing authorization. There are no exclusion criteria to consider, so there are no disqualifying factors.\",\n  \"Final Decision\": \"Eligible\"\n}\n``` \n\nThe patient is eligible for the clinical trial as they meet the inclusion criterion of having routing authorization, and there are no exclusion criteria to disqualify them. Everything checks out based on the provided information. <think>\n<think> Alright, let's see what we've got here. We're looking at a clinical trial's eligibility criteria, and there's only one inclusion criterion mentioned: the patient must have routing authorization. So, let's check that out.\n\nLooking at the patient's details, it says they do have routing authorization. That's a direct match with the inclusion criterion. So, it's clear that this criterion is met.\n\nNow, let's think about the exclusion criteria. Hmm, it seems like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll just have to work with what we've got.\n\nSince there are no exclusion criteria to worry about, we don't have any factors that would disqualify the patient. That's good news.\n\nSo, putting it all together, the patient meets the inclusion criterion because they have routing authorization. And since there are no exclusion criteria, there's nothing to disqualify them.\n\nIn conclusion, the patient is eligible for the clinical trial. Everything checks out based on the information we have. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has routing authorization.\", \"Classification\": \"Met\", \"Justification\": \"The patient's data explicitly states that they have routing authorization, which directly satisfies the inclusion criterion.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information, so this criterion does not apply to the patient's context.\"}\n  ],\n  \"Recap\": \"The patient meets the inclusion criterion of having routing authorization. There are no exclusion criteria to consider, so there are no disqualifying factors.\",\n  \"Final Decision\": \"Eligible\"\n}\n``` \n\nThe patient is eligible for the clinical trial as they meet the inclusion criterion of having routing authorization, and there are no exclusion criteria to disqualify them. Everything checks out based on the provided information. <think>\n<think> Alright, let's see what we've got here. We're looking at a clinical trial's eligibility criteria, and there's only one inclusion criterion mentioned: the patient must have routing authorization. So, let's check that out.\n\nLooking at the patient's details, it says they do have routing authorization. That's a direct match with the inclusion criterion. So, it's clear that this criterion is met.\n\nNow, let's think about the exclusion criteria. Hmm, it seems like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll just have to work with what we've got.\n\nSince there are no exclusion criteria to worry about, we don't have any factors that would disqualify the patient. That's good news.\n\nSo, putting it all together, the patient meets the inclusion criterion because they have routing authorization. And since there are no exclusion criteria, there's nothing to disqualify them.\n\nIn conclusion, the patient is eligible for the clinical trial. Everything checks out based on the information we have. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has routing authorization.\", \"Classification\": \"Met\", \"Justification\": \"The patient's data explicitly states that they have routing authorization, which directly satisfies the inclusion criterion.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information, so this criterion does not apply to the patient's context.\"}\n  ],\n  \"Recap\": \"The patient meets the inclusion criterion of having routing authorization. There are no exclusion criteria to consider, so there are no disqualifying factors.\",\n  \"Final Decision\": \"Eligible\"\n}\n``` \n\nThe patient is eligible for the clinical trial as they meet the inclusion criterion of having routing authorization, and there are no exclusion criteria to disqualify them. Everything checks out based on the provided information. <think>\n<think> Alright, let's see what we've got here. We're looking at a clinical trial's eligibility criteria, and there's only one inclusion criterion mentioned: the patient must have routing authorization. So, let's check that out.\n\nLooking at the patient's details, it says they do have routing authorization. That's a direct match with the inclusion criterion. So, it's clear that this criterion is met.\n\nNow, let's think about the exclusion criteria. Hmm, it seems like there aren't any exclusion criteria listed in the information we have. That's a bit unusual, but we'll just have to work with what we've got.\n\nSince there are no exclusion criteria to worry about, we don't have any factors that would disqualify the patient. That's good news.\n\nSo, putting it all together, the patient meets the inclusion criterion because they have routing authorization. And since there are no exclusion criteria, there's nothing to disqualify them.\n\nIn conclusion, the patient is eligible for the clinical trial. Everything checks out based on the information we have. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has routing authorization.\", \"Classification\": \"Met\", \"Justification\": \"The patient's data explicitly states that they have routing authorization, which directly satisfies the inclusion criterion.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information, so this criterion does not apply to the",
+      "output_tokens": 2048,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": null,
+      "state": "U",
+      "parse_error": "generation_truncated",
+      "parse_status": "truncated",
+      "unknown_reason": "truncated",
+      "truncated": true,
+      "parse_warnings": [],
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 578,
+      "inference_seconds": 21.98948362650117,
+      "batch_elapsed_seconds": 175.91586901200935,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "exclusion",
+      "input_tokens": 576,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's dive into this. We're looking at a clinical trial's eligibility criteria, and we've got a patient profile to work with. First up, we need to check if the patient meets the inclusion criteria. Hmm, the only thing we have here is that the patient has a suspension flag. But wait, the patient profile says they don't have a suspension flag. So, that's a clear mismatch. The patient doesn't meet this inclusion criterion. \n\nNow, let's move on to the exclusion criteria. The only exclusion criterion mentioned is that the patient has a suspension flag. But again, the patient profile clearly states they don't have one. So, this exclusion criterion is not violated. \n\nOkay, let's recap what we've got. The patient doesn't meet the inclusion criterion because they don't have a suspension flag, and they also don't violate the exclusion criterion for the same reason. \n\nSo, what does this mean for the patient's eligibility? Well, since they don't meet the inclusion criteria, they can't be eligible for the trial. It's pretty straightforward. \n\nIn conclusion, the patient is ineligible for the clinical trial because they don't meet the necessary inclusion criteria. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has a suspension flag.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient profile explicitly states that the patient does not have a suspension flag.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has a suspension flag.\", \"Classification\": \"Not Violated\", \"Justification\": \"The patient profile explicitly states that the patient does not have a suspension flag.\"}\n  ],\n  \"Recap\": \"The patient does not meet the inclusion criterion of having a suspension flag and does not violate the exclusion criterion of having a suspension flag.\",\n  \"Final Decision\": \"Ineligible\"\n}\n``` \n\nThe patient is ineligible for the clinical trial because they do not meet the necessary inclusion criteria. The patient's profile clearly states they do not have a suspension flag, which is required for inclusion. Therefore, they cannot participate in the trial. <think>\n<think> Alright, let's dive into this. We're looking at a clinical trial's eligibility criteria, and we've got a patient profile to work with. First up, we need to check if the patient meets the inclusion criteria. Hmm, the only thing we have here is that the patient has a suspension flag. But wait, the patient profile says they don't have a suspension flag. So, that's a clear mismatch. The patient doesn't meet this inclusion criterion. \n\nNow, let's move on to the exclusion criteria. The only exclusion criterion mentioned is that the patient has a suspension flag. But again, the patient profile clearly states they don't have one. So, this exclusion criterion is not violated. \n\nOkay, let's recap what we've got. The patient doesn't meet the inclusion criterion because they don't have a suspension flag, and they also don't violate the exclusion criterion for the same reason. \n\nSo, what does this mean for the patient's eligibility? Well, since they don't meet the inclusion criteria, they can't be eligible for the trial. It's pretty straightforward. \n\nIn conclusion, the patient is ineligible for the clinical trial because they don't meet the necessary inclusion criteria. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has a suspension flag.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient profile explicitly states that the patient does not have a suspension flag.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has a suspension flag.\", \"Classification\": \"Not Violated\", \"Justification\": \"The patient profile explicitly states that the patient does not have a suspension flag.\"}\n  ],\n  \"Recap\": \"The patient does not meet the inclusion criterion of having a suspension flag and does not violate the exclusion criterion of having a suspension flag.\",\n  \"Final Decision\": \"Ineligible\"\n}\n``` \n\nThe patient is ineligible for the clinical trial because they do not meet the necessary inclusion criteria. The patient's profile clearly states they do not have a suspension flag, which is required for inclusion. Therefore, they cannot participate in the trial. <think>\n<think> Alright, let's dive into this. We're looking at a clinical trial's eligibility criteria, and we've got a patient profile to work with. First up, we need to check if the patient meets the inclusion criteria. Hmm, the only thing we have here is that the patient has a suspension flag. But wait, the patient profile says they don't have a suspension flag. So, that's a clear mismatch. The patient doesn't meet this inclusion criterion. \n\nNow, let's move on to the exclusion criteria. The only exclusion criterion mentioned is that the patient has a suspension flag. But again, the patient profile clearly states they don't have one. So, this exclusion criterion is not violated. \n\nOkay, let's recap what we've got. The patient doesn't meet the inclusion criterion because they don't have a suspension flag, and they also don't violate the exclusion criterion for the same reason. \n\nSo, what does this mean for the patient's eligibility? Well, since they don't meet the inclusion criteria, they can't be eligible for the trial. It's pretty straightforward. \n\nIn conclusion, the patient is ineligible for the clinical trial because they don't meet the necessary inclusion criteria. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has a suspension flag.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient profile explicitly states that the patient does not have a suspension flag.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has a suspension flag.\", \"Classification\": \"Not Violated\", \"Justification\": \"The patient profile explicitly states that the patient does not have a suspension flag.\"}\n  ],\n  \"Recap\": \"The patient does not meet the inclusion criterion of having a suspension flag and does not violate the exclusion criterion of having a suspension flag.\",\n  \"Final Decision\": \"Ineligible\"\n}\n``` \n\nThe patient is ineligible for the clinical trial because they do not meet the necessary inclusion criteria. The patient's profile clearly states they do not have a suspension flag, which is required for inclusion. Therefore, they cannot participate in the trial. <think>\n<think> Alright, let's dive into this. We're looking at a clinical trial's eligibility criteria, and we've got a patient profile to work with. First up, we need to check if the patient meets the inclusion criteria. Hmm, the only thing we have here is that the patient has a suspension flag. But wait, the patient profile says they don't have a suspension flag. So, that's a clear mismatch. The patient doesn't meet this inclusion criterion. \n\nNow, let's move on to the exclusion criteria. The only exclusion criterion mentioned is that the patient has a suspension flag. But again, the patient profile clearly states they don't have one. So, this exclusion criterion is not violated. \n\nOkay, let's recap what we've got. The patient doesn't meet the inclusion criterion because they don't have a suspension flag, and they also don't violate the exclusion criterion for the same reason. \n\nSo, what does this mean for the patient's eligibility? Well, since they don't meet the inclusion criteria, they can't be eligible for the trial. It's pretty straightforward. \n\nIn conclusion, the patient is ineligible for the clinical trial because they don't meet the necessary inclusion criteria. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has a suspension flag.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient profile explicitly states that the patient does not have a suspension flag.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has a suspension flag.\", \"Classification\": \"Not Violated\", \"Justification\": \"The patient profile explicitly states that the patient does not have a suspension flag.\"}\n  ],\n  \"Recap\": \"The patient does not meet the inclusion criterion of having a suspension flag and does not violate the exclusion criterion of having a suspension flag.\",\n  \"Final Decision\": \"Ineligible\"\n}\n``` \n\nThe patient is ineligible for the clinical trial because they do not meet the necessary inclusion criteria. The patient's profile clearly states they do not have a suspension flag, which is required for inclusion. Therefore, they cannot participate in the trial. <think>\n<think> Alright, let's dive into this. We're looking at a clinical trial's eligibility criteria, and we've got a patient profile to work with. First up, we need to check if the patient meets the inclusion criteria. Hmm, the only thing we have here is that the patient has a suspension flag. But wait, the patient profile says they don't have a suspension flag. So, that's a clear mismatch. The patient doesn't meet this inclusion criterion. \n\nNow, let's move on to the exclusion criteria. The only exclusion criterion mentioned is that the patient has a suspension flag. But again, the patient profile clearly states they don't have one. So, this exclusion criterion is not violated. \n\nOkay, let's recap what we've got. The patient doesn't meet the inclusion criterion because they don't have a suspension flag, and they also don't violate the exclusion criterion for the same reason. \n\nSo, what does this mean for the patient's eligibility? Well, since they don't meet the inclusion criteria, they can't be eligible for the trial. It's pretty",
+      "output_tokens": 2048,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": null,
+      "state": "U",
+      "parse_error": "generation_truncated",
+      "parse_status": "truncated",
+      "unknown_reason": "truncated",
+      "truncated": true,
+      "parse_warnings": [],
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 578,
+      "inference_seconds": 21.98948362650117,
+      "batch_elapsed_seconds": 175.91586901200935,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 577,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We're looking at a clinical trial with some specific criteria. First up, the inclusion criteria. The only thing mentioned is that the patient needs an additional recording requirement. Now, let's check the patient's details. Hmm, it says the patient doesn't have an additional recording requirement. So, that's a no-go for the inclusion criteria. It's pretty clear-cut.\n\nNow, let's move on to the exclusion criteria. But wait, there aren't any exclusion criteria listed in the trial details. That's interesting. Without any exclusion criteria, there's nothing to worry about on that front. So, we can just skip this part.\n\nOkay, let's wrap this up. The patient doesn't meet the inclusion criteria because they don't have the additional recording requirement. And since there are no exclusion criteria, there's nothing to exclude them on. So, it looks like the patient isn't eligible for this trial. Simple as that. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current patient has an additional recording requirement.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient's data explicitly states that they do not have an additional recording requirement.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the trial details.\"}\n  ],\n  \"Recap\": \"The patient does not meet the inclusion criteria due to the lack of an additional recording requirement. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Ineligible\"\n}\n```",
+      "output_tokens": 355,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Not Met",
+      "state": "F",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": null,
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 685,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "ignored_non_target_placeholders": [
+        {
+          "Criterion": "No exclusion criteria provided.",
+          "Classification": "Irrelevant",
+          "Justification": "There are no exclusion criteria listed in the trial details."
+        }
+      ],
+      "justification": "The patient's data explicitly states that they do not have an additional recording requirement.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The current patient has an additional recording requirement.",
+            "Classification": "Not Met",
+            "Justification": "The patient's data explicitly states that they do not have an additional recording requirement."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "No exclusion criteria provided.",
+            "Classification": "Irrelevant",
+            "Justification": "There are no exclusion criteria listed in the trial details."
+          }
+        ],
+        "Recap": "The patient does not meet the inclusion criteria due to the lack of an additional recording requirement. There are no exclusion criteria to consider.",
+        "Final Decision": "Ineligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The current patient has an additional recording requirement.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 578,
+      "inference_seconds": 21.98948362650117,
+      "batch_elapsed_seconds": 175.91586901200935,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    }
+  ],
+  "contract_sha256": "961eb122c0a4719daec93f3333eb564deaf42a4eec8d165b1640293a4eaf8e1c"
+}

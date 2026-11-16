@@ -1,0 +1,70 @@
+{
+  "created_utc": "2026-10-19T10:32:47.426640+00:00",
+  "release_checks": {
+    "ConflictMed.jsonl": {
+      "n": 4290,
+      "unique_ids": 4290,
+      "labels": {
+        "correct": 2145,
+        "wrong": 2145
+      },
+      "diseases": {
+        "diabetes": 3190,
+        "HIV": 1100
+      },
+      "label_pair_mismatches": 0,
+      "paired_disease_mismatches": 0,
+      "paired_bias_mismatches": 0,
+      "mapping_to_advice": "not assumed or inferred; files acquired but not used in model runs"
+    },
+    "ConflictMed_v2.jsonl": {
+      "n": 4290,
+      "unique_ids": 4290,
+      "labels": {
+        "correct": 2145,
+        "wrong": 2145
+      },
+      "diseases": {
+        "diabetes": 3190,
+        "HIV": 1100
+      },
+      "label_pair_mismatches": 0,
+      "paired_disease_mismatches": 0,
+      "paired_bias_mismatches": 0,
+      "mapping_to_advice": "not assumed or inferred; files acquired but not used in model runs"
+    }
+  },
+  "full_training_activation": {
+    "path": "/home/gcx/TRIAGE-worktrees/care-steering-github-20261019/experiments/care_conflictmed_20261019/results/direction.pt",
+    "bytes": 87312627,
+    "sha256": "7c49308ba37c537f46ed7f87893512b80c48214166ddbfe78d53f7ae1efc0c42",
+    "git_included": false
+  },
+  "portable_direction": {
+    "path": "results/direction_weights.pt",
+    "sha256": "0cf3c6466532fb9b51f20e02e57e6e1a4c63d56496f19cf973590977136daafa",
+    "exact_vector_equality": true
+  },
+  "script_change_after_main": "After main run: made environment-output filename configurable; clarified heldout_accessed metadata to heldout_used_for_fitting / heldout_inference_started. All item text and labels are loaded by the common JSON reader, but only training IDs fit direction and only validation outcomes select alpha. No inference or numeric result was changed. Main source was not pre-committed; config/data hashes were frozen before inference. Concurrent root-level tooling and tests are preserved separately from src/ used for this run.",
+  "verification": "Completed JSONL hashes, split isolation, coverage and actual nonzero prefill edits verified in analyze.py. Clinical label truth was not independently reviewed.",
+  "prior_review": {
+    "pr": 10,
+    "url": "https://github.com/chunxi-alpc/TRIAGE/pull/10",
+    "reviewed_head": "6bae71cbb99d60503de0f1867c7c38ca4f1772b5",
+    "files": [
+      "experiments/care_steering_20261019/README.md",
+      "experiments/care_steering_20261019/REPORT.txt",
+      "experiments/care_steering_20261019/src/run_facts.py",
+      "experiments/care_steering_20261019/src/engine.py"
+    ],
+    "finding": "Old medical target task supplies both old and new rules in context; cannot establish parametric knowledge conflict. Existing report already states this. Preserve its results and add a separate experiment."
+  },
+  "not_executed": [
+    "Native full scenario evaluation",
+    "Historical clinical guideline revision validation",
+    "Full CARE extraction and key-space intervention",
+    "Multiple models and direction seeds",
+    "DPO or SFT",
+    "Independent expert clinical review"
+  ]
+}

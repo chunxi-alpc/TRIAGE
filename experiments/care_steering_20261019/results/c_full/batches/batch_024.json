@@ -1,0 +1,495 @@
+{
+  "request_keys": [
+    "5b150936ba499d8d61afb056993dc13f674834e6c7067054b047b8181ad5dcc7",
+    "0051647a46134694cb4f8284896f8735f8e4c0008ab95fc2d097dcb42950ec71",
+    "66d84bd9d38ed55ff53a9c484f5e46842c7388edc0271d0bc88be3a672e5d695",
+    "299cc02ae479cc961ad69e79916048a2c895fef5feb56450501f0b3d7f017f23",
+    "967d1f37f52e4f1143269427abee6d168673145a5dca19b4367129d62774905f",
+    "4f2e5ddbc4e0e468f347ed1823268f5b1bf8d91f93a99de93073a594f2e018e1",
+    "d22312f23051952a0bc7839e335de12a8d83ba71b77f059c05eea09b1777d362",
+    "4af8b3b44124e9aa7fd63919802539829a3c17b5bc5a4211735b15d5595afbd9"
+  ],
+  "outputs": [
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 580,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We're looking at a clinical trial that has a pretty straightforward inclusion criterion: the device needs to be at least 50 years old. So, let's check that out.\n\nThe patient's device is exactly 50 years old. That's a match! It meets the requirement perfectly. No need to worry about that one.\n\nNow, let's think about the exclusion criteria. Hmm, it looks like there aren't any exclusion criteria listed in the information we have. That's a relief because it means there's nothing to disqualify the patient based on the data we have.\n\nSo, putting it all together, the patient's device is exactly 50 years old, which is what the trial needs. And since there are no exclusion criteria to worry about, it seems like the patient is eligible for this trial.\n\nIn conclusion, the patient's device meets the age requirement, and there are no exclusion criteria to consider. So, the patient is eligible for the clinical trial. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The device age is at least 50 years.\", \"Classification\": \"Met\", \"Justification\": \"The patient's device is exactly 50 years old, which satisfies the criterion.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the information provided.\"}\n  ],\n  \"Recap\": \"The patient's device is exactly 50 years old, meeting the inclusion criterion. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Eligible\"\n}\n```",
+      "output_tokens": 360,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Met",
+      "state": "T",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": null,
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 617,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "ignored_non_target_placeholders": [
+        {
+          "Criterion": "No exclusion criteria provided.",
+          "Classification": "Irrelevant",
+          "Justification": "There are no exclusion criteria listed in the information provided."
+        }
+      ],
+      "justification": "The patient's device is exactly 50 years old, which satisfies the criterion.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The device age is at least 50 years.",
+            "Classification": "Met",
+            "Justification": "The patient's device is exactly 50 years old, which satisfies the criterion."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "No exclusion criteria provided.",
+            "Classification": "Irrelevant",
+            "Justification": "There are no exclusion criteria listed in the information provided."
+          }
+        ],
+        "Recap": "The patient's device is exactly 50 years old, meeting the inclusion criterion. There are no exclusion criteria to consider.",
+        "Final Decision": "Eligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The device age is at least 50 years.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 580,
+      "inference_seconds": 4.9084274749984615,
+      "batch_elapsed_seconds": 39.26741979998769,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 577,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We're looking at a clinical trial that has one inclusion criterion: the device must have routing authorization. So, the first thing I need to check is whether the patient's device meets this requirement.\n\nLooking at the patient's description, it says the device has routing authorization. That's a direct match with the inclusion criterion. So, it's clear that this criterion is met.\n\nNow, let's think about the exclusion criteria. Hmm, the problem doesn't mention any specific exclusion criteria, so there's nothing to evaluate there. That means there's nothing to worry about in terms of disqualifying the patient based on exclusion criteria.\n\nOkay, so if I put this all together, the patient's device meets the inclusion criterion, and there are no exclusion criteria to consider. That means the patient is eligible for the clinical trial.\n\nJust to be sure, I'll recap everything. The inclusion criterion is met because the device has routing authorization. There are no exclusion criteria mentioned, so there's nothing to disqualify the patient. So, the final decision is that the patient is eligible for the clinical trial. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current device has routing authorization.\", \"Classification\": \"Met\", \"Justification\": \"The patient's device explicitly has routing authorization, as stated in the patient description.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria mentioned in the clinical trial criteria.\"}\n  ],\n  \"Recap\": \"The patient's device meets the inclusion criterion of having routing authorization. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Eligible\"\n}\n```",
+      "output_tokens": 381,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Met",
+      "state": "T",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": null,
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 657,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "ignored_non_target_placeholders": [
+        {
+          "Criterion": "No exclusion criteria provided.",
+          "Classification": "Irrelevant",
+          "Justification": "There are no exclusion criteria mentioned in the clinical trial criteria."
+        }
+      ],
+      "justification": "The patient's device explicitly has routing authorization, as stated in the patient description.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The current device has routing authorization.",
+            "Classification": "Met",
+            "Justification": "The patient's device explicitly has routing authorization, as stated in the patient description."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "No exclusion criteria provided.",
+            "Classification": "Irrelevant",
+            "Justification": "There are no exclusion criteria mentioned in the clinical trial criteria."
+          }
+        ],
+        "Recap": "The patient's device meets the inclusion criterion of having routing authorization. There are no exclusion criteria to consider.",
+        "Final Decision": "Eligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The current device has routing authorization.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 580,
+      "inference_seconds": 4.9084274749984615,
+      "batch_elapsed_seconds": 39.26741979998769,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "exclusion",
+      "input_tokens": 578,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's take a look at the patient's eligibility for this clinical trial. First, I need to check the exclusion criteria. The only exclusion criterion mentioned is that the device should not have a suspension flag. So, I'll start by looking at the patient's device details. Hmm, it says here that the device does not have a suspension flag. That's good news because it means the patient doesn't violate this exclusion criterion. So, I can confidently say that this criterion is not violated.\n\nNow, let's move on to the inclusion criteria. But wait, there's a catch. The inclusion criteria aren't actually listed in the information I have. Without knowing what the inclusion criteria are, I can't really assess them. So, I'll have to mark them as unclear because I just don't have enough information to make a judgment.\n\nOkay, so let's recap what we've got so far. The patient's device doesn't have a suspension flag, which means they don't violate the exclusion criteria. That's a positive point. But, since I don't have any inclusion criteria to evaluate, I can't say for sure if they meet all the necessary conditions to be eligible. It's a bit of a mixed bag.\n\nIn the end, I'm leaning towards saying the patient is likely eligible. The main reason is that they don't violate the exclusion criteria, which is a big deal. But, I'm keeping it at 'likely eligible' because I can't fully confirm their eligibility without knowing the inclusion criteria. It's a cautious approach, but it seems like the best way to go given the information I have. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"Exact inclusion criterion text\", \"Classification\": \"Unclear\", \"Justification\": \"The inclusion criteria are not provided in the patient data, making it impossible to assess.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current device has a suspension flag.\", \"Classification\": \"Not Violated\", \"Justification\": \"The patient's device does not have a suspension flag, as explicitly stated in the patient data.\"}\n  ],\n  \"Recap\": \"The patient's device does not violate the exclusion criterion of having a suspension flag. However, the inclusion criteria are not provided, making it unclear if they meet all necessary conditions for eligibility.\",\n  \"Final Decision\": \"Likely Eligible (leaning toward inclusion)\"\n}\n``` \n\nThis assessment is based on the explicit information provided about the patient's device and the exclusion criteria. The lack of inclusion criteria prevents a full evaluation, but the absence of a suspension flag suggests the patient is likely eligible.",
+      "output_tokens": 555,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Not Violated",
+      "state": "U",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": "exclusion_not_violated",
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json",
+        "non_target_entries_ignored"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 795,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "justification": "The patient's device does not have a suspension flag, as explicitly stated in the patient data.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "Exact inclusion criterion text",
+            "Classification": "Unclear",
+            "Justification": "The inclusion criteria are not provided in the patient data, making it impossible to assess."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The current device has a suspension flag.",
+            "Classification": "Not Violated",
+            "Justification": "The patient's device does not have a suspension flag, as explicitly stated in the patient data."
+          }
+        ],
+        "Recap": "The patient's device does not violate the exclusion criterion of having a suspension flag. However, the inclusion criteria are not provided, making it unclear if they meet all necessary conditions for eligibility.",
+        "Final Decision": "Likely Eligible (leaning toward inclusion)"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The current device has a suspension flag.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 580,
+      "inference_seconds": 4.9084274749984615,
+      "batch_elapsed_seconds": 39.26741979998769,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 579,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We're looking at a clinical trial that has some specific criteria for who can join. The only inclusion criterion mentioned is that the device must have an additional recording requirement. So, let's check if our patient meets this.\n\nLooking at the patient's details, it says the device doesn't have an additional recording requirement. That's a bit of a problem because the trial needs this feature. So, it seems like the patient doesn't meet this inclusion criterion. I'll mark this as 'Not Met' because the data clearly says there's no additional recording requirement.\n\nNow, let's move on to the exclusion criteria. Hmm, there aren't any exclusion criteria listed in the trial details. That's a bit unusual, but it means we don't have anything to worry about here. Since there's nothing to exclude, we can just say 'Irrelevant' for all exclusion criteria because they don't apply.\n\nOkay, so to wrap this up, the patient doesn't meet the inclusion criteria because their device lacks the additional recording requirement. And since there are no exclusion criteria, there's nothing to exclude them on. So, the final decision is that the patient is 'Ineligible' for this trial. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current device has an additional recording requirement.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient's device does not have an additional recording requirement, as explicitly stated in the patient data.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"N/A\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria provided in the trial details, making them irrelevant to the patient's context.\"}\n  ],\n  \"Recap\": \"The patient does not meet the inclusion criterion of having an additional recording requirement. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Ineligible\"\n}\n```",
+      "output_tokens": 414,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Not Met",
+      "state": "F",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": null,
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json",
+        "non_target_entries_ignored"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 717,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "justification": "The patient's device does not have an additional recording requirement, as explicitly stated in the patient data.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The current device has an additional recording requirement.",
+            "Classification": "Not Met",
+            "Justification": "The patient's device does not have an additional recording requirement, as explicitly stated in the patient data."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "N/A",
+            "Classification": "Irrelevant",
+            "Justification": "There are no exclusion criteria provided in the trial details, making them irrelevant to the patient's context."
+          }
+        ],
+        "Recap": "The patient does not meet the inclusion criterion of having an additional recording requirement. There are no exclusion criteria to consider.",
+        "Final Decision": "Ineligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The current device has an additional recording requirement.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 580,
+      "inference_seconds": 4.9084274749984615,
+      "batch_elapsed_seconds": 39.26741979998769,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 580,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We're looking at a clinical trial that has a pretty straightforward inclusion criterion: the device needs to be at least 50 years old. So, the first thing I need to check is the age of the device. \n\nLooking at the patient's description, it says the device is 49 years old. Hmm, that's one year shy of the requirement. So, it doesn't meet the age criterion. That's a clear 'Not Met' for this one. \n\nNow, let's think about the exclusion criteria. The problem is, there aren't any exclusion criteria listed in the information I have. So, there's nothing to evaluate there. That means there's nothing to worry about on that front. \n\nOkay, so what does this all mean for the patient's eligibility? Well, since the device doesn't meet the age requirement, the patient can't be eligible for the trial. \n\nJust to wrap it up, the device is 49 years old, which doesn't satisfy the 50-year minimum age requirement. There are no exclusion criteria to consider, so the final decision is that the patient is ineligible for the trial. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The device age is at least 50 years.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient's device is 49 years old, which does not meet the 50-year minimum age requirement.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"N/A\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria provided in the information.\"}\n  ],\n  \"Recap\": \"The device is 49 years old, which does not satisfy the 50-year minimum age requirement. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Ineligible\"\n}\n```",
+      "output_tokens": 401,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Not Met",
+      "state": "F",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": null,
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json",
+        "non_target_entries_ignored"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 615,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "justification": "The patient's device is 49 years old, which does not meet the 50-year minimum age requirement.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The device age is at least 50 years.",
+            "Classification": "Not Met",
+            "Justification": "The patient's device is 49 years old, which does not meet the 50-year minimum age requirement."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "N/A",
+            "Classification": "Irrelevant",
+            "Justification": "There are no exclusion criteria provided in the information."
+          }
+        ],
+        "Recap": "The device is 49 years old, which does not satisfy the 50-year minimum age requirement. There are no exclusion criteria to consider.",
+        "Final Decision": "Ineligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The device age is at least 50 years.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 580,
+      "inference_seconds": 4.9084274749984615,
+      "batch_elapsed_seconds": 39.26741979998769,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 577,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We're looking at a clinical trial that has one inclusion criterion: the device must have routing authorization. So, the first thing I need to do is check if the patient's device meets this requirement.\n\nLooking at the patient's description, it says the device has routing authorization. That's a direct match with the inclusion criterion. So, it's clear that this criterion is met.\n\nNow, let's think about the exclusion criteria. Hmm, the problem doesn't mention any specific exclusion criteria, so there's nothing to evaluate there. That means there's nothing to worry about in terms of disqualifying the patient based on exclusion criteria.\n\nOkay, so if I put this all together, the patient's device meets the inclusion criterion, and there are no exclusion criteria to consider. That means the patient is eligible for the clinical trial.\n\nJust to be sure, I'll go over everything again. The inclusion criterion is about routing authorization, and the patient's device has it. No exclusion criteria are mentioned, so there's nothing to disqualify the patient. Yep, everything checks out. The patient is eligible for the trial. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current device has routing authorization.\", \"Classification\": \"Met\", \"Justification\": \"The patient's device explicitly has routing authorization, as stated in the patient description.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No specific exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria mentioned in the clinical trial criteria, so none apply to the patient's context.\"}\n  ],\n  \"Recap\": \"The patient's device meets the inclusion criterion of having routing authorization. There are no exclusion criteria to consider.\",\n  \"Final Decision\": \"Eligible\"\n}\n```",
+      "output_tokens": 395,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Met",
+      "state": "T",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": null,
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 706,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "ignored_non_target_placeholders": [
+        {
+          "Criterion": "No specific exclusion criteria provided.",
+          "Classification": "Irrelevant",
+          "Justification": "There are no exclusion criteria mentioned in the clinical trial criteria, so none apply to the patient's context."
+        }
+      ],
+      "justification": "The patient's device explicitly has routing authorization, as stated in the patient description.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The current device has routing authorization.",
+            "Classification": "Met",
+            "Justification": "The patient's device explicitly has routing authorization, as stated in the patient description."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "No specific exclusion criteria provided.",
+            "Classification": "Irrelevant",
+            "Justification": "There are no exclusion criteria mentioned in the clinical trial criteria, so none apply to the patient's context."
+          }
+        ],
+        "Recap": "The patient's device meets the inclusion criterion of having routing authorization. There are no exclusion criteria to consider.",
+        "Final Decision": "Eligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The current device has routing authorization.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 580,
+      "inference_seconds": 4.9084274749984615,
+      "batch_elapsed_seconds": 39.26741979998769,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "exclusion",
+      "input_tokens": 578,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's take a look at the patient's eligibility for this clinical trial. First, I need to check the exclusion criteria. The only exclusion criterion mentioned is that the device should not have a suspension flag. So, I'll start by looking at the patient's device details. Hmm, it says here that the device does not have a suspension flag. That's good news because it means the patient doesn't violate this exclusion criterion. So, I can confidently say that this criterion is not violated.\n\nNow, let's move on to the inclusion criteria. But wait, there's a catch. The inclusion criteria aren't actually listed in the information I have. Without knowing what the inclusion criteria are, I can't really assess them. So, I'll have to mark them as unclear because I just don't have enough information to make a judgment.\n\nOkay, so let's recap what we've got. The patient's device doesn't have a suspension flag, which means they don't violate the exclusion criteria. That's a positive point. But, since I don't have any inclusion criteria to evaluate, I can't say for sure if they meet all the necessary conditions to be eligible. It's a bit of a mixed bag.\n\nIn the end, I'm leaning towards saying the patient is likely eligible. They don't violate the exclusion criteria, which is a big deal. But, without the inclusion criteria, I can't be completely certain. So, I'll say they're likely eligible, but I'm keeping an eye out for any missing information that could change that. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"Exact inclusion criterion text\", \"Classification\": \"Unclear\", \"Justification\": \"The inclusion criteria are not provided in the patient data, making it impossible to assess.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current device has a suspension flag.\", \"Classification\": \"Not Violated\", \"Justification\": \"The patient's device does not have a suspension flag, as explicitly stated in the patient data.\"}\n  ],\n  \"Recap\": \"The patient's device does not violate the exclusion criterion of having a suspension flag. However, the inclusion criteria are not provided, making it unclear if all necessary conditions are met.\",\n  \"Final Decision\": \"Likely Eligible\"\n}\n``` \n\nThe patient's device does not violate the exclusion criterion of having a suspension flag, which is a positive factor. However, since the inclusion criteria are not provided, it's unclear if all necessary conditions are met. Therefore, the patient is likely eligible, but this conclusion is tentative due to the missing information on inclusion criteria.",
+      "output_tokens": 557,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Not Violated",
+      "state": "U",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": "exclusion_not_violated",
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json",
+        "non_target_entries_ignored"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 750,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "justification": "The patient's device does not have a suspension flag, as explicitly stated in the patient data.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "Exact inclusion criterion text",
+            "Classification": "Unclear",
+            "Justification": "The inclusion criteria are not provided in the patient data, making it impossible to assess."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The current device has a suspension flag.",
+            "Classification": "Not Violated",
+            "Justification": "The patient's device does not have a suspension flag, as explicitly stated in the patient data."
+          }
+        ],
+        "Recap": "The patient's device does not violate the exclusion criterion of having a suspension flag. However, the inclusion criteria are not provided, making it unclear if all necessary conditions are met.",
+        "Final Decision": "Likely Eligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The current device has a suspension flag.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 580,
+      "inference_seconds": 4.9084274749984615,
+      "batch_elapsed_seconds": 39.26741979998769,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    },
+    {
+      "criterion_kind": "inclusion",
+      "input_tokens": 579,
+      "max_new_tokens": 2048,
+      "prompt_commit": "5c2df1654eed2894c526ef433e8f49bba189011b",
+      "prompt_source": "src/trialmatchai/matching/eligibility_base.py",
+      "prompt_style": "official_cot_single_criterion",
+      "raw_output": "<think> Alright, let's see what we've got here. We're looking at a clinical trial that has a specific inclusion criterion: the device must have an additional recording requirement. Now, let's check the patient's device details. Hmm, it says the device is 49 years old, has routing authorization, and doesn't have a suspension flag. But wait, it also mentions that the device does not have an additional recording requirement. So, that's a big deal because the trial needs that specific feature. \n\nOkay, so based on what we have, the patient's device doesn't meet this inclusion criterion. It's pretty straightforward because the device lacks the additional recording requirement. \n\nNow, let's think about the exclusion criteria. The problem is, we don't have any exclusion criteria listed here. Without any exclusion criteria to consider, we can't really say anything about that part. \n\nSo, putting it all together, the patient's device doesn't qualify for the trial because it doesn't have the necessary additional recording requirement. That's a clear-cut case of not meeting the inclusion criteria. \n\nIn conclusion, the patient is not eligible for this clinical trial. The device's lack of the required feature is the main reason. <think>\n```json\n{\n  \"Inclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"The current device has an additional recording requirement.\", \"Classification\": \"Not Met\", \"Justification\": \"The patient's device does not have an additional recording requirement, as explicitly stated in the patient profile.\"}\n  ],\n  \"Exclusion_Criteria_Evaluation\": [\n    {\"Criterion\": \"No exclusion criteria provided.\", \"Classification\": \"Irrelevant\", \"Justification\": \"There are no exclusion criteria listed in the provided information.\"}\n  ],\n  \"Recap\": \"The patient's device does not meet the inclusion criterion of having an additional recording requirement, which is necessary for eligibility in the clinical trial.\",\n  \"Final Decision\": \"Ineligible\"\n}\n```",
+      "output_tokens": 406,
+      "parser_version": "trialmatch-condition-json-v2.1",
+      "raw_label": "Not Met",
+      "state": "F",
+      "parse_error": null,
+      "parse_status": "accepted",
+      "unknown_reason": null,
+      "truncated": false,
+      "parse_warnings": [
+        "presentation_text_outside_json"
+      ],
+      "json_object_span": {
+        "start": 8,
+        "end": 726,
+        "source": "thinking_removed_output"
+      },
+      "target_array_count": 1,
+      "exact_target_count": 1,
+      "target_match_kind": "exact",
+      "non_target_entry_count": 1,
+      "ignored_non_target_placeholders": [
+        {
+          "Criterion": "No exclusion criteria provided.",
+          "Classification": "Irrelevant",
+          "Justification": "There are no exclusion criteria listed in the provided information."
+        }
+      ],
+      "justification": "The patient's device does not have an additional recording requirement, as explicitly stated in the patient profile.",
+      "parsed_response": {
+        "Inclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "The current device has an additional recording requirement.",
+            "Classification": "Not Met",
+            "Justification": "The patient's device does not have an additional recording requirement, as explicitly stated in the patient profile."
+          }
+        ],
+        "Exclusion_Criteria_Evaluation": [
+          {
+            "Criterion": "No exclusion criteria provided.",
+            "Classification": "Irrelevant",
+            "Justification": "There are no exclusion criteria listed in the provided information."
+          }
+        ],
+        "Recap": "The patient's device does not meet the inclusion criterion of having an additional recording requirement, which is necessary for eligibility in the clinical trial.",
+        "Final Decision": "Ineligible"
+      },
+      "matched_criterion_index": 0,
+      "matched_criterion": "The current device has an additional recording requirement.",
+      "generation_batch_id": 1,
+      "generation_batch_size": 8,
+      "padded_input_tokens": 580,
+      "inference_seconds": 4.9084274749984615,
+      "batch_elapsed_seconds": 39.26741979998769,
+      "timing_method": "shared_batch_wall_time_divided_by_batch_size"
+    }
+  ],
+  "contract_sha256": "961eb122c0a4719daec93f3333eb564deaf42a4eec8d165b1640293a4eaf8e1c"
+}

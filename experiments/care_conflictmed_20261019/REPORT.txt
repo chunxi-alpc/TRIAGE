@@ -1,0 +1,98 @@
+CARE 医疗上下文知识冲突实测报告
+2026-10-19
+
+已执行：服务器 Qwen3-8B BF16；ConflictMedQA/DriftMed 建议级适配；闭卷测量；正确/错误上下文基线；提醒基线；训练集方向估计；验证集系数选择；留出测试；患者条件配对。
+本报告只读取本轮 completed.json 所校验的真实输出。不是原论文全规模复现，不是完整 CARE 实现。
+
+数据来源与前轮审阅
+论文 https://aclanthology.org/2025.findings-emnlp.38/；发布 https://huggingface.co/datasets/RDBH/DriftMed；revision 5dcfe380f49c6f17f3c6ba5e25e0e958f9642f0e。
+PR #10 原 head 6bae71cbb99d60503de0f1867c7c38ca4f1772b5：前轮 160 合成规则病例并不建立参数知识冲突，原报告已承认两条规则都在上下文中。原自由生成结果不被本轮覆盖。
+实际下载 advice_pairs=194、两份 scenario 文件各4290条。论文195组与发布194组不一致；不猜测缺失对应关系。数据卡标注 Research Use Only，原始下载保存于服务器，Git保留来源哈希、获取脚本和本轮派生数据。
+错误建议为作者人工构造的 pseudo-outdated 文本，不是有历史出处的旧指南。医学标签依据发布版本（约2025年2月），未逐条核查当下指南；不能作为临床建议。
+
+隔离与方法
+按人工医学主题合并和 TF-IDF cosine>=0.70 连通组划分，组内建议、换序、无选项问题和患者变体保持同一 split。患者诊断的来源组预先保留给 test。58 train / 68 validation / 68 test；22 / 12 / 14 组。主题隔离并不保证不存在其他语义重叠。
+严格已知集：两个无选项医学问题都匹配预先固定的正确答案，且两次候选换序都正确。只按闭卷结果选集，不按是否被错误上下文误导来选。无选项问题是人工编写的不同问法，不是仅修改“请回答”的包装。
+全量和双换序已知集为次要分析。选择题仍可能利用选项线索；因此严格无选项证据独立列出。主任务只提供一条检索建议，没有把旧、新两条规则同时放入检索上下文；选择题中的候选本身仍可提供线索。
+方向只用 37 组训练集双换序已知样本，取 clean-minus-misleading 的残差均值差；第 27 层（从0开始），范数 51.9778。只改 prefill 最后一个词元，不改权重。
+该均值差同时可能包含上下文存在与长度因素，不是已证明的纯知识选择方向；未做匹配长度或随机方向消融。
+validation 网格 [-2,-1,0,1,2]，按 aligned/misleading 平均准确率选取，同分优先绝对值小。最终 alpha=-2；最佳非零诊断 alpha=-2。选择在 test 推断前写入 selection.json，之后没有重选。
+
+实际留出结果（分母为两种选项顺序的回答次数，不能当成独立患者数）
+
+all_test: 68 组事实
+  baseline_misleading: 10/136 = 7.35%; 无效答案=0; 明确跟随错误上下文=126
+  caution_prompt: 45/136 = 33.09%; 无效答案=0; 明确跟随错误上下文=91
+  baseline_aligned: 135/136 = 99.26%; 无效答案=0; 明确跟随错误上下文=0
+  selected_direction_misleading: 11/136 = 8.09%; 无效答案=0; 明确跟随错误上下文=125
+  selected_direction_aligned: 134/136 = 98.53%; 无效答案=0; 明确跟随错误上下文=0
+  nonzero_direction_diagnostic_misleading: 11/136 = 8.09%; 无效答案=0; 明确跟随错误上下文=125
+  nonzero_direction_diagnostic_aligned: 134/136 = 98.53%; 无效答案=0; 明确跟随错误上下文=0
+
+recognition_known: 37 组事实
+  baseline_misleading: 10/74 = 13.51%; 无效答案=0; 明确跟随错误上下文=64
+  caution_prompt: 42/74 = 56.76%; 无效答案=0; 明确跟随错误上下文=32
+  baseline_aligned: 74/74 = 100.00%; 无效答案=0; 明确跟随错误上下文=0
+  selected_direction_misleading: 11/74 = 14.86%; 无效答案=0; 明确跟随错误上下文=63
+  selected_direction_aligned: 74/74 = 100.00%; 无效答案=0; 明确跟随错误上下文=0
+  nonzero_direction_diagnostic_misleading: 11/74 = 14.86%; 无效答案=0; 明确跟随错误上下文=63
+  nonzero_direction_diagnostic_aligned: 74/74 = 100.00%; 无效答案=0; 明确跟随错误上下文=0
+
+strict_open_and_recognition_known: 1 组事实
+  baseline_misleading: 0/2 = 0.00%; 无效答案=0; 明确跟随错误上下文=2
+  caution_prompt: 1/2 = 50.00%; 无效答案=0; 明确跟随错误上下文=1
+  baseline_aligned: 2/2 = 100.00%; 无效答案=0; 明确跟随错误上下文=0
+  selected_direction_misleading: 0/2 = 0.00%; 无效答案=0; 明确跟随错误上下文=2
+  selected_direction_aligned: 2/2 = 100.00%; 无效答案=0; 明确跟随错误上下文=0
+  nonzero_direction_diagnostic_misleading: 0/2 = 0.00%; 无效答案=0; 明确跟随错误上下文=2
+  nonzero_direction_diagnostic_aligned: 2/2 = 100.00%; 无效答案=0; 明确跟随错误上下文=0
+
+stable_wrong_prior: 6 组事实
+  baseline_misleading: 0/12 = 0.00%; 无效答案=0; 明确跟随错误上下文=12
+  caution_prompt: 0/12 = 0.00%; 无效答案=0; 明确跟随错误上下文=12
+  baseline_aligned: 11/12 = 91.67%; 无效答案=0; 明确跟随错误上下文=0
+  selected_direction_misleading: 0/12 = 0.00%; 无效答案=0; 明确跟随错误上下文=12
+  selected_direction_aligned: 11/12 = 91.67%; 无效答案=0; 明确跟随错误上下文=0
+  nonzero_direction_diagnostic_misleading: 0/12 = 0.00%; 无效答案=0; 明确跟随错误上下文=12
+  nonzero_direction_diagnostic_aligned: 11/12 = 91.67%; 无效答案=0; 明确跟随错误上下文=0
+
+患者条件反事实配对（单独的适用性诊断）
+四对分别改变免疫状态、透析状态、ICU状态、年龄；同对上下文和候选顺序固定。每例只有一条有适用范围的真实建议，没有显式旧规则。正确目标来自不同临床条件的来源建议。
+这些配对本身不是严格参数知识冲突证据，不进入主冲突分母。signed_scope_gate 使用预先写好的文本条件解析，不是完整 CARE 提取器。
+no_intervention_closed: 12/16; 整对全正确 1/4; 无选项及换序均已知的患者对 0
+no_intervention_scoped: 10/16; 整对全正确 1/4; 无选项及换序均已知的患者对 0
+selected_direction_scoped: 10/16; 整对全正确 1/4; 无选项及换序均已知的患者对 0
+signed_scope_gate_scoped: 10/16; 整对全正确 1/4; 无选项及换序均已知的患者对 0
+
+运行与未执行范围
+实际运行 1.37 分钟；GPU 0；PyTorch峰值已分配 16.54 GiB；峰值保留 16.99 GiB。
+没有执行：原生4290场景的完整复现、真实历史指南更新验证、完整CARE模块一/键子空间干预、多模型多随机种子、SFT/DPO、临床专家独立复核。
+未运行的内容没有填入结果，也没有以本轮诊断替代。严格已知子集小，患者只有4对；不据此声称CARE有效。
+可追溯文件：config.json、data/*.json、sources来源记录、results/*.jsonl原始答案及提示、direction.pt训练激活、selection.json、audit/data_audit.json、audit/execution_audit.json。
+方向对比的按事实组bootstrap区间见 results/summary.json；不把方向训练不确定性包含在这些区间内。
+
+
+无选项上下文冲突补测（事后探索性，未重选参数）
+在看到首轮结果后，对全部14组预先编写的test开放问题补测，不只补测已知样本。112次真实生成，问题、答案匹配器、方向和系数保持冻结；提示只包含检索文本和问题，不含候选答案。
+strict_original 仍使用首轮1组严格已知事实；recall_only_exploratory 是另列的3组双开放问答已知事实，不能覆盖原主要指标。
+开放答案的固定匹配器允许部分范围答案（例如3–6个月匹配6个月），因此 recall_only 属于敏感性诊断；不声称它提供更严格的事实验证。
+strict_original
+  misleading: 正确0/2; 明确错误答案2; 截断0
+  aligned: 正确2/2; 明确错误答案0; 截断0
+  caution: 正确0/2; 明确错误答案2; 截断0
+  misleading_with_frozen_direction: 正确0/2; 明确错误答案2; 截断0
+recall_only_exploratory
+  misleading: 正确0/6; 明确错误答案6; 截断0
+  aligned: 正确6/6; 明确错误答案0; 截断0
+  caution: 正确0/6; 明确错误答案6; 截断0
+  misleading_with_frozen_direction: 正确0/6; 明确错误答案6; 截断0
+all_open_test
+  misleading: 正确0/28; 明确错误答案28; 截断0
+  aligned: 正确28/28; 明确错误答案0; 截断0
+  caution: 正确0/28; 明确错误答案26; 截断0
+  misleading_with_frozen_direction: 正确0/28; 明确错误答案28; 截断0
+补测用时 8.78 秒。两轮共 3158 次实际生成。
+
+解释限制补充
+选定alpha为负值，不能把向量正负未经验证地等同于“记忆方向/上下文方向”。患者 signed_scope_gate 仅为沿前轮符号构造的探索性诊断，本轮未验证这种符号解释。
+少量严格样本、单模型、来源文本不等长和没有随机方向消融，均使本轮不足以判断CARE有效性。结果支持的只是该模型在本轮提示条件下的行为。

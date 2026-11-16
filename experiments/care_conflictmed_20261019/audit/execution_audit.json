@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "checks": [
+    "Raw completed-file SHA256 matches",
+    "194 x 4 conditions x 2 orders baseline complete and unique",
+    "Open probes complete",
+    "Direction uses training IDs only",
+    "Grouping prevents split overlap of declared fact families",
+    "Patient variants and source advice belong to held-out groups",
+    "Selection file frozen before test inference in sequential runner",
+    "Test intervention coverage complete; reuse explicitly marked",
+    "No generated response used to alter questions, regexes, split, or hyperparameter grid"
+  ],
+  "baseline_rows": 1552,
+  "open_rows": 62,
+  "test_intervention_rows": 544,
+  "patient_rows": 64,
+  "generated_rows": 3046,
+  "limitations": [
+    "Two open questions provide behavioral evidence of knowledge, not proof of training-set inclusion or causal localization",
+    "Main task is rejecting fabricated misleading advice, not validating real historical guideline updates",
+    "Some full-release advice pairs differ in scope or recommendation strength and are not logically exclusive; strict open subset uses pre-authored factual probes",
+    "Open correctness uses fixed answer regexes; raw responses retained for inspection",
+    "No native 4290-scenario results; original scenario-to-advice provenance unresolved",
+    "Patient applicability parser is handcrafted and simplified; not full CARE module one",
+    "Patient diagnostic is scoped evidence selection and not counted as strict parametric conflict",
+    "Full CARE key-space intervention, multiple models/seeds, DPO/SFT, external clinical validation unexecuted"
+  ]
+}

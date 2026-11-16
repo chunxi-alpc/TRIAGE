@@ -1,0 +1,48 @@
+首次clean失败的固定前20条：语义审计
+
+选择规则：在228条已记录的clean0失败中，按item_id排序取前20条。先固定名单，再比较问句、参考答案、模型原始回答；不据下游CARE表现挑选病例。
+本轮由审查代理执行语义复核；并非20条都经过外部事实核验。仅对发现的两项题干问题查原始权威来源。
+
+分类 | 条数
+明显等价但字符串漏判 | 1
+明确回答不同 | 17
+参考标注或题干疑似错误/歧义 | 2
+无法判断 | 0
+
+ID | 分类 | 参考 | 输出 | 问句
+fact_0000 | 明确回答不同 | Ann Meyers-Drysdale | Tina Thompson | Who was hired as the Phoenix Mercury general manager during the 2006 WNBA offseason?
+fact_0002 | 明确回答不同 | 2001 | 1974 | In which year did Willie Marais become the leader of the Herstigte Nasionale Party?
+fact_0003 | 明显等价但字符串漏判 | Istanbul | İstanbul | From which city does the Turkish professional footballer Oğuz Dağlaroğlu, who was born on 18 August 1979 and played as a goalkeeper, hail?
+fact_0004 | 明确回答不同 | 2017 | 2021 | In which year did Nabil F.C. win the Liga 3 Riau, making them the defending champions in the subsequent season?
+fact_0005 | 明确回答不同 | Olga Menchik | Lina Mednyánská | Who was the Czech-British female chess master born in Moscow to a Czech father and a British mother, and the younger sister of Vera Menchik?
+fact_0006 | 参考标注或题干疑似错误/歧义 | Whitley | Wolverhampton | Which city got its name from Whitley wood in Walton and had two previous units, Loxley and Ringoldsway, merged to form its current name in the 12th century?
+fact_0007 | 明确回答不同 | 2008 | 2017 | In which year did Union North win the Liverpool Society of Architects Awards?
+fact_0008 | 明确回答不同 | József Palotás | László Papp | What was the full name of the Hungarian wrestler born in 1911 and passed away in 1957?
+fact_0009 | 明确回答不同 | 1980 | 1968 | In which year did Igor Sokolov receive a gold medal in 50 m Running Target at the Summer Olympics?
+fact_0010 | 参考标注或题干疑似错误/歧义 | 19 | 62 points | How many points did N.C. State win by in the NCAA Tournament first round game against Chattanooga on March 25, 2023?
+fact_0011 | 明确回答不同 | Diana Sutherland-Leveson-Gower | Lady Mary Ponsonby. | Who was the 2nd wife of John Egerton, 6th Duke of Sutherland?
+fact_0012 | 明确回答不同 | Andy Twigge | Andy Wilkins | Who was the presenter associated with Capital East Midlands who previously worked for Leicester Sound and joined Capital after the 2011 merger?
+fact_0013 | 明确回答不同 | Lynne Thornton | Shelley Long | Who portrayed Aunt Harriet in the Canadian television series 'Harriet's Magic Hats'?
+fact_0014 | 明确回答不同 | 1978 | 1989 | In which year did the Norway women's national football team compete for the first time?
+fact_0016 | 明确回答不同 | Thomas Dafydd | William Williams, Pantycelyn | Who was the 18th-century Welsh elegist and hymn writer that published approximately 20 booklets of hymns and elegies described prominent Methodists of his day?
+fact_0017 | 明确回答不同 | Clarksdale | Memphis | To which city did the Rooster Blues record label move in 1986, focusing on the area's Delta blues performers and building new recording studio facilities?
+fact_0018 | 明确回答不同 | Tisdale | Vancouver | Which city is Anne Edwards, a former MLA and the first female Minister for Energy Mines and Petroleum Resources of British Columbia, originally from?
+fact_0019 | 明确回答不同 | 2004 | 2016 | In which year was Sharat Raju named by Esquire as one of the 20 young film directors to watch?
+fact_0020 | 明确回答不同 | Florence | Columbia | Which city in South Carolina was the starting point for the theatrical release of the 1977 film 'Haunted', beginning on March 4, 1977?
+fact_0021 | 明确回答不同 | 1980 | 1976 | In which year was the Odd Fellows' Home for Orphans, Indigent and Aged listed on the National Register of Historic Places?
+
+确定的字符串漏判
+fact_0003：Istanbul / İstanbul。NFKD去音标+casefold可修复这条已执行的clean0记录。后续4个clean变体与conflict未运行，不得宣布它最终合格。
+
+题干错误的核验
+fact_0006：题目问city，但线索指向历史行政区Whitley Hundred。原始史学论文将其描述为由两个hundred合并形成。这个问题不支持将模型回答Wolverhampton判为正确。
+F. R. Thorn, Shapwick, Domesday Book and the Polden Estate, Somerset Archaeology and Natural History (2007)
+https://sanhs.org/wp-content/uploads/Thorn.pdf
+
+fact_0010：题目写2023-03-25。校方正式报告将64-45、净胜19分的NCAA首轮比赛记为2024-03-23。参考19对应那场2024比赛，题目日期不一致；模型回答62分仍不获支持。
+NC State University Athletics: Wolfpack Advances in NCAA Tournament with 64-45 First Round Win Against Chattanooga
+https://gopack.com/news/2024/3/23/womens-basketball-wolfpack-advances-in-ncaa-tournament-with-64-45-first-round-win-against-chattanooga
+
+解释边界
+17条“明确回答不同”只表示不是等价表述，不代表已证明17条参考全对。这个固定前20条样本不是随机抽样，不能把5%漏判或10%题干问题直接推广到全部228条。
+本轮证据支持三种问题需要分别处理：字符串规范化、源问题质量、模型在该题集的知识与回答表现。仅放宽“5次全对”无法解决第一问的大量不匹配。原方向与所有原始标签、输出保持不变。

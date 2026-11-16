@@ -1,0 +1,29 @@
+{
+  "cases_sha256": "74ae8498065c49cc7595d97b1471a056edd93e3bf182939c0baedeedf9e62e64",
+  "request_sha256": "7231b393247bac0a97ac3a18acf1d8523ab3509ffba404e0a2fa0b038f1b515a",
+  "model_paths": {
+    "base_model": "/home/gcx/models/care_module1_v5/phi-4",
+    "adapter_model": "/home/gcx/models/care_module1_v5/trialmatchai-phi4-reasoning-lora",
+    "evidence_model": "/home/gcx/models/care_module1_v5/biolinkbert-mednli"
+  },
+  "source_sha256": {
+    "src/run_c_full.py": "ae0831f5fbcdcb6c35d9fc3d2d825ddfb22f0719235c32872ce8e5b6e42f249e",
+    "sources/care_v6_frozen.py": "d2cfe48d5eb8f08da8e3d806982670b0810323c7b98e0246f57025f052bdf997",
+    "sources/trialmatch_parser.py": "2254f8bef75c211e307cfb2c91c5268092becd661caca059794ddbdd5ce79b14",
+    "src/engine.py": "9daf527a7686c1a1c19b8d1476374bae9b2facfe808eeec56c360cb6902aa5f1"
+  },
+  "generation": {
+    "max_new_tokens": 2048,
+    "batch_size": 8,
+    "do_sample": false
+  },
+  "seed": 261019,
+  "input_whitelist": [
+    "patient",
+    "structured_rules",
+    "question"
+  ],
+  "old_rule_validity": "explicit public structured field",
+  "condition_kind": "Unchanged V6 inclusion/exclusion mapping",
+  "selection": "Lexicographic first family in test and transfer; all 10 cases; no output-based selection"
+}

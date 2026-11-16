@@ -1,0 +1,343 @@
+[
+  {
+    "id": 1,
+    "questions": [
+      "What is the minimum laboratory complexity level for FDA-approved point-of-care A1C diagnosis?",
+      "At what laboratory testing complexity must diagnostic point-of-care HbA1c testing be performed?"
+    ],
+    "correct_pattern": "moderate",
+    "wrong_pattern": "\\blow\\b",
+    "group": 1,
+    "split": "validation"
+  },
+  {
+    "id": 7,
+    "questions": [
+      "For an immunocompetent adult with diabetes, what is the usual PPSV23 interval after PCV15?",
+      "After PCV15, how long should an adult with diabetes and no immunocompromising condition normally wait for PPSV23?"
+    ],
+    "correct_pattern": "1 year|one year|12 months|twelve months",
+    "wrong_pattern": "6 months|six months",
+    "group": 6,
+    "split": "test"
+  },
+  {
+    "id": 8,
+    "questions": [
+      "What minimum PCV15-to-PPSV23 interval can be considered in an immunocompromised adult?",
+      "In an immunocompromised patient receiving PCV15 then PPSV23, what is the shortest permissible interval in weeks?"
+    ],
+    "correct_pattern": "\\b8\\b|eight",
+    "wrong_pattern": "\\b4\\b|four",
+    "group": 6,
+    "split": "test"
+  },
+  {
+    "id": 9,
+    "questions": [
+      "After PPSV23 alone, what minimum interval precedes PCV15 or PCV20 in an adult?",
+      "How long after a prior PPSV23-only vaccination should an adult wait before PCV15 or PCV20?"
+    ],
+    "correct_pattern": "1 year|one year|12 months|twelve months",
+    "wrong_pattern": "6 months|six months",
+    "group": 6,
+    "split": "test"
+  },
+  {
+    "id": 16,
+    "questions": [
+      "With diabetes and a low FIB-4, elevated aminotransferases persisting beyond how many months warrant evaluation for other liver disease?",
+      "In a diabetic adult with low FIB-4, what duration of persistent aminotransferase elevation prompts investigating other liver causes?"
+    ],
+    "correct_pattern": "\\b6\\b|six",
+    "wrong_pattern": "\\b3\\b|three",
+    "group": 2,
+    "split": "validation"
+  },
+  {
+    "id": 23,
+    "questions": [
+      "What glucose-lowering therapy is preferred for type 2 diabetes with decompensated cirrhosis?",
+      "Which agent is preferred to manage hyperglycemia in an adult with decompensated cirrhosis and type 2 diabetes?"
+    ],
+    "correct_pattern": "insulin",
+    "wrong_pattern": "sglt",
+    "group": 2,
+    "split": "validation"
+  },
+  {
+    "id": 29,
+    "questions": [
+      "How often is A1C generally monitored in preclinical type 1 diabetes?",
+      "What is the approximate A1C monitoring interval in months for preclinical type 1 diabetes?"
+    ],
+    "correct_pattern": "\\b6\\b|six",
+    "wrong_pattern": "\\b9\\b|nine",
+    "group": 29,
+    "split": "test"
+  },
+  {
+    "id": 31,
+    "questions": [
+      "How often should high-risk older adults with diabetes undergo bone mineral density monitoring?",
+      "What is the usual interval in years between DXA assessments in older adults with diabetes at high fracture risk?"
+    ],
+    "correct_pattern": "2\\s*[-–to]+\\s*3|two to three|2 or 3",
+    "wrong_pattern": "\\b5\\b|five",
+    "group": 31,
+    "split": "validation"
+  },
+  {
+    "id": 35,
+    "questions": [
+      "At what T-score threshold are people with diabetes considered at high fracture risk?",
+      "What low bone T-score cutoff defines high fracture risk specifically in diabetes?"
+    ],
+    "correct_pattern": "[-−]2(?:\\.0)?(?![\\d.])",
+    "wrong_pattern": "[-−]2\\.5",
+    "group": 31,
+    "split": "validation"
+  },
+  {
+    "id": 36,
+    "questions": [
+      "Diabetes duration exceeding how many years is associated with increased fracture risk?",
+      "Beyond what duration of diabetes should increased fracture risk prompt bone health assessment?"
+    ],
+    "correct_pattern": "\\b10\\b|ten",
+    "wrong_pattern": "\\b15\\b|fifteen",
+    "group": 31,
+    "split": "validation"
+  },
+  {
+    "id": 49,
+    "questions": [
+      "At least how often should a person with diabetes have a dental examination?",
+      "What is the minimum routine dental examination frequency for people with diabetes?"
+    ],
+    "correct_pattern": "annual|yearly|once.{0,8}year|every year|12 months",
+    "wrong_pattern": "two years|2 years|24 months",
+    "group": 49,
+    "split": "test"
+  },
+  {
+    "id": 53,
+    "questions": [
+      "What FIB-4 threshold prompts additional liver fibrosis assessment in type 2 diabetes or prediabetes?",
+      "At what FIB-4 cutoff should diabetic adults undergo elastography or an ELF test for liver fibrosis risk?"
+    ],
+    "correct_pattern": "1\\.3",
+    "wrong_pattern": "1\\.1",
+    "group": 2,
+    "split": "validation"
+  },
+  {
+    "id": 61,
+    "questions": [
+      "What daily sodium limit in milligrams is generally advised for people with diabetes?",
+      "In diabetes nutrition guidance, sodium intake should remain below how many milligrams per day?"
+    ],
+    "correct_pattern": "2,?300|2\\.3\\s*g",
+    "wrong_pattern": "2,?600|2\\.6\\s*g",
+    "group": 61,
+    "split": "test"
+  },
+  {
+    "id": 67,
+    "questions": [
+      "How frequently in minutes should prolonged sitting be interrupted in diabetes?",
+      "For blood glucose benefit, people with diabetes should break up sitting at least every how many minutes?"
+    ],
+    "correct_pattern": "\\b30\\b|thirty",
+    "wrong_pattern": "\\b60\\b|sixty",
+    "group": 67,
+    "split": "validation"
+  },
+  {
+    "id": 82,
+    "questions": [
+      "Which blood ketone should be measured to assess ketoacidosis risk in patients taking SGLT inhibitors?",
+      "What ketone analyte is preferred for accurate blood ketone monitoring in an SGLT inhibitor user?"
+    ],
+    "correct_pattern": "hydroxybutyrate|\\bbhb\\b",
+    "wrong_pattern": "urine|dipstick",
+    "group": 64,
+    "split": "train"
+  },
+  {
+    "id": 93,
+    "questions": [
+      "What daily protein intake in g/kg is advised for non-dialysis stage G3 or worse CKD?",
+      "In stage G3+ chronic kidney disease without dialysis, what is the recommended daily grams of protein per kg?"
+    ],
+    "correct_pattern": "0\\.8",
+    "wrong_pattern": "0\\.65",
+    "group": 61,
+    "split": "test"
+  },
+  {
+    "id": 94,
+    "questions": [
+      "What protein intake in g/kg/day should be considered for a person on dialysis?",
+      "What daily protein range per kg helps address protein energy wasting during dialysis?"
+    ],
+    "correct_pattern": "1(?:\\.0)?\\s*[-–to]+\\s*1\\.2",
+    "wrong_pattern": "0\\.8\\s*[-–to]+\\s*1(?:\\.0)?",
+    "group": 61,
+    "split": "test"
+  },
+  {
+    "id": 95,
+    "questions": [
+      "In type 1 diabetes with CKD, duration below how many years suggests nondiabetic kidney disease?",
+      "What short type 1 diabetes duration cutoff raises concern that CKD has another cause?"
+    ],
+    "correct_pattern": "\\b5\\b|five",
+    "wrong_pattern": "\\b10\\b|ten",
+    "group": 61,
+    "split": "test"
+  },
+  {
+    "id": 128,
+    "questions": [
+      "For how long should diabetes screening continue after gestational diabetes?",
+      "What is the total duration of follow-up diabetes screening after a history of GDM?"
+    ],
+    "correct_pattern": "lifelong|life.long|indefinite",
+    "wrong_pattern": "9 years|nine years",
+    "group": 128,
+    "split": "train"
+  },
+  {
+    "id": 139,
+    "questions": [
+      "How long should HBV-active antiretroviral therapy continue after transplant in HIV with active HBV?",
+      "In an HIV transplant recipient with active hepatitis B, what is the duration of anti-HBV treatment after transplantation?"
+    ],
+    "correct_pattern": "indefinite|lifelong|life.long",
+    "wrong_pattern": "24 months|two years|2 years",
+    "group": 129,
+    "split": "train"
+  },
+  {
+    "id": 152,
+    "questions": [
+      "For how many days after completing 1HP should a suppressed patient continue twice-daily dolutegravir?",
+      "After a 1HP tuberculosis-prevention course, how long is the increased twice-daily DTG dose maintained?"
+    ],
+    "correct_pattern": "\\b14\\b|fourteen|2 weeks|two weeks",
+    "wrong_pattern": "\\b12\\b|twelve",
+    "group": 152,
+    "split": "train"
+  },
+  {
+    "id": 153,
+    "questions": [
+      "After controlling HIV-associated TB meningitis, what minimum anti-TB treatment duration precedes ART?",
+      "With TB meningitis under control, how many weeks of anti-TB treatment are required at minimum before ART initiation?"
+    ],
+    "correct_pattern": "2 weeks|two weeks|14 days|fourteen days",
+    "wrong_pattern": "10 days|ten days",
+    "group": 152,
+    "split": "train"
+  },
+  {
+    "id": 154,
+    "questions": [
+      "What are the two Heplisav-B dose times in weeks for an unvaccinated adult with HIV?",
+      "Give the recommended Heplisav-B schedule for an HIV patient who has never received hepatitis B vaccine."
+    ],
+    "correct_pattern": "0.{0,12}4|zero.{0,12}four|one month|1 month",
+    "wrong_pattern": "32 days|thirty.two",
+    "group": 150,
+    "split": "validation"
+  },
+  {
+    "id": 163,
+    "questions": [
+      "Below what CD4 count is primary PCP prophylaxis indicated regardless of HIV RNA level?",
+      "What CD4 cutoff alone indicates Pneumocystis primary prophylaxis even with undetectable HIV RNA?"
+    ],
+    "correct_pattern": "\\b100\\b|one hundred",
+    "wrong_pattern": "\\b110\\b",
+    "group": 162,
+    "split": "train"
+  },
+  {
+    "id": 168,
+    "questions": [
+      "What HIV RNA threshold defines sustained suppression for counseling people with HIV who desire breastfeeding?",
+      "For supported breastfeeding in a person on ART, sustained viral load should be below how many copies per mL?"
+    ],
+    "correct_pattern": "\\b50\\b|fifty",
+    "wrong_pattern": "\\b60\\b|sixty",
+    "group": 164,
+    "split": "test"
+  },
+  {
+    "id": 171,
+    "questions": [
+      "When should additional infant HIV virologic testing occur after presumptive ARV therapy stops?",
+      "What is the recommended interval in weeks for additional infant HIV NAT after discontinuing presumptive antiretrovirals?"
+    ],
+    "correct_pattern": "2\\s*[-–to]+\\s*6|two to six",
+    "wrong_pattern": "4\\s*[-–to]+\\s*8|four to eight",
+    "group": 164,
+    "split": "test"
+  },
+  {
+    "id": 172,
+    "questions": [
+      "At least how often is infant HIV virologic testing performed during breastfeeding?",
+      "During ongoing breastfeeding exposure to HIV, what is the maximum routine interval between infant virologic tests?"
+    ],
+    "correct_pattern": "3 months|three months|quarter",
+    "wrong_pattern": "3 weeks|three weeks",
+    "group": 164,
+    "split": "test"
+  },
+  {
+    "id": 173,
+    "questions": [
+      "At what age in months can HIV antibody tests be used for standard diagnostic testing in children?",
+      "From what age are HIV antibody or antigen/antibody tests recommended for childhood HIV diagnosis?"
+    ],
+    "correct_pattern": "\\b18\\b|eighteen",
+    "wrong_pattern": "birth|all ages|0 months",
+    "group": 164,
+    "split": "test"
+  },
+  {
+    "id": 177,
+    "questions": [
+      "What age cutoff in months separates HCV RNA testing from HCV antibody screening in children?",
+      "Below which pediatric age in months should hepatitis C RNA testing be used instead of antibody screening?"
+    ],
+    "correct_pattern": "\\b18\\b|eighteen",
+    "wrong_pattern": "\\b16\\b|sixteen",
+    "group": 177,
+    "split": "train"
+  },
+  {
+    "id": 184,
+    "questions": [
+      "Which test is recommended at age 2 to 6 months for an infant perinatally exposed to HCV?",
+      "For a 3-month-old with perinatal hepatitis C exposure, what diagnostic test should be ordered?"
+    ],
+    "correct_pattern": "rna|nucleic|\\bnat\\b|\\bpcr\\b",
+    "wrong_pattern": "antibod|serolog",
+    "group": 177,
+    "split": "train"
+  },
+  {
+    "id": 189,
+    "questions": [
+      "From what age in years is pangenotypic DAA treatment recommended for children with HCV?",
+      "What is the youngest age in years for pangenotypic direct-acting antiviral treatment of pediatric HCV?"
+    ],
+    "correct_pattern": "\\b3\\b|three",
+    "wrong_pattern": "\\b4\\b|four",
+    "group": 186,
+    "split": "test"
+  }
+]
