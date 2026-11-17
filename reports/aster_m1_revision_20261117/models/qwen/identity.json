@@ -1,0 +1,101 @@
+{
+  "checkpoint_sha256": "da844ab63b97bf1b3c5416026bbc0b4dc1a34d8feea8a188ea2e81f0a1c3b541",
+  "weight_manifest": [
+    {
+      "name": "model-00001-of-00005.safetensors",
+      "bytes": 3996250744,
+      "sha256": "31d6a825ae35f11fb85b195b4c42c146c051e446433125a215336abdf95cbf5f"
+    },
+    {
+      "name": "model-00002-of-00005.safetensors",
+      "bytes": 3993160032,
+      "sha256": "5991236cea6fe21f3d43cab0f0e84448734fbbe0789816202989f2ddc9d18282"
+    },
+    {
+      "name": "model-00003-of-00005.safetensors",
+      "bytes": 3959604768,
+      "sha256": "c5185c4794be2d8a9784d5753c9922db38df478ce11f9ed0b415b7304d896836"
+    },
+    {
+      "name": "model-00004-of-00005.safetensors",
+      "bytes": 3187841392,
+      "sha256": "b5ee7de71fbf17db3d5704e0c8f2bc7d005ca9e1d7ca2aeb19827b0cfcaa917a"
+    },
+    {
+      "name": "model-00005-of-00005.safetensors",
+      "bytes": 1244659840,
+      "sha256": "20c2d6366ab85c90786ccdd829cd2b9e7d30ef3b2ebbb998280e7e4014b542ff"
+    }
+  ],
+  "tokenizer_sha256": "1c567873ecd528f5da2d02bd70af28775dc99f8669425646a8aa28d5abe250e7",
+  "tokenizer_files": [
+    {
+      "name": "config.json",
+      "sha256": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30"
+    },
+    {
+      "name": "merges.txt",
+      "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5"
+    },
+    {
+      "name": "tokenizer.json",
+      "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    {
+      "name": "tokenizer_config.json",
+      "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101"
+    },
+    {
+      "name": "vocab.json",
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ],
+  "scoring_sha256": "4d534a1617a191a80a7a7e38046ea5198eff478d591198acac0912f0c64142f9",
+  "scoring_files": [
+    {
+      "path": "experiments/aster_e678/engine.py",
+      "sha256": "fbbfb2a1b1959090e5f6f24a2776818361c523b369b16b5fab17f3664c87b470"
+    },
+    {
+      "path": "experiments/aster_cr/engine.py",
+      "sha256": "db5bbe78dc9be5630982cab41a5300fda3b1d9359723dc807275714f8bea1235"
+    },
+    {
+      "path": "experiments/m1_diagnostics/engine.py",
+      "sha256": "4136505fc3e255e62ace28a3527561529488ae4a4c79eb928b41e98b3a57f24a"
+    }
+  ],
+  "metadata": {
+    "model": "qwen",
+    "name": "Qwen3-8B",
+    "path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+    "checkpoint_type": "instruction_tuned",
+    "model_type": "qwen3",
+    "num_layers": 36,
+    "num_attention_heads": 32,
+    "total_heads": 1152,
+    "head_dim": 128,
+    "max_position_embeddings": 40960,
+    "dtype": "bfloat16 backbone; float32 label projection",
+    "prompt_policy": "system_user",
+    "chat_style": "system_user",
+    "official_chat_template": "{%- if tools %}\n    {{- '<|im_start|>system\\n' }}\n    {%- if messages[0].role == 'system' %}\n        {{- messages[0].content + '\\n\\n' }}\n    {%- endif %}\n    {{- \"# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\\n\\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": <function-name>, \\\"arguments\\\": <args-json-object>}\\n</tool_call><|im_end|>\\n\" }}\n{%- else %}\n    {%- if messages[0].role == 'system' %}\n        {{- '<|im_start|>system\\n' + messages[0].content + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \"user\" and message.content is string and not(message.content.startswith('<tool_response>') and message.content.endswith('</tool_response>')) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = '' %}\n    {%- endif %}\n    {%- if (message.role == \"user\") or (message.role == \"system\" and not loop.first) %}\n        {{- '<|im_start|>' + message.role + '\\n' + content + '<|im_end|>' + '\\n' }}\n    {%- elif message.role == \"assistant\" %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in content %}\n                {%- set reasoning_content = content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n                {%- set content = content.split('</think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        {%- if loop.index0 > ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content.strip('\\n') + '\\n</think>\\n\\n' + content.lstrip('\\n') }}\n            {%- else %}\n                {{- '<|im_start|>' + message.role + '\\n' + content }}\n            {%- endif %}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- '\\n' }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- '<tool_call>\\n{\"name\": \"' }}\n                {{- tool_call.name }}\n                {{- '\", \"arguments\": ' }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- '}\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    {%- elif message.role == \"tool\" %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \"tool\") %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- content }}\n        {{- '\\n</tool_response>' }}\n        {%- if loop.last or (messages[loop.index0 + 1].role != \"tool\") %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- endif %}\n{%- endif %}",
+    "plain_completion_suffix": null,
+    "answer_labels": [
+      "是",
+      "否"
+    ],
+    "answer_token_ids": [
+      20412,
+      32376
+    ],
+    "score": "official final logits(YES) - official final logits(NO)",
+    "final_logit_softcapping": null,
+    "attention_implementation": "sdpa",
+    "cache": "native immutable prefix cache replay",
+    "activation": "last prompt token, self_attn.o_proj input, before output projection"
+  },
+  "configuration_sha256": "d0b6e4d9435fe9e5f70ff06c2467f8dca55a7784afdcb72ea510148c3e0327e3",
+  "head_numbering": "flattened layer * num_attention_heads + local query head",
+  "protocol_sha256": "41213a9818aaa57b3800dea2f8cdd4e87213aee74b1295039187634f0395faca"
+}

@@ -1,0 +1,48 @@
+{
+  "model_key": "gemma2_base",
+  "model": {
+    "name": "Gemma-2-9B-Base",
+    "path": "/home/gcx/aster-e678-gaps-20261112/reports/aster_e678_20261112/checkpoints/gemma-2-9b",
+    "family": "gemma2",
+    "checkpoint_type": "base",
+    "expected_peak_gib": [
+      20,
+      35
+    ],
+    "download_source": "google/gemma-2-9b",
+    "chat_style": "user_with_system_instruction"
+  },
+  "M1": {
+    "candidate_mass": 0.95,
+    "retained_mass": 0.9,
+    "min_sources": 16,
+    "seed": 20261117,
+    "identity_atol": 0.0001,
+    "identity_rtol": 1e-05,
+    "max_patch_forwards": 200000
+  },
+  "rank": 16,
+  "delta": 0.2923349,
+  "regularization": 0.01,
+  "allowed_gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "stage_counts": {
+    "fit": 4953,
+    "dev": 33341,
+    "test": 66752
+  },
+  "source": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+  "private_runtime": "/home/gcx/aster-m1-revision-runtime-20261117/gemma2_base",
+  "sensitivity_retained_mass": [
+    0.8,
+    0.95
+  ],
+  "performance_confidence_intervals": false,
+  "fixed_51_rerun": false,
+  "automatic_parameter_selection": false,
+  "evaluation_scope": "adaptive parent branch: dev and 40-source historical holdout"
+}

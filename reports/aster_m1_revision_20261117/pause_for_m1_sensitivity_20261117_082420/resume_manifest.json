@@ -1,0 +1,344 @@
+{
+  "owner": "aster_m1_revision_paused_20261117_082420",
+  "jobs": [
+    {
+      "id": "m1_revision_qwen",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.run",
+        "--model",
+        "qwen",
+        "--publish",
+        "--resume"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 24,
+      "dependencies": [],
+      "completion_marker": "/home/gcx/aster-m1-revision-20261117/reports/aster_m1_revision_20261117/models/qwen/queue_done.json",
+      "priority": 10,
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "PYTHONUNBUFFERED": "1",
+        "TOKENIZERS_PARALLELISM": "false",
+        "ASTER_PARALLEL_WORKERS": "4"
+      }
+    },
+    {
+      "id": "m1_revision_llama31",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.run",
+        "--model",
+        "llama31",
+        "--publish"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 24,
+      "dependencies": [
+        "m1_revision_qwen"
+      ],
+      "completion_marker": "/home/gcx/aster-m1-revision-20261117/reports/aster_m1_revision_20261117/models/llama31/queue_done.json",
+      "priority": 20,
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "PYTHONUNBUFFERED": "1",
+        "TOKENIZERS_PARALLELISM": "false"
+      }
+    },
+    {
+      "id": "m1_revision_gemma2",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.run",
+        "--model",
+        "gemma2",
+        "--publish"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 30,
+      "dependencies": [
+        "m1_revision_qwen"
+      ],
+      "completion_marker": "/home/gcx/aster-m1-revision-20261117/reports/aster_m1_revision_20261117/models/gemma2/queue_done.json",
+      "priority": 20,
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "PYTHONUNBUFFERED": "1",
+        "TOKENIZERS_PARALLELISM": "false"
+      }
+    },
+    {
+      "id": "m1_revision_gemma3",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.run",
+        "--model",
+        "gemma3",
+        "--publish"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 66,
+      "dependencies": [
+        "m1_revision_qwen"
+      ],
+      "completion_marker": "/home/gcx/aster-m1-revision-20261117/reports/aster_m1_revision_20261117/models/gemma3/queue_done.json",
+      "priority": 20,
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "PYTHONUNBUFFERED": "1",
+        "TOKENIZERS_PARALLELISM": "false"
+      }
+    },
+    {
+      "id": "m1_revision_medgemma",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.run",
+        "--model",
+        "medgemma",
+        "--publish"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 65,
+      "dependencies": [
+        "m1_revision_qwen"
+      ],
+      "completion_marker": "/home/gcx/aster-m1-revision-20261117/reports/aster_m1_revision_20261117/models/medgemma/queue_done.json",
+      "priority": 20,
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "PYTHONUNBUFFERED": "1",
+        "TOKENIZERS_PARALLELISM": "false"
+      }
+    },
+    {
+      "id": "m1_revision_qwen_base",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.run",
+        "--model",
+        "qwen_base",
+        "--publish"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 28,
+      "dependencies": [
+        "m1_revision_qwen"
+      ],
+      "completion_marker": "/home/gcx/aster-m1-revision-20261117/reports/aster_m1_revision_20261117/models/qwen_base/queue_done.json",
+      "priority": 20,
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "PYTHONUNBUFFERED": "1",
+        "TOKENIZERS_PARALLELISM": "false"
+      }
+    },
+    {
+      "id": "m1_revision_gemma2_base",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.run",
+        "--model",
+        "gemma2_base",
+        "--publish"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 35,
+      "dependencies": [
+        "m1_revision_qwen"
+      ],
+      "completion_marker": "/home/gcx/aster-m1-revision-20261117/reports/aster_m1_revision_20261117/models/gemma2_base/queue_done.json",
+      "priority": 20,
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "PYTHONUNBUFFERED": "1",
+        "TOKENIZERS_PARALLELISM": "false"
+      }
+    },
+    {
+      "id": "m1_revision_qwen_worker1",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.parallel",
+        "--model",
+        "qwen",
+        "--worker",
+        "1"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 24,
+      "dependencies": [],
+      "priority": 11,
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "PYTHONUNBUFFERED": "1",
+        "TOKENIZERS_PARALLELISM": "false"
+      }
+    },
+    {
+      "id": "m1_revision_qwen_worker2",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.parallel",
+        "--model",
+        "qwen",
+        "--worker",
+        "2"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 24,
+      "dependencies": [],
+      "priority": 11,
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "PYTHONUNBUFFERED": "1",
+        "TOKENIZERS_PARALLELISM": "false"
+      }
+    },
+    {
+      "id": "m1_revision_qwen_worker3",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.parallel",
+        "--model",
+        "qwen",
+        "--worker",
+        "3"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 1,
+      "allowed_gpus": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "estimated_vram_gib": 24,
+      "dependencies": [],
+      "priority": 11,
+      "env": {
+        "OMP_NUM_THREADS": "4",
+        "MKL_NUM_THREADS": "4",
+        "OPENBLAS_NUM_THREADS": "4",
+        "PYTHONUNBUFFERED": "1",
+        "TOKENIZERS_PARALLELISM": "false"
+      }
+    },
+    {
+      "id": "m1_revision_finalize",
+      "command": [
+        "/home/gcx/gcx261014/bin/python",
+        "-m",
+        "experiments.aster_m1_revision_20261117.report",
+        "--publish"
+      ],
+      "cwd": "/home/gcx/aster-m1-revision-20261117",
+      "gpu_count": 0,
+      "dependencies": [
+        "m1_revision_qwen",
+        "m1_revision_llama31",
+        "m1_revision_gemma2",
+        "m1_revision_gemma3",
+        "m1_revision_medgemma",
+        "m1_revision_qwen_base",
+        "m1_revision_gemma2_base",
+        "m1_revision_qwen_worker1",
+        "m1_revision_qwen_worker2",
+        "m1_revision_qwen_worker3"
+      ],
+      "run_on_failure": true,
+      "completion_marker": "/home/gcx/aster-m1-revision-20261117/reports/aster_m1_revision_20261117/summary_complete.json"
+    }
+  ]
+}
