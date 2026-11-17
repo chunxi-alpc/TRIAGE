@@ -90,7 +90,10 @@ def extract(key, scope, inputs, engine, progress):
     if set(store.records)-expected:raise ValueError("Unexpected extraction records")
     pending=[uid for uid in ids if uid not in store.records]
     started=time.monotonic()
-    for i,uid in enumerate(pending):
+    from .parallel import enabled,extract_parallel
+    cooperative=enabled(key)
+    if cooperative:extract_parallel(key,scope,inputs,engine,progress,ids,pending)
+    for i,uid in enumerate([] if cooperative else pending):
         context=engine.prepare(inputs[uid]["prompt"])
         result=engine.run(context,capture=True,grad=uid in gradients)
         arrays={field:result.pop(field).numpy().astype(np.float32)

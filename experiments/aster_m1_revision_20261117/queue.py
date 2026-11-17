@@ -20,6 +20,15 @@ def manifest(resume_models=()):
            completion_marker=str(OUT/"models"/key/"queue_done.json"),priority=10 if key=="qwen" else 20,
            env=dict(OMP_NUM_THREADS="4",MKL_NUM_THREADS="4",OPENBLAS_NUM_THREADS="4",
                     PYTHONUNBUFFERED="1",TOKENIZERS_PARALLELISM="false")))
+    jobs[0]["env"]["ASTER_PARALLEL_WORKERS"]="4"
+    for worker in (1,2,3):
+        jobs.append(dict(id="m1_revision_qwen_worker"+str(worker),
+             command=[PYTHON,"-m","experiments.aster_m1_revision_20261117.parallel",
+                      "--model","qwen","--worker",str(worker)],
+             cwd=str(REPO),gpu_count=1,allowed_gpus=[0,1,5,6],estimated_vram_gib=24,
+             dependencies=[],priority=11,
+             env=dict(OMP_NUM_THREADS="4",MKL_NUM_THREADS="4",OPENBLAS_NUM_THREADS="4",
+                      PYTHONUNBUFFERED="1",TOKENIZERS_PARALLELISM="false")))
     jobs.append(dict(id="m1_revision_finalize",command=[PYTHON,"-m","experiments.aster_m1_revision_20261117.report","--publish"],
                      cwd=str(REPO),gpu_count=0,dependencies=[j["id"] for j in jobs],run_on_failure=True,
                      completion_marker=str(OUT/"summary_complete.json")))

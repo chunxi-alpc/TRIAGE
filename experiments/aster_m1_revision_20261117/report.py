@@ -12,6 +12,12 @@ from .queue import QUEUE
 def report(publish=False):
     queue=read(QUEUE/"status.json")
     records=[]
+    for worker in (1,2,3):
+        job=queue.get("jobs",{}).get("m1_revision_qwen_worker"+str(worker),{})
+        if job.get("log") and Path(job["log"]).is_file():
+            target=OUT/"models/qwen/parallel/queue_logs"/("worker"+str(worker)+".log")
+            target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copyfile(job["log"],target)
     body=["# ASTER 自适应 M1 修订：服务器执行报告","",
           "主配置使用反对称配对效应选头：候选累计比例 95%，确认保留比例 90%；80%/95% 为固定敏感性分析。",
           "M2 秩上限 16，M3 逐对预算 0.2923349、正则 0.01，截距由 fit 自然节点估计。","",

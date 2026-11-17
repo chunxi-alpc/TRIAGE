@@ -98,6 +98,8 @@ def run_model(key,publish_results=False,resume=False):
             effective["M1"]=asdict(cfg)
             effective["resource_authorization"]="resource_amendment_20261117/amendment.json"
             write(root/"effective_configuration.json",effective)
+            from .parallel import enabled,initialize,patch_parallel
+            if enabled(key):initialize(key)
             progress("extract_fit")
             store,input_hash=extract(key,"fit",inputs,engine,progress)
             identity["inputs_sha256"]=input_hash
@@ -123,24 +125,27 @@ def run_model(key,publish_results=False,resume=False):
             progress("exact_patching",estimated_forwards=count)
             target=root/"models/E1/full"
             target.mkdir(parents=True,exist_ok=True)
-            patcher=ExactPatcher(store,inputs,engine,cfg)
-            records=[]
-            for i,p in enumerate(ps):
-                path=runtime/"paired"/(p["pair_id"]+".json")
-                if path.exists():
-                    batch=read(path)
-                    # Every reused row is checked against the current frozen plan and numerics.
-                    if {int(r["head"]) for r in batch}!=set(candidates[p["kind"]]["heads"]):
-                        raise ValueError("Incomplete saved pair cache")
-                    for row in batch:paired_effect(row,cfg)
-                else:
-                    def save_raw(row):
-                        with gzip.open(root/"raw_patch_attempts.jsonl.gz","at",encoding="utf-8") as f:
-                            f.write(json.dumps(row,allow_nan=False)+"\n")
-                    batch=patcher.measure(p,candidates[p["kind"]]["heads"],on_record=save_raw)
-                    write(path,batch)
-                records.extend(batch)
-                if i<3 or (i+1)%10==0:progress("exact_patching",completed_pairs=i+1,total_pairs=len(ps))
+            if enabled(key):
+                records=patch_parallel(key,ps,candidates,cfg,engine,inputs,progress)
+            else:
+                patcher=ExactPatcher(store,inputs,engine,cfg)
+                records=[]
+                for i,p in enumerate(ps):
+                    path=runtime/"paired"/(p["pair_id"]+".json")
+                    if path.exists():
+                        batch=read(path)
+                        # Every reused row is checked against the current frozen plan and numerics.
+                        if {int(r["head"]) for r in batch}!=set(candidates[p["kind"]]["heads"]):
+                            raise ValueError("Incomplete saved pair cache")
+                        for row in batch:paired_effect(row,cfg)
+                    else:
+                        def save_raw(row):
+                            with gzip.open(root/"raw_patch_attempts.jsonl.gz","at",encoding="utf-8") as f:
+                                f.write(json.dumps(row,allow_nan=False)+"\n")
+                        batch=patcher.measure(p,candidates[p["kind"]]["heads"],on_record=save_raw)
+                        write(path,batch)
+                    records.extend(batch)
+                    if i<3 or (i+1)%10==0:progress("exact_patching",completed_pairs=i+1,total_pairs=len(ps))
             with gzip.open(target/"paired_effects.jsonl.gz","wt",encoding="utf-8") as f:
                 for row in records:f.write(json.dumps(row,allow_nan=False)+"\n")
             result=confirm(ps,candidates,records,engine.num_heads,cfg)
