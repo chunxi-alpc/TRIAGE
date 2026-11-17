@@ -1,0 +1,40 @@
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:03,  1.33it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.34it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.35it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:02<00:00,  1.47it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.94it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.65it/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/gcx/aster-m1-revision-20261117/experiments/aster_m1_revision_20261117/run.py", line 217, in <module>
+    run_model(args.model,args.publish,args.resume)
+  File "/home/gcx/aster-m1-revision-20261117/experiments/aster_m1_revision_20261117/run.py", line 96, in run_model
+    store,input_hash=extract(key,"fit",inputs,engine,progress)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gcx/aster-m1-revision-20261117/experiments/aster_m1_revision_20261117/runtime.py", line 95, in extract
+    result=engine.run(context,capture=True,grad=uid in gradients)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gcx/aster-m1-revision-20261117/experiments/aster_e678/engine.py", line 87, in run
+    result = super().run(context, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gcx/aster-m1-revision-20261117/experiments/m1_diagnostics/engine.py", line 108, in run
+    cache_position=torch.tensor([context.length-1],device=self.device),
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:03,  1.33it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.34it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.35it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:02<00:00,  1.47it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.94it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.65it/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/gcx/aster-m1-revision-20261117/experiments/aster_m1_revision_20261117/run.py", line 223, in <module>
+    parser=argparse.ArgumentParser()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gcx/aster-m1-revision-20261117/experiments/aster_m1_revision_20261117/run.py", line 102, in run_model
+    if enabled(key):initialize(key)
+                     ^^^^^^^^^^^^^^^
+  File "/home/gcx/aster-m1-revision-20261117/experiments/aster_m1_revision_20261117/runtime.py", line 95, in extract
+    if cooperative:extract_parallel(key,scope,inputs,engine,progress,ids,pending)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gcx/aster-m1-revision-20261117/experiments/aster_e678/engine.py", line 87, in run
+    result = super().run(context, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gcx/aster-m1-revision-20261117/experiments/m1_diagnostics/engine.py", line 108, in run
+    cache_position=torch.tensor([context.length-1],device=self.device),
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:03,  1.33it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.35it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.36it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:02<00:00,  1.47it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.94it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.65it/s]
