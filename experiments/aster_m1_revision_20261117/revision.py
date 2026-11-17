@@ -229,7 +229,7 @@ Fresh unpatched scores are compared with cached scores before each patch batch.
     def __init__(self, store, inputs, engine, config=Config()):
         self.store, self.inputs, self.engine, self.config = store, inputs, engine, config
 
-    def measure(self, pair, heads):
+    def measure(self, pair, heads, on_record=None):
         if pair.get("split") != "fit":
             raise ValueError("Training-source exact confirmation only")
         if not heads:
@@ -252,6 +252,8 @@ Fresh unpatched scores are compared with cached scores before each patch batch.
             row = {k: pair[k] for k in ("pair_id", "source_id", "kind", "left_label", "right_label")}
             row.update(head=int(h), base_left=bases[0], base_right=bases[1],
                        paired_forward=scores[0], paired_reverse=scores[1], self_left=scores[2], self_right=scores[3])
+            if on_record is not None:
+                on_record(dict(row))
             row.update(paired_effect(row, self.config))
             records.append(row)
         return records
@@ -303,23 +305,39 @@ Output directory must be new. No automatic GPU scheduling or historical overwrit
         total_heads = head_array(features.get(pairs[0]["left"]), "heads").shape[0]
         result = confirm(confirmation, candidates, records, total_heads, config)
         dump(outdir/"m1.json", result)
-        # Same historical low-dimensional M2, hard-budget M3, and fit-only intercept.
-        from experiments.aster_cr_retrain_paired_v2_20261111 import training
-        heads = result["heads"]
-        if heads:
-            support, m2 = training._m2("E1", heads, pairs, features, views, outdir)
-        else:
-            support = dict(heads=np.array([], dtype=int), mu=np.empty(0), scale=np.empty(0), N=np.empty((0, 0)))
-            np.savez_compressed(outdir/"m2.npz", **support)
-            m2 = dict(rank=0, N_rank=0, status="intercept_only_fallback")
-        m3 = training.refit_m3("E1", pairs, features, original, support, outdir)
-        status = result["status"] if int(m3["rank"]) else "intercept_only_fallback"
-        summary = dict(complete=True, status=status, heads=heads, M1=result, M2=m2, M3=m3,
-                       protocol_sha256=fingerprint, performance_evaluated=False,
-                       training_sources=sorted(source_ids), train_sources=sorted(source_ids),
-                       prediction="ell + (((heads_selected-mu)/scale) @ N) @ w + b")
-        dump(outdir/"model.json", summary)
-        return summary
+        return fit_selected(pairs, features, views, original, outdir, result, fingerprint)
+
     except Exception as exc:
         dump(outdir/"failure.json", dict(status="failed", error=str(exc), performance_evaluated=False))
         raise
+
+
+def fit_selected(pairs, features, views, natural_views, outdir, result, fingerprint):
+    """Fit unchanged E1 M2/M3 to a completed M1 result."""
+    from experiments.aster_cr_retrain_paired_v2_20261111 import training
+    outdir = Path(outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+    validate_pairs(pairs)
+    sources = {p["source_id"] for p in pairs}
+    if any(v.get("split") != "fit" or v["source_id"] not in sources for v in list(views)+list(natural_views)):
+        raise ValueError("Non-fit M2/M3/calibration input")
+    original = [v for v in natural_views if v.get("variant", "full") == "full"]
+    if {v["label"] for v in original} != {0, 1}:
+        raise ValueError("Both natural fit labels required")
+    heads = result["heads"]
+    if heads:
+        support, m2 = training._m2("E1", heads, pairs, features, views, outdir)
+    else:
+        support = dict(heads=np.array([], dtype=int), mu=np.empty(0), scale=np.empty(0), N=np.empty((0, 0)))
+        np.savez_compressed(outdir/"m2.npz", **support)
+        m2 = dict(rank=0, N_rank=0, status="intercept_only_fallback")
+    m3 = training.refit_m3("E1", pairs, features, original, support, outdir)
+    if not m3.get("success") or m3.get("constraint_max_violation", 0) > 1e-7:
+        raise RuntimeError("M3 solver or hard-budget failure")
+    status = result["status"] if int(m3["rank"]) else "intercept_only_fallback"
+    summary = dict(complete=True, status=status, heads=heads, M1=result, M2=m2, M3=m3,
+                   protocol_sha256=fingerprint, performance_evaluated=False,
+                   training_sources=sorted(sources), train_sources=sorted(sources),
+                   prediction="ell + (((heads_selected-mu)/scale) @ N) @ w + b")
+    dump(outdir/"model.json", summary)
+    return summary
