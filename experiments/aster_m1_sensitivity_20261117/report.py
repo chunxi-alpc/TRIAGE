@@ -17,9 +17,11 @@ def save(fig,path):
     for ext in ["png","pdf","svg"]:fig.savefig(str(path)+"."+ext,dpi=180,bbox_inches="tight")
     plt.close(fig)
 
-def render(cfg,plan,effect,stats,full,result,cores):
-    figures=OUT/"figures";figures.mkdir(exist_ok=True)
-    configs=scenarios(cfg)
+def render_selection(cfg,full,output=None):
+    """Render complete-source selection results before source-subset analysis."""
+    output=OUT if output is None else Path(output)
+    figures=output/"figures";figures.mkdir(parents=True,exist_ok=True)
+    configs=scenarios(cfg);count_rows=[]
     fig,axes=plt.subplots(2,2,figsize=(10,7))
     labels=dict(gradient_threshold="Gradient robust z",candidate_frequency="Five-fold frequency",
                 fdr="BH threshold",direction_consistency="Bootstrap direction frequency")
@@ -29,11 +31,15 @@ def render(cfg,plan,effect,stats,full,result,cores):
             name="default" if value==cfg["defaults"][parameter] else next(x["name"] for x in configs
                 if x["name"].startswith(parameter+"_") and x[parameter]==value)
             rows.append(full[name])
+            count_rows.append(dict(parameter=parameter,threshold=value,configuration=name,
+                                   **{k:len(v) for k,v in full[name]["sets"].items()}))
         for group,color in [("AP","#277DA1"),("CF","#E76F51"),("union","#30343F")]:
             ax.plot(values,[len(x["sets"][group]) for x in rows],"-o",label=group,color=color,markersize=4)
         ax.axvline(cfg["defaults"][parameter],color=".65",linestyle=":",linewidth=1)
         ax.set(xlabel=labels[parameter],ylabel="Selected heads")
         ax.set_xticks(values);ax.grid(alpha=.2)
+        ax.set_ylim(0,max(1,ax.get_ylim()[1]))
+        ax.yaxis.set_major_locator(matplotlib.ticker.MaxNLocator(integer=True))
     axes.flat[0].legend()
     save(fig,figures/"figure1_threshold_counts")
     names=list(full)
@@ -51,6 +57,14 @@ def render(cfg,plan,effect,stats,full,result,cores):
                     fontsize=6,color="white" if np.isfinite(v) and v<.5 else "black")
     fig.colorbar(im,ax=ax,label="Union Jaccard")
     save(fig,figures/"figure2_jaccard")
+    table(output/"threshold_counts.csv",count_rows)
+    table(output/"jaccard.csv",(dict(configuration_a=a,configuration_b=b,
+        **{k+"_jaccard":jaccard(full[a]["sets"][k],full[b]["sets"][k])
+           for k in ["union","AP","CF"]}) for a in names for b in names))
+
+def render(cfg,plan,effect,stats,full,result,cores):
+    render_selection(cfg,full)
+    figures=OUT/"figures"
     rng=np.random.default_rng(cfg["seed"]+7000)
     fig,axes=plt.subplots(2,2,figsize=(10,7));effect_rows=[]
     default=full["default"]

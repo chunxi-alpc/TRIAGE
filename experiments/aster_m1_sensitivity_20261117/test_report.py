@@ -1,5 +1,5 @@
 """Synthetic plot checks; these figures are never reported as model experiments."""
-import tempfile,unittest
+import csv,tempfile,unittest
 from pathlib import Path
 from unittest.mock import patch
 import numpy as np
@@ -29,6 +29,18 @@ class ReportTests(unittest.TestCase):
                   reused_unique_scores=0,new_unique_patch_forwards=0,new_baseline_forwards=0)
         cores=[dict(head=10,stable_core=True)] if nonempty else []
         with tempfile.TemporaryDirectory(prefix="synthetic_plot_",dir=RUN) as tmp:
+            early=Path(tmp)/"early"
+            # These figures must work before subset frequencies or a core exist.
+            report.render_selection(cfg,{n:dict(sets=x["sets"]) for n,x in full.items()},early)
+            self.assertEqual(len(list((early/"figures").glob("*.png"))),2)
+            with (early/"threshold_counts.csv").open() as f:
+                rows=list(csv.DictReader(f))
+            self.assertEqual(len(rows),sum(len(v) for v in cfg["grid"].values()))
+            self.assertTrue(all(int(r["union"])==int(nonempty) for r in rows))
+            with (early/"jaccard.csv").open() as f:
+                rows=list(csv.DictReader(f))
+            self.assertEqual(len(rows),len(full)**2)
+            self.assertTrue(all(r["union_jaccard"]==("1.0" if nonempty else "") for r in rows))
             with patch.object(report,"OUT",Path(tmp)):
                 report.render(cfg,plan,effect,stats,full,result,cores)
             self.assertEqual(len(list((Path(tmp)/"figures").glob("*.png"))),4)

@@ -93,6 +93,52 @@ def by_selected(mask,stats,settings):
     qb=np.minimum(q*harmonic,1)
     return chosen&(qb<=settings["fdr"]),qb
 
+def priority_selection(cfg,plan,stats,attribution,folds):
+    """Use the full confirmation sample; no source-subset results are required."""
+    full={};summaries=[]
+    for sc in scenarios(cfg):
+        mask,frequency=candidates(attribution,folds,np.arange(40),sc)
+        selected,q=select(mask,stats,sc)
+        by,qby=by_selected(mask,stats,sc)
+        ss=sets(selected)
+        summary=dict(name=sc["name"],settings=sc,counts={k:len(v) for k,v in ss.items()},
+                     candidates=int(mask.sum()),by_union_count=int(by.any(0).sum()),
+                     selected_sets={k:sorted(v) for k,v in ss.items()},
+                     valid=True,unavailable_reason=None)
+        full[sc["name"]]=dict(mask=mask,frequency=frequency,selected=selected,q=q,
+                             by=by,qby=qby,sets=ss,summary=summary)
+        summaries.append(summary)
+    output=OUT/"priority_figures";output.mkdir(exist_ok=True)
+    marker=output/"completion.json"
+    if not marker.exists():
+        from .report import render_selection
+        import subprocess
+        render_selection(cfg,full,output)
+        write(output/"configurations_results.json",clean(summaries))
+        table(output/"configuration_counts.csv",(dict(configuration=x["name"],**x["settings"],
+            **x["counts"],candidate_hypotheses=x["candidates"],BY_union=x["by_union_count"])
+            for x in summaries))
+        version=subprocess.check_output(["git","rev-parse","HEAD"],cwd=CODE.parent.parent,text=True).strip()
+        (output/"README.zh.md").write_text(
+            "# M1 阈值敏感性：优先图表\n\n"
+            "图1和图2使用完整确认来源及全部已完成的匹配对照。每个配置分别重算候选家族的 BH 校正。"
+            "所有阈值沿用预先固定配置，展示最终筛选集合。来源子集重选随后执行，稳健性 A/B/C 建议见完成后的总报告。\n\n"
+            "模型：Qwen3-8B；候选来源40个、确认来源40个；有效来源数："+json.dumps(plan["eligible_sources_by_kind"],ensure_ascii=False)+"。\n\n"
+            "实际提交："+version+"。\n\n"
+            "![阈值与头数量](figures/figure1_threshold_counts.png)\n\n"
+            "![集合稳定性热图](figures/figure2_jaccard.png)\n\n"
+            "图1为单因素扫描，虚线标记默认值；A/P、C/F 与并集分别显示。图2为全部12个预定配置的并集 Jaccard，"
+            "两个集合均为空时显示 NA。数据文件保存 A/P、C/F、并集相似度、各配置数量和完整选头集合。"
+            "图中的相似度反映阈值变化，跨来源重复性由后续子集统计评价。\n",
+            encoding="utf-8")
+        write(marker,dict(complete=True,model="Qwen3-8B",commit=version,
+                          stage="complete_source_threshold_sensitivity",configurations=len(full),
+                          configuration=cfg,source_counts=plan["eligible_sources_by_kind"],
+                          matched_pairs=plan["matched_pairs_by_kind"],
+                          source_subset_analysis_pending_at_publication=True,
+                          parameters_changed_using_outcomes=False))
+    return full
+
 def run():
     started=time.monotonic()
     cfg=read(CODE/"configuration.json");plan=read(OUT/"plan.json")
@@ -108,7 +154,11 @@ def run():
     else:
         stats=stats_for(effect,cfg,cfg["seed"]+1000,np.arange(40))
         np.savez_compressed(full_path,**stats)
-    full={};settings_by_name={s["name"]:s for s in configs}
+    preselected=priority_selection(cfg,plan,stats,attribution,folds)
+    write(OUT/"analysis_progress.json",dict(stage="priority_figures_complete",
+                source_subset_analysis_pending=True,seconds=time.monotonic()-started))
+    publish("threshold curves and set stability heatmap")
+    full={}
     frequencies={s["name"]:np.zeros((4,1152),int) for s in configs}
     union_frequency={s["name"]:np.zeros(1152,int) for s in configs}
     ap_frequency={s["name"]:np.zeros(1152,int) for s in configs}
@@ -140,10 +190,10 @@ def run():
     table(OUT/"source_subset_counts.csv",subset_rows)
     summaries=[];heads=[]
     for sc in configs:
-        name=sc["name"];mask,frequency=candidates(attribution,folds,np.arange(40),sc)
-        selected,q=select(mask,stats,sc)
-        by,qby=by_selected(mask,stats,sc)
-        ss=sets(selected);uf=union_frequency[name]/len(subsets)
+        name=sc["name"];early=preselected[name]
+        mask,frequency,selected,q=(early[k] for k in ["mask","frequency","selected","q"])
+        by,qby=early["by"],early["qby"]
+        ss=early["sets"];uf=union_frequency[name]/len(subsets)
         apf=ap_frequency[name]/len(subsets);cff=cf_frequency[name]/len(subsets)
         core={h for h in ss["union"] if uf[h]>=cfg["stability_criteria"]["core_subset_frequency_min"]}
         summary=dict(name=name,settings=sc,counts={k:len(v) for k,v in ss.items()},
