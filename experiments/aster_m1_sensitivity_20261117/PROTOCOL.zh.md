@@ -49,3 +49,7 @@
 新增 GPU 作业只通过现有统一队列使用 0、1、5、6。现有结果只读，新增结果写入 reports/aster_m1_sensitivity_20261117，最终提交独立 PR。随机种子、阈值和采样次数见 configuration.json。
 
 统计依据：[BH](https://doi.org/10.1111/j.2517-6161.1995.tb02031.x)、[依赖条件与 BY](https://www.math.tau.ac.il/~ybenja/MyPapers/benjamini_yekutieli_ANNSTAT2001.pdf)、[随机置换 p 值](https://gksmyth.github.io/pubs/PermPValuesPreprint.pdf)。
+
+## 计算实现加速记录
+
+用户要求提高效率后，增加保持相同计算结果的后续层重算实现。GPU核验86项分数逐项相同，原始数据与全部统计设置保持不变。核验记录、代码版本、已完成分数复用与四卡实测见 reports/aster_m1_sensitivity_20261117/speedup/README.zh.md。
