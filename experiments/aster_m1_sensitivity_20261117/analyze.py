@@ -232,7 +232,7 @@ def run():
             stable_core=h in default["summary"]["core_heads"],
             stable_AP_only=bool(a>=.8 and e<=.2),stable_CF_only=bool(e>=.8 and a<=.2),
             stable_shared=bool(a>=.8 and e>=.8)))
-    table(OUT/"core_heads.csv",core_records)
+    table(OUT/"core_heads.csv",core_records,fieldnames=["head","layer","head_in_layer","default_AP","default_CF","union_subset_frequency","AP_subset_frequency","CF_subset_frequency","stable_core","stable_AP_only","stable_CF_only","stable_shared"])
     result=dict(complete=True,model="Qwen3-8B",recommendation=recommendation,
                 default=default["summary"],stable_scan_values=intervals,stability=diagnostics,
                 source_counts=plan["eligible_sources_by_kind"],matched_pairs=plan["matched_pairs_by_kind"],

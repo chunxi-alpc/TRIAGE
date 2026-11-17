@@ -27,14 +27,13 @@ def lines(path):
 def write(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False)+"\n",encoding="utf-8")
 
-def table(path, rows, compressed=False):
+def table(path, rows, compressed=False, fieldnames=None):
     rows=list(rows)
-    if not rows:
-        return
+    fields=fieldnames or (list(rows[0]) if rows else [])
     opener=gzip.open if compressed else open
     with opener(path, "wt", encoding="utf-8", newline="") as f:
-        w=csv.DictWriter(f,fieldnames=list(rows[0]),lineterminator="\n")
-        w.writeheader()
+        w=csv.DictWriter(f,fieldnames=fields,lineterminator="\n")
+        if fields:w.writeheader()
         w.writerows(rows)
 
 def git(repo, *args):

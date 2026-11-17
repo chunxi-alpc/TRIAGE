@@ -77,7 +77,7 @@ def render(cfg,plan,effect,stats,full,result,cores):
         ax.axhline(0,color=".65",linewidth=.8)
         ax.set_ylabel("Absolute antisymmetric effect" if k<2 else "Label-aligned signed effect")
     save(fig,figures/"figure3_source_interventions")
-    table(OUT/"figure3_source_estimates.csv",effect_rows)
+    table(OUT/"figure3_source_estimates.csv",effect_rows,fieldnames=["kind","statistic","selected_heads","sources","mean","ci_low","ci_high"])
     core=[r["head"] for r in cores if r["stable_core"]][:24]
     fig,axes=plt.subplots(1,2,figsize=(10,max(3,len(core)*.25+1.5)))
     if core:
