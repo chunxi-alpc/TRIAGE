@@ -13,7 +13,7 @@ import json
 import numpy as np
 
 KINDS = ("A", "P", "C", "F")
-VERSION = "m1-paired-effect-v2-20261117"
+VERSION = "m1-antisymmetric-paired-effect-v3-20261117"
 BASE_COMMIT = "2558da64513bcbc74b224d63aedda1e66c3d9dfb"
 
 
@@ -162,10 +162,17 @@ Negative C/F direction is retained for auditing, never silently discarded.
     e_l, e_r = abs(s_l - b_l), abs(s_r - b_r)
     if e_l > t_l or e_r > t_r:
         raise ValueError("Self-patch identity failed; stop before head selection")
-    magnitude = .5 * (max(abs(f - b_l) - e_l - t_l, 0.) + max(abs(r - b_r) - e_r - t_r, 0.))
-    signed = .5 * ((f - s_l) - (r - s_r))
+    u_l, u_r = f - s_l, r - s_r
+    signed = .5 * (u_l - u_r)
+    floor = .5 * (e_l + e_r + t_l + t_r)
+    magnitude = max(abs(signed) - floor, 0.)
     direction = int(row["right_label"]) - int(row["left_label"])
-    return dict(magnitude=magnitude, signed=signed, label_aligned=direction * signed,
+    return dict(magnitude=magnitude, signed=signed, c=signed,
+                u_L=u_l, u_R=u_r, common_mode=.5 * (u_l + u_r),
+                absolute_side_mean=.5 * (abs(u_l) + abs(u_r)),
+                label_aligned=direction * signed, numerical_floor=floor,
+                identity_error_left=e_l, identity_error_right=e_r,
+                tolerance_left=t_l, tolerance_right=t_r,
                 identity_error=max(e_l, e_r))
 
 
@@ -245,7 +252,7 @@ Fresh unpatched scores are compared with cached scores before each patch batch.
             row = {k: pair[k] for k in ("pair_id", "source_id", "kind", "left_label", "right_label")}
             row.update(head=int(h), base_left=bases[0], base_right=bases[1],
                        paired_forward=scores[0], paired_reverse=scores[1], self_left=scores[2], self_right=scores[3])
-            paired_effect(row, self.config)
+            row.update(paired_effect(row, self.config))
             records.append(row)
         return records
 

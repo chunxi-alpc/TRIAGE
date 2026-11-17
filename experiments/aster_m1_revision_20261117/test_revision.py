@@ -91,6 +91,41 @@ class Regression(unittest.TestCase):
         e=paired_effect(patch(pair("F"),effect=-1))
         self.assertLess(e["label_aligned"],0);self.assertGreater(e["magnitude"],0)
 
+    def test_common_mode_has_zero_pair_effect(self):
+        row=patch(pair("F"))
+        row.update(paired_forward=5.,paired_reverse=7.)
+        effect=paired_effect(row)
+        self.assertEqual(effect["u_L"],5.)
+        self.assertEqual(effect["u_R"],5.)
+        self.assertEqual(effect["common_mode"],5.)
+        self.assertEqual(effect["c"],0.)
+        self.assertEqual(effect["magnitude"],0.)
+        self.assertEqual(effect["label_aligned"],0.)
+
+    def test_common_mode_never_selects_head(self):
+        ps,candidates=fixture()
+        records=[dict(patch(p),paired_forward=5.,paired_reverse=7.) for p in ps]
+        result=confirm(ps,candidates,records,1,Config(min_sources=2))
+        self.assertEqual(result["heads"],[])
+        self.assertEqual(result["status"],"intercept_only_fallback")
+
+    def test_common_mode_does_not_change_pair_ranking(self):
+        row=patch(pair("C"),effect=-2.)
+        shifted=dict(row,paired_forward=row["paired_forward"]+10.,
+                     paired_reverse=row["paired_reverse"]+10.)
+        a,b=paired_effect(row),paired_effect(shifted)
+        self.assertEqual(a["magnitude"],b["magnitude"])
+        self.assertEqual(a["label_aligned"],b["label_aligned"])
+        self.assertLess(b["label_aligned"],0.)
+
+    def test_pair_effect_subtracts_both_numerical_errors(self):
+        row=patch(pair("C"))
+        row.update(self_left=5e-5,self_right=2.-4e-5)
+        effect=paired_effect(row)
+        floor=.5*(5e-5+4e-5+1e-4+1.2e-4)
+        self.assertAlmostEqual(effect["numerical_floor"],floor)
+        self.assertAlmostEqual(effect["magnitude"],abs(effect["c"])-floor)
+
     def test_endpoint_reversal_invariance(self):
         p=pair("F");r=patch(p)
         reversed_row=dict(r,base_left=r["base_right"],base_right=r["base_left"],
