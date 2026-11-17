@@ -44,6 +44,11 @@ def run(worker):
         if any(current[k]!=original[k] for k in fields):
             raise ValueError("Checkpoint/scoring geometry differs from reused cache")
         inputs=load_inputs(DATA)
+        use_suffix=os.environ.get("ASTER_M1_SUFFIX_ENABLED")=="1"
+        if use_suffix:
+            from .suffix import SuffixRunner
+            suffix=SuffixRunner(engine)
+        else:suffix=None
         started=time.monotonic();completed=0;new=0;baseline=0;current_uid=None;context=None
         for request in requests:
             a,b,h=request["target"],request["donor"],request["head"]
@@ -51,12 +56,12 @@ def run(worker):
                 completed+=1;continue
             if current_uid!=a:
                 context=engine.prepare(inputs[a]["prompt"])
-                fresh=float(engine.run(context,capture=False)["ell"]);baseline+=1
+                fresh=suffix.prepare(context) if suffix is not None else float(engine.run(context,capture=False)["ell"]);baseline+=1
                 cached=float(records[a]["ell"])
                 if abs(fresh-cached)>1e-4+1e-5*abs(fresh):
                     raise ValueError("Fresh baseline differs from training cache")
                 current_uid=a
-            value=float(engine.run(context,replacements={h:heads(b)[h]},capture=False)["ell"])
+            value=suffix.score(h,heads(b)[h]) if suffix is not None else float(engine.run(context,replacements={h:heads(b)[h]},capture=False)["ell"])
             if not np.isfinite(value):raise ValueError("Nonfinite intervention score")
             if a==b and abs(value-float(records[a]["ell"]))>1e-4+1e-5*abs(float(records[a]["ell"])):
                 raise ValueError("Self-patch identity failed")
@@ -64,14 +69,14 @@ def run(worker):
             completed+=1;new+=1
             if completed<=3 or completed%500==0:
                 write(root/"progress.json",dict(state="running",pid=os.getpid(),gpu=gpu,
-                    completed=completed,total=len(requests),new_scores=new,baseline_forwards=baseline,
+                    completed=completed,total=len(requests),new_scores=new,baseline_forwards=baseline,acceleration="suffix" if use_suffix else "serial",
                     seconds=time.monotonic()-started,peak_gib=torch.cuda.max_memory_allocated()/2**30))
         with gzip.open(root/"new_scores.jsonl.gz","wt",encoding="utf-8") as f:
             for a,b,h,v in conn.execute("SELECT target,donor,head,value FROM scores ORDER BY target,donor,head"):
                 f.write(json.dumps(dict(target=a,donor=b,head=h,score=v))+"\n")
         write(root/"completion.json",dict(complete=True,worker=worker,gpu=gpu,requested_scores=len(requests),
             stored_scores=conn.execute("SELECT count(*) FROM scores").fetchone()[0],
-            new_scores_this_invocation=new,baseline_forwards=baseline,seconds=time.monotonic()-started,
+            new_scores_this_invocation=new,baseline_forwards=baseline,acceleration="suffix" if use_suffix else "serial",seconds=time.monotonic()-started,
             peak_gib=torch.cuda.max_memory_allocated()/2**30))
         conn.close()
         del engine
