@@ -1,0 +1,94 @@
+{
+  "version": "m1-statistical-sensitivity-v1",
+  "model": "qwen",
+  "seed": 20261117,
+  "defaults": {
+    "gradient_threshold": 2,
+    "candidate_frequency": 0.8,
+    "fdr": 0.05,
+    "direction_consistency": 0.8,
+    "min_valid_sources": 5
+  },
+  "grid": {
+    "gradient_threshold": [
+      1.5,
+      2,
+      2.5,
+      3
+    ],
+    "candidate_frequency": [
+      0.6,
+      0.8,
+      1
+    ],
+    "fdr": [
+      0.01,
+      0.05,
+      0.1
+    ],
+    "direction_consistency": [
+      0.7,
+      0.8,
+      0.9
+    ]
+  },
+  "joint": [
+    {
+      "name": "joint_lenient",
+      "gradient_threshold": 1.5,
+      "candidate_frequency": 0.6,
+      "fdr": 0.1,
+      "direction_consistency": 0.7,
+      "min_valid_sources": 5
+    },
+    {
+      "name": "joint_strict",
+      "gradient_threshold": 3,
+      "candidate_frequency": 1,
+      "fdr": 0.01,
+      "direction_consistency": 0.9,
+      "min_valid_sources": 5
+    }
+  ],
+  "folds": 5,
+  "source_subsets": 64,
+  "source_subset_fraction": 0.8,
+  "bootstrap_draws": 1999,
+  "sign_flip_draws": 262143,
+  "exact_sign_flip_max_sources": 16,
+  "matched_donors": 5,
+  "ci_level": 0.95,
+  "robust_scale": "1.4826 * median absolute deviation across all model heads, separately per category and fold",
+  "robust_scale_zero": "above median -> +infinity; equal median -> zero; below median -> -infinity",
+  "null_matching": [
+    "source_id",
+    "kind",
+    "left_label",
+    "right_label"
+  ],
+  "null_exclusion": "same pair or identical ordered endpoint pair",
+  "multiplicity_family": "all category-head hypotheses screened in each configuration; recompute BH for every configuration and source subset; inadequate coverage has p=1",
+  "AP_statistic": "mean numerical-floor-corrected absolute antisymmetric effect minus matched-control mean",
+  "CF_statistic": "mean label-aligned signed antisymmetric effect minus matched-control mean",
+  "direction_filter": "source-cluster bootstrap mean agrees with observed source-balanced contrast direction",
+  "stability_criteria": {
+    "union_jaccard_min": 0.8,
+    "group_jaccard_min": 0.7,
+    "relative_count_change_max": 0.25,
+    "core_subset_frequency_min": 0.8,
+    "default_core_coverage_min": 0.8,
+    "empty_groups": "not evidence of stable functional identification",
+    "application": "all one-factor neighbours of default; joint extremes descriptive; no automatic threshold replacement"
+  },
+  "allowed_gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "M2": false,
+  "M3": false,
+  "M4": false,
+  "use_task_accuracy": false,
+  "independent_confirmation": "No replacement default is adopted without independent training-source confirmation; present scan is exploratory."
+}
