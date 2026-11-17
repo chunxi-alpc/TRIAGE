@@ -25,17 +25,21 @@ class Config:
     seed: int = 20261117
     identity_atol: float = 1e-4
     identity_rtol: float = 1e-5
-    max_patch_forwards: int = 200000
+    max_patch_forwards: int | None = None
 
     def __post_init__(self):
         if not 0 < self.candidate_mass <= 1 or not 0 < self.retained_mass <= 1:
             raise ValueError("Mass fractions must be in (0, 1]")
-        if self.min_sources < 2 or self.max_patch_forwards < 1:
+        if self.min_sources < 2 or (self.max_patch_forwards is not None and self.max_patch_forwards < 1):
             raise ValueError("Invalid source count or resource ceiling")
         if not np.isfinite([self.identity_atol, self.identity_rtol]).all():
             raise ValueError("Nonfinite numerical tolerances")
         if self.identity_atol <= 0 or self.identity_rtol < 0:
             raise ValueError("Invalid numerical tolerances")
+
+    def permits_patch_forwards(self, count):
+        """None means the user-authorized full confirmation has no forward ceiling."""
+        return self.max_patch_forwards is None or count <= self.max_patch_forwards
 
 
 def dump(path, value):
@@ -282,7 +286,7 @@ Output directory must be new. No automatic GPU scheduling or historical overwrit
     confirmation = [p for p in pairs if p["source_id"] in set(confirm_ids)]
     # Four patch forwards per head plus two fresh baseline forwards per nonempty pair.
     count = sum(4*len(candidates[p["kind"]]["heads"])+2 for p in confirmation if candidates[p["kind"]]["heads"])
-    if count > config.max_patch_forwards:
+    if not config.permits_patch_forwards(count):
         raise RuntimeError(f"Resource preflight: {count} forwards; no truncation or partial run allowed")
     outdir = Path(outdir)
     outdir.mkdir(parents=True, exist_ok=False)

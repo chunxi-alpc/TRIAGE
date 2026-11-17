@@ -9,12 +9,12 @@ SCHEDULER=Path("/home/gcx/aster-gpu-queue-20261113/scheduler.py")
 QUEUE=Path("/home/gcx/aster-gpu-queue-20261113/m1_revision_20261117")
 PYTHON="/home/gcx/gcx261014/bin/python"
 
-def manifest():
+def manifest(resume_models=()):
     jobs=[]
     for key in KEYS:
         cfg=read(OUT/"models"/key/"configuration.json")
         jobs.append(dict(id="m1_revision_"+key,
-           command=[PYTHON,"-m","experiments.aster_m1_revision_20261117.run","--model",key,"--publish"],
+           command=[PYTHON,"-m","experiments.aster_m1_revision_20261117.run","--model",key,"--publish"]+(["--resume"] if key in resume_models else []),
            cwd=str(REPO),gpu_count=1,allowed_gpus=[0,1,5,6],estimated_vram_gib=cfg["model"]["expected_peak_gib"][1],
            dependencies=[] if key=="qwen" else ["m1_revision_qwen"],
            completion_marker=str(OUT/"models"/key/"queue_done.json"),priority=10 if key=="qwen" else 20,

@@ -26,6 +26,16 @@ def fixture():
 
 
 class Regression(unittest.TestCase):
+    def test_unlimited_confirmation_is_default(self):
+        cfg=Config()
+        self.assertIsNone(cfg.max_patch_forwards)
+        self.assertTrue(cfg.permits_patch_forwards(5_000_000))
+
+    def test_explicit_resource_limit_is_optional(self):
+        cfg=Config(max_patch_forwards=200000)
+        self.assertTrue(cfg.permits_patch_forwards(200000))
+        self.assertFalse(cfg.permits_patch_forwards(200001))
+
     def test_constant_gradient_old_screen_false_negative(self):
         # Equivalent to the old source-permutation statistic, for every permutation.
         g=np.ones((4,1,1)); d=np.arange(1.,5.).reshape(4,1,1)

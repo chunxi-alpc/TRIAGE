@@ -32,8 +32,9 @@ def report(publish=False):
             shutil.copyfile(log,root/"queue.log")
         preflight=read(root/"resource_preflight.json")
         if preflight:
+            ceiling="不设前向次数上限" if preflight["limit"] is None else f"前向次数上限为 {preflight['limit']:,}"
             body += ["",f"## {key} 资源预检","",
-                     f"完整候选为 {preflight['candidate_counts']}；确认阶段需要 {preflight['estimated_confirmation_forwards']:,} 次前向，上限为 {preflight['limit']:,} 次。"]
+                     f"完整候选为 {preflight['candidate_counts']}；确认阶段需要 {preflight['estimated_confirmation_forwards']:,} 次前向，{ceiling}。"]
         for scope in ("dev","test"):
             metrics=read(root/"evaluation"/scope/"metrics.json")
             if metrics:
@@ -70,11 +71,15 @@ def report(publish=False):
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
         fig,ax=plt.subplots(figsize=(5.5,3.4))
-        ax.bar(["Estimated forwards","Allowed ceiling"],[pre["estimated_confirmation_forwards"],pre["limit"]],color=["#4477aa","#cc6677"])
+        labels=["Estimated forwards"];values=[pre["estimated_confirmation_forwards"]]
+        if pre["limit"] is not None:
+            labels.append("Allowed ceiling");values.append(pre["limit"])
+        ax.bar(labels,values,color=["#4477aa","#cc6677"][:len(values)])
+        if pre["limit"] is None:ax.set_title("No forward-count ceiling")
         ax.set_ylabel("Confirmation forwards")
         ax.ticklabel_format(style="plain",axis="y")
-        for i,n in enumerate([pre["estimated_confirmation_forwards"],pre["limit"]]):ax.text(i,n,f"{n:,}",ha="center",va="bottom")
-        ax.set_ylim(0,max(pre["estimated_confirmation_forwards"],pre["limit"])*1.18)
+        for i,n in enumerate(values):ax.text(i,n,f"{n:,}",ha="center",va="bottom")
+        ax.set_ylim(0,max(max(values),1)*1.18)
         fig.tight_layout();fig.savefig(OUT/"qwen_resource_preflight.png",dpi=180);plt.close(fig)
     if publish:
         PRIVATE.mkdir(parents=True,exist_ok=True)

@@ -92,6 +92,12 @@ def run_model(key,publish_results=False,resume=False):
             data=datasets(); pairs=data["E1_pairs.jsonl"]
             inputs=load_inputs(SOURCE)
             cfg=Config()
+            # Initial manifests remain unchanged for feature-cache identity.
+            # The dated user amendment supersedes their resource-only ceiling.
+            effective=read(root/"configuration.json")
+            effective["M1"]=asdict(cfg)
+            effective["resource_authorization"]="resource_amendment_20261117/amendment.json"
+            write(root/"effective_configuration.json",effective)
             progress("extract_fit")
             store,input_hash=extract(key,"fit",inputs,engine,progress)
             identity["inputs_sha256"]=input_hash
@@ -107,12 +113,12 @@ def run_model(key,publish_results=False,resume=False):
             manifest["protocol_sha256"]=digest(manifest)
             write(root/"selection_plan.json",manifest)
             counts={k:len(v["heads"]) for k,v in candidates.items()}
-            write(root/"resource_preflight.json",dict(passed=count<=cfg.max_patch_forwards,
+            write(root/"resource_preflight.json",dict(passed=cfg.permits_patch_forwards(count),
                   estimated_confirmation_forwards=count,limit=cfg.max_patch_forwards,
                   candidate_counts=counts,confirmation_pairs=len(ps),
                   formula="sum(2 + 4 * candidate_heads[kind]) for each nonempty confirmation pair",
                   no_candidate_truncation=True))
-            if count>cfg.max_patch_forwards:
+            if not cfg.permits_patch_forwards(count):
                 raise ResourceBlocked("Confirmation requires "+str(count)+" forwards; ceiling "+str(cfg.max_patch_forwards))
             progress("exact_patching",estimated_forwards=count)
             target=root/"models/E1/full"
