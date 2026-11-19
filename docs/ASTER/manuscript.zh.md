@@ -106,9 +106,9 @@ ASTER-CR由相互衔接的模块组成：M1定位与当前判断相关的注意�
 
 ```math
 \ell_0(x)=
-\operatorname{logit}_{\text{是}}(x)
+\mathrm{logit}_{\text{是}}(x)
 -
-\operatorname{logit}_{\text{否}}(x).
+\mathrm{logit}_{\text{否}}(x).
 ```
 
 头表示 $\mathbf z_h(x)$ 取自最后一个输入词元处、注意力输出投影之前的第 $h$ 个头激活。M1 在参数冻结的前向计算中读取和替换该表示，测量其对 $\ell_0$ 的影响。
@@ -143,9 +143,9 @@ a_{q,h}=
 r_{q,h}
 =
 \frac{
-a_{q,h}-\operatorname{median}(a_q)
+a_{q,h}-\mathrm{median}(a_q)
 }{
-c_{\mathrm{MAD}}\operatorname{MAD}(a_q)
+c_{\mathrm{MAD}}\mathrm{MAD}(a_q)
 },
 \qquad
 \mathcal C_q=
@@ -255,7 +255,7 @@ q_{q,h}^{\mathrm{BH}}<\alpha_{\mathrm{FDR}},\\
 ```math
 \mathbf z_{\mathcal H}(x)
 =
-\operatorname{Concat}_{h\in\mathcal H}\mathbf z_h(x).
+\mathrm{Concat}_{h\in\mathcal H}\mathbf z_h(x).
 ```
 
 对模型 $m$，上述集合记为 $\mathcal H_m$，拼接表示对应下文的 $h_m(x)$。M2 在该表示上估计干扰与证据子空间，M3 进一步利用所得痕迹学习受证据响应约束的输入相关分数修正。
