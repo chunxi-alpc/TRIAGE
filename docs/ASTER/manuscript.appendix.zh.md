@@ -73,7 +73,7 @@ r_{\mathrm{cov},i}
 \left\|N^\top(I-SS^\top)\Delta\tilde{\mathbf z}_i\right\|_2.
 ```
 
-若证据变化位于 $`\operatorname{span}(S)`$，则该残差为零，恢复正文命题1。本节以 $`\mathcal J`$ 表示非空 C/F 评价配对子集，第4.1.2节的总体证据覆盖残差可写为
+若证据变化位于 $`\mathrm{span}(S)`$，则该残差为零，恢复正文命题1。本节以 $`\mathcal J`$ 表示非空 C/F 评价配对子集，第4.1.2节的总体证据覆盖残差可写为
 
 ```math
 R_{\mathrm{cov}}(\mathcal J)
@@ -81,10 +81,10 @@ R_{\mathrm{cov}}(\mathcal J)
 \sqrt{\sum_{i\in\mathcal J}\omega_i(\mathcal J)r_{\mathrm{cov},i}^2}.
 ```
 
-记 $`\operatorname{RMS}_{\omega}(\Delta c;\mathcal J)`$ 为同一集合上证据修正差的加权均方根，即 $`\sqrt{\sum_{i\in\mathcal J}\omega_i(\mathcal J)(\Delta c_i)^2}`$。由命题2可得
+记 $`\mathrm{RMS}_{\omega}(\Delta c;\mathcal J)`$ 为同一集合上证据修正差的加权均方根，即 $`\sqrt{\sum_{i\in\mathcal J}\omega_i(\mathcal J)(\Delta c_i)^2}`$。由命题2可得
 
 ```math
-\operatorname{RMS}_{\omega}(\Delta c;\mathcal J)
+\mathrm{RMS}_{\omega}(\Delta c;\mathcal J)
 \leq\|\hat w\|_2R_{\mathrm{cov}}(\mathcal J).
 ```
 
@@ -409,12 +409,12 @@ n_{q_i,g_i,b_i}^{\mathrm{pair}}
 
 M2 的均值、逐维方差与 M3 中心化均使用 $`\omega_v^{\mathrm{pair}}`$。记 $`\mathcal V_{\mathrm{nat}}`$ 为训练来源的自然节点输入集合，以 $`v`$ 索引其中一个输入，$`y_v\in\{0,1\}`$ 为其标签。概率校准按来源、病例、节点依次均衡，归一化权重记为 $`\omega_v^{\mathrm{nat}}`$；它与配对权重共享均衡原则，不另设可调权重超参数。统计推断始终以来源为单位。
 
-**M1：候选分数和选择条件。** 每个训练集合内部按来源划分五折。记 $`a_q`$ 为当前类别全部头的归因分数 $`a_{q,h}`$ 组成的向量，$`\operatorname{MAD}(a_q)`$ 为这些分数相对其中位数的绝对偏差的中位数，$`\tau_g`$ 为梯度筛选阈值。将稳健标准化后的候选分数记为 $`r_{q,h}`$，定义分数及候选集合：
+**M1：候选分数和选择条件。** 每个训练集合内部按来源划分五折。记 $`a_q`$ 为当前类别全部头的归因分数 $`a_{q,h}`$ 组成的向量，$`\mathrm{MAD}(a_q)`$ 为这些分数相对其中位数的绝对偏差的中位数，$`\tau_g`$ 为梯度筛选阈值。将稳健标准化后的候选分数记为 $`r_{q,h}`$，定义分数及候选集合：
 
 ```math
 r_{q,h}=
-\frac{a_{q,h}-\operatorname{median}(a_q)}
-{1.4826\,\operatorname{MAD}(a_q)},
+\frac{a_{q,h}-\mathrm{median}(a_q)}
+{1.4826\,\mathrm{MAD}(a_q)},
 \qquad
 \mathcal K_q=\{h:r_{q,h}\geq\tau_g\}.
 ```
@@ -444,10 +444,10 @@ f_{q,h}^{\mathrm{stab}}\geq0.80,\quad
 
 已有 M1-v2 配置采用 $`\tau_g=2.0`$，没有固定头数上限。按本次方案补充更低阈值和全头精确修补比较，最终阈值待召回率结果确定；当前文字修订保持已有配置文件的数值。
 
-全头检验在同一 Qwen3-8B、来源及配对样本上执行。将梯度阈值取 $`\tau_g`$ 时的候选集合显式记为 $`\mathcal K_q(\tau_g)`$；将全头精确修补后通过相同来源效应检验和稳定性规则的头集合记为 $`\mathcal H_q^{\mathrm{all}}`$，其入选免去依赖梯度候选的条件。多重检验统一以全部头为检验族。第 $`q`$ 类的筛选召回率记为 $`\operatorname{Recall}_q(\tau_g)`$，定义为
+全头检验在同一 Qwen3-8B、来源及配对样本上执行。将梯度阈值取 $`\tau_g`$ 时的候选集合显式记为 $`\mathcal K_q(\tau_g)`$；将全头精确修补后通过相同来源效应检验和稳定性规则的头集合记为 $`\mathcal H_q^{\mathrm{all}}`$，其入选免去依赖梯度候选的条件。多重检验统一以全部头为检验族。第 $`q`$ 类的筛选召回率记为 $`\mathrm{Recall}_q(\tau_g)`$，定义为
 
 ```math
-\operatorname{Recall}_q(\tau_g)=
+\mathrm{Recall}_q(\tau_g)=
 \frac{|\mathcal K_q(\tau_g)\cap\mathcal H_q^{\mathrm{all}}|}
 {|\mathcal H_q^{\mathrm{all}}|},
 ```
@@ -464,8 +464,8 @@ f_{q,h}^{\mathrm{stab}}\geq0.80,\quad
 \hat\beta_m=\arg\min_{\beta\gt 0}
 -\sum_{v\in\mathcal V_{\mathrm{nat}}}\omega_v^{\mathrm{nat}}
 \left[
-y_v\log\operatorname{sigmoid}(\beta\ell_{c,m}(v))
-+(1-y_v)\log(1-\operatorname{sigmoid}(\beta\ell_{c,m}(v)))
+y_v\log\mathrm{sigmoid}(\beta\ell_{c,m}(v))
++(1-y_v)\log(1-\mathrm{sigmoid}(\beta\ell_{c,m}(v)))
 \right].
 ```
 
