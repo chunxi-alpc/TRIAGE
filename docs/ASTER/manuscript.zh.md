@@ -163,11 +163,11 @@ A/P 以 $`|\phi_{i,h}|`$ 衡量干扰贡献幅度；C/F 以 $`\phi_{i,h}(y_i^R-y
 \mathcal H_m=\mathcal H_{AP}\cup\mathcal H_{CF}.
 ```
 
-集合两侧的竖线表示元素数。干扰与证据在组件层面的共享由 $`|\mathcal H_{AP}\cap\mathcal H_{CF}|`$ 衡量，同时报告两类集合的大小与交集比例。M1 输出头索引、类别和修补效应。记 $`d_m`$ 为所选头激活的总维数，$`\operatorname{Concat}`$ 为按固定头顺序拼接向量的操作，向 M2 提供的拼接表示 $`\mathbf z_{\mathcal H,m}(x)`$ 定义为
+集合两侧的竖线表示元素数。干扰与证据在组件层面的共享由 $`|\mathcal H_{AP}\cap\mathcal H_{CF}|`$ 衡量，同时报告两类集合的大小与交集比例。M1 输出头索引、类别和修补效应。记 $`d_m`$ 为所选头激活的总维数，$`\mathrm{Concat}`$ 为按固定头顺序拼接向量的操作，向 M2 提供的拼接表示 $`\mathbf z_{\mathcal H,m}(x)`$ 定义为
 
 ```math
 \mathbf z_{\mathcal H,m}(x)=
-\operatorname{Concat}_{h\in\mathcal H_m}\mathbf z_h(x)
+\mathrm{Concat}_{h\in\mathcal H_m}\mathbf z_h(x)
 \in\mathbb R^{d_m}.
 ```
 
@@ -186,7 +186,7 @@ A/P 以 $`|\phi_{i,h}|`$ 衡量干扰贡献幅度；C/F 以 $`\phi_{i,h}(y_i^R-y
 -\tilde{\mathbf z}_{\mathcal H,m}(x_i^L).
 ```
 
-记 $`X_{Q,m}`$ 为类别组 $`Q\in\{AP,CF\}`$ 的训练加权差分矩阵，$`k_m`$ 为保留方向数的上限。算子 $`\operatorname{basis}_{k_m}`$ 提取至多 $`k_m`$ 个主要、非零右奇异方向，$`\operatorname{orth}`$ 对矩阵的列空间作正交归一化并去除数值零方向，$`I`$ 为所在空间的单位矩阵。证据基、初始干扰基、投影后的读出基分别记为 $`S_m,U_m,N_m`$，内部特征记为 $`t_m(x)`$。它们按以下顺序构造：
+记 $`X_{Q,m}`$ 为类别组 $`Q\in\{AP,CF\}`$ 的训练加权差分矩阵，$`k_m`$ 为保留方向数的上限。算子 $`\mathrm{basis}_{k_m}`$ 提取至多 $`k_m`$ 个主要、非零右奇异方向，$`\mathrm{orth}`$ 对矩阵的列空间作正交归一化并去除数值零方向，$`I`$ 为所在空间的单位矩阵。证据基、初始干扰基、投影后的读出基分别记为 $`S_m,U_m,N_m`$，内部特征记为 $`t_m(x)`$。它们按以下顺序构造：
 
 ```math
 \begin{aligned}
@@ -194,16 +194,16 @@ X_{Q,m}
 &=\left[\sqrt{\omega_i(\mathcal I_Q^{\mathrm{train}})}
 \,\Delta\tilde{\mathbf z}_{m,i}^{\top}\right]_{i\in\mathcal I_Q^{\mathrm{train}}},
 \quad Q\in\{AP,CF\},\\
-S_m&=\operatorname{basis}_{k_m}(X_{CF,m}),\qquad
-U_m=\operatorname{basis}_{k_m}(X_{AP,m}),\\
-N_m&=\operatorname{orth}\bigl((I-S_mS_m^\top)U_m\bigr),\qquad
+S_m&=\mathrm{basis}_{k_m}(X_{CF,m}),\qquad
+U_m=\mathrm{basis}_{k_m}(X_{AP,m}),\\
+N_m&=\mathrm{orth}\bigl((I-S_mS_m^\top)U_m\bigr),\qquad
 t_m(x)=N_m^\top\tilde{\mathbf z}_{\mathcal H,m}(x).
 \end{aligned}
 ```
 
 各基按列正交归一，故 $`S_m^\top N_m=0`$。内部特征的维数等于 $`N_m`$ 的列数；子空间维度及数值阈值见[附录 B.7](manuscript.appendix.zh.md#appendix-b-7)。
 
-**命题1（证据子空间内的精确保留）。** 记 $`\operatorname{span}(S_m)`$ 为证据基各列张成的子空间。对任意与内部特征同维的读出系数 $`w`$ 和任意配对 $`i`$，若 $`\Delta\tilde{\mathbf z}_{m,i}\in\operatorname{span}(S_m)`$，则 $`\Delta c_i=w^\top N_m^\top\Delta\tilde{\mathbf z}_{m,i}=0`$。
+**命题1（证据子空间内的精确保留）。** 记 $`\mathrm{span}(S_m)`$ 为证据基各列张成的子空间。对任意与内部特征同维的读出系数 $`w`$ 和任意配对 $`i`$，若 $`\Delta\tilde{\mathbf z}_{m,i}\in\mathrm{span}(S_m)`$，则 $`\Delta c_i=w^\top N_m^\top\Delta\tilde{\mathbf z}_{m,i}=0`$。
 
 证明：子空间条件保证存在坐标向量 $`a`$，使 $`\Delta\tilde{\mathbf z}_{m,i}=S_ma`$，再由 $`N_m^\top S_m=0`$ 得到结论。一般证据变化可分解为子空间内外两部分，因此
 
@@ -229,11 +229,11 @@ L_{AP}(w)=
 \bigl(\Delta\ell_{0,i}+w^\top\Delta t_{m,i}\bigr)^2.
 ```
 
-**预算与凸优化。** 记 $`\kappa\geq0`$ 为无量纲预算参数，$`\delta_m`$ 为模型 $`m`$ 的证据预算，$`\operatorname{median}`$ 表示中位数。预算用训练 C/F 的原分数变化定标：
+**预算与凸优化。** 记 $`\kappa\geq0`$ 为无量纲预算参数，$`\delta_m`$ 为模型 $`m`$ 的证据预算，$`\mathrm{median}`$ 表示中位数。预算用训练 C/F 的原分数变化定标：
 
 ```math
 \delta_m=\kappa\,
-\operatorname{median}_{i\in\mathcal I_{CF}^{\mathrm{train}}}
+\mathrm{median}_{i\in\mathcal I_{CF}^{\mathrm{train}}}
 |\Delta\ell_{0,i}|.
 ```
 
@@ -258,10 +258,10 @@ L_{AP}(\hat w_m)+\lambda_m\|\hat w_m\|_2^2
 
 因此，训练集上的 A/P 加权平方分数差不会增加；$`\delta_m=0`$ 时，训练 C/F 的分数响应完全保持。留出配对的证据改动由[附录 A](manuscript.appendix.zh.md#appendix-a) 的覆盖残差界和实测共同刻画。图3以 $`\kappa`$ 扫描生成 ASTER-CR 的干扰抑制—证据改动曲线，并与基线的强度曲线比较。
 
-**证据响应的评价。** 证据约束以原模型的 C/F 响应为保持对象，A/P 监督则负责识别待消除的分数变化。增强 C/F 响应会引入额外的证据监督目标。因此，实验同时报告原模型和修正后的 C/F 方向正确率。对待评价分数函数 $`\ell`$，按第3.1节约定计算 $`\Delta\ell_i`$；方向正确率记为 $`\operatorname{DirAcc}_{CF}(\ell)`$，定义为
+**证据响应的评价。** 证据约束以原模型的 C/F 响应为保持对象，A/P 监督则负责识别待消除的分数变化。增强 C/F 响应会引入额外的证据监督目标。因此，实验同时报告原模型和修正后的 C/F 方向正确率。对待评价分数函数 $`\ell`$，按第3.1节约定计算 $`\Delta\ell_i`$；方向正确率记为 $`\mathrm{DirAcc}_{CF}(\ell)`$，定义为
 
 ```math
-\operatorname{DirAcc}_{CF}(\ell)
+\mathrm{DirAcc}_{CF}(\ell)
 =\frac{1}{|\mathcal I_{CF}^{\mathrm{eval}}|}
 \sum_{i\in\mathcal I_{CF}^{\mathrm{eval}}}
 \mathbf1\!\left[(y_i^R-y_i^L)\Delta\ell_i\gt 0\right].
@@ -285,10 +285,10 @@ c_m(x)
 
 该式汇总了三个模块：头集合确定表示来源，读出基选择可读分量，读出系数确定修正幅度。中心化常数由特征与系数确定。在同一端点分布上精确计算加权标准化时，$`\sum_{v\in\mathcal V_{\mathrm{pair}}}\omega_v^{\mathrm{pair}}t_m(v)=0`$，从而 $`\mu_{c,m}=0`$；保留该项明确中心化约定。任意配对中该常数均抵消，故模型对应的修正差满足 $`\Delta c_{m,i}=\hat w_m^\top\Delta t_{m,i}`$。
 
-固定修正后，使用训练来源的自然节点和同一来源均衡规则拟合正比例系数 $`\beta_m\gt 0`$，将加权二元交叉熵最小化得到的系数记为 $`\hat\beta_m`$。对实数自变量 $`a`$，定义 sigmoid 函数 $`\operatorname{sigmoid}(a)=1/(1+\exp(-a))`$。最终正类概率记为 $`p_m(y=1\mid x)`$，二元预测记为 $`\hat y_m(x)`$，计算为
+固定修正后，使用训练来源的自然节点和同一来源均衡规则拟合正比例系数 $`\beta_m\gt 0`$，将加权二元交叉熵最小化得到的系数记为 $`\hat\beta_m`$。对实数自变量 $`a`$，定义 sigmoid 函数 $`\mathrm{sigmoid}(a)=1/(1+\exp(-a))`$。最终正类概率记为 $`p_m(y=1\mid x)`$，二元预测记为 $`\hat y_m(x)`$，计算为
 
 ```math
-p_m(y=1\mid x)=\operatorname{sigmoid}(\hat\beta_m\ell_{c,m}(x)),
+p_m(y=1\mid x)=\mathrm{sigmoid}(\hat\beta_m\ell_{c,m}(x)),
 \qquad
 \hat y_m(x)=\mathbf1[\ell_{c,m}(x)\gt 0].
 ```
