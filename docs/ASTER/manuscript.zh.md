@@ -87,7 +87,7 @@ ASTER-CR 在冻结模型的完整前向计算后，读取内部表示并修正�
 ```math
 \ell_0(x)=o_+(x)-o_-(x),
 \qquad
-\hat y_0(x)=\mathbf1[\ell_0(x)>0].
+\hat y_0(x)=\mathbf1[\ell_0(x)\gt 0].
 ```
 
 固定模型时，原分数及答案 logit 省略下标 $`m`$。对任意标量或向量函数 $`u`$，配对差分算子统一定义为 $`\Delta u_i=u(x_i^R)-u(x_i^L)`$；因此原分数差为 $`\Delta\ell_{0,i}=\ell_0(x_i^R)-\ell_0(x_i^L)`$。全文的 $`(\cdot)^\top`$ 表示转置，$`\|\cdot\|_2`$ 表示欧氏范数。
@@ -214,7 +214,7 @@ w^\top N_m^\top(I-S_mS_m^\top)\Delta\tilde{\mathbf z}_{m,i}.
 
 修正对证据的剩余响应全部来自 $`S_m`$ 之外且能被 $`N_m`$ 读到的分量，M3 对实际 C/F 配对约束这一部分。该保护同时放弃了对 $`S_m`$ 内干扰分量的修正。其代价用 A/P 差分落在证据子空间内的加权能量比例，以及投影前后可预测性的变化衡量；二者分别描述被放弃的表示变化和可用于分数修正的信息。
 
-**节点条件化与可证伪解释。** 读出发生在判断位置，此处表示已经随当前节点和完整输入共同变化。全局基是在这些节点条件化表示上估计的；其跨节点适用性通过按节点类型分层的可预测性、证据覆盖残差和任务结果检验。若“处置文字可充当条件定义的代理”解释成立，A 类方向应更接近证据方向。分别用 A、P 训练差分估计同维数的初始干扰基，记为 $`U_A,U_P`$。对两个列正交基 $`B_1,B_2`$，以 $`j`$ 索引从小到大排序的主角度，第 $`j`$ 个角度记为 $`\theta_j(B_1,B_2)`$，由 $`B_1^\top B_2`$ 的第 $`j`$ 大奇异值取反余弦得到。可检验的预期为 $`\theta_j(U_A,S_m)<\theta_j(U_P,S_m)`$；报告角度分布与来源重采样区间。
+**节点条件化与可证伪解释。** 读出发生在判断位置，此处表示已经随当前节点和完整输入共同变化。全局基是在这些节点条件化表示上估计的；其跨节点适用性通过按节点类型分层的可预测性、证据覆盖残差和任务结果检验。若“处置文字可充当条件定义的代理”解释成立，A 类方向应更接近证据方向。分别用 A、P 训练差分估计同维数的初始干扰基，记为 $`U_A,U_P`$。对两个列正交基 $`B_1,B_2`$，以 $`j`$ 索引从小到大排序的主角度，第 $`j`$ 个角度记为 $`\theta_j(B_1,B_2)`$，由 $`B_1^\top B_2`$ 的第 $`j`$ 大奇异值取反余弦得到。可检验的预期为 $`\theta_j(U_A,S_m)\lt \theta_j(U_P,S_m)`$；报告角度分布与来源重采样区间。
 
 M2 投影的是读出方向。AlphaEdit 将参数扰动投影到保留知识的零空间，SEA 则通过谱分解编辑输入激活（[Fang et al., 2025](https://proceedings.iclr.cc/paper_files/paper/2025/hash/29c8c615b3187ee995029284702d3f43-Abstract-Conference.html)；[Qiu et al., 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/684c59d614fe6ae74a3be8c3ef07e061-Abstract-Conference.html)）。ASTER-CR 将投影结果用于计算附加分数，原前向中的激活和参数保持固定。
 
@@ -264,7 +264,7 @@ L_{AP}(\hat w_m)+\lambda_m\|\hat w_m\|_2^2
 \operatorname{DirAcc}_{CF}(\ell)
 =\frac{1}{|\mathcal I_{CF}^{\mathrm{eval}}|}
 \sum_{i\in\mathcal I_{CF}^{\mathrm{eval}}}
-\mathbf1\!\left[(y_i^R-y_i^L)\Delta\ell_i>0\right].
+\mathbf1\!\left[(y_i^R-y_i^L)\Delta\ell_i\gt 0\right].
 ```
 
 实验还报告双端全对率及原正向配对的方向退化数，以说明被保留的响应是否符合真值变化。
@@ -285,12 +285,12 @@ c_m(x)
 
 该式汇总了三个模块：头集合确定表示来源，读出基选择可读分量，读出系数确定修正幅度。中心化常数由特征与系数确定。在同一端点分布上精确计算加权标准化时，$`\sum_{v\in\mathcal V_{\mathrm{pair}}}\omega_v^{\mathrm{pair}}t_m(v)=0`$，从而 $`\mu_{c,m}=0`$；保留该项明确中心化约定。任意配对中该常数均抵消，故模型对应的修正差满足 $`\Delta c_{m,i}=\hat w_m^\top\Delta t_{m,i}`$。
 
-固定修正后，使用训练来源的自然节点和同一来源均衡规则拟合正比例系数 $`\beta_m>0`$，将加权二元交叉熵最小化得到的系数记为 $`\hat\beta_m`$。对实数自变量 $`a`$，定义 sigmoid 函数 $`\operatorname{sigmoid}(a)=1/(1+\exp(-a))`$。最终正类概率记为 $`p_m(y=1\mid x)`$，二元预测记为 $`\hat y_m(x)`$，计算为
+固定修正后，使用训练来源的自然节点和同一来源均衡规则拟合正比例系数 $`\beta_m\gt 0`$，将加权二元交叉熵最小化得到的系数记为 $`\hat\beta_m`$。对实数自变量 $`a`$，定义 sigmoid 函数 $`\operatorname{sigmoid}(a)=1/(1+\exp(-a))`$。最终正类概率记为 $`p_m(y=1\mid x)`$，二元预测记为 $`\hat y_m(x)`$，计算为
 
 ```math
 p_m(y=1\mid x)=\operatorname{sigmoid}(\hat\beta_m\ell_{c,m}(x)),
 \qquad
-\hat y_m(x)=\mathbf1[\ell_{c,m}(x)>0].
+\hat y_m(x)=\mathbf1[\ell_{c,m}(x)\gt 0].
 ```
 
 正比例校准保持判断分支。A/P 与 C/F 的分数指标统一在校准前的 $`\ell_{c,m}`$ 上计算，概率质量在校准后的输出上评价。

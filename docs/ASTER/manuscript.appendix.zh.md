@@ -14,7 +14,7 @@
 
 ### A.1 可分离可预测性
 
-固定 M2 的 $`t(x)=N^\top\tilde{\mathbf z}(x)`$，按同一配对顺序，将训练 A/P 的原分数差组成向量 $`b`$，将 $`\Delta t_i^\top`$ 按行组成矩阵 $`T`$，将权重 $`\omega_i(\mathcal I_{AP}^{\mathrm{train}})`$ 组成对角矩阵 $`W`$。使用与 M3 相同的 $`\lambda>0`$，第4.1.2节定义的无约束岭解可写为
+固定 M2 的 $`t(x)=N^\top\tilde{\mathbf z}(x)`$，按同一配对顺序，将训练 A/P 的原分数差组成向量 $`b`$，将 $`\Delta t_i^\top`$ 按行组成矩阵 $`T`$，将权重 $`\omega_i(\mathcal I_{AP}^{\mathrm{train}})`$ 组成对角矩阵 $`W`$。使用与 M3 相同的 $`\lambda\gt 0`$，第4.1.2节定义的无约束岭解可写为
 
 ```math
 w_{\mathrm{ridge}}
@@ -164,7 +164,7 @@ E_{AP,\parallel}
 \end{aligned}
 ```
 
-ASTER-CR 的配对修正差对应 $`\Delta c_i^{(\mathrm{ASTER})}=\Delta c_{m,i}`$。第 3.4 节的二元正类预测使用 $`\ell_{c,m}(x)>0`$，与正比例校准后的 $`p_m(y=1\mid x)>0.5`$ 等价，等于阈值时归负类。A/P 与 C/F 机制指标使用概率校准前的分数。历史配置的共享截距在配对分数差中抵消。真实模型分数以 logit 计，合成分数以生成模型的分数单位计，二者不直接合并。MedPIC 的机制配对在对齐选项层面使用二元分数；其最终任务决策则在完整合法答案集合上进行。
+ASTER-CR 的配对修正差对应 $`\Delta c_i^{(\mathrm{ASTER})}=\Delta c_{m,i}`$。第 3.4 节的二元正类预测使用 $`\ell_{c,m}(x)\gt 0`$，与正比例校准后的 $`p_m(y=1\mid x)\gt 0.5`$ 等价，等于阈值时归负类。A/P 与 C/F 机制指标使用概率校准前的分数。历史配置的共享截距在配对分数差中抵消。真实模型分数以 logit 计，合成分数以生成模型的分数单位计，二者不直接合并。MedPIC 的机制配对在对齐选项层面使用二元分数；其最终任务决策则在完整合法答案集合上进行。
 
 **干扰指标。** 将方法 $`r`$ 的干扰均方根记为 $`\mathrm{RMS}_{AP}(r)`$，对合格 A/P 配对计算：
 
@@ -227,7 +227,7 @@ R^2(r)
 \mathrm{Exceed}_{\delta_m}(r)
 =\frac{1}{|\mathcal I_{CF}^{\mathrm{eval}}|}
 \sum_{i\in\mathcal I_{CF}^{\mathrm{eval}}}
-\mathbf1[|\Delta c_i^{(r)}|>\delta_m].
+\mathbf1[|\Delta c_i^{(r)}|\gt \delta_m].
 ```
 
 这些指标使用原训练预算，不根据测试响应重新定阈值。正文仅呈现已有记录支持的数字；尚未重算的尾部指标不填示例实测。
@@ -237,7 +237,7 @@ R^2(r)
 ```math
 N_{\mathrm{deg}}(r)
 =\sum_{i\in\mathcal I_{CF}^{\mathrm{eval}}}
-\mathbf1[R_{0,i}>0\ \land\ R_i^{(r)}\leq0],
+\mathbf1[R_{0,i}\gt 0\ \land\ R_i^{(r)}\leq0],
 ```
 
 方向退化比例记为 $`\mathrm{Deg}_{CF}(r)`$，以全部有标签 C/F 配对为分母：
@@ -434,7 +434,7 @@ A/P 使用绝对修补贡献并作单侧检验，C/F 使用标签对齐的修补
 ```math
 \mathcal H_q=\left\{
 h:
-p_{q,h}^{\mathrm{BH}}<0.05,\quad
+p_{q,h}^{\mathrm{BH}}\lt 0.05,\quad
 0\notin\mathrm{CI}_{0.95}(\mu_{q,h}),\quad
 f_{q,h}^{\mathrm{cand}}\geq0.80,\quad
 f_{q,h}^{\mathrm{stab}}\geq0.80,\quad
@@ -461,7 +461,7 @@ f_{q,h}^{\mathrm{stab}}\geq0.80,\quad
 **M3：概率校准。** 固定 $`\hat w_m`$ 后，使用上述自然节点集合 $`\mathcal V_{\mathrm{nat}}`$、标签 $`y_v`$ 和权重 $`\omega_v^{\mathrm{nat}}`$。以正实数 $`\beta`$ 为待优化的比例系数，第3.4节的拟合值 $`\hat\beta_m`$ 具体由加权二元交叉熵确定：
 
 ```math
-\hat\beta_m=\arg\min_{\beta>0}
+\hat\beta_m=\arg\min_{\beta\gt 0}
 -\sum_{v\in\mathcal V_{\mathrm{nat}}}\omega_v^{\mathrm{nat}}
 \left[
 y_v\log\operatorname{sigmoid}(\beta\ell_{c,m}(v))
