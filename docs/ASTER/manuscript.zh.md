@@ -66,16 +66,9 @@ LoRA用低秩矩阵参数化权重更新（Hu et al., 2022）。DoRA将权重幅
 
 ## 3 方法
 
-ASTER-CR 在冻结模型的完整前向计算后，读取内部表示并修正当前节点的判断分数。其修正函数为
+ASTER-CR 在冻结模型的完整前向计算后，读取内部表示并修正当前节点的判断分数。三个模块依次确定从哪里读、读哪一部分、修正多少：M1 选择判断位置的注意力头；M2 提取与主要证据方向正交的表示分量；M3 学习受证据预算约束的线性读出。
 
-```math
-c_m(x)=\hat w_m^\top N_m^\top
-\tilde{\mathbf z}_{\mathcal H,m}(x)-\mu_{c,m},
-\qquad
-\ell_{c,m}(x)=\ell_0(x)+c_m(x).
-```
-
-三个因子分别确定从哪里读、读哪一部分、修正多少：M1 选择判断位置的注意力头 $`\mathcal H_m`$；M2 用 $`N_m`$ 提取与主要证据方向正交的表示分量；M3 学习读出系数 $`\hat w_m`$。证据保护分为两层：M2 使修正对估计证据子空间内的变化恒为零，M3 限制剩余证据变化引起的修正。$`\mu_{c,m}`$ 由训练分布确定，用于中心化修正。推理时固定全部参数，保留完整指南和患者输入，并将修正分数映射为判断概率。
+证据保护分为两层：M2 使修正对估计证据子空间内的变化恒为零，M3 限制剩余证据变化引起的修正。下文先定义输入、分数与配对目标，再依次构造表示、子空间和读出系数，最后给出完整修正函数。推理时固定全部参数，保留完整指南和患者输入，并将修正分数映射为判断概率。
 
 ### 3.1 问题形式化：干扰稳定性与证据保持
 
@@ -85,52 +78,53 @@ c_m(x)=\hat w_m^\top N_m^\top
 
 **图1：节点条件化的信息角色。** 以“eGFR ≥ 30 mL/min/1.73m²”、患者 eGFR 为 34 为例，A 改写后续处置，P 改写无关背景；C 将阈值改为 45，F 将患者数值改为 26。A/P 保持真值，C/F 翻转真值。该例用于说明配对定义。
 
-记第 $`i`$ 个配对为 $`(x_i^L,x_i^R)`$，类别为 $`q_i\in\{A,P,C,F\}`$，指南来源为 $`g_i\in\mathcal G`$，标签为 $`y_i^L,y_i^R\in\{0,1\}`$。所有差分统一按右端减左端定义。冻结模型 $`f_m`$ 对正、负答案词元的输出 logit 为 $`o_+(x)`$ 和 $`o_-(x)`$，原判断分数及配对变化为
+**输入与判断分数。** 记 $`m`$ 为基础模型索引，$`f_m`$ 为冻结模型，$`x`$ 为包含当前节点、完整指南和患者信息的输入，$`y\in\{0,1\}`$ 为其二元真值。第 $`i`$ 个配对的左、右输入记为 $`x_i^L,x_i^R`$，类别为 $`q_i\in\{A,P,C,F\}`$，两端标签为 $`y_i^L,y_i^R\in\{0,1\}`$，其中 1 表示满足当前条件。指南来源的集合记为 $`\mathcal G`$，第 $`i`$ 对的来源为 $`g_i\in\mathcal G`$。
+
+模型对正、负答案词元的输出 logit 分别记为 $`o_+(x),o_-(x)`$；原判断分数记为 $`\ell_0(x)`$，原二元预测记为 $`\hat y_0(x)`$。指示函数 $`\mathbf1[\cdot]`$ 在括号内条件成立时取 1，否则取 0。分数和预测定义为
 
 ```math
 \ell_0(x)=o_+(x)-o_-(x),
 \qquad
-\hat y_0(x)=\mathbf1[\ell_0(x)>0],
-\qquad
-\Delta\ell_{0,i}=\ell_0(x_i^R)-\ell_0(x_i^L).
+\hat y_0(x)=\mathbf1[\ell_0(x)>0].
 ```
 
-修正后的分数为 $`\ell_c=\ell_0+c`$。目标是在训练 C/F 配对满足 $`|\Delta c_i|\leq\delta`$ 的条件下，最小化训练 A/P 配对的加权平方分数差：
+固定模型时，原分数及答案 logit 省略下标 $`m`$。对任意标量或向量函数 $`u`$，配对差分算子统一定义为 $`\Delta u_i=u(x_i^R)-u(x_i^L)`$；因此原分数差为 $`\Delta\ell_{0,i}=\ell_0(x_i^R)-\ell_0(x_i^L)`$。全文的 $`(\cdot)^\top`$ 表示转置，$`\|\cdot\|_2`$ 表示欧氏范数。
+
+**配对集合与权重。** 用 $`Q`$ 表示单类或合并类别：$`Q\in\{A,P,C,F,AP,CF\}`$，其中 AP 合并 A、P，CF 合并 C、F。训练和评价配对的索引集合分别记为 $`\mathcal I_Q^{\mathrm{train}}`$ 与 $`\mathcal I_Q^{\mathrm{eval}}`$；全部训练配对的索引集合记为 $`\mathcal I^{\mathrm{train}}`$。在当前数据集合中，以 $`\omega_i`$ 表示按类别、来源、病例及变体分配的非负基础权重。对任一权重总和为正的非空子集 $`\mathcal J`$，其归一化权重定义为
+
+```math
+\omega_i(\mathcal J)=
+\frac{\omega_i}{\sum_{j\in\mathcal J}\omega_j},
+\qquad i\in\mathcal J.
+```
+
+训练与评价分别在各自的数据集合内应用同一加权规则，层级权重的具体构造见附录 B.7。
+
+**修正目标。** 记 $`c(x)`$ 为待学习的附加分数，$`\ell_c(x)`$ 为修正后的判断分数，定义 $`\ell_c(x)=\ell_0(x)+c(x)`$。由上述差分约定，修正差为 $`\Delta c_i=c(x_i^R)-c(x_i^L)`$。给定非负证据预算 $`\delta`$，目标是在训练 C/F 配对满足逐对预算的条件下，最小化训练 A/P 的加权平方分数差：
 
 ```math
 \min_c\quad
 \sum_{i\in\mathcal I_{AP}^{\mathrm{train}}}
-\omega_i\bigl(\Delta\ell_{0,i}+\Delta c_i\bigr)^2,
+\omega_i(\mathcal I_{AP}^{\mathrm{train}})
+\bigl(\Delta\ell_{0,i}+\Delta c_i\bigr)^2,
 \qquad
 |\Delta c_i|\leq\delta,\quad
 i\in\mathcal I_{CF}^{\mathrm{train}}.
 ```
 
-其中 $`\omega_i`$ 是归一化的配对权重。A/P 目标抑制非决定性变化下的敏感度，C/F 约束保持原模型随证据变化的响应。F0 改变当前节点使用的证据变量，但改动仍位于阈值同侧；它作为边界测试，检查修正是否把证据变量的变化当作干扰，单独报告分数变化与判断正确率。
+A/P 目标抑制非决定性变化下的敏感度，C/F 约束保持原模型随证据变化的响应。F0 改变当前节点使用的证据变量，但改动仍位于阈值同侧；它作为边界测试，检查修正是否把证据变量的变化当作干扰，单独报告分数变化与判断正确率。
 
-**修正需要分数之外的信息。** 输入无关的修正满足 $`\Delta c_i=0`$，对配对目标没有作用。若 $`c(x)=g(\ell_0(x))`$，原分数相同的输入必然获得相同修正。当一个 A/P 配对与一个 C/F 配对具有相同的两端原分数时，这种修正也给出相同的修正差；若抵消 A/P 所需幅度超过 C/F 预算，两项要求无法同时满足。本文读取判断位置的内部表示，为区分干扰与证据引起的偏移提供额外信息。
+**修正需要分数之外的信息。** 输入无关的修正满足 $`\Delta c_i=0`$，对配对目标没有作用。用 $`g`$ 表示一个仅接收原分数的标量函数；若 $`c(x)=g(\ell_0(x))`$，原分数相同的输入必然获得相同修正。当一个 A/P 配对与一个 C/F 配对具有相同的两端原分数时，这种修正也给出相同的修正差；若抵消 A/P 所需幅度超过 C/F 预算，两项要求无法同时满足。本文读取判断位置的内部表示，为区分干扰与证据引起的偏移提供额外信息。
 
-**线性读出把两类要求写成可解的约束。** 固定内部特征 $`t(x)`$，取 $`c(x)=w^\top t(x)-\mu_c`$，则 $`\Delta c_i=w^\top\Delta t_i`$。A/P 平方损失关于 $`w`$ 为凸函数，C/F 预算对应线性不等式。选择输出读出使约束直接作用于最终分数差；将变化写回激活后，后续网络会继续变换该变化，需要通过完整前向重新计算其分数效应。M1、M2 固定后，M3 因而是一个凸二次规划。
-
-**表1：主要记号。**
-
-| 记号 | 含义 |
-|---|---|
-| $`o_\pm,\ell_0,\ell_c`$ | 答案 logit、原判断分数、修正分数 |
-| $`\phi_{i,h}`$ | 头 $`h`$ 对配对 $`i`$ 的对称修补贡献 |
-| $`\mathcal K_q,\mathcal H_{AP},\mathcal H_{CF}`$ | 候选头集合、干扰相关头集合、证据相关头集合 |
-| $`\mathbf z_{\mathcal H,m},\tilde{\mathbf z}_{\mathcal H,m}`$ | 所选头的拼接表示及其标准化表示 |
-| $`S_m,U_m,N_m`$ | 证据基、初始干扰基、投影后的读出基 |
-| $`t_m,c_m,\hat w_m`$ | 内部特征、分数修正、读出系数 |
-| $`\omega,g_i,\mathcal G`$ | 统一的加权规则、配对来源、来源集合 |
+**线性读出把两类要求写成可解的约束。** 记 $`t(x)`$ 为固定的内部特征向量，$`w`$ 为同维数的待学习系数，$`\mu_c`$ 为给定系数后的中心化常数。线性修正定义为 $`c(x)=w^\top t(x)-\mu_c`$，由差分约定得到 $`\Delta c_i=w^\top\Delta t_i`$。A/P 平方损失关于 $`w`$ 为凸函数，C/F 预算对应线性不等式。选择输出读出使约束直接作用于最终分数差；将变化写回激活后，后续网络会继续变换该变化，需要通过完整前向重新计算其分数效应。M1、M2 固定后，M3 因而是一个凸二次规划。
 
 ### 3.2 M1：判断位置的注意力头定位
 
 判断位置的注意力头汇集了当前节点与上下文的信息。在本文使用的标准 Transformer 中，注意力承担跨位置的信息传递，前馈网络在各位置分别计算。头输出经输出投影线性加入残差流；固定后续归一化尺度时，其沿残差直达答案 logit 的贡献具有线性形式。这一结构支持从头输出构造线性读出，完整前向中的总效应则由激活修补测量。用因果中介分析定位少数关键头已有先例（[Vig et al., 2020](https://arxiv.org/abs/2004.12265)）。
 
-M1 在最后一个输入词元、注意力输出投影之前读取头激活 $`\mathbf z_h(x)`$。定位分为梯度筛选与精确修补两阶段：梯度归因以一次局部线性近似估计大量头的作用，精确修补随后验证候选头的实际分数效应（[Nanda, 2023](https://www.neelnanda.io/mechanistic-interpretability/attribution-patching)）。梯度近似存在显著假阴性，修补结果也随评价指标而变化（[Kramár et al., 2024](https://arxiv.org/abs/2403.00745)；[Zhang & Nanda, 2024](https://arxiv.org/abs/2309.16042)）。因此，全流程固定使用同一二元 logit 差，候选阈值采用偏重召回的设置，并以全头精确修补评价筛选召回率。
+用 $`h`$ 索引一个包含层号的注意力头，$`\mathbf z_h(x)`$ 表示该头在最后一个输入词元、注意力输出投影之前的激活。定位分为梯度筛选与精确修补两阶段：梯度归因以一次局部线性近似估计大量头的作用，精确修补随后验证候选头的实际分数效应（[Nanda, 2023](https://www.neelnanda.io/mechanistic-interpretability/attribution-patching)）。梯度近似存在显著假阴性，修补结果也随评价指标而变化（[Kramár et al., 2024](https://arxiv.org/abs/2403.00745)；[Zhang & Nanda, 2024](https://arxiv.org/abs/2309.16042)）。因此，全流程固定使用同一二元 logit 差，候选阈值采用偏重召回的设置，并以全头精确修补评价筛选召回率。
 
-**两阶段效应估计。** 训练来源按指南划分为互斥折，每折在其余来源筛选候选，在该折留出的来源验证。令 $`\Delta\mathbf z_{i,h}=\mathbf z_h(x_i^R)-\mathbf z_h(x_i^L)`$，候选分数取两端梯度归因绝对值的加权平均：
+**两阶段效应估计。** 训练来源按指南划分为互斥折，每折在其余来源筛选候选，在该折留出的来源验证。记 $`q\in\{A,P,C,F\}`$ 为当前类别，$`\mathcal D_q`$ 为当前筛选来源内该类配对的索引集合，$`a_{q,h}`$ 为头的候选归因分数。头激活差按前述约定写为 $`\Delta\mathbf z_{i,h}=\mathbf z_h(x_i^R)-\mathbf z_h(x_i^L)`$，$`\nabla_{\mathbf z_h}\ell_0(x)`$ 表示判断分数对该头激活的梯度。候选分数取两端梯度归因绝对值的加权平均：
 
 ```math
 a_{q,h}=
@@ -142,7 +136,7 @@ a_{q,h}=
 }{2}.
 ```
 
-$`\omega_i(\mathcal D_q)`$ 表示统一配对权重在当前类别及筛选来源内的归一化形式。候选集合记为 $`\mathcal K_q`$，其稳健标准化与阈值细节见附录 B.7。对候选头，分别将右端激活移入左端输入、将左端激活移入右端输入，继续前向计算：
+候选集合记为 $`\mathcal K_q`$，其稳健标准化与阈值细节见附录 B.7。对候选头，分别将右端激活移入左端输入、将左端激活移入右端输入。对当前输入 $`x`$ 和供体输入 $`x'`$，将替换头激活并继续前向后得到的分数记为 $`\ell_0(x;\mathbf z_h\leftarrow\mathbf z_h(x'))`$。两向修补引起的分数变化分别记为 $`\Delta_{i,h}^{L\leftarrow R},\Delta_{i,h}^{R\leftarrow L}`$，对称修补贡献记为 $`\phi_{i,h}`$，定义为
 
 ```math
 \begin{aligned}
@@ -159,7 +153,7 @@ A/P 以 $`|\phi_{i,h}|`$ 衡量干扰贡献幅度；C/F 以 $`\phi_{i,h}(y_i^R-y
 
 **来源级统计与头集合。** 统计单位是指南来源。同一来源内的病例和改写先汇总为来源级效应，再对来源进行符号翻转检验和自助重采样。匹配对照在相同来源、配对类别与有序标签转换模式内交换供体。A/P 使用单侧检验识别高于对照的干扰幅度；C/F 使用双侧检验，覆盖同向和反向承载证据变化的通路。类别内多重检验采用 BH 校正，选择条件和稳定性阈值列于附录 B.7。
 
-最终集合为
+记 $`\mathcal H_q`$ 为类别 $`q`$ 中通过候选筛选、来源效应检验和稳定性条件的头集合。干扰相关集合、证据相关集合及模型最终使用的头集合分别记为 $`\mathcal H_{AP},\mathcal H_{CF},\mathcal H_m`$，按类别合并：
 
 ```math
 \mathcal H_{AP}=\mathcal H_A\cup\mathcal H_P,\qquad
@@ -167,7 +161,7 @@ A/P 以 $`|\phi_{i,h}|`$ 衡量干扰贡献幅度；C/F 以 $`\phi_{i,h}(y_i^R-y
 \mathcal H_m=\mathcal H_{AP}\cup\mathcal H_{CF}.
 ```
 
-干扰与证据在组件层面的共享由 $`|\mathcal H_{AP}\cap\mathcal H_{CF}|`$ 衡量，同时报告两类集合的大小与交集比例。M1 输出头索引、类别和修补效应，并向 M2 提供拼接表示
+集合两侧的竖线表示元素数。干扰与证据在组件层面的共享由 $`|\mathcal H_{AP}\cap\mathcal H_{CF}|`$ 衡量，同时报告两类集合的大小与交集比例。M1 输出头索引、类别和修补效应。记 $`d_m`$ 为所选头激活的总维数，$`\operatorname{Concat}`$ 为按固定头顺序拼接向量的操作，向 M2 提供的拼接表示 $`\mathbf z_{\mathcal H,m}(x)`$ 定义为
 
 ```math
 \mathbf z_{\mathcal H,m}(x)=
@@ -177,9 +171,9 @@ A/P 以 $`|\phi_{i,h}|`$ 衡量干扰贡献幅度；C/F 以 $`\phi_{i,h}(y_i^R-y
 
 ### 3.3 M2：证据正交的表示读出
 
-干扰与证据可以进入同一组头，M2 因而在所选表示中进一步分离可读方向。标准化、子空间估计和 M3 回归共用一套按类别、来源、病例及变体确定的权重规则；各子集使用归一化后的权重，端点权重由配对权重各分一半并合并重复端点得到（附录 B.7）。
+干扰与证据可以进入同一组头，M2 因而在所选表示中进一步分离可读方向。标准化、子空间估计和 M3 回归共用第3.1节的权重规则。训练配对中所有不同输入端点构成集合 $`\mathcal V_{\mathrm{pair}}`$，以 $`v`$ 索引其中一个端点，其权重记为 $`\omega_v^{\mathrm{pair}}`$；每个配对向两端各分一半权重，并合并重复端点（附录 B.7）。
 
-训练端点的加权均值和逐维标准差记为 $`\mu_m,\sigma_m`$，标准化表示与配对差为
+训练端点表示的加权均值和逐维标准差分别记为 $`\mu_m,\sigma_m`$，标准差下限见附录 B.7；$`\oslash`$ 表示逐元素除法。标准化表示记为 $`\tilde{\mathbf z}_{\mathcal H,m}(x)`$，其第 $`i`$ 个配对差记为 $`\Delta\tilde{\mathbf z}_{m,i}`$，定义为
 
 ```math
 \tilde{\mathbf z}_{\mathcal H,m}(x)
@@ -190,7 +184,7 @@ A/P 以 $`|\phi_{i,h}|`$ 衡量干扰贡献幅度；C/F 以 $`\phi_{i,h}(y_i^R-y
 -\tilde{\mathbf z}_{\mathcal H,m}(x_i^L).
 ```
 
-将加权差分按行组成矩阵 $`X_{CF,m}`$ 与 $`X_{AP,m}`$，分别取其主要右奇异向量，得到证据基 $`S_m`$ 和初始干扰基 $`U_m`$。投影后的读出基与内部特征为
+记 $`X_{Q,m}`$ 为类别组 $`Q\in\{AP,CF\}`$ 的训练加权差分矩阵，$`k_m`$ 为保留方向数的上限。算子 $`\operatorname{basis}_{k_m}`$ 提取至多 $`k_m`$ 个主要、非零右奇异方向，$`\operatorname{orth}`$ 对矩阵的列空间作正交归一化并去除数值零方向，$`I`$ 为所在空间的单位矩阵。证据基、初始干扰基、投影后的读出基分别记为 $`S_m,U_m,N_m`$，内部特征记为 $`t_m(x)`$。它们按以下顺序构造：
 
 ```math
 \begin{aligned}
@@ -205,85 +199,91 @@ t_m(x)=N_m^\top\tilde{\mathbf z}_{\mathcal H,m}(x).
 \end{aligned}
 ```
 
-各基按列正交归一，$`\operatorname{orth}`$ 去除数值零方向，故 $`S_m^\top N_m=0`$。子空间维度及数值阈值见附录 B.7。
+各基按列正交归一，故 $`S_m^\top N_m=0`$。内部特征的维数等于 $`N_m`$ 的列数；子空间维度及数值阈值见附录 B.7。
 
-**命题1（证据子空间内的精确保留）。** 对任意读出系数 $`w`$ 和任意配对，若 $`\Delta\tilde{\mathbf z}\in\operatorname{span}(S_m)`$，则 $`\Delta c=w^\top N_m^\top\Delta\tilde{\mathbf z}=0`$。
+**命题1（证据子空间内的精确保留）。** 记 $`\operatorname{span}(S_m)`$ 为证据基各列张成的子空间。对任意与内部特征同维的读出系数 $`w`$ 和任意配对 $`i`$，若 $`\Delta\tilde{\mathbf z}_{m,i}\in\operatorname{span}(S_m)`$，则 $`\Delta c_i=w^\top N_m^\top\Delta\tilde{\mathbf z}_{m,i}=0`$。
 
-证明：写成 $`\Delta\tilde{\mathbf z}=S_ma`$ 后，$`N_m^\top S_m=0`$ 直接给出结论。一般证据变化可分解为子空间内外两部分，因此
+证明：子空间条件保证存在坐标向量 $`a`$，使 $`\Delta\tilde{\mathbf z}_{m,i}=S_ma`$，再由 $`N_m^\top S_m=0`$ 得到结论。一般证据变化可分解为子空间内外两部分，因此
 
 ```math
 \Delta c_i=
 w^\top N_m^\top(I-S_mS_m^\top)\Delta\tilde{\mathbf z}_{m,i}.
 ```
 
-修正对证据的剩余响应全部来自 $`S_m`$ 之外且能被 $`N_m`$ 读到的分量，M3 对实际 C/F 配对约束这一部分。该保护同时放弃了对 $`S_m`$ 内干扰分量的修正。其代价用 A/P 差分落在 $`S_m`$ 内的加权能量比例，以及投影前后可预测性 $`R^2_{\mathrm{sep}}`$ 的变化衡量；二者分别描述被放弃的表示变化和可用于分数修正的信息。
+修正对证据的剩余响应全部来自 $`S_m`$ 之外且能被 $`N_m`$ 读到的分量，M3 对实际 C/F 配对约束这一部分。该保护同时放弃了对 $`S_m`$ 内干扰分量的修正。其代价用 A/P 差分落在证据子空间内的加权能量比例，以及投影前后可预测性的变化衡量；二者分别描述被放弃的表示变化和可用于分数修正的信息。
 
-**节点条件化与可证伪解释。** 读出发生在判断位置，此处表示已经随当前节点和完整输入共同变化。全局基是在这些节点条件化表示上估计的；其跨节点适用性通过按节点类型分层的可预测性、证据覆盖残差和任务结果检验。若“处置文字可充当条件定义的代理”解释成立，A 类方向应更接近证据方向。具体检验分别估计 $`U_A,U_P`$，在相同维数下比较它们与 $`S_m`$ 的主角度，预期 $`\theta_j(U_A,S_m)<\theta_j(U_P,S_m)`$；报告角度分布与来源重采样区间。
+**节点条件化与可证伪解释。** 读出发生在判断位置，此处表示已经随当前节点和完整输入共同变化。全局基是在这些节点条件化表示上估计的；其跨节点适用性通过按节点类型分层的可预测性、证据覆盖残差和任务结果检验。若“处置文字可充当条件定义的代理”解释成立，A 类方向应更接近证据方向。分别用 A、P 训练差分估计同维数的初始干扰基，记为 $`U_A,U_P`$。对两个列正交基 $`B_1,B_2`$，以 $`j`$ 索引从小到大排序的主角度，第 $`j`$ 个角度记为 $`\theta_j(B_1,B_2)`$，由 $`B_1^\top B_2`$ 的第 $`j`$ 大奇异值取反余弦得到。可检验的预期为 $`\theta_j(U_A,S_m)<\theta_j(U_P,S_m)`$；报告角度分布与来源重采样区间。
 
 M2 投影的是读出方向。AlphaEdit 将参数扰动投影到保留知识的零空间，SEA 则通过谱分解编辑输入激活（[Fang et al., 2025](https://proceedings.iclr.cc/paper_files/paper/2025/hash/29c8c615b3187ee995029284702d3f43-Abstract-Conference.html)；[Qiu et al., 2024](https://proceedings.neurips.cc/paper_files/paper/2024/hash/684c59d614fe6ae74a3be8c3ef07e061-Abstract-Conference.html)）。ASTER-CR 将投影结果用于计算附加分数，原前向中的激活和参数保持固定。
 
 ### 3.4 M3：证据约束的分数修正
 
-M3 从 A/P 配对分数差学习修正，并用 C/F 配对限定证据响应的改动。固定 M1、M2 后，$`\Delta t_{m,i}=t_m(x_i^R)-t_m(x_i^L)`$ 为已知特征，读出系数由以下凸二次规划确定：
+M3 从 A/P 配对分数差学习修正，并用 C/F 配对限定证据响应的改动。固定 M1、M2 后，内部特征差 $`\Delta t_{m,i}=t_m(x_i^R)-t_m(x_i^L)`$ 已知。沿用第3.1节的线性系数 $`w`$，将训练 A/P 的加权平方损失记为 $`L_{AP}(w)`$，定义为
+
+```math
+L_{AP}(w)=
+\sum_{i\in\mathcal I_{AP}^{\mathrm{train}}}
+\omega_i(\mathcal I_{AP}^{\mathrm{train}})
+\bigl(\Delta\ell_{0,i}+w^\top\Delta t_{m,i}\bigr)^2.
+```
+
+**预算与凸优化。** 记 $`\kappa\geq0`$ 为无量纲预算参数，$`\delta_m`$ 为模型 $`m`$ 的证据预算，$`\operatorname{median}`$ 表示中位数。预算用训练 C/F 的原分数变化定标：
+
+```math
+\delta_m=\kappa\,
+\operatorname{median}_{i\in\mathcal I_{CF}^{\mathrm{train}}}
+|\Delta\ell_{0,i}|.
+```
+
+整体分数单位改变时，预算随之等比例变化；中位数为零时，定义给出 $`\delta_m=0`$。给定正的岭正则系数 $`\lambda_m`$，将最优读出系数记为 $`\hat w_m`$。它由以下凸二次规划确定：
 
 ```math
 \begin{aligned}
 \hat w_m=\arg\min_w\quad&
 L_{AP}(w)+\lambda_m\|w\|_2^2,\\
-L_{AP}(w)&=
-\sum_{i\in\mathcal I_{AP}^{\mathrm{train}}}
-\omega_i(\mathcal I_{AP}^{\mathrm{train}})
-\bigl(\Delta\ell_{0,i}+w^\top\Delta t_{m,i}\bigr)^2,\\
 \text{subject to}\quad&
 -\delta_m\leq w^\top\Delta t_{m,i}\leq\delta_m,
 \quad i\in\mathcal I_{CF}^{\mathrm{train}}.
 \end{aligned}
 ```
 
-$`\lambda_m>0`$ 控制读出系数的大小，并使目标严格凸。对任何 $`\delta_m\geq0`$，$`w=0`$ 恒可行，故最优解满足
+正则项控制读出系数的大小，并使目标严格凸。对任何 $`\delta_m\geq0`$，$`w=0`$ 恒可行，故最优解满足
 
 ```math
 L_{AP}(\hat w_m)+\lambda_m\|\hat w_m\|_2^2
 \leq L_{AP}(0).
 ```
 
-因此，训练集上的 A/P 加权平方分数差不会增加；$`\delta_m=0`$ 时，训练 C/F 的分数响应完全保持。留出配对的证据改动由附录 A 的覆盖残差界和实测共同刻画。
+因此，训练集上的 A/P 加权平方分数差不会增加；$`\delta_m=0`$ 时，训练 C/F 的分数响应完全保持。留出配对的证据改动由附录 A 的覆盖残差界和实测共同刻画。图3以 $`\kappa`$ 扫描生成 ASTER-CR 的干扰抑制—证据改动曲线，并与基线的强度曲线比较。
 
-**预算与证据响应。** 预算用训练 C/F 的原分数变化定标：
-
-```math
-\delta_m=\kappa\,
-\operatorname{median}_{i\in\mathcal I_{CF}^{\mathrm{train}}}
-|\Delta\ell_{0,i}|,
-\qquad \kappa\geq0.
-```
-
-$`\kappa`$ 是无量纲参数；整体分数单位改变时，预算随之等比例变化。中位数为零时，定义给出 $`\delta_m=0`$。图3以 $`\kappa`$ 扫描生成 ASTER-CR 的干扰抑制—证据改动曲线，并与基线的强度曲线比较。
-
-证据约束以原模型的 C/F 响应为保持对象，A/P 监督则负责识别待消除的分数变化。增强 C/F 响应会引入额外的证据监督目标。因此，实验同时报告原模型和修正后的 C/F 方向正确率
+**证据响应的评价。** 证据约束以原模型的 C/F 响应为保持对象，A/P 监督则负责识别待消除的分数变化。增强 C/F 响应会引入额外的证据监督目标。因此，实验同时报告原模型和修正后的 C/F 方向正确率。对待评价分数函数 $`\ell`$，按第3.1节约定计算 $`\Delta\ell_i`$；方向正确率记为 $`\operatorname{DirAcc}_{CF}(\ell)`$，定义为
 
 ```math
 \operatorname{DirAcc}_{CF}(\ell)
 =\frac{1}{|\mathcal I_{CF}^{\mathrm{eval}}|}
 \sum_{i\in\mathcal I_{CF}^{\mathrm{eval}}}
-\mathbf1\!\left[(y_i^R-y_i^L)\Delta\ell_i>0\right],
+\mathbf1\!\left[(y_i^R-y_i^L)\Delta\ell_i>0\right].
 ```
 
-并报告双端全对率及原正向配对的方向退化数，以说明被保留的响应是否符合真值变化。
+实验还报告双端全对率及原正向配对的方向退化数，以说明被保留的响应是否符合真值变化。
 
-**中心化与判断。** 修正函数刻意不设置独立可训练截距，判断变化由随输入变化的读出项决定。训练端点权重 $`\omega_v^{\mathrm{pair}}`$ 与 M2 标准化一致，中心化常数及最终分数为
+**中心化与判断。** 修正函数刻意不设置独立可训练截距，判断变化由随输入变化的读出项决定。中心化使用 M2 的训练端点集合 $`\mathcal V_{\mathrm{pair}}`$ 和权重 $`\omega_v^{\mathrm{pair}}`$。将模型对应的中心化常数、修正函数和最终分数分别记为 $`\mu_{c,m},c_m(x),\ell_{c,m}(x)`$，依次定义为
 
 ```math
-\mu_{c,m}=\sum_v\omega_v^{\mathrm{pair}}\hat w_m^\top t_m(v),
-\qquad
-c_m(x)=\hat w_m^\top t_m(x)-\mu_{c,m},
-\qquad
-\ell_{c,m}(x)=\ell_0(x)+c_m(x).
+\begin{aligned}
+\mu_{c,m}
+&=\sum_{v\in\mathcal V_{\mathrm{pair}}}
+\omega_v^{\mathrm{pair}}\hat w_m^\top t_m(v),\\
+c_m(x)
+&=\hat w_m^\top t_m(x)-\mu_{c,m}
+=\hat w_m^\top N_m^\top\tilde{\mathbf z}_{\mathcal H,m}(x)-\mu_{c,m},\\
+\ell_{c,m}(x)&=\ell_0(x)+c_m(x).
+\end{aligned}
 ```
 
-$`\mu_{c,m}`$ 由特征与系数确定，不是自由参数。在同一端点分布上精确计算加权标准化时，$`\sum_v\omega_v^{\mathrm{pair}}t_m(v)=0`$，从而 $`\mu_{c,m}=0`$；保留该项明确中心化约定。任意配对中该常数均抵消，故 $`\Delta c_{m,i}=\hat w_m^\top\Delta t_{m,i}`$。
+该式汇总了三个模块：头集合确定表示来源，读出基选择可读分量，读出系数确定修正幅度。中心化常数由特征与系数确定。在同一端点分布上精确计算加权标准化时，$`\sum_{v\in\mathcal V_{\mathrm{pair}}}\omega_v^{\mathrm{pair}}t_m(v)=0`$，从而 $`\mu_{c,m}=0`$；保留该项明确中心化约定。任意配对中该常数均抵消，故模型对应的修正差满足 $`\Delta c_{m,i}=\hat w_m^\top\Delta t_{m,i}`$。
 
-固定修正后，使用训练来源的自然节点和同一来源均衡规则拟合正比例系数 $`\beta_m>0`$，最小化加权二元交叉熵，得到
+固定修正后，使用训练来源的自然节点和同一来源均衡规则拟合正比例系数 $`\beta_m>0`$，将加权二元交叉熵最小化得到的系数记为 $`\hat\beta_m`$。对实数自变量 $`a`$，定义 sigmoid 函数 $`\operatorname{sigmoid}(a)=1/(1+\exp(-a))`$。最终正类概率记为 $`p_m(y=1\mid x)`$，二元预测记为 $`\hat y_m(x)`$，计算为
 
 ```math
 p_m(y=1\mid x)=\operatorname{sigmoid}(\hat\beta_m\ell_{c,m}(x)),
@@ -294,6 +294,18 @@ p_m(y=1\mid x)=\operatorname{sigmoid}(\hat\beta_m\ell_{c,m}(x)),
 正比例校准保持判断分支。A/P 与 C/F 的分数指标统一在校准前的 $`\ell_{c,m}`$ 上计算，概率质量在校准后的输出上评价。
 
 LitCab 同样从内部表示通过线性层预测附加 logit 偏置，用于语言模型校准（[Liu, Khalifa & Wang, 2024](https://openreview.net/forum?id=jH67LHVOIO)）。ASTER-CR 的方法区别在于三项联合设计：监督来自 A/P 配对分数差，读出方向与估计证据子空间正交，修正量受 C/F 逐对证据预算约束。这三项设计分别由可预测性分析、去投影消融和去约束消融检验。
+
+**表1：主要记号汇总。**
+
+| 记号 | 含义 |
+|---|---|
+| $`o_\pm,\ell_0,\ell_c`$ | 答案 logit、原判断分数、修正分数 |
+| $`\phi_{i,h}`$ | 头 $`h`$ 对配对 $`i`$ 的对称修补贡献 |
+| $`\mathcal K_q,\mathcal H_{AP},\mathcal H_{CF}`$ | 候选头集合、干扰相关头集合、证据相关头集合 |
+| $`\mathbf z_{\mathcal H,m},\tilde{\mathbf z}_{\mathcal H,m}`$ | 所选头的拼接表示及其标准化表示 |
+| $`S_m,U_m,N_m`$ | 证据基、初始干扰基、投影后的读出基 |
+| $`t_m,c_m,\hat w_m`$ | 内部特征、分数修正、读出系数 |
+| $`\omega_i,g_i,\mathcal G`$ | 配对基础权重、配对来源、来源集合 |
 
 ## 4 实验
 
@@ -313,7 +325,41 @@ LitCab 同样从内部表示通过线性层预测附加 logit 偏置，用于语
 
 #### 4.1.2 双重分离、干扰抑制与证据保持
 
-表2将方法需要的两个条件放在同一评价中：证据正交特征能否预测 A/P 分数差，以及 C/F 变化在该特征中剩余多少。全部数值使用同一训练配置、来源划分和冻结特征，$`R^2_{\mathrm{sep}}`$ 与证据覆盖残差的定义见附录 A。
+表2将方法需要的两个条件放在同一评价中：证据正交特征能否预测 A/P 分数差，以及 C/F 变化在该特征中剩余多少。全部数值使用同一训练配置、来源划分和冻结特征。
+
+**可分离可预测性。** 固定模型 $`m`$，将去掉 M3 证据约束、保留相同训练损失和岭系数后得到的读出记为 $`w_{\mathrm{ridge}}`$，即
+
+```math
+w_{\mathrm{ridge}}
+=\arg\min_w\left[L_{AP}(w)+\lambda_m\|w\|_2^2\right].
+```
+
+记 $`\mathcal J_{AP}\subseteq\mathcal I_{AP}^{\mathrm{eval}}`$ 为当前评价的非空 A/P 子集，$`L_{AP,\mathcal J_{AP}}(w)`$ 为该子集上的加权平方残差。将相对零修正的残差降低比例称为可分离可预测性，记为 $`R^2_{\mathrm{sep}}(\mathcal J_{AP})`$，依次定义为
+
+```math
+\begin{aligned}
+L_{AP,\mathcal J_{AP}}(w)
+&=\sum_{i\in\mathcal J_{AP}}\omega_i(\mathcal J_{AP})
+\bigl(\Delta\ell_{0,i}+w^\top\Delta t_{m,i}\bigr)^2,\\
+R^2_{\mathrm{sep}}(\mathcal J_{AP})
+&=1-\frac{L_{AP,\mathcal J_{AP}}(w_{\mathrm{ridge}})}
+{L_{AP,\mathcal J_{AP}}(0)}.
+\end{aligned}
+```
+
+分母为零时该指标记为不适用。评价使用冻结的训练读出；同一公式应用于训练配对时描述拟合能力。
+
+**证据覆盖残差。** 记 $`\mathcal J_{CF}\subseteq\mathcal I_{CF}^{\mathrm{eval}}`$ 为当前评价的非空 C/F 子集，$`R_{\mathrm{cov}}(\mathcal J_{CF})`$ 为证据变化经过读出映射后的加权均方根：
+
+```math
+R_{\mathrm{cov}}(\mathcal J_{CF})
+=
+\sqrt{\sum_{i\in\mathcal J_{CF}}\omega_i(\mathcal J_{CF})
+\left\|N_m^\top(I-S_mS_m^\top)
+\Delta\tilde{\mathbf z}_{m,i}\right\|_2^2}.
+```
+
+该指标衡量证据子空间之外仍可被读出的变化。附录 A 给出岭解的闭式表达及该残差对应的证据改动界。
 
 | 信息来源及配对类别 | 可分离可预测性 $`R^2_{\mathrm{sep}}`$ ↑ | 证据覆盖残差 $`R_{\mathrm{cov}}`$ ↓ |
 |---|---:|---:|
@@ -321,7 +367,7 @@ LitCab 同样从内部表示通过线性层预测附加 logit 偏置，用于语
 | 患者信息：P / F | 待测（P） | 待测（F） |
 | 总体：A/P / C/F | 待测（A/P） | 待测（C/F） |
 
-**表2：干扰可预测性与证据覆盖的双重分离。** 每行第一列使用保持配对，第二列使用翻转配对；开发来源与留出来源分别报告，并按节点类型分层。表中指标对应第3节修订后的方法，结果待补。历史中心化 $`R^2`$ 及含截距配置的结果保留各自口径。
+**表2：干扰可预测性与证据覆盖的双重分离。** 每行第一列使用保持配对，第二列使用翻转配对；开发来源与留出来源分别报告，并按节点类型分层。表中指标对应第3节修订后的方法，结果待补。历史中心化决定系数及含截距配置的结果保留各自口径。
 
 ![图2：历史先导实验中的干扰抑制与证据改动](figures/fig02_pilot_tradeoff.svg)
 
@@ -495,7 +541,7 @@ E1在开发集自然完整路径上为385/420，E2为384/420；E1相对E2的差�
 E1开发集的预算敏感性显示，较小预算降低C/F修正RMS，但A/P方差抑制可能消失；较大预算提高A/P方差降低率，同时增加证据改动。以默认预算0.2923349 logit为参照，0.05预算的VR为−0.01%、C/F修正RMS为0.07 logit；0.25预算的VR为2.16%、C/F修正RMS为0.26 logit。该结果体现干扰抑制与证据保护之间的连续取舍，不构成测试集上的重新选型。
 
 
-**图3（待补）：新方法预算曲线与基线强度曲线。** 固定 M1、M2 和来源划分，扫描 $`\kappa`$ 并记录对应 $`\delta`$；各基线扫描自己的干预强度。主面板以留出 A/P 方差降低率为横轴、C/F 修正 RMS 为纵轴，并列方向正确率和预算超出比例。所有点使用相同评价配对与来源区间；选参使用开发来源，测试报告冻结的整组扫描点。新预算曲线的实测状态见[实验框架](experiments.zh.md)。
+**图3（待补）：新方法预算曲线与基线强度曲线。** 固定 M1、M2 和来源划分，扫描 $`\kappa`$ 并记录对应 $`\delta_m`$；各基线扫描自己的干预强度。主面板以留出 A/P 方差降低率为横轴、C/F 修正 RMS 为纵轴，并列方向正确率和预算超出比例。所有点使用相同评价配对与来源区间；选参使用开发来源，测试报告冻结的整组扫描点。新预算曲线的实测状态见[实验框架](experiments.zh.md)。
 
 
 #### 4.2.4 函数容量与修正位置
@@ -653,18 +699,18 @@ E7的冻结跨任务评价覆盖五个模型的20个模型—任务总体，结�
 
 ## 附录 A 可分离可预测性与证据覆盖
 
-本附录用两个可测量的量刻画方法的作用：$`R^2_{\mathrm{sep}}`$ 衡量证据正交特征对 A/P 分数差的预测能力，证据覆盖残差衡量 C/F 变化经过同一特征映射后剩余的幅度。以下固定模型并省略下标 $`m`$，所有特征、标准化参数和子空间均由训练来源估计。
+本附录分析第4.1.2节定义的两个量：可分离可预测性 $`R^2_{\mathrm{sep}}`$ 与证据覆盖残差 $`R_{\mathrm{cov}}`$。前者衡量证据正交特征对 A/P 分数差的预测能力，后者衡量 C/F 变化经过同一特征映射后剩余的幅度。以下固定模型并省略模型下标 $`m`$，将标准化拼接表示简写为 $`\tilde{\mathbf z}`$，其配对差简写为 $`\Delta\tilde{\mathbf z}_i`$。所有特征、标准化参数和子空间均由训练来源估计。
 
 ### A.1 可分离可预测性
 
-固定 M2 的 $`t(x)=N^\top\tilde{\mathbf z}(x)`$，将训练 A/P 的原分数差记为向量 $`b`$，将 $`\Delta t_i^\top`$ 按行组成矩阵 $`T`$，归一化权重组成对角矩阵 $`W`$。使用与 M3 相同的 $`\lambda>0`$，定义去掉 C/F 约束后的岭解
+固定 M2 的 $`t(x)=N^\top\tilde{\mathbf z}(x)`$，按同一配对顺序，将训练 A/P 的原分数差组成向量 $`b`$，将 $`\Delta t_i^\top`$ 按行组成矩阵 $`T`$，将权重 $`\omega_i(\mathcal I_{AP}^{\mathrm{train}})`$ 组成对角矩阵 $`W`$。使用与 M3 相同的 $`\lambda>0`$，第4.1.2节定义的无约束岭解可写为
 
 ```math
 w_{\mathrm{ridge}}
 =-(T^\top WT+\lambda I)^{-1}T^\top Wb.
 ```
 
-它预测的干扰分数差为 $`-\Delta t_i^\top w_{\mathrm{ridge}}`$。在任一评价集合 $`\mathcal J\subseteq AP`$ 上，使用冻结的训练解定义
+它预测的干扰分数差为 $`-\Delta t_i^\top w_{\mathrm{ridge}}`$。记 $`\mathcal J`$ 为任一非空 A/P 训练或评价配对子集，将第4.1.2节的可分离可预测性展开为
 
 ```math
 R^2_{\mathrm{sep}}(\mathcal J)
@@ -681,7 +727,7 @@ R^2_{\mathrm{sep}}(\mathcal J)
 
 该量以零修正为参照，是与无截距 A/P 平方损失一致的解释比例。分母为零时记为不适用。训练值描述当前特征和正则强度下的拟合能力；来源留出值描述同一读出的预测能力，留出数据不重新拟合系数。
 
-已有实验使用的中心化决定系数以 $`\sum_i\omega_i(b_i-\bar b_\omega)^2`$ 为分母；其数值保留原定义。表2的 $`R^2_{\mathrm{sep}}`$ 需要按上述零修正参照重新计算。两种口径在原分数差的加权均值为零时一致。
+对当前配对子集 $`\mathcal J`$，记 $`b_i=\Delta\ell_{0,i}`$，其加权均值为 $`\bar b_\omega=\sum_{i\in\mathcal J}\omega_i(\mathcal J)b_i`$。已有实验使用的中心化决定系数以 $`\sum_{i\in\mathcal J}\omega_i(\mathcal J)(b_i-\bar b_\omega)^2`$ 为分母；其数值保留原定义。表2的 $`R^2_{\mathrm{sep}}`$ 需要按上述零修正参照重新计算。两种口径在原分数差的加权均值为零时一致。
 
 ### A.2 命题2：任意配对的证据改动界
 
@@ -706,7 +752,7 @@ R^2_{\mathrm{sep}}(\mathcal J)
 
 对右式应用 Cauchy–Schwarz 不等式即得。证明对配对是否参加训练没有要求。
 
-定义特征映射中的证据覆盖残差
+将第 $`i`$ 个配对在特征映射中的证据覆盖残差记为 $`r_{\mathrm{cov},i}`$，定义为
 
 ```math
 r_{\mathrm{cov},i}
@@ -714,7 +760,7 @@ r_{\mathrm{cov},i}
 \left\|N^\top(I-SS^\top)\Delta\tilde{\mathbf z}_i\right\|_2.
 ```
 
-若证据变化位于 $`\operatorname{span}(S)`$，则该残差为零，恢复正文命题1。对评价集合 $`\mathcal J\subseteq CF`$，定义
+若证据变化位于 $`\operatorname{span}(S)`$，则该残差为零，恢复正文命题1。本节以 $`\mathcal J`$ 表示非空 C/F 评价配对子集，第4.1.2节的总体证据覆盖残差可写为
 
 ```math
 R_{\mathrm{cov}}(\mathcal J)
@@ -722,7 +768,7 @@ R_{\mathrm{cov}}(\mathcal J)
 \sqrt{\sum_{i\in\mathcal J}\omega_i(\mathcal J)r_{\mathrm{cov},i}^2}.
 ```
 
-相同权重下的证据修正 RMS 满足
+记 $`\operatorname{RMS}_{\omega}(\Delta c;\mathcal J)`$ 为同一集合上证据修正差的加权均方根，即 $`\sqrt{\sum_{i\in\mathcal J}\omega_i(\mathcal J)(\Delta c_i)^2}`$。由命题2可得
 
 ```math
 \operatorname{RMS}_{\omega}(\Delta c;\mathcal J)
@@ -740,7 +786,7 @@ R_{\mathrm{cov}}(\mathcal J)
 |w_{\mathrm{ridge}}^\top\Delta t_i|\leq\delta,
 ```
 
-则它也是 M3 的唯一最优解。证明：严格凸目标在整个系数空间的唯一最小点已位于可行域，限制到该可行域后最小点保持不变。因此 $`\hat w=w_{\mathrm{ridge}}`$，任一采用相同权重口径的 A/P 评价集合均满足
+则它也是 M3 的唯一最优解。证明：严格凸目标在整个系数空间的唯一最小点已位于可行域，限制到该可行域后最小点保持不变。因此 $`\hat w=w_{\mathrm{ridge}}`$。本节以 $`\mathcal J`$ 表示非空 A/P 评价配对子集，沿用第4.1.2节定义的加权平方残差 $`L_{AP,\mathcal J}`$，得到
 
 ```math
 L_{AP,\mathcal J}(\hat w)
@@ -765,19 +811,21 @@ $`\delta=0`$ 时，所有训练 C/F 满足 $`\Delta c_i=0`$；若其痕迹差矩
 
 ### A.4 保护的代价与表2的对应关系
 
-M2 明确放弃证据子空间内的 A/P 变化。其表示层代价可测为
+M2 明确放弃证据子空间内的 A/P 变化。记 $`\mathcal J_{AP}`$ 为当前非空 A/P 评价配对子集，以 $`E_{AP,\parallel}`$ 表示其表示差分落在证据子空间内的加权能量比例，定义为
 
 ```math
 E_{AP,\parallel}
 =
 \frac{
-\sum_{i\in AP}\omega_i\|S^\top\Delta\tilde{\mathbf z}_i\|_2^2
+\sum_{i\in\mathcal J_{AP}}\omega_i(\mathcal J_{AP})
+\|S^\top\Delta\tilde{\mathbf z}_i\|_2^2
 }{
-\sum_{i\in AP}\omega_i\|\Delta\tilde{\mathbf z}_i\|_2^2
+\sum_{i\in\mathcal J_{AP}}\omega_i(\mathcal J_{AP})
+\|\Delta\tilde{\mathbf z}_i\|_2^2
 }.
 ```
 
-该能量比例衡量被保护子空间覆盖了多少干扰变化。分数层面进一步比较 $`U^\top\tilde{\mathbf z}`$ 与 $`N^\top\tilde{\mathbf z}`$ 在同一来源划分和正则设置下的预测结果，报告投影前后的 $`R^2`$ 差值。投影会改变可读方向，预测差值按实测正负报告。
+该能量比例衡量被保护子空间覆盖了多少干扰变化，分母为零时记为不适用。分数层面进一步比较 $`U^\top\tilde{\mathbf z}`$ 与 $`N^\top\tilde{\mathbf z}`$ 在同一来源划分和正则设置下的预测结果，均以 A.1 的零修正残差为参照，报告投影前后的解释比例差值。投影会改变可读方向，预测差值按实测正负报告。
 
 表2的第一列检验能否从证据正交特征预测 A/P 分数差，第二列检验 C/F 变化在这些特征中还剩多少。按 A/C、P/F 和总体分别统计，可将处置与条件的共享、背景与事实的分离落实到同一评价框架。各节点类型另作分层统计，连接全局子空间与节点条件化的适用范围。
 
@@ -785,7 +833,7 @@ E_{AP,\parallel}
 
 ### B.1 完整指标与计分约定
 
-**分数与配对方向。** 二元任务固定“是/否”或“蕴含/矛盾”的正负映射，用两个答案词元的 logit 差作为分数。为比较同一基础模型上的不同方法，用 $`r`$ 区分评价方法。固定基础模型 $`m`$ 后，方法 $`r`$ 的任务级校准前分数记为 $`\ell^{(r)}(x)`$，最终二元预测记为 $`\hat y^{(r)}(x)`$。原模型预测对应 $`\hat y^{(0)}=\hat y_0`$。原模型对应 $`r=0`$，满足 $`\ell^{(0)}=\ell_0`$，ASTER-CR 满足 $`\ell^{(\mathrm{ASTER})}=\ell_{c,m}`$，相应配对修正差满足 $`\Delta c_i^{(\mathrm{ASTER})}=\Delta c_{m,i}`$。记 $`\mathcal I_{AP}^{\mathrm{eval}}`$ 与 $`\mathcal I_{CF}^{\mathrm{eval}}`$ 为当前评价中的 A/P 与 C/F 配对索引集合。对第 $`i`$ 组配对，左、右输入为 $`x_i^L,x_i^R`$，原模型与方法分数差及修正差分别为
+**分数与配对方向。** 二元任务固定“是/否”或“蕴含/矛盾”的正负映射，用两个答案词元的 logit 差作为分数。为比较同一基础模型上的不同方法，用 $`r`$ 区分评价方法，$`r=0`$ 表示原模型。固定基础模型 $`m`$ 后，方法 $`r`$ 的任务级校准前分数记为 $`\ell^{(r)}(x)`$，最终二元预测记为 $`\hat y^{(r)}(x)`$；原模型满足 $`\ell^{(0)}=\ell_0`$、$`\hat y^{(0)}=\hat y_0`$，ASTER-CR 满足 $`\ell^{(\mathrm{ASTER})}=\ell_{c,m}`$。沿用第3.1节的评价配对集合和左右端点记号，将方法分数差记为 $`\Delta\ell_i^{(r)}`$，相对原模型的修正差记为 $`\Delta c_i^{(r)}`$，定义为
 ```math
 \begin{aligned}
 \Delta\ell_{0,i}&=\ell_0(x_i^R)-\ell_0(x_i^L),\\
@@ -793,15 +841,15 @@ E_{AP,\parallel}
 \Delta c_i^{(r)}&=\Delta\ell_i^{(r)}-\Delta\ell_{0,i}.
 \end{aligned}
 ```
-第 3.4 节的二元正类预测使用 $`\ell_{c,m}(x)>0`$，与正比例校准后的 $`p_m(y=1\mid x)>0.5`$ 等价，等于阈值时归负类。A/P 与 C/F 机制指标使用概率校准前的分数。历史配置的共享截距在配对分数差中抵消。真实模型分数以 logit 计，合成分数以生成模型的分数单位计，二者不直接合并。MedPIC 的机制配对在对齐选项层面使用二元分数；其最终任务决策则在完整合法答案集合上进行。
+ASTER-CR 的配对修正差对应 $`\Delta c_i^{(\mathrm{ASTER})}=\Delta c_{m,i}`$。第 3.4 节的二元正类预测使用 $`\ell_{c,m}(x)>0`$，与正比例校准后的 $`p_m(y=1\mid x)>0.5`$ 等价，等于阈值时归负类。A/P 与 C/F 机制指标使用概率校准前的分数。历史配置的共享截距在配对分数差中抵消。真实模型分数以 logit 计，合成分数以生成模型的分数单位计，二者不直接合并。MedPIC 的机制配对在对齐选项层面使用二元分数；其最终任务决策则在完整合法答案集合上进行。
 
-**干扰指标。** 主文的干扰 RMS 对合格 A/P 配对求均方根：
+**干扰指标。** 将方法 $`r`$ 的干扰均方根记为 $`\mathrm{RMS}_{AP}(r)`$，对合格 A/P 配对计算：
 ```math
 \mathrm{RMS}_{AP}(r)
 =\sqrt{\frac{1}{|\mathcal I_{AP}^{\mathrm{eval}}|}
 \sum_{i\in\mathcal I_{AP}^{\mathrm{eval}}}(\Delta\ell_i^{(r)})^2}.
 ```
-辅助 VR 定义为
+以 $`\mathrm{Var}`$ 表示同一评价配对集合上的中心化总体方差，辅助方差降低率 $`\mathrm{VR}`$ 定义为
 ```math
 \mathrm{VR}(r)
 =100\left[
@@ -809,7 +857,7 @@ E_{AP,\parallel}
 {\mathrm{Var}_{i\in\mathcal I_{AP}^{\mathrm{eval}}}(\Delta\ell_{0,i})}
 \right].
 ```
-两种方差均为同一配对集合的中心化总体方差。VR 可为负；原方差为零时未定义。干扰差分预测的决定系数定义为
+VR 可为负；原方差为零时未定义。记 $`\overline{\Delta\ell_0}`$ 为原分数差在当前 A/P 评价集合上的算术平均，将干扰差分预测的中心化决定系数记为 $`R^2(r)`$，定义为
 ```math
 R^2(r)
 =1-\frac{\sum_{i\in\mathcal I_{AP}^{\mathrm{eval}}}(\Delta\ell_i^{(r)})^2}
@@ -818,7 +866,7 @@ R^2(r)
 ```
 其中，预测要移除的干扰分数差为 $`\Delta\ell_{0,i}-\Delta\ell_i^{(r)}=-\Delta c_i^{(r)}`$，修正后的分数差 $`\Delta\ell_i^{(r)}`$ 是预测残差。该决定系数与 VR 相差残差均值项，不作为另一项独立机制发现。VR 不度量平均偏移，这也是正文优先报告 RMS 的原因。
 
-**证据响应与改动。** 对标签翻转配对，定义 $`d_i=y_i^R-y_i^L\in\{-1,+1\}`$、$`R_{0,i}=d_i\Delta\ell_{0,i}`$、$`R_i^{(r)}=d_i\Delta\ell_i^{(r)}`$。有向响应保留率为
+**证据响应与改动。** 对标签翻转配对，将真值变化方向记为 $`d_i`$，原模型与方法 $`r`$ 的有向响应分别记为 $`R_{0,i},R_i^{(r)}`$，定义 $`d_i=y_i^R-y_i^L\in\{-1,+1\}`$、$`R_{0,i}=d_i\Delta\ell_{0,i}`$、$`R_i^{(r)}=d_i\Delta\ell_i^{(r)}`$。有向响应保留率记为 $`\mathrm{ER}(r)`$，计算为
 ```math
 \mathrm{ER}(r)
 =100\frac{\sum_{i\in\mathcal I_{CF}^{\mathrm{eval}}}d_i\Delta\ell_i^{(r)}}
@@ -826,19 +874,19 @@ R^2(r)
 ```
 它是有向响应总和的比值，不是逐对比值均值。原分母为非正、零或接近零时，不能把保留比例解释为正确证据利用，应同时给出原量纲响应。100%仅表示保留平均响应。例如两对原响应均为1，修改后为3和−1，平均保留仍为100%，但一对已反向。
 
-证据修正 RMS 为
+证据修正均方根记为 $`\mathrm{RMS}_{\mathrm{corr},CF}(r)`$，定义为
 ```math
 \mathrm{RMS}_{\mathrm{corr},CF}(r)
 =\sqrt{\frac{1}{|\mathcal I_{CF}^{\mathrm{eval}}|}
 \sum_{i\in\mathcal I_{CF}^{\mathrm{eval}}}(\Delta c_i^{(r)})^2}.
 ```
-补充归一化量定义为
+以原模型的 A/P 干扰均方根 $`\mathrm{RMS}_{AP}(0)`$ 作为尺度，将归一化证据改动记为 $`\mathrm{DU}(r)`$，定义为
 ```math
 \mathrm{DU}(r)
 =\frac{\mathrm{RMS}_{\mathrm{corr},CF}(r)}
 {\mathrm{RMS}_{AP}(0)},
 ```
-其中 $`\mathrm{RMS}_{AP}(0)`$ 是原模型在 A/P 配对上的干扰 RMS；分母为零时 DU 未定义。DU 乘以 100 后以百分比展示，不与 ER 混淆。另报告 $`|\Delta c_i^{(r)}|`$ 的中位数、第 95 百分位和最大值，以及超预算比例
+分母为零时 DU 未定义。DU 乘以 100 后以百分比展示，不与 ER 混淆。另报告 $`|\Delta c_i^{(r)}|`$ 的中位数、第 95 百分位和最大值，以及超预算比例 $`\mathrm{Exceed}_{\delta_m}(r)`$：
 ```math
 \mathrm{Exceed}_{\delta_m}(r)
 =\frac{1}{|\mathcal I_{CF}^{\mathrm{eval}}|}
@@ -847,13 +895,13 @@ R^2(r)
 ```
 这些指标使用原训练预算，不根据测试响应重新定阈值。正文仅呈现已有记录支持的数字；尚未重算的尾部指标不填示例实测。
 
-**方向退化。** 定义原模型和修正后方法的有向响应 $`R_{0,i}`$、$`R_i^{(r)}`$。方向退化数为
+**方向退化。** 沿用上述有向响应定义，将原模型响应为正、修正后变为非正的配对数记为 $`N_{\mathrm{deg}}(r)`$，定义为
 ```math
 N_{\mathrm{deg}}(r)
 =\sum_{i\in\mathcal I_{CF}^{\mathrm{eval}}}
 \mathbf1[R_{0,i}>0\ \land\ R_i^{(r)}\leq0],
 ```
-方向退化比例以全部有标签 C/F 配对为分母：
+方向退化比例记为 $`\mathrm{Deg}_{CF}(r)`$，以全部有标签 C/F 配对为分母：
 ```math
 \mathrm{Deg}_{CF}(r)
 =\frac{N_{\mathrm{deg}}(r)}{|\mathcal I_{CF}^{\mathrm{eval}}|}.
@@ -864,7 +912,7 @@ N_{\mathrm{deg}}(r)
 
 MEGA 控制器由每种方法从根节点按自身分数动态执行。路径正确要求执行无错误、带标签节点序列与参考路径一致、目标叶节点正确。叶节点正确率只看终点，自然节点准确率只看指定节点；三者不是同一指标。对固定共享节点序列的合成全对率不称作真实动态路径全对率。
 
-**NLI 固定口径。** 设 $`\mathcal O`$ 为官方 500 条原声明，$`\mathcal P`$ 为 4,136 个标签保持关系，$`\mathcal A`$ 为 864 个标签翻转关系。宏平均 F1 为两个类别 F1 的等权平均：
+**NLI 固定口径。** 设 $`\mathcal O`$ 为官方 500 条原声明的集合，$`\mathcal P`$ 为 4,136 个标签保持关系的索引集合，$`\mathcal A`$ 为 864 个标签翻转关系的索引集合。对类别 $`k\in\{0,1\}`$，以该类为正类计算的真阳性、假阳性和假阴性数分别记为 $`TP_k,FP_k,FN_k`$。宏平均 F1 记为 $`\mathrm{MacroF1}`$，按两个类别 F1 的等权平均计算：
 ```math
 \mathrm{MacroF1}
 =\frac12\sum_{k\in\{0,1\}}
@@ -872,13 +920,13 @@ MEGA 控制器由每种方法从根节点按自身分数动态执行。路径正
 ```
 本次两个类别均有金标支持；计分脚本保存各类真阳性、假阳性、假阴性及支持数。一般情形的零分母必须明确实现规则，不静默删除类别。
 
-保持一致率为
+将标签保持关系两端预测一致的比例记为 $`C(r)`$，定义为
 ```math
 C(r)=\frac{1}{|\mathcal P|}
 \sum_{i\in\mathcal P}
 \mathbf1[\hat y^{(r)}(x_i^L)=\hat y^{(r)}(x_i^R)].
 ```
-令 $`\mathcal A_r^+=\{i\in\mathcal A:\hat y^{(r)}(x_i^L)=y_i^L\}`$，按任务论文定义的条件翻转忠实性为
+将翻转关系中左端判断正确的子集记为 $`\mathcal A_r^+`$，定义 $`\mathcal A_r^+=\{i\in\mathcal A:\hat y^{(r)}(x_i^L)=y_i^L\}`$。任务论文的条件翻转忠实性记为 $`F_{\mathrm{cond}}(r)`$，按该子集计算：
 ```math
 F_{\mathrm{cond}}(r)
 =\frac{1}{|\mathcal A_r^+|}
@@ -891,7 +939,7 @@ F_{\mathrm{cond}}(r)
 
 **不确定性。** 受控 MEGA 按 40 个指南来源成组配对重采样 2,000 次，种子 11；同一次抽样用于全部方法，再计算差值区间。证据配对仅覆盖 12 个来源，稀疏分项会有未定义重采样，需报告有效次数。官方 MEGA 按归档同源簇计分。原 NLI 准确率区间按试验编号组合，配对响应区间按基础声明家族；二者分组不同，共享试验造成的更高层依赖尚未完全处理。新补算 NLI 指标没有置信区间，不从已有准确率区间推导。
 
-不同随机训练配置分别计算指标与种子间差异，来源自助重采样区间则衡量另一种不确定性，两者不混用。公式中的上横线表示在相应评价配对集合上的算术平均，$`\mathrm{Var}`$ 均表示中心化总体方差。三个任务不合并总分；既有区间包含零只能说明未建立差异，不能解释为方法等效。
+不同随机训练配置分别计算指标与种子间差异，来源自助重采样区间则衡量另一种不确定性，两者不混用。三个任务不合并总分；既有区间包含零只能说明未建立差异，不能解释为方法等效。
 
 ### B.2 数据、冻结配置与复算
 
@@ -979,7 +1027,7 @@ MEGA训练、开发和受控留出按指南来源隔离，分别覆盖80、20和
 
 **基础模型与评分。** 使用冻结 BF16 Qwen3-8B，保留固定提示和分词器，以判断位置的正负答案词元 logit 差评分；标签投影和配对统计使用 FP32。已有实现的随机种子为 20261108。主训练数据 E1 包含 2,540 对，A/P/C/F 各 635 对，来源划分见附录 B.6。
 
-**统一权重规则。** 训练配对采用类别等权、类别内来源等权、来源内病例等权、病例内变体等权的层级规则。记 $`\mathcal G_q`$ 为类别 $`q`$ 的来源集合，$`n_{q,g}^{\mathrm{case}}`$ 为该来源的病例数，$`n_{q,g,b}^{\mathrm{pair}}`$ 为病例 $`b`$ 的配对数，则完整训练集上的权重为
+**统一权重规则。** 训练配对采用类别等权、类别内来源等权、来源内病例等权、病例内变体等权的层级规则。本段以 $`b`$ 索引病例，$`b_i`$ 表示配对 $`i`$ 所属的病例。记 $`\mathcal G_q`$ 为类别 $`q`$ 的来源集合，$`n_{q,g}^{\mathrm{case}}`$ 为类别 $`q`$、来源 $`g`$ 内的病例数，$`n_{q,g,b}^{\mathrm{pair}}`$ 为该类别和来源内病例 $`b`$ 的配对数。第3.1节的基础权重在完整训练集上具体定义为
 
 ```math
 \omega_i=
@@ -989,20 +1037,20 @@ n_{q_i,g_i}^{\mathrm{case}}
 n_{q_i,g_i,b_i}^{\mathrm{pair}}
 },
 \qquad
-\sum_i\omega_i=1.
+\sum_{i\in\mathcal I^{\mathrm{train}}}\omega_i=1.
 ```
 
-子集 $`\mathcal J`$ 上统一使用 $`\omega_i(\mathcal J)=\omega_i/\sum_{j\in\mathcal J}\omega_j`$。配对端点权重由同一规则导出：
+子集权重按第3.1节的归一化定义计算。对第3.3节的训练端点 $`v\in\mathcal V_{\mathrm{pair}}`$，其配对端点权重具体为：
 
 ```math
 \omega_v^{\mathrm{pair}}
-=\tfrac12\sum_i\omega_i
+=\tfrac12\sum_{i\in\mathcal I^{\mathrm{train}}}\omega_i
 \bigl(\mathbf1[v=x_i^L]+\mathbf1[v=x_i^R]\bigr).
 ```
 
-M2 的均值、逐维方差与 M3 中心化均使用 $`\omega_v^{\mathrm{pair}}`$。自然节点的概率校准按来源、病例、节点依次均衡，记为 $`\omega_v^{\mathrm{nat}}`$；它与配对权重共享均衡原则，不另设可调权重超参数。统计推断始终以来源为单位。
+M2 的均值、逐维方差与 M3 中心化均使用 $`\omega_v^{\mathrm{pair}}`$。记 $`\mathcal V_{\mathrm{nat}}`$ 为训练来源的自然节点输入集合，以 $`v`$ 索引其中一个输入，$`y_v\in\{0,1\}`$ 为其标签。概率校准按来源、病例、节点依次均衡，归一化权重记为 $`\omega_v^{\mathrm{nat}}`$；它与配对权重共享均衡原则，不另设可调权重超参数。统计推断始终以来源为单位。
 
-**M1：候选分数和选择条件。** 每个训练集合内部按来源划分五折。候选稳健分数为
+**M1：候选分数和选择条件。** 每个训练集合内部按来源划分五折。记 $`a_q`$ 为当前类别全部头的归因分数 $`a_{q,h}`$ 组成的向量，$`\operatorname{MAD}(a_q)`$ 为这些分数相对其中位数的绝对偏差的中位数，$`\tau_g`$ 为梯度筛选阈值。将稳健标准化后的候选分数记为 $`r_{q,h}`$，定义分数及候选集合：
 
 ```math
 r_{q,h}=
@@ -1014,7 +1062,7 @@ r_{q,h}=
 
 MAD 为零时改用头归因分数的标准差；该尺度也为零时，该类别在该折不产生候选。候选头在留出来源上接受双向精确修补。匹配对照在同一来源、类别和有序标签转换模式内交换右侧供体；每组最多抽取两个配对，不足两个有效配对的分组不进入匹配检验。真实配对与对照使用相同的修补过程。
 
-令 $`d_{q,h,g}`$ 为来源 $`g`$ 内真实效应与匹配对照效应的均值之差，$`\mathcal G_{q,h}`$ 为有效验证来源，则
+令 $`d_{q,h,g}`$ 为来源 $`g`$ 内真实效应与匹配对照效应的均值之差，$`\mathcal G_{q,h}`$ 为有效验证来源集合。记 $`\mu_{q,h}`$ 为该类头效应的来源总体均值，其样本估计 $`\hat\mu_{q,h}`$ 定义为
 
 ```math
 \hat\mu_{q,h}
@@ -1022,22 +1070,22 @@ MAD 为零时改用头归因分数的标准差；该尺度也为零时，该类�
 \sum_{g\in\mathcal G_{q,h}}d_{q,h,g}.
 ```
 
-A/P 使用绝对修补贡献并作单侧检验，C/F 使用标签对齐的修补贡献并作双侧检验。各类别执行 2,000 次来源符号翻转置换和 2,000 次来源自助重采样，并分别进行 BH 校正。最终集合满足
+A/P 使用绝对修补贡献并作单侧检验，C/F 使用标签对齐的修补贡献并作双侧检验。各类别执行 2,000 次来源符号翻转置换和 2,000 次来源自助重采样，并分别进行 BH 校正。经 BH 校正的 p 值记为 $`p_{q,h}^{\mathrm{BH}}`$，均值的 95% 来源自助区间记为 $`\mathrm{CI}_{0.95}(\mu_{q,h})`$。跨折候选出现频率记为 $`f_{q,h}^{\mathrm{cand}}`$，来源自助均值与 $`\hat\mu_{q,h}`$ 同号的频率记为 $`f_{q,h}^{\mathrm{stab}}`$。最终头集合的选择条件为
 
 ```math
 \mathcal H_q=\left\{
 h:
 p_{q,h}^{\mathrm{BH}}<0.05,\quad
-0\notin\mathrm{CI}_{0.95}(\mu_{q,h}),\
-f_{q,h}^{\mathrm{cand}}\geq0.80,\
-f_{q,h}^{\mathrm{stab}}\geq0.80,\
+0\notin\mathrm{CI}_{0.95}(\mu_{q,h}),\quad
+f_{q,h}^{\mathrm{cand}}\geq0.80,\quad
+f_{q,h}^{\mathrm{stab}}\geq0.80,\quad
 |\mathcal G_{q,h}|\geq5
 \right\}.
 ```
 
-$`f^{\mathrm{cand}}`$ 为跨折候选出现频率，$`f^{\mathrm{stab}}`$ 为来源自助均值与 $`\hat\mu_{q,h}`$ 同号的频率。已有 M1-v2 配置采用 $`\tau_g=2.0`$，没有固定头数上限。按本次方案补充更低阈值和全头精确修补比较，最终阈值待召回率结果确定；当前文字修订保持已有配置文件的数值。
+已有 M1-v2 配置采用 $`\tau_g=2.0`$，没有固定头数上限。按本次方案补充更低阈值和全头精确修补比较，最终阈值待召回率结果确定；当前文字修订保持已有配置文件的数值。
 
-全头检验在同一 Qwen3-8B、来源及配对样本上执行。对每类分别定义
+全头检验在同一 Qwen3-8B、来源及配对样本上执行。将梯度阈值取 $`\tau_g`$ 时的候选集合显式记为 $`\mathcal K_q(\tau_g)`$；将全头精确修补后通过相同来源效应检验和稳定性规则的头集合记为 $`\mathcal H_q^{\mathrm{all}}`$，其入选免去依赖梯度候选的条件。多重检验统一以全部头为检验族。第 $`q`$ 类的筛选召回率记为 $`\operatorname{Recall}_q(\tau_g)`$，定义为
 
 ```math
 \operatorname{Recall}_q(\tau_g)=
@@ -1045,24 +1093,24 @@ $`f^{\mathrm{cand}}`$ 为跨折候选出现频率，$`f^{\mathrm{stab}}`$ 为来
 {|\mathcal H_q^{\mathrm{all}}|},
 ```
 
-其中 $`\mathcal H_q^{\mathrm{all}}`$ 使用全头精确修补、相同来源效应检验和稳定性规则确定，免去依赖梯度候选的入选条件。多重检验统一以全部头为检验族。分母为零时记为不适用。逐折、逐类汇总召回率与前向次数，另报最终 $`|\mathcal H_{AP}|`$、$`|\mathcal H_{CF}|`$、交集和交并比。
+分母为零时记为不适用。逐折、逐类汇总召回率与前向次数，另报最终 $`|\mathcal H_{AP}|`$、$`|\mathcal H_{CF}|`$、交集和交并比。
 
 实现入口为主训练流程的 m1_plan.py、patch_queue.py、training.py、worker.py 和 optimized_pipeline.py；多模型流程复用同一选择器。已有阈值记录见 [M1-v2 配置](../../experiments/aster_cr_retrain_paired_v2_20261111/m1_adaptive_v2_config.json)。
 
-**M2：标准化与子空间。** 标准化使用上述端点分布，逐维标准差下限为 $`10^{-5}`$。$`S_m,U_m`$ 分别由 C/F、A/P 加权差分矩阵的随机奇异值分解估计；已有实现截断上限为 $`k_m=16`$，种子为 20261108，奇异值保留阈值为 $`\max(10^{-7},10^{-6}s_{\max})`$。投影并重新正交化得到 $`N_m`$。主角度由 $`U_A^\top S_m`$ 和 $`U_P^\top S_m`$ 的奇异值取反余弦计算；A/P 使用相同维数，并在来源重采样时重新估计相应基。
+**M2：标准化与子空间。** 标准化使用上述端点分布，逐维标准差下限为 $`10^{-5}`$。$`S_m,U_m`$ 分别由 C/F、A/P 加权差分矩阵的随机奇异值分解估计；已有实现截断上限为 $`k_m=16`$，种子为 20261108。记 $`s_{\max}`$ 为当前矩阵的最大奇异值，奇异值保留阈值为 $`\max(10^{-7},10^{-6}s_{\max})`$。投影并重新正交化得到 $`N_m`$。主角度由 $`U_A^\top S_m`$ 和 $`U_P^\top S_m`$ 的奇异值取反余弦计算；A/P 使用相同维数，并在来源重采样时重新估计相应基。
 
-**M3：概率校准。** 固定 $`\hat w_m`$ 后，以自然节点的来源均衡权重拟合正比例系数：
+**M3：概率校准。** 固定 $`\hat w_m`$ 后，使用上述自然节点集合 $`\mathcal V_{\mathrm{nat}}`$、标签 $`y_v`$ 和权重 $`\omega_v^{\mathrm{nat}}`$。以正实数 $`\beta`$ 为待优化的比例系数，第3.4节的拟合值 $`\hat\beta_m`$ 具体由加权二元交叉熵确定：
 
 ```math
 \hat\beta_m=\arg\min_{\beta>0}
 -\sum_{v\in\mathcal V_{\mathrm{nat}}}\omega_v^{\mathrm{nat}}
 \left[
-y_v\log\sigma(\beta\ell_{c,m}(v))
-+(1-y_v)\log(1-\sigma(\beta\ell_{c,m}(v)))
+y_v\log\operatorname{sigmoid}(\beta\ell_{c,m}(v))
++(1-y_v)\log(1-\operatorname{sigmoid}(\beta\ell_{c,m}(v)))
 \right].
 ```
 
-这里 $`\sigma`$ 为 sigmoid 函数。概率校准使用训练来源，A/P 与 C/F 分数指标在该缩放之前计算。新方法以 $`\delta_m=\kappa\,\operatorname{median}_{CF,\mathrm{train}}|\Delta\ell_0|`$ 记录预算，报告 $`\kappa`$ 及对应的 logit 数值。
+概率校准使用第3.4节定义的 sigmoid 函数和训练来源，A/P 与 C/F 分数指标在该缩放之前计算。新方法按第3.4节的 C/F 中位绝对分数差确定预算，报告 $`\kappa`$ 及对应的 $`\delta_m`$ logit 数值。
 
 **方法与实验版本。** 当前 E1/E2/E3、E6、E7 和 E8 归档结果采用 M1-v1：每类 Top-64 候选、最终固定 51 头，并使用独立截距。正文第3节采用自适应选头、统一权重、C/F 尺度预算与中心化修正，判断分数为 $`\ell_{c,m}=\ell_0+c_m`$，概率校准使用正比例系数。该组合的拟合与评价结果待补，现有数值继续按历史配置报告。
 
@@ -1115,7 +1163,7 @@ y_v\log\sigma(\beta\ell_{c,m}(v))
 
 **LoReFT实现核查。** 现有测试缓存的分数及汇总与原模型一致，证据改动为零。该结果无法区分适配器未生效与训练后确实无变化，故不放入主表当有效强基线。需核对适配器加载、干预层与位置、实际参数变化和训练日志，再报告新的独立评价；不能人为给它加微小扰动以消除零值。
 
-**同痕迹训练细节。** 该组的三个训练式模型均使用种子11、22、33，各训练600步，学习率0.001。每步64个A/P对，全部135个C/F对参与保护，拟合后只按训练C/F检查修正幅度并缩放，随后校准截距。表示编辑形式为 $`(h^{\mathrm{res}})'=h^{\mathrm{res}}+Vg(t_m)`$，其中 $`h^{\mathrm{res}}\in\mathbb R^{d_{\mathrm{res}}}`$ 为决策位置的原末层残差向量，$`V\in\mathbb R^{d_{\mathrm{res}}\times16}`$ 的列为拟合 A/P 末层残差差分得到的 16 个正交主方向，$`t_m`$ 为输入的痕迹坐标，$`g(t_m)\in\mathbb R^{16}`$ 为学习到的方向系数，$`(h^{\mathrm{res}})'`$ 为编辑后的残差向量。冻结原最终归一化与输出行计算分数变化，并锚定原缓存。它只验证当前输出的末层编辑行为，不证明完整概念擦除。[训练代码](https://github.com/chunxi-alpc/TRIAGE/blob/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/train.py)、[验证记录](https://github.com/chunxi-alpc/TRIAGE/blob/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/verification.json)。
+**同痕迹训练细节。** 该组的三个训练式模型均使用种子11、22、33，各训练600步，学习率0.001。每步64个A/P对，全部135个C/F对参与保护，拟合后只按训练C/F检查修正幅度并缩放，随后校准截距。记 $`d_{\mathrm{res}}`$ 为决策位置末层残差的维数，$`h^{\mathrm{res}}\in\mathbb R^{d_{\mathrm{res}}}`$ 为原残差向量，$`(h^{\mathrm{res}})'`$ 为编辑后的残差向量。方向矩阵 $`V\in\mathbb R^{d_{\mathrm{res}}\times16}`$ 的列为拟合 A/P 末层残差差分得到的 16 个正交主方向；输入的痕迹坐标记为 $`t_m`$，将其映射为 16 维方向系数的学习函数记为 $`g`$。表示编辑形式为 $`(h^{\mathrm{res}})'=h^{\mathrm{res}}+Vg(t_m)`$。冻结原最终归一化与输出行计算分数变化，并锚定原缓存。它只验证当前输出的末层编辑行为，不证明完整概念擦除。[训练代码](https://github.com/chunxi-alpc/TRIAGE/blob/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/train.py)、[验证记录](https://github.com/chunxi-alpc/TRIAGE/blob/08fc9dc6ef65236f697c10278648a024c89541a0/reports/aster_cancel_story_20261109/meeting/real_completion/verification.json)。
 
 ### C.3 扩展配置与官方MEGA
 
