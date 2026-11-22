@@ -1,5 +1,20 @@
 # ASTER paper figures
 
+## 当前稿图表（2026-11-22）
+
+| 图表 | 内容与状态 | 文件 |
+|---|---|---|
+| 图1 | 当前判断示例与2×2信息角色表 | [SVG](fig01_pair_roles.svg) |
+| 图2 | 历史16维配置的干扰抑制与证据改动；按附录表C2重绘 | [SVG](fig02_pilot_tradeoff.svg) · [源数据](fig02_pilot_tradeoff.csv) |
+| 表2 | 可分离可预测性与证据覆盖残差，新配置待测 | [主稿](../manuscript.zh.md) |
+| 图3 | 新方法预算曲线与各基线强度曲线，待补实测 | [实验框架](../experiments.zh.md) |
+
+[绘图程序与配置](method_revision_20261122/README.md) 可导出 SVG、PDF 和 PNG。图2沿用历史的 A/P RMS 预算尺度；新方法使用 C/F 中位绝对分数差尺度。
+
+## 历史图稿（2026-10-26）
+
+以下保留旧版图稿说明和文件，按各自历史方法解释。
+
 > **版本提示（2026-10-27）：本目录保存 2026-10-26 图稿。** 图 2 的阶段掩码／证据员与图 4 的对数门控曲线已退出当前主方法；不要将其插入新稿作为现行算法图。图 1 与图 3 仍可说明任务与五卷协议。最新三模块方法保留 M1、沿用已选 M2，仅改造 M3，文字说明见[当前方法](../manuscript.zh.md)与[项目首页](../../../README.md)；本目录没有新 M3 的图稿；最新流程图与图表安排见[中文主稿](../manuscript.zh.md#51-判定位置的注意力头干预及其依据)。以下尺寸、公式、图注和复现命令均按旧版解释。
 
 [Mainline index](../README.md) · [Working manuscript](../manuscript.zh.md) · [English captions](captions.en.md) · [LaTeX inclusion](figures.tex)
@@ -88,4 +103,3 @@ These original papers informed operator placement, matched-case comparison, and 
 ## Figures that await empirical results
 
 Blind/visible comparisons, action-familiarity effects, causal interventions, noise robustness, clerk coverage, ablations, and latency/cost plots require actual run artifacts and a locked test set. They are not generated from the manuscript's former placeholder values. If the measurements contradict a claim, revise the claim and its figure rather than preserving the expected conclusion.
-
