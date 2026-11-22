@@ -1,0 +1,70 @@
+{
+  "status": "approved_by_user",
+  "model": "Qwen3-8B",
+  "model_path": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+  "dtype": "bfloat16; FP32 score projection",
+  "seed": 20261108,
+  "gpus": [
+    0,
+    1,
+    5,
+    6
+  ],
+  "fit_pairs": 2540,
+  "fit_sources": 80,
+  "dev_pairs": 1258,
+  "dev_sources": 20,
+  "test_pairs": 2333,
+  "test_sources": 40,
+  "weighting": "equal class, equal source within class, equal case within source, equal variants within case; subset normalization",
+  "M1": {
+    "configuration": "experiments/aster_cr_retrain_paired_v2_20261111/m1_adaptive_v2_config.json",
+    "gradient_threshold": 2,
+    "source_folds": 5,
+    "patched_representation": "final-token per-head o_proj input",
+    "exact_scoring": "single-input immutable-prefix or equivalent suffix replay",
+    "matched_null": "same source, kind, ordered label transition; exchange right donors"
+  },
+  "M2": {
+    "rank": 16,
+    "standard_deviation_floor": 0.00001,
+    "svd_cutoff_absolute": 1e-7,
+    "svd_cutoff_relative": 0.000001,
+    "orthogonalization_cutoff_absolute": 1e-7,
+    "orthogonalization_cutoff_relative": 0.000001
+  },
+  "ridge": {
+    "candidates": [
+      0.000001,
+      0.00001,
+      0.0001,
+      0.001,
+      0.01,
+      0.1,
+      1,
+      10,
+      100
+    ],
+    "weight_total": 1,
+    "objective": "unconstrained AP weighted squared residual + lambda ||w||^2",
+    "selection": "minimum hierarchy-weighted AP residual MSE on development sources; largest lambda for a numerical tie",
+    "test_usage": "evaluate frozen training features and selected readout once"
+  },
+  "scope": "Table 2 diagnostics only; does not replace historical E1-E8 task results or fit constrained M3/probability calibration",
+  "bootstrap": {
+    "draws": 2000,
+    "unit": "guideline source",
+    "seed": 20261108
+  },
+  "resource_plan": {
+    "peak_gib_per_gpu": [
+      18,
+      30
+    ],
+    "initial_estimated_hours": [
+      2,
+      6
+    ],
+    "monitoring": "stop manual monitoring after stable startup; controller runs through report generation"
+  }
+}
