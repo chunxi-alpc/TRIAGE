@@ -146,7 +146,13 @@ a_{q,h}=
 }{2}.
 ```
 
-候选集合记为 $`\mathcal K_q`$，其稳健标准化与阈值细节见[附录 B.7](manuscript.appendix.zh.md#appendix-b-7)。对候选头，分别将右端激活移入左端输入、将左端激活移入右端输入。对当前输入 $`x`$ 和供体输入 $`x'`$，将替换头激活并继续前向后得到的分数记为 $`\ell_0(x;\mathbf z_h\leftarrow\mathbf z_h(x'))`$。两向修补引起的分数变化分别记为 $`\Delta_{i,h}^{L\leftarrow R},\Delta_{i,h}^{R\leftarrow L}`$，对称修补贡献记为 $`\phi_{i,h}`$，定义为
+候选集合记为 $`\mathcal K_q`$，其稳健标准化与阈值细节见[附录 B.7](manuscript.appendix.zh.md#appendix-b-7)。
+
+**双向激活修补。** 同一注意力头对节点判断的影响可能取决于接收该激活的输入。将原始输入的激活移入受扰输入，检验该激活是否足以恢复目标行为（充分性）。反向替换检验维持目标行为是否需要原激活（必要性），两个方向的效应可以不同（[Heimersheim & Nanda, 2024](https://arxiv.org/abs/2404.15255)）。
+
+ASTER-CR 将双向修补用于四类临床反事实配对，依据每类配对改动的信息区分干扰效应与证据效应。例如，图 1 的 C 配对保持患者记录不变，两次修补分别在原阈值和改写后的阈值下测量节点判断分数。
+
+配对两端轮流接收另一端同一候选头的激活，每次都以接收端原分数为基准。对接收输入 $`x`$ 和供体输入 $`x'`$，用 $`\ell_0(x;\mathbf z_h\leftarrow\mathbf z_h(x'))`$ 表示替换该头激活并继续前向计算后的分数。右端激活移入左端、左端激活移入右端所得的分数变化分别记为 $`\Delta_{i,h}^{L\leftarrow R},\Delta_{i,h}^{R\leftarrow L}`$。将两次变化统一到从左到右的方向后取平均，所得对称修补贡献记为 $`\phi_{i,h}`$。
 
 ```math
 \begin{aligned}
@@ -159,7 +165,9 @@ a_{q,h}=
 \end{aligned}
 ```
 
-A/P 以 $`|\phi_{i,h}|`$ 衡量干扰贡献幅度；C/F 以 $`\phi_{i,h}(y_i^R-y_i^L)`$ 衡量与真值变化对齐的证据贡献。精确修补可以排除候选中的假阳性，筛选阶段遗漏的头需要全头修补才能检出。补充实验在 Qwen3-8B 上覆盖全部头，按类别报告候选阈值变化下的召回率和修补成本；具体状态见实验框架。
+A/P 改写后续处置或与当前条件无关的患者背景，两端真值相同。我们用 $`|\phi_{i,h}|`$ 衡量该头引起的分数偏移幅度，据此定位传递干扰的头。C/F 改变当前条件或决定性患者事实，使节点真值翻转。我们用 $`\phi_{i,h}(y_i^R-y_i^L)`$ 定位承载证据响应的头。正值表示该头的分数效应与真值变化同向，负值表示反向。
+
+精确修补可以排除候选中的假阳性，筛选阶段遗漏的头需要全头修补才能检出。补充实验在 Qwen3-8B 上覆盖全部头，按类别报告候选阈值变化下的召回率和修补成本；具体状态见实验框架。
 
 **来源级统计与头集合。** 同一指南来源内的病例和改写共享规则及处置结构，因此统计单位取指南来源。先将病例和改写汇总为来源级效应，再对来源进行符号翻转检验和自助重采样。匹配对照在相同来源、配对类别与有序标签转换模式内交换供体。A/P 使用单侧检验识别高于对照的干扰幅度；C/F 使用双侧检验，覆盖同向和反向承载证据变化的通路。类别内多重检验采用 BH 校正，选择条件和稳定性阈值列于[附录 B.7](manuscript.appendix.zh.md#appendix-b-7)。
 
@@ -706,6 +714,7 @@ E7的冻结跨任务评价覆盖五个模型的20个模型—任务总体，结�
 - Nanda, N. (2023). *Attribution Patching: Activation Patching At Industrial Scale*. [作者技术文章](https://www.neelnanda.io/mechanistic-interpretability/attribution-patching).
 - Kramár, J., Lieberum, T., Shah, R. & Nanda, N. (2024). *AtP\*: An efficient and scalable method for localizing LLM behaviour to components*. [原文](https://arxiv.org/abs/2403.00745).
 - Zhang, F. & Nanda, N. (2024). *Towards Best Practices of Activation Patching in Language Models: Metrics and Methods*. [原文](https://arxiv.org/abs/2309.16042).
+- Heimersheim, S. & Nanda, N. (2024). *How to use and interpret activation patching*. [原文](https://arxiv.org/abs/2404.15255).
 - Fang, J. et al. (2025). *AlphaEdit: Null-Space Constrained Knowledge Editing for Language Models*. [ICLR](https://proceedings.iclr.cc/paper_files/paper/2025/hash/29c8c615b3187ee995029284702d3f43-Abstract-Conference.html).
 - Qiu, Y. et al. (2024). *Spectral Editing of Activations for Large Language Model Alignment*. [NeurIPS](https://proceedings.neurips.cc/paper_files/paper/2024/hash/684c59d614fe6ae74a3be8c3ef07e061-Abstract-Conference.html).
 - Liu, X., Khalifa, M. & Wang, L. (2024). *LitCab: Lightweight Language Model Calibration over Short- and Long-form Responses*. [ICLR](https://openreview.net/forum?id=jH67LHVOIO).
