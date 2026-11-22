@@ -1,0 +1,101 @@
+{
+  "provenance": "manuscript.zh.md, Appendix C, Table C2; historical 16-dimensional configuration; budget normalized by training A/P RMS",
+  "style": {
+    "font_size": 12,
+    "axes_linewidth": 1.1,
+    "use_tex": false,
+    "font_family": [
+      "Microsoft YaHei",
+      "DejaVu Sans"
+    ]
+  },
+  "layout": {
+    "nrows": 1,
+    "ncols": 2,
+    "figsize": [
+      11.8,
+      4.3
+    ],
+    "tight_layout_pad": 2
+  },
+  "panels": [
+    {
+      "type": "bar",
+      "title": "(a) 干扰抑制",
+      "categories": [
+        "0.05",
+        "0.10",
+        "0.25",
+        "0.50",
+        "1.00",
+        "2.00",
+        "无约束"
+      ],
+      "series": [
+        [
+          3.07,
+          4.1,
+          5.64,
+          9.38,
+          17.36,
+          26.71,
+          30.61
+        ]
+      ],
+      "labels": [
+        "历史16维配置"
+      ],
+      "colors": [
+        "#92B1D9"
+      ],
+      "xlabel": "历史归一化预算（A/P RMS）",
+      "ylabel": "A/P 方差降低率（%）",
+      "ylim": [
+        0,
+        36
+      ],
+      "annotate": true,
+      "annotate_fmt": "{:.2f}",
+      "legend": false
+    },
+    {
+      "type": "bar",
+      "title": "(b) 证据改动",
+      "categories": [
+        "0.05",
+        "0.10",
+        "0.25",
+        "0.50",
+        "1.00",
+        "2.00",
+        "无约束"
+      ],
+      "series": [
+        [
+          0.1266,
+          0.2539,
+          0.5607,
+          0.9933,
+          1.6394,
+          2.6094,
+          3.324
+        ]
+      ],
+      "labels": [
+        "历史16维配置"
+      ],
+      "colors": [
+        "#F6C8B6"
+      ],
+      "xlabel": "历史归一化预算（A/P RMS）",
+      "ylabel": "C/F 修正 RMS（logit）",
+      "ylim": [
+        0,
+        3.9
+      ],
+      "annotate": true,
+      "annotate_fmt": "{:.4f}",
+      "legend": false
+    }
+  ]
+}
