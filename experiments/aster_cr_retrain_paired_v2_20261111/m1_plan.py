@@ -269,7 +269,7 @@ def finish_plan(plan, features, exact_accessor, outdir):
     target.mkdir(parents=True, exist_ok=True)
     group = plan["group"]
     fold_count = int(plan["inner_source_folds"])
-    source_values = defaultdict(lambda: defaultdict(lambda: {"observed": [], "null": []}))
+    source_values = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: {"observed": [], "null": []})))
     candidate_counts = {kind: Counter() for kind in KINDS}
     candidate_unions = {kind: set() for kind in KINDS}
     attributes = {}

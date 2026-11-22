@@ -32,12 +32,13 @@ def render(config,selection,frozen,rows,grid):
     lookup={(r["split"],r["information"]):r for r in main}
     test=lookup["test","总体"];ta=lookup["test","指南"];tp=lookup["test","患者"]
     counts=selection["selected_counts_by_kind"]
+    unknown={r["split"]:r["preserving_pairs"] for r in stratified if r["node_type"]=="未标注" and r["information"]=="总体"}
     protocol=(f"Qwen3-8B使用2,540对训练配对和80个训练来源，按第3节的自适应M1与层级权重拟合；"
-       f"M1最终选择{h}个注意力头，证据正交读出维数为{rank}。"
+       f"M1的A/P/C/F选头数分别为{counts['A']}/{counts['P']}/{counts['C']}/{counts['F']}，并集为{h}个头，证据正交读出维数为{rank}。"
        f"在20个开发来源上选择正则系数λ={lam:g}，固定训练特征及岭读出后评价40个留出来源。")
     caption=("**表2：干扰可预测性与证据覆盖。** "+protocol+
        "方括号为2,000次来源自助重采样的95%区间，重采样时固定已拟合参数。"
-       "开发结果参与正则系数选择。总体A/P与C/F各按类别等权，再按来源、病例、变体均衡；"
+       "开发结果参与本表无约束诊断的正则系数选择；第3.4节受约束M3的预算与正则联合选参按其独立开发协议执行。总体A/P与C/F各按类别等权，再按来源、病例、变体均衡；"
        "各行在对应子集内重新归一化既定权重。"
        "R²以百分比报告，R_cov的单位为标准化后的特征坐标。"
        "P类开发和留出分别为4对和10对，样本数随各行列出。"
@@ -48,13 +49,17 @@ def render(config,selection,frozen,rows,grid):
           "因此表2中的R²与证据覆盖残差均为0；这两个零值由零维读出产生。"
           "选头及子空间记录给出了该结果的具体来源。")
     else:
-        verb="降低" if test["r2_sep"]>=0 else "增加"
-        analysis=(f"固定开发集选定的读出后，留出A/P的加权平方分数差{verb}"
-          f'{number(abs(test["r2_sep"]),100,2)}%，对应R²为{number(test["r2_sep"],100,2)}%。'
-          f'其中A类与P类R²分别为{number(ta["r2_sep"],100,2)}%和{number(tp["r2_sep"],100,2)}%；'
-          f'总体结果按两类等权汇总。留出C/F证据覆盖残差为{number(test["r_cov"])}，'
-          f'其中C类和F类分别为{number(ta["r_cov"])}和{number(tp["r_cov"])}。'
-          "这些数值分别描述干扰分数差的可预测程度和证据变化在读出空间中的剩余幅度。")
+        analysis=(f"A类留出配对的R²为{number(ta['r2_sep'],100,2)}%"
+          f"（95%区间：{number(ta['r2_ci95'][0],100,2)}%至{number(ta['r2_ci95'][1],100,2)}%），"
+          "表明证据正交特征保留了对处置改写引起的分数变化的预测信息。"
+          f"A/P总体R²为{number(test['r2_sep'],100,2)}%"
+          f"（{number(test['r2_ci95'][0],100,2)}%至{number(test['r2_ci95'][1],100,2)}%）；"
+          f"P类为{number(tp['r2_sep'],100,2)}%"
+          f"（{number(tp['r2_ci95'][0],100,2)}%至{number(tp['r2_ci95'][1],100,2)}%），"
+          f"其{tp['preserving_pairs']}对留出样本的来源区间较宽。"
+          f"C/F证据覆盖残差为{number(test['r_cov'])}，C类和F类分别为"
+          f"{number(ta['r_cov'])}和{number(tp['r_cov'])}。"
+          "这些残差刻画证据变化在读出空间中的剩余幅度，M3的逐对预算用于控制相应分数修正。")
     table=make_table(main)
     main_md=table+"\n\n"+caption+"\n\n"+analysis+"\n"
     (OUT/"table2.md").write_text(main_md,encoding="utf-8")
@@ -64,7 +69,7 @@ def render(config,selection,frozen,rows,grid):
       "节点类型由既有规则中的条件运算符确定：包含and、or或not组合的为复合条件，"
       "单一数值比较的为数值条件，其余为类别或状态条件。"
       "每个分层均使用表2同一组冻结特征和读出，并在相应子集中归一化原评价权重。"
-      "无对应配对的指标记为不适用。R²以百分比报告，R_cov使用标准化特征坐标；"
+      f"开发{unknown.get('dev',0):,}对、留出{unknown.get('test',0):,}对A/P缺少结构化条件规则，归入“未标注”并保留在总体统计。无对应配对的指标记为不适用。R²以百分比报告，R_cov使用标准化特征坐标；"
       "方括号为固定参数的来源自助重采样95%区间。\n\n"
       f"正则系数从{', '.join(f'{x:g}' for x in config['ridge']['candidates'])}中选择，"
       f"选择准则为开发集A/P加权平方残差最小，得到λ={lam:g}。"
@@ -78,6 +83,7 @@ def render(config,selection,frozen,rows,grid):
     start=text.index("\n| ",section)+1
     end=text.index("![图2：",start)
     text=text[:start]+main_md+"\n"+text[end:]
+    text=text.replace("#### 4.1.2 双重分离、干扰抑制与证据保持","#### 4.1.2 干扰可预测性与证据保持",1)
     text=text.replace("该三模块配置的对应实验结果待重新拟合与评价。",
       "表2补充该版本的自适应选头、层级加权子空间与无约束岭读出诊断；完整受约束M3和路径任务评价待补。",1)
     manuscript.write_text(text,encoding="utf-8")
@@ -122,7 +128,7 @@ def render(config,selection,frozen,rows,grid):
       "- 表2范围：M1、M2及无约束岭诊断。主稿历史表3及后续任务结果保持其原配置。\n\n"
       "## 正则系数选择\n\n"+"\n".join(grid_table)+"\n\n"
       "## 节点类型分层\n\n"+make_table(stratified,True)+"\n\n"
-      "类型由原始rules.jsonl的predicate结构确定。分层沿用全评价总体的既定权重并在子集内归一化。"
+      f"类型由原始rules.jsonl的predicate结构确定。开发{unknown.get('dev',0):,}对、留出{unknown.get('test',0):,}对A/P缺少结构化规则，归入“未标注”并保留在总体统计。分层沿用全评价总体的既定权重并在子集内归一化。"
       "某次来源重采样未包含该子集时，该次区间统计记为无有效样本；有效次数见table2.json。\n\n"
       "## 服务器运行\n\n"
       f"共需{prep['requested_directed_scores']:,}次单向头修补分数；复用{prep['reused_directed_scores']:,}次，补算{prep['missing_directed_scores']:,}次。"
