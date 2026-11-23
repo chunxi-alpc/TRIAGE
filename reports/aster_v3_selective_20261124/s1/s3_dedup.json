@@ -1,0 +1,516 @@
+{
+  "target_eligible_nodes": 33,
+  "target_distinct_case_ids": 33,
+  "target_source_ids": [
+    "train_val:1716",
+    "train_val:1850"
+  ],
+  "decision_identity": "original current patient + complete condition; frozen V3 measurement-bound verifier or first-unit baseline with R0 fallback, cached Qwen3-8B MEGA natural-node scoring",
+  "comparison": "Exact rule text scanned within serialized archive inputs/rules, case identifier equality, patient equality where the archive exposes the full patient field, and differing target/decision protocol. A missing patient field is counted separately.",
+  "historical": [
+    {
+      "pr": 29,
+      "protocol": "Qwen3-8B explicit two-branch choice A/B/uncertain then final action; two threshold states and two rule orders",
+      "files": [
+        "/home/gcx/qwen800_methods_20261023/private/cases.jsonl",
+        "/home/gcx/cs44_explicit_check_20261024/private/evaluation.jsonl",
+        "/home/gcx/cs44_explicit_check_20261024/private/requests{0,1}.jsonl",
+        "/home/gcx/cs44_explicit_check_20261024/private/outputs{0,1}.jsonl"
+      ],
+      "source_identity": "MedGuide case IDs, disease and source row; separate namespace from MEGA guideline source IDs",
+      "case_ids": [
+        "medguide_00167",
+        "medguide_00168",
+        "medguide_00448",
+        "medguide_00450",
+        "medguide_00998",
+        "medguide_01273",
+        "medguide_01278",
+        "medguide_01557",
+        "medguide_01558",
+        "medguide_01562",
+        "medguide_01834",
+        "medguide_01835",
+        "medguide_02109",
+        "medguide_02112",
+        "medguide_02383",
+        "medguide_02670",
+        "medguide_02945",
+        "medguide_02948",
+        "medguide_03223",
+        "medguide_03501",
+        "medguide_03504",
+        "medguide_03774",
+        "medguide_03775",
+        "medguide_03777",
+        "medguide_04046",
+        "medguide_04050",
+        "medguide_04322",
+        "medguide_04325",
+        "medguide_04868",
+        "medguide_04869",
+        "medguide_05141",
+        "medguide_05142",
+        "medguide_05414",
+        "medguide_05415",
+        "medguide_05418",
+        "medguide_05688",
+        "medguide_05693",
+        "medguide_05956",
+        "medguide_06229",
+        "medguide_06500",
+        "medguide_07067",
+        "medguide_07068",
+        "medguide_07347",
+        "medguide_07635"
+      ],
+      "cases": {
+        "rows": 44,
+        "case_ids_matching": 0,
+        "full_rule_string_presence": {
+          "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+          "收缩压是否在90~120 mmHg范围内？": 0
+        },
+        "literal_patient_field_matches": 0,
+        "rows_with_patient_field": 44
+      },
+      "requests": {
+        "rows": 176,
+        "case_ids_matching": 0,
+        "full_rule_string_presence": {
+          "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+          "收缩压是否在90~120 mmHg范围内？": 0
+        },
+        "literal_patient_field_matches": 0,
+        "rows_with_patient_field": 0
+      },
+      "evaluation_rows": 176,
+      "completed_rows": 176,
+      "same_request_keys": 176,
+      "same_protocol_completed": 0
+    },
+    {
+      "pr": 4,
+      "ref": "origin/codex/care-evidence-v4-20261018",
+      "commit": "6a0f49841ace42939c3ad41047fd714890181afa",
+      "protocol": "V04 rule ID, source row and anchor; rule applicability/uncertain with evidence",
+      "files": {
+        "experiments/care_module1_v4/data/rules_manifest.jsonl": {
+          "rows": 16,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v4/data/labels.jsonl": {
+          "rows": 192,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v4/data/model/predictions.jsonl": {
+          "rows": 192,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        }
+      },
+      "unique_case_or_sample_ids": 192,
+      "first_last_ids": [
+        "C01_contradiction",
+        "C32_partial_missing"
+      ],
+      "rule_ids": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16"
+      ],
+      "family_ids": [],
+      "dataset_ids": [],
+      "same_protocol_completed": 0
+    },
+    {
+      "pr": 5,
+      "ref": "origin/codex/care-module1-v5",
+      "commit": "f7d3828b4a4d368da9edeb5d6da977b5601b3b9e",
+      "protocol": "V5 rule and sample IDs; multi-condition applicability, entailment, uncertainty and program/numeric adjudication",
+      "files": {
+        "experiments/care_module1_v5/data/rules_v5.jsonl": {
+          "rows": 16,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v5/data/labels_public.jsonl": {
+          "rows": 192,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v5/runs/v5_20261018/parser_v2_final/predictions_public.jsonl": {
+          "rows": 192,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        }
+      },
+      "unique_case_or_sample_ids": 192,
+      "first_last_ids": [
+        "C01_contradiction",
+        "C32_partial_missing"
+      ],
+      "rule_ids": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16"
+      ],
+      "family_ids": [],
+      "dataset_ids": [],
+      "same_protocol_completed": 0
+    },
+    {
+      "pr": 12,
+      "ref": "origin/pr12",
+      "commit": "8fb87d15576b88500f44a88f04799267d9f2b5ee",
+      "protocol": "V8 semantic applicability A0/A1/A2; development, confirmation, new72; dataset-specific case and family IDs",
+      "files": {
+        "experiments/care_module1_semantic_v8/data/semantic_dev_inputs.jsonl": {
+          "rows": 96,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 96
+        },
+        "experiments/care_module1_semantic_v8/data/semantic_confirmation_inputs.jsonl": {
+          "rows": 192,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 192
+        },
+        "experiments/care_module1_semantic_v8/data/new72_cases.jsonl": {
+          "rows": 72,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 72
+        },
+        "experiments/care_module1_semantic_v8/results/dev_A0/predictions.jsonl": {
+          "rows": 96,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_semantic_v8/results/dev_A1/predictions.jsonl": {
+          "rows": 96,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_semantic_v8/results/confirmation_A0/predictions.jsonl": {
+          "rows": 192,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_semantic_v8/results/confirmation_A1/predictions.jsonl": {
+          "rows": 192,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_semantic_v8/results/new72_A0/predictions.jsonl": {
+          "rows": 72,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_semantic_v8/results/new72_A1/predictions.jsonl": {
+          "rows": 72,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_semantic_v8/results/new72_A2/predictions.jsonl": {
+          "rows": 72,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        }
+      },
+      "unique_case_or_sample_ids": 360,
+      "first_last_ids": [
+        "mechanism_02_disjunction-p01-canonical-app",
+        "v8_new_12_diary_review_new_entry_u02"
+      ],
+      "rule_ids": [],
+      "family_ids": [
+        "mechanism_02_disjunction",
+        "mechanism_04_conjunction_nested_disjunction",
+        "mechanism_05_disjunction_nested_conjunction",
+        "mechanism_08_negated_conjunction",
+        "mechanism_10_entry_with_two_exclusions",
+        "mechanism_11_alternative_conjunctions",
+        "mechanism_14_conditional_requirement",
+        "mechanism_16_three_alternatives",
+        "mechanism_17_three_exclusions",
+        "mechanism_20_two_paths_with_exclusions",
+        "mechanism_22_five_condition_composition",
+        "mechanism_23_exceptional_alternative",
+        "v8_new_01_recent_specimen_accession",
+        "v8_new_02_current_callback_permission",
+        "v8_new_03_imaging_device_clearance",
+        "v8_new_04_medication_review_after_discharge",
+        "v8_new_05_result_contact_channels",
+        "v8_new_06_remote_device_ownership",
+        "v8_new_07_interpreter_patient_preference",
+        "v8_new_08_consent_signatory_withdrawal",
+        "v8_new_09_checkin_departure_room_override",
+        "v8_new_10_archived_slides_current_loan",
+        "v8_new_11_transport_driver_alternative",
+        "v8_new_12_diary_review_new_entry"
+      ],
+      "dataset_ids": [
+        "care_module1_semantic_v8_new72"
+      ],
+      "same_protocol_completed": 0
+    },
+    {
+      "pr": 13,
+      "ref": "origin/codex/care-module1-v8-1",
+      "commit": "671ca599bbd85058c4a32d2be987523cea452642",
+      "protocol": "V8.1 applicability A1/B1/B2; reuses V8 dev/confirmation/new72 plus natural72; case and family IDs",
+      "files": {
+        "experiments/care_module1_v8_1/data/natural72_cases.jsonl": {
+          "rows": 72,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 72
+        },
+        "experiments/care_module1_v8_1/results/dev_B1/predictions.jsonl": {
+          "rows": 96,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v8_1/results/dev_B2/predictions.jsonl": {
+          "rows": 96,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v8_1/results/confirmation_B1/predictions.jsonl": {
+          "rows": 192,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v8_1/results/confirmation_B2/predictions.jsonl": {
+          "rows": 192,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v8_1/results/new72_B1/predictions.jsonl": {
+          "rows": 72,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v8_1/results/new72_B2/predictions.jsonl": {
+          "rows": 72,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v8_1/results/natural72_A1/predictions.jsonl": {
+          "rows": 72,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v8_1/results/natural72_B1/predictions.jsonl": {
+          "rows": 72,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        },
+        "experiments/care_module1_v8_1/results/natural72_B2/predictions.jsonl": {
+          "rows": 72,
+          "case_ids_matching": 0,
+          "full_rule_string_presence": {
+            "Is preoperative Hb <13.0 g/dL (in either men or women)?": 0,
+            "收缩压是否在90~120 mmHg范围内？": 0
+          },
+          "literal_patient_field_matches": 0,
+          "rows_with_patient_field": 0
+        }
+      },
+      "unique_case_or_sample_ids": 432,
+      "first_last_ids": [
+        "mechanism_02_disjunction-p01-canonical-app",
+        "v8_new_12_diary_review_new_entry_u02"
+      ],
+      "rule_ids": [],
+      "family_ids": [
+        "v81_natural_01_headache_daily_activity",
+        "v81_natural_02_breathlessness_stairs",
+        "v81_natural_03_postural_lightheadedness",
+        "v81_natural_04_solid_food_swallowing",
+        "v81_natural_05_night_hand_sensation",
+        "v81_natural_06_urinary_discomfort",
+        "v81_natural_07_rash_new_product",
+        "v81_natural_08_bowel_pattern_change",
+        "v81_natural_09_ankle_swelling_asymmetry",
+        "v81_natural_10_voice_recovery",
+        "v81_natural_11_observed_sleep_pauses",
+        "v81_natural_12_hand_grip_function"
+      ],
+      "dataset_ids": [
+        "care_module1_v8_1_natural72"
+      ],
+      "same_protocol_completed": 0
+    }
+  ],
+  "prior_same_protocol_predictions": 0,
+  "same_case_and_condition_prior_MEGA_rule": [
+    {
+      "case_id": "mega:train_val:1850:5",
+      "gid": "G2",
+      "archive_group": "new-1850-G2",
+      "archived_program": "program",
+      "archived_program_label": 1,
+      "V3_verifier_decision": 1
+    }
+  ],
+  "MEGA_rule_path": "/home/gcx/aster_cr_repair_v2_run_20261108/data/rules.jsonl",
+  "MEGA_rule_role": "Earlier patient fact/predicate output provides one corroborating record; V3 adds raw-text extraction with abstention and R0 comparator.",
+  "cost": {
+    "seconds": 1.1745716410223395,
+    "gpu_hours": 0,
+    "model_forward": 0,
+    "old_replays": 0
+  }
+}
