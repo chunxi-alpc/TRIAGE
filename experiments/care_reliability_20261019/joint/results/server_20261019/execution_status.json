@@ -1,0 +1,111 @@
+{
+  "status": "completed_real_model_inference",
+  "failures": [],
+  "learned_subspace_status": "manifest_and_file_digests_verified",
+  "data_sha256": "c160431b2de0d4d028aa323d21c09105bcbba0867bca6166b5206b086d0e516a",
+  "protocol_sha256": "2d7c524f7bfe7a667cdea905fbd5a4bc27e323eef129938eeef0f4fd71c4321f",
+  "source_sha256": {
+    "joint/__init__.py": "27cb1b3da5d20c47c324eb23d3a69fba841a8140a868ae370e10a13091ee076d",
+    "joint/audit_cpu.py": "cc21a52743ccff9444087426fdd8c20f885452671ae498dd0fbd623572d88249",
+    "joint/context.py": "1dec3c51007e99cc0058a01e5ad15b846bdfe0afb8af815ff89ca78ca3c49739",
+    "joint/evaluate.py": "ebcbcdadf18dcec480c8031096aee5ba0968ea089e133442faa83d7c91a672e6",
+    "joint/logic.py": "3d2f54ea5cf6b64a5bf30c47c53624005a33698e5b21799879a5580bccf7cd32",
+    "joint/model_backend.py": "5d569dc64d557ecd03c547555045561fa4d12fefcc02b9f8e879f6541674a7bc",
+    "joint/run_joint.py": "99ece3915a3a67967ad01c1a03d0dd6d4c2377d92bd401a45fc2d0e7f2413974",
+    "joint/run_server.py": "0b0ebb7c896f3f170ff607aa2b48081cd89b9c22a6f38e5b35e4c1d5c642c38c",
+    "joint/run_structures.py": "57f6a6429caf65f6a7868f1a9244c8a9529928f83abf657e16d9390d4da494f3",
+    "joint/saved_structures.py": "601b926ea2bc2dd262d3e1fa0e72b9e9eb8539fea280f86cef6ebc58f9069f25",
+    "joint/structures.py": "41fbcbb1d5f3b28c085be70de07a597cdb531d9e5dd1c9b9d5e30d6cc982b848",
+    "joint/test_joint.py": "0ebe7e6f1d29cdf8b28f1c57794ac8f24e7675894bb04749b1eb426477ed416c",
+    "joint/test_structure_transfer.py": "dbebfabdbf00ef9d67dd7786645b30515dcb50d27cd026d0a2a6b29de541942d",
+    "module2/analyze.py": "c94c43bffbd5ace6efe9621bd77f8d70b246a46f34eddc2744a8b9b8616cb812",
+    "module2/backend.py": "cc99e073ef44bd600905f2ed824c64b4e2fa38570f86f6cc82240b447257a8c6",
+    "module2/compatibility.py": "728387109f1bc65d724f90d2ff69f550c354b3c7694dd1e02d16c8707fb6c9ca",
+    "module2/geometry.py": "a7ae77c466a8881efe9a3eca7552e4787671a65c4f73dec726a22d5d2df1bde5",
+    "module2/run.py": "538bd55fb6a7f3fec4760092410599d8eff8829c0de72bbd4bbafe7d40922ca2",
+    "module2/test_analysis.py": "5cd7381422c40b184887c16e903c689a8d4a28f773ca068d8cc716138a124779",
+    "module2/test_backend_torch.py": "af725ff5eacf9539a16907dfd221909df8256de84465721102fa99b1de213226",
+    "module2/test_geometry.py": "f0d0c00be5df6f9f09f03057da2db6a0e62981b310c7c900601df53dacfa2f46",
+    "module2/test_model_guards.py": "ccdb9dd91cd7db9503ddee2d5f76075956f8d99d4282d98706799387de8b4f59"
+  },
+  "cases_in_requested_split": 192,
+  "rule_families": 8,
+  "training_throughput_preflight_only": false,
+  "sources": [
+    "reference",
+    "reference_positive",
+    "v6",
+    "v7"
+  ],
+  "modes": [
+    "structured_prompt",
+    "signed_bias",
+    "learned_subspace"
+  ],
+  "reference_diagnostic_authorized": true,
+  "model_inference_completed": true,
+  "numeric_results": null,
+  "limitations": [
+    "new data are invented mechanism cases, not independent clinical validation",
+    "schema and wording were used for development regression fixes; not blind throughout method development",
+    "joint learned arm is blocked if verified learned assets are absent",
+    "CPU validation does not validate real attention hooks"
+  ],
+  "journal_records": 2496,
+  "actual_forward_calls": 4032,
+  "elapsed_seconds": 176.33794260025024,
+  "prediction_log_sha256": "45c431da99a5d0145339778c8e59172bd8b4c6c307be645da5f52d33d63682b1",
+  "source_load_failures": {},
+  "shared_frozen_module1_adapters": true,
+  "structure_execution": "verified_external_original_runtime",
+  "peak_allocated_gib": 7.782565116882324,
+  "peak_reserved_gib": 8.783203125,
+  "signed_zero_checks_passed": true,
+  "signed_zero_coverage_by_source": {
+    "reference": {
+      "expected_case_source_checks": 192,
+      "recorded_case_source_checks": 192,
+      "zero_forward_attempted": 192,
+      "comparisons_completed": 192,
+      "comparison_coverage": 1.0,
+      "passed": 192,
+      "output_mismatches": 0,
+      "model_errors": 0,
+      "blocked_structure_model": 0
+    },
+    "reference_positive": {
+      "expected_case_source_checks": 192,
+      "recorded_case_source_checks": 192,
+      "zero_forward_attempted": 192,
+      "comparisons_completed": 192,
+      "comparison_coverage": 1.0,
+      "passed": 192,
+      "output_mismatches": 0,
+      "model_errors": 0,
+      "blocked_structure_model": 0
+    },
+    "v6": {
+      "expected_case_source_checks": 192,
+      "recorded_case_source_checks": 192,
+      "zero_forward_attempted": 192,
+      "comparisons_completed": 192,
+      "comparison_coverage": 1.0,
+      "passed": 192,
+      "output_mismatches": 0,
+      "model_errors": 0,
+      "blocked_structure_model": 0
+    },
+    "v7": {
+      "expected_case_source_checks": 192,
+      "recorded_case_source_checks": 192,
+      "zero_forward_attempted": 192,
+      "comparisons_completed": 192,
+      "comparison_coverage": 1.0,
+      "passed": 192,
+      "output_mismatches": 0,
+      "model_errors": 0,
+      "blocked_structure_model": 0
+    }
+  },
+  "model_provenance_sha256": "c53b22ab3a85a5420403d28487ad40628e08ba93c0a465cbf4a15d2bd187fa05"
+}

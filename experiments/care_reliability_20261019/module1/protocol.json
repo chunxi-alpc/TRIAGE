@@ -1,0 +1,51 @@
+{
+  "study": "CARE module-one complete evidence proof and scoped numeric reliability",
+  "version": "20261019-v1",
+  "baseline_commit": "7557d3150214a3894f2d340df6d9964de75efce1",
+  "implementation": "src/module1/care_v7.py",
+  "default_entry_point_changed": false,
+  "claims": {
+    "cpu_diagnostics": "Structural logic and deterministic extraction behavior only; not model or clinical accuracy.",
+    "cached_replay": "Gate and evidence-selection recomputation with unchanged saved applicability labels; no model calls.",
+    "new_inference": "Requires actual Phi-4/TrialMatchAI and BioLinkBERT-MedNLI run manifest and predictions; a dry-run is not inference."
+  },
+  "proof_gate": {
+    "rule_semantics": "main AND NOT(exception_logic), with strong Kleene three-valued logic",
+    "proof": "exact subset-minimal sufficient assignment of signed atoms under a fixed known rule state",
+    "action_opening": "rule T and at least one entire sufficient proof has matching, offset-valid, noncontradictory evidence for every atom",
+    "unconditional_rule": "no patient evidence target; action gate remains closed",
+    "unknown_rule": "no action gate; no unknown atom may supply a sufficient known proof",
+    "limit": "4096 minimal proofs; any overflow fails closed and is explicitly reported",
+    "evidence_truth": "NLI evidence correctness is not guaranteed by structural proof completeness"
+  },
+  "numeric_policy": {
+    "language": "English explicit field-anchored measurements; limited Chinese scope markers are accepted but no Chinese measurement grammar is claimed",
+    "subject": "explicit patient subject in the same sentence; family/mixed-subject sentence rejected",
+    "time": "explicit current marker in same sentence; historical/mixed-time sentence rejected",
+    "uncertainty": "negated, corrected or uncertain current patient statement blocks numeric override even if another point exists",
+    "binding": "number must follow a supported field alias through a short grammatical bridge",
+    "units": "exact decimal factors within supported length/time/count/stage/testosterone/TMB units",
+    "missing_unsupported_or_conflicting": "numeric U; retain TrialMatchAI applicability; a numeric context conflict closes the condition evidence gate",
+    "limitations": "Conservative pattern-based policy can abstain on valid clinical prose; it is not a general temporal/subject resolver."
+  },
+  "data_partitions": {
+    "synthetic_cpu": "Development regression cases designed to exercise known failure modes; not held-out validation.",
+    "old_192": "Original V6 development cache; 32 case anchors with correlated variants; no independent clinician review.",
+    "new_100": "Original V6 additional cache; 17 case anchors and 9 rules with controlled variants; no clinician adjudication.",
+    "new_model_inputs": "Prediction sees only allowlisted structured guidelines, patient text and question; gold/reference structures and structured facts are excluded."
+  },
+  "metrics": [
+    "numeric regression correctness and abstention coverage, with category counts",
+    "override on cases whose expected numeric state is U",
+    "gate coverage, opened-label accuracy, opened-evidence accuracy and opened-joint accuracy",
+    "correct-T gate coverage and incorrect openings",
+    "grouped bootstrap descriptive intervals, grouping all case variants by original anchor",
+    "parse failures and technical errors counted separately from unknown medical state"
+  ],
+  "held_out_follow_up": {
+    "status": "requires_independent_data_and_annotation",
+    "split_unit": "guideline or rule family, with base case and every variant in the same split",
+    "required_labels": "T/F/U rule states, condition/exception states, evidence proofs and source spans",
+    "clinical_review": "Must be actually performed and recorded; no expert review has been claimed for current artifacts."
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "status": "analysis_of_completed_real_inference",
+  "mode": "legacy384_regression",
+  "clinical_efficacy_claim": false,
+  "cases": 384,
+  "pairs": 192,
+  "families": 12,
+  "primary_cases": 384,
+  "primary_pairs": 192,
+  "primary_population": "all 384 historical cases",
+  "canonical_base_pairs": null,
+  "oracle_applicability": true,
+  "oracle_action_span": true,
+  "primary": [
+    {
+      "method_a": "direct_bias",
+      "method_b": "b4_calibrated",
+      "metric": "paired_accuracy",
+      "delta_b_minus_a": -0.03125,
+      "ci95_low": -0.046875,
+      "ci95_high": -0.015625,
+      "co_primary": true,
+      "matched_direction_comparison": false,
+      "co_primary_ci975_low": -0.052083333333333315,
+      "co_primary_ci975_high": -0.010416666666666685
+    },
+    {
+      "method_a": "direct_bias",
+      "method_b": "mean_calibrated",
+      "metric": "paired_accuracy",
+      "delta_b_minus_a": -0.015625,
+      "ci95_low": -0.036458333333333315,
+      "ci95_high": 0.00520833333333337,
+      "co_primary": true,
+      "matched_direction_comparison": false,
+      "co_primary_ci975_low": -0.03645833333333337,
+      "co_primary_ci975_high": 0.01041666666666663
+    }
+  ],
+  "matched_direction_comparisons": [
+    [
+      "random_projector_calibrated",
+      "b4_calibrated"
+    ],
+    [
+      "random_vector_calibrated",
+      "mean_calibrated"
+    ],
+    [
+      "shuffled_mean_calibrated",
+      "mean_calibrated"
+    ]
+  ],
+  "primary_interpretation": "Two frozen learned-minus-direct contrasts; 97.5% marginal intervals implement Bonferroni alpha allocation. Small-family percentile intervals are approximate.",
+  "confidence_interval_scope": "Family bootstrap conditional on fitted old training folds; no refitting uncertainty. All other comparisons exploratory.",
+  "selection": "No new head, rank, strength, seed or test subset selection",
+  "all_variants_secondary": null,
+  "source_journal_sha256": {
+    "fold0": "fa8b0c9baee798812898dca3c52a628d57925626263b31715ff4d195457c751c",
+    "fold1": "4926f80f84b4d10904dc8c041f48ae774e95d57e0f8a67c9b050257daf1d34c4",
+    "fold2": "324fc83dea2f814e95c3b3c1b63b025023d47d1866a4a0e7e124f1504787bbca"
+  },
+  "analysis_source_sha256": "c94c43bffbd5ace6efe9621bd77f8d70b246a46f34eddc2744a8b9b8616cb812",
+  "source_data_sha256": "cbe6dc63cb95c64db60ce6b9062c0eeb910d15c7a68f42ed7ca7904d7cf6c28b"
+}

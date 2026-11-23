@@ -1,0 +1,150 @@
+{
+  "protocol_id": "care_module2_direction_calibration_20261019_v1",
+  "status": "frozen_before_any_new_model_inference",
+  "source_commit": "7557d3150214a3894f2d340df6d9964de75efce1",
+  "model_id": "Qwen/Qwen3-4B-Base",
+  "model_revision": "906bfd4b4dc7f14ee4320094d8b41684abff8539",
+  "model_manifest_sha256": "45d729a7176125f7ffc9156a94d8cb36211962e6dc41810bb5500accbbed2e3e",
+  "model_compatibility": {
+    "required_dependency_versions": {
+      "torch": "2.8.0",
+      "transformers": "4.57.6"
+    },
+    "critical_config_fields": [
+      "model_type",
+      "architectures",
+      "vocab_size",
+      "hidden_size",
+      "intermediate_size",
+      "num_hidden_layers",
+      "num_attention_heads",
+      "num_key_value_heads",
+      "head_dim",
+      "hidden_act",
+      "rms_norm_eps",
+      "max_position_embeddings",
+      "rope_theta",
+      "rope_scaling",
+      "attention_bias",
+      "attention_dropout",
+      "use_sliding_window",
+      "sliding_window",
+      "max_window_layers",
+      "layer_types",
+      "tie_word_embeddings"
+    ],
+    "config_policy": "exact original-manifest equality for resolved AutoConfig and loaded model config; full attention only",
+    "environment_policy": "block unvalidated installed-distribution Torch/Transformers versions; record all other original dependency differences and current CUDA/GPU metadata"
+  },
+  "precision": "bfloat16",
+  "maximum_prompt_tokens": 1024,
+  "attention": "sdpa",
+  "layout": {
+    "layers": 36,
+    "query_heads": 32,
+    "kv_heads": 8,
+    "head_dimension": 128
+  },
+  "modes": [
+    "legacy384_regression",
+    "sealed_mechanism"
+  ],
+  "legacy_data_sha256": "cbe6dc63cb95c64db60ce6b9062c0eeb910d15c7a68f42ed7ca7904d7cf6c28b",
+  "sealed_data_sha256": "f6d80f0f2926b5290064413d1289516bc348cdc62cbf84e99ffa8fec6bdef7b9",
+  "directions": [
+    "b4",
+    "mean",
+    "random_projector",
+    "random_vector",
+    "shuffled_mean"
+  ],
+  "calibration_modes": [
+    "raw",
+    "calibrated"
+  ],
+  "direct_control": "direct_bias",
+  "oracle_applicability": true,
+  "oracle_action_span": true,
+  "frozen_folds": {
+    "0": {
+      "layer": 9,
+      "kv_head": 0,
+      "rank": 1,
+      "score_rms": 0.01
+    },
+    "1": {
+      "layer": 2,
+      "kv_head": 0,
+      "rank": 1,
+      "score_rms": 0.1
+    },
+    "2": {
+      "layer": 9,
+      "kv_head": 0,
+      "rank": 4,
+      "score_rms": 0.1
+    }
+  },
+  "direction_seed": 261019,
+  "direction_seed_policy": "direction_seed + outer_fold; one fixed draw, no seed selection",
+  "angle_floor": 0.1,
+  "cosine_tolerance": 1e-08,
+  "actual_anchor_sign_tolerance": 1e-07,
+  "maximum_rms_relative_error": 0.15,
+  "score_support": "all causal query positions x four GQA heads x original target action tokens, including skipped zero entries",
+  "score_certificate_basis": "explicit fixed-query QK products from BF16-rotated queries and keys; the downstream SDPA kernel is not directly instrumented",
+  "anchor": "last prompt token, before single-token A/B/C/D candidate evaluation",
+  "zero_checks": {
+    "direct_bias": "every test case, same complete input; tau=0 candidate logits and probabilities exactly equal baseline",
+    "key_interventions": "all ten direction/calibration conditions on the first case sorted by case_id in each fold",
+    "on_difference": "persist failed zero audit and stop; never report shape-induced differences as method gains"
+  },
+  "gqa_policy": "per-token same strict cosine sign across all four group query heads; skip disagreement; after BF16 quarantine every token with any actual wrong-sign anchor change and recalibrate",
+  "strength_selection": "none in this run; reuse prior signed experiment common development selections",
+  "head_selection": "none in this run; freeze prior B4 development selections",
+  "training_data": "only the old six training families in each archived fold",
+  "new_data_use": "sealed confirmation T/F pairs only; no model-based filtering or selection",
+  "primary_metric": "paired_accuracy",
+  "primary_population": {
+    "legacy384_regression": "all 384 historical cases",
+    "sealed_mechanism": "canonical confirmation variants only, 48 cases / 24 base pairs / 8 families"
+  },
+  "sealed_secondary_population": "all 144 cases / 72 surface-variant pairs; also require all six responses per base pair to be correct",
+  "co_primary_comparisons": [
+    [
+      "direct_bias",
+      "b4_calibrated"
+    ],
+    [
+      "direct_bias",
+      "mean_calibrated"
+    ]
+  ],
+  "matched_direction_comparisons": [
+    [
+      "random_projector_calibrated",
+      "b4_calibrated"
+    ],
+    [
+      "random_vector_calibrated",
+      "mean_calibrated"
+    ],
+    [
+      "shuffled_mean_calibrated",
+      "mean_calibrated"
+    ]
+  ],
+  "bootstrap_replicates": 10000,
+  "bootstrap_seed": 261020,
+  "bootstrap_unit": "clinical or mechanism family, preserving all case/method pairs",
+  "primary_interval": "97.5% marginal percentile intervals for two co-primary comparisons; Bonferroni allocation of familywise alpha=.05",
+  "secondary_interval": "95% family percentile bootstrap, exploratory and unadjusted",
+  "no_claims": [
+    "no clinical efficacy",
+    "no complete CARE pipeline",
+    "no evidence-budget guarantee",
+    "no generation-time direction guarantee",
+    "no numeric result until real inference has completed",
+    "no random model fallback"
+  ]
+}
