@@ -12,7 +12,7 @@
 
 根据主要干预位置，相关方法可分为输出分布调整和内部表示干预两类。输出分布调整通过校准预测分数或改变解码时的词元概率，修正答案偏好并调节上下文的影响。偏置校准利用无内容输入（Zhao et al., 2021）或一批无标签输入（Zhou et al., 2024）估计共享的答案偏好，难以刻画当前输入对判断的具体影响。上下文对比解码 CAD 通过比较有无当前上下文时的输出逐例调整预测（Shi et al., 2024），AdaCAD 则根据两种输出分布的差异动态调整 CAD 原先固定的对比权重（Wang et al., 2025）。AdaCAD 的对比权重反映整体分布差异，CFB 则进一步利用注意力和语义相似性，选择性提高上下文相关词元的生成概率（Zhang et al., 2026）。当关键证据和无关线索都提高同一决策分支的得分时，调整该分支的输出分数难以单独削弱无关线索的影响。
 
-表示层干预可以利用对比样本提取与无关线索相关的特征方向，并沿该方向调节模型对这条线索的响应。对比激活相加（CAA）从成对示例的激活差中估计引导方向，但对不同输入施加同一向量，难以适应各病例受到的干扰差异（Rimsky et al., 2024）。条件激活引导（CAST）根据当前输入的激活决定是否施加引导，PSR 则根据激活调整各词元位置的引导强度（Lee et al., 2025；Heyman & Vandeputte, 2026）。即使能够选择何时干预、干预多强，沿目标方向调整激活也可能影响其他行为，SteeringSafety 在多项安全行为评价中观察到了这种现象（Siu et al., 2026）。
+内部表示干预可以沿与特定线索相关的激活方向进行调节，从而有针对性地改变这条线索对分支判断的影响。CAA 从成对示例的激活差中提取引导向量（Rimsky et al., 2024），Stolfo et al.（2025）则从有无指令时的激活差中提取可跨输入复用的指令向量。固定引导也会作用于原本无须调整的输入，因此 CAST 根据输入激活判断是否满足预设条件，再决定是否施加引导（Lee et al., 2025）。满足同一条件的输入仍可能需要不同的修正幅度，MERA 同时校准是否干预和干预强度，在缺乏可靠修正时保留原判断（Hedström et al., 2025）。当干预需求随生成位置变化时，DSAS 根据各层在当前词元位置的激活缩放干预强度（Ferrando et al., 2026），PSR 则通过模仿提示引发的行为学习各位置的引导系数（Heyman & Vandeputte, 2026）。动态调节强度仍可能影响目标以外的行为，SteeringSafety 观察到增强一种安全行为时其他行为也会改变（Siu et al., 2026）。临床任务中的初步证据也提示，部分对无关信息敏感的模型组件同时参与临床推理（Vishwanath et al., 2026）。
 
 当干扰与关键证据共享表示成分时，抑制干扰也可能削弱模型对关键证据的响应。指南规定了哪些条件或患者事实的变化应当触发另一条分支。我们的直觉是，用这些必须保留的决策响应约束每个病例的干扰修正。
 
@@ -604,6 +604,7 @@ E7的冻结跨任务评价覆盖五个模型的20个模型—任务总体，结�
 - Longpre, S. et al. (2021). *Entity-Based Knowledge Conflicts in Question Answering*. [EMNLP](https://aclanthology.org/2021.emnlp-main.565/).
 - Li, G., Chen, Y. & Tong, H. (2025). *Taming Knowledge Conflicts in Language Models*. [ICML](https://proceedings.mlr.press/v267/li25c.html).
 - Vishwanath, K. et al. (2025). *Medical large language models are easily distracted*. [arXiv](https://arxiv.org/abs/2504.01201).
+- Vishwanath, K. et al. (2026). *Large language models are vulnerable to incidental information in clinical documentation and reasoning*. [arXiv 预印本](https://arxiv.org/abs/2610.08585).
 - Hou, Z. et al. (2026). *Evaluating Counterfactual Sensitivity to Patient Information in Medication-Safety Reasoning*. [arXiv:2608.03028](https://arxiv.org/abs/2608.03028).
 - Jullien et al. (2023). *NLI4CT: Multi-Evidence Natural Language Inference for Clinical Trial Reports*. [EMNLP](https://aclanthology.org/2023.emnlp-main.1041/).
 - Jullien, M., Valentino, M. & Freitas, A. (2024). *SemEval-2024 Task 2: Safe Biomedical Natural Language Inference for Clinical Trials*. [任务论文](https://aclanthology.org/2024.semeval-1.271/)、[勘误](https://aclanthology.org/2024.semeval-1.271e1.pdf)。
@@ -636,6 +637,8 @@ E7的冻结跨任务评价覆盖五个模型的20个模型—任务总体，结�
 - Wu, Z. et al. (2025a). *AxBench: Steering LLMs? Even Simple Baselines Outperform Sparse Autoencoders*. [ICML 2025](https://proceedings.mlr.press/v267/wu25a.html)。
 - Wu, Z., Yu, Q., Arora, A., Manning, C. D. & Potts, C. (2025b). *Improved Representation Steering for Language Models (RePS)*. [NeurIPS 2025](https://proceedings.neurips.cc/paper_files/paper/2025/hash/eb1ef82926376d252dde00d5dd909f4b-Abstract-Conference.html)。
 - Heyman, G. & Vandeputte, F. (2026). *Steer Like the LLM: Activation Steering that Mimics Prompting*. [ICML 2026](https://proceedings.mlr.press/v306/heyman26a.html)。
+- Hedström, A., Amoukou, S. I., Bewley, T., Mishra, S. & Veloso, M. (2025). *To Steer or Not to Steer? Mechanistic Error Reduction with Abstention for Language Models*. [ICML](https://proceedings.mlr.press/v267/hedstrom25a.html).
+- Ferrando, A., Suau, X., Gonzàlez, J. & Rodriguez, P. (2026). *Dynamically Scaled Activation Steering*. [TMLR](https://openreview.net/forum?id=EXKv1KMNtR).
 - Siu, V. et al. (2026). *SteeringSafety: Benchmarking Representation Steering in LLMs Across Safety Perspectives*. [ICML 2026](https://proceedings.mlr.press/v306/siu26a.html)。
 - Cheng, S. S., Wiegreffe, S. & Manocha, D. (2026). *What Drives Representation Steering? A Mechanistic Case Study on Steering Refusal*. [EMNLP 2026](https://aclanthology.org/2026.emnlp-main.79/)。
 - Venhoff, C., Arcuschin, I., Torr, P., Conmy, A. & Nanda, N. (2026). *Base Models Know How to Reason, Thinking Models Learn When*. [ICML 2026](https://proceedings.mlr.press/v306/venhoff26a.html)。
