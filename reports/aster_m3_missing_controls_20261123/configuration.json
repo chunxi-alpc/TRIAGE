@@ -1,0 +1,202 @@
+{
+  "implementation_base": "e2e7e4f0f68895cbe3fe7f2085a1436b41408356",
+  "main_at_audit": "531716786b3164859c922f08e279fc4fe63e5148",
+  "training_dataset": "E1 / Dataset A",
+  "mechanism_evaluation_dataset": "existing common frozen Dataset B pool (E2)",
+  "pairs": 2540,
+  "sources": 80,
+  "outer_train": 64,
+  "outer_validation": 16,
+  "inner_train": 48,
+  "inner_validation": 16,
+  "folds": 5,
+  "outer_split": "reports/aster_m3_joint_study_20261115/folds.json",
+  "inner_splits": "reports/aster_m3_joint_study_20261115/selection/fold*/split.json",
+  "heads": 51,
+  "m2_dimension": 16,
+  "delta": 0.2923349,
+  "regularization": 0.01,
+  "lambda_ap": [
+    0.1,
+    0.1,
+    0.1,
+    0.1,
+    10
+  ],
+  "direction_lambda_cf_candidates": [
+    0.1,
+    1,
+    10
+  ],
+  "asymmetric_only_lambda_cf": 0,
+  "loss_normalization": {
+    "task": "mean BCE / max(mean baseline BCE at fixed train b0,1e-12)",
+    "ap": "weighted corrected pair difference squared / max(weighted raw difference squared,1)",
+    "cf": "archived J2 true-label directed softplus / train baseline"
+  },
+  "selection": "archived choose_candidate on inner held-out sources using independent intercept",
+  "signed_asymmetric_bound": "-delta <= (right_label-left_label) * (c_right-c_left) <= 2 * delta",
+  "symmetric_bound": "abs(c_right-c_left) <= delta",
+  "primary_calibration": "independent",
+  "control_calibration": "shared",
+  "bootstrap_draws": 2000,
+  "bootstrap_seed": 20261111,
+  "bootstrap_unit": "source, pooled ratios, common draws",
+  "gpu_devices": [],
+  "gpu_memory_gib": 0,
+  "backbone_forwards": 0,
+  "backbone_gradients": 0,
+  "activation_patching": 0,
+  "m1_m2_refits": 0,
+  "software": {
+    "python": "3.12.3",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "matplotlib": "3.11.2"
+  },
+  "archive": {
+    "model": "/home/gcx/TRIAGE/models/modelscope/Qwen3-8B",
+    "dtype": "bfloat16",
+    "scoring": "original final-token scores and original dynamic path scorer",
+    "data_commit": "5a329fe68eaa84fb5f7a791c50d15a47181ac4f2",
+    "pair_data_root": "/home/gcx/aster_cr_pair_dataset_20261111",
+    "archived_joint_commit": "bb6724d40a4cab5831d3c8e61f2a4f1d3318b4e1",
+    "archived_j2_commit": "fc206a9ccff1f149fd42b98ea6eb7915ed6f2125",
+    "joint_archive": "/home/gcx/aster-m3-joint-20261115/reports/aster_m3_joint_study_20261115",
+    "historical_e1_root": "/home/gcx/aster-cr-retrain-paired-v2-20261111/reports/aster_cr_retrain_paired_v2_20261111",
+    "cases": "/home/gcx/aster_cr_repair_v2_run_20261108/data/path_cases.jsonl",
+    "model_training_pair_count": 2540,
+    "projected_caches": [
+      {
+        "fold": 1,
+        "path": "models/fold1/projected_cache.npz",
+        "file_bytes": 7773185,
+        "arrays": {
+          "ids": {
+            "shape": [
+              59611
+            ],
+            "dtype": "<U9"
+          },
+          "ell": {
+            "shape": [
+              59611
+            ],
+            "dtype": "float64"
+          },
+          "traces": {
+            "shape": [
+              59611,
+              16
+            ],
+            "dtype": "float64"
+          }
+        }
+      },
+      {
+        "fold": 2,
+        "path": "models/fold2/projected_cache.npz",
+        "file_bytes": 9892311,
+        "arrays": {
+          "ids": {
+            "shape": [
+              75865
+            ],
+            "dtype": "<U9"
+          },
+          "ell": {
+            "shape": [
+              75865
+            ],
+            "dtype": "float64"
+          },
+          "traces": {
+            "shape": [
+              75865,
+              16
+            ],
+            "dtype": "float64"
+          }
+        }
+      },
+      {
+        "fold": 3,
+        "path": "models/fold3/projected_cache.npz",
+        "file_bytes": 9076667,
+        "arrays": {
+          "ids": {
+            "shape": [
+              69625
+            ],
+            "dtype": "<U9"
+          },
+          "ell": {
+            "shape": [
+              69625
+            ],
+            "dtype": "float64"
+          },
+          "traces": {
+            "shape": [
+              69625,
+              16
+            ],
+            "dtype": "float64"
+          }
+        }
+      },
+      {
+        "fold": 4,
+        "path": "models/fold4/projected_cache.npz",
+        "file_bytes": 9982964,
+        "arrays": {
+          "ids": {
+            "shape": [
+              76513
+            ],
+            "dtype": "<U9"
+          },
+          "ell": {
+            "shape": [
+              76513
+            ],
+            "dtype": "float64"
+          },
+          "traces": {
+            "shape": [
+              76513,
+              16
+            ],
+            "dtype": "float64"
+          }
+        }
+      },
+      {
+        "fold": 5,
+        "path": "models/fold5/projected_cache.npz",
+        "file_bytes": 6166597,
+        "arrays": {
+          "ids": {
+            "shape": [
+              47269
+            ],
+            "dtype": "<U9"
+          },
+          "ell": {
+            "shape": [
+              47269
+            ],
+            "dtype": "float64"
+          },
+          "traces": {
+            "shape": [
+              47269,
+              16
+            ],
+            "dtype": "float64"
+          }
+        }
+      }
+    ]
+  }
+}
