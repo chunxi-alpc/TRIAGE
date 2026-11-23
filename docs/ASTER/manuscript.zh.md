@@ -8,17 +8,17 @@
 
 ## 1 引言
 
-临床指南问答中的路径推理要求模型结合指南规则与患者记录，逐个判断患者是否满足当前节点条件，并据此选择后续分支。本文研究这一节点判断环节：模型接收当前节点、完整指南和患者信息，输出条件是否满足。近期研究建立了临床决策路径遵循基准，并通过患者信息的反事实变化评价用药安全推理（Chen et al., 2026; Hou et al., 2026）。在这一设定下，条件定义与患者决定性事实保持不变时，判断应对后续处置和无关背景的变化保持稳定；条件定义或决定性事实改变时，判断应随证据更新。这两项要求将忠实性与反事实不变性落实到指南节点的判断依据上（Jacovi & Goldberg, 2020; Veitch et al., 2021）。
+临床指南推理要求大语言模型结合给定指南和患者记录，逐个判断患者是否满足当前节点的条件，并据此选择后续分支。要使判断忠实于指南，模型应区分决定当前分支的关键证据与该节点无关的信息。关键证据发生变化并触发另一条分支时，判断应随之更新。若只改写后续处置或与当前条件无关的病史，判断应保持稳定。模型在作答时既利用当前上下文，也受到参数化知识和既有答案偏好的影响（Longpre et al., 2021；G. Li et al., 2025；Zhao et al., 2021）。在医学问答中，加入无关病史可能改变模型的判断（Vishwanath et al., 2025），改变足以影响用药安全的患者信息时，模型又可能沿用原答案（Hou et al., 2026）。
 
-完整指南同时给出判断条件与分支处置，患者记录也包含供不同节点使用的事实。处置文字可能为模型提供关于前置条件的线索；同一患者变量在不同节点承担的作用也会改变。例如，年龄可以决定年龄条件的真值，在明确不使用年龄的条件中则属于背景。本文依据当前节点确定信息角色，并利用指南规则构造成对改动，使干扰抑制与证据保护具有明确的任务依据。
+根据主要干预位置，相关方法可分为输出分布调整和内部表示干预两类。输出分布调整通过校准预测分数或改变解码时的词元概率，修正答案偏好并调节上下文的影响。偏置校准利用无内容输入（Zhao et al., 2021）或一批无标签输入（Zhou et al., 2024）估计共享的答案偏好，难以刻画当前输入对判断的具体影响。上下文对比解码 CAD 通过比较有无当前上下文时的输出逐例调整预测（Shi et al., 2024），AdaCAD 则根据两种输出分布的差异动态调整 CAD 原先固定的对比权重（Wang et al., 2025）。AdaCAD 的对比权重反映整体分布差异，CFB 则进一步利用注意力和语义相似性，选择性提高上下文相关词元的生成概率（Zhang et al., 2026）。当关键证据和无关线索都提高同一决策分支的得分时，调整该分支的输出分数难以单独削弱无关线索的影响。
 
-根据主要干预位置，相关研究可分为输入/输出层行为控制和表示层信息控制。输入/输出层方法围绕忠实性评价、反事实稳定性、分数校准与上下文解码展开，直接分析模型可观察的判断并调整输出分布。Jacovi and Goldberg（2020）提出自然语言处理系统的解释忠实性定义与评价框架，Veitch et al.（2021）研究模型对虚假相关因素的反事实不变性。Turpin et al.（2023）分析思维链解释与模型实际决策之间的偏差，Lampinen et al.（2024）研究内容变化对推理任务表现的影响。Guo et al.（2017）使用温度缩放调整模型置信度。Zhao et al.（2021）通过无内容参考输入估计标签偏置，Zhou et al.（2024）利用无标签批次输出进行批量校准。Shi et al.（2024）比较模型在有无上下文时的输出，以强化上下文证据的作用；Liu et al.（2021）组合基础模型、专家模型和反专家模型的输出，以控制生成属性。Chen et al.（2026）提出 MEGA-CDP，评价模型对临床指南决策路径的遵循情况；Hou et al.（2026）提出 MedPIC-Bench，通过患者信息反事实配对评价条件化用药安全推理。
+表示层干预可以利用对比样本提取与无关线索相关的特征方向，并沿该方向调节模型对这条线索的响应。对比激活相加（CAA）从成对示例的激活差中估计引导方向，但对不同输入施加同一向量，难以适应各病例受到的干扰差异（Rimsky et al., 2024）。条件激活引导（CAST）根据当前输入的激活决定是否施加引导，PSR 则根据激活调整各词元位置的引导强度（Lee et al., 2025；Heyman & Vandeputte, 2026）。即使能够选择何时干预、干预多强，沿目标方向调整激活也可能影响其他行为，SteeringSafety 在多项安全行为评价中观察到了这种现象（Siu et al., 2026）。
 
-表示层方法通过隐藏状态干预与参数更新控制模型内部信息和生成行为。概念擦除方法包括迭代零空间投影 INLP、对抗式线性擦除 R-LACE、闭式线性擦除 LEACE，以及基于交叉协方差的 SAL（Ravfogel et al., 2020, 2022a; Belrose et al., 2023; Shao et al., 2023）。非线性概念擦除进一步采用核化对抗优化、率失真目标、类别条件分布匹配和交替编码器训练（Ravfogel et al., 2022b; Chowdhury et al., 2023; Saillenfest & Lemberger, 2025; Akbari et al., 2025）；Chowdhury et al.（2025）分析完全概念擦除的信息论极限。激活引导方法沿特定表示方向调节模型行为：ITI 使用注意力头方向引导输出，CAA 从成对示例的残差激活差估计干预向量，CAST 根据输入激活选择性触发行为向量（Li et al., 2023; Rimsky et al., 2024; Lee et al., 2025）。LoFiT 和 LoReFT 分别学习局部表示调整与低秩表示变换（Yin et al., 2024; Wu et al., 2024）。近期研究进一步发展了动态引导与统一评价：Stolfo et al.（2025）利用指令差分激活构造可组合的引导向量；AxBench 统一比较提示、微调、线性表示方法、监督引导和稀疏自编码器（Wu et al., 2025a）；RePS 通过双向偏好优化学习表示引导，PSR 则从提示行为中蒸馏位置相关的激活干预系数（Wu et al., 2025b; Heyman & Vandeputte, 2026）。机制研究方面，Cheng et al.（2026）通过多词元激活修补分析表示引导与注意力 OV 回路的交互；SteeringSafety 在九类安全维度上系统评价表示引导，并揭示不同目标之间的行为纠缠（Siu et al., 2026）。Venhoff et al.（2026）通过匹配基础模型与思考模型检查点分析后训练对推理机制和触发策略的影响，Xu（2026）则考察指令暴露与潜在行为方向可干预性之间的关系。参数高效微调方法通过权重更新调整模型行为，包括 LoRA 的低秩适配、DoRA 的幅值与方向分解，以及 FourierFT 的频域参数化（Hu et al., 2022; Liu et al., 2024; Gao et al., 2024）。
+当干扰与关键证据共享表示成分时，抑制干扰也可能削弱模型对关键证据的响应。指南规定了哪些条件或患者事实的变化应当触发另一条分支。我们的直觉是，用这些必须保留的决策响应约束每个病例的干扰修正。
 
-指南结构为修正提供四类配对监督：A 改变后续处置，P 改变当前条件未使用的患者背景；两类改动保持当前条件与决定性事实。C 改变条件定义，F 改变决定性患者事实；两类配对按规则使当前真值翻转。A/P 分数差由此刻画当前判断对非决定性变化的敏感度，C/F 分数差刻画模型对规则或事实变化的响应。方法需要从内部表示估计前者，并约束修正对后者的影响。我们的诊断显示，16 维痕迹坐标可解释开发集 A 类配对中 40.63% 的干扰分数差变异；沿痕迹方向的直接修补效应占完整干扰效应 RMS 的 13.91%。这一结果表明，内部痕迹包含可用于估计总干扰贡献的预测信息。基于这一观察，我们将痕迹预测与证据约束结合起来，形成面向决策分数的预测式干扰对消目标。
+基于这一直觉，我们提出 ASTER-CR。模型读取完整指南和患者记录，利用内部表示估计干扰对当前节点分数的影响。M1 通过四类配对定位影响节点判断的注意力头，其中处置变化（A）和无关背景变化（P）保持节点真值，条件定义变化（C）和决定性患者事实变化（F）使真值翻转。M2 用 C/F 配对估计证据方向，提取 A/P 干扰方向中与证据方向正交的成分，称为干扰痕迹。M3 利用这些痕迹逐例修正节点分数，使 A/P 配对的分数更接近，同时逐对限制修正对 C/F 证据响应的改动。修正后的分数用于选择分支，并经保持分数符号的正比例校准映射为概率。
 
-本文提出 ASTER-CR，在保留完整指南和患者记录的条件下修正当前节点的判断分数。M1 利用四类配对定位影响节点判断的注意力头，分别测量处置、背景、条件与患者事实变化的效应。M2 从条件定义与决定性事实配对估计证据方向，将处置和背景变化形成的干扰方向投影到其正交补，得到用于修正的内部特征，称为干扰痕迹。M3 利用痕迹差抵消 A/P 分数差，并通过 C/F 逐对预算限制修正对条件与事实响应的改动。修正后的节点分数用于分支判断，再通过保持分数符号的正比例校准映射为概率。在 Qwen3-8B 的MEGA-CDP八十来源五折验证中，含截距的历史配置将A/P干扰方差降低3.498%（95% CI：0.747%–6.359%），保留99.984%的C/F有向证据响应，证据修正RMS为0.1225 logit。E6进一步在五个IT检查点及两个Base检查点上评价官方MEGA完整路径，并在两款27B模型上完成受控来源评价；E7补齐五模型冻结跨任务评价。结果显示，多模型与跨任务收益并不一致，且相对独立截距的额外收益小于相对原模型的表面差值。
+在开发集 A 类配对上，16 维干扰痕迹可解释 40.63% 的干扰分数差变异，沿痕迹方向直接修补产生的效应占完整干扰效应 RMS 的 13.91%。在 Qwen3-8B 的 MEGA-CDP 八十来源五折验证中，含截距的历史配置将 A/P 干扰方差降低 3.498%（95% CI 0.747%–6.359%），保留 99.984% 的 C/F 有向证据响应，证据修正 RMS 为 0.1225 logit。E6 在五个 IT 检查点及两个 Base 检查点上评价官方 MEGA 完整路径，并在两款 27B 模型上完成受控来源评价。E7 完成五个模型的冻结跨任务评价。多模型与跨任务收益随模型和任务变化，相对独立截距的额外收益小于相对原模型的差值。
 
 我们的贡献如下：首先，我们依据临床指南的条件、处置与患者事实结构，将节点判断形式化为干扰稳定性与证据响应保持的联合问题，并构造 A/P 与 C/F 配对，使监督和评价对应当前节点的判断依据。其次，我们提出 ASTER-CR，在完整上下文中定位四类变化影响判断的注意力头，以条件和患者事实配对确定证据保护方向，并在逐对证据预算下学习节点分数修正；可分离可预测性与证据覆盖残差分别刻画干扰修正能力和证据保护范围。最后，我们在 MEGA-CDP、NLI4CT 和 MedPIC 上开展配对行为、任务效用与冻结跨任务评价，并补充五个IT、两个Base检查点的官方MEGA评价及Base/IT注意力头集合比较。来源五折验证显示，ASTER-CR将A/P干扰方差降低3.498%，同时保留99.984%的C/F有向证据响应；多模型与跨任务结果则揭示了模型和任务依赖的性能差异，未显示普遍的整体准确率提升。
 
@@ -601,6 +601,9 @@ E7的冻结跨任务评价覆盖五个模型的20个模型—任务总体，结�
 - Chen et al. (2026). *Benchmarking Clinical Decision Pathway Adherence in Large Language Models*. [原文](https://arxiv.org/abs/2608.26592).
 - Qwen Team. (2025). *Qwen3 Technical Report*. [arXiv:2505.09388](https://arxiv.org/abs/2505.09388).
 - Alain, G. & Bengio, Y. (2016). *Understanding Intermediate Layers Using Linear Classifier Probes*. [arXiv:1610.01644](https://arxiv.org/abs/1610.01644).
+- Longpre, S. et al. (2021). *Entity-Based Knowledge Conflicts in Question Answering*. [EMNLP](https://aclanthology.org/2021.emnlp-main.565/).
+- Li, G., Chen, Y. & Tong, H. (2025). *Taming Knowledge Conflicts in Language Models*. [ICML](https://proceedings.mlr.press/v267/li25c.html).
+- Vishwanath, K. et al. (2025). *Medical large language models are easily distracted*. [arXiv](https://arxiv.org/abs/2504.01201).
 - Hou, Z. et al. (2026). *Evaluating Counterfactual Sensitivity to Patient Information in Medication-Safety Reasoning*. [arXiv:2608.03028](https://arxiv.org/abs/2608.03028).
 - Jullien et al. (2023). *NLI4CT: Multi-Evidence Natural Language Inference for Clinical Trial Reports*. [EMNLP](https://aclanthology.org/2023.emnlp-main.1041/).
 - Jullien, M., Valentino, M. & Freitas, A. (2024). *SemEval-2024 Task 2: Safe Biomedical Natural Language Inference for Clinical Trials*. [任务论文](https://aclanthology.org/2024.semeval-1.271/)、[勘误](https://aclanthology.org/2024.semeval-1.271e1.pdf)。
@@ -616,6 +619,8 @@ E7的冻结跨任务评价覆盖五个模型的20个模型—任务总体，结�
 - Guo, C., Pleiss, G., Sun, Y. & Weinberger, K. Q. (2017). *On Calibration of Modern Neural Networks*. [ICML](https://proceedings.mlr.press/v70/guo17a.html).
 - Zhou et al. (2024). *Batch Calibration: Rethinking Calibration for In-Context Learning and Prompt Engineering*. [ICLR](https://proceedings.iclr.cc/paper_files/paper/2024/hash/003e438cf04e3caf0a5c908495e484fe-Abstract-Conference.html)、[作者全文](https://arxiv.org/html/2309.17249v3).
 - Shi et al. (2024). *Trusting Your Evidence: Hallucinate Less with Context-aware Decoding*. [NAACL](https://aclanthology.org/2024.naacl-short.69/)、[作者代码](https://github.com/xhan77/context-aware-decoding).
+- Wang, H., Prasad, A., Stengel-Eskin, E. & Bansal, M. (2025). *AdaCAD: Adaptively Decoding to Balance Conflicts between Contextual and Parametric Knowledge*. [NAACL](https://aclanthology.org/2025.naacl-long.581/).
+- Zhang, W. et al. (2026). *Context-Fidelity Boosting: Enhancing Faithful Generation through Watermark-Inspired Decoding*. [Findings of ACL](https://aclanthology.org/2026.findings-acl.2121/).
 - Liu, A. et al. (2021). *DExperts: Decoding-Time Controlled Text Generation with Experts and Anti-Experts*. [ACL](https://aclanthology.org/2021.acl-long.522/)、[作者代码](https://github.com/alisawuffles/DExperts).
 - Ravfogel, S., Twiton, M., Goldberg, Y. & Cotterell, R. D. (2022a). *Linear Adversarial Concept Erasure*. [ICML](https://proceedings.mlr.press/v162/ravfogel22a.html)、[R-LACE作者代码](https://github.com/shauli-ravfogel/rlace-icml).
 - Shao, S., Ziser, Y. & Cohen, S. B. (2023). *Gold Doesn't Always Glitter: Spectral Removal of Linear and Nonlinear Guarded Attribute Information*. [EACL及修订稿](https://aclanthology.org/2023.eacl-main.118/)、[SAL作者代码](https://github.com/jasonshaoshun/SAL).
