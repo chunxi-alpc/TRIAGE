@@ -113,6 +113,8 @@ S4 核对 {sources['historical_cohorts']} 个已用队列、{sources['historical
 
 S0、S2 事件统计、E1 开发保护、S3 程序核验及 S4 来源审计已完成。临床复核和独立确认的缺口已记录。论文正文沿用现有证据，本次负结果与局部纠正结果归入独立实验报告。[运行命令](COMMANDS.zh.md) · [逐项完成状态](TASK_LEDGER.csv)
 """
+    if (OUT/'followup/README.zh.md').exists():
+        report += "\n后续工作已追溯两个数据矛盾，补齐 229 个节点的上游依据，并核对了四项外部数据资源。[首错复核与新来源资格](followup/README.zh.md)\n"
     (OUT/'REPORT.zh.md').write_text(report, encoding='utf-8')
 
 
