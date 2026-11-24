@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "stage": "S3",
+  "frozen_before_scoring": true,
+  "population": "All cached fit and dev natural gold-labelled path-node occurrences; feed only condition and unmodified patient to verifier. Gold and R0 joined after both decisions. No source/case/GID as prediction feature.",
+  "development_usage": "Retrospective mechanism evaluation on previously used sources. Fit error audit identified two measurements in two guidelines. No independent-test claim.",
+  "allowed_rules": [
+    "Is preoperative Hb <13.0 g/dL (in either men or women)?",
+    "收缩压是否在90~120 mmHg范围内？"
+  ],
+  "discovery_sources": [
+    "train_val:1716",
+    "train_val:1850"
+  ],
+  "class": "measurement-bound numeric comparison",
+  "method": "require exact question, bound measurement object and same-unit numeric observation; Hb requires preoperative time in the same sentence; references to pulmonary artery pressure excluded; ambiguous, missing or inconsistent comparison falls back to R0.",
+  "baseline": "first number in the patient with the prescribed unit, followed by the same exact threshold or interval; missing/out-of-scope falls back to R0.",
+  "metrics": [
+    "eligible",
+    "covered",
+    "abstain",
+    "coverage",
+    "covered_accuracy",
+    "overall_accuracy",
+    "harm",
+    "benefit",
+    "kept_correct",
+    "kept_wrong"
+  ],
+  "repairs_allowed": 1,
+  "evaluation_scope": "Fit/dev gold-labelled natural nodes only; no test source. Group by stage, source and rule, including out-of-scope in the overall denominator."
+}

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'">
+<title>病例节点盲审</title>
+<style>
+:root{font:16px/1.6 Inter,"Microsoft YaHei",sans-serif;color:#172536;background:#f5f6f4}
+*{box-sizing:border-box}body{max-width:1100px;margin:auto;padding:20px}
+header,.actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}h1{font-size:1.4rem;margin:0 auto 0 0}
+main{margin:14px 0;background:white;padding:20px 24px;border:1px solid #d5dcd9;border-radius:8px}
+h2{font-size:1.06rem}input,button,select,textarea{font:inherit;color:inherit}
+button,select,input{padding:5px 10px}button{cursor:pointer}textarea{display:block;width:100%;padding:8px;border:1px solid #b8c2bf}
+#patient{min-height:17rem;line-height:1.6}#condition,.pre{white-space:pre-wrap;overflow-wrap:anywhere}
+label{display:block;margin:.5rem 0}details{margin:10px 0}#message{color:#184f55}#export{background:#145659;color:white;border:0;padding:8px 17px}
+</style>
+<header><h1>病例节点盲审</h1><label>审核者代号 <input id="reviewer" size="16" autocomplete="off"></label>
+<button id="export">保存回填文件</button><label>继续填写 <input type="file" accept=".json" id="resume"></label></header>
+<p>依据指南和病例给出条件判断，并选取支持判断的患者原文。证据不足时可选“无法确定”并填写原因。保存的文件包含已填写的判断，可在本页重新打开。</p>
+<nav class="actions"><button id="prev">上一例</button><select id="jump" aria-label="选择病例"></select><button id="next">下一例</button><span id="progress"></span></nav>
+<main><h2>指南条件</h2><div id="condition"></div>
+<details><summary>查阅指南上下文与定义</summary><div class="pre" id="context"></div></details>
+<h2><label for="patient">患者原文</label></h2><textarea readonly id="patient"></textarea>
+<div class="actions"><button id="capture">记录所选原文的位置</button><button id="clear">清除证据位置</button><span id="span"></span></div>
+<label>判断 <select id="decision"><option value="">待填写</option><option value="yes">成立</option><option value="no">不成立</option><option value="indeterminate">无法确定</option></select></label>
+<label>主要原因 <select id="cause"></select></label>
+<label>判断依据 <textarea rows="3" id="explanation"></textarea></label></main>
+<p id="message" role="status"></p>
+<script id="payload" type="application/json">__BLIND_FORM_PAYLOAD__</script>
+<script>
+'use strict';
+const dataset = JSON.parse(document.getElementById('payload').textContent);
+const cards = dataset.cards;
+const get = id => document.getElementById(id);
+const responses = new Map();
+const empty = () => ({decision:'',cause:'',explanation:'',evidence_start:'',evidence_end:''});
+let pos = 0, dirty = false;
+const current = () => cards[pos].blind_id;
+function refresh() {
+  const card = cards[pos], r = responses.get(current()) || empty();
+  get('jump').value = String(pos);
+  get('condition').textContent = card.condition;
+  get('patient').value = card.patient;
+  get('context').textContent = dataset.contexts[card.context_index];
+  for (const key of ['decision','cause','explanation']) get(key).value = r[key];
+  get('span').textContent = r.evidence_start === '' ? '尚未记录位置' : '字符区间 ['+r.evidence_start+', '+r.evidence_end+')';
+  get('progress').textContent = '已填写判断 '+Array.from(responses.values()).filter(x => x.decision).length+' / '+cards.length;
+  get('prev').disabled = pos===0; get('next').disabled = pos===cards.length-1;
+}
+function change(patch) {
+  const r = Object.assign({},responses.get(current()) || empty(),patch);
+  responses.set(current(),r); dirty = true;
+  if (Object.hasOwn(patch,'decision') || Object.hasOwn(patch,'evidence_start')) refresh();
+}
+for (const [n,c] of cards.entries()) get('jump').add(new Option((n+1)+' / '+cards.length+' · '+c.blind_id,n));
+get('cause').add(new Option('待填写',''));
+for (const c of dataset.causes) get('cause').add(new Option(c,c));
+for (const k of ['decision','cause','explanation']) get(k).addEventListener('input',() => change({[k]:get(k).value}));
+get('reviewer').addEventListener('input',() => dirty=true);
+get('capture').onclick = () => {
+ const el = get('patient');
+ if (el.selectionEnd<=el.selectionStart) {get('message').textContent = '请先选中患者原文中的证据。';return;}
+ // A textarea normalizes newlines. Convert its UTF-16 offsets to offsets in the original Unicode text.
+ const original = cards[pos].patient;
+ const offsets = [0]; let cp=0;
+ for (const ch of original.match(/\r\n|\r|[^\r]/gu) || []) {
+   cp+=Array.from(ch).length;
+   const normalized = ch==='\r\n' || ch==='\r' ? '\n' : ch;
+   for (let i=0;i<normalized.length;i++) offsets.push(cp);
+ }
+ change({evidence_start:offsets[el.selectionStart],evidence_end:offsets[el.selectionEnd]});
+ get('message').textContent = '已记录所选证据。';
+};
+get('clear').onclick = () => change({evidence_start:'',evidence_end:''});
+get('prev').onclick = () => {if(pos>0) pos--;refresh();};get('next').onclick = () => {if(pos+1<cards.length) pos++;refresh();};
+get('jump').onchange = e => {pos=Number(e.target.value);refresh();};
+get('export').onclick = () => {
+ const reviewer=get('reviewer').value.trim();
+ if (!reviewer) {get('message').textContent='请填写审核者代号。';return;}
+ const records=cards.map(c=>({...responses.get(c.blind_id),blind_id:c.blind_id,reviewer_id:reviewer})).filter(r=>r.decision||r.explanation||r.cause||Number.isInteger(r.evidence_start));
+ const blob=new Blob([JSON.stringify(records,null,2)],{type:'application/json'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='responses.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(a.href),1500);dirty=false;get('message').textContent='已导出 '+records.length+' 条回填。';
+};
+get('resume').onchange = async e => {
+ try {
+  if (dirty && !confirm('载入文件将替换本页尚未保存的填写内容。继续载入？')) return;
+  const a=JSON.parse(await e.target.files[0].text());const ids=new Set(cards.map(c=>c.blind_id));
+  if (!Array.isArray(a) || !a.length || new Set(a.map(r=>r.reviewer_id)).size!==1 || new Set(a.map(r=>r.blind_id)).size!==a.length ||
+       a.some(r=>!ids.has(r.blind_id) || !['','yes','no','indeterminate'].includes(r.decision||''))) throw Error();
+  responses.clear();for (const r of a) responses.set(r.blind_id,Object.assign(empty(),r));
+  get('reviewer').value=a[0].reviewer_id;refresh();dirty=false;get('message').textContent='已载入回填。';
+ } catch { get('message').textContent='无法载入。请使用本批次导出的回填文件。'; }
+ finally {e.target.value='';}
+};
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
+refresh();
+</script></html>
